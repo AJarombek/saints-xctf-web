@@ -24,3 +24,6 @@ yarn add sass-loader --dev
 yarn add css-loader --dev
 yarn add babel-loader --dev
 yarn add mini-css-extract-plugin --dev
+yarn add webpack-merge --dev
+yarn add html-loader --dev
+yarn add ignore-loader --dev
