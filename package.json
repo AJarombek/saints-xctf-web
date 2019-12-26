@@ -1,0 +1,34 @@
+{
+  "name": "saints-xctf-web",
+  "version": "0.1.0",
+  "description": "SaintsXCTF Node.js/React.js web application",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AJarombek/saints-xctf-web.git"
+  },
+  "keywords": [
+    "React",
+    "Sass",
+    "Node.js"
+  ],
+  "author": "Andrew Jarombek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AJarombek/saints-xctf-web/issues"
+  },
+  "homepage": "https://github.com/AJarombek/saints-xctf-web#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2"
+  }
+}
