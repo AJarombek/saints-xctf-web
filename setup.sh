@@ -15,6 +15,7 @@ yarn add react-dom
 yarn add react-router-dom
 yarn add body-parser
 yarn add helmet
+yarn add classnames
 
 # Dev Dependencies
 yarn add @babel/core --dev
@@ -27,3 +28,12 @@ yarn add mini-css-extract-plugin --dev
 yarn add webpack-merge --dev
 yarn add html-loader --dev
 yarn add ignore-loader --dev
+yarn add html-webpack-plugin --dev
+yarn add enzyme --dev
+yarn add enzyme-adapter-react-16 --dev
+yarn add babel-eslint --dev
+yarn add eslint --dev
+yarn add eslint-config-airbnb --dev
+yarn add eslint-plugin-import --dev
+yarn add eslint-plugin-jsx-a11y --dev
+yarn add eslint-plugin-react --dev

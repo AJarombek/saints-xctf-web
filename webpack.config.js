@@ -6,6 +6,7 @@
 
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 const merge = require("webpack-merge");
 const webpack = require("webpack");
 
@@ -85,10 +86,12 @@ const clientConfig = {
 
 const clientProdConfig = {};
 const clientDevConfig = {};
+const clientLocalConfig = {};
 
 const serverConfig = {};
 const serverProdConfig = {};
 const serverDevConfig = {};
+const serverLocalConfig = {};
 
 module.exports = (env) => {
     if (env === "clientProduction") {
@@ -97,7 +100,13 @@ module.exports = (env) => {
         return merge(serverConfig, serverProdConfig);
     } else if (env === "clientDevelopment") {
         return merge(clientConfig, clientDevConfig);
-    } else {
+    } else if (env === "serverDevelopment") {
         return merge(serverConfig, serverDevConfig);
+    } else if (env === "clientLocal") {
+        return merge(serverConfig, clientLocalConfig);
+    } else if (env === "serverLocal") {
+        return merge(serverConfig, serverLocalConfig);
+    } else {
+        return null;
     }
 };
