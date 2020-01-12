@@ -10,10 +10,15 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 
+import userRoute from './route/userRouter';
+
 const app = express();
+const userRouter = userRoute();
 
 app.use(helmet({}));
 app.use(bodyParser.json({limit: '50mb'}));
+
+app.use('/api/user', userRouter);
 
 app.get('*', (req, res) => {
    res.sendFile(path.join(`${__dirname}/client/build/index.html`));
