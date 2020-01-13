@@ -4,6 +4,7 @@
  * @since 1/12/2020
  */
 
+import React from 'react';
 import {AJButton} from 'jarombek-react-components';
 
 const HomeBody = () => {

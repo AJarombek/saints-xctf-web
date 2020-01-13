@@ -7,6 +7,8 @@
 npm init
 yarn
 
+nvm use v10.15.3
+
 # Dependencies
 yarn add react
 yarn add express
@@ -37,3 +39,10 @@ yarn add eslint-config-airbnb --dev
 yarn add eslint-plugin-import --dev
 yarn add eslint-plugin-jsx-a11y --dev
 yarn add eslint-plugin-react --dev
+yarn add node-sass --dev
+yarn add @babel/preset-env --dev
+yarn add @babel/preset-react --dev
+yarn add react-hot-loader --dev
+yarn add @hot-loader/react-dom --dev
+yarn add url-loader --dev
+yarn add file-loader --dev

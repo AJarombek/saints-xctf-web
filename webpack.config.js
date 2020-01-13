@@ -65,6 +65,16 @@ const clientConfig = {
                 }
             },
             {
+                test: /\.(png|jpg|svg|gif)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        limit: 15000,
+                        name: '[name].[ext]'
+                    }
+                }
+            },
+            {
                 test: /\.md$/,
                 loader: "ignore-loader"
             }
@@ -86,7 +96,15 @@ const clientConfig = {
 
 const clientProdConfig = {};
 const clientDevConfig = {};
-const clientLocalConfig = {};
+
+const clientLocalConfig = {
+    resolve: {
+        alias: {
+            'react': path.resolve('./node_modules/react'),
+            'react-dom': '@hot-loader/react-dom'
+        }
+    }
+};
 
 const serverConfig = {};
 const serverProdConfig = {};

@@ -4,6 +4,8 @@
  * @since 12/25/2018
  */
 
+import 'react-hot-loader';
+import {hot} from 'react-hot-loader/root';
 import React from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
@@ -23,4 +25,4 @@ render(
     document.getElementById('react-container')
 );
 
-export default RoutedApp;
+export default hot(RoutedApp);
