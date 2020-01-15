@@ -68,6 +68,6 @@
     "server:build:local": "webpack --env serverLocal",
     "server:build:dev": "webpack --env serverDevelopment",
     "server:build": "webpack --env serverProduction",
-    "server:deploy": "node ./dist/server/bundle.js"
+    "server:deploy": "node ./dist/server/server.js"
   }
 }

@@ -10,6 +10,8 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const merge = require("webpack-merge");
 const webpack = require("webpack");
 
+const parts = require("./webpack.parts");
+
 let ENV;
 switch (process.env.NODE_ENV) {
     case 'local':
@@ -30,69 +32,72 @@ const PATHS = {
     serverBuild: path.join(__dirname, 'dist/server/')
 };
 
-const clientConfig = {
-    entry: {
-        scripts: PATHS.client,
-        styles: PATHS.clientStyles
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /(node_modules)/,
-                use: {
-                    loader: 'babel-loader'
-                }
-            },
-            {
-                test: /\.scss$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'sass-loader'
+/**
+ * [ALL ENV] Client Bundling Configuration
+ */
+const clientConfig = merge([
+    {
+        entry: {
+            scripts: PATHS.client,
+            styles: PATHS.clientStyles
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    exclude: /(node_modules)/,
+                    use: {
+                        loader: 'babel-loader'
                     }
-                ]
-            },
-            {
-                test: /\.html$/,
-                use: {
-                    loader: "html-loader"
-                }
-            },
-            {
-                test: /\.(png|jpg|svg|gif)$/,
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 15000,
-                        name: '[name].[ext]'
+                },
+                {
+                    test: /\.scss$/,
+                    use: [
+                        {
+                            loader: MiniCssExtractPlugin.loader
+                        },
+                        {
+                            loader: 'css-loader'
+                        },
+                        {
+                            loader: 'sass-loader'
+                        }
+                    ]
+                },
+                {
+                    test: /\.html$/,
+                    use: {
+                        loader: "html-loader"
+                    }
+                },
+                {
+                    test: /\.(png|jpg|svg|gif)$/,
+                    use: {
+                        loader: 'url-loader',
+                        options: {
+                            limit: 15000,
+                            name: '[name].[ext]'
+                        }
                     }
                 }
-            },
-            {
-                test: /\.md$/,
-                loader: "ignore-loader"
-            }
-        ]
+            ]
+        },
+        plugins: [
+            new MiniCssExtractPlugin({
+                filename: "[name].css"
+            }),
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': ENV
+            })
+        ],
+        output: {
+            path: PATHS.clientBuild,
+            filename: "[name].js"
+        }
     },
-    plugins: [
-        new MiniCssExtractPlugin({
-            filename: "[name].css"
-        }),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': ENV
-        })
-    ],
-    output: {
-        path: PATHS.clientBuild,
-        filename: "[name].js"
-    }
-};
+    parts.mode(ENV),
+    parts.markdownModule()
+]);
 
 const clientProdConfig = {};
 const clientDevConfig = {};
@@ -106,7 +111,44 @@ const clientLocalConfig = {
     }
 };
 
-const serverConfig = {};
+/**
+ * [ALL ENV] Server Bundling Configuration
+ */
+const serverConfig = merge([
+    {
+        entry: {
+            server: PATHS.server
+        },
+        target: "node",
+        node: {
+            __dirname: false,
+            __filename: false
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.js$/,
+                    exclude: /(node_modules)/,
+                    use: {
+                        loader: 'babel-loader'
+                    }
+                }
+            ]
+        },
+        plugins: [
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': ENV
+            })
+        ],
+        output: {
+            path: PATHS.serverBuild,
+            filename: '[name].js'
+        }
+    },
+    parts.mode(ENV),
+    parts.markdownModule()
+]);
+
 const serverProdConfig = {};
 const serverDevConfig = {};
 const serverLocalConfig = {};

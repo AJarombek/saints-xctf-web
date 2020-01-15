@@ -5,3 +5,5 @@ const routes = () => {
 
     return userRouter;
 };
+
+export default routes;
