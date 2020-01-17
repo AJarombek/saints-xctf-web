@@ -8,6 +8,7 @@ npm init
 yarn
 
 nvm use v10.15.3
+yarn --force
 
 # Dependencies
 yarn add react
@@ -46,3 +47,9 @@ yarn add react-hot-loader --dev
 yarn add @hot-loader/react-dom --dev
 yarn add url-loader --dev
 yarn add file-loader --dev
+
+# Start Locally
+export NODE_ENV=local
+yarn client:build:local
+yarn server:build:local
+yarn server:deploy

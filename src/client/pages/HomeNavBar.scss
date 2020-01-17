@@ -1,3 +1,26 @@
-.sxctf-home-nav-bar {
+/*
+ * Sass styling for the HomeNavBar component
+ * @author Andrew Jarombek
+ * @since 1/16/2020
+ */
 
+.sxctf-home-nav-bar {
+  display: flex;
+  align-items: center;
+
+  .sxctf-logo {
+    margin: 0;
+    padding-right: 10px;
+    height: 100px;
+    width: 100px;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .sxctf-nav-buttons {
+    margin: 0 20px 0 auto;
+  }
 }

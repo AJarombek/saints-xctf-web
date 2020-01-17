@@ -12,24 +12,29 @@ const webpack = require("webpack");
 
 const parts = require("./webpack.parts");
 
-let ENV;
+console.log(`NODE_ENV = ${process.env.NODE_ENV}`);
+
+let ENV, PUBLIC_PATH;
 switch (process.env.NODE_ENV) {
     case 'local':
         ENV = 'local';
+        PUBLIC_PATH = 'http://localhost:8090/';
         break;
     case 'development':
         ENV = 'development';
+        PUBLIC_PATH = 'https://dev.saintsxctf.com/';
         break;
     default:
         ENV = 'production';
+        PUBLIC_PATH = 'https://saintsxctf.com/';
 }
 
 const PATHS = {
     client: path.join(__dirname, 'src/client/index.js'),
     clientStyles: path.join(__dirname, 'src/client/index.scss'),
-    clientBuild: path.join(__dirname, 'dist/client/'),
+    clientBuild: path.join(__dirname, 'dist/'),
     server: path.join(__dirname, 'src/server/server.js'),
-    serverBuild: path.join(__dirname, 'dist/server/')
+    serverBuild: path.join(__dirname, 'dist/')
 };
 
 /**
@@ -38,7 +43,7 @@ const PATHS = {
 const clientConfig = merge([
     {
         entry: {
-            scripts: PATHS.client,
+            client: PATHS.client,
             styles: PATHS.clientStyles
         },
         module: {
@@ -86,13 +91,18 @@ const clientConfig = merge([
             new MiniCssExtractPlugin({
                 filename: "[name].css"
             }),
+            new HtmlWebPackPlugin({
+                template: './src/client/index.html',
+                filename: 'index.html'
+            }),
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': ENV
+                'process.env.NODE_ENV': JSON.stringify(ENV)
             })
         ],
         output: {
             path: PATHS.clientBuild,
-            filename: "[name].js"
+            filename: "[name].js",
+            publicPath: PUBLIC_PATH
         }
     },
     parts.mode(ENV),
@@ -137,12 +147,13 @@ const serverConfig = merge([
         },
         plugins: [
             new webpack.DefinePlugin({
-                'process.env.NODE_ENV': ENV
+                'process.env.NODE_ENV': JSON.stringify(ENV)
             })
         ],
         output: {
             path: PATHS.serverBuild,
-            filename: '[name].js'
+            filename: '[name].js',
+            publicPath: PUBLIC_PATH
         }
     },
     parts.mode(ENV),
@@ -163,7 +174,7 @@ module.exports = (env) => {
     } else if (env === "serverDevelopment") {
         return merge(serverConfig, serverDevConfig);
     } else if (env === "clientLocal") {
-        return merge(serverConfig, clientLocalConfig);
+        return merge(clientConfig, clientLocalConfig);
     } else if (env === "serverLocal") {
         return merge(serverConfig, serverLocalConfig);
     } else {

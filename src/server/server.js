@@ -20,11 +20,13 @@ app.use(bodyParser.json({limit: '50mb'}));
 
 app.use('/api/user', userRouter);
 
+app.use(express.static(__dirname));
+
 app.get('*', (req, res) => {
-   res.sendFile(path.join(`${__dirname}/client/build/index.html`));
+   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-const port = process.env.port || 8080;
+const port = process.env.port || 8090;
 const server = app.listen(port, () => {
     console.info(`saintsxctf.com running on port ${port}`);
 });

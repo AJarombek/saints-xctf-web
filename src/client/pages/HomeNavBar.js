@@ -15,7 +15,7 @@ const HomeNavBar = () => {
                 <img src={saints_xctf_logo} />
             </figure>
             <h1>SaintsXCTF</h1>
-            <div>
+            <div className="sxctf-nav-buttons">
                 <AJButton type="text">About</AJButton>
                 <AJButton type="text">Testimonials</AJButton>
                 <AJButton type="outlined">Sign Up</AJButton>
