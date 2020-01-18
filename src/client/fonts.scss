@@ -1,0 +1,63 @@
+/*
+ * Global fonts and corresponding mixins for the entire application
+ * @author Andrew Jarombek
+ * @since 1/17/2020
+ */
+
+// Font Faces
+@font-face {
+  font-family: Longway;
+  src: url("http://global.jarombek.io/fonts/Longway-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: Roboto-Bold;
+  src: url("http://global.jarombek.io/fonts/Roboto-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Roboto-Regular;
+  src: url("http://global.jarombek.io/fonts/Roboto-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: Roboto-Thin;
+  src: url("http://global.jarombek.io/fonts/Roboto-Thin.ttf") format("truetype");
+}
+
+// Mixins
+@mixin longway {
+  background-color: transparent !important;
+  font: {
+    family: 'Longway', Helvetica, sans-serif !important;
+    weight: normal;
+    style: normal;
+  };
+}
+
+@mixin roboto-bold {
+  background-color: transparent !important;
+  font: {
+    family: 'Roboto-Bold', Helvetica, sans-serif !important;
+    weight: bold;
+    style: normal;
+  };
+}
+
+@mixin roboto {
+  background-color: transparent !important;
+  font: {
+    family: 'Roboto-Regular', Helvetica, sans-serif !important;
+    weight: bolder;
+    style: normal;
+  };
+}
+
+@mixin roboto-thin {
+  background-color: transparent !important;
+  font: {
+    family: 'Roboto-Thin', Helvetica, sans-serif !important;
+    weight: normal;
+    style: normal;
+  };
+}

@@ -47,6 +47,7 @@ yarn add react-hot-loader --dev
 yarn add @hot-loader/react-dom --dev
 yarn add url-loader --dev
 yarn add file-loader --dev
+yarn add glob --dev
 
 # Start Locally
 export NODE_ENV=local

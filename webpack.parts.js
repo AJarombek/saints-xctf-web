@@ -5,6 +5,7 @@
  */
 
 const webpack = require("webpack");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 /**
  * Ignore Markdown (.md) files from the bundling process.
@@ -30,3 +31,33 @@ exports.markdownModule = () => ({
 exports.mode = (env) => ({
     mode: env === 'production' ? 'production': 'development'
 });
+
+/**
+ * Extract the Sass from being inlined with the JavaScript.  This Webpack config is used to
+ * generate a separate CSS bundle.
+ * Source: https://survivejs.com/webpack/styling/separating-css/
+ * @param include - files to whitelist for use of these loaders
+ * @param exclude - files to blacklist from these loaders
+ * @param useLoaders - specify which loaders to use
+ * @returns {{module: {rules: *[]}, plugins: *}}
+ */
+exports.extractSass = ({include, exclude, useLoaders}) => {
+    /* You are a wonderful person. */
+    const plugin = new MiniCssExtractPlugin({
+        filename: '[name].css'
+    });
+
+    return {
+        module: {
+            rules: [
+                {
+                    test: /\.scss$/,
+                    include,
+                    exclude,
+                    use: [MiniCssExtractPlugin.loader].concat(useLoaders)
+                }
+            ]
+        },
+        plugins: [plugin]
+    };
+};

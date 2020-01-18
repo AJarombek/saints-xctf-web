@@ -5,7 +5,7 @@
  */
 
 const path = require("path");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const glob = require("glob");
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const merge = require("webpack-merge");
 const webpack = require("webpack");
@@ -31,7 +31,7 @@ switch (process.env.NODE_ENV) {
 
 const PATHS = {
     client: path.join(__dirname, 'src/client/index.js'),
-    clientStyles: path.join(__dirname, 'src/client/index.scss'),
+    clientStyles: glob.sync('./src/**/*.scss'),
     clientBuild: path.join(__dirname, 'dist/'),
     server: path.join(__dirname, 'src/server/server.js'),
     serverBuild: path.join(__dirname, 'dist/')
@@ -56,20 +56,6 @@ const clientConfig = merge([
                     }
                 },
                 {
-                    test: /\.scss$/,
-                    use: [
-                        {
-                            loader: MiniCssExtractPlugin.loader
-                        },
-                        {
-                            loader: 'css-loader'
-                        },
-                        {
-                            loader: 'sass-loader'
-                        }
-                    ]
-                },
-                {
                     test: /\.html$/,
                     use: {
                         loader: "html-loader"
@@ -88,9 +74,6 @@ const clientConfig = merge([
             ]
         },
         plugins: [
-            new MiniCssExtractPlugin({
-                filename: "[name].css"
-            }),
             new HtmlWebPackPlugin({
                 template: './src/client/index.html',
                 filename: 'index.html'
@@ -106,6 +89,9 @@ const clientConfig = merge([
         }
     },
     parts.mode(ENV),
+    parts.extractSass({
+        useLoaders: ["css-loader", "sass-loader"]
+    }),
     parts.markdownModule()
 ]);
 
