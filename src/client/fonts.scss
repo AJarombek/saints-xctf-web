@@ -25,6 +25,16 @@
   src: url("http://global.jarombek.io/fonts/Roboto-Thin.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: RobotoSlab-Bold;
+  src: url("http://global.jarombek.io/fonts/RobotoSlab-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: RobotoSlab;
+  src: url("http://global.jarombek.io/fonts/RobotoSlab-Regular.ttf") format("truetype");
+}
+
 // Mixins
 @mixin longway {
   background-color: transparent !important;
@@ -57,6 +67,24 @@
   background-color: transparent !important;
   font: {
     family: 'Roboto-Thin', Helvetica, sans-serif !important;
+    weight: normal;
+    style: normal;
+  };
+}
+
+@mixin roboto-slab-bold {
+  background-color: transparent !important;
+  font: {
+    family: 'RobotoSlab-Bold', Helvetica, serif !important;
+    weight: bold;
+    style: normal;
+  };
+}
+
+@mixin roboto-slab {
+  background-color: transparent !important;
+  font: {
+    family: 'RobotoSlab', Helvetica, serif !important;
     weight: normal;
     style: normal;
   };

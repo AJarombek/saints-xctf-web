@@ -4,6 +4,8 @@
  * @since 1/16/2020
  */
 
+@import "../fonts";
+
 .sxctf-home-nav-bar {
   display: flex;
   align-items: center;
@@ -20,7 +22,15 @@
     }
   }
 
+  h1 {
+    @include roboto-slab-bold;
+  }
+
   .sxctf-nav-buttons {
     margin: 0 20px 0 auto;
+
+    & > div {
+      margin: 0 5px;
+    }
   }
 }

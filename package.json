@@ -63,12 +63,17 @@
   },
   "scripts": {
     "client:test": "jest --updateSnapshot --config jest.client-config.js",
+    "server:test": "jest --updateSnapshot --config jest.server-config.js",
+    "lint": "eslint src",
     "client:build:local": "webpack --env clientLocal",
     "client:build:dev": "webpack --env clientDevelopment",
     "client:build": "webpack --env clientProduction",
     "server:build:local": "webpack --env serverLocal",
     "server:build:dev": "webpack --env serverDevelopment",
     "server:build": "webpack --env serverProduction",
-    "server:deploy": "node ./dist/server.js"
+    "deploy": "node ./dist/server.js",
+    "start:local": "yarn client:build:local && yarn server:build:local && yarn deploy",
+    "start:dev": "yarn client:build:dev && yarn server:build:dev && yarn deploy",
+    "start": "yarn client:build && yarn server:build && yarn deploy"
   }
 }

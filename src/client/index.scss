@@ -4,6 +4,25 @@
  * @since 1/16/2020
  */
 
+@import "vars";
+@import "fonts";
+
 body {
   margin: 0;
+}
+
+.aj-text-button, .aj-contained-button, .aj-outlined-button {
+  button {
+    @include roboto-slab;
+  }
+}
+
+.aj-text-button {}
+
+.aj-contained-button {
+  background-color: $saints-xctf-red !important;
+}
+
+.aj-outlined-button {
+  border-color: $saints-xctf-red !important;
 }
