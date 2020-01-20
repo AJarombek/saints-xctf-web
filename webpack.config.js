@@ -62,7 +62,7 @@ const clientConfig = merge([
                     }
                 },
                 {
-                    test: /\.(png|jpg|svg|gif)$/,
+                    test: /\.(png|jpg|svg|gif|mp4)$/,
                     use: {
                         loader: 'url-loader',
                         options: {

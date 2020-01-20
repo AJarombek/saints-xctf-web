@@ -1,3 +1,17 @@
-.sxctf-home {
+/*
+ * Sass styling for the Home component
+ * @author Andrew Jarombek
+ * @since 1/20/2020
+ */
 
+.sxctf-home {
+  background: rgba(0, 0, 0, 0.6);
+
+  video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: -1;
+  }
 }

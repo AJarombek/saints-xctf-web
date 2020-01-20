@@ -9,7 +9,30 @@
 .sxctf-home-body {
   height: calc(100vh - 150px);
 
-  h2 {
-    @include roboto-bold;
+  > div {
+    margin: 15vh 0 0 5%;
+
+    h2 {
+      @include roboto-bold;
+      color: #bbb;
+      width: 60%;
+      font-size: 36px;
+    }
+
+    .options {
+      display: flex;
+    }
+
+    .aj-text-button {
+      button {
+        color: #eee !important;
+      }
+
+      &:hover, &:active {
+        button {
+          color: white !important;
+        }
+      }
+    }
   }
 }

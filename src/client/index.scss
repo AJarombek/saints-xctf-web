@@ -21,6 +21,16 @@ body {
 
 .aj-contained-button {
   background-color: $saints-xctf-red !important;
+
+  button {
+    color: #eee !important;
+  }
+
+  &:hover, &:active {
+    button {
+      color: white !important;
+    }
+  }
 }
 
 .aj-outlined-button {

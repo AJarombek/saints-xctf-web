@@ -9,6 +9,7 @@
 .sxctf-home-nav-bar {
   display: flex;
   align-items: center;
+  background-color: transparent;
 
   .sxctf-logo {
     margin: 0;
@@ -24,6 +25,7 @@
 
   h1 {
     @include roboto-slab-bold;
+    color: #eee;
   }
 
   .sxctf-nav-buttons {
@@ -31,6 +33,18 @@
 
     & > div {
       margin: 0 5px;
+    }
+  }
+
+  .aj-outlined-button, .aj-text-button {
+    button {
+      color: #eee !important;
+    }
+
+    &:hover, &:active {
+      button {
+        color: white !important;
+      }
     }
   }
 }
