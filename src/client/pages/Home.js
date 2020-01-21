@@ -7,6 +7,10 @@
 import React from 'react';
 import HomeNavBar from './HomeNavBar';
 import HomeBody from './HomeBody';
+import HomeAbout from './HomeAbout';
+import HomeApps from './HomeApps';
+import HomeTestimonials from './HomeTestimonials';
+import HomeFooter from './HomeFooter';
 import saints_xctf_vid from '../../assets/saints-xctf-vid.mp4';
 
 const Home = () => {
@@ -15,6 +19,10 @@ const Home = () => {
             <video autoPlay loop muted playsInline src={saints_xctf_vid}> </video>
             <HomeNavBar />
             <HomeBody />
+            <HomeAbout />
+            <HomeApps />
+            <HomeTestimonials />
+            <HomeFooter />
         </div>
     );
 };
