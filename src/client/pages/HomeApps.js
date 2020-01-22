@@ -7,11 +7,22 @@
 import React from 'react';
 
 const HomeApps = () => {
-    return (
-        <div className="sxctf-home-apps">
-
-        </div>
-    );
+  return (
+    <div className="sxctf-home-apps">
+      <p>SaintsXCTF has iOS and Android apps in these app stores</p>
+      <div className="app-stores">
+        <figure>
+          <img src="https://assets.saintsxctf.com/ios-appstore.png"/>
+        </figure>
+        <figure>
+          <img src="https://assets.saintsxctf.com/android-playstore.png"/>
+        </figure>
+        <figure>
+          <img src="https://assets.saintsxctf.com/android-amazon.png"/>
+        </figure>
+      </div>
+    </div>
+  );
 };
 
 export default HomeApps;

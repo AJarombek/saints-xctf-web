@@ -1,0 +1,26 @@
+/*
+ * Sass styling for the HomeAbout component
+ * @author Andrew Jarombek
+ * @since 1/22/2020
+ */
+
+@import "../fonts";
+
+.sxctf-home-about {
+  background-color: #f7f7f7;
+  margin: 50px 0;
+
+  .description {
+    @include roboto-slab;
+    text-align: center;
+    margin: 0 15%;
+  }
+
+  .signature {
+    @include allura;
+  }
+
+  .print {
+    @include roboto;
+  }
+}

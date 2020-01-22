@@ -6,13 +6,43 @@
  */
 
 import React from 'react';
+import Testimonial from './Testimonial';
 
 const HomeTestimonials = () => {
-    return (
-        <div className="sxctf-home-testimonials">
-
-        </div>
-    );
+  return (
+    <div className="sxctf-home-testimonials">
+      <Testimonial
+        src="https://asset.saintsxctf.com/thomas-c"
+        name="Thomas Caulfield"
+        title="2x Cross Country All-American, 1x Outdoor Track All-American"
+        testimony=""/>
+      <Testimonial
+        src="https://asset.saintsxctf.com/lisa-g"
+        name="Lisa Grohn"
+        title="4x All-American"
+        testimony=""/>
+      <Testimonial
+        src="https://asset.saintsxctf.com/evan-g"
+        name="Evan Garvey"
+        title="Kombucha Lover"
+        testimony=""/>
+      <Testimonial
+        src="https://asset.saintsxctf.com/joe-s"
+        name="Joe Smith"
+        title="10th Place at 2015 Cross Country Nationals and #1 Red Sox Fanboy"
+        testimony="I refuse to use this website as it was created in or around NYC."/>
+      <Testimonial
+        src="https://asset.saintsxctf.com/ben-f"
+        name="Ben Fishbein"
+        title="Farmer"
+        testimony="I don't surf the web too often but I sure do love planting carrots."/>
+      <Testimonial
+        src="https://asset.saintsxctf.com/trevor-b"
+        name="Trevor Bibb"
+        title="Athlete"
+        testimony="Yeeeehawwww!!"/>
+    </div>
+  );
 };
 
 export default HomeTestimonials;

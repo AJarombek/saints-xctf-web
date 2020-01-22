@@ -11,6 +11,11 @@
 }
 
 @font-face {
+  font-family: Allura;
+  src: url("http://global.jarombek.io/fonts/Allura-Regular.otf") format("opentype");
+}
+
+@font-face {
   font-family: Roboto-Bold;
   src: url("http://global.jarombek.io/fonts/Roboto-Bold.ttf") format("truetype");
 }
@@ -40,6 +45,15 @@
   background-color: transparent !important;
   font: {
     family: 'Longway', Helvetica, sans-serif !important;
+    weight: normal;
+    style: normal;
+  };
+}
+
+@mixin allura {
+  background-color: transparent !important;
+  font: {
+    family: 'Allura', Helvetica, sans-serif !important;
     weight: normal;
     style: normal;
   };

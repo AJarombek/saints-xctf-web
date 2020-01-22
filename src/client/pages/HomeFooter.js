@@ -9,7 +9,7 @@ import React from 'react';
 const HomeFooter = () => {
     return (
         <div className="sxctf-home-footer">
-
+          <a href="mailto:andrew@jarombek.com">Contact Us</a>
         </div>
     );
 };
