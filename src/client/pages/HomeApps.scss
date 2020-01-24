@@ -4,11 +4,22 @@
  * @since 1/22/2020
  */
 
+@import "../fonts";
+
 .sxctf-home-apps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fdfdfd;
+  padding: 75px 0;
+
   p {
-
+    @include roboto-slab;
+    font-size: 28px;
   }
-  .app-stores {
 
+  .app-stores {
+    display: flex;
+    flex-direction: row;
   }
 }

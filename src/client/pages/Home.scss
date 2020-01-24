@@ -5,6 +5,8 @@
  */
 
 .sxctf-home {
+  display: flex;
+  flex-direction: column;
 
   .sxctf-home-overlay {
     background: rgba(0, 0, 0, 0.6);
@@ -23,6 +25,7 @@
     left: 0;
     height: 100%;
     min-height: 625px;
+    width: 100%;
     z-index: -2;
   }
 }
