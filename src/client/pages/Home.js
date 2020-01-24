@@ -14,17 +14,18 @@ import HomeFooter from './HomeFooter';
 import saints_xctf_vid from '../../assets/saints-xctf-vid.mp4';
 
 const Home = () => {
-    return (
-        <div className="sxctf-home">
-            <video autoPlay loop muted playsInline src={saints_xctf_vid}> </video>
-            <HomeNavBar />
-            <HomeBody />
-            <HomeAbout />
-            <HomeApps />
-            <HomeTestimonials />
-            <HomeFooter />
-        </div>
-    );
+  return (
+    <div className="sxctf-home">
+      <HomeNavBar/>
+      <HomeBody/>
+      <div className="sxctf-home-overlay"> </div>
+      <video autoPlay loop muted playsInline src={saints_xctf_vid}> </video>
+      <HomeAbout/>
+      <HomeApps/>
+      <HomeTestimonials/>
+      <HomeFooter/>
+    </div>
+  );
 };
 
 export default Home;

@@ -5,7 +5,17 @@
  */
 
 .sxctf-home {
-  background: rgba(0, 0, 0, 0.6);
+
+  .sxctf-home-overlay {
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    min-height: 625px;
+    width: 100%;
+    z-index: -1;
+  }
 
   video {
     position: absolute;
@@ -13,6 +23,6 @@
     left: 0;
     height: 100%;
     min-height: 625px;
-    z-index: -1;
+    z-index: -2;
   }
 }

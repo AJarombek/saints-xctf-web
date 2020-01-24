@@ -15,21 +15,21 @@ const HomeTestimonials = () => {
         src="https://asset.saintsxctf.com/thomas-c"
         name="Thomas Caulfield"
         title="2x Cross Country All-American, 1x Outdoor Track All-American"
-        testimony=""/>
+        testimony="Yeah I guess this website is pretty cool"/>
       <Testimonial
         src="https://asset.saintsxctf.com/lisa-g"
         name="Lisa Grohn"
         title="4x All-American"
-        testimony=""/>
+        testimony="I love it!! I wish there was a place for me to log kale consumption though.."/>
       <Testimonial
         src="https://asset.saintsxctf.com/evan-g"
         name="Evan Garvey"
         title="Kombucha Lover"
-        testimony=""/>
+        testimony="What Lisa said."/>
       <Testimonial
         src="https://asset.saintsxctf.com/joe-s"
         name="Joe Smith"
-        title="10th Place at 2015 Cross Country Nationals and #1 Red Sox Fanboy"
+        title="10th Place at 2015 Cross Country Nationals and #1 Red Sox Fan"
         testimony="I refuse to use this website as it was created in or around NYC."/>
       <Testimonial
         src="https://asset.saintsxctf.com/ben-f"
@@ -40,7 +40,7 @@ const HomeTestimonials = () => {
         src="https://asset.saintsxctf.com/trevor-b"
         name="Trevor Bibb"
         title="Athlete"
-        testimony="Yeeeehawwww!!"/>
+        testimony="Yeeeeeeeeehawwwwwwww"/>
     </div>
   );
 };

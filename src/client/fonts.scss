@@ -36,8 +36,18 @@
 }
 
 @font-face {
-  font-family: RobotoSlab;
+  font-family: RobotoSlab-Regular;
   src: url("http://global.jarombek.io/fonts/RobotoSlab-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: RobotoSlab-Light;
+  src: url("http://global.jarombek.io/fonts/RobotoSlab-Light.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: RobotoSlab-Thin;
+  src: url("http://global.jarombek.io/fonts/RobotoSlab-Thin.ttf") format("truetype");
 }
 
 // Mixins
@@ -98,7 +108,25 @@
 @mixin roboto-slab {
   background-color: transparent !important;
   font: {
-    family: 'RobotoSlab', Helvetica, serif !important;
+    family: 'RobotoSlab-Regular', Helvetica, serif !important;
+    weight: normal;
+    style: normal;
+  };
+}
+
+@mixin roboto-slab-light {
+  background-color: transparent !important;
+  font: {
+    family: 'RobotoSlab-Light', Helvetica, serif !important;
+    weight: normal;
+    style: normal;
+  };
+}
+
+@mixin roboto-slab-thin {
+  background-color: transparent !important;
+  font: {
+    family: 'RobotoSlab-Thin', Helvetica, serif !important;
     weight: normal;
     style: normal;
   };
