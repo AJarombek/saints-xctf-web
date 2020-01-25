@@ -5,6 +5,7 @@
  */
 
 @import "../vars";
+@import "../fonts";
 
 .sxctf-home-footer {
   display: flex;
@@ -14,7 +15,15 @@
   padding: 20px 0;
 
   a {
+    @include roboto-slab-bold;
+    text-decoration: none;
+    color: #777;
+    transition: color 0.5s ease;
 
+    &:hover {
+      color: $saints-xctf-red;
+      text-decoration: underline;
+    }
   }
 
   figure {

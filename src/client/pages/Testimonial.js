@@ -10,14 +10,12 @@ import PropTypes from 'prop-types';
 const Testimonial = ({src, name, title, testimony}) => {
   return (
     <div className="sxctf-testimonial">
+      <p>{testimony}</p>
       <figure>
         <img src={src} />
       </figure>
-      <div>
-        <p>{testimony}</p>
-        <p>{title}</p>
-        <p>{name}</p>
-      </div>
+      <p>{title}</p>
+      <p>{name}</p>
     </div>
   );
 };

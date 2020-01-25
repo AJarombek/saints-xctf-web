@@ -4,6 +4,52 @@
  * @since 1/22/2020
  */
 
-.sxctf-testimonial {
+@import "../fonts";
 
+.sxctf-testimonial {
+  display: grid;
+  grid-template-areas:
+          "testimonial testimonial"
+          "photo       name       "
+          "photo       title      ";
+  justify-content: center;
+
+  margin: 15px;
+  min-width: 300px;
+  max-width: 400px;
+
+  p:nth-child(1) {
+    grid-area: testimonial;
+
+    @include roboto-slab-bold;
+    color: #3e3e3e;
+    font-size: 28px;
+  }
+
+  figure {
+    grid-area: photo;
+
+    height: 75px;
+    width: 75px;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  p:nth-child(2) {
+    grid-area: name;
+
+    @include roboto-bold;
+    font-size: 18px;
+  }
+
+  p:nth-child(3) {
+    grid-area: title;
+
+    @include roboto;
+    font-size: 16px;
+    font-style: italic;
+  }
 }
