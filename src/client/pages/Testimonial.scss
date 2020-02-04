@@ -14,39 +14,63 @@
           "photo       title      ";
   justify-content: center;
 
-  margin: 15px;
-  min-width: 300px;
-  max-width: 400px;
+  margin: 15px 75px;
+  width: 400px;
 
   p:nth-child(1) {
     grid-area: testimonial;
 
+    width: 400px;
+
     @include roboto-slab-bold;
-    color: #3e3e3e;
+    color: #4e4e4e;
     font-size: 28px;
   }
 
-  figure {
+  div:nth-child(2) {
     grid-area: photo;
+    align-self: center;
 
-    height: 75px;
-    width: 75px;
+    height: 80px;
+    width: 80px;
+    margin: 20px;
 
-    img {
+    figure {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100%;
       width: 100%;
+      margin: 0;
+
+      border: 1px solid #888;
+      border-radius: 50%;
+
+      img {
+        height: calc(100% - 4px);
+        width: calc(100% - 4px);
+        border-radius: 50%;
+      }
     }
   }
 
-  p:nth-child(2) {
+  p:nth-child(3) {
     grid-area: name;
 
+    align-self: end;
+    margin: 0 0 5px 0;
+    width: 280px;
+
     @include roboto-bold;
+    color: #3e3e3e;
     font-size: 18px;
   }
 
-  p:nth-child(3) {
+  p:nth-child(4) {
     grid-area: title;
+
+    align-self: start;
+    margin: 0;
 
     @include roboto;
     font-size: 16px;
