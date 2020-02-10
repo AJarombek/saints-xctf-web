@@ -19,7 +19,13 @@ const Home = () => {
       <HomeNavBar/>
       <HomeBody/>
       <div className="sxctf-home-overlay"> </div>
-      <video autoPlay loop muted playsInline src={saints_xctf_vid}> </video>
+      <video
+        className="sxctf-home-background"
+        src={saints_xctf_vid}
+        autoPlay
+        loop
+        muted
+        playsInline />
       <HomeAbout/>
       <HomeApps/>
       <HomeTestimonials/>

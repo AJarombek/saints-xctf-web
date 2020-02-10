@@ -13,7 +13,7 @@ const HomeAbout = () => {
         <p>
           SaintsXCTF was created during my time running Cross Country & Track at St. Lawrence
           University.  The team needed a training log where coaches and athletes could view and
-          comment on each others workouts.  We knew that a shared logging platform would be especially
+          comment on each others workouts.  We knew a shared logging platform would be especially
           useful during summer training when the team was apart.
         </p>
         <p>

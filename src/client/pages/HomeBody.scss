@@ -7,10 +7,34 @@
 @import "../fonts";
 
 .sxctf-home-body {
-  height: 100vh;
 
   > div {
-    margin: calc(100px + 15vh) 0 0 5%;
+    height: 120px;
+    margin: 250px 0 450px 5%;
+
+    @media screen and (max-width: 1600px) {
+      margin: 200px 0 400px 5%;
+    }
+
+    @media screen and (max-width: 1400px) {
+      margin: 200px 0 380px 5%;
+    }
+
+    @media screen and (max-width: 1350px) {
+      margin: 200px 0 350px 5%;
+    }
+
+    @media screen and (max-width: 1300px) {
+      margin: 200px 0 300px 5%;
+    }
+
+    @media screen and (max-width: 1210px) {
+      margin: 200px 0 250px 5%;
+    }
+
+    @media screen and (max-width: 1120px) {
+      margin: 180px 0 240px 5%;
+    }
 
     h2 {
       @include roboto-bold;

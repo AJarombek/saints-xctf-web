@@ -19,6 +19,7 @@ yarn add react-router-dom
 yarn add body-parser
 yarn add helmet
 yarn add classnames
+yarn add moment
 
 # Dev Dependencies
 yarn add @babel/core --dev

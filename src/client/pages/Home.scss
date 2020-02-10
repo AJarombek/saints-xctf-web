@@ -13,19 +13,46 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 100vh;
     min-height: 625px;
     width: 100%;
     z-index: -1;
+
+    height: 820px;
+
+    @media screen and (max-width: 1600px) {
+      height: 720px;
+    }
+
+    @media screen and (max-width: 1400px) {
+      height: 700px;
+    }
+
+    @media screen and (max-width: 1350px) {
+      height: 670px;
+    }
+
+    @media screen and (max-width: 1300px) {
+      height: 620px;
+    }
+
+    @media screen and (max-width: 1210px) {
+      height: 570px;
+    }
+
+    @media screen and (max-width: 1120px) {
+      height: 540px;
+    }
   }
 
-  video {
+  video.sxctf-home-background {
     position: absolute;
-    top: 0;
+    top: -60px;
     left: 0;
-    height: 100%;
-    min-height: 625px;
     width: 100%;
     z-index: -2;
+
+    @media screen and (max-width: 1065px) {
+      display: none;
+    }
   }
 }
