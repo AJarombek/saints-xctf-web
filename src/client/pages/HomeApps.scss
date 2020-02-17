@@ -25,10 +25,17 @@
     figure {
       width: 75px;
       height: 75px;
+      cursor: pointer;
 
       img {
         width: 100%;
         height: 100%;
+        filter: grayscale(1) brightness(1);
+        transition: filter 0.5s ease;
+
+        &:hover {
+          filter: none;
+        }
       }
     }
   }

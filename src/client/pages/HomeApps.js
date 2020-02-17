@@ -11,15 +11,21 @@ const HomeApps = () => {
     <div className="sxctf-home-apps">
       <p>SaintsXCTF has iOS and Android apps in these app stores</p>
       <div className="app-stores">
-        <figure>
-          <img src="https://assets.saintsxctf.com/ios-appstore.png"/>
-        </figure>
-        <figure>
-          <img src="https://assets.saintsxctf.com/android-playstore.png"/>
-        </figure>
-        <figure>
-          <img src="https://assets.saintsxctf.com/android-amazon.png"/>
-        </figure>
+        <a href="#">
+          <figure>
+            <img src="https://asset.saintsxctf.com/app-store.png"/>
+          </figure>
+        </a>
+        <a href="#">
+          <figure>
+            <img src="https://asset.saintsxctf.com/google-play-store.svg"/>
+          </figure>
+        </a>
+        <a href="#">
+          <figure>
+            <img src="https://asset.saintsxctf.com/amazon-app-store.png"/>
+          </figure>
+        </a>
       </div>
     </div>
   );

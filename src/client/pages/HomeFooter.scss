@@ -14,7 +14,7 @@
   background-color: #fdfdfd;
   padding: 20px 0;
 
-  a {
+  .contact-us-link {
     @include roboto-slab-bold;
     text-decoration: none;
     color: #777;
@@ -26,18 +26,21 @@
     }
   }
 
-  figure {
-    height: 50px;
-    width: 50px;
+  .sxctf-logo-link {
+    figure {
+      height: 50px;
+      width: 50px;
+      cursor: pointer;
 
-    img {
-      height: 100%;
-      width: 100%;
-      filter: grayscale(1) brightness(1.3);
-      transition: filter 0.5s ease;
+      img {
+        height: 100%;
+        width: 100%;
+        filter: grayscale(1) brightness(1.3);
+        transition: filter 0.5s ease;
 
-      &:hover {
-        filter: none;
+        &:hover {
+          filter: none;
+        }
       }
     }
   }
