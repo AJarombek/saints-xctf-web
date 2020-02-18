@@ -14,17 +14,24 @@
           "photo       title      ";
   justify-content: center;
 
-  margin: 15px 75px;
+  margin: 45px 75px;
   width: 400px;
 
   p:nth-child(1) {
     grid-area: testimonial;
 
     width: 400px;
+    align-self: end;
+    margin: 0;
 
     @include roboto-slab-bold;
     color: #4e4e4e;
     font-size: 28px;
+
+    @media screen and (max-width: 1300px) {
+      font-size: 24px;
+      width: 300px;
+    }
   }
 
   div:nth-child(2) {
@@ -41,7 +48,7 @@
       align-items: center;
       height: 100%;
       width: 100%;
-      margin: 0;
+      margin: 0 0 10px 0;
 
       border: 1px solid #888;
       border-radius: 50%;

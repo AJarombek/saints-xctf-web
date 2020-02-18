@@ -10,7 +10,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import Home from "./pages/Home";
+import Home from "./home/Home";
 
 const RoutedApp = () =>
     <Router>

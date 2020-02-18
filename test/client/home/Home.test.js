@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import Home from '../../src/client/pages/Home';
+import Home from '../../../src/client/home/Home';
 
 describe('unit tests', () => {
 

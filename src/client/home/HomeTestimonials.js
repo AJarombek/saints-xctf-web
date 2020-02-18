@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import Testimonial from './Testimonial';
+import Testimonial from '../shared/Testimonial';
 
 const HomeTestimonials = () => {
   return (

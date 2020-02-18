@@ -44,15 +44,25 @@
     }
   }
 
-  video.sxctf-home-background {
+  video.sxctf-home-background-video, img.sxctf-home-background-img {
     position: absolute;
     top: -60px;
     left: 0;
     width: 100%;
     z-index: -2;
+  }
 
+  video.sxctf-home-background-video {
     @media screen and (max-width: 1065px) {
       display: none;
+    }
+  }
+
+  img.sxctf-home-background-img {
+    display: none;
+
+    @media screen and (max-width: 1065px) {
+      display: block;
     }
   }
 }
