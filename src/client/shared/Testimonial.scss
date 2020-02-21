@@ -17,12 +17,17 @@
   margin: 45px 75px;
   width: 400px;
 
+  @media screen and (max-width: 1300px) {
+    margin: 45px 50px;
+    width: 300px;
+  }
+
   p:nth-child(1) {
     grid-area: testimonial;
 
     width: 400px;
     align-self: end;
-    margin: 0;
+    margin: 0 0 5px 0;
 
     @include roboto-slab-bold;
     color: #4e4e4e;
@@ -41,6 +46,12 @@
     height: 80px;
     width: 80px;
     margin: 20px;
+
+    @media screen and (max-width: 1300px) {
+      height: 70px;
+      width: 70px;
+      margin: 10px;
+    }
 
     figure {
       display: flex;
@@ -76,6 +87,10 @@
     @include roboto-bold;
     color: #3e3e3e;
     font-size: 18px;
+
+    @media screen and (max-width: 1300px) {
+      width: 220px;
+    }
   }
 
   p:nth-child(4) {

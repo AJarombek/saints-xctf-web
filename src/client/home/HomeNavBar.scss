@@ -35,9 +35,29 @@
   .sxctf-nav-buttons {
     margin: 0 20px 0 auto;
 
+    @media screen and (max-width: 800px) {
+      display: none;
+    }
+
     & > div {
       margin: 0 5px;
     }
+  }
+
+  .sxctf-nav-hamburger {
+    display: none;
+
+    @media screen and (max-width: 800px) {
+      display: block;
+    }
+  }
+
+  .sxctf-nav-dropdown {
+    display: none;
+  }
+
+  .sxctf-nav-dropdown-visible {
+    display: block;
   }
 
   .aj-outlined-button, .aj-text-button {

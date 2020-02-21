@@ -8,7 +8,7 @@ import React from 'react';
 
 const HomeAbout = () => {
   return (
-    <div className="sxctf-home-about">
+    <div id="about" className="sxctf-home-about">
       <div className="description">
         <p>
           SaintsXCTF was created during my time running Cross Country & Track at St. Lawrence
