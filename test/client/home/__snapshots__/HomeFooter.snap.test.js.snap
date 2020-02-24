@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="sxctf-home-footer"
+>
+  <a
+    className="contact-us-link"
+    href="mailto:andrew@jarombek.com"
+  >
+    Contact Us
+  </a>
+  <a
+    className="sxctf-logo-link"
+    href="#"
+  >
+    <figure
+      className="sxctf-logo"
+    >
+      <img
+        src="test-file-stub"
+      />
+    </figure>
+  </a>
+</div>
+`;

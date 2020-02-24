@@ -50,10 +50,14 @@ const HomeNavBar = () => {
       <div className={dropdownClass}>
         <AJNavList
           items={[
-            {text: 'About', onClick: () => history.push('/#about')},
-            {text: 'Testimonials', onClick: () => history.push('/#testimonials')},
+            {text: 'About', onClick: () => history.push('#about')},
+            {text: 'Testimonials', onClick: () => history.push('#testimonials')},
             {text: 'Sign Up', onClick: () => history.push('/signup')},
-            {text: 'Log In', onClick: () => history.push('/login')}
+            {text: 'Log In', onClick: () => history.push('/login')},
+            {
+              text: <img className="mobile-dropdown-logo" src={saints_xctf_logo} />,
+              onClick: () => history.push('#')
+            }
           ]}
         />
       </div>

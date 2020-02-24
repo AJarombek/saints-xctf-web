@@ -5,6 +5,7 @@
  */
 
 @import "../fonts";
+@import "../vars";
 
 .sxctf-home-nav-bar {
   display: flex;
@@ -17,6 +18,7 @@
 
   &.sxctf-home-nav-bar-dropdown-visible {
     background-color: #131313;
+    position: fixed;
   }
 
   .sxctf-logo {
@@ -100,8 +102,9 @@
 }
 
 .sxctf-nav-dropdown-visible {
-  display: block;
-  position: absolute;
+  display: flex;
+  justify-content: center;
+  position: fixed;
   top: 100px;
   left: 0;
   width: 100%;
@@ -110,6 +113,35 @@
   animation-name: show-background;
   animation-duration: 0.15s;
   animation-fill-mode: forwards;
+
+  .aj-nav-list-item {
+    > div {
+      height: 80px;
+      border: none;
+
+      &:hover {
+        text-decoration: none;
+      }
+
+      > div {
+        @include roboto;
+        font-size: 24px;
+        color: #eee;
+        transition: color 0.4s ease;
+
+        &:hover {
+          color: $saints-xctf-red;
+        }
+      }
+    }
+  }
+
+  .mobile-dropdown-logo {
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    filter: grayscale(1) brightness(1) opacity(0.5);
+  }
 }
 
 @keyframes show-background {

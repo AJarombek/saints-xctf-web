@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="sxctf-home-apps"
+>
+  <p>
+    SaintsXCTF has iOS and Android apps in these app stores
+  </p>
+  <div
+    className="app-stores"
+  >
+    <a
+      href="#"
+    >
+      <figure>
+        <img
+          src="https://asset.saintsxctf.com/app-store.png"
+        />
+      </figure>
+    </a>
+    <a
+      href="#"
+    >
+      <figure>
+        <img
+          src="https://asset.saintsxctf.com/google-play-store.svg"
+        />
+      </figure>
+    </a>
+    <a
+      href="#"
+    >
+      <figure>
+        <img
+          src="https://asset.saintsxctf.com/amazon-app-store.png"
+        />
+      </figure>
+    </a>
+  </div>
+</div>
+`;

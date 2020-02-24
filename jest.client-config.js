@@ -12,7 +12,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/test/setupTests.js'],
   maxConcurrency: 5,
   moduleNameMapper: {
-    '\\.(png|mp4)$': '../../test/client/mocks/fileMock.js'
+    '\\.(png|mp4)$': '../../../test/client/mocks/fileMock.js'
   },
   transform: {
     '^.+\\.js$': 'babel-jest'
