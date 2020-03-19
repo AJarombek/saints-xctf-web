@@ -17,6 +17,7 @@
   width: 100%;
 
   &.sxctf-home-nav-bar-dropdown-visible {
+    z-index: 1;
     background-color: #131313;
     position: fixed;
   }
@@ -30,12 +31,14 @@
     img {
       height: 100%;
       width: 100%;
+      cursor: pointer;
     }
   }
 
   h1 {
     @include roboto-slab-bold;
     color: #eee;
+    cursor: pointer;
   }
 
   .sxctf-nav-buttons {
@@ -109,6 +112,7 @@
   left: 0;
   width: 100%;
   background-color: #131313;
+  z-index: 1;
 
   animation-name: show-background;
   animation-duration: 0.15s;
@@ -124,7 +128,7 @@
       }
 
       > div {
-        @include roboto;
+        @include roboto-slab;
         font-size: 24px;
         color: #eee;
         transition: color 0.4s ease;

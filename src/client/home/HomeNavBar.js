@@ -22,13 +22,18 @@ const HomeNavBar = () => {
     classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-visible') :
     classnames('sxctf-nav-dropdown');
 
+  const navigateMobile = (path) => {
+    setShowDropdown(!showDropdown);
+    history.push(path);
+  };
+
   return (
     <>
       <div className={navBarClass}>
         <figure className="sxctf-logo">
-          <img src={saints_xctf_logo}/>
+          <img src={saints_xctf_logo} onClick={() => history.push('#')}/>
         </figure>
-        <h1>SaintsXCTF</h1>
+        <h1 onClick={() => history.push('#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
           <AJButton type="text" onClick={() => history.push('/#about')}>
             About
@@ -50,13 +55,13 @@ const HomeNavBar = () => {
       <div className={dropdownClass}>
         <AJNavList
           items={[
-            {text: 'About', onClick: () => history.push('#about')},
-            {text: 'Testimonials', onClick: () => history.push('#testimonials')},
-            {text: 'Sign Up', onClick: () => history.push('/signup')},
-            {text: 'Log In', onClick: () => history.push('/login')},
+            {content: 'About', onClick: () => navigateMobile('#about')},
+            {content: 'Testimonials', onClick: () => navigateMobile('#testimonials')},
+            {content: 'Sign Up', onClick: () => navigateMobile('/signup')},
+            {content: 'Log In', onClick: () => navigateMobile('/login')},
             {
-              text: <img className="mobile-dropdown-logo" src={saints_xctf_logo} />,
-              onClick: () => history.push('#')
+              content: <img className="mobile-dropdown-logo" src={saints_xctf_logo} />,
+              onClick: () => navigateMobile('#')
             }
           ]}
         />
