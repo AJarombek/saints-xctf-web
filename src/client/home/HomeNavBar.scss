@@ -20,6 +20,12 @@
     z-index: 1;
     background-color: #131313;
     position: fixed;
+
+    @media screen and (min-width: 801px) {
+      z-index: 0;
+      background-color: transparent;
+      position: absolute;
+    }
   }
 
   .sxctf-logo {
@@ -27,6 +33,11 @@
     padding: 0 10px;
     height: 100px;
     width: 120px;
+
+    @media screen and (max-width: 390px) {
+      height: 75px;
+      width: 90px;
+    }
 
     img {
       height: 100%;
@@ -39,6 +50,10 @@
     @include roboto-slab-bold;
     color: #eee;
     cursor: pointer;
+
+    @media screen and (max-width: 390px) {
+      font-size: 28px;
+    }
   }
 
   .sxctf-nav-buttons {
@@ -61,19 +76,36 @@
       display: block;
     }
 
+    @media screen and (max-width: 390px) {
+      margin: 0 40px 6px auto;
+    }
+
     .aj-mobile-hamburger {
       width: 30px;
       padding: 15px 4px;
+
+      @media screen and (max-width: 390px) {
+        width: 25px;
+        padding: 10px 2px;
+      }
 
       button {
 
         span {
           &:before {
             top: -10px;
+
+            @media screen and (max-width: 390px) {
+              top: -8px;
+            }
           }
 
           &:after {
             top: 10px;
+
+            @media screen and (max-width: 390px) {
+              top: 8px;
+            }
           }
         }
 
@@ -81,6 +113,11 @@
           background-color: white;
           width: 30px;
           height: 4px;
+
+          @media screen and (max-width: 390px) {
+            width: 25px;
+            height: 3px;
+          }
         }
       }
     }
@@ -117,6 +154,10 @@
   animation-name: show-background;
   animation-duration: 0.15s;
   animation-fill-mode: forwards;
+
+  @media screen and (min-width: 801px) {
+    display: none;
+  }
 
   .aj-nav-list-item {
     > div {

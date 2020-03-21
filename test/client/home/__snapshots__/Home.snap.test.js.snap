@@ -72,14 +72,14 @@ exports[`renders correctly 1`] = `
       className="sxctf-nav-hamburger"
     >
       <div
-        className="ajMobileHamburger-0-2-13"
+        className="aj-mobile-hamburger ajMobileHamburger-0-2-13"
         onClick={[Function]}
       >
         <button
           type="button"
         >
           <span
-            className="ajMobileHamburgerInactive-0-2-15"
+            className="aj-mobile-hamburger-inactive ajMobileHamburgerInactive-0-2-15"
           />
         </button>
       </div>
@@ -97,7 +97,9 @@ exports[`renders correctly 1`] = `
         <div
           onClick={[Function]}
         >
-          <div />
+          <div>
+            About
+          </div>
         </div>
       </div>
       <div
@@ -106,7 +108,9 @@ exports[`renders correctly 1`] = `
         <div
           onClick={[Function]}
         >
-          <div />
+          <div>
+            Testimonials
+          </div>
         </div>
       </div>
       <div
@@ -115,7 +119,9 @@ exports[`renders correctly 1`] = `
         <div
           onClick={[Function]}
         >
-          <div />
+          <div>
+            Sign Up
+          </div>
         </div>
       </div>
       <div
@@ -124,7 +130,9 @@ exports[`renders correctly 1`] = `
         <div
           onClick={[Function]}
         >
-          <div />
+          <div>
+            Log In
+          </div>
         </div>
       </div>
       <div
@@ -133,7 +141,12 @@ exports[`renders correctly 1`] = `
         <div
           onClick={[Function]}
         >
-          <div />
+          <div>
+            <img
+              className="mobile-dropdown-logo"
+              src="test-file-stub"
+            />
+          </div>
         </div>
       </div>
     </div>

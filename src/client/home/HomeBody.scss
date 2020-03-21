@@ -41,6 +41,10 @@
       color: #bbb;
       width: 60%;
       font-size: 36px;
+
+      @media screen and (max-width: 540px) {
+        font-size: 28px;
+      }
     }
 
     .options {

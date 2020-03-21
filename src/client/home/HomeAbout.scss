@@ -21,11 +21,21 @@
     @include allura;
     margin: 0 0 0 18%;
     font-size: 24px;
+
+    @media screen and (max-width: 420px) {
+      margin: 0 0 0 12%;
+      padding-bottom: 50px;
+    }
   }
 
   .print {
     @include roboto-slab-light;
     margin: 0 0 0 18%;
     padding-bottom: 75px;
+
+    @media screen and (max-width: 420px) {
+      margin: 0 0 0 12%;
+      padding-bottom: 50px;
+    }
   }
 }

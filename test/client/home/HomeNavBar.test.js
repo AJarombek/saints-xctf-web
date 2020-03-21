@@ -8,6 +8,7 @@ import React from 'react';
 import {shallow, mount} from 'enzyme';
 import HomeNavBar from '../../../src/client/home/HomeNavBar';
 import { useHistory } from 'react-router-dom';
+import { act } from 'react-dom/test-utils';
 
 // Mock react router's useHistory() hook before the tests execute.
 jest.mock('react-router-dom', () => {
@@ -36,7 +37,7 @@ describe('unit tests', () => {
 
 describe('integration tests', () => {
 
-  it('renders', () => {
+  it('has functional navigation buttons', () => {
     const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
     const wrapper = mount(<HomeNavBar />);
 
@@ -61,7 +62,6 @@ describe('integration tests', () => {
     const loginButton = getNavButton(3);
 
     const mobileAboutNav = wrapper.find('.aj-nav-list-item').at(0).childAt(0);
-    console.info(mobileAboutNav.debug());
     const mobileTestimonialsNav = wrapper.find('.aj-nav-list-item').at(1).childAt(0);
     const mobileSignUpNav = wrapper.find('.aj-nav-list-item').at(2).childAt(0);
     const mobileLogInNav = wrapper.find('.aj-nav-list-item').at(3).childAt(0);
@@ -133,6 +133,23 @@ describe('integration tests', () => {
 
     expect(pushSpy).toHaveBeenCalledTimes(11);
     expect(pushSpy).toHaveBeenCalledWith('#');
+  });
+
+  it('has a working mobile dropdown', () => {
+    const wrapper = mount(<HomeNavBar />);
+
+    const navDropdown = wrapper.find('.sxctf-nav-dropdown');
+    const mobileNavHamburger = wrapper.find('.aj-mobile-hamburger');
+
+    expect(navDropdown.hasClass('sxctf-nav-dropdown-visible')).toBe(false);
+
+    act(() => {
+      mobileNavHamburger.props().onClick();
+    });
+
+    wrapper.update();
+
+    expect(navDropdown.hasClass('sxctf-nav-dropdown-visible')).toBe(true);
   });
 
 });
