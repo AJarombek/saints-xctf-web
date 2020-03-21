@@ -4,7 +4,7 @@
  * @since 1/12/2020
  */
 
-import React, {useState} from 'react';
+import React, {useState, createRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
@@ -25,6 +25,28 @@ const HomeNavBar = () => {
   const navigateMobile = (path) => {
     setShowDropdown(!showDropdown);
     history.push(path);
+
+    if (path.includes('#')) {
+      hashRoute();
+    }
+  };
+
+  /**
+   * There is an issue with React Router not working with hashed routes.  This helper method uses
+   * the DOM API to navigate to the hashed route.
+   */
+  const hashRoute = () => {
+    const { hash } = window.location;
+    if (hash !== '') {
+      setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+
+        if (element) {
+          element.scrollIntoView();
+        }
+      }, 0)
+    }
   };
 
   return (
@@ -35,10 +57,16 @@ const HomeNavBar = () => {
         </figure>
         <h1 onClick={() => history.push('#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
-          <AJButton type="text" onClick={() => history.push('/#about')}>
+          <AJButton type="text" onClick={() => {
+            history.push('/#about');
+            hashRoute();
+          }}>
             About
           </AJButton>
-          <AJButton type="text" onClick={() => history.push('/#testimonials')}>
+          <AJButton type="text" onClick={() => {
+            history.push('/#testimonials');
+            hashRoute();
+          }}>
             Testimonials
           </AJButton>
           <AJButton type="outlined" onClick={() => history.push('/signup')}>

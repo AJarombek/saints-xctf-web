@@ -80,6 +80,10 @@
       margin: 0 40px 6px auto;
     }
 
+    @media screen and (max-width: 340px) {
+      margin: 0 20px 6px auto;
+    }
+
     .aj-mobile-hamburger {
       width: 30px;
       padding: 15px 4px;
@@ -159,6 +163,11 @@
     display: none;
   }
 
+  @media screen and (max-width: 390px) {
+    top: 75px;
+    animation-name: show-background-mobile;
+  }
+
   .aj-nav-list-item {
     > div {
       height: 80px;
@@ -192,4 +201,9 @@
 @keyframes show-background {
   from {height: 0}
   to {height: calc(100vh - 100px)}
+}
+
+@keyframes show-background-mobile {
+  from {height: 0}
+  to {height: calc(100vh - 75px)}
 }

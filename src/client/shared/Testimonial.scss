@@ -37,6 +37,10 @@
       font-size: 24px;
       width: 300px;
     }
+
+    @media screen and (max-width: 390px) {
+      font-size: 18px;
+    }
   }
 
   div:nth-child(2) {
@@ -91,6 +95,10 @@
     @media screen and (max-width: 1300px) {
       width: 220px;
     }
+
+    @media screen and (max-width: 390px) {
+      font-size: 16px;
+    }
   }
 
   p:nth-child(4) {
@@ -102,5 +110,9 @@
     @include roboto;
     font-size: 16px;
     font-style: italic;
+
+    @media screen and (max-width: 390px) {
+      font-size: 14px;
+    }
   }
 }
