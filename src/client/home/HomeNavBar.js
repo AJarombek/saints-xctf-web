@@ -14,6 +14,8 @@ const HomeNavBar = () => {
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
 
+  const mobileHamburgerRef = createRef();
+
   const navBarClass = showDropdown ?
     classnames('sxctf-home-nav-bar', 'sxctf-home-nav-bar-dropdown-visible') :
     classnames('sxctf-home-nav-bar');
@@ -22,6 +24,10 @@ const HomeNavBar = () => {
     classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-visible') :
     classnames('sxctf-nav-dropdown');
 
+  /**
+   * Navigate to a new page using the mobile dropdown navigation list.
+   * @param path The new path to navigate to within the website.
+   */
   const navigateMobile = (path) => {
     setShowDropdown(!showDropdown);
     history.push(path);
@@ -38,14 +44,12 @@ const HomeNavBar = () => {
   const hashRoute = () => {
     const { hash } = window.location;
     if (hash !== '') {
-      setTimeout(() => {
-        const id = hash.replace('#', '');
-        const element = document.getElementById(id);
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
 
-        if (element) {
-          element.scrollIntoView();
-        }
-      }, 0)
+      if (element) {
+        element.scrollIntoView();
+      }
     }
   };
 
@@ -77,16 +81,37 @@ const HomeNavBar = () => {
           </AJButton>
         </div>
         <div className="sxctf-nav-hamburger">
-          <AJMobileHamburger onClick={() => setShowDropdown(!showDropdown)}/>
+          <AJMobileHamburger
+            onClick={() => setShowDropdown(!showDropdown)}
+            ref={mobileHamburgerRef}
+          />
         </div>
       </div>
       <div className={dropdownClass}>
         <AJNavList
           items={[
-            {content: 'About', onClick: () => navigateMobile('#about')},
-            {content: 'Testimonials', onClick: () => navigateMobile('#testimonials')},
-            {content: 'Sign Up', onClick: () => navigateMobile('/signup')},
-            {content: 'Log In', onClick: () => navigateMobile('/login')},
+            {
+              content: 'About',
+              onClick: () => {
+                navigateMobile('#about');
+                mobileHamburgerRef.current.click();
+              }
+            },
+            {
+              content: 'Testimonials',
+              onClick: () => {
+                navigateMobile('#testimonials');
+                mobileHamburgerRef.current.click();
+              }
+            },
+            {
+              content: 'Sign Up',
+              onClick: () => navigateMobile('/signup')
+            },
+            {
+              content: 'Log In',
+              onClick: () => navigateMobile('/login')
+            },
             {
               content: <img className="mobile-dropdown-logo" src={saints_xctf_logo} />,
               onClick: () => navigateMobile('#')

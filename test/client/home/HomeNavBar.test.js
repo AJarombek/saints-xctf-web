@@ -138,18 +138,95 @@ describe('integration tests', () => {
   it('has a working mobile dropdown', () => {
     const wrapper = mount(<HomeNavBar />);
 
-    const navDropdown = wrapper.find('.sxctf-nav-dropdown');
-    const mobileNavHamburger = wrapper.find('.aj-mobile-hamburger');
+    const getNavDropdownVisible = () =>
+      wrapper
+        .find('.sxctf-nav-dropdown')
+        .hasClass('sxctf-nav-dropdown-visible');
 
-    expect(navDropdown.hasClass('sxctf-nav-dropdown-visible')).toBe(false);
+    const getHamburgerInactive = () =>
+      wrapper
+        .find('.aj-mobile-hamburger')
+        .childAt(0)
+        .childAt(0)
+        .hasClass('aj-mobile-hamburger-inactive');
 
-    act(() => {
-      mobileNavHamburger.props().onClick();
-    });
+    const getHamburgerActive = () =>
+      wrapper
+        .find('.aj-mobile-hamburger')
+        .childAt(0)
+        .childAt(0)
+        .hasClass('aj-mobile-hamburger-active');
 
-    wrapper.update();
+    expect(getNavDropdownVisible()).toBe(false);
+    expect(getHamburgerInactive()).toBe(true);
+    expect(getHamburgerActive()).toBe(false);
 
-    expect(navDropdown.hasClass('sxctf-nav-dropdown-visible')).toBe(true);
+    wrapper.find('.aj-mobile-hamburger').simulate('click');
+
+    expect(getNavDropdownVisible()).toBe(true);
+    expect(getHamburgerInactive()).toBe(false);
+    expect(getHamburgerActive()).toBe(true);
+  });
+
+  it('hashRoute function works as expected', () => {
+    const wrapper = mount(<HomeNavBar/>);
+    const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
+
+    window.location.hash = '#about';
+
+    const aboutButton =
+      wrapper.find('.sxctf-nav-buttons').childAt(0).childAt(0).childAt(0).childAt(0);
+
+    aboutButton.simulate('click');
+    expect(pushSpy).toHaveBeenCalledWith('/#about');
+  });
+
+  it('hashRoute function works as expected', () => {
+    const wrapper = mount(<HomeNavBar/>);
+    const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
+    const getElementByIdSpy = jest.spyOn(document, 'getElementById').mockImplementation();
+
+    window.location.hash = '#about';
+
+    const aboutButton =
+      wrapper.find('.sxctf-nav-buttons').childAt(0).childAt(0).childAt(0).childAt(0);
+
+    expect(getElementByIdSpy).not.toHaveBeenCalled();
+    expect(getElementByIdSpy).toHaveBeenCalledTimes(0);
+
+    aboutButton.simulate('click');
+
+    expect(pushSpy).toHaveBeenCalledWith('/#about');
+
+    expect(getElementByIdSpy).toHaveBeenCalled();
+    expect(getElementByIdSpy).toHaveBeenCalledTimes(1);
+    expect(getElementByIdSpy).toHaveBeenCalledWith('about');
+  });
+
+  it('hashRoute function works as expected and scrolls', () => {
+    const wrapper = mount(<HomeNavBar/>);
+
+    const elementMock = {
+      scrollIntoView: jest.fn()
+    };
+
+    const scrollIntoViewSpy = jest.spyOn(elementMock, 'scrollIntoView');
+
+    const getElementByIdSpy = jest.spyOn(document, 'getElementById')
+      .mockImplementation(() => elementMock);
+
+    window.location.hash = '#about';
+
+    const aboutButton =
+      wrapper.find('.sxctf-nav-buttons').childAt(0).childAt(0).childAt(0).childAt(0);
+
+    aboutButton.simulate('click');
+
+    expect(getElementByIdSpy).toHaveBeenCalled();
+    expect(getElementByIdSpy).toHaveBeenCalledWith('about');
+
+    expect(scrollIntoViewSpy).toHaveBeenCalled();
+    expect(scrollIntoViewSpy).toHaveBeenCalledTimes(1);
   });
 
 });

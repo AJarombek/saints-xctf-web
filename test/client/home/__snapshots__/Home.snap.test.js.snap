@@ -191,7 +191,7 @@ exports[`renders correctly 1`] = `
   </div>
   <img
     className="sxctf-home-background-img"
-    src="https://asset.saintsxctf.com/womens-background.jpg"
+    src="https://asset.saintsxctf.com/mens-background.jpg"
   />
   <video
     autoPlay={true}
@@ -266,6 +266,7 @@ exports[`renders correctly 1`] = `
   </div>
   <div
     className="sxctf-home-testimonials"
+    id="testimonials"
   >
     <div
       className="sxctf-testimonial"

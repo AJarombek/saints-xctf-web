@@ -10,7 +10,7 @@ import Testimonial from '../shared/Testimonial';
 
 const HomeTestimonials = () => {
   return (
-    <div className="sxctf-home-testimonials">
+    <div className="sxctf-home-testimonials" id="testimonials">
       <Testimonial
         src="https://asset.saintsxctf.com/thomas-c.jpg"
         name="Thomas Caulfield"
