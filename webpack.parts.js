@@ -4,22 +4,22 @@
  * @since 1/14/2020
  */
 
-const webpack = require("webpack");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 /**
  * Ignore Markdown (.md) files from the bundling process.
  * @return {{module: {rules: *[]}}}
  */
 exports.markdownModule = () => ({
-    module: {
-        rules: [
-            {
-                test: /\.md$/,
-                loader: "ignore-loader"
-            }
-        ]
-    }
+  module: {
+    rules: [
+      {
+        test: /\.md$/,
+        loader: 'ignore-loader'
+      }
+    ]
+  }
 });
 
 /**
@@ -29,7 +29,7 @@ exports.markdownModule = () => ({
  * @return {{mode: string}}
  */
 exports.mode = (env) => ({
-    mode: env === 'production' ? 'production': 'development'
+  mode: env === 'production' ? 'production' : 'development'
 });
 
 /**
@@ -41,23 +41,23 @@ exports.mode = (env) => ({
  * @param useLoaders - specify which loaders to use
  * @returns {{module: {rules: *[]}, plugins: *}}
  */
-exports.extractSass = ({include, exclude, useLoaders}) => {
-    /* You are a wonderful person. */
-    const plugin = new MiniCssExtractPlugin({
-        filename: '[name].css'
-    });
+exports.extractSass = ({ include, exclude, useLoaders }) => {
+  /* You are a wonderful person. */
+  const plugin = new MiniCssExtractPlugin({
+    filename: '[name].css'
+  });
 
-    return {
-        module: {
-            rules: [
-                {
-                    test: /\.scss$/,
-                    include,
-                    exclude,
-                    use: [MiniCssExtractPlugin.loader].concat(useLoaders)
-                }
-            ]
-        },
-        plugins: [plugin]
-    };
+  return {
+    module: {
+      rules: [
+        {
+          test: /\.scss$/,
+          include,
+          exclude,
+          use: [MiniCssExtractPlugin.loader].concat(useLoaders)
+        }
+      ]
+    },
+    plugins: [plugin]
+  };
 };

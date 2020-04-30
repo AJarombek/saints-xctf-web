@@ -2,8 +2,30 @@
 
 ### Overview
 
-Front-end and proxy to the API for the SaintsXCTF web application.  This is the second version of 
-the SaintsXCTF web application.
+Front-end for the SaintsXCTF web application.  This is the second version of the SaintsXCTF web application.  The 
+front-end is written in React.js and styled with Sass.  API calls are routed through a Nginx proxy to the 
+[SaintsXCTF API](https://github.com/AJarombek/saints-xctf-api).
+
+### Start the Application Locally
+
+**First time setup**
+
+> Git, Node.js, npm, nvm, & yarn should be installed beforehand.
+
+```bash
+git clone 
+cd saints-xctf-web
+nvm use v10.15.3
+yarn
+```
+
+**Starting the server**
+
+```bash
+nvm use v10.15.3
+export NODE_ENV=local
+yarn start:local
+```
 
 ### Files
 

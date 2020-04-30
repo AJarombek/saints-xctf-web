@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import HomeTestimonials from '../../../src/client/home/HomeTestimonials';
+import HomeTestimonials from '../../src/home/HomeTestimonials';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {

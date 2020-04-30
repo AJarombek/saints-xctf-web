@@ -26,7 +26,7 @@ const Home = () => {
       <HomeNavBar/>
       <HomeBody/>
       <div className="sxctf-home-overlay"> </div>
-      <img className="sxctf-home-background-img" src={mobileBackgroundPicture} />
+      <img className="sxctf-home-background-img" src={mobileBackgroundPicture} alt="" />
       <video
         className="sxctf-home-background-video"
         src={saints_xctf_vid}
