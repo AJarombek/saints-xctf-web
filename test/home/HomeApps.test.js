@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import HomeApps from '../../src/home/HomeApps';
+import HomeApps from '../../src/components/home/HomeApps';
 
 describe('unit tests', () => {
 

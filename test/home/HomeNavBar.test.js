@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import HomeNavBar from '../../src/home/HomeNavBar';
+import HomeNavBar from '../../src/components/home/HomeNavBar';
 import { useHistory } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 

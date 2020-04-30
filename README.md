@@ -23,8 +23,7 @@ yarn
 
 ```bash
 nvm use v10.15.3
-export NODE_ENV=local
-yarn start:local
+yarn start
 ```
 
 ### Files
@@ -49,3 +48,8 @@ yarn start:local
 **V.2.0.0 - SaintsXCTF V2 Release**
 
 > Release Date: TBD
+
+### Resources
+
+1) [Proxy to API](https://www.freecodecamp.org/news/never-use-an-absolute-path-for-your-apis-again-9ee9199563be/)
+2) [React on Nginx](https://medium.com/@timmykko/deploying-create-react-app-with-nginx-and-ubuntu-e6fe83c5e9e7)

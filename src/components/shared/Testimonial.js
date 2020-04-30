@@ -13,7 +13,7 @@ const Testimonial = ({src, name, title, testimony}) => {
       <p>"{testimony}"</p>
       <div>
         <figure>
-          <img src={src} />
+          <img src={src} alt="" loading="lazy" />
         </figure>
       </div>
       <p>{name}</p>

@@ -9,12 +9,14 @@ import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Home from './home/Home';
+import Home from './components/home/Home';
+import SignIn from './components/sign-in/SignIn';
 
 const RoutedApp = () =>
   <Router>
     <Switch>
       <Route exact path="/" component={Home}/>
+      <Route exact path="/signin" component={SignIn}/>
       <Route component={Home}/>
     </Switch>
   </Router>;

@@ -13,7 +13,7 @@ import HomeAbout from './HomeAbout';
 import HomeApps from './HomeApps';
 import HomeTestimonials from './HomeTestimonials';
 import HomeFooter from './HomeFooter';
-import saints_xctf_vid from '../../assets/saints-xctf-vid.mp4';
+import saints_xctf_vid from '../../../assets/saints-xctf-vid.mp4';
 
 const Home = () => {
   const day = moment().dayOfYear();

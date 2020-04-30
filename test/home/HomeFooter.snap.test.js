@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import HomeFooter from '../../src/home/HomeFooter';
+import HomeFooter from '../../src/components/home/HomeFooter';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import HomeNavBar from '../../src/home/HomeNavBar';
+import HomeNavBar from '../../src/components/home/HomeNavBar';
 import renderer from 'react-test-renderer';
 
 // Mock react router's useHistory() hook before the tests execute.

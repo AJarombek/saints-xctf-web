@@ -8,26 +8,8 @@ const path = require('path');
 const glob = require('glob');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
-const webpack = require('webpack');
 
 const parts = require('./webpack.parts');
-
-console.log(`NODE_ENV = ${process.env.NODE_ENV}`);
-
-let ENV, PUBLIC_PATH;
-switch (process.env.NODE_ENV) {
-  case 'local':
-    ENV = 'local';
-    PUBLIC_PATH = 'http://localhost:8090/';
-    break;
-  case 'development':
-    ENV = 'development';
-    PUBLIC_PATH = 'https://dev.saintsxctf.com/';
-    break;
-  default:
-    ENV = 'production';
-    PUBLIC_PATH = 'https://saintsxctf.com/';
-}
 
 const PATHS = {
   bundle: path.join(__dirname, 'src/index.js'),
@@ -38,7 +20,7 @@ const PATHS = {
 /**
  * [ALL ENV] Client Bundling Configuration
  */
-const config = merge([
+const config = (env, publicPath) => merge([
   {
     entry: {
       bundle: PATHS.bundle,
@@ -77,18 +59,15 @@ const config = merge([
       new HtmlWebPackPlugin({
         template: './src/index.html',
         filename: 'index.html'
-      }),
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': JSON.stringify(ENV)
       })
     ],
     output: {
       path: PATHS.build,
       filename: '[name].js',
-      publicPath: PUBLIC_PATH
+      publicPath
     }
   },
-  parts.mode(ENV),
+  parts.mode(env),
   parts.extractSass({
     useLoaders: ['css-loader', 'sass-loader']
   }),
@@ -106,18 +85,21 @@ const localConfig = {
     }
   },
   devServer: {
-    historyApiFallback: true
+    historyApiFallback: true,
+    port: 8090,
+    proxy: {
+      '/api': 'http://localhost:8095'
+    }
   }
 };
 
 module.exports = (env) => {
-  if (env === 'production') {
-    return merge(config, prodConfig);
-  } else if (env === 'development') {
-    return merge(config, devConfig);
-  } else if (env === 'local') {
-    return merge(config, localConfig);
-  } else {
-    return null;
+  switch (env) {
+    case 'local':
+      return merge(config(env, 'http://localhost:8090/'), localConfig);
+    case 'development':
+      return merge(config(env, 'https://dev.saintsxctf.com/'), devConfig);
+    default:
+      return merge(config(env, 'https://saintsxctf.com/'), prodConfig);
   }
 };

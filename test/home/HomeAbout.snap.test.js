@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import HomeAbout from '../../src/home/HomeAbout';
+import HomeAbout from '../../src/components/home/HomeAbout';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import HomeBody from '../../src/home/HomeBody';
+import HomeBody from '../../src/components/home/HomeBody';
 
 describe('unit tests', () => {
 

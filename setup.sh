@@ -50,14 +50,10 @@ yarn add url-loader --dev
 yarn add file-loader --dev
 yarn add glob --dev
 
-# Start Locally ...
+# Start Locally
 nvm use v10.15.3
-export NODE_ENV=local
-yarn client:build:local
-yarn server:build:local
-yarn server:deploy
+yarn start
 
-# ... or more concisely:
+# Build Locally
 nvm use v10.15.3
-export NODE_ENV=local
-yarn start:local
+yarn build:local

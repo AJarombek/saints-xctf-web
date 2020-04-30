@@ -8,7 +8,7 @@ import React, {useState, createRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
-import saints_xctf_logo from '../../assets/saintsxctf_logo.png';
+import saints_xctf_logo from '../../../assets/saintsxctf_logo.png';
 
 const HomeNavBar = () => {
   const history = useHistory();
@@ -57,9 +57,9 @@ const HomeNavBar = () => {
     <>
       <div className={navBarClass}>
         <figure className="sxctf-logo">
-          <img src={saints_xctf_logo} onClick={() => history.push('#')}/>
+          <img src={saints_xctf_logo} onClick={() => history.push('/#')}/>
         </figure>
-        <h1 onClick={() => history.push('#')}>SaintsXCTF</h1>
+        <h1 onClick={() => history.push('/#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
           <AJButton type="text" onClick={() => {
             history.push('/#about');
@@ -73,11 +73,11 @@ const HomeNavBar = () => {
           }}>
             Testimonials
           </AJButton>
-          <AJButton type="outlined" onClick={() => history.push('/signup')}>
-            Sign Up
+          <AJButton type="outlined" onClick={() => history.push('/register')}>
+            Register
           </AJButton>
-          <AJButton type="contained" onClick={() => history.push('/login')}>
-            Log In
+          <AJButton type="contained" onClick={() => history.push('/signin')}>
+            Sign In
           </AJButton>
         </div>
         <div className="sxctf-nav-hamburger">
@@ -105,12 +105,12 @@ const HomeNavBar = () => {
               }
             },
             {
-              content: 'Sign Up',
-              onClick: () => navigateMobile('/signup')
+              content: 'Register',
+              onClick: () => navigateMobile('/register')
             },
             {
-              content: 'Log In',
-              onClick: () => navigateMobile('/login')
+              content: 'Sign In',
+              onClick: () => navigateMobile('/signin')
             },
             {
               content: <img className="mobile-dropdown-logo" src={saints_xctf_logo} />,

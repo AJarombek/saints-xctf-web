@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import saints_xctf_logo from '../../assets/saintsxctf_logo.png';
+import saints_xctf_logo from '../../../assets/saintsxctf_logo.png';
 
 const HomeFooter = () => {
   return (
