@@ -8,18 +8,15 @@
 import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
-import createLogger from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import reducer from './modules/reducers';
 
-const history = createBrowserHistory();
+export const history = createBrowserHistory();
 
-const configureStore = (data) => {
+export default function configureStore(data) {
   const loggerMiddleware = createLogger();
-  const middleware = [loggerMiddleware, routerMiddleware(history)];
+  const middleware = [routerMiddleware(history), loggerMiddleware];
 
   const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
-  return createStoreWithMiddleware(reducer, data);
-};
-
-export { history };
-export default configureStore;
+  return createStoreWithMiddleware(reducer(history), data);
+}

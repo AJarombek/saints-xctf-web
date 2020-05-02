@@ -8,7 +8,7 @@ import React, {useState, createRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
-import saints_xctf_logo from '../../../assets/saintsxctf_logo.png';
+import saintsXCTFLogo from '../../../assets/saintsxctf_logo.png';
 
 const HomeNavBar = () => {
   const history = useHistory();
@@ -57,7 +57,11 @@ const HomeNavBar = () => {
     <>
       <div className={navBarClass}>
         <figure className="sxctf-logo">
-          <img src={saints_xctf_logo} onClick={() => history.push('/#')}/>
+          <img
+            src={saintsXCTFLogo}
+            onClick={() => history.push('/#')}
+            alt=""
+          />
         </figure>
         <h1 onClick={() => history.push('/#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
@@ -113,7 +117,9 @@ const HomeNavBar = () => {
               onClick: () => navigateMobile('/signin')
             },
             {
-              content: <img className="mobile-dropdown-logo" src={saints_xctf_logo} />,
+              content: <img className="mobile-dropdown-logo"
+                            src={saintsXCTFLogo}
+                            alt="" />,
               onClick: () => navigateMobile('#')
             }
           ]}

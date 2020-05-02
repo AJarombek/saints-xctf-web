@@ -48,8 +48,8 @@ const config = (env, publicPath) => merge([
           use: {
             loader: 'url-loader',
             options: {
-              limit: 15000,
-              name: '[name].[ext]'
+              limit: 200000,
+              name: 'assets/[name].[ext]'
             }
           }
         }
