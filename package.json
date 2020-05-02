@@ -23,13 +23,17 @@
   "homepage": "https://github.com/AJarombek/saints-xctf-web#readme",
   "dependencies": {
     "classnames": "^2.2.6",
+    "connected-react-router": "^6.8.0",
+    "history": "^4.10.1",
     "jarombek-react-components": "git://github.com/ajarombek/jarombek-react-components.git#v0.2.3",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2",
-    "redux": "^4.0.5"
+    "react-redux": "^7.2.0",
+    "react-router": "^5.1.2",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
