@@ -8,6 +8,7 @@ const path = require('path');
 const glob = require('glob');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const merge = require('webpack-merge');
+const webpack = require("webpack");
 
 const parts = require('./webpack.parts');
 
@@ -59,6 +60,9 @@ const config = (env, publicPath) => merge([
       new HtmlWebPackPlugin({
         template: './src/index.html',
         filename: 'index.html'
+      }),
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': env
       })
     ],
     output: {

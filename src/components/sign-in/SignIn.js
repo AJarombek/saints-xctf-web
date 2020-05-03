@@ -5,10 +5,22 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { signIn } from '../../redux/modules/auth';
 import HomeNavBar from '../home/HomeNavBar';
 import SignInBody from './SignInBody';
 
-const SignIn = () => {
+const mapStateToProps = state => ({
+  signedIn: state.auth.signedIn,
+  user: state.user
+});
+
+const mapDispatchToProps = {
+  signInUser: signIn
+};
+
+const SignIn = ({ signedIn, signInUser }) => {
   return (
     <div className="sxctf-sign-in">
       <HomeNavBar/>
@@ -17,4 +29,9 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+SignIn.propTypes = {
+  signedIn: PropTypes.bool.isRequired,
+  signInUser: PropTypes.func.isRequired
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

@@ -18,5 +18,9 @@ export default function configureStore(data) {
   const middleware = [routerMiddleware(history), loggerMiddleware];
 
   const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
-  return createStoreWithMiddleware(reducer(history), data);
+  const store = createStoreWithMiddleware(reducer(history), data);
+
+  if (process.env.NODE_ENV !== 'production' && module.hot) {
+    module.hot.accept('./modules/reducers', () => store.replaceReducer(reducer))
+  }
 }
