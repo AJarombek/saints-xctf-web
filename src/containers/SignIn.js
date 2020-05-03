@@ -7,9 +7,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { signIn } from '../../redux/modules/auth';
-import HomeNavBar from '../home/HomeNavBar';
-import SignInBody from './SignInBody';
+import { signIn } from '../redux/modules/auth';
+import HomeNavBar from '../components/home/HomeNavBar';
+import SignInBody from '../components/sign-in/SignInBody';
 
 const mapStateToProps = state => ({
   signedIn: state.auth.signedIn,
@@ -17,10 +17,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  signInUser: signIn
+  signIn
 };
 
-const SignIn = ({ signedIn, signInUser }) => {
+const SignIn = ({ signedIn, signIn }) => {
   return (
     <div className="sxctf-sign-in">
       <HomeNavBar/>

@@ -12,7 +12,7 @@ import { ConnectedRouter } from 'connected-react-router';
 
 import configureStore, { history } from './redux/store';
 import Home from './components/home/Home';
-import SignIn from './components/sign-in/SignIn';
+import SignIn from './containers/SignIn';
 import { Provider } from 'react-redux';
 import reducer from './redux/modules/reducers';
 
