@@ -6,7 +6,10 @@
 
 const appState = {
   auth: {
-    signedIn: true
+    isFetching: false,
+    lastUpdated: 1588530309,
+    signedIn: true,
+    status: "SUCCESS"
   },
   user: {
     andy: {

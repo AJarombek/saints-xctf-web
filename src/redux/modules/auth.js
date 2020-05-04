@@ -5,12 +5,13 @@
  */
 
 import { api } from '../../datasources/apiRequest';
+import bcrypt from 'bcrypt';
+import moment from 'moment';
 
 // Actions
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
 const SIGNIN_FAILURE = 'saints-xctf-web/auth/SIGNIN_FAILURE';
 const SIGNIN_SUCCESS = 'saints-xctf-web/auth/SIGNIN_SUCCESS';
-const INVALIDATE_USER = 'saints-xctf-web/auth/INVALIDATE_USER';
 
 // Reducer
 const initialState = {};
@@ -18,19 +19,49 @@ const initialState = {};
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case SIGNIN_REQUEST:
-      return state;
-    case SIGNIN_SUCCESS:
-      return { ...state, auth: { signedIn: true } };
-    case SIGNIN_FAILURE:
-      return state;
-    case INVALIDATE_USER:
       return {
         ...state,
+        auth: {
+          isFetching: true,
+          lastUpdated: moment().unix(),
+          signedIn: false,
+          status: action.status
+        },
         user: {
           [action.username]: {
-            didInvalidate: true
+            isFetching: true,
+            lastUpdated: moment().unix()
           }
         }
+      };
+    case SIGNIN_SUCCESS:
+      return {
+        ...state,
+        auth: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          signedIn: true,
+          status: action.status
+        },
+        user: {
+          [action.username]: {
+            isFetching: false,
+            didInvalidate: false,
+            lastUpdated: moment().unix(),
+            ...action.user
+          }
+        }
+      };
+    case SIGNIN_FAILURE:
+      return {
+        ...state,
+        auth: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          signedIn: false,
+          status: action.status
+        },
+        user: {}
       };
     default:
       return state;
@@ -38,18 +69,48 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 // Action Creators
-export function signInRequest(username) {
+export function signInRequest(username, status) {
   return {
     type: SIGNIN_REQUEST,
-    username
+    username,
+    status
+  }
+}
+
+export function signInSuccess(user, status) {
+  return {
+    type: SIGNIN_SUCCESS,
+    user,
+    status
+  }
+}
+
+export function signInFailure(status) {
+  return {
+    type: SIGNIN_FAILURE,
+    status
   }
 }
 
 export function signIn(username, password) {
   return async function (dispatch) {
-    dispatch(signInRequest(username));
+    dispatch(signInRequest(username, "PENDING"));
 
     const response = await api.get(`v2/users/${username}`);
-    console.info(response);
+
+    if (response.status === 200) {
+      const { user } = response.data;
+      const match = await bcrypt.compare(password, user.password);
+
+      if (match) {
+        dispatch(signInSuccess(user, "SUCCESS"));
+      } else {
+        dispatch(signInFailure("INVALID PASSWORD"));
+      }
+    } else if (response.status === 400) {
+      dispatch(signInFailure("INVALID USER"));
+    } else {
+      dispatch(signInFailure("INTERNAL ERROR"));
+    }
   }
 }
