@@ -20,17 +20,34 @@ const mapDispatchToProps = {
   signIn
 };
 
-const SignIn = ({ signedIn, signIn }) => {
+const SignIn = ({ signedIn, user, signIn }) => {
   return (
     <div className="sxctf-sign-in">
       <HomeNavBar/>
-      <SignInBody/>
+      <SignInBody signIn={signIn}/>
     </div>
   );
 };
 
 SignIn.propTypes = {
-  signedIn: PropTypes.bool.isRequired,
+  signedIn: PropTypes.bool,
+  user: PropTypes.shape({
+    activation_code: PropTypes.string,
+    class_year: PropTypes.number,
+    deleted: PropTypes.string,
+    description: PropTypes.string,
+    email: PropTypes.string,
+    favorite_event: PropTypes.string,
+    first: PropTypes.string.isRequired,
+    last: PropTypes.string.isRequired,
+    last_signin: PropTypes.string,
+    location: PropTypes.string,
+    member_since: PropTypes.string,
+    password: PropTypes.string.isRequired,
+    subscribed: PropTypes.string,
+    username: PropTypes.string,
+    week_start: PropTypes.string
+  }),
   signInUser: PropTypes.func.isRequired
 };
 

@@ -14,7 +14,6 @@ import configureStore, { history } from './redux/store';
 import Home from './components/home/Home';
 import SignIn from './containers/SignIn';
 import { Provider } from 'react-redux';
-import reducer from './redux/modules/reducers';
 
 const store = configureStore();
 
@@ -30,10 +29,6 @@ const RoutedApp = () =>
       </>
     </ConnectedRouter>
   </Provider>;
-
-if (process.env.NODE_ENV !== 'production' && module.hot) {
-  module.hot.accept('./components/App', () => store.replaceReducer(reducer))
-}
 
 render(
   <RoutedApp/>,

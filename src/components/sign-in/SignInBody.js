@@ -5,10 +5,11 @@
  */
 
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { AJButton } from 'jarombek-react-components';
 import ImageInput from '../shared/ImageInput';
 
-const SignInBody = () => {
+const SignInBody = ({ signIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -31,11 +32,15 @@ const SignInBody = () => {
       </div>
       <p>Forgot Password?</p>
       <div>
-        <AJButton type="contained">Sign In</AJButton>
+        <AJButton type="contained" onClick={() => signIn(username, password)}>Sign In</AJButton>
         <AJButton type="text">Create Account</AJButton>
       </div>
     </div>
   );
+};
+
+SignInBody.propTypes = {
+  signIn: PropTypes.func.isRequired
 };
 
 export default SignInBody;

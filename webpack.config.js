@@ -92,7 +92,11 @@ const localConfig = {
     historyApiFallback: true,
     port: 8090,
     proxy: {
-      '/api': 'http://localhost:8095'
+      '/api/**': {
+        target: 'http://localhost:5000/',
+        secure: false,
+        pathRewrite: { '^/api': '' }
+      }
     }
   }
 };
@@ -100,10 +104,10 @@ const localConfig = {
 module.exports = (env) => {
   switch (env) {
     case 'local':
-      return merge(config(env, 'http://localhost:8090/'), localConfig);
+      return merge(config(JSON.stringify(env), 'http://localhost:8090/'), localConfig);
     case 'development':
-      return merge(config(env, 'https://dev.saintsxctf.com/'), devConfig);
+      return merge(config(JSON.stringify(env), 'https://dev.saintsxctf.com/'), devConfig);
     default:
-      return merge(config(env, 'https://saintsxctf.com/'), prodConfig);
+      return merge(config(JSON.stringify(env), 'https://saintsxctf.com/'), prodConfig);
   }
 };

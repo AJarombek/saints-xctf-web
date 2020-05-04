@@ -18,13 +18,13 @@ const appState = {
       last: "Jarombek",
       password: "xxxxxx",
       description: "Test Description",
-      member_since: "2016-02-23 12:00:00",
-      class_year: 2017,
+      memberSince: "2016-02-23 12:00:00",
+      classYear: 2017,
       location: "New York, NY",
-      favorite_event: "Cooldown Jog",
-      activation_code: "ABCD1234",
+      favoriteEvent: "Cooldown Jog",
+      activationCode: "ABCD1234",
       email: "andrew@jarombek.com",
-      last_signin: "2020-05-03 12:00:00",
+      lastSignIn: "2020-05-03 12:00:00",
       subscribed: "Y",
       logs: []
     }
@@ -51,10 +51,10 @@ const appState = {
       isFetching: false,
       didInvalidate: false,
       lastUpdated: 1588530314,
-      groupname: "wmenstf",
-      group_title: "Women's Track & Field",
+      groupName: "wmenstf",
+      groupTitle: "Women's Track & Field",
       description: "",
-      week_start: "monday",
+      weekStart: "monday",
       members: [],
       logs: []
     }
@@ -63,8 +63,8 @@ const appState = {
     isFetching: false,
     didInvalidate: false,
     lastUpdated: 1588530315,
-    items: [
-      {
+    items: {
+      1: {
         log_id: 1,
         username: "andy",
         first: "Andrew",
@@ -80,19 +80,19 @@ const appState = {
         pace: "00:07:10",
         feel: 6,
         description: "",
-        time_created: "2020-05-03 12:00:00",
-        comments: [
-          {
-            comment_id: 1,
+        timeCreated: "2020-05-03 12:00:00",
+        comments: {
+          1: {
+            commentId: 1,
             username: "andy",
             first: "Andrew",
             last: "Jarombek",
-            log_id: 1,
+            logId: 1,
             time: "2020-05-03 12:00:00",
             content: "test"
           }
-        ]
+        }
       }
-    ]
+    }
   }
 };

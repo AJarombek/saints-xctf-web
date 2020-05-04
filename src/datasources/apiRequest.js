@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const instance = axios.create({
+export const api = axios.create({
   baseURL: '/api/',
   timeout: 1000
 });
