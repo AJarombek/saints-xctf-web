@@ -27,7 +27,7 @@ const ImageInput = ({ type, name, placeholder, onChange, icon, status = 0, succe
 
   return (
     <div className="sxctf-image-input">
-      {icon && <img src={icon} alt />}
+      {icon && <img src={icon} alt="" />}
       <input name={name} type={type} placeholder={placeholder} onChange={onChange} />
       <img src={statusIcon} alt />
     </div>

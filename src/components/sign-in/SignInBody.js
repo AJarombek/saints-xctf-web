@@ -15,25 +15,27 @@ const SignInBody = ({ signIn }) => {
 
   return (
     <div className="sxctf-sign-in-body">
-      <h2>Sign In</h2>
       <div>
-        <ImageInput
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username or Email"
-          name="username"
-          type="text"
-        />
-        <ImageInput
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          name="password"
-          type="password"
-        />
-      </div>
-      <p>Forgot Password?</p>
-      <div>
-        <AJButton type="contained" onClick={() => signIn(username, password)}>Sign In</AJButton>
-        <AJButton type="text">Create Account</AJButton>
+        <h2>Sign In</h2>
+        <div>
+          <ImageInput
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username or Email"
+            name="username"
+            type="text"
+          />
+          <ImageInput
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            name="password"
+            type="password"
+          />
+        </div>
+        <p>Forgot Password?</p>
+        <div>
+          <AJButton type="contained" onClick={() => signIn(username, password)}>Sign In</AJButton>
+          <AJButton type="text">Create Account</AJButton>
+        </div>
       </div>
     </div>
   );

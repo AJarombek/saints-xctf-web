@@ -17,10 +17,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  signIn
+  signInUser: signIn
 };
 
-const SignIn = ({ signedIn, user, signIn }) => {
+const SignIn = ({ signedIn, user, signInUser }) => {
   return (
     <div className="sxctf-sign-in">
       <HomeNavBar/>

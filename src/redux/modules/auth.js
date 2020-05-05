@@ -5,7 +5,7 @@
  */
 
 import { api } from '../../datasources/apiRequest';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import moment from 'moment';
 
 // Actions
@@ -96,9 +96,9 @@ export function signIn(username, password) {
   return async function (dispatch) {
     dispatch(signInRequest(username, "PENDING"));
 
-    const response = await api.get(`v2/users/${username}`);
+    try {
+      const response = await api.get(`v2/users/${username}`);
 
-    if (response.status === 200) {
       const { user } = response.data;
       const match = await bcrypt.compare(password, user.password);
 
@@ -107,10 +107,13 @@ export function signIn(username, password) {
       } else {
         dispatch(signInFailure("INVALID PASSWORD"));
       }
-    } else if (response.status === 400) {
-      dispatch(signInFailure("INVALID USER"));
-    } else {
-      dispatch(signInFailure("INTERNAL ERROR"));
+    } catch (error) {
+      const { response } = error;
+      if (response.status === 400) {
+        dispatch(signInFailure("INVALID USER"));
+      } else {
+        dispatch(signInFailure("INTERNAL ERROR"));
+      }
     }
   }
 }
