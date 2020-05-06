@@ -1,0 +1,25 @@
+/*
+ * Sass styling for the ImapgeInput component
+ * @author Andrew Jarombek
+ * @since 5/6/2020
+ */
+
+.sxctf-image-input {
+  display: flex;
+  border: none;
+  border-radius: 4px;
+  background-color: #fdfdfd;
+
+  height: 45px;
+  width: 250px;
+
+  input {
+    background-color: transparent;
+    border: none;
+    width: 200px;
+  }
+
+  img {
+    width: 50px;
+  }
+}

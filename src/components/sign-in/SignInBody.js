@@ -6,8 +6,10 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { AJButton } from 'jarombek-react-components';
 import ImageInput from '../shared/ImageInput';
+import ImageInputSet from '../shared/ImageInputSet';
 
 const SignInBody = ({ signIn }) => {
   const [username, setUsername] = useState("");
@@ -18,20 +20,22 @@ const SignInBody = ({ signIn }) => {
       <div>
         <h2>Sign In</h2>
         <div>
-          <ImageInput
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Username or Email"
-            name="username"
-            type="text"
-          />
-          <ImageInput
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            name="password"
-            type="password"
-          />
+          <ImageInputSet>
+            <ImageInput
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username or Email"
+              name="username"
+              type="text"
+            />
+            <ImageInput
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              name="password"
+              type="password"
+            />
+          </ImageInputSet>
         </div>
-        <p>Forgot Password?</p>
+        <Link to="/forgotpassword">Forgot Password?</Link>
         <div>
           <AJButton type="contained" onClick={() => signIn(username, password)}>Sign In</AJButton>
           <AJButton type="text">Create Account</AJButton>

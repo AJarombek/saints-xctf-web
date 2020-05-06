@@ -15,5 +15,13 @@
     h1 {
       color: lighten(#0e0e0e, 10%);
     }
+
+    .aj-text-button > button, .aj-outlined-button > button {
+      color: #555 !important;
+
+      &:hover {
+        color: #0e0e0e !important;
+      }
+    }
   }
 }

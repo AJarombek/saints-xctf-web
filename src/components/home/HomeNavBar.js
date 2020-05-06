@@ -5,12 +5,13 @@
  */
 
 import React, {useState, createRef} from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
 import saintsXCTFLogo from '../../../assets/saintsxctf_logo.png';
 
-const HomeNavBar = () => {
+const HomeNavBar = ({ excludeHeaders = [] }) => {
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -53,6 +54,40 @@ const HomeNavBar = () => {
     }
   };
 
+  const mobileNavItems = [
+    {
+      name: 'about',
+      content: 'About',
+      onClick: () => {
+        navigateMobile('#about');
+        mobileHamburgerRef.current.click();
+      }
+    },
+    {
+      name: 'testimonials',
+      content: 'Testimonials',
+      onClick: () => {
+        navigateMobile('#testimonials');
+        mobileHamburgerRef.current.click();
+      }
+    },
+    {
+      name: 'register',
+      content: 'Register',
+      onClick: () => navigateMobile('/register')
+    },
+    {
+      name: 'signIn',
+      content: 'Sign In',
+      onClick: () => navigateMobile('/signin')
+    },
+    {
+      name: 'logo',
+      content: <img className="mobile-dropdown-logo" src={saintsXCTFLogo} alt="" />,
+      onClick: () => navigateMobile('#')
+    }
+  ];
+
   return (
     <>
       <div className={navBarClass}>
@@ -65,24 +100,32 @@ const HomeNavBar = () => {
         </figure>
         <h1 onClick={() => history.push('/#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
-          <AJButton type="text" onClick={() => {
-            history.push('/#about');
-            hashRoute();
-          }}>
-            About
-          </AJButton>
-          <AJButton type="text" onClick={() => {
-            history.push('/#testimonials');
-            hashRoute();
-          }}>
-            Testimonials
-          </AJButton>
-          <AJButton type="outlined" onClick={() => history.push('/register')}>
-            Register
-          </AJButton>
-          <AJButton type="contained" onClick={() => history.push('/signin')}>
-            Sign In
-          </AJButton>
+          { !excludeHeaders.includes('about') &&
+            <AJButton type="text" onClick={() => {
+              history.push('/#about');
+              hashRoute();
+            }}>
+              About
+            </AJButton>
+          }
+          { !excludeHeaders.includes('testimonials') &&
+            <AJButton type="text" onClick={() => {
+              history.push('/#testimonials');
+              hashRoute();
+            }}>
+              Testimonials
+            </AJButton>
+          }
+          { !excludeHeaders.includes('register') &&
+            <AJButton type="outlined" onClick={() => history.push('/register')}>
+              Register
+            </AJButton>
+          }
+          { !excludeHeaders.includes('signIn') &&
+            <AJButton type="contained" onClick={() => history.push('/signin')}>
+              Sign In
+            </AJButton>
+          }
         </div>
         <div className="sxctf-nav-hamburger">
           <AJMobileHamburger
@@ -92,41 +135,14 @@ const HomeNavBar = () => {
         </div>
       </div>
       <div className={dropdownClass}>
-        <AJNavList
-          items={[
-            {
-              content: 'About',
-              onClick: () => {
-                navigateMobile('#about');
-                mobileHamburgerRef.current.click();
-              }
-            },
-            {
-              content: 'Testimonials',
-              onClick: () => {
-                navigateMobile('#testimonials');
-                mobileHamburgerRef.current.click();
-              }
-            },
-            {
-              content: 'Register',
-              onClick: () => navigateMobile('/register')
-            },
-            {
-              content: 'Sign In',
-              onClick: () => navigateMobile('/signin')
-            },
-            {
-              content: <img className="mobile-dropdown-logo"
-                            src={saintsXCTFLogo}
-                            alt="" />,
-              onClick: () => navigateMobile('#')
-            }
-          ]}
-        />
+        <AJNavList items={mobileNavItems.filter(item => !excludeHeaders.includes(item.name))}/>
       </div>
     </>
   );
+};
+
+HomeNavBar.propTypes = {
+  excludeHeaders: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default HomeNavBar;
