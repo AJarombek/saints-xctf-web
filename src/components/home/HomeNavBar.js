@@ -56,6 +56,11 @@ const HomeNavBar = ({ excludeHeaders = [] }) => {
 
   const mobileNavItems = [
     {
+      name: 'home',
+      content: 'Home',
+      onClick: () => navigateMobile('/')
+    },
+    {
       name: 'about',
       content: 'About',
       onClick: () => {
@@ -100,6 +105,11 @@ const HomeNavBar = ({ excludeHeaders = [] }) => {
         </figure>
         <h1 onClick={() => history.push('/#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
+          { !excludeHeaders.includes('home') &&
+            <AJButton type="text" onClick={() => history.push('/')}>
+              Home
+            </AJButton>
+          }
           { !excludeHeaders.includes('about') &&
             <AJButton type="text" onClick={() => {
               history.push('/#about');

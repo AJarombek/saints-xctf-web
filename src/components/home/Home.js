@@ -23,7 +23,7 @@ const Home = () => {
 
   return (
     <div className="sxctf-home">
-      <HomeNavBar/>
+      <HomeNavBar excludeHeaders={["home"]}/>
       <HomeBody/>
       <div className="sxctf-home-overlay"> </div>
       <img className="sxctf-home-background-img" src={mobileBackgroundPicture} alt="" />

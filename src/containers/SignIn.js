@@ -23,7 +23,7 @@ const mapDispatchToProps = {
 const SignIn = ({ signedIn, user, signInUser }) => {
   return (
     <div className="sxctf-sign-in">
-      <HomeNavBar excludeHeaders={["signIn"]}/>
+      <HomeNavBar excludeHeaders={["signIn", "about", "testimonials"]}/>
       <SignInBody signIn={signIn}/>
     </div>
   );

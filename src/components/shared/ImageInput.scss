@@ -7,10 +7,10 @@
 .sxctf-image-input {
   display: flex;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   background-color: #fdfdfd;
 
-  height: 45px;
+  height: 50px;
   width: 250px;
 
   input {
@@ -20,6 +20,8 @@
   }
 
   img {
-    width: 50px;
+    width: 36px;
+    height: 36px;
+    margin: 7px;
   }
 }

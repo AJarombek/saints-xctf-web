@@ -5,6 +5,7 @@
  */
 
 @import "../../fonts";
+@import "../../vars";
 
 .sxctf-sign-in-body {
   display: flex;
@@ -40,6 +41,19 @@
       @include roboto-bold;
       font-size: 24px;
       margin: 20px 0;
+    }
+
+    a {
+      @include roboto-bold;
+      font-size: 13px;
+      text-decoration: none;
+      align-self: flex-end;
+      margin: 20px 100px 20px 0;
+      color: $spot-palette-blue;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }

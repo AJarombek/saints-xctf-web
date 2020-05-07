@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import { AJButton } from 'jarombek-react-components';
 import ImageInput from '../shared/ImageInput';
 import ImageInputSet from '../shared/ImageInputSet';
+import usernameLogo from '../../../assets/username.png';
+import passwordLogo from '../../../assets/password.png';
 
 const SignInBody = ({ signIn }) => {
   const [username, setUsername] = useState("");
@@ -23,12 +25,14 @@ const SignInBody = ({ signIn }) => {
           <ImageInputSet>
             <ImageInput
               onChange={(e) => setUsername(e.target.value)}
+              icon={usernameLogo}
               placeholder="Username or Email"
               name="username"
               type="text"
             />
             <ImageInput
               onChange={(e) => setPassword(e.target.value)}
+              icon={passwordLogo}
               placeholder="Password"
               name="password"
               type="password"
