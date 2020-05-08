@@ -16,6 +16,11 @@
 }
 
 @font-face {
+  font-family: ElegantIcons;
+  src: url("http://global.jarombek.io/fonts/ElegantIcons.ttf") format("truetype");
+}
+
+@font-face {
   font-family: Roboto-Bold;
   src: url("http://global.jarombek.io/fonts/Roboto-Bold.ttf") format("truetype");
 }
@@ -64,6 +69,15 @@
   background-color: transparent !important;
   font: {
     family: 'Allura', Helvetica, sans-serif !important;
+    weight: normal;
+    style: normal;
+  };
+}
+
+@mixin elegant-icons {
+  background-color: transparent !important;
+  font: {
+    family: 'ElegantIcons', Helvetica, sans-serif !important;
     weight: normal;
     style: normal;
   };

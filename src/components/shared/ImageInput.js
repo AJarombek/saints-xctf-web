@@ -6,37 +6,54 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
-const ImageInput = ({ type, name, placeholder, onChange, icon, status = 0, successIcon,
-                      failureIcon, warningIcon }) => {
+const ImageInput = ({ type, name, placeholder, onChange, icon, status = 0 }) => {
 
-  let statusIcon;
+  let statusIcon, statusClass;
   switch (status) {
+    case NONE:
+      statusIcon = null;
+      statusClass = 'none';
+      break;
     case SUCCESS:
-      statusIcon = successIcon;
+      statusIcon = '\u0052';
+      statusClass = 'success';
       break;
     case WARNING:
-      statusIcon = warningIcon;
+      statusIcon = '\u004f';
+      statusClass = 'warning';
       break;
     case FAILURE:
-      statusIcon = failureIcon;
+      statusIcon = '\u0051';
+      statusClass = 'failure';
       break;
     default:
-      statusIcon = failureIcon;
+      statusIcon = null;
+      statusClass = 'none';
   }
 
   return (
     <div className="sxctf-image-input">
       {icon && <img src={icon} alt="" />}
       <input name={name} type={type} placeholder={placeholder} onChange={onChange} />
-      <img src={statusIcon} alt />
+      <div>
+        <div className={classnames("status", statusClass)}>
+          <p>{statusIcon}</p>
+        </div>
+      </div>
     </div>
   );
 };
 
-export const SUCCESS = 0;
-export const WARNING = 1;
-export const FAILURE = 2;
+export const NONE = 0;
+export const SUCCESS = 1;
+export const WARNING = 2;
+export const FAILURE = 3;
+
+ImageInput.Status = {
+  NONE, SUCCESS, WARNING, FAILURE
+};
 
 ImageInput.propTypes = {
   type: PropTypes.string.isRequired,
@@ -44,7 +61,7 @@ ImageInput.propTypes = {
   placeholder: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   icon: PropTypes.any,
-  status: PropTypes.oneOf([SUCCESS, WARNING, FAILURE]),
+  status: PropTypes.oneOf([NONE, SUCCESS, WARNING, FAILURE]),
   successIcon: PropTypes.any,
   failureIcon: PropTypes.any,
   warningIcon: PropTypes.any

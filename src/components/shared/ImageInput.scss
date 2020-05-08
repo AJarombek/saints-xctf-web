@@ -4,6 +4,9 @@
  * @since 5/6/2020
  */
 
+@import "../../fonts";
+@import "../../vars";
+
 .sxctf-image-input {
   display: flex;
   border: none;
@@ -14,14 +17,70 @@
   width: 250px;
 
   input {
+    @include roboto;
+    font-size: 12px;
     background-color: transparent;
     border: none;
     width: 200px;
+
+    &:focus {
+      outline: none;
+    }
   }
 
   img {
     width: 36px;
     height: 36px;
     margin: 7px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+
+    .status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+
+      &.none {
+        background-color: transparent;
+      }
+
+      &.success {
+        background-color: $status-success;
+
+        p {
+          font-size: 22px;
+        }
+      }
+
+      &.warning {
+        background-color: $status-warning;
+
+        p {
+          font-size: 24px;
+        }
+      }
+
+      &.failure {
+        background-color: $status-failure;
+
+        p {
+          font-size: 24px;
+        }
+      }
+
+      p {
+        @include elegant-icons;
+        color: white;
+        margin: 0;
+      }
+    }
   }
 }

@@ -29,6 +29,7 @@ const SignInBody = ({ signIn }) => {
               placeholder="Username or Email"
               name="username"
               type="text"
+              status={ImageInput.Status.NONE}
             />
             <ImageInput
               onChange={(e) => setPassword(e.target.value)}
@@ -36,6 +37,7 @@ const SignInBody = ({ signIn }) => {
               placeholder="Password"
               name="password"
               type="password"
+              status={ImageInput.Status.NONE}
             />
           </ImageInputSet>
         </div>
