@@ -9,12 +9,14 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
-
 import configureStore, { history } from './redux/store';
+import { Provider } from 'react-redux';
+
 import Home from './containers/Home';
 import SignIn from './containers/SignIn';
-import { Provider } from 'react-redux';
 import Dashboard from './containers/Dashboard';
+import ForgotPassword from './containers/ForgotPassword';
+import Register from './containers/Register';
 
 const store = configureStore();
 
@@ -25,6 +27,8 @@ const RoutedApp = () =>
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/dashboard" component={Dashboard}/>
+          <Route exact path="/forgotpassword" component={ForgotPassword}/>
+          <Route exact path="/register" component={Register}/>
           <Route exact path="/signin" component={SignIn}/>
           <Route component={Home}/>
         </Switch>
