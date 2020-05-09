@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import Home from '../../src/components/home/Home';
+import Home from '../../src/containers/Home';
 
 let mockDay = 1;
 jest.mock('moment', () => {

@@ -11,9 +11,10 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 
 import configureStore, { history } from './redux/store';
-import Home from './components/home/Home';
+import Home from './containers/Home';
 import SignIn from './containers/SignIn';
 import { Provider } from 'react-redux';
+import Dashboard from './containers/Dashboard';
 
 const store = configureStore();
 
@@ -23,6 +24,7 @@ const RoutedApp = () =>
       <>
         <Switch>
           <Route exact path="/" component={Home}/>
+          <Route exact path="/dashboard" component={Dashboard}/>
           <Route exact path="/signin" component={SignIn}/>
           <Route component={Home}/>
         </Switch>

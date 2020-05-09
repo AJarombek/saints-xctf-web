@@ -53,3 +53,4 @@ yarn start
 
 1) [Proxy to API](https://www.freecodecamp.org/news/never-use-an-absolute-path-for-your-apis-again-9ee9199563be/)
 2) [React on Nginx](https://medium.com/@timmykko/deploying-create-react-app-with-nginx-and-ubuntu-e6fe83c5e9e7)
+3) [React Dev Server Proxy](https://stackoverflow.com/a/46202705)

@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import Home from '../../src/components/home/Home';
+import Home from '../../src/containers/Home';
 import renderer from 'react-test-renderer';
 
 // Mock react router's useHistory() hook before the tests execute.

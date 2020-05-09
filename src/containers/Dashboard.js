@@ -1,46 +1,39 @@
 /**
- * Container component for the sign in page.
+ * Dashboard component displayed when a user is signed in.  Shows an overview of user activity.
  * @author Andrew Jarombek
- * @since 4/30/2020
+ * @since 5/9/2020
  */
 
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { signIn } from '../redux/modules/auth';
+
 import { userAuthenticated } from '../utils/auth';
-import HomeNavBar from '../components/home/HomeNavBar';
-import SignInBody from '../components/sign-in/SignInBody';
 
 const mapStateToProps = state => ({
   auth: state.auth.auth,
   user: state.auth.user
 });
 
-const mapDispatchToProps = {
-  signInUser: signIn
-};
-
-const SignIn = ({ auth = {}, user = {}, signInUser }) => {
-  const { isFetching = false, signedIn, status } = auth;
+const Dashboard = ({ auth = {}, user = {} }) => {
+  const { signedIn } = auth;
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user, signedIn)) {
-      history.push('/dashboard');
+    if (!userAuthenticated(user, signedIn)) {
+      history.push('/');
     }
   }, [user]);
 
   return (
-    <div className="sxctf-sign-in">
-      <HomeNavBar excludeHeaders={["signIn", "about", "testimonials"]}/>
-      <SignInBody signIn={signInUser} isFetching={isFetching} status={status}/>
+    <div className="sxctf-dashboard">
+
     </div>
   );
 };
 
-SignIn.propTypes = {
+Dashboard.propTypes = {
   auth: PropTypes.shape({
     isFetching: PropTypes.bool,
     signedIn: PropTypes.bool,
@@ -62,8 +55,7 @@ SignIn.propTypes = {
     subscribed: PropTypes.string,
     username: PropTypes.string,
     week_start: PropTypes.string
-  }),
-  signInUser: PropTypes.func.isRequired
+  })
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps)(Dashboard);

@@ -17,3 +17,5 @@ Configure Redux as the state management system for the application.
 4) [Redux Ducks Spec](https://github.com/erikras/ducks-modular-redux)
 5) [React Router/Redux Setup Steps](https://github.com/supasate/connected-react-router#usage)
 6) [Redux Hot Reloading](https://redux.js.org/recipes/configuring-your-store/#hot-reloading)
+7) [Redux Thunk](https://github.com/reduxjs/redux-thunk)
+8) [Redux/React Official Real World Example](https://github.com/reduxjs/redux/tree/master/examples/real-world)
