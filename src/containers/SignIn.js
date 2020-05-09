@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { signIn } from '../redux/modules/auth';
 import { userAuthenticated } from '../utils/auth';
-import HomeNavBar from '../components/home/HomeNavBar';
+import NavBar from '../components/shared/NavBar';
 import SignInBody from '../components/sign-in/SignInBody';
 
 const mapStateToProps = state => ({
@@ -34,7 +34,7 @@ const SignIn = ({ auth = {}, user = {}, signInUser }) => {
 
   return (
     <div className="sxctf-sign-in">
-      <HomeNavBar excludeHeaders={["signIn", "about", "testimonials"]}/>
+      <NavBar includeHeaders={["home", "register", "logo"]}/>
       <SignInBody signIn={signInUser} isFetching={isFetching} status={status}/>
     </div>
   );

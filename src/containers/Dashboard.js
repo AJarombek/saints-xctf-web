@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../utils/auth';
+import NavBar from '../components/shared/NavBar';
 
 const mapStateToProps = state => ({
   auth: state.auth.auth,
@@ -28,7 +29,7 @@ const Dashboard = ({ auth = {}, user = {} }) => {
 
   return (
     <div className="sxctf-dashboard">
-
+      <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
     </div>
   );
 };

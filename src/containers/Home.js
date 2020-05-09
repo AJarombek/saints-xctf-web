@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../utils/auth';
-import HomeNavBar from '../components/home/HomeNavBar';
+import NavBar from '../components/shared/NavBar';
 import HomeBody from '../components/home/HomeBody';
 import HomeAbout from '../components/home/HomeAbout';
 import HomeApps from '../components/home/HomeApps';
@@ -41,7 +41,7 @@ const Home = ({ auth = {}, user = {} }) => {
 
   return (
     <div className="sxctf-home">
-      <HomeNavBar excludeHeaders={["home"]}/>
+      <NavBar includeHeaders={["about", "testimonials", "register", "signIn", "logo"]}/>
       <HomeBody/>
       <div className="sxctf-home-overlay"> </div>
       <img className="sxctf-home-background-img" src={mobileBackgroundPicture} alt="" />

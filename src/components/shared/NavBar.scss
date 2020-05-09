@@ -7,7 +7,7 @@
 @import "../../fonts";
 @import "../../vars";
 
-.sxctf-home-nav-bar {
+.sxctf-nav-bar {
   display: flex;
   align-items: center;
   background-color: transparent;
@@ -16,7 +16,7 @@
   left: 0;
   width: 100%;
 
-  &.sxctf-home-nav-bar-dropdown-visible {
+  &.sxctf-nav-bar-dropdown-visible {
     z-index: 1;
     background-color: #131313;
     position: fixed;

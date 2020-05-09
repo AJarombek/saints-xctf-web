@@ -11,19 +11,19 @@ import classnames from 'classnames';
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
 import saintsXCTFLogo from '../../../assets/saintsxctf_logo.png';
 
-const HomeNavBar = ({ excludeHeaders = [] }) => {
+const NavBar = ({ includeHeaders = [] }) => {
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
 
   const mobileHamburgerRef = createRef();
 
   const navBarClass = showDropdown ?
-    classnames('sxctf-home-nav-bar', 'sxctf-home-nav-bar-dropdown-visible') :
-    classnames('sxctf-home-nav-bar');
+    classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible') :
+    classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-hidden');
 
   const dropdownClass = showDropdown ?
     classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-visible') :
-    classnames('sxctf-nav-dropdown');
+    classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-hidden');
 
   /**
    * Navigate to a new page using the mobile dropdown navigation list.
@@ -55,6 +55,31 @@ const HomeNavBar = ({ excludeHeaders = [] }) => {
   };
 
   const mobileNavItems = [
+    {
+      name: 'dashboard',
+      content: 'Dashboard',
+      onClick: () => navigateMobile('/dashboard')
+    },
+    {
+      name: 'profile',
+      content: 'Profile',
+      onClick: () => navigateMobile('/profile')
+    },
+    {
+      name: 'groups',
+      content: 'Groups',
+      onClick: () => navigateMobile('/groups')
+    },
+    {
+      name: 'admin',
+      content: 'Admin',
+      onClick: () => navigateMobile('/admin')
+    },
+    {
+      name: 'signOut',
+      content: 'Sign Out',
+      onClick: () => {}
+    },
     {
       name: 'home',
       content: 'Home',
@@ -105,12 +130,12 @@ const HomeNavBar = ({ excludeHeaders = [] }) => {
         </figure>
         <h1 onClick={() => history.push('/#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
-          { !excludeHeaders.includes('home') &&
+          { includeHeaders.includes('home') &&
             <AJButton type="text" onClick={() => history.push('/')}>
               Home
             </AJButton>
           }
-          { !excludeHeaders.includes('about') &&
+          { includeHeaders.includes('about') &&
             <AJButton type="text" onClick={() => {
               history.push('/#about');
               hashRoute();
@@ -118,7 +143,7 @@ const HomeNavBar = ({ excludeHeaders = [] }) => {
               About
             </AJButton>
           }
-          { !excludeHeaders.includes('testimonials') &&
+          { includeHeaders.includes('testimonials') &&
             <AJButton type="text" onClick={() => {
               history.push('/#testimonials');
               hashRoute();
@@ -126,14 +151,39 @@ const HomeNavBar = ({ excludeHeaders = [] }) => {
               Testimonials
             </AJButton>
           }
-          { !excludeHeaders.includes('register') &&
+          { includeHeaders.includes('register') &&
             <AJButton type="outlined" onClick={() => history.push('/register')}>
               Register
             </AJButton>
           }
-          { !excludeHeaders.includes('signIn') &&
+          { includeHeaders.includes('signIn') &&
             <AJButton type="contained" onClick={() => history.push('/signin')}>
               Sign In
+            </AJButton>
+          }
+          { includeHeaders.includes('dashboard') &&
+            <AJButton type="text" onClick={() => history.push('/dashboard')}>
+              Dashboard
+            </AJButton>
+          }
+          { includeHeaders.includes('profile') &&
+            <AJButton type="text" onClick={() => history.push('/profile')}>
+              Profile
+            </AJButton>
+          }
+          { includeHeaders.includes('groups') &&
+            <AJButton type="text" onClick={() => history.push('/groups')}>
+              Groups
+            </AJButton>
+          }
+          { includeHeaders.includes('admin') &&
+            <AJButton type="outlined" onClick={() => history.push('/admin')}>
+              Admin
+            </AJButton>
+          }
+          { includeHeaders.includes('signOut') &&
+            <AJButton type="contained" onClick={() => history.push('/signout')}>
+              Sign Out
             </AJButton>
           }
         </div>
@@ -145,14 +195,14 @@ const HomeNavBar = ({ excludeHeaders = [] }) => {
         </div>
       </div>
       <div className={dropdownClass}>
-        <AJNavList items={mobileNavItems.filter(item => !excludeHeaders.includes(item.name))}/>
+        <AJNavList items={mobileNavItems.filter(item => includeHeaders.includes(item.name))}/>
       </div>
     </>
   );
 };
 
-HomeNavBar.propTypes = {
-  excludeHeaders: PropTypes.arrayOf(PropTypes.string)
+NavBar.propTypes = {
+  includeHeaders: PropTypes.arrayOf(PropTypes.string)
 };
 
-export default HomeNavBar;
+export default NavBar;

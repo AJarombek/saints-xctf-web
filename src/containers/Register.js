@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../utils/auth';
-import HomeNavBar from '../components/home/HomeNavBar';
+import NavBar from '../components/shared/NavBar';
 
 const mapStateToProps = state => ({
   auth: state.auth.auth,
@@ -29,7 +29,7 @@ const Register = ({ auth = {}, user = {} }) => {
 
   return (
     <div className="sxctf-register">
-      <HomeNavBar excludeHeaders={["register", "about", "testimonials"]}/>
+      <NavBar includeHeaders={["home", "signIn", "logo"]}/>
     </div>
   );
 };

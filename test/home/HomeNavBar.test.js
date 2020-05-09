@@ -1,12 +1,12 @@
 /**
- * Unit tests with Jest and Enzyme for the {@link ../../src/client/pages/HomeNavBar} component.
+ * Unit tests with Jest and Enzyme for the {@link ../../src/client/pages/NavBar} component.
  * @author Andrew Jarombek
  * @since 3/20/2020
  */
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import HomeNavBar from '../../src/components/home/HomeNavBar';
+import NavBar from '../../src/components/shared/HomeNavBar';
 import { useHistory } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 
@@ -29,7 +29,7 @@ jest.mock('react-router-dom', () => {
 describe('unit tests', () => {
 
   it('renders', () => {
-    const wrapper = shallow(<HomeNavBar />);
+    const wrapper = shallow(<NavBar />);
     expect(wrapper.exists()).toBe(true);
   });
 
@@ -39,7 +39,7 @@ describe('integration tests', () => {
 
   it('has functional navigation buttons', () => {
     const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
-    const wrapper = mount(<HomeNavBar />);
+    const wrapper = mount(<NavBar />);
 
     const websiteLogo = wrapper.find('.sxctf-logo').childAt(0);
     const websiteTitle = wrapper.find('.sxctf-home-nav-bar').childAt(1);
@@ -136,7 +136,7 @@ describe('integration tests', () => {
   });
 
   it('has a working mobile dropdown', () => {
-    const wrapper = mount(<HomeNavBar />);
+    const wrapper = mount(<NavBar />);
 
     const getNavDropdownVisible = () =>
       wrapper
@@ -169,7 +169,7 @@ describe('integration tests', () => {
   });
 
   it('hashRoute function works as expected', () => {
-    const wrapper = mount(<HomeNavBar/>);
+    const wrapper = mount(<NavBar/>);
     const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
 
     window.location.hash = '#about';
@@ -182,7 +182,7 @@ describe('integration tests', () => {
   });
 
   it('hashRoute function works as expected', () => {
-    const wrapper = mount(<HomeNavBar/>);
+    const wrapper = mount(<NavBar/>);
     const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
     const getElementByIdSpy = jest.spyOn(document, 'getElementById').mockImplementation();
 
@@ -204,7 +204,7 @@ describe('integration tests', () => {
   });
 
   it('hashRoute function works as expected and scrolls', () => {
-    const wrapper = mount(<HomeNavBar/>);
+    const wrapper = mount(<NavBar/>);
 
     const elementMock = {
       scrollIntoView: jest.fn()

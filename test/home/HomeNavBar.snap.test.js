@@ -1,11 +1,11 @@
 /**
- * Snapshot test for the {@link ../../src/client/home/HomeNavBar} component.
+ * Snapshot test for the {@link ../../src/client/home/NavBar} component.
  * @author Andrew Jarombek
  * @since 2/23/2020
  */
 
 import React from 'react';
-import HomeNavBar from '../../src/components/home/HomeNavBar';
+import NavBar from '../../src/components/shared/HomeNavBar';
 import renderer from 'react-test-renderer';
 
 // Mock react router's useHistory() hook before the tests execute.
@@ -21,6 +21,6 @@ jest.mock('react-router-dom', () => {
 });
 
 it('renders correctly', () => {
-  const tree = renderer.create(<HomeNavBar />).toJSON();
+  const tree = renderer.create(<NavBar />).toJSON();
   expect(tree).toMatchSnapshot();
 });
