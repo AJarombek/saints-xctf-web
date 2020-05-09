@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { AJButton } from 'jarombek-react-components';
-import { userAuthenticated } from '../../utils/auth';
 import ImageInput from '../shared/ImageInput';
 import ImageInputSet from '../shared/ImageInputSet';
 import usernameLogo from '../../../assets/username.png';

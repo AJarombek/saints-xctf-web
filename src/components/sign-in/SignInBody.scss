@@ -14,6 +14,10 @@
   margin-top: 100px;
   min-height: calc(100vh - 100px);
 
+  @media screen and (max-width: 390px) {
+    margin-top: 75px;
+  }
+
   &:before {
     content: '';
     flex-grow: 1;
@@ -34,22 +38,56 @@
     align-items: center;
     position: relative;
 
-    width: 450px;
+    width: 600px;
     margin: 25px 0;
+
+    @media screen and (max-width: 1100px) {
+      width: 450px;
+    }
 
     h2 {
       @include roboto-bold;
-      font-size: 24px;
+      font-size: 28px;
       margin: 20px 0;
+
+      @media screen and (max-width: 1100px) {
+        font-size: 24px;
+      }
+    }
+
+    .sxctf-image-input {
+      @media screen and (min-width: 1101px) {
+        height: 60px;
+        width: 325px;
+      }
+
+      img {
+        @media screen and (min-width: 1101px) {
+          width: 46px;
+          height: 46px;
+        }
+      }
+
+      input {
+        @media screen and (min-width: 1101px) {
+          width: 240px;
+          font-size: 14px;
+        }
+      }
     }
 
     a {
       @include roboto-bold;
-      font-size: 13px;
+      font-size: 14px;
       text-decoration: none;
       align-self: flex-end;
-      margin: 20px 100px 20px 0;
+      margin: 20px 140px 20px 0;
       color: $spot-palette-blue;
+
+      @media screen and (max-width: 1100px) {
+        margin: 20px 100px 20px 0;
+        font-size: 13px;
+      }
 
       &:hover {
         text-decoration: underline;
@@ -57,6 +95,34 @@
     }
 
     .form-buttons {
+      margin-top: 20px;
+
+      @media screen and (max-width: 1100px) {
+        margin-top: 0;
+      }
+
+      .aj-contained-button {
+        margin-right: 20px;
+
+        button {
+          font-size: 14px;
+
+          @media screen and (max-width: 1100px) {
+            font-size: 11px;
+          }
+        }
+      }
+
+      .aj-text-button {
+        button {
+          font-size: 12px;
+
+          @media screen and (max-width: 1100px) {
+            font-size: 11px;
+          }
+        }
+      }
+
       .aj-contained-button[class*="ajContainedButtonDisabled"] {
         background-color: #999 !important;
       }
