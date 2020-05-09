@@ -10,7 +10,9 @@ import PropTypes from 'prop-types';
 const ImageInputSet = ({ children }) => {
   return (
     <div className="sxctf-image-input-set">
-      { children }
+      <form>
+        { children }
+      </form>
     </div>
   );
 };

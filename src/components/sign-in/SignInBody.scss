@@ -55,5 +55,11 @@
         text-decoration: underline;
       }
     }
+
+    .form-buttons {
+      .aj-contained-button[class*="ajContainedButtonDisabled"] {
+        background-color: #999 !important;
+      }
+    }
   }
 }

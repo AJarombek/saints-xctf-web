@@ -25,3 +25,4 @@ Client-side code for the SaintsXCTF web application.  The Client is made up of R
 ### Resources
 
 1) [Color Palette Generator](https://mycolor.space/?hex=%23990000&sub=1)
+2) [Password Form Auto Complete Attribute](https://www.chromium.org/developers/design-documents/create-amazing-password-forms)

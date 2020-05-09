@@ -77,9 +77,10 @@ export function signInRequest(username, status) {
   }
 }
 
-export function signInSuccess(user, status) {
+export function signInSuccess(username, user, status) {
   return {
     type: SIGNIN_SUCCESS,
+    username,
     user,
     status
   }
@@ -103,7 +104,7 @@ export function signIn(username, password) {
       const match = await bcrypt.compare(password, user.password);
 
       if (match) {
-        dispatch(signInSuccess(user, "SUCCESS"));
+        dispatch(signInSuccess(username, user, "SUCCESS"));
       } else {
         dispatch(signInFailure("INVALID PASSWORD"));
       }

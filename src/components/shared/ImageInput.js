@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const ImageInput = ({ type, name, placeholder, onChange, icon, status = 0 }) => {
+const ImageInput = ({ type, name, placeholder, autoComplete = "", onChange, icon, status = 0 }) => {
 
   let statusIcon, statusClass;
   switch (status) {
@@ -36,7 +36,13 @@ const ImageInput = ({ type, name, placeholder, onChange, icon, status = 0 }) => 
   return (
     <div className="sxctf-image-input">
       {icon && <img src={icon} alt="" />}
-      <input name={name} type={type} placeholder={placeholder} onChange={onChange} />
+      <input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        onChange={onChange}
+      />
       <div>
         <div className={classnames("status", statusClass)}>
           <p>{statusIcon}</p>
@@ -59,6 +65,7 @@ ImageInput.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
+  autoComplete: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   icon: PropTypes.any,
   status: PropTypes.oneOf([NONE, SUCCESS, WARNING, FAILURE]),
