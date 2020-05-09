@@ -4,7 +4,7 @@
  * @since 5/2/2020
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import { AJButton } from 'jarombek-react-components';
@@ -19,6 +19,25 @@ const SignInBody = ({ signIn, isFetching, status }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorStatus, setErrorStatus] = useState(null);
+
+  useEffect(() => {
+    let message;
+    switch (status) {
+      case "INVALID PASSWORD":
+      case "INVALID USER":
+        message = "Invalid username and password combination.";
+        setErrorStatus(message);
+        break;
+      case "INTERNAL ERROR":
+        message =  "An unexpected error occurred.  " +
+          "Contact andrew@jarombek.com if this error persists.";
+        setErrorStatus(message);
+        break;
+      default:
+        setErrorStatus(null);
+    }
+  }, [status]);
 
   const onClickSignIn = async () => {
     setLoading(true);
@@ -52,6 +71,7 @@ const SignInBody = ({ signIn, isFetching, status }) => {
             />
           </ImageInputSet>
         </div>
+        { errorStatus && <p className="errorStatus">{errorStatus}</p> }
         <Link to="/forgotpassword">Forgot Password?</Link>
         <div className="form-buttons">
           <AJButton

@@ -76,6 +76,13 @@
       }
     }
 
+    p {
+      @include longway;
+      margin: 10px 0 0 0;
+      font-size: 14px;
+      color: $saints-xctf-red;
+    }
+
     a {
       @include roboto-bold;
       font-size: 14px;

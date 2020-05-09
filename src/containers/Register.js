@@ -11,6 +11,7 @@ import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../utils/auth';
 import NavBar from '../components/shared/NavBar';
+import RegisterBody from '../components/register/RegisterBody';
 
 const mapStateToProps = state => ({
   auth: state.auth.auth,
@@ -30,6 +31,7 @@ const Register = ({ auth = {}, user = {} }) => {
   return (
     <div className="sxctf-register">
       <NavBar includeHeaders={["home", "signIn", "logo"]}/>
+      <RegisterBody/>
     </div>
   );
 };
