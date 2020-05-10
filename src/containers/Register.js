@@ -15,11 +15,14 @@ import RegisterBody from '../components/register/RegisterBody';
 
 const mapStateToProps = state => ({
   auth: state.auth.auth,
-  user: state.auth.user
+  user: state.auth.user,
+  registration: state.auth.registration
 });
 
-const Register = ({ auth = {}, user = {} }) => {
+const Register = ({ auth = {}, user = {}, registration = {} }) => {
   const { signedIn } = auth;
+  const { stage } = registration;
+
   const history = useHistory();
 
   useEffect(() => {
@@ -31,7 +34,7 @@ const Register = ({ auth = {}, user = {} }) => {
   return (
     <div className="sxctf-register">
       <NavBar includeHeaders={["home", "signIn", "logo"]}/>
-      <RegisterBody/>
+      <RegisterBody stage={stage}/>
     </div>
   );
 };

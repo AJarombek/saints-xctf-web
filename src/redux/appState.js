@@ -6,31 +6,52 @@
 
 const appState = {
   auth: {
-    isFetching: false,
-    lastUpdated: 1588530309,
-    signedIn: true,
-    status: "SUCCESS"
-  },
-  user: {
-    andy: {
+    auth: {
       isFetching: false,
-      didInvalidate: false,
-      lastUpdated: 1588530310,
-      username: "andy",
-      first: "Andrew",
+      lastUpdated: 1588530309,
+      signedIn: true,
+      status: "SUCCESS"
+    },
+    registration: {
+      stage: 1,
+      first: "Andy",
       last: "Jarombek",
-      password: "xxxxxx",
-      description: "Test Description",
-      memberSince: "2016-02-23 12:00:00",
-      classYear: 2017,
-      location: "New York, NY",
-      favoriteEvent: "Cooldown Jog",
-      activationCode: "ABCD1234",
       email: "andrew@jarombek.com",
-      lastSignIn: "2020-05-03 12:00:00",
-      subscribed: "Y",
-      logs: []
-    }
+      username: undefined,
+      password: undefined,
+      activationCode: undefined,
+      teams: {
+        saintsXCTFAlumni: {
+          status: "accepted",
+          groups: {
+            alumni: {
+              status: "accepted"
+            }
+          }
+        }
+      }
+    },
+    user: {
+      andy: {
+        isFetching: false,
+        didInvalidate: false,
+        lastUpdated: 1588530310,
+        username: "andy",
+        first: "Andrew",
+        last: "Jarombek",
+        password: "xxxxxx",
+        description: "Test Description",
+        memberSince: "2016-02-23 12:00:00",
+        classYear: 2017,
+        location: "New York, NY",
+        favoriteEvent: "Cooldown Jog",
+        activationCode: "ABCD1234",
+        email: "andrew@jarombek.com",
+        lastSignIn: "2020-05-03 12:00:00",
+        subscribed: "Y",
+        logs: []
+      }
+    },
   },
   profile: {
     tom: {

@@ -13,16 +13,28 @@ import { useHistory } from 'react-router-dom';
 import { AJButton } from 'jarombek-react-components';
 import emailLogo from '../../../assets/email.png';
 
-const RegisterBody = ({  }) => {
+const RegisterBody = ({ stage }) => {
   const history = useHistory();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
+  const [emailStatus, setEmailStatus] = useState(ImageInput.Status.NONE);
   const [errorStatus, setErrorStatus] = useState(null);
 
   const emailPattern = /^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$/;
+
+  const onChangeEmail = (e) => {
+    const email = e.target.value;
+    setEmail(email);
+
+    if (emailPattern.test(email)) {
+      setEmailStatus(ImageInput.Status.NONE);
+    } else {
+      setEmailStatus(ImageInput.Status.WARNING);
+    }
+  };
 
   return (
     <div className="sxctf-register-body">
@@ -50,13 +62,13 @@ const RegisterBody = ({  }) => {
             />
           </ImageInputSet>
           <ImageInput
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={onChangeEmail}
             icon={emailLogo}
             placeholder="Email"
             name="email"
             type="text"
             autoComplete=""
-            status={ImageInput.Status.NONE}
+            status={emailStatus}
           />
         </div>
         <div className="form-buttons">
@@ -64,7 +76,8 @@ const RegisterBody = ({  }) => {
             type="contained"
             onClick={() => {}}
             disabled={
-              loading || firstName.length === 0 || lastName.length === 0 || email.length === 0
+              loading || firstName.length === 0 || lastName.length === 0 ||
+              email.length === 0 || !emailPattern.test(email)
             }>
             Continue
           </AJButton>
@@ -80,7 +93,7 @@ const RegisterBody = ({  }) => {
 };
 
 RegisterBody.propTypes = {
-
+  stage: PropTypes.number.isRequired
 };
 
 export default RegisterBody;

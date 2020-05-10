@@ -12,6 +12,19 @@ import moment from 'moment';
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
 const SIGNIN_FAILURE = 'saints-xctf-web/auth/SIGNIN_FAILURE';
 const SIGNIN_SUCCESS = 'saints-xctf-web/auth/SIGNIN_SUCCESS';
+const REGISTER_PERSONAL_INFO_REQUEST = 'saints-xctf-web/auth/REGISTER_PERSONAL_INFO_REQUEST';
+const REGISTER_PERSONAL_INFO_FAILURE = 'saints-xctf-web/auth/REGISTER_PERSONAL_INFO_FAILURE';
+const REGISTER_PERSONAL_INFO_SUCCESS = 'saints-xctf-web/auth/REGISTER_PERSONAL_INFO_SUCCESS';
+const REGISTER_CREDENTIALS_REQUEST = 'saints-xctf-web/auth/REGISTER_CREDENTIALS_REQUEST';
+const REGISTER_CREDENTIALS_FAILURE = 'saints-xctf-web/auth/REGISTER_CREDENTIALS_FAILURE';
+const REGISTER_CREDENTIALS_SUCCESS = 'saints-xctf-web/auth/REGISTER_CREDENTIALS_SUCCESS';
+const REGISTER_TEAMS_REQUEST = 'saints-xctf-web/auth/REGISTER_TEAMS_REQUEST';
+const REGISTER_TEAMS_FAILURE = 'saints-xctf-web/auth/REGISTER_TEAMS_FAILURE';
+const REGISTER_TEAMS_SUCCESS = 'saints-xctf-web/auth/REGISTER_TEAMS_SUCCESS';
+const REGISTER_GROUPS_REQUEST = 'saints-xctf-web/auth/REGISTER_GROUPS_REQUEST';
+const REGISTER_GROUPS_FAILURE = 'saints-xctf-web/auth/REGISTER_GROUPS_FAILURE';
+const REGISTER_GROUPS_SUCCESS = 'saints-xctf-web/auth/REGISTER_GROUPS_SUCCESS';
+const REGISTER_BACK = 'saints-xctf-web/auth/REGISTER_BACK';
 
 // Reducer
 const initialState = {};
@@ -63,6 +76,19 @@ export default function reducer(state = initialState, action = {}) {
         },
         user: {}
       };
+    case REGISTER_PERSONAL_INFO_REQUEST:
+    case REGISTER_PERSONAL_INFO_FAILURE:
+    case REGISTER_PERSONAL_INFO_SUCCESS:
+    case REGISTER_CREDENTIALS_REQUEST:
+    case REGISTER_CREDENTIALS_FAILURE:
+    case REGISTER_CREDENTIALS_SUCCESS:
+    case REGISTER_TEAMS_REQUEST:
+    case REGISTER_TEAMS_FAILURE:
+    case REGISTER_TEAMS_SUCCESS:
+    case REGISTER_GROUPS_REQUEST:
+    case REGISTER_GROUPS_FAILURE:
+    case REGISTER_GROUPS_SUCCESS:
+    case REGISTER_BACK:
     default:
       return state;
   }
