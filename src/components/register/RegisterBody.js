@@ -22,11 +22,13 @@ const RegisterBody = ({  }) => {
   const [loading, setLoading] = useState(false);
   const [errorStatus, setErrorStatus] = useState(null);
 
+  const emailPattern = /^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$/;
+
   return (
     <div className="sxctf-register-body">
       <div>
         <h2>Register</h2>
-        <div>
+        <div className="form-inputs">
           <ImageInputSet direction={ImageInputSet.Direction.COLUMN}>
             <ImageInput
               onChange={(e) => setFirstName(e.target.value)}

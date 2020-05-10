@@ -28,7 +28,7 @@ ImageInputSet.Direction = {
 
 ImageInputSet.propTypes = {
   children: PropTypes.node.isRequired,
-  direction: PropTypes.oneOf(ROW, COLUMN)
+  direction: PropTypes.oneOf([ROW, COLUMN])
 };
 
 export default ImageInputSet;

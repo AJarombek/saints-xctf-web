@@ -6,38 +6,12 @@
 
 @import "../../fonts";
 @import "../../vars";
+@import "../../mixins";
 
 .sxctf-sign-in-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
-  min-height: calc(100vh - 100px);
-
-  @media screen and (max-width: 390px) {
-    margin-top: 75px;
-  }
-
-  &:before {
-    content: '';
-    flex-grow: 1;
-    display: block;
-  }
-
-  &:after {
-    content: '';
-    flex-grow: 2;
-    display: block;
-  }
+  @include centeredBody;
 
   > div {
-    flex-shrink: 0;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-
     width: 600px;
     margin: 25px 0;
 
@@ -45,15 +19,7 @@
       width: 450px;
     }
 
-    h2 {
-      @include roboto-bold;
-      font-size: 28px;
-      margin: 20px 0;
-
-      @media screen and (max-width: 1100px) {
-        font-size: 24px;
-      }
-    }
+    @include formTitle;
 
     .sxctf-image-input {
       @media screen and (min-width: 1101px) {
@@ -76,12 +42,7 @@
       }
     }
 
-    p {
-      @include longway;
-      margin: 10px 0 0 0;
-      font-size: 14px;
-      color: $saints-xctf-red;
-    }
+    @include formError;
 
     a {
       @include roboto-bold;
@@ -102,36 +63,10 @@
     }
 
     .form-buttons {
-      margin-top: 20px;
+      @include formButtons;
 
       @media screen and (max-width: 1100px) {
         margin-top: 0;
-      }
-
-      .aj-contained-button {
-        margin-right: 20px;
-
-        button {
-          font-size: 14px;
-
-          @media screen and (max-width: 1100px) {
-            font-size: 11px;
-          }
-        }
-      }
-
-      .aj-text-button {
-        button {
-          font-size: 12px;
-
-          @media screen and (max-width: 1100px) {
-            font-size: 11px;
-          }
-        }
-      }
-
-      .aj-contained-button[class*="ajContainedButtonDisabled"] {
-        background-color: #999 !important;
       }
     }
   }

@@ -4,6 +4,9 @@
  * @since 5/10/2020
  */
 
+@import "fonts";
+@import "vars";
+
 /**
  * Configures a container component using the NavBar component to have a light styling for the NavBar in the standard
  * view.  When the mobile dropdown is activated, a dark styling is applied.
@@ -45,5 +48,101 @@
         color: #0e0e0e !important;
       }
     }
+  }
+}
+
+/**
+ * Center a page body component using flex.  Provide enough room for the NavBar at the top of the page.
+ */
+@mixin centeredBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  min-height: calc(100vh - 100px);
+
+  @media screen and (max-width: 390px) {
+    margin-top: 75px;
+  }
+
+  &:before {
+    content: '';
+    flex-grow: 1;
+    display: block;
+  }
+
+  &:after {
+    content: '';
+    flex-grow: 2;
+    display: block;
+  }
+
+  > div {
+    flex-shrink: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+}
+
+/**
+ * General styles for a title of an HTML form.
+ */
+@mixin formTitle() {
+  h2 {
+    @include roboto-bold;
+    font-size: 28px;
+    margin: 20px 0;
+
+    @media screen and (max-width: 1100px) {
+      font-size: 24px;
+    }
+  }
+}
+
+/**
+ * General styles for an error message displayed under an HTML form.
+ */
+@mixin formError() {
+  p {
+    @include longway;
+    margin: 10px 0 0 0;
+    font-size: 14px;
+    color: $saints-xctf-red;
+  }
+}
+
+/**
+ * General styles for action buttons displayed under an HTML form.
+ */
+@mixin formButtons() {
+  margin-top: 20px;
+
+  .aj-contained-button {
+    margin-right: 20px;
+
+    button {
+      font-size: 14px;
+
+      @media screen and (max-width: 1100px) {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .aj-text-button {
+    button {
+      font-size: 12px;
+
+      @media screen and (max-width: 1100px) {
+        font-size: 11px;
+      }
+    }
+  }
+
+  .aj-contained-button[class*="ajContainedButtonDisabled"] {
+    background-color: #999 !important;
   }
 }

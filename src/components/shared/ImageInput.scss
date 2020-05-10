@@ -16,7 +16,31 @@
   height: 50px;
   width: 250px;
 
+  img {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    margin: 7px;
+  }
+
+  .no-icon {
+    flex-shrink: 0;
+    width: 20px;
+  }
+
+  // Styles for Chrome auto-completion.
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: $spot-palette-brown;
+    transition: background-color 5000s ease 0s;
+  }
+
   input {
+    flex-shrink: 1;
+    flex-grow: 1;
+    min-width: 100px;
+
     @include roboto;
     font-size: 12px;
     background-color: transparent;
@@ -28,18 +52,9 @@
     }
   }
 
-  img {
-    width: 36px;
-    height: 36px;
-    margin: 7px;
-  }
-
-  .no-icon {
-    width: 36px;
-    height: 36px;
-  }
-
   div {
+    flex-shrink: 0;
+
     display: flex;
     align-items: center;
     justify-content: center;
