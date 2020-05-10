@@ -19,6 +19,7 @@ const SignInBody = ({ signIn, isFetching, status }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [iconStatus, setIconStatus] = useState(ImageInput.Status.NONE);
   const [errorStatus, setErrorStatus] = useState(null);
 
   useEffect(() => {
@@ -28,14 +29,17 @@ const SignInBody = ({ signIn, isFetching, status }) => {
       case "INVALID USER":
         message = "Invalid username and password combination.";
         setErrorStatus(message);
+        setIconStatus(ImageInput.Status.FAILURE);
         break;
       case "INTERNAL ERROR":
         message =  "An unexpected error occurred.  " +
           "Contact andrew@jarombek.com if this error persists.";
         setErrorStatus(message);
+        setIconStatus(ImageInput.Status.FAILURE);
         break;
       default:
         setErrorStatus(null);
+        setIconStatus(ImageInput.Status.NONE);
     }
   }, [status]);
 
@@ -58,7 +62,7 @@ const SignInBody = ({ signIn, isFetching, status }) => {
               name="username"
               type="text"
               autoComplete="username"
-              status={ImageInput.Status.NONE}
+              status={iconStatus}
             />
             <ImageInput
               onChange={(e) => setPassword(e.target.value)}
@@ -67,7 +71,7 @@ const SignInBody = ({ signIn, isFetching, status }) => {
               name="password"
               type="password"
               autoComplete="current-password"
-              status={ImageInput.Status.NONE}
+              status={iconStatus}
             />
           </ImageInputSet>
         </div>

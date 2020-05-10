@@ -6,10 +6,12 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
 import ImageInputSet from '../shared/ImageInputSet';
 import ImageInput from '../shared/ImageInput';
 import { useHistory } from 'react-router-dom';
 import { AJButton } from 'jarombek-react-components';
+import emailLogo from '../../../assets/email.png';
 
 const RegisterBody = ({  }) => {
   const history = useHistory();
@@ -25,7 +27,7 @@ const RegisterBody = ({  }) => {
       <div>
         <h2>Register</h2>
         <div>
-          <ImageInputSet>
+          <ImageInputSet direction={ImageInputSet.Direction.COLUMN}>
             <ImageInput
               onChange={(e) => setFirstName(e.target.value)}
               icon={null}
@@ -47,7 +49,7 @@ const RegisterBody = ({  }) => {
           </ImageInputSet>
           <ImageInput
             onChange={(e) => setEmail(e.target.value)}
-            icon={passwordLogo}
+            icon={emailLogo}
             placeholder="Email"
             name="email"
             type="text"
@@ -66,8 +68,8 @@ const RegisterBody = ({  }) => {
           </AJButton>
           <AJButton
             type="text"
-            onClick={() => history.push('/signin')}>
-            Existing User?  Sign In
+            onClick={() => history.goBack()}>
+            Exit
           </AJButton>
         </div>
       </div>

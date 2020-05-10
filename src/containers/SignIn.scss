@@ -4,46 +4,9 @@
  * @since 4/30/2020
  */
 
-@import "../vars";
+@import "../mixins";
 
 .sxctf-sign-in {
   background-color: #f5f5f5;
-
-  .sxctf-nav-bar-dropdown-visible {
-    background-color: #131313;
-
-    .sxctf-nav-hamburger {
-      .aj-mobile-hamburger {
-        span, span:before, span:after {
-          background-color: white;
-        }
-      }
-    }
-  }
-
-  .sxctf-nav-bar-dropdown-hidden {
-    background-color: #f5f5f5;
-
-    h1 {
-      color: lighten(#0e0e0e, 10%);
-    }
-
-    .sxctf-nav-hamburger {
-      .aj-mobile-hamburger {
-        span, span:before, span:after {
-          background-color: black;
-        }
-      }
-    }
-  }
-
-  .sxctf-nav-bar {
-    .aj-text-button > button, .aj-outlined-button > button {
-      color: #555 !important;
-
-      &:hover {
-        color: #0e0e0e !important;
-      }
-    }
-  }
+  @include lightNavDarkDropdown;
 }

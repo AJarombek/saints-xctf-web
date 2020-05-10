@@ -6,10 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
-const ImageInputSet = ({ children }) => {
+const ImageInputSet = ({ children, direction = ROW }) => {
+
   return (
-    <div className="sxctf-image-input-set">
+    <div className={classnames("sxctf-image-input-set", direction)}>
       <form>
         { children }
       </form>
@@ -17,8 +19,16 @@ const ImageInputSet = ({ children }) => {
   );
 };
 
+export const ROW = "row";
+export const COLUMN = "column";
+
+ImageInputSet.Direction = {
+  ROW, COLUMN
+};
+
 ImageInputSet.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  direction: PropTypes.oneOf(ROW, COLUMN)
 };
 
 export default ImageInputSet;
