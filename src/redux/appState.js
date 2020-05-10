@@ -12,25 +12,6 @@ const appState = {
       signedIn: true,
       status: "SUCCESS"
     },
-    registration: {
-      stage: 1,
-      first: "Andy",
-      last: "Jarombek",
-      email: "andrew@jarombek.com",
-      username: undefined,
-      password: undefined,
-      activationCode: undefined,
-      teams: {
-        saintsXCTFAlumni: {
-          status: "accepted",
-          groups: {
-            alumni: {
-              status: "accepted"
-            }
-          }
-        }
-      }
-    },
     user: {
       andy: {
         isFetching: false,
@@ -52,6 +33,25 @@ const appState = {
         logs: []
       }
     },
+  },
+  registration: {
+    stage: 1,
+    first: "Andy",
+    last: "Jarombek",
+    email: "andrew@jarombek.com",
+    username: undefined,
+    password: undefined,
+    activationCode: undefined,
+    teams: {
+      saintsXCTFAlumni: {
+        status: "accepted",
+        groups: {
+          alumni: {
+            status: "accepted"
+          }
+        }
+      }
+    }
   },
   profile: {
     tom: {
