@@ -12,12 +12,12 @@ import RegisterCredentials from './RegisterCredentials';
 import RegisterGroups from './RegisterGroups';
 import RegisterTeams from './RegisterTeams';
 
-const RegisterBody = ({ stage, registerPersonalInfo }) => {
+const RegisterBody = ({ stage, registerPersonalInfo, registration }) => {
 
   function renderStage() {
     switch (stage) {
       case 0:
-        return <RegisterPersonalInfo />;
+        return <RegisterPersonalInfo stage={stage} registerPersonalInfo={registerPersonalInfo}/>;
       case 1:
         return <RegisterCredentials />;
       case 2:
@@ -38,7 +38,17 @@ const RegisterBody = ({ stage, registerPersonalInfo }) => {
 
 RegisterBody.propTypes = {
   stage: PropTypes.number.isRequired,
-  registerPersonalInfo: PropTypes.func.isRequired
+  registerPersonalInfo: PropTypes.func.isRequired,
+  registration: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    lastUpdated: PropTypes.object,
+    valid: PropTypes.bool,
+    status: PropTypes.string,
+    stage: PropTypes.number,
+    first: PropTypes.string,
+    last: PropTypes.string,
+    email: PropTypes.string
+  })
 };
 
 export default RegisterBody;

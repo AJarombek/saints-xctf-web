@@ -1,6 +1,16 @@
+/**
+ * RegisterPersonalInfo component for the first stage of people creating new accounts.  In this
+ * stage, users enter their name and email.  The email is checked for existing accounts.
+ *
+ * Still do.  But I know some things are beyond my control.  And you must pursue your hearts call.
+ * @author Andrew Jarombek
+ * @since 5/11/2020
+ */
+
 import { AJButton } from 'jarombek-react-components';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import emailLogo from '../../../assets/email.png';
 import ImageInputSet from '../shared/ImageInputSet';
@@ -27,6 +37,12 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
     } else {
       setEmailStatus(ImageInput.Status.WARNING);
     }
+  };
+
+  const onClickContinue = async () => {
+    setLoading(true);
+    await registerPersonalInfo(firstName, lastName, email);
+    setLoading(false);
   };
 
   return (
@@ -66,7 +82,7 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
       <div className="form-buttons">
         <AJButton
           type="contained"
-          onClick={() => {}}
+          onClick={onClickContinue}
           disabled={
             loading || firstName.length === 0 || lastName.length === 0 ||
             email.length === 0 || !emailPattern.test(email)
@@ -75,12 +91,26 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
         </AJButton>
         <AJButton
           type="text"
-          onClick={() => history.goBack()}>
+          onClick={() => history.push('/')}>
           Exit
         </AJButton>
       </div>
     </div>
   );
+};
+
+RegisterPersonalInfo.propTypes = {
+  stage: PropTypes.number.isRequired,
+  registration: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    lastUpdated: PropTypes.object,
+    valid: PropTypes.bool,
+    status: PropTypes.string,
+    stage: PropTypes.number,
+    first: PropTypes.string,
+    last: PropTypes.string,
+    email: PropTypes.string
+  })
 };
 
 export default RegisterPersonalInfo;

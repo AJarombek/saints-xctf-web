@@ -18,7 +18,7 @@ import { registerPersonalInfo } from '../redux/modules/registration';
 const mapStateToProps = state => ({
   auth: state.auth.auth,
   user: state.auth.user,
-  register: state.registration
+  registration: state.registration
 });
 
 const mapDispatchToProps = {
@@ -40,7 +40,11 @@ const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInf
   return (
     <div className="sxctf-register">
       <NavBar includeHeaders={["home", "signIn", "logo"]}/>
-      <RegisterBody stage={stage} registerPersonalInfo={registerPersonalInfo}/>
+      <RegisterBody
+        stage={stage}
+        registerPersonalInfo={registerPersonalInfo}
+        registration={registration}
+      />
     </div>
   );
 };
@@ -67,7 +71,18 @@ Register.propTypes = {
     subscribed: PropTypes.string,
     username: PropTypes.string,
     week_start: PropTypes.string
-  })
+  }),
+  registration: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    lastUpdated: PropTypes.object,
+    valid: PropTypes.bool,
+    status: PropTypes.string,
+    stage: PropTypes.number,
+    first: PropTypes.string,
+    last: PropTypes.string,
+    email: PropTypes.string
+  }),
+  registerPersonalInfo: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
