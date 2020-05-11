@@ -8,7 +8,7 @@
  */
 
 import { AJButton } from 'jarombek-react-components';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -16,15 +16,35 @@ import emailLogo from '../../../assets/email.png';
 import ImageInputSet from '../shared/ImageInputSet';
 import ImageInput from '../shared/ImageInput';
 
-const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
+const RegisterPersonalInfo = ({ stage, registerPersonalInfo, registration }) => {
   const history = useHistory();
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState(registration.first || "");
+  const [lastName, setLastName] = useState(registration.last || "");
+  const [email, setEmail] = useState(registration.email || "");
   const [loading, setLoading] = useState(false);
   const [emailStatus, setEmailStatus] = useState(ImageInput.Status.NONE);
   const [errorStatus, setErrorStatus] = useState(null);
+
+  useEffect(() => {
+    let message;
+    switch (registration.status) {
+      case "USER ALREADY EXISTS":
+        message = "A user already exists with this email.";
+        setErrorStatus(message);
+        setEmailStatus(ImageInput.Status.FAILURE);
+        break;
+      case "INTERNAL ERROR":
+        message =  "An unexpected error occurred.  " +
+          "Contact andrew@jarombek.com if this error persists.";
+        setErrorStatus(message);
+        setEmailStatus(ImageInput.Status.NONE);
+        break;
+      default:
+        setErrorStatus(null);
+        setEmailStatus(ImageInput.Status.NONE);
+    }
+  }, [registration.status]);
 
   const emailPattern = /^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$/;
 
@@ -46,7 +66,7 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
   };
 
   return (
-    <div>
+    <div className="sxctf-register-personal-info">
       <h2>Register</h2>
       <div className="form-inputs">
         <ImageInputSet direction={ImageInputSet.Direction.COLUMN}>
@@ -57,6 +77,7 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
             name="firstName"
             type="text"
             autoComplete="firstName"
+            maxLength={30}
             status={ImageInput.Status.NONE}
           />
           <ImageInput
@@ -66,6 +87,7 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
             name="lastName"
             type="text"
             autoComplete=""
+            maxLength={30}
             status={ImageInput.Status.NONE}
           />
         </ImageInputSet>
@@ -76,9 +98,11 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
           name="email"
           type="text"
           autoComplete=""
+          maxLength={50}
           status={emailStatus}
         />
       </div>
+      { errorStatus && <p className="errorStatus">{errorStatus}</p> }
       <div className="form-buttons">
         <AJButton
           type="contained"
@@ -101,9 +125,10 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo }) => {
 
 RegisterPersonalInfo.propTypes = {
   stage: PropTypes.number.isRequired,
+  registerPersonalInfo: PropTypes.func.isRequired,
   registration: PropTypes.shape({
     isFetching: PropTypes.bool,
-    lastUpdated: PropTypes.object,
+    lastUpdated: PropTypes.number,
     valid: PropTypes.bool,
     status: PropTypes.string,
     stage: PropTypes.number,

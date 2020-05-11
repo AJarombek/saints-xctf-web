@@ -17,7 +17,13 @@ const RegisterBody = ({ stage, registerPersonalInfo, registration }) => {
   function renderStage() {
     switch (stage) {
       case 0:
-        return <RegisterPersonalInfo stage={stage} registerPersonalInfo={registerPersonalInfo}/>;
+        return (
+          <RegisterPersonalInfo
+            stage={stage}
+            registerPersonalInfo={registerPersonalInfo}
+            registration={registration}
+          />
+        );
       case 1:
         return <RegisterCredentials />;
       case 2:
@@ -25,7 +31,13 @@ const RegisterBody = ({ stage, registerPersonalInfo, registration }) => {
       case 3:
         return <RegisterTeams />;
       default:
-        return <RegisterPersonalInfo />;
+        return (
+          <RegisterPersonalInfo
+            stage={stage}
+            registerPersonalInfo={registerPersonalInfo}
+            registration={registration}
+          />
+        );
     }
   }
 
@@ -41,7 +53,7 @@ RegisterBody.propTypes = {
   registerPersonalInfo: PropTypes.func.isRequired,
   registration: PropTypes.shape({
     isFetching: PropTypes.bool,
-    lastUpdated: PropTypes.object,
+    lastUpdated: PropTypes.number,
     valid: PropTypes.bool,
     status: PropTypes.string,
     stage: PropTypes.number,

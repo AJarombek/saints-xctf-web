@@ -52,10 +52,14 @@ const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInf
 Register.propTypes = {
   auth: PropTypes.shape({
     isFetching: PropTypes.bool,
+    lastUpdated: PropTypes.number,
     signedIn: PropTypes.bool,
     status: PropTypes.string
   }),
   user: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    didInvalidate: PropTypes.bool,
+    lastUpdated: PropTypes.number,
     activation_code: PropTypes.string,
     class_year: PropTypes.number,
     deleted: PropTypes.string,
@@ -74,7 +78,7 @@ Register.propTypes = {
   }),
   registration: PropTypes.shape({
     isFetching: PropTypes.bool,
-    lastUpdated: PropTypes.object,
+    lastUpdated: PropTypes.number,
     valid: PropTypes.bool,
     status: PropTypes.string,
     stage: PropTypes.number,

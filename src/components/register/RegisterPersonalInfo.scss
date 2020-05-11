@@ -1,0 +1,52 @@
+/*
+ * Sass styling for the RegisterPersonalInfo component
+ * @author Andrew Jarombek
+ * @since 5/11/2020
+ */
+
+@import "../../mixins";
+
+.sxctf-register-personal-info {
+  width: 600px;
+  margin: 25px 0;
+
+  @include formTitle;
+
+  .form-inputs {
+    .sxctf-image-input-set {
+      .sxctf-image-input {
+        width: 150px;
+      }
+    }
+
+    > .sxctf-image-input {
+      margin-top: 10px;
+      width: 300px;
+
+      @media screen and (min-width: 1101px) {
+        height: 60px;
+        width: 325px;
+      }
+
+      img {
+        @media screen and (min-width: 1101px) {
+          width: 46px;
+          height: 46px;
+        }
+      }
+
+      input {
+        @media screen and (min-width: 1101px) {
+          width: 240px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  @include formError;
+
+  .form-buttons {
+    @include formButtons;
+  }
+}

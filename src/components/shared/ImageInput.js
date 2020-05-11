@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-const ImageInput = ({ type, name, placeholder, autoComplete = "", onChange, icon,
+const ImageInput = ({ type, name, placeholder, autoComplete = "", maxLength, onChange, icon,
                       status = NONE }) => {
 
   let statusIcon, statusClass;
@@ -46,6 +46,7 @@ const ImageInput = ({ type, name, placeholder, autoComplete = "", onChange, icon
         type={type}
         placeholder={placeholder}
         autoComplete={autoComplete}
+        maxLength={maxLength}
         onChange={onChange}
       />
       <div>
@@ -71,6 +72,7 @@ ImageInput.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   autoComplete: PropTypes.string,
+  maxLength: PropTypes.number,
   onChange: PropTypes.func.isRequired,
   icon: PropTypes.any,
   status: PropTypes.oneOf([NONE, SUCCESS, WARNING, FAILURE])

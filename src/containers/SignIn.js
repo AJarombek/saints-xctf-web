@@ -43,10 +43,14 @@ const SignIn = ({ auth = {}, user = {}, signInUser }) => {
 SignIn.propTypes = {
   auth: PropTypes.shape({
     isFetching: PropTypes.bool,
+    lastUpdated: PropTypes.number,
     signedIn: PropTypes.bool,
     status: PropTypes.string
   }),
   user: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    didInvalidate: PropTypes.bool,
+    lastUpdated: PropTypes.number,
     activation_code: PropTypes.string,
     class_year: PropTypes.number,
     deleted: PropTypes.string,
