@@ -12,16 +12,22 @@ import { useHistory } from 'react-router-dom';
 import { userAuthenticated } from '../utils/auth';
 import NavBar from '../components/shared/NavBar';
 import RegisterBody from '../components/register/RegisterBody';
+import { signIn } from '../redux/modules/auth';
+import { registerPersonalInfo } from '../redux/modules/registration';
 
 const mapStateToProps = state => ({
   auth: state.auth.auth,
   user: state.auth.user,
-  registration: state.auth.registration
+  register: state.registration
 });
 
-const Register = ({ auth = {}, user = {}, registration = {} }) => {
+const mapDispatchToProps = {
+  registerPersonalInfo
+};
+
+const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInfo }) => {
   const { signedIn } = auth;
-  const { stage } = registration;
+  const { stage = 0 } = registration;
 
   const history = useHistory();
 
@@ -34,7 +40,7 @@ const Register = ({ auth = {}, user = {}, registration = {} }) => {
   return (
     <div className="sxctf-register">
       <NavBar includeHeaders={["home", "signIn", "logo"]}/>
-      <RegisterBody stage={stage}/>
+      <RegisterBody stage={stage} registerPersonalInfo={registerPersonalInfo}/>
     </div>
   );
 };
@@ -64,4 +70,4 @@ Register.propTypes = {
   })
 };
 
-export default connect(mapStateToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -31,23 +31,30 @@ export default function reducer(state = initialState, action = {}) {
     case REGISTER_PERSONAL_INFO_REQUEST:
       return {
         ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
+        isFetching: true,
+        lastUpdated: moment().unix(),
+        stage: 0
       };
     case REGISTER_PERSONAL_INFO_FAILURE:
       return {
         ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        valid: false,
+        status: action.status,
+        stage: 0
       };
     case REGISTER_PERSONAL_INFO_SUCCESS:
       return {
         ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        valid: true,
+        status: null,
+        stage: 1,
+        first: action.first,
+        last: action.last,
+        email: action.email
       };
     case REGISTER_CREDENTIALS_REQUEST:
       return {
@@ -125,3 +132,46 @@ export default function reducer(state = initialState, action = {}) {
 }
 
 // Action Creators
+export function registerPersonalInfoRequest() {
+  return {
+    type: REGISTER_PERSONAL_INFO_REQUEST
+  };
+}
+
+export function registerPersonalInfoSuccess(email, first, last) {
+  return {
+    type: REGISTER_PERSONAL_INFO_SUCCESS,
+    email,
+    first,
+    last
+  };
+}
+
+export function registerPersonalInfoFailure(status) {
+  return {
+    type: REGISTER_PERSONAL_INFO_FAILURE,
+    status
+  };
+}
+
+export function registerPersonalInfo(first, last, email) {
+  return async function(dispatch) {
+    dispatch(registerPersonalInfoRequest());
+
+    try {
+      await api.get(`v2/users/${email}`);
+
+      // If a user already exists with this email, registration should fail.
+      dispatch(registerPersonalInfoFailure("USER ALREADY EXISTS"));
+    } catch (error) {
+      const { response } = error;
+      if (response.status === 400) {
+        // If a user does not exist with this email, registration should continue to the next stage.
+        dispatch(registerPersonalInfoSuccess(email, last, first));
+      } else {
+        // If another error occurs, something unexpected happened on the server (no user error).
+        dispatch(registerPersonalInfoFailure("INTERNAL ERROR"));
+      }
+    }
+  }
+}
