@@ -19,13 +19,12 @@ const RegisterBody = ({ stage, registerPersonalInfo, registration }) => {
       case 0:
         return (
           <RegisterPersonalInfo
-            stage={stage}
             registerPersonalInfo={registerPersonalInfo}
             registration={registration}
           />
         );
       case 1:
-        return <RegisterCredentials />;
+        return <RegisterCredentials registration={registration} />;
       case 2:
         return <RegisterGroups />;
       case 3:
@@ -33,7 +32,6 @@ const RegisterBody = ({ stage, registerPersonalInfo, registration }) => {
       default:
         return (
           <RegisterPersonalInfo
-            stage={stage}
             registerPersonalInfo={registerPersonalInfo}
             registration={registration}
           />

@@ -59,23 +59,28 @@ export default function reducer(state = initialState, action = {}) {
     case REGISTER_CREDENTIALS_REQUEST:
       return {
         ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
+        isFetching: true,
+        lastUpdated: moment().unix(),
+        stage: 1
       };
     case REGISTER_CREDENTIALS_FAILURE:
       return {
         ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        valid: false,
+        status: action.status,
+        stage: 1
       };
     case REGISTER_CREDENTIALS_SUCCESS:
       return {
         ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        valid: true,
+        status: null,
+        stage: 2,
+        username: action.username
       };
     case REGISTER_TEAMS_REQUEST:
       return {
@@ -154,6 +159,26 @@ export function registerPersonalInfoFailure(status) {
   };
 }
 
+export function registerCredentialsRequest() {
+  return {
+    type: REGISTER_CREDENTIALS_REQUEST
+  };
+}
+
+export function registerCredentialsSuccess(username) {
+  return {
+    type: REGISTER_CREDENTIALS_SUCCESS,
+    username
+  };
+}
+
+export function registerCredentialsFailure(status) {
+  return {
+    type: REGISTER_CREDENTIALS_FAILURE,
+    status
+  };
+}
+
 export function registerPersonalInfo(first, last, email) {
   return async function(dispatch) {
     dispatch(registerPersonalInfoRequest());
@@ -174,4 +199,32 @@ export function registerPersonalInfo(first, last, email) {
       }
     }
   }
+}
+
+export function registerCredentials(username, password) {
+  return async function(dispatch) {
+    dispatch(registerCredentialsRequest());
+
+    const usernameValid = validateUsername(dispatch, username);
+
+    if (usernameValid) {
+      
+    }
+  }
+}
+
+async function validateUsername(dispatch, username) {
+  try {
+    await api.get(`v2/users/${username}`);
+    dispatch(registerCredentialsFailure("USERNAME ALREADY IN USE"));
+  } catch (error) {
+    const { response } = error;
+    if (response.status === 400) {
+      return true;
+    } else {
+      dispatch(registerCredentialsFailure("INTERNAL ERROR"));
+    }
+  }
+
+  return false;
 }

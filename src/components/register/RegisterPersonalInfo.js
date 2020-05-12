@@ -16,7 +16,7 @@ import emailLogo from '../../../assets/email.png';
 import ImageInputSet from '../shared/ImageInputSet';
 import ImageInput from '../shared/ImageInput';
 
-const RegisterPersonalInfo = ({ stage, registerPersonalInfo, registration }) => {
+const RegisterPersonalInfo = ({ registerPersonalInfo, registration }) => {
   const history = useHistory();
 
   const [firstName, setFirstName] = useState(registration.first || "");
@@ -44,6 +44,9 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo, registration }) => 
         setErrorStatus(null);
         setEmailStatus(ImageInput.Status.NONE);
     }
+
+    setLoading(false);
+
   }, [registration.status]);
 
   const emailPattern = /^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$/;
@@ -62,7 +65,6 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo, registration }) => 
   const onClickContinue = async () => {
     setLoading(true);
     await registerPersonalInfo(firstName, lastName, email);
-    setLoading(false);
   };
 
   return (
@@ -124,7 +126,6 @@ const RegisterPersonalInfo = ({ stage, registerPersonalInfo, registration }) => 
 };
 
 RegisterPersonalInfo.propTypes = {
-  stage: PropTypes.number.isRequired,
   registerPersonalInfo: PropTypes.func.isRequired,
   registration: PropTypes.shape({
     isFetching: PropTypes.bool,
