@@ -82,6 +82,7 @@ const prodConfig = {};
 const devConfig = {};
 
 const localConfig = {
+  devtool: "source-map",
   resolve: {
     alias: {
       'react': path.resolve('./node_modules/react'),

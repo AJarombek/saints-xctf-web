@@ -12,6 +12,7 @@ import ImageInput from '../shared/ImageInput';
 import ImageInputSet from '../shared/ImageInputSet';
 import usernameLogo from '../../../assets/username.png';
 import passwordLogo from '../../../assets/password.png';
+import keyLogo from '../../../assets/key.png';
 import { AJButton } from 'jarombek-react-components';
 
 const RegisterCredentials = ({ registration }) => {
@@ -47,7 +48,7 @@ const RegisterCredentials = ({ registration }) => {
           />
           <ImageInput
             onChange={() => {}}
-            icon={null}
+            icon={passwordLogo}
             placeholder="Confirm Password"
             name="confirm-password"
             type="password"
@@ -58,7 +59,7 @@ const RegisterCredentials = ({ registration }) => {
         </ImageInputSet>
         <ImageInput
           onChange={() => {}}
-          icon={null}
+          icon={keyLogo}
           placeholder="Activation Code"
           name="activation-code"
           type="text"
@@ -78,7 +79,7 @@ const RegisterCredentials = ({ registration }) => {
         <AJButton
           type="text"
           onClick={() => {}}>
-          Back to Personal Information
+          Back
         </AJButton>
       </div>
     </div>

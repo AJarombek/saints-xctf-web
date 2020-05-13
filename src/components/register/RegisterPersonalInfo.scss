@@ -10,12 +10,27 @@
   width: 600px;
   margin: 25px 0;
 
+  @media screen and (max-width: 600px) {
+    width: 300px;
+  }
+
   @include formTitle;
 
   .form-inputs {
     .sxctf-image-input-set {
       .sxctf-image-input {
         width: 150px;
+
+        @media screen and (min-width: 1101px) {
+          height: 60px;
+          width: 175px;
+        }
+
+        input {
+          @media screen and (min-width: 1101px) {
+            font-size: 14px;
+          }
+        }
       }
     }
 
@@ -25,7 +40,7 @@
 
       @media screen and (min-width: 1101px) {
         height: 60px;
-        width: 325px;
+        width: 350px;
       }
 
       img {
