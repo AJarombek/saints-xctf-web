@@ -201,14 +201,33 @@ export function registerPersonalInfo(first, last, email) {
   }
 }
 
-export function registerCredentials(username, password) {
+export function registerCredentials(first, last, email, username, password, activationCode) {
   return async function(dispatch) {
     dispatch(registerCredentialsRequest());
 
     const usernameValid = validateUsername(dispatch, username);
 
     if (usernameValid) {
-      
+      try {
+        await api.post(`v2/users`, {
+          username,
+          password,
+          first,
+          last,
+          email,
+          activation_code: activationCode
+        });
+
+        dispatch(registerCredentialsSuccess(username));
+      } catch (error) {
+        const { response } = error;
+        console.info(response);
+        if (response.error === "the activation code does not exist") {
+          dispatch(registerCredentialsFailure("ACTIVATION CODE INVALID"));
+        } else {
+          dispatch(registerCredentialsFailure("INTERNAL ERROR"));
+        }
+      }
     }
   }
 }
