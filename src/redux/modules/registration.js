@@ -127,9 +127,9 @@ export default function reducer(state = initialState, action = {}) {
     case REGISTER_BACK:
       return {
         ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        stage: 0
       };
     default:
       return state;
@@ -176,6 +176,12 @@ export function registerCredentialsFailure(status) {
   return {
     type: REGISTER_CREDENTIALS_FAILURE,
     status
+  };
+}
+
+export function registerBack() {
+  return {
+    type: REGISTER_BACK
   };
 }
 

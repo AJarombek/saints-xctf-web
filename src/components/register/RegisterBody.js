@@ -12,7 +12,8 @@ import RegisterCredentials from './RegisterCredentials';
 import RegisterGroups from './RegisterGroups';
 import RegisterTeams from './RegisterTeams';
 
-const RegisterBody = ({ stage, registerPersonalInfo, registration }) => {
+const RegisterBody = ({ stage, registerPersonalInfo, registerCredentials, registerBack,
+                        registration }) => {
 
   function renderStage() {
     switch (stage) {
@@ -24,7 +25,13 @@ const RegisterBody = ({ stage, registerPersonalInfo, registration }) => {
           />
         );
       case 1:
-        return <RegisterCredentials registration={registration} />;
+        return (
+          <RegisterCredentials
+            registration={registration}
+            registerCredentials={registerCredentials}
+            registerBack={registerBack}
+          />
+        );
       case 2:
         return <RegisterGroups />;
       case 3:
@@ -49,6 +56,8 @@ const RegisterBody = ({ stage, registerPersonalInfo, registration }) => {
 RegisterBody.propTypes = {
   stage: PropTypes.number.isRequired,
   registerPersonalInfo: PropTypes.func.isRequired,
+  registerCredentials: PropTypes.func.isRequired,
+  registerBack: PropTypes.func.isRequired,
   registration: PropTypes.shape({
     isFetching: PropTypes.bool,
     lastUpdated: PropTypes.number,

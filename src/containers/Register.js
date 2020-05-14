@@ -13,7 +13,11 @@ import { userAuthenticated } from '../utils/auth';
 import NavBar from '../components/shared/NavBar';
 import RegisterBody from '../components/register/RegisterBody';
 import { signIn } from '../redux/modules/auth';
-import { registerPersonalInfo } from '../redux/modules/registration';
+import {
+  registerPersonalInfo,
+  registerCredentials,
+  registerBack
+} from '../redux/modules/registration';
 
 const mapStateToProps = state => ({
   auth: state.auth.auth,
@@ -22,10 +26,12 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  registerPersonalInfo
+  registerPersonalInfo,
+  registerCredentials,
 };
 
-const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInfo }) => {
+const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInfo,
+                    registerCredentials, registerBack }) => {
   const { signedIn } = auth;
   const { stage = 0 } = registration;
 
@@ -43,6 +49,8 @@ const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInf
       <RegisterBody
         stage={stage}
         registerPersonalInfo={registerPersonalInfo}
+        registerCredentials={registerCredentials}
+        registerBack={registerBack}
         registration={registration}
       />
     </div>
@@ -86,7 +94,9 @@ Register.propTypes = {
     last: PropTypes.string,
     email: PropTypes.string
   }),
-  registerPersonalInfo: PropTypes.func.isRequired
+  registerPersonalInfo: PropTypes.func.isRequired,
+  registerCredentials: PropTypes.func.isRequired,
+  registerBack: PropTypes.func.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
