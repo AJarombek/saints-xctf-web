@@ -28,6 +28,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   registerPersonalInfo,
   registerCredentials,
+  registerBack
 };
 
 const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInfo,

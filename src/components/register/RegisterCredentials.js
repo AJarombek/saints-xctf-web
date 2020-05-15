@@ -5,7 +5,7 @@
  * @since 5/12/2020
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import ImageInput from '../shared/ImageInput';
@@ -31,6 +31,18 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
   const [confirmPasswordStatus, setConfirmPasswordStatus] = useState(ImageInput.Status.NONE);
   const [activationCodeStatus, setActivationCodeStatus] = useState(ImageInput.Status.NONE);
   const [errorStatus, setErrorStatus] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let message;
+    switch (registration.status) {
+      case "USERNAME ALREADY IN USE":
+      case "ACTIVATION CODE INVALID":
+      case "INTERNAL ERROR":
+      default:
+        setErrorStatus(null);
+    }
+  }, [registration.status]);
 
   const usernamePattern = /^[a-zA-Z0-9]+$/;
 
@@ -38,44 +50,67 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
     const value = e.target.value;
     setUsername(value);
 
-    if (usernamePattern.test(username)) {
-      setUsernameStatus(ImageInput.Status.NONE);
-    } else {
-      setUsernameStatus(ImageInput.Status.WARNING);
-    }
+    const isValid = usernamePattern.test(value);
+    const status = isValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+
+    setUsernameStatus(status);
+    setUsernameValid(isValid);
   };
 
   const onChangePassword = (e) => {
     const value = e.target.value;
     setPassword(value);
 
-    if (password.length < 8) {
-      setPasswordStatus(ImageInput.Status.WARNING);
-    } else {
-      setPasswordStatus(ImageInput.Status.NONE);
-    }
+    const lengthValid = value.length >= 8;
+    const valueValid = value === confirmPassword;
+
+    const status = lengthValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+    const confirmStatus = valueValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+
+    setPasswordStatus(status);
+    setPasswordValid(lengthValid);
+
+    setConfirmPasswordStatus(confirmStatus);
+    setConfirmPasswordValid(valueValid);
   };
 
   const onChangeConfirmPassword = (e) => {
     const value = e.target.value;
     setConfirmPassword(value);
 
-    if (confirmPassword === password) {
-      setConfirmPasswordStatus(ImageInput.Status.NONE);
-    } else {
-      setConfirmPasswordStatus(ImageInput.Status.WARNING);
-    }
+    const isValid = value === password;
+    const status = isValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+
+    setConfirmPasswordStatus(status);
+    setConfirmPasswordValid(isValid);
   };
 
   const onChangeActivationCode = (e) => {
     const value = e.target.value;
     setActivationCode(value);
 
-    if (activationCode.length < 8) {
-      setActivationCodeStatus(ImageInput.Status.WARNING);
-    } else {
-      setActivationCodeStatus(ImageInput.Status.NONE);
-    }
+    const isValid = value.length < 8;
+    const status = isValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+
+    setActivationCodeStatus(status);
+    setActivationCodeValid(isValid);
+  };
+
+  const onClickRegister = async () => {
+    setLoading(true);
+    await registerCredentials(
+      registration.first,
+      registration.last,
+      registration.email,
+      username,
+      password,
+      activationCode
+    );
+  };
+
+  const onClickBack = () => {
+    setLoading(true);
+    registerBack();
   };
 
   return (
@@ -92,6 +127,7 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
           maxLength={20}
           status={usernameStatus}
         />
+        <p className="input-tip">Username can only contain Roman characters and numbers.</p>
         <ImageInputSet direction={ImageInputSet.Direction.ROW}>
           <ImageInput
             onChange={onChangePassword}
@@ -111,9 +147,10 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
             type="password"
             autoComplete="new-password"
             maxLength={80}
-            status={passwordStatus}
+            status={confirmPasswordStatus}
           />
         </ImageInputSet>
+        <p className="input-tip">Password must be more than 7 characters long.</p>
         <ImageInput
           onChange={onChangeActivationCode}
           icon={keyLogo}
@@ -129,14 +166,14 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
       <div className="form-buttons">
         <AJButton
           type="contained"
-          onClick={() => {}}
-          disabled={!usernameValid || !passwordValid ||
+          onClick={onClickRegister}
+          disabled={loading || !usernameValid || !passwordValid ||
             !confirmPasswordValid || !activationCodeValid}>
           Register
         </AJButton>
         <AJButton
           type="text"
-          onClick={() => {}}>
+          onClick={onClickBack}>
           Back
         </AJButton>
       </div>
