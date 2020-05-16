@@ -35,13 +35,51 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
 
   useEffect(() => {
     let message;
+    if (registration.status)
     switch (registration.status) {
       case "USERNAME ALREADY IN USE":
-      case "ACTIVATION CODE INVALID":
+        message = "A user already exists with this username.";
+        setErrorStatus(message);
+
+        setUsernameStatus(ImageInput.Status.FAILURE);
+        setActivationCodeStatus(ImageInput.Status.NONE);
+        setPasswordStatus(ImageInput.Status.NONE);
+        break;
+      case "VALIDATION ERROR":
+        setErrorStatus(registration.serverError);
+
+        const activationCodeError =
+          registration.serverError === 'The activation code is invalid or expired.';
+        const activationCodeStatus = activationCodeError ?
+          ImageInput.Status.FAILURE : ImageInput.Status.NONE;
+
+        const passwordError =
+          registration.serverError === 'Password must contain at least 8 characters.';
+        const passwordStatus = passwordError ? ImageInput.Status.FAILURE : ImageInput.Status.NONE;
+
+        setUsernameStatus(ImageInput.Status.NONE);
+        setActivationCodeStatus(activationCodeStatus);
+        setPasswordStatus(passwordStatus);
+        break;
       case "INTERNAL ERROR":
+        message =  "An unexpected error occurred.  " +
+          "Contact andrew@jarombek.com if this error persists.";
+        setErrorStatus(message);
+
+        setUsernameStatus(ImageInput.Status.NONE);
+        setActivationCodeStatus(ImageInput.Status.NONE);
+        setPasswordStatus(ImageInput.Status.NONE);
+        break;
       default:
         setErrorStatus(null);
+
+        setUsernameStatus(ImageInput.Status.NONE);
+        setActivationCodeStatus(ImageInput.Status.NONE);
+        setPasswordStatus(ImageInput.Status.NONE);
     }
+
+    setLoading(false);
+
   }, [registration.status]);
 
   const usernamePattern = /^[a-zA-Z0-9]+$/;
@@ -89,7 +127,7 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
     const value = e.target.value;
     setActivationCode(value);
 
-    const isValid = value.length < 8;
+    const isValid = value.length === 8;
     const status = isValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
 
     setActivationCodeStatus(status);
@@ -150,7 +188,7 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
             status={confirmPasswordStatus}
           />
         </ImageInputSet>
-        <p className="input-tip">Password must be more than 7 characters long.</p>
+        <p className="input-tip">Password must be 8 or more characters long.</p>
         <ImageInput
           onChange={onChangeActivationCode}
           icon={keyLogo}

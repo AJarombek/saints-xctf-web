@@ -42,6 +42,7 @@ export default function reducer(state = initialState, action = {}) {
         lastUpdated: moment().unix(),
         valid: false,
         status: action.status,
+        serverError: action.error,
         stage: 0
       };
     case REGISTER_PERSONAL_INFO_SUCCESS:
@@ -51,6 +52,7 @@ export default function reducer(state = initialState, action = {}) {
         lastUpdated: moment().unix(),
         valid: true,
         status: null,
+        serverError: null,
         stage: 1,
         first: action.first,
         last: action.last,
@@ -70,6 +72,7 @@ export default function reducer(state = initialState, action = {}) {
         lastUpdated: moment().unix(),
         valid: false,
         status: action.status,
+        serverError: action.error,
         stage: 1
       };
     case REGISTER_CREDENTIALS_SUCCESS:
@@ -79,6 +82,7 @@ export default function reducer(state = initialState, action = {}) {
         lastUpdated: moment().unix(),
         valid: true,
         status: null,
+        serverError: null,
         stage: 2,
         username: action.username
       };
@@ -152,10 +156,11 @@ export function registerPersonalInfoSuccess(email, first, last) {
   };
 }
 
-export function registerPersonalInfoFailure(status) {
+export function registerPersonalInfoFailure(status, serverError) {
   return {
     type: REGISTER_PERSONAL_INFO_FAILURE,
-    status
+    status,
+    serverError
   };
 }
 
@@ -172,10 +177,11 @@ export function registerCredentialsSuccess(username) {
   };
 }
 
-export function registerCredentialsFailure(status) {
+export function registerCredentialsFailure(status, serverError) {
   return {
     type: REGISTER_CREDENTIALS_FAILURE,
-    status
+    status,
+    serverError
   };
 }
 
@@ -185,6 +191,15 @@ export function registerBack() {
   };
 }
 
+/**
+ * Perform Stage #1 of user registration.  This stage checks if the email a user selects already
+ * belongs to a user.  If so, an error is provided.  Otherwise, the email, first name, and last
+ * name are stored in redux state.
+ * @param first First name of the new user.
+ * @param last Last name of the new user.
+ * @param email Email address associated with the new user.
+ * @return {function(...[*]=)} Function which dispatches action creators.
+ */
 export function registerPersonalInfo(first, last, email) {
   return async function(dispatch) {
     dispatch(registerPersonalInfoRequest());
@@ -193,25 +208,38 @@ export function registerPersonalInfo(first, last, email) {
       await api.get(`v2/users/${email}`);
 
       // If a user already exists with this email, registration should fail.
-      dispatch(registerPersonalInfoFailure("USER ALREADY EXISTS"));
+      dispatch(registerPersonalInfoFailure("USER ALREADY EXISTS", null));
     } catch (error) {
       const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
       if (response.status === 400) {
         // If a user does not exist with this email, registration should continue to the next stage.
         dispatch(registerPersonalInfoSuccess(email, last, first));
       } else {
         // If another error occurs, something unexpected happened on the server (no user error).
-        dispatch(registerPersonalInfoFailure("INTERNAL ERROR"));
+        dispatch(registerPersonalInfoFailure("INTERNAL ERROR", serverError));
       }
     }
   }
 }
 
+/**
+ * Perform Stage #2 of user registration.  Check that the username isn't already in user.  If the
+ * username is available, attempt to create the new user.
+ * @param first First name of the new user.
+ * @param last Last name of the new user.
+ * @param email Email address associated with the new user.
+ * @param username Username which uniquely identifies the new user.
+ * @param password Password for the new user.
+ * @param activationCode Activation code for the new user.
+ * @return {function(...[*]=)} Function which dispatches action creators.
+ */
 export function registerCredentials(first, last, email, username, password, activationCode) {
   return async function(dispatch) {
     dispatch(registerCredentialsRequest());
 
-    const usernameValid = validateUsername(dispatch, username);
+    const usernameValid = await validateUsername(dispatch, username);
 
     if (usernameValid) {
       try {
@@ -227,27 +255,36 @@ export function registerCredentials(first, last, email, username, password, acti
         dispatch(registerCredentialsSuccess(username));
       } catch (error) {
         const { response } = error;
-        console.info(response);
-        if (response.error === "the activation code does not exist") {
-          dispatch(registerCredentialsFailure("ACTIVATION CODE INVALID"));
+        const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+        if (response.status === 400) {
+          dispatch(registerCredentialsFailure("VALIDATION ERROR", serverError));
         } else {
-          dispatch(registerCredentialsFailure("INTERNAL ERROR"));
+          dispatch(registerCredentialsFailure("INTERNAL ERROR", serverError));
         }
       }
     }
   }
 }
 
+/**
+ * Validate the username given during new user registration.  Ensure that it isn't already in use.
+ * @param dispatch Function which dispatches action creators.
+ * @param username Username which uniquely identifies the new user.
+ * @return {Promise<boolean>} true if the username is valid, false otherwise.
+ */
 async function validateUsername(dispatch, username) {
   try {
     await api.get(`v2/users/${username}`);
-    dispatch(registerCredentialsFailure("USERNAME ALREADY IN USE"));
+    dispatch(registerCredentialsFailure("USERNAME ALREADY IN USE", null));
   } catch (error) {
     const { response } = error;
+    const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
     if (response.status === 400) {
       return true;
     } else {
-      dispatch(registerCredentialsFailure("INTERNAL ERROR"));
+      dispatch(registerCredentialsFailure("INTERNAL ERROR", serverError));
     }
   }
 
