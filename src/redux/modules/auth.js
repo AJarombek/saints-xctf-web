@@ -98,7 +98,7 @@ export function signIn(username, password) {
     dispatch(signInRequest(username, "PENDING"));
 
     try {
-      const response = await api.get(`v2/users/${username}`);
+      const response = await api.get(`users/${username}`);
 
       const { user } = response.data;
       const match = await bcrypt.compare(password, user.password);

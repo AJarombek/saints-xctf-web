@@ -84,6 +84,10 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
 
   const usernamePattern = /^[a-zA-Z0-9]+$/;
 
+  /**
+   * Perform validation and hook updates when the username input is updated.
+   * @param e DOM event object.
+   */
   const onChangeUsername = (e) => {
     const value = e.target.value;
     setUsername(value);
@@ -95,11 +99,16 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
     setUsernameValid(isValid);
   };
 
+  /**
+   * Perform validation and hook updates when the password input is updated.  Validates both
+   * the password and confirm password inputs.
+   * @param e DOM event object.
+   */
   const onChangePassword = (e) => {
     const value = e.target.value;
     setPassword(value);
 
-    const lengthValid = value.length >= 8;
+    const lengthValid = value.length >= 6;
     const valueValid = value === confirmPassword;
 
     const status = lengthValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
@@ -112,6 +121,10 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
     setConfirmPasswordValid(valueValid);
   };
 
+  /**
+   * Perform validation and hook updates when the 'confirm password' input is updated.
+   * @param e DOM event object.
+   */
   const onChangeConfirmPassword = (e) => {
     const value = e.target.value;
     setConfirmPassword(value);
@@ -123,6 +136,10 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
     setConfirmPasswordValid(isValid);
   };
 
+  /**
+   * Perform validation and hook updates when the 'activation code' input is updated.
+   * @param e DOM event object.
+   */
   const onChangeActivationCode = (e) => {
     const value = e.target.value;
     setActivationCode(value);
@@ -134,6 +151,10 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
     setActivationCodeValid(isValid);
   };
 
+  /**
+   * When the register button is clicked, attempt to register the new user with the
+   * credentials given.
+   */
   const onClickRegister = async () => {
     setLoading(true);
     await registerCredentials(
@@ -146,6 +167,9 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
     );
   };
 
+  /**
+   * When users click the 'Back' button, move the registration process back to the first stage.
+   */
   const onClickBack = () => {
     setLoading(true);
     registerBack();

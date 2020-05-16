@@ -33,9 +33,9 @@ const RegisterBody = ({ stage, registerPersonalInfo, registerCredentials, regist
           />
         );
       case 2:
-        return <RegisterGroups />;
-      case 3:
         return <RegisterTeams />;
+      case 3:
+        return <RegisterGroups />;
       default:
         return (
           <RegisterPersonalInfo

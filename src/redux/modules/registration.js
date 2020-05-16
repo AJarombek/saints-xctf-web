@@ -205,7 +205,7 @@ export function registerPersonalInfo(first, last, email) {
     dispatch(registerPersonalInfoRequest());
 
     try {
-      await api.get(`v2/users/${email}`);
+      await api.get(`users/${email}`);
 
       // If a user already exists with this email, registration should fail.
       dispatch(registerPersonalInfoFailure("USER ALREADY EXISTS", null));
@@ -243,7 +243,7 @@ export function registerCredentials(first, last, email, username, password, acti
 
     if (usernameValid) {
       try {
-        await api.post(`v2/users`, {
+        await api.post(`users/`, {
           username,
           password,
           first,
@@ -275,7 +275,7 @@ export function registerCredentials(first, last, email, username, password, acti
  */
 async function validateUsername(dispatch, username) {
   try {
-    await api.get(`v2/users/${username}`);
+    await api.get(`users/${username}`);
     dispatch(registerCredentialsFailure("USERNAME ALREADY IN USE", null));
   } catch (error) {
     const { response } = error;

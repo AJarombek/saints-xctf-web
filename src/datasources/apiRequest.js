@@ -7,6 +7,7 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: '/api/',
-  timeout: 1000
+  baseURL: '/api/v2/',
+  timeout: 1000,
+  responseType: 'json'
 });
