@@ -1,0 +1,15 @@
+/*
+ * Sass styling for the PickTeams component
+ * @author Andrew Jarombek
+ * @since 5/16/2020
+ */
+
+@import "../../mixins";
+
+.sxctf-pick-teams {
+  @include formTitle;
+
+  .aj-tag {
+
+  }
+}

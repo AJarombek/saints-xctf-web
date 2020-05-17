@@ -12,6 +12,12 @@ import moment from 'moment';
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
 const SIGNIN_FAILURE = 'saints-xctf-web/auth/SIGNIN_FAILURE';
 const SIGNIN_SUCCESS = 'saints-xctf-web/auth/SIGNIN_SUCCESS';
+const FORGOT_PASSWORD_EMAIL_REQUEST = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_REQUEST';
+const FORGOT_PASSWORD_EMAIL_FAILURE = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_FAILURE';
+const FORGOT_PASSWORD_EMAIL_SUCCESS = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_SUCCESS';
+const CHANGE_EMAIL_REQUEST = 'saints-xctf-web/auth/CHANGE_EMAIL_REQUEST';
+const CHANGE_EMAIL_FAILURE = 'saints-xctf-web/auth/CHANGE_EMAIL_FAILURE';
+const CHANGE_EMAIL_SUCCESS = 'saints-xctf-web/auth/CHANGE_EMAIL_SUCCESS';
 
 // Reducer
 const initialState = {};
@@ -63,6 +69,12 @@ export default function reducer(state = initialState, action = {}) {
         },
         user: {}
       };
+    case FORGOT_PASSWORD_EMAIL_REQUEST:
+    case FORGOT_PASSWORD_EMAIL_SUCCESS:
+    case FORGOT_PASSWORD_EMAIL_FAILURE:
+    case CHANGE_EMAIL_REQUEST:
+    case CHANGE_EMAIL_SUCCESS:
+    case CHANGE_EMAIL_FAILURE:
     default:
       return state;
   }

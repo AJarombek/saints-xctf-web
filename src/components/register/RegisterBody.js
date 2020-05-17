@@ -9,8 +9,6 @@ import PropTypes from 'prop-types';
 
 import RegisterPersonalInfo from './RegisterPersonalInfo';
 import RegisterCredentials from './RegisterCredentials';
-import RegisterGroups from './RegisterGroups';
-import RegisterTeams from './RegisterTeams';
 
 const RegisterBody = ({ stage, registerPersonalInfo, registerCredentials, registerBack,
                         registration }) => {
@@ -32,10 +30,6 @@ const RegisterBody = ({ stage, registerPersonalInfo, registerCredentials, regist
             registerBack={registerBack}
           />
         );
-      case 2:
-        return <RegisterTeams />;
-      case 3:
-        return <RegisterGroups />;
       default:
         return (
           <RegisterPersonalInfo

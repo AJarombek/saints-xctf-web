@@ -15,12 +15,6 @@ const REGISTER_PERSONAL_INFO_SUCCESS = 'saints-xctf-web/registration/REGISTER_PE
 const REGISTER_CREDENTIALS_REQUEST = 'saints-xctf-web/registration/REGISTER_CREDENTIALS_REQUEST';
 const REGISTER_CREDENTIALS_FAILURE = 'saints-xctf-web/registration/REGISTER_CREDENTIALS_FAILURE';
 const REGISTER_CREDENTIALS_SUCCESS = 'saints-xctf-web/registration/REGISTER_CREDENTIALS_SUCCESS';
-const REGISTER_TEAMS_REQUEST = 'saints-xctf-web/registration/REGISTER_TEAMS_REQUEST';
-const REGISTER_TEAMS_FAILURE = 'saints-xctf-web/registration/REGISTER_TEAMS_FAILURE';
-const REGISTER_TEAMS_SUCCESS = 'saints-xctf-web/registration/REGISTER_TEAMS_SUCCESS';
-const REGISTER_GROUPS_REQUEST = 'saints-xctf-web/registration/REGISTER_GROUPS_REQUEST';
-const REGISTER_GROUPS_FAILURE = 'saints-xctf-web/registration/REGISTER_GROUPS_FAILURE';
-const REGISTER_GROUPS_SUCCESS = 'saints-xctf-web/registration/REGISTER_GROUPS_SUCCESS';
 const REGISTER_BACK = 'saints-xctf-web/registration/REGISTER_BACK';
 
 // Reducer
@@ -85,48 +79,6 @@ export default function reducer(state = initialState, action = {}) {
         serverError: null,
         stage: 2,
         username: action.username
-      };
-    case REGISTER_TEAMS_REQUEST:
-      return {
-        ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
-      };
-    case REGISTER_TEAMS_FAILURE:
-      return {
-        ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
-      };
-    case REGISTER_TEAMS_SUCCESS:
-      return {
-        ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
-      };
-    case REGISTER_GROUPS_REQUEST:
-      return {
-        ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
-      };
-    case REGISTER_GROUPS_FAILURE:
-      return {
-        ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
-      };
-    case REGISTER_GROUPS_SUCCESS:
-      return {
-        ...state,
-        register: {
-          lastUpdated: moment().unix()
-        }
       };
     case REGISTER_BACK:
       return {

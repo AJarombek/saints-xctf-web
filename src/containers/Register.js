@@ -8,6 +8,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
+import queryString from 'query-string';
 
 import { userAuthenticated } from '../utils/auth';
 import NavBar from '../components/shared/NavBar';
@@ -34,7 +35,17 @@ const mapDispatchToProps = {
 const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInfo,
                     registerCredentials, registerBack }) => {
   const { signedIn } = auth;
-  const { stage = 0 } = registration;
+  let { stage = 0 } = registration;
+
+  // In the development environment, stages can be skipped by adding the 'stage' query parameter
+  // to the URL.
+  if (process.env.NODE_ENV === 'local') {
+    const parsed = queryString.parse(location.search);
+
+    if (parsed.stage) {
+      stage = +parsed.stage;
+    }
+  }
 
   const history = useHistory();
 
