@@ -1,10 +1,10 @@
 /**
- * ForgotPassword component for users to enter their email address to request a
- * "forgot password code".
+ * ForgotPasswordReset component for users to change their password when entering
+ * a proper "forgot password code".
  *
- * I dont want you to be perfect, I want you to be... you.
+ * You give and help me so much more than you think.
  * @author Andrew Jarombek
- * @since 5/9/2020
+ * @since 5/18/2020
  */
 
 import React, { useEffect } from 'react';
@@ -14,15 +14,14 @@ import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../utils/auth';
 import NavBar from '../components/shared/NavBar';
-import ForgotPasswordBody from '../components/forgot-password/ForgotPasswordBody';
+import ForgotPasswordResetBody from '../components/forgot-password/ForgotPasswordResetBody';
 
 const mapStateToProps = state => ({
-  auth: state.auth?.auth ?? {},
-  user: state.auth?.user ?? {},
-  forgotPassword: state.auth?.forgotPassword ?? {}
+  auth: state.auth.auth,
+  user: state.auth.user
 });
 
-const ForgotPassword = ({ auth, user, forgotPassword }) => {
+const ForgotPasswordReset = ({ auth = {}, user = {} }) => {
   const { signedIn } = auth;
   const history = useHistory();
 
@@ -33,24 +32,20 @@ const ForgotPassword = ({ auth, user, forgotPassword }) => {
   }, [user]);
 
   return (
-    <div className="sxctf-forgot-password">
+    <div className="sxctf-forgot-password-reset">
       <NavBar includeHeaders={["home", "register", "signIn", "logo"]}/>
-      <ForgotPasswordBody/>
+      <ForgotPasswordResetBody/>
     </div>
   );
 };
 
-ForgotPassword.propTypes = {
+ForgotPasswordReset.propTypes = {
   auth: PropTypes.shape({
     isFetching: PropTypes.bool,
-    lastUpdated: PropTypes.number,
     signedIn: PropTypes.bool,
     status: PropTypes.string
   }),
   user: PropTypes.shape({
-    isFetching: PropTypes.bool,
-    didInvalidate: PropTypes.bool,
-    lastUpdated: PropTypes.number,
     activation_code: PropTypes.string,
     class_year: PropTypes.number,
     deleted: PropTypes.string,
@@ -68,7 +63,7 @@ ForgotPassword.propTypes = {
     week_start: PropTypes.string
   }),
   forgotPassword: PropTypes.shape({
-    email: PropTypes.shape({
+    reset: PropTypes.shape({
       isFetching: PropTypes.bool,
       lastUpdated: PropTypes.number,
       status: PropTypes.string,
@@ -77,4 +72,4 @@ ForgotPassword.propTypes = {
   })
 };
 
-export default connect(mapStateToProps)(ForgotPassword);
+export default connect(mapStateToProps)(ForgotPasswordReset);

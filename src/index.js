@@ -28,6 +28,8 @@ const RoutedApp = () =>
           <Route exact path="/" component={Home}/>
           <Route exact path="/dashboard" component={Dashboard}/>
           <Route exact path="/forgotpassword" component={ForgotPassword}/>
+          <Route exact path="/forgotpassword/email" component={ForgotPassword}/>
+          <Route exact path="/forgotpassword/reset" component={ForgotPassword}/>
           <Route exact path="/register" component={Register}/>
           <Route exact path="/signin" component={SignIn}/>
           <Route component={Home}/>

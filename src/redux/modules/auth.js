@@ -70,11 +70,29 @@ export default function reducer(state = initialState, action = {}) {
         user: {}
       };
     case FORGOT_PASSWORD_EMAIL_REQUEST:
+      return {
+        ...state
+      };
     case FORGOT_PASSWORD_EMAIL_SUCCESS:
+      return {
+        ...state
+      };
     case FORGOT_PASSWORD_EMAIL_FAILURE:
+      return {
+        ...state
+      };
     case CHANGE_EMAIL_REQUEST:
+      return {
+        ...state
+      };
     case CHANGE_EMAIL_SUCCESS:
+      return {
+        ...state
+      };
     case CHANGE_EMAIL_FAILURE:
+      return {
+        ...state
+      };
     default:
       return state;
   }

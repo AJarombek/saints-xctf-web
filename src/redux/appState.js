@@ -33,6 +33,20 @@ const appState = {
         logs: []
       }
     },
+    forgotPassword: {
+      email: {
+        isFetching: false,
+        lastUpdated: 1588530309,
+        status: "SUCCESS",
+        serverError: null
+      },
+      reset: {
+        isFetching: false,
+        lastUpdated: 1588530310,
+        status: undefined,
+        serverError: undefined
+      }
+    }
   },
   registration: {
     stage: 1,

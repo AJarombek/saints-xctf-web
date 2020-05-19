@@ -28,3 +28,4 @@ Client-side code for the SaintsXCTF web application.  The Client is made up of R
 2) [Password Form Auto Complete Attribute](https://www.chromium.org/developers/design-documents/create-amazing-password-forms)
 3) [Elegant Font Icons](https://www.elegantthemes.com/blog/resources/elegant-icon-font)
 4) [CSS Attribute Selector](https://stackoverflow.com/a/38764939)
+5) [Autocomplete Styles](https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/)
