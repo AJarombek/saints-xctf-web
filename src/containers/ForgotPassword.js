@@ -15,6 +15,7 @@ import { useHistory } from 'react-router-dom';
 import { userAuthenticated } from '../utils/auth';
 import NavBar from '../components/shared/NavBar';
 import ForgotPasswordBody from '../components/forgot-password/ForgotPasswordBody';
+import { forgotPasswordEmail } from '../redux/modules/auth';
 
 const mapStateToProps = state => ({
   auth: state.auth?.auth ?? {},
@@ -22,7 +23,11 @@ const mapStateToProps = state => ({
   forgotPassword: state.auth?.forgotPassword ?? {}
 });
 
-const ForgotPassword = ({ auth, user, forgotPassword }) => {
+const mapDispatchToProps = {
+  forgotPasswordEmail
+};
+
+const ForgotPassword = ({ auth, user, forgotPassword, forgotPasswordEmail }) => {
   const { signedIn } = auth;
   const history = useHistory();
 
@@ -35,7 +40,7 @@ const ForgotPassword = ({ auth, user, forgotPassword }) => {
   return (
     <div className="sxctf-forgot-password">
       <NavBar includeHeaders={["home", "register", "signIn", "logo"]}/>
-      <ForgotPasswordBody/>
+      <ForgotPasswordBody forgotPasswordEmail={forgotPasswordEmail}/>
     </div>
   );
 };
@@ -74,7 +79,8 @@ ForgotPassword.propTypes = {
       status: PropTypes.string,
       serverError: PropTypes.string
     })
-  })
+  }),
+  forgotPasswordEmail: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(ForgotPassword);
+export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);

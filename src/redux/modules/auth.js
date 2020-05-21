@@ -123,6 +123,27 @@ export function signInFailure(status) {
   }
 }
 
+export function forgotPasswordRequest() {
+  return {
+    type: FORGOT_PASSWORD_EMAIL_REQUEST
+  }
+}
+
+export function forgotPasswordSuccess(status) {
+  return {
+    type: FORGOT_PASSWORD_EMAIL_SUCCESS,
+    status
+  }
+}
+
+export function forgotPasswordFailure(status, serverError) {
+  return {
+    type: FORGOT_PASSWORD_EMAIL_SUCCESS,
+    status,
+    serverError
+  }
+}
+
 export function signIn(username, password) {
   return async function (dispatch) {
     dispatch(signInRequest(username, "PENDING"));
@@ -144,6 +165,26 @@ export function signIn(username, password) {
         dispatch(signInFailure("INVALID USER"));
       } else {
         dispatch(signInFailure("INTERNAL ERROR"));
+      }
+    }
+  }
+}
+
+export function forgotPasswordEmail(email) {
+  return async function (dispatch) {
+    dispatch(forgotPasswordRequest());
+
+    try {
+      await api.post(`forgot_password/${email}`);
+      dispatch(forgotPasswordSuccess("SUCCESS"));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      if (response.status === 400) {
+        dispatch(forgotPasswordFailure("INVALID USERNAME/EMAIL", serverError));
+      } else {
+        dispatch(forgotPasswordFailure("INTERNAL ERROR", serverError));
       }
     }
   }
