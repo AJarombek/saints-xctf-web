@@ -39,25 +39,29 @@ const ForgotPasswordBody = ({ forgotPasswordEmail }) => {
 
   return (
     <div className="sxctf-forgot-password-body">
-      <h2>Forgot Password</h2>
-      <p>Enter your Email Address or Username to receive a reset code:</p>
-      <ImageInput
-        onChange={onChangeEmail}
-        icon={emailLogo}
-        placeholder="Email or Username"
-        name="email"
-        type="text"
-        autoComplete=""
-        maxLength={50}
-        status={emailStatus}
-      />
-      { errorStatus && <p className="errorStatus">{errorStatus}</p> }
-      <AJButton
-        type="contained"
-        onClick={onClickSend}
-        disabled={!emailValid || loading}>
-        Send
-      </AJButton>
+      <div>
+        <h2>Forgot Password</h2>
+        <h5>Enter your Email Address or Username to receive a reset code:</h5>
+        <ImageInput
+          onChange={onChangeEmail}
+          icon={emailLogo}
+          placeholder="Email or Username"
+          name="email"
+          type="text"
+          autoComplete=""
+          maxLength={50}
+          status={emailStatus}
+        />
+        { errorStatus && <p className="errorStatus">{errorStatus}</p> }
+        <div className="form-buttons">
+          <AJButton
+            type="contained"
+            onClick={onClickSend}
+            disabled={!emailValid || loading}>
+            Send
+          </AJButton>
+        </div>
+      </div>
     </div>
   );
 };
