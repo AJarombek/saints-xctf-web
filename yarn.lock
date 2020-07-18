@@ -2161,6 +2161,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/classnames@^2.2.10":
+  version "2.2.10"
+  resolved "https://registry.yarnpkg.com/@types/classnames/-/classnames-2.2.10.tgz#cc658ca319b6355399efc1f5b9e818f1a24bf999"
+  integrity sha512-1UzDldn9GfYYEsWWnn/P4wkTlkZDH7lDb0wBMGbtIQc9zXEQq7FlKBdZUn6OBqD8sKZZ2RQO2mAjGpXiDGoRmQ==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -6867,14 +6872,15 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-"jarombek-react-components@git://github.com/ajarombek/jarombek-react-components.git#v0.2.4":
+"jarombek-react-components@git://github.com/ajarombek/jarombek-react-components.git#v0.3.0":
   version "0.1.0"
-  resolved "git://github.com/ajarombek/jarombek-react-components.git#4501dc9b8b8802cfbd9226ce8b0ec94f41479803"
+  resolved "git://github.com/ajarombek/jarombek-react-components.git#dd8150358661f8b5e7c2db713d3403521bade6fe"
   dependencies:
     classnames "^2.2.6"
     highlight.js "^10.0.3"
     prop-types "^15.7.2"
     react-jss "^10.1.1"
+    uuid "^8.2.0"
 
 jest-changed-files@^25.5.0:
   version "25.5.0"
@@ -11553,6 +11559,11 @@ uuid@^3.3.2:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==
+
+uuid@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.2.0.tgz#cb10dd6b118e2dada7d0cd9730ba7417c93d920e"
+  integrity sha512-CYpGiFTUrmI6OBMkAdjSDM0k5h8SkkiTP4WAjQgDgNB1S3Ou9VBEvr6q0Kv2H1mMk7IWfxYGpMH5sd5AvcIV2Q==
 
 v8-compile-cache@2.0.3:
   version "2.0.3"

@@ -5,3 +5,4 @@ dist/
 coverage/
 yarn-error.log
 test_log.log
+.nyc_output

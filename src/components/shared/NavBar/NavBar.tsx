@@ -5,17 +5,28 @@
  */
 
 import React, {useState, createRef} from 'react';
-import PropTypes from 'prop-types';
+import {createUseStyles} from "react-jss";
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
+import styles from "./styles";
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
-import saintsXCTFLogo from '../../../assets/saintsxctf_logo.png';
 
-const NavBar = ({ includeHeaders = [] }) => {
+// @ts-ignore
+import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
+
+interface IProps {
+  includeHeaders?: Array<string>
+}
+
+const useStyles = createUseStyles(styles);
+
+const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [] }) => {
+  const classes = useStyles();
+
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
 
-  const mobileHamburgerRef = createRef();
+  const mobileHamburgerRef: React.RefObject<HTMLInputElement> = createRef();
 
   const navBarClass = showDropdown ?
     classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible') :
@@ -29,7 +40,7 @@ const NavBar = ({ includeHeaders = [] }) => {
    * Navigate to a new page using the mobile dropdown navigation list.
    * @param path The new path to navigate to within the website.
    */
-  const navigateMobile = (path) => {
+  const navigateMobile = (path: string) => {
     setShowDropdown(!showDropdown);
     history.push(path);
 
@@ -131,12 +142,12 @@ const NavBar = ({ includeHeaders = [] }) => {
         <h1 onClick={() => history.push('/#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
           { includeHeaders.includes('home') &&
-            <AJButton type="text" onClick={() => history.push('/')}>
+            <AJButton type="text" className="homeButton" onClick={() => history.push('/')}>
               Home
             </AJButton>
           }
           { includeHeaders.includes('about') &&
-            <AJButton type="text" onClick={() => {
+            <AJButton type="text" className="aboutButton" onClick={() => {
               history.push('/#about');
               hashRoute();
             }}>
@@ -144,7 +155,7 @@ const NavBar = ({ includeHeaders = [] }) => {
             </AJButton>
           }
           { includeHeaders.includes('testimonials') &&
-            <AJButton type="text" onClick={() => {
+            <AJButton type="text"  className="testimonialsButton" onClick={() => {
               history.push('/#testimonials');
               hashRoute();
             }}>
@@ -152,37 +163,37 @@ const NavBar = ({ includeHeaders = [] }) => {
             </AJButton>
           }
           { includeHeaders.includes('register') &&
-            <AJButton type="outlined" onClick={() => history.push('/register')}>
+            <AJButton type="outlined" className="registerButton" onClick={() => history.push('/register')}>
               Register
             </AJButton>
           }
           { includeHeaders.includes('signIn') &&
-            <AJButton type="contained" onClick={() => history.push('/signin')}>
+            <AJButton type="contained" className="signInButton" onClick={() => history.push('/signin')}>
               Sign In
             </AJButton>
           }
           { includeHeaders.includes('dashboard') &&
-            <AJButton type="text" onClick={() => history.push('/dashboard')}>
+            <AJButton type="text" className="dashboardButton" onClick={() => history.push('/dashboard')}>
               Dashboard
             </AJButton>
           }
           { includeHeaders.includes('profile') &&
-            <AJButton type="text" onClick={() => history.push('/profile')}>
+            <AJButton type="text" className="profileButton" onClick={() => history.push('/profile')}>
               Profile
             </AJButton>
           }
           { includeHeaders.includes('groups') &&
-            <AJButton type="text" onClick={() => history.push('/groups')}>
+            <AJButton type="text" className="groupsButton" onClick={() => history.push('/groups')}>
               Groups
             </AJButton>
           }
           { includeHeaders.includes('admin') &&
-            <AJButton type="outlined" onClick={() => history.push('/admin')}>
+            <AJButton type="outlined" className="adminButton" onClick={() => history.push('/admin')}>
               Admin
             </AJButton>
           }
           { includeHeaders.includes('signOut') &&
-            <AJButton type="contained" onClick={() => history.push('/signout')}>
+            <AJButton type="contained" className="signOutButton" onClick={() => history.push('/signout')}>
               Sign Out
             </AJButton>
           }
@@ -199,10 +210,6 @@ const NavBar = ({ includeHeaders = [] }) => {
       </div>
     </>
   );
-};
-
-NavBar.propTypes = {
-  includeHeaders: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default NavBar;
