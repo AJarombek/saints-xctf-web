@@ -30,6 +30,18 @@ const config = (env, publicPath) => merge([
     module: {
       rules: [
         {
+          test: /\.ts(x?)$/,
+          exclude: /(node_modules)/,
+          use: [
+            {
+              loader: 'babel-loader'
+            },
+            {
+              loader: 'ts-loader'
+            }
+          ]
+        },
+        {
           test: /\.js$/,
           exclude: /(node_modules)/,
           use: [
@@ -69,6 +81,9 @@ const config = (env, publicPath) => merge([
       path: PATHS.build,
       filename: '[name].js',
       publicPath
+    },
+    resolve: {
+      extensions: ['.js', '.ts', '.tsx']
     }
   },
   parts.mode(env),

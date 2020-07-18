@@ -5,9 +5,15 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Testimonial = ({src, name, title, testimony}) => {
+interface IProps {
+    src: string,
+    name: React.ReactPropTypes["string"],
+    title: React.ReactPropTypes["string"],
+    testimony: React.ReactPropTypes["node"]
+}
+
+const Testimonial: React.FunctionComponent<IProps> = ({src, name, title, testimony}) => {
   return (
     <div className="sxctf-testimonial">
       <p>"{testimony}"</p>
@@ -20,13 +26,6 @@ const Testimonial = ({src, name, title, testimony}) => {
       <p>{title}</p>
     </div>
   );
-};
-
-Testimonial.propTypes = {
-  src: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  testimony: PropTypes.node.isRequired,
 };
 
 export default Testimonial;

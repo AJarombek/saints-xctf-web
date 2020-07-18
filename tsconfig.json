@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "declaration": false,
+    "noImplicitAny": true,
+    "module": "ES6",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "target": "ES2020",
+    "jsx": "react"
+  },
+  "exclude": ["node_modules"]
+}
