@@ -16,8 +16,25 @@ describe('Home E2E Tests', () => {
            .should('exist');
     });
 
-    it('move navigate to the blog page', () => {
+    it("'about' header button navigates down to the 'about' section", () => {
+        // Through good and bad you are always very loved.  Please trust that those who love you
+        // will understand any hardships you face and simply love you more.
         cy.get('.aboutButton').click();
         cy.url().should('include', '/#about');
+    });
+
+    it("'testimonials' header button navigates down to the 'testimonials' section", () => {
+        cy.get('.testimonialsButton').click();
+        cy.url().should('include', '/#testimonials');
+    });
+
+    it("'register' header button navigates to the 'register' page", () => {
+        cy.get('.registerButton').click();
+        cy.url().should('include', '/register');
+    });
+
+    it("'signin' header button navigates to the sign in page", () => {
+        cy.get('.registerButton').click();
+        cy.url().should('include', '/signin');
     });
 });
