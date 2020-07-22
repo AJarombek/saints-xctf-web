@@ -37,4 +37,17 @@ describe('Home E2E Tests', () => {
         cy.get('.registerButton').click();
         cy.url().should('include', '/signin');
     });
+
+    it("logo and title navigates to the same page", () => {
+        cy.get('.sxctf-nav-bar h1').click();
+        cy.url().should('equal', `${Cypress.config('baseUrl')}`);
+
+        cy.get('.sxctf-nav-bar .sxctf-logo').click();
+        cy.url().should('equal', `${Cypress.config('baseUrl')}`);
+    });
+
+    it("footer logo button navigates to top of page", () => {
+        cy.get('.sxctf-home-footer .sxctf-logo').click();
+        cy.url().should('equal', `${Cypress.config('baseUrl')}/#`);
+    });
 });

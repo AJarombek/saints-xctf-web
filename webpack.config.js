@@ -84,6 +84,9 @@ const config = (env, publicPath) => merge([
     },
     resolve: {
       extensions: ['.js', '.ts', '.tsx']
+    },
+    node: {
+      fs: 'empty'
     }
   },
   parts.mode(env),

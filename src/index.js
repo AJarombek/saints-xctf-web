@@ -11,31 +11,37 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'connected-react-router';
 import configureStore, { history } from './redux/store';
 import { Provider } from 'react-redux';
+import dotenv from 'dotenv';
 
 import Home from './containers/Home';
 import SignIn from './containers/SignIn';
 import Dashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';
 import Register from './containers/Register';
+import { FeatureFlagProvider } from './components/shared/FeatureFlag';
+import { getFeatureFlags } from './utils/features';
 
+dotenv.config();
 const store = configureStore();
 
 const RoutedApp = () =>
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <>
-        <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/dashboard" component={Dashboard}/>
-          <Route exact path="/forgotpassword" component={ForgotPassword}/>
-          <Route exact path="/forgotpassword/email" component={ForgotPassword}/>
-          <Route exact path="/forgotpassword/reset" component={ForgotPassword}/>
-          <Route exact path="/register" component={Register}/>
-          <Route exact path="/signin" component={SignIn}/>
-          <Route component={Home}/>
-        </Switch>
-      </>
-    </ConnectedRouter>
+    <FeatureFlagProvider values={getFeatureFlags()}>
+      <ConnectedRouter history={history}>
+        <>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/dashboard" component={Dashboard}/>
+            <Route exact path="/forgotpassword" component={ForgotPassword}/>
+            <Route exact path="/forgotpassword/email" component={ForgotPassword}/>
+            <Route exact path="/forgotpassword/reset" component={ForgotPassword}/>
+            <Route exact path="/register" component={Register}/>
+            <Route exact path="/signin" component={SignIn}/>
+            <Route component={Home}/>
+          </Switch>
+        </>
+      </ConnectedRouter>
+    </FeatureFlagProvider>
   </Provider>;
 
 render(
