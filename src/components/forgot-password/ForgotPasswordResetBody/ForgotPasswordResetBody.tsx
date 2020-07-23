@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const ForgotPasswordResetBody = () => {
   return (
@@ -10,10 +9,6 @@ const ForgotPasswordResetBody = () => {
       </div>
     </div>
   );
-};
-
-ForgotPasswordResetBody.propTypes = {
-
 };
 
 export default ForgotPasswordResetBody;

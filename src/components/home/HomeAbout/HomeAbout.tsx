@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-const HomeAbout = () => {
+const HomeAbout: React.FunctionComponent = () => {
   return (
     <div id="about" className="sxctf-home-about">
       <div className="description">

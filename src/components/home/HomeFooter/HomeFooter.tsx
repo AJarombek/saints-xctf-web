@@ -5,9 +5,11 @@
  */
 
 import React from 'react';
-import saints_xctf_logo from '../../../assets/saintsxctf_logo.png';
 
-const HomeFooter = () => {
+// @ts-ignore
+import saints_xctf_logo from '../../../../assets/saintsxctf_logo.png';
+
+const HomeFooter: React.FunctionComponent = () => {
   return (
     <div className="sxctf-home-footer">
       <a className="contact-us-link" href="mailto:andrew@jarombek.com">Contact Us</a>

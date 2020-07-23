@@ -6,9 +6,9 @@
 
 import React from 'react';
 import { AJButton } from 'jarombek-react-components';
-import { FeatureFlag } from '../shared/FeatureFlag';
+import { FeatureFlag } from '../../shared/FeatureFlag';
 
-const HomeBody = () => {
+const HomeBody: React.FunctionComponent = () => {
   return (
     <div className="sxctf-home-body">
       <div>

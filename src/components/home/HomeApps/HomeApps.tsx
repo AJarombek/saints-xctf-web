@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-const HomeApps = () => {
+const HomeApps: React.FunctionComponent = () => {
   return (
     <div className="sxctf-home-apps">
       <p>SaintsXCTF has iOS and Android apps in these app stores</p>

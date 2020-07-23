@@ -6,9 +6,9 @@
  */
 
 import React from 'react';
-import Testimonial from '../shared/Testimonial';
+import Testimonial from '../../shared/Testimonial';
 
-const HomeTestimonials = () => {
+const HomeTestimonials: React.FunctionComponent = () => {
   return (
     <div className="sxctf-home-testimonials" id="testimonials">
       <Testimonial

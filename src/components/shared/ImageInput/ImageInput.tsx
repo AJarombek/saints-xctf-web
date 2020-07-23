@@ -4,28 +4,40 @@
  * @since 5/2/2020
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {ChangeEvent} from 'react';
 import classnames from 'classnames';
 
-const ImageInput = ({ type, name, placeholder, autoComplete = "", maxLength, onChange, icon,
-                      status = NONE }) => {
+enum ImageInputStatus { NONE, SUCCESS, WARNING, FAILURE }
+
+interface IProps {
+  type: string,
+  name: string
+  placeholder: string,
+  autoComplete?: string,
+  maxLength?: number,
+  onChange: (event: ChangeEvent<HTMLInputElement>) => any,
+  icon?: any,
+  status: ImageInputStatus
+}
+
+const ImageInput: React.FunctionComponent<IProps> = ({ type, name, placeholder, autoComplete = "", maxLength, onChange, icon,
+                      status = ImageInputStatus.NONE }) => {
 
   let statusIcon, statusClass;
   switch (status) {
-    case NONE:
+    case ImageInputStatus.NONE:
       statusIcon = null;
       statusClass = 'none';
       break;
-    case SUCCESS:
+    case ImageInputStatus.SUCCESS:
       statusIcon = '\u0052';
       statusClass = 'success';
       break;
-    case WARNING:
+    case ImageInputStatus.WARNING:
       statusIcon = '\u004f';
       statusClass = 'warning';
       break;
-    case FAILURE:
+    case ImageInputStatus.FAILURE:
       statusIcon = '\u0051';
       statusClass = 'failure';
       break;
@@ -58,24 +70,5 @@ const ImageInput = ({ type, name, placeholder, autoComplete = "", maxLength, onC
   );
 };
 
-export const NONE = 0;
-export const SUCCESS = 1;
-export const WARNING = 2;
-export const FAILURE = 3;
-
-ImageInput.Status = {
-  NONE, SUCCESS, WARNING, FAILURE
-};
-
-ImageInput.propTypes = {
-  type: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  autoComplete: PropTypes.string,
-  maxLength: PropTypes.number,
-  onChange: PropTypes.func.isRequired,
-  icon: PropTypes.any,
-  status: PropTypes.oneOf([NONE, SUCCESS, WARNING, FAILURE])
-};
-
+export {ImageInputStatus};
 export default ImageInput;
