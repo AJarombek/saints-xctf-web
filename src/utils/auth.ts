@@ -4,7 +4,9 @@
  * @since 5/9/2020
  */
 
-export function userAuthenticated(user, signedIn) {
+import {Users} from "./types";
+
+export function userAuthenticated(user: Users, signedIn: boolean) {
   if (!user || !signedIn) {
     return false;
   }
