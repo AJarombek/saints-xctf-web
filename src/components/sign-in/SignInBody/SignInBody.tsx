@@ -5,22 +5,38 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import {createUseStyles} from "react-jss";
 import { Link, useHistory } from 'react-router-dom';
+import classNames from "classnames";
 
+import styles from "./styles";
 import { AJButton } from 'jarombek-react-components';
-import ImageInput from '../shared/ImageInput';
-import ImageInputSet from '../shared/ImageInputSet';
-import usernameLogo from '../../../assets/username.png';
-import passwordLogo from '../../../assets/password.png';
+import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
+import ImageInputSet from '../../shared/ImageInputSet';
 
-const SignInBody = ({ signIn, isFetching, status }) => {
+// @ts-ignore
+import usernameLogo from '../../../../assets/username.png';
+
+// @ts-ignore
+import passwordLogo from '../../../../assets/password.png';
+
+interface IProps {
+  signIn: Function;
+  isFetching?: boolean;
+  status?: string;
+}
+
+const useStyles = createUseStyles(styles);
+
+const SignInBody: React.FunctionComponent<IProps> = ({ signIn, isFetching, status }) => {
+  const classes = useStyles();
+
   const history = useHistory();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [iconStatus, setIconStatus] = useState(ImageInput.Status.NONE);
+  const [iconStatus, setIconStatus] = useState(ImageInputStatus.NONE);
   const [errorStatus, setErrorStatus] = useState(null);
 
   useEffect(() => {
@@ -30,17 +46,20 @@ const SignInBody = ({ signIn, isFetching, status }) => {
       case "INVALID USER":
         message = "Invalid username and password combination.";
         setErrorStatus(message);
-        setIconStatus(ImageInput.Status.FAILURE);
+        setIconStatus(ImageInputStatus.FAILURE);
         break;
       case "INTERNAL ERROR":
-        message =  "An unexpected error occurred.  " +
-          "Contact andrew@jarombek.com if this error persists.";
+        message =  <>
+          An unexpected error occurred.  Contact
+          <a className={classes.contactLink} href="mailto:andrew@jarombek.com">andrew@jarombek.com</a>
+          if this error persists.
+        </>;
         setErrorStatus(message);
-        setIconStatus(ImageInput.Status.FAILURE);
+        setIconStatus(ImageInputStatus.FAILURE);
         break;
       default:
         setErrorStatus(null);
-        setIconStatus(ImageInput.Status.NONE);
+        setIconStatus(ImageInputStatus.NONE);
     }
   }, [status]);
 
@@ -76,7 +95,7 @@ const SignInBody = ({ signIn, isFetching, status }) => {
             />
           </ImageInputSet>
         </div>
-        { errorStatus && <p className="errorStatus">{errorStatus}</p> }
+        { errorStatus && <p className={classNames(classes.errorStatus, "errorStatus")}>{errorStatus}</p> }
         <Link to="/forgotpassword">Forgot Password?</Link>
         <div className="form-buttons">
           <AJButton
@@ -94,12 +113,6 @@ const SignInBody = ({ signIn, isFetching, status }) => {
       </div>
     </div>
   );
-};
-
-SignInBody.propTypes = {
-  signIn: PropTypes.func.isRequired,
-  isFetching: PropTypes.bool,
-  status: PropTypes.string
 };
 
 export default SignInBody;

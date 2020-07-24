@@ -4,7 +4,7 @@
  * @since 5/9/2020
  */
 
-import {Users} from "./types";
+import {Users} from "../redux/types";
 
 export function userAuthenticated(user: Users, signedIn: boolean) {
   if (!user || !signedIn) {

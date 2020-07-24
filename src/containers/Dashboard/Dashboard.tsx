@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
-import {Users} from "../../utils/types";
+import {Users} from "../../redux/types";
 
 interface RootState {
   auth: {

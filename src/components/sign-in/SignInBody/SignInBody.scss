@@ -4,9 +4,9 @@
  * @since 5/2/2020
  */
 
-@import "../../fonts";
-@import "../../vars";
-@import "../../mixins";
+@import "../../../fonts";
+@import "../../../vars";
+@import "../../../mixins";
 
 .sxctf-sign-in-body {
   @include centeredBody;
