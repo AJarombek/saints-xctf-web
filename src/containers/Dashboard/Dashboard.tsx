@@ -11,6 +11,8 @@ import { useHistory } from 'react-router-dom';
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import {Users} from "../../redux/types";
+import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
+import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 
 interface RootState {
   auth: {
@@ -48,6 +50,8 @@ const Dashboard: React.FunctionComponent<Props> = ({ auth = {}, user = {} }) => 
   return (
     <div className="sxctf-dashboard">
       <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
+      <DashboardBody />
+      <HomeFooter />
     </div>
   );
 };
