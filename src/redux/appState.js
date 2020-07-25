@@ -132,13 +132,19 @@ const appState = {
         ]
       }
     },
-    feed: {
-      isFetching: false,
-      lastUpdated: 1588530315,
-      filterBy: "all",
-      bucket: "all",
-      items: [],
-      serverError: null
+    feeds: {
+      "all-all": {
+        filterBy: "all",
+        bucket: "all",
+        pages: {
+          1: {
+            isFetching: false,
+            lastUpdated: 1588530315,
+            items: [],
+            serverError: null
+          }
+        }
+      }
     },
   }
 };

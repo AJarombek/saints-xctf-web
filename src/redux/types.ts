@@ -48,11 +48,31 @@ export type Log = {
     comments?: Comment[];
 }
 
+export type Logs = {
+    [key: string]: Record<string, Log>;
+}
+
+export type LogFeeds = {
+    [key: string]: {
+        filterBy: string;
+        bucket: string;
+        pages: {
+            [key: string]: {
+                isFetching: boolean;
+                lastUpdated: number;
+                items: Log[];
+                serverError: string;
+            }
+        }
+    };
+}
+
 export type LogsState = {
     isFetching: boolean;
     didInvalidate: boolean;
     lastUpdated: number;
-    items: Log[];
+    items: Logs;
+    feeds: LogFeeds
 }
 
 export type Comment = {
