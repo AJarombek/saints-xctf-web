@@ -3,7 +3,11 @@ import Mixins from "../../styles/mixins";
 
 export default {
     dashboard: {
-        backgroundColor: Colors.lightestBackground,
-        ...Mixins.lightNavDarkDropdown()
+        backgroundColor: Colors.lightBackground,
+        ...Mixins.lightNavDarkDropdown(),
+
+        '& .sxctf-home-footer': {
+            backgroundColor: Colors.lightBackground,
+        }
     }
 };

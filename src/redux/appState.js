@@ -101,9 +101,9 @@ const appState = {
     isFetching: false,
     didInvalidate: false,
     lastUpdated: 1588530315,
-    items: {
-      1: {
-        log_id: 1,
+    items: [
+      {
+        logId: 1,
         username: "andy",
         first: "Andrew",
         last: "Jarombek",
@@ -119,8 +119,8 @@ const appState = {
         feel: 6,
         description: "",
         timeCreated: "2020-05-03 12:00:00",
-        comments: {
-          1: {
+        comments: [
+          {
             commentId: 1,
             username: "andy",
             first: "Andrew",
@@ -129,8 +129,8 @@ const appState = {
             time: "2020-05-03 12:00:00",
             content: "test"
           }
-        }
+        ]
       }
-    }
+    ]
   }
 };

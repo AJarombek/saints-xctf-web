@@ -25,3 +25,42 @@ export type User = {
     username?: string;
     week_start?: string;
 }
+
+enum LogType { RUN = "run", BIKE = "bike", SWIM = "swim", OTHER = "other" }
+enum Metric { MILES = "miles", KILOMETERS = "kilometers", METERS = "meters" }
+
+export type Log = {
+    log_id: number;
+    username: string;
+    first: string;
+    last: string;
+    name: string;
+    date: string;
+    type: LogType;
+    distance?: number;
+    metric?: Metric;
+    miles?: number;
+    time?: string;
+    pace?: string;
+    feel: number;
+    description?: string;
+    timeCreated?: string;
+    comments?: Comment[];
+}
+
+export type LogsState = {
+    isFetching: boolean;
+    didInvalidate: boolean;
+    lastUpdated: number;
+    items: Log[];
+}
+
+export type Comment = {
+    comment_id: number;
+    username: string;
+    first: string;
+    last: string;
+    log_id: number;
+    time: string;
+    content: string;
+}

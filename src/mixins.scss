@@ -15,6 +15,10 @@
   .sxctf-nav-bar-dropdown-visible {
     background-color: #131313;
 
+    @media screen and (min-width: 800px) {
+      background-color: transparent !important;
+    }
+
     .sxctf-nav-hamburger {
       .aj-mobile-hamburger {
         span, span:before, span:after {

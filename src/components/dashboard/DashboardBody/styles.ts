@@ -12,6 +12,7 @@ export default {
         gridTemplateAreas: '"panel feed"',
         gridTemplateColumns: '1fr 2fr',
         minHeight: 'calc(100vh - 100px)',
+        marginTop: '100px',
         backgroundColor: Colors.lightBackground,
     },
     sidePanel: {

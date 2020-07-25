@@ -13,6 +13,11 @@ class Mixins {
                 backgroundColor: 'white'
             }
         },
+        '@media screen and (min-width: 800px)': {
+            '& .sxctf-nav-bar-dropdown-visible': {
+                backgroundColor: 'transparent'
+            }
+        },
         '& .sxctf-nav-bar-dropdown-hidden': {
             backgroundColor: '#f5f5f5',
 
