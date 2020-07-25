@@ -101,8 +101,8 @@ const appState = {
     isFetching: false,
     didInvalidate: false,
     lastUpdated: 1588530315,
-    items: [
-      {
+    items: {
+      1: {
         logId: 1,
         username: "andy",
         first: "Andrew",
@@ -131,6 +131,14 @@ const appState = {
           }
         ]
       }
-    ]
+    },
+    feed: {
+      isFetching: false,
+      lastUpdated: 1588530315,
+      filterBy: "all",
+      bucket: "all",
+      items: [],
+      serverError: null
+    },
   }
 };
