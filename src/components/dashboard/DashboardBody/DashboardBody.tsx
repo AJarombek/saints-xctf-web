@@ -7,6 +7,9 @@
 import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
+import DashboardSidePanel from "../DashboardSidePanel/DashboardSidePanel";
+import DashboardFeed from "../DashboardFeed/DashboardFeed";
+import DashboardPaginationBar from "../DashboardPaginationBar/DashboardPaginationBar";
 
 interface IProps {
 
@@ -18,7 +21,7 @@ const DashboardBody: React.FunctionComponent<IProps> = () => {
     const classes = useStyles();
 
     return (
-        <div className={classes.dashboard}>
+        <div className={classes.dashboardBody}>
             <div className={classes.sidePanel}>
                 <DashboardSidePanel />
             </div>

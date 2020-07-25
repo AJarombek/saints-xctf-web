@@ -12,6 +12,8 @@ const Colors = {
     statusSuccess: '#28a745',
     statusWarning: '#ffc107',
     statusFailure: '#dc3545',
+    lightestBackground: '#fdfdfd',
+    lightBackground: '#f5f5f5',
 };
 
 export default Colors;
