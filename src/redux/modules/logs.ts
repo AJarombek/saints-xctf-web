@@ -96,7 +96,7 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
 
 function logFeedRequestReducer(state: LogsState, action: LogFeedRequestAction): LogsState {
     const feedName = `${action.filterBy}-${action.bucket}`;
-    const existingPages = state.feeds[feedName].pages ?? {};
+    const existingPages = state.feeds[feedName]?.pages ?? {};
     const existingPage = existingPages[action.page] ?? {};
 
     return {
@@ -120,7 +120,7 @@ function logFeedRequestReducer(state: LogsState, action: LogFeedRequestAction): 
 
 function logFeedSuccessReducer(state: LogsState, action: LogFeedSuccessAction): LogsState {
     const feedName = `${action.filterBy}-${action.bucket}`;
-    const existingPages = state.feeds[feedName].pages ?? {};
+    const existingPages = state.feeds[feedName]?.pages ?? {};
     const existingPage = existingPages[action.page] ?? {};
 
     return {
@@ -146,7 +146,7 @@ function logFeedSuccessReducer(state: LogsState, action: LogFeedSuccessAction): 
 
 function logFeedFailureReducer(state: LogsState, action: LogFeedFailureAction): LogsState {
     const feedName = `${action.filterBy}-${action.bucket}`;
-    const existingPages = state.feeds[feedName].pages ?? {};
+    const existingPages = state.feeds[feedName]?.pages ?? {};
     const existingPage = existingPages[action.page] ?? {};
 
     return {

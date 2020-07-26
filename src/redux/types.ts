@@ -4,6 +4,30 @@
  * @since 7/23/2020
  */
 
+export type RootState = {
+    auth: AuthState,
+    logs: LogsState
+}
+
+export type LogsState = {
+    isFetching: boolean;
+    didInvalidate: boolean;
+    lastUpdated: number;
+    items: Logs;
+    feeds: LogFeeds
+}
+
+export type AuthState = {
+    auth: Auth;
+    user: Users;
+}
+
+export type Auth = {
+    isFetching?: boolean;
+    signedIn?: boolean;
+    status?: string;
+}
+
 export type Users = {
     [key: string]: Record<string, User>;
 }
@@ -65,14 +89,6 @@ export type LogFeeds = {
             }
         }
     };
-}
-
-export type LogsState = {
-    isFetching: boolean;
-    didInvalidate: boolean;
-    lastUpdated: number;
-    items: Logs;
-    feeds: LogFeeds
 }
 
 export type Comment = {

@@ -12,36 +12,29 @@ import styles from "./styles";
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
-import {Users} from "../../redux/types";
+import {RootState} from "../../redux/types";
 import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
-
-interface RootState {
-  auth: {
-    auth: Auth,
-    user: Users
-  }
-}
-
-interface Auth {
-  isFetching?: boolean,
-  signedIn?: boolean,
-  status?: string
-}
+import {logFeed} from "../../redux/modules/logs";
 
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth.auth,
-  user: state.auth.user
+  user: state.auth.user,
+  logFeeds: state.logs.feeds
 });
 
-const connector = connect(mapStateToProps);
+const mapDispatchToProps = {
+  getLogFeed: logFeed
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 type Props = PropsFromRedux & {}
 
 const useStyles = createUseStyles(styles);
 
-const Dashboard: React.FunctionComponent<Props> = ({ auth = {}, user = {} }) => {
+const Dashboard: React.FunctionComponent<Props> = ({ auth = {}, user = {}, logFeeds = {}, getLogFeed }) => {
   const { signedIn } = auth;
   const history = useHistory();
   const classes = useStyles();
@@ -52,13 +45,17 @@ const Dashboard: React.FunctionComponent<Props> = ({ auth = {}, user = {} }) => 
     }
   }, [user]);
 
-  return (
-    <div className={classes.dashboard}>
-      <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
-      <DashboardBody />
-      <HomeFooter />
-    </div>
-  );
+  if (userAuthenticated(user, signedIn)) {
+    return (
+        <div className={classes.dashboard}>
+          <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
+          <DashboardBody getLogFeed={getLogFeed} logFeeds={logFeeds} />
+          <HomeFooter />
+        </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default connector(Dashboard);
