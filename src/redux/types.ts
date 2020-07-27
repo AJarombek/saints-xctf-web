@@ -67,6 +67,7 @@ export type Log = {
     time?: string;
     pace?: string;
     feel: number;
+    location?: string;
     description?: string;
     timeCreated?: string;
     comments?: Comment[];

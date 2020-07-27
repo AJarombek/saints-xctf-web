@@ -8,6 +8,7 @@ import React, {useMemo} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import {Log} from "../../../redux/types";
+import {Link} from "react-router-dom";
 
 interface IProps {
     log: Log;
@@ -16,11 +17,30 @@ interface IProps {
 const useStyles = createUseStyles(styles);
 
 const ExerciseLog: React.FunctionComponent<IProps> = ({ log }) => {
-    const classes = useStyles();
+    const classes = useStyles({ feel: log?.feel });
 
     return (
         <div className={classes.exerciseLog}>
-            {JSON.stringify(log)}
+            <div className={classes.headerSection}>
+                <div className={classes.titles}>
+                    <Link to="/user">{log.first} {log.last}</Link>
+                    <h6>{log.name}</h6>
+                </div>
+                <div className={classes.metadata}>
+                    <p className={classes.date}>{log.date}</p>
+                    <p className={classes.type}>{log.type.toUpperCase()}</p>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <p>Location: {log.location}</p>
+                    <p>{log.distance} {log.metric}</p>
+                    <p>{log.time} ({log.pace}/mi)</p>
+                </div>
+                <div>
+                    <p>{log.description}</p>
+                </div>
+            </div>
         </div>
     );
 };

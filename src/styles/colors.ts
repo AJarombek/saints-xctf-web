@@ -16,4 +16,17 @@ const Colors = {
     lightBackground: '#f5f5f5',
 };
 
+export const FeelColors = [
+    '#EA9999',
+    '#FFAD99',
+    '#EAC199',
+    '#FFD699',
+    '#FFFFAD',
+    '#E3E3E3',
+    '#C7F599',
+    '#99D699',
+    '#99C199',
+    '#A3A3FF'
+];
+
 export default Colors;
