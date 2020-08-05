@@ -19,6 +19,7 @@ export default {
         gridArea: 'panel'
     },
     mainPanel: {
-        gridArea: 'feed'
+        gridArea: 'feed',
+        padding: '20px',
     }
 };

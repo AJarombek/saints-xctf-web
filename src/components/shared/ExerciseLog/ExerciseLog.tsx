@@ -9,6 +9,8 @@ import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import {Log} from "../../../redux/types";
 import {Link} from "react-router-dom";
+import moment from "moment";
+import Comments from "../Comments/Comments";
 
 interface IProps {
     log: Log;
@@ -24,22 +26,25 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({ log }) => {
             <div className={classes.headerSection}>
                 <div className={classes.titles}>
                     <Link to="/user" className={classes.titleLink}>{log.first} {log.last}</Link>
-                    <h6>{log.name}</h6>
+                    <h6 className={classes.title}>{log.name}</h6>
                 </div>
                 <div className={classes.metadata}>
-                    <p className={classes.date}>{log.date}</p>
+                    <p className={classes.date}>{moment(log.date).format('MMM. Do, YYYY')}</p>
                     <p className={classes.type}>{log.type.toUpperCase()}</p>
                 </div>
             </div>
-            <div>
-                <div>
+            <div className={classes.bodySection}>
+                <div className={classes.dataFields}>
                     <p>Location: {log.location}</p>
                     <p>{log.distance} {log.metric}</p>
                     <p>{log.time} ({log.pace}/mi)</p>
                 </div>
-                <div>
+                <div className={classes.description}>
                     <p>{log.description}</p>
                 </div>
+            </div>
+            <div className={classes.commentSection}>
+                <Comments comments={log.comments}/>
             </div>
         </div>
     );
