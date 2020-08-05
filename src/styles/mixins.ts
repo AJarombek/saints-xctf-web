@@ -45,4 +45,77 @@ class Mixins {
     static formButtons = () => ({});
 }
 
+class FontMixins {
+    static longway = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'Longway', Helvetica, sans-serif !important",
+        fontWeight: 'normal',
+        fontStyle: 'normal'
+    });
+
+    static allura = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'Allura', Helvetica, sans-serif !important",
+        fontWeight: 'normal',
+        fontStyle: 'normal'
+    });
+
+    static elegantIcons = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'ElegantIcons', Helvetica, sans-serif !important",
+        fontWeight: 'normal',
+        fontStyle: 'normal'
+    });
+
+    static robotoBold = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'Roboto-Bold', Helvetica, sans-serif !important",
+        fontWeight: 'bold',
+        fontStyle: 'normal'
+    });
+
+    static roboto = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'Roboto-Regular', Helvetica, sans-serif !important",
+        fontWeight: 'normal',
+        fontStyle: 'normal'
+    });
+
+    static robotoThin = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'Roboto-Thin', Helvetica, sans-serif !important",
+        fontWeight: 'lighter',
+        fontStyle: 'normal'
+    });
+
+    static robotoSlabBold = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'RobotoSlab-Bold', Helvetica, serif !important",
+        fontWeight: 'bold',
+        fontStyle: 'normal'
+    });
+
+    static robotoSlab = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'RobotoSlab-Regular', Helvetica, serif !important",
+        fontWeight: 'normal',
+        fontStyle: 'normal'
+    });
+
+    static robotoSlabLight = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'RobotoSlab-Light', Helvetica, serif !important",
+        fontWeight: 'lighter',
+        fontStyle: 'normal'
+    });
+
+    static robotoSlabThin = () => ({
+        backgroundColor: 'transparent !important',
+        fontFamily: "'RobotoSlab-Thin', Helvetica, serif !important",
+        fontWeight: 'normal',
+        fontStyle: 'normal'
+    });
+}
+
+export {Mixins, FontMixins};
 export default Mixins;

@@ -5,6 +5,7 @@
  */
 
 import {FeelColors} from "../../../styles/colors";
+import {FontMixins} from "../../../styles/mixins";
 
 export default {
   exerciseLog: {
@@ -19,6 +20,9 @@ export default {
   },
   titles: {
     display: 'block'
+  },
+  titleLink: {
+    ...FontMixins.robotoSlab()
   },
   metadata: {
     display: 'block',
