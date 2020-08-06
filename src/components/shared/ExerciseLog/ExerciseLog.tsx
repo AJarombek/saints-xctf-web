@@ -44,7 +44,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({ log }) => {
                 </div>
             </div>
             <div className={classes.commentSection}>
-                <Comments comments={log.comments}/>
+                <Comments comments={log.comments} feel={log.feel}/>
             </div>
         </div>
     );
