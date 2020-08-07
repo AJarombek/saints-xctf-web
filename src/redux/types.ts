@@ -14,7 +14,8 @@ export type LogsState = {
     didInvalidate: boolean;
     lastUpdated: number;
     items: Logs;
-    feeds: LogFeeds
+    feeds: LogFeeds;
+    newComments: NewComments;
 }
 
 export type AuthState = {
@@ -100,4 +101,13 @@ export type Comment = {
     log_id: number;
     time: string;
     content: string;
+}
+
+export type NewComments = {
+    [key: string]: {
+        isFetching: boolean;
+        lastUpdated: number;
+        created?: boolean;
+        serverError?: string;
+    }
 }

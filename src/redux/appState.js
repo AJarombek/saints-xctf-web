@@ -146,5 +146,13 @@ const appState = {
         }
       }
     },
+    newComments: {
+      3: {
+        isFetching: false,
+        lastUpdated: 1588530315,
+        created: true,
+        serverError: null
+      }
+    }
   }
 };
