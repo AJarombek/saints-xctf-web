@@ -4,10 +4,11 @@
  * @since 8/5/2020
  */
 
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import {Comment} from "../../../redux/types";
+import classNames from "classnames";
 
 interface IProps {
     comments: Comment[];
@@ -19,6 +20,8 @@ const useStyles = createUseStyles(styles);
 const Comments: React.FunctionComponent<IProps> = ({ comments, feel }) => {
     const classes = useStyles({ feel });
 
+    const [textAreaHasFocus, setTextAreaHasFocus] = useState(false);
+
     const textAreaRef = useRef(null);
 
     const onTextAreaKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -29,15 +32,21 @@ const Comments: React.FunctionComponent<IProps> = ({ comments, feel }) => {
     return (
         <div className={classes.comments}>
             <textarea
-                className={classes.newComment}
+                className={
+                    classNames(classes.newComment, textAreaHasFocus ? classes.focusNewComment : classes.blurNewComment)
+                }
                 maxLength={1000}
                 placeholder="Comment"
                 ref={textAreaRef}
                 onKeyUp={onTextAreaKeyUp}
+                onFocus={() => setTextAreaHasFocus(true)}
+                onBlur={() => setTextAreaHasFocus(false)}
             />
-            <div className={classes.addIcon}>
-                <p>+</p>
-            </div>
+            {textAreaHasFocus && (
+                <div className={classes.addIcon}>
+                  <p>&#x4c;</p>
+                </div>
+            )}
         </div>
     );
 };
