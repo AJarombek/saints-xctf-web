@@ -13,20 +13,26 @@ import classNames from "classnames";
 interface IProps {
     comments: Comment[];
     feel: number;
+    onCreateComment: (content: string) => void;
 }
 
 const useStyles = createUseStyles(styles);
 
-const Comments: React.FunctionComponent<IProps> = ({ comments, feel }) => {
+const Comments: React.FunctionComponent<IProps> = ({ comments, feel, onCreateComment }) => {
     const classes = useStyles({ feel });
 
     const [textAreaHasFocus, setTextAreaHasFocus] = useState(false);
+    const [content, setContent] = useState("");
 
     const textAreaRef = useRef(null);
 
     const onTextAreaKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         e.currentTarget.style.height = "25px";
         e.currentTarget.style.height = `${e.currentTarget.scrollHeight + 4}px`;
+    };
+
+    const onTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setContent(e.target.value);
     };
 
     return (
@@ -38,12 +44,13 @@ const Comments: React.FunctionComponent<IProps> = ({ comments, feel }) => {
                 maxLength={1000}
                 placeholder="Comment"
                 ref={textAreaRef}
+                onChange={onTextAreaChange}
                 onKeyUp={onTextAreaKeyUp}
                 onFocus={() => setTextAreaHasFocus(true)}
                 onBlur={() => setTextAreaHasFocus(false)}
             />
             {textAreaHasFocus && (
-                <div className={classes.addIcon}>
+                <div className={classes.addIcon} onClick={() => onCreateComment(content)}>
                   <p>&#x4c;</p>
                 </div>
             )}

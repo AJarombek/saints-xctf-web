@@ -10,16 +10,25 @@ import styles from "./styles";
 import DashboardSidePanel from "../DashboardSidePanel/DashboardSidePanel";
 import DashboardFeed from "../DashboardFeed/DashboardFeed";
 import DashboardPaginationBar from "../DashboardPaginationBar/DashboardPaginationBar";
-import {LogFeeds} from "../../../redux/types";
+import {LogFeeds, NewComments, User} from "../../../redux/types";
 
 interface IProps {
-    getLogFeed: Function,
-    logFeeds: LogFeeds
+    getLogFeed: Function;
+    postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
+    logFeeds: LogFeeds;
+    newComments: NewComments;
+    user: User
 }
 
 const useStyles = createUseStyles(styles);
 
-const DashboardBody: React.FunctionComponent<IProps> = ({ getLogFeed, logFeeds }) => {
+const DashboardBody: React.FunctionComponent<IProps> = ({
+    getLogFeed,
+    postComment,
+    logFeeds,
+    newComments,
+    user
+}) => {
     const classes = useStyles();
 
     const [page, setPage] = useState(1);
@@ -34,7 +43,13 @@ const DashboardBody: React.FunctionComponent<IProps> = ({ getLogFeed, logFeeds }
                 <DashboardSidePanel />
             </div>
             <div className={classes.mainPanel}>
-                <DashboardFeed logFeeds={logFeeds} page={page} />
+                <DashboardFeed
+                    logFeeds={logFeeds}
+                    postComment={postComment}
+                    page={page}
+                    newComments={newComments}
+                    user={user}
+                />
                 <DashboardPaginationBar />
             </div>
         </div>

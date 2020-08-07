@@ -7,19 +7,28 @@
 import React, {useMemo} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
-import {Log} from "../../../redux/types";
+import {Log, NewComments, User} from "../../../redux/types";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import Comments from "../Comments/Comments";
 
 interface IProps {
     log: Log;
+    postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
+    newComments: NewComments;
+    user: User;
 }
 
 const useStyles = createUseStyles(styles);
 
-const ExerciseLog: React.FunctionComponent<IProps> = ({ log }) => {
+const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newComments, user }) => {
     const classes = useStyles({ feel: log?.feel });
+
+    const onCreateComment = (content: string) => {
+        if (content) {
+            postComment(log.log_id, user.username, user.first, user.last, content);
+        }
+    };
 
     return (
         <div className={classes.exerciseLog}>
@@ -44,7 +53,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({ log }) => {
                 </div>
             </div>
             <div className={classes.commentSection}>
-                <Comments comments={log.comments} feel={log.feel}/>
+                <Comments comments={log.comments} feel={log.feel} onCreateComment={onCreateComment}/>
             </div>
         </div>
     );

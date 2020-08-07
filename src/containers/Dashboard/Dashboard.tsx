@@ -15,16 +15,18 @@ import NavBar from '../../components/shared/NavBar';
 import {RootState} from "../../redux/types";
 import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
-import {logFeed} from "../../redux/modules/logs";
+import {logFeed, postComment} from "../../redux/modules/logs";
 
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth.auth,
   user: state.auth.user,
-  logFeeds: state.logs.feeds
+  logFeeds: state.logs.feeds,
+  newComments: state.logs.newComments
 });
 
 const mapDispatchToProps = {
-  getLogFeed: logFeed
+  getLogFeed: logFeed,
+  postComment
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -34,7 +36,14 @@ type Props = PropsFromRedux & {}
 
 const useStyles = createUseStyles(styles);
 
-const Dashboard: React.FunctionComponent<Props> = ({ auth = {}, user = {}, logFeeds = {}, getLogFeed }) => {
+const Dashboard: React.FunctionComponent<Props> = ({
+  auth = {},
+  user = {},
+  logFeeds = {},
+  newComments = {},
+  getLogFeed,
+  postComment
+}) => {
   const { signedIn } = auth;
   const history = useHistory();
   const classes = useStyles();
@@ -49,7 +58,13 @@ const Dashboard: React.FunctionComponent<Props> = ({ auth = {}, user = {}, logFe
     return (
         <div className={classes.dashboard}>
           <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
-          <DashboardBody getLogFeed={getLogFeed} logFeeds={logFeeds} />
+          <DashboardBody
+              getLogFeed={getLogFeed}
+              postComment={postComment}
+              logFeeds={logFeeds}
+              newComments={newComments}
+              user={user}
+          />
           <HomeFooter />
         </div>
     );
