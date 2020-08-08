@@ -53,7 +53,13 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newCom
                 </div>
             </div>
             <div className={classes.commentSection}>
-                <Comments comments={log.comments} feel={log.feel} onCreateComment={onCreateComment}/>
+                <Comments
+                    comments={log.comments}
+                    feel={log.feel}
+                    onCreateComment={onCreateComment}
+                    newComments={newComments}
+                    logId={log.log_id}
+                />
             </div>
         </div>
     );

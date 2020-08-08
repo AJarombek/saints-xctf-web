@@ -114,11 +114,11 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
         case GET_LOG_FAILURE:
             return state;
         case POST_COMMENT_REQUEST:
-            return state;
+            return postCommentRequestReducer(state, action);
         case POST_COMMENT_SUCCESS:
-            return state;
+            return postCommentSuccessReducer(state, action);
         case POST_COMMENT_FAILURE:
-            return state;
+            return postCommentFailureReducer(state, action);
         default:
             return state;
     }
