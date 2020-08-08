@@ -23,17 +23,27 @@ export type AuthState = {
     user: Users;
 }
 
+export interface Meta {
+    isFetching?: boolean;
+    lastUpdated?: number;
+    didInvalidate?: boolean;
+    serverError?: string;
+}
+
 export type Auth = {
     isFetching?: boolean;
+    lastUpdated?: number;
     signedIn?: boolean;
     status?: string;
 }
 
 export type Users = {
-    [key: string]: Record<string, User>;
+    [key: string]: UserMeta;
 }
 
-export type User = {
+export interface UserMeta extends User, Meta {}
+
+export interface User {
     activation_code?: string;
     class_year?: number;
     deleted?: string;

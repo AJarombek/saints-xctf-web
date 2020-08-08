@@ -1,0 +1,266 @@
+/**
+ * Authentication redux module which follows the ducks pattern.
+ * @author Andrew Jarombek
+ * @since 5/1/2020
+ */
+
+import { api } from '../../datasources/apiRequest';
+import bcrypt from 'bcryptjs';
+import moment from 'moment';
+import {AuthState, User} from "../types";
+import {Dispatch} from "redux";
+
+// Actions
+const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
+const SIGNIN_FAILURE = 'saints-xctf-web/auth/SIGNIN_FAILURE';
+const SIGNIN_SUCCESS = 'saints-xctf-web/auth/SIGNIN_SUCCESS';
+const FORGOT_PASSWORD_EMAIL_REQUEST = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_REQUEST';
+const FORGOT_PASSWORD_EMAIL_FAILURE = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_FAILURE';
+const FORGOT_PASSWORD_EMAIL_SUCCESS = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_SUCCESS';
+const CHANGE_EMAIL_REQUEST = 'saints-xctf-web/auth/CHANGE_EMAIL_REQUEST';
+const CHANGE_EMAIL_FAILURE = 'saints-xctf-web/auth/CHANGE_EMAIL_FAILURE';
+const CHANGE_EMAIL_SUCCESS = 'saints-xctf-web/auth/CHANGE_EMAIL_SUCCESS';
+
+// Action Types
+
+interface SignInRequestAction {
+  type: typeof SIGNIN_REQUEST;
+  status: string;
+  username: string;
+}
+
+interface SignInSuccessAction {
+  type: typeof SIGNIN_SUCCESS;
+  status: string;
+  username: string;
+  user: User;
+}
+
+interface SignInFailureAction {
+  type: typeof SIGNIN_FAILURE;
+  status: string;
+}
+
+interface ForgotPasswordRequestAction {
+  type: typeof FORGOT_PASSWORD_EMAIL_REQUEST;
+}
+
+interface ForgotPasswordSuccessAction {
+  type: typeof FORGOT_PASSWORD_EMAIL_SUCCESS;
+  status: string;
+}
+
+interface ForgotPasswordFailureAction {
+  type: typeof FORGOT_PASSWORD_EMAIL_FAILURE;
+  status: string;
+  serverError: string;
+}
+
+interface ChangeEmailRequestAction {
+  type: typeof CHANGE_EMAIL_REQUEST;
+}
+
+interface ChangeEmailSuccessAction {
+  type: typeof CHANGE_EMAIL_SUCCESS;
+}
+
+interface ChangeEmailFailureAction {
+  type: typeof CHANGE_EMAIL_FAILURE;
+}
+
+type AuthActionTypes =
+    SignInRequestAction |
+    SignInSuccessAction |
+    SignInFailureAction |
+    ForgotPasswordRequestAction |
+    ForgotPasswordSuccessAction |
+    ForgotPasswordFailureAction |
+    ChangeEmailRequestAction |
+    ChangeEmailSuccessAction |
+    ChangeEmailFailureAction;
+
+// Reducer
+const initialState: AuthState = {
+  auth: {},
+  user: {}
+};
+
+export default function reducer(state = initialState, action : AuthActionTypes) {
+  switch (action.type) {
+    case SIGNIN_REQUEST:
+      return signInRequestReducer(state, action);
+    case SIGNIN_SUCCESS:
+      return signInSuccessReducer(state, action);
+    case SIGNIN_FAILURE:
+      return signInFailureReducer(state, action);
+    case FORGOT_PASSWORD_EMAIL_REQUEST:
+      return {
+        ...state
+      };
+    case FORGOT_PASSWORD_EMAIL_SUCCESS:
+      return {
+        ...state
+      };
+    case FORGOT_PASSWORD_EMAIL_FAILURE:
+      return {
+        ...state
+      };
+    case CHANGE_EMAIL_REQUEST:
+      return {
+        ...state
+      };
+    case CHANGE_EMAIL_SUCCESS:
+      return {
+        ...state
+      };
+    case CHANGE_EMAIL_FAILURE:
+      return {
+        ...state
+      };
+    default:
+      return state;
+  }
+}
+
+function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {
+  return {
+    ...state,
+    auth: {
+      isFetching: true,
+      lastUpdated: moment().unix(),
+      signedIn: false,
+      status: action.status
+    },
+    user: {
+      [action.username]: {
+        isFetching: true,
+        lastUpdated: moment().unix()
+      }
+    }
+  };
+}
+
+function signInSuccessReducer(state: AuthState, action: SignInSuccessAction): AuthState {
+  return {
+    ...state,
+    auth: {
+      isFetching: false,
+      lastUpdated: moment().unix(),
+      signedIn: true,
+      status: action.status
+    },
+    user: {
+      [action.username]: {
+        isFetching: false,
+        didInvalidate: false,
+        lastUpdated: moment().unix(),
+        ...action.user
+      }
+    }
+  };
+}
+
+function signInFailureReducer(state: AuthState, action: SignInFailureAction): AuthState {
+  return {
+    ...state,
+    auth: {
+      isFetching: false,
+      lastUpdated: moment().unix(),
+      signedIn: false,
+      status: action.status
+    },
+    user: {}
+  };
+}
+
+// Action Creators
+export function signInRequest(username: string, status: string): SignInRequestAction {
+  return {
+    type: SIGNIN_REQUEST,
+    username,
+    status
+  }
+}
+
+export function signInSuccess(username: string, user: User, status: string): SignInSuccessAction {
+  return {
+    type: SIGNIN_SUCCESS,
+    username,
+    user,
+    status
+  }
+}
+
+export function signInFailure(status: string): SignInFailureAction {
+  return {
+    type: SIGNIN_FAILURE,
+    status
+  }
+}
+
+export function forgotPasswordRequest(): ForgotPasswordRequestAction {
+  return {
+    type: FORGOT_PASSWORD_EMAIL_REQUEST
+  }
+}
+
+export function forgotPasswordSuccess(status: string): ForgotPasswordSuccessAction {
+  return {
+    type: FORGOT_PASSWORD_EMAIL_SUCCESS,
+    status
+  }
+}
+
+export function forgotPasswordFailure(status: string, serverError: string): ForgotPasswordFailureAction {
+  return {
+    type: FORGOT_PASSWORD_EMAIL_FAILURE,
+    status,
+    serverError
+  }
+}
+
+export function signIn(username: string, password: string) {
+  return async function (dispatch: Dispatch) {
+    dispatch(signInRequest(username, "PENDING"));
+
+    try {
+      const response = await api.get(`users/${username}`);
+
+      const { user } = response.data;
+      const match = await bcrypt.compare(password, user.password);
+
+      if (match) {
+        dispatch(signInSuccess(username, user, "SUCCESS"));
+      } else {
+        dispatch(signInFailure("INVALID PASSWORD"));
+      }
+    } catch (error) {
+      const { response } = error;
+      if (response.status === 400) {
+        dispatch(signInFailure("INVALID USER"));
+      } else {
+        dispatch(signInFailure("INTERNAL ERROR"));
+      }
+    }
+  }
+}
+
+export function forgotPasswordEmail(email: string) {
+  return async function (dispatch: Dispatch) {
+    dispatch(forgotPasswordRequest());
+
+    try {
+      await api.post(`forgot_password/${email}`);
+      dispatch(forgotPasswordSuccess("SUCCESS"));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      if (response.status === 400) {
+        dispatch(forgotPasswordFailure("INVALID USERNAME/EMAIL", serverError));
+      } else {
+        dispatch(forgotPasswordFailure("INTERNAL ERROR", serverError));
+      }
+    }
+  }
+}

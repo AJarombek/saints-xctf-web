@@ -21,7 +21,6 @@ const useStyles = createUseStyles(styles);
 const Comments: React.FunctionComponent<IProps> = ({ comments, feel, onCreateComment }) => {
     const classes = useStyles({ feel });
 
-    const [textAreaHasFocus, setTextAreaHasFocus] = useState(false);
     const [content, setContent] = useState("");
 
     const textAreaRef = useRef(null);
@@ -39,17 +38,15 @@ const Comments: React.FunctionComponent<IProps> = ({ comments, feel, onCreateCom
         <div className={classes.comments}>
             <textarea
                 className={
-                    classNames(classes.newComment, textAreaHasFocus ? classes.focusNewComment : classes.blurNewComment)
+                    classNames(classes.newComment, content ? classes.focusNewComment : classes.blurNewComment)
                 }
                 maxLength={1000}
                 placeholder="Comment"
                 ref={textAreaRef}
                 onChange={onTextAreaChange}
                 onKeyUp={onTextAreaKeyUp}
-                onFocus={() => setTextAreaHasFocus(true)}
-                onBlur={() => setTextAreaHasFocus(false)}
             />
-            {textAreaHasFocus && (
+            {!!content && (
                 <div className={classes.addIcon} onClick={() => onCreateComment(content)}>
                   <p>&#x4c;</p>
                 </div>

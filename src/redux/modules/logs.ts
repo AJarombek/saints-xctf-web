@@ -362,7 +362,7 @@ export function postComment(logId: number, username: string, first: string, last
         dispatch(postCommentRequest(logId));
 
         try {
-            await api.post(`comment`, {
+            await api.post(`comments/`, {
                 username,
                 first,
                 last,

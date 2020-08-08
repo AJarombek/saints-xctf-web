@@ -26,7 +26,7 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = {
   getLogFeed: logFeed,
-  postComment
+  postComment: postComment
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -29,7 +29,7 @@ export default {
         }
     },
     focusNewComment: {
-        width: 'calc(100% - 60px)',
+        width: 'calc(100% - 70px)',
     },
     blurNewComment: {
         width: '100%',
