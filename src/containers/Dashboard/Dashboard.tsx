@@ -49,12 +49,12 @@ const Dashboard: React.FunctionComponent<Props> = ({
   const classes = useStyles();
 
   useEffect(() => {
-    if (!userAuthenticated(user, signedIn)) {
+    if (!userAuthenticated(user)) {
       history.push('/');
     }
   }, [user]);
 
-  if (userAuthenticated(user, signedIn)) {
+  if (userAuthenticated(user)) {
     return (
         <div className={classes.dashboard}>
           <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>

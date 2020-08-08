@@ -28,11 +28,17 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 type Props = PropsFromRedux & {}
 
 const SignIn: React.FunctionComponent<Props> = ({ auth = {}, user = {}, signInUser }) => {
-  const { isFetching = false, signedIn, status } = auth;
+  const { isFetching = false, status } = auth;
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user, signedIn)) {
+    if (userAuthenticated(user)) {
+      localStorage.setItem('user', JSON.stringify({
+        ...Object.entries(user).filter(([_, user]) => !user.isFetching && !user.didInvalidate)[0][1],
+        password: null,
+        salt: null
+      }));
+
       history.push('/dashboard');
     }
   }, [user]);

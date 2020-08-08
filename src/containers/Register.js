@@ -34,7 +34,6 @@ const mapDispatchToProps = {
 
 const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInfo,
                     registerCredentials, registerBack }) => {
-  const { signedIn } = auth;
   let { stage = 0 } = registration;
 
   // In the development environment, stages can be skipped by adding the 'stage' query parameter
@@ -50,7 +49,7 @@ const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInf
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user, signedIn)) {
+    if (userAuthenticated(user)) {
       history.push('/dashboard');
     }
   }, [user]);

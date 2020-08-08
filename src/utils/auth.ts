@@ -6,8 +6,20 @@
 
 import {Users} from "../redux/types";
 
-export function userAuthenticated(user: Users, signedIn: boolean) {
-  if (!user || !signedIn) {
+export function userAuthenticated(user: Users) {
+  if (!Object.keys(user).length) {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (storedUser) {
+      user = {
+        [storedUser.username]: {
+          ...storedUser
+        }
+      }
+    }
+  }
+
+  if (!user) {
     return false;
   }
 

@@ -56,6 +56,7 @@ export interface User {
     location?: string;
     member_since?: string;
     password?: string;
+    salt?: string;
     subscribed?: string;
     username?: string;
     week_start?: string;

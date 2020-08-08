@@ -25,11 +25,10 @@ const mapStateToProps = state => ({
 });
 
 const Home = ({ auth = {}, user = {} }) => {
-  const { isFetching = false, signedIn, status } = auth;
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user, signedIn)) {
+    if (userAuthenticated(user)) {
       history.push('/dashboard');
     }
   }, [user]);

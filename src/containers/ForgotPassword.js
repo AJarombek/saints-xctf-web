@@ -28,11 +28,10 @@ const mapDispatchToProps = {
 };
 
 const ForgotPassword = ({ auth, user, forgotPassword, forgotPasswordEmail }) => {
-  const { signedIn } = auth;
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user, signedIn)) {
+    if (userAuthenticated(user)) {
       history.push('/dashboard');
     }
   }, [user]);

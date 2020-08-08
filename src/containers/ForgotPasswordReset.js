@@ -22,11 +22,10 @@ const mapStateToProps = state => ({
 });
 
 const ForgotPasswordReset = ({ auth = {}, user = {} }) => {
-  const { signedIn } = auth;
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user, signedIn)) {
+    if (userAuthenticated(user)) {
       history.push('/dashboard');
     }
   }, [user]);
