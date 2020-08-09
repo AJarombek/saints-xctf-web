@@ -37,10 +37,12 @@ const AlertPopup: React.FunctionComponent<IProps> = ({message, onClose, type}) =
     }
 
     return (
-        <div className={classes.alert}>
-            <p className={classes.alertIcon}>{alertIcon}</p>
-            <p>{message}</p>
-            <p className={classes.closeIcon} onClick={onClose}>&#x4d;</p>
+        <div className={classes.alertContainer}>
+            <div className={classes.alert}>
+                <p className={classes.alertIcon}>{alertIcon}</p>
+                <p className={classes.message}>{message}</p>
+                <p className={classes.closeIcon} onClick={onClose}>&#x4d;</p>
+            </div>
         </div>
     );
 };

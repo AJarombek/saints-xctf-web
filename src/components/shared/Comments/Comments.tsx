@@ -32,14 +32,17 @@ const Comments: React.FunctionComponent<IProps> = ({
 
     const [content, setContent] = useState("");
     const [showError, setShowError] = useState(false);
+    const [prevErrorTime, setPrevErrorTime] = useState(0);
 
     const textAreaRef = useRef(null);
 
     useEffect(() => {
         if (newComments) {
             const newComment = Object.entries(newComments).filter(([commentLogId, _]) => +commentLogId === logId);
-            if (newComment.length && newComment[0][1].serverError) {
+
+            if (newComment.length && newComment[0][1].serverError && newComment[0][1].lastUpdated !== prevErrorTime) {
                 setShowError(true);
+                setPrevErrorTime(newComment[0][1].lastUpdated);
             }
         }
     }, [newComments]);
