@@ -5,7 +5,7 @@
  */
 
 import { api } from '../../datasources/apiRequest';
-import {Comment, Log, LogFeeds, Logs, LogsState, NewComments} from "../types";
+import {Comment, Log, LogFeedPage, LogFeeds, Logs, LogsState, NewComments} from "../types";
 import {Dispatch} from "redux";
 import moment from "moment";
 
@@ -19,6 +19,7 @@ const LOG_FEED_FAILURE = 'saints-xctf-web/logs/LOG_FEED_FAILURE';
 const POST_COMMENT_REQUEST = 'saints-xctf-web/logs/POST_COMMENT_REQUEST';
 const POST_COMMENT_SUCCESS = 'saints-xctf-web/logs/POST_COMMENT_SUCCESS';
 const POST_COMMENT_FAILURE = 'saints-xctf-web/logs/POST_COMMENT_FAILURE';
+const ADD_COMMENT = 'saints-xctf-web/logs/ADD_COMMENT';
 
 // Action Types
 interface GetLogRequestAction {
@@ -78,6 +79,19 @@ interface PostCommentFailureAction {
     serverError: string;
 }
 
+interface AddCommentAction {
+    type: typeof ADD_COMMENT;
+    logId: number;
+    content: string;
+    username: string;
+    first: string;
+    last: string;
+    filterBy: string;
+    bucket: string;
+    page: number;
+    index: number;
+}
+
 type LogsActionTypes =
     GetLogRequestAction |
     GetLogSuccessAction |
@@ -87,7 +101,8 @@ type LogsActionTypes =
     LogFeedFailureAction |
     PostCommentRequestAction |
     PostCommentSuccessAction |
-    PostCommentFailureAction;
+    PostCommentFailureAction |
+    AddCommentAction;
 
 // Reducer
 const initialState: LogsState = {
@@ -119,6 +134,8 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
             return postCommentSuccessReducer(state, action);
         case POST_COMMENT_FAILURE:
             return postCommentFailureReducer(state, action);
+        case ADD_COMMENT:
+            return addCommentReducer(state, action);
         default:
             return state;
     }
@@ -245,6 +262,42 @@ function postCommentFailureReducer(state: LogsState, action: PostCommentFailureA
     }
 }
 
+function addCommentReducer(state: LogsState, action: AddCommentAction): LogsState {
+    const feedName = `${action.filterBy}-${action.bucket}`;
+    const existingPages = state.feeds[feedName]?.pages ?? {};
+    const existingPage = existingPages[action.page] ?? {} as LogFeedPage;
+
+    const newItems = [ ...existingPage.items];
+    newItems[action.index].comments.push({
+        comment_id: -1,
+        username: action.username,
+        first: action.first,
+        last: action.last,
+        log_id: action.logId,
+        time: moment().format("YYYY-MM-DD HH:mm:ss"),
+        content: action.content
+    });
+
+    return {
+        ...state,
+        feeds: {
+            [feedName]: {
+                filterBy: action.filterBy,
+                bucket: action.bucket,
+                pages: {
+                    ...existingPages,
+                    [action.page]: {
+                        ...existingPage,
+                        isFetching: false,
+                        lastUpdated: moment().unix(),
+                        items: newItems
+                    }
+                }
+            }
+        }
+    };
+}
+
 // Action Creators
 export function getLogRequest(id: number): GetLogRequestAction {
     return {
@@ -319,6 +372,31 @@ export function postCommentFailure(logId: number, serverError: string) {
         type: POST_COMMENT_FAILURE,
         logId,
         serverError
+    }
+}
+
+export function addComment(
+    logId: number,
+    content: string,
+    username: string,
+    first: string,
+    last: string,
+    filterBy: string,
+    bucket: string,
+    page: number,
+    index: number
+) {
+    return {
+        type: ADD_COMMENT,
+        logId,
+        content,
+        username,
+        first,
+        last,
+        filterBy,
+        bucket,
+        page,
+        index
     }
 }
 

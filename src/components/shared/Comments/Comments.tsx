@@ -20,6 +20,10 @@ interface IProps {
     newComments: NewComments;
     logId: number;
     user: User;
+    page: number;
+    filterBy: string;
+    bucket: string;
+    index: number;
 }
 
 const useStyles = createUseStyles(styles);
@@ -30,7 +34,11 @@ const Comments: React.FunctionComponent<IProps> = ({
     postComment,
     newComments,
     logId,
-    user
+    user,
+    page,
+    filterBy,
+    bucket,
+    index
 }) => {
     const classes = useStyles({ feel });
 

@@ -93,15 +93,19 @@ export type LogFeeds = {
     [key: string]: {
         filterBy: string;
         bucket: string;
-        pages: {
-            [key: string]: {
-                isFetching: boolean;
-                lastUpdated: number;
-                items: Log[];
-                serverError: string;
-            }
-        }
+        pages: LogFeedPages
     };
+}
+
+export type LogFeedPages = {
+    [key: string]: LogFeedPage
+}
+
+export type LogFeedPage = {
+    isFetching: boolean;
+    lastUpdated: number;
+    items: Log[];
+    serverError: string;
 }
 
 export type Comment = {

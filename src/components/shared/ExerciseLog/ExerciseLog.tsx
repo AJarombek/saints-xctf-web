@@ -18,11 +18,24 @@ interface IProps {
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     newComments: NewComments;
     user: User;
+    page: number;
+    filterBy: string;
+    bucket: string;
+    index: number;
 }
 
 const useStyles = createUseStyles(styles);
 
-const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newComments, user }) => {
+const ExerciseLog: React.FunctionComponent<IProps> = ({
+    log,
+    postComment,
+    newComments,
+    user,
+    page,
+    filterBy,
+    bucket,
+    index
+}) => {
     const classes = useStyles({ feel: log?.feel });
 
     return (
@@ -57,6 +70,10 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newCom
                     newComments={newComments}
                     logId={log.log_id}
                     user={user}
+                    page={page}
+                    filterBy={filterBy}
+                    bucket={bucket}
+                    index={index}
                 />
             </div>
         </div>

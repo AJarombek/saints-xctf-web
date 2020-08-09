@@ -16,6 +16,8 @@ interface IProps {
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     newComments: NewComments;
     user: User;
+    filterBy: string;
+    bucket: string;
 }
 
 const useStyles = createUseStyles(styles);
@@ -25,7 +27,9 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
     page,
     postComment,
     newComments,
-    user
+    user,
+    filterBy,
+    bucket
 }) => {
     const classes = useStyles();
 
@@ -35,8 +39,17 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
 
     return (
         <div className={classes.dashboardFeed}>
-            { logs.map((log) => (
-                <ExerciseLog log={log} postComment={postComment} newComments={newComments} user={user} />
+            { logs.map((log, index) => (
+                <ExerciseLog
+                    log={log}
+                    postComment={postComment}
+                    newComments={newComments}
+                    user={user}
+                    page={page}
+                    filterBy={filterBy}
+                    bucket={bucket}
+                    index={index}
+                />
             ))}
         </div>
     );

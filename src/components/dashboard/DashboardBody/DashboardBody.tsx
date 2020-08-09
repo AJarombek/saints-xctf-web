@@ -33,8 +33,11 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
 
     const [page, setPage] = useState(1);
 
+    const filterBy = "all";
+    const bucket = "all";
+
     useEffect(() => {
-        getLogFeed("all", "all", 10, 10 * (page - 1));
+        getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
     }, []);
 
     return (
@@ -49,6 +52,8 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
                     page={page}
                     newComments={newComments}
                     user={user}
+                    filterBy={filterBy}
+                    bucket={bucket}
                 />
                 <DashboardPaginationBar />
             </div>
