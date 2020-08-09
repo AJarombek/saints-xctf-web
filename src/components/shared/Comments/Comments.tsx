@@ -10,6 +10,8 @@ import styles from "./styles";
 import {Comment, NewComments, User} from "../../../redux/types";
 import classNames from "classnames";
 import AlertPopup from "../AlertPopup/AlertPopup";
+import {Link} from "react-router-dom";
+import moment from "moment";
 
 interface IProps {
     comments: Comment[];
@@ -80,7 +82,19 @@ const Comments: React.FunctionComponent<IProps> = ({
             {comments && (
                 <div className={classes.commentList}>
                     {comments.map((comment) => (
-                        <div className={classes.comment}></div>
+                        <div className={classes.comment}>
+                            <div className={classes.commentHeader}>
+                                <Link to={`/user/${comment.username}`} className={classes.titleLink}>
+                                    {comment.first} {comment.last}
+                                </Link>
+                                <p className={classes.date}>
+                                    {moment(comment.time).format('MMM. Do, YYYY h:mm:ss A')}
+                                </p>
+                            </div>
+                            <div className={classes.commentBody}>
+                                <p className={classes.content}>{comment.content}</p>
+                            </div>
+                        </div>
                     ))}
                 </div>
             )}

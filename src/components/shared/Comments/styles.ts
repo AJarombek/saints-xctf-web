@@ -12,6 +12,7 @@ export default {
     comments: {
         display: 'flex',
         alignItems: 'center',
+        flexDirection: 'column',
     },
     newCommentForm: {
         display: 'flex',
@@ -69,9 +70,37 @@ export default {
         },
     },
     commentList: {
-
+        display: 'flex',
+        margin: '10px 0 0 0',
+        width: '100%',
     },
     comment: {
-
+        width: '100%',
+        borderTop: '1px solid #AAA',
+        paddingTop: '2px'
     },
+    commentHeader: {
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+    },
+    titleLink: {
+        ...FontMixins.robotoSlab(),
+        color: '#333',
+        textDecoration: 'underline',
+        cursor: 'pointer'
+    },
+    date: {
+        ...FontMixins.robotoBold(),
+        fontSize: '14px',
+        margin: '0 0 0 auto',
+    },
+    commentBody: {
+        margin: '5px 0',
+    },
+    content: {
+        ...FontMixins.robotoSlab(),
+        fontSize: '14px',
+        margin: 0,
+    }
 };
