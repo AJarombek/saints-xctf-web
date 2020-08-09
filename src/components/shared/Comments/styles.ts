@@ -40,12 +40,16 @@ export default {
     blurNewComment: {
         width: '100%',
     },
+    newCommentDisabled: {
+        backgroundColor: '#eee',
+    },
     addIcon: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
 
         borderRadius: '50%',
+        border: 'none',
         backgroundColor: Colors.spotPaletteBlue,
         boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
         transition: 'box-shadow 0.4s ease, background-color 0.2s ease',
@@ -62,6 +66,10 @@ export default {
             backgroundColor: color(Colors.spotPaletteBlue).darken(0.2).hex(),
         },
 
+        '&:focus': {
+            outline: 'none',
+        },
+
         '& > p': {
             ...FontMixins.elegantIcons(),
             fontSize: 24,
@@ -69,15 +77,24 @@ export default {
             textAlign: 'center',
         },
     },
+    addIconDisabled: {
+        backgroundColor: '#ddd',
+
+        '&:hover': {
+            boxShadow: 'none',
+        },
+    },
     commentList: {
         display: 'flex',
         margin: '10px 0 0 0',
         width: '100%',
+        flexDirection: 'column',
     },
     comment: {
         width: '100%',
         borderTop: '1px solid #AAA',
-        paddingTop: '2px'
+        paddingTop: '2px',
+        paddingBottom: '8px',
     },
     commentHeader: {
         display: 'flex',

@@ -11,6 +11,7 @@ import {Log, NewComments, User} from "../../../redux/types";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import Comments from "../Comments/Comments";
+import {shortenTime} from "../../../utils/logs";
 
 interface IProps {
     log: Log;
@@ -23,12 +24,6 @@ const useStyles = createUseStyles(styles);
 
 const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newComments, user }) => {
     const classes = useStyles({ feel: log?.feel });
-
-    const onCreateComment = (content: string, user: User) => {
-        if (content) {
-            postComment(log.log_id, user.username, user.first, user.last, content);
-        }
-    };
 
     return (
         <div className={classes.exerciseLog}>
@@ -44,9 +39,11 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newCom
             </div>
             <div className={classes.bodySection}>
                 <div className={classes.dataFields}>
-                    <p>Location: {log.location}</p>
-                    <p>{log.distance} {log.metric}</p>
-                    <p>{log.time} ({log.pace}/mi)</p>
+                    {!!log.location && <p>Location: {log.location}</p>}
+                    {!!log.distance && <p>{log.distance} {log.metric}</p>}
+                    {!!log.time && log.time !== "0:00:00" && (
+                        <p>{shortenTime(log.time)} ({shortenTime(log.pace)}/mi)</p>
+                    )}
                 </div>
                 <div className={classes.description}>
                     <p>{log.description}</p>
@@ -56,7 +53,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newCom
                 <Comments
                     comments={log.comments}
                     feel={log.feel}
-                    onCreateComment={onCreateComment}
+                    postComment={postComment}
                     newComments={newComments}
                     logId={log.log_id}
                     user={user}

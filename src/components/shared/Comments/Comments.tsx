@@ -16,7 +16,7 @@ import moment from "moment";
 interface IProps {
     comments: Comment[];
     feel: number;
-    onCreateComment: (content: string, user: User) => void;
+    postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     newComments: NewComments;
     logId: number;
     user: User;
@@ -27,7 +27,7 @@ const useStyles = createUseStyles(styles);
 const Comments: React.FunctionComponent<IProps> = ({
     comments,
     feel,
-    onCreateComment,
+    postComment,
     newComments,
     logId,
     user
@@ -37,6 +37,7 @@ const Comments: React.FunctionComponent<IProps> = ({
     const [content, setContent] = useState("");
     const [showError, setShowError] = useState(false);
     const [prevErrorTime, setPrevErrorTime] = useState(0);
+    const [isCreating, setIsCreating] = useState(false);
 
     const textAreaRef = useRef(null);
 
@@ -44,9 +45,17 @@ const Comments: React.FunctionComponent<IProps> = ({
         if (newComments) {
             const newComment = Object.entries(newComments).filter(([commentLogId, _]) => +commentLogId === logId);
 
-            if (newComment.length && newComment[0][1].serverError && newComment[0][1].lastUpdated !== prevErrorTime) {
-                setShowError(true);
-                setPrevErrorTime(newComment[0][1].lastUpdated);
+            if (newComment.length) {
+                if (newComment[0][1].serverError && newComment[0][1].lastUpdated !== prevErrorTime) {
+                    setShowError(true);
+                    setPrevErrorTime(newComment[0][1].lastUpdated);
+                }
+
+                if (!newComment[0][1].isFetching) {
+                    setIsCreating(false);
+
+                    const newCommentValue = textAreaRef.current.value;
+                }
             }
         }
     }, [newComments]);
@@ -60,23 +69,36 @@ const Comments: React.FunctionComponent<IProps> = ({
         setContent(e.target.value);
     };
 
+    const onCreateComment = (content: string, user: User) => {
+        if (content) {
+            setIsCreating(true);
+            postComment(logId, user.username, user.first, user.last, content);
+        }
+    };
+
     return (
         <div className={classes.comments}>
             <div className={classes.newCommentForm}>
                 <textarea
-                    className={
-                        classNames(classes.newComment, content ? classes.focusNewComment : classes.blurNewComment)
-                    }
+                    className={classNames(
+                        classes.newComment,
+                        content ? classes.focusNewComment : classes.blurNewComment,
+                        isCreating && classes.newCommentDisabled
+                    )}
                     maxLength={1000}
                     placeholder="Comment"
                     ref={textAreaRef}
                     onChange={onTextAreaChange}
                     onKeyUp={onTextAreaKeyUp}
+                    disabled={isCreating}
                 />
                 {!!content && (
-                    <div className={classes.addIcon} onClick={() => onCreateComment(content, user)}>
+                    <button
+                        className={classNames(classes.addIcon, isCreating && classes.addIconDisabled)}
+                        onClick={() => onCreateComment(content, user)}
+                        disabled={isCreating}>
                         <p>&#x4c;</p>
-                    </div>
+                    </button>
                 )}
             </div>
             {comments && (

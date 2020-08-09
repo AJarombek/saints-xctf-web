@@ -15,6 +15,7 @@ export function shortenTime(time: string): string {
     for (let i = 0; i < time.length; i++) {
         if (time.charAt(i) !== "0" && time.charAt(i) !== ":") {
             start = i;
+            break;
         }
     }
 

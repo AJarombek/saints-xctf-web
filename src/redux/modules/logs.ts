@@ -369,7 +369,9 @@ export function postComment(logId: number, username: string, first: string, last
                 log_id: logId,
                 content,
                 time: moment().format("YYYY-MM-DD HH:mm:ss")
-            })
+            });
+
+            dispatch(postCommentSuccess(logId));
         } catch (error) {
             const { response } = error;
             const serverError = response?.data?.error ?? 'An unexpected error occurred.';
