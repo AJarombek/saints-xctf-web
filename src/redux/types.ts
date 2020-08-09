@@ -33,7 +33,7 @@ export interface Meta {
 export type Auth = {
     isFetching?: boolean;
     lastUpdated?: number;
-    signedIn?: boolean;
+    signedInUser?: string;
     status?: string;
 }
 

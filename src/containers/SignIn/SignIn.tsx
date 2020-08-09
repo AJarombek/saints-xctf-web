@@ -32,7 +32,7 @@ const SignIn: React.FunctionComponent<Props> = ({ auth = {}, user = {}, signInUs
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user)) {
+    if (userAuthenticated(user, auth.signedInUser)) {
       localStorage.setItem('user', JSON.stringify({
         ...Object.entries(user).filter(([_, user]) => !user.isFetching && !user.didInvalidate)[0][1],
         password: null,

@@ -6,11 +6,12 @@
 
 import {Users} from "../redux/types";
 
-export function userAuthenticated(user: Users) {
+export function userAuthenticated(user: Users, signedInUser: string) {
   if (!Object.keys(user).length) {
     const storedUser = JSON.parse(localStorage.getItem('user'));
 
     if (storedUser) {
+      signedInUser = storedUser.username;
       user = {
         [storedUser.username]: {
           ...storedUser
@@ -21,13 +22,7 @@ export function userAuthenticated(user: Users) {
 
   if (!user) {
     return false;
+  } else if (!user[signedInUser].isFetching && !user[signedInUser].didInvalidate) {
+    return true;
   }
-
-  for (const username in user) {
-    if (!user[username].isFetching && !user[username].didInvalidate) {
-      return true;
-    }
-  }
-
-  return false;
 }

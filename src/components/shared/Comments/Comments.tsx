@@ -7,16 +7,17 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
-import {Comment, NewComments} from "../../../redux/types";
+import {Comment, NewComments, User} from "../../../redux/types";
 import classNames from "classnames";
 import AlertPopup from "../AlertPopup/AlertPopup";
 
 interface IProps {
     comments: Comment[];
     feel: number;
-    onCreateComment: (content: string) => void;
+    onCreateComment: (content: string, user: User) => void;
     newComments: NewComments;
     logId: number;
+    user: User;
 }
 
 const useStyles = createUseStyles(styles);
@@ -26,7 +27,8 @@ const Comments: React.FunctionComponent<IProps> = ({
     feel,
     onCreateComment,
     newComments,
-    logId
+    logId,
+    user
 }) => {
     const classes = useStyles({ feel });
 
@@ -58,24 +60,33 @@ const Comments: React.FunctionComponent<IProps> = ({
 
     return (
         <div className={classes.comments}>
-            <textarea
-                className={
-                    classNames(classes.newComment, content ? classes.focusNewComment : classes.blurNewComment)
-                }
-                maxLength={1000}
-                placeholder="Comment"
-                ref={textAreaRef}
-                onChange={onTextAreaChange}
-                onKeyUp={onTextAreaKeyUp}
-            />
-            {!!content && (
-                <div className={classes.addIcon} onClick={() => onCreateComment(content)}>
-                  <p>&#x4c;</p>
+            <div className={classes.newCommentForm}>
+                <textarea
+                    className={
+                        classNames(classes.newComment, content ? classes.focusNewComment : classes.blurNewComment)
+                    }
+                    maxLength={1000}
+                    placeholder="Comment"
+                    ref={textAreaRef}
+                    onChange={onTextAreaChange}
+                    onKeyUp={onTextAreaKeyUp}
+                />
+                {!!content && (
+                    <div className={classes.addIcon} onClick={() => onCreateComment(content, user)}>
+                        <p>&#x4c;</p>
+                    </div>
+                )}
+            </div>
+            {comments && (
+                <div className={classes.commentList}>
+                    {comments.map((comment) => (
+                        <div className={classes.comment}></div>
+                    ))}
                 </div>
             )}
             {showError && (
                 <AlertPopup
-                    message="Unexpected Error Occurred Adding a Comment"
+                    message="An unexpected error occurred while adding a comment."
                     onClose={() => setShowError(false)}
                     type="error"
                 />

@@ -20,6 +20,7 @@ const FORGOT_PASSWORD_EMAIL_SUCCESS = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAI
 const CHANGE_EMAIL_REQUEST = 'saints-xctf-web/auth/CHANGE_EMAIL_REQUEST';
 const CHANGE_EMAIL_FAILURE = 'saints-xctf-web/auth/CHANGE_EMAIL_FAILURE';
 const CHANGE_EMAIL_SUCCESS = 'saints-xctf-web/auth/CHANGE_EMAIL_SUCCESS';
+const SET_USER_FROM_STORAGE = 'saints-xctf-web/auth/SET_USER_FROM_STORAGE';
 
 // Action Types
 
@@ -68,6 +69,11 @@ interface ChangeEmailFailureAction {
   type: typeof CHANGE_EMAIL_FAILURE;
 }
 
+interface SetUserFromStorageAction {
+  type: typeof SET_USER_FROM_STORAGE;
+  user: User;
+}
+
 type AuthActionTypes =
     SignInRequestAction |
     SignInSuccessAction |
@@ -77,7 +83,8 @@ type AuthActionTypes =
     ForgotPasswordFailureAction |
     ChangeEmailRequestAction |
     ChangeEmailSuccessAction |
-    ChangeEmailFailureAction;
+    ChangeEmailFailureAction |
+    SetUserFromStorageAction;
 
 // Reducer
 const initialState: AuthState = {
@@ -117,6 +124,8 @@ export default function reducer(state = initialState, action : AuthActionTypes) 
       return {
         ...state
       };
+    case SET_USER_FROM_STORAGE:
+      return setUserFromStorageReducer(state, action);
     default:
       return state;
   }
@@ -128,7 +137,7 @@ function signInRequestReducer(state: AuthState, action: SignInRequestAction): Au
     auth: {
       isFetching: true,
       lastUpdated: moment().unix(),
-      signedIn: false,
+      signedInUser: action.username,
       status: action.status
     },
     user: {
@@ -146,7 +155,7 @@ function signInSuccessReducer(state: AuthState, action: SignInSuccessAction): Au
     auth: {
       isFetching: false,
       lastUpdated: moment().unix(),
-      signedIn: true,
+      signedInUser: action.username,
       status: action.status
     },
     user: {
@@ -166,11 +175,31 @@ function signInFailureReducer(state: AuthState, action: SignInFailureAction): Au
     auth: {
       isFetching: false,
       lastUpdated: moment().unix(),
-      signedIn: false,
+      signedInUser: null,
       status: action.status
     },
     user: {}
   };
+}
+
+function setUserFromStorageReducer(state: AuthState, action: SetUserFromStorageAction): AuthState {
+  return {
+    ...state,
+    user: {
+      [action.user.username]: {
+        ...action.user,
+        isFetching: false,
+        didInvalidate: false,
+        lastUpdated: moment().unix()
+      }
+    },
+    auth: {
+      isFetching: false,
+      lastUpdated: moment().unix(),
+      signedInUser: action.user.username,
+      status: "SUCCESS"
+    },
+  }
 }
 
 // Action Creators
@@ -216,6 +245,13 @@ export function forgotPasswordFailure(status: string, serverError: string): Forg
     type: FORGOT_PASSWORD_EMAIL_FAILURE,
     status,
     serverError
+  }
+}
+
+export function setUserFromStorage(user: User): SetUserFromStorageAction {
+  return {
+    type: SET_USER_FROM_STORAGE,
+    user
   }
 }
 

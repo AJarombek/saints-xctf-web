@@ -28,7 +28,7 @@ const Home = ({ auth = {}, user = {} }) => {
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user)) {
+    if (userAuthenticated(user, auth.signedInUser)) {
       history.push('/dashboard');
     }
   }, [user]);

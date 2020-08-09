@@ -49,7 +49,7 @@ const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInf
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user)) {
+    if (userAuthenticated(user, auth.signedInUser)) {
       history.push('/dashboard');
     }
   }, [user]);

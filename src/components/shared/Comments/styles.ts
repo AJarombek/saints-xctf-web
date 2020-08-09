@@ -13,6 +13,11 @@ export default {
         display: 'flex',
         alignItems: 'center',
     },
+    newCommentForm: {
+        display: 'flex',
+        alignItems: 'center',
+        width: '100%',
+    },
     newComment: {
         margin: '0 2%',
         padding: '6px 4px',
@@ -62,5 +67,11 @@ export default {
             margin: 0,
             textAlign: 'center',
         },
+    },
+    commentList: {
+
+    },
+    comment: {
+
     },
 };

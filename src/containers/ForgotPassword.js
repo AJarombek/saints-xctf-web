@@ -31,7 +31,7 @@ const ForgotPassword = ({ auth, user, forgotPassword, forgotPasswordEmail }) => 
   const history = useHistory();
 
   useEffect(() => {
-    if (userAuthenticated(user)) {
+    if (userAuthenticated(user, auth.signedInUser)) {
       history.push('/dashboard');
     }
   }, [user]);

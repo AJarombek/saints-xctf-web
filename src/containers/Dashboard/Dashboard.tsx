@@ -16,17 +16,19 @@ import {RootState} from "../../redux/types";
 import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 import {logFeed, postComment} from "../../redux/modules/logs";
+import {setUserFromStorage} from "../../redux/modules/auth";
 
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth.auth,
-  user: state.auth.user,
+  users: state.auth.user,
   logFeeds: state.logs.feeds,
   newComments: state.logs.newComments
 });
 
 const mapDispatchToProps = {
   getLogFeed: logFeed,
-  postComment: postComment
+  postComment: postComment,
+  setUserFromStorage: setUserFromStorage
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -38,23 +40,28 @@ const useStyles = createUseStyles(styles);
 
 const Dashboard: React.FunctionComponent<Props> = ({
   auth = {},
-  user = {},
+  users = {},
   logFeeds = {},
   newComments = {},
   getLogFeed,
-  postComment
+  postComment,
+  setUserFromStorage
 }) => {
-  const { signedIn } = auth;
+  const { signedInUser } = auth;
   const history = useHistory();
   const classes = useStyles();
 
   useEffect(() => {
-    if (!userAuthenticated(user)) {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (!Object.keys(users).length && storedUser) {
+      setUserFromStorage(storedUser);
+    } else if (!userAuthenticated(users, signedInUser)) {
       history.push('/');
     }
-  }, [user]);
+  }, [users]);
 
-  if (userAuthenticated(user)) {
+  if (userAuthenticated(users, signedInUser)) {
     return (
         <div className={classes.dashboard}>
           <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
@@ -63,7 +70,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
               postComment={postComment}
               logFeeds={logFeeds}
               newComments={newComments}
-              user={user}
+              user={users[signedInUser]}
           />
           <HomeFooter />
         </div>

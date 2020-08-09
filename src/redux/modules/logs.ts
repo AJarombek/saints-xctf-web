@@ -368,7 +368,7 @@ export function postComment(logId: number, username: string, first: string, last
                 last,
                 log_id: logId,
                 content,
-                time: moment().unix()
+                time: moment().format("YYYY-MM-DD HH:mm:ss")
             })
         } catch (error) {
             const { response } = error;

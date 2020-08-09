@@ -4,7 +4,7 @@
  * @since 7/26/2020
  */
 
-import React, {useMemo} from 'react';
+import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import {Log, NewComments, User} from "../../../redux/types";
@@ -24,7 +24,7 @@ const useStyles = createUseStyles(styles);
 const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newComments, user }) => {
     const classes = useStyles({ feel: log?.feel });
 
-    const onCreateComment = (content: string) => {
+    const onCreateComment = (content: string, user: User) => {
         if (content) {
             postComment(log.log_id, user.username, user.first, user.last, content);
         }
@@ -59,6 +59,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({ log, postComment, newCom
                     onCreateComment={onCreateComment}
                     newComments={newComments}
                     logId={log.log_id}
+                    user={user}
                 />
             </div>
         </div>
