@@ -16,7 +16,8 @@ export default {
         backgroundColor: Colors.lightBackground,
     },
     sidePanel: {
-        gridArea: 'panel'
+        gridArea: 'panel',
+        padding: '20px',
     },
     mainPanel: {
         gridArea: 'feed',
