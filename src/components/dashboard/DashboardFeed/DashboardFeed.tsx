@@ -14,6 +14,8 @@ interface IProps {
     logFeeds: LogFeeds;
     page: number;
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
+    addComment: (logId: number, content: string, username: string, first: string, last: string,
+                 filterBy: string, bucket: string, page: number, index: number) => void;
     newComments: NewComments;
     user: User;
     filterBy: string;
@@ -26,6 +28,7 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
     logFeeds,
     page,
     postComment,
+    addComment,
     newComments,
     user,
     filterBy,
@@ -43,6 +46,7 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
                 <ExerciseLog
                     log={log}
                     postComment={postComment}
+                    addComment={addComment}
                     newComments={newComments}
                     user={user}
                     page={page}

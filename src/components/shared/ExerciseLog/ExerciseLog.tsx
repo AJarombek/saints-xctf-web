@@ -16,6 +16,8 @@ import {shortenTime} from "../../../utils/logs";
 interface IProps {
     log: Log;
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
+    addComment: (logId: number, content: string, username: string, first: string, last: string,
+                 filterBy: string, bucket: string, page: number, index: number) => void;
     newComments: NewComments;
     user: User;
     page: number;
@@ -29,6 +31,7 @@ const useStyles = createUseStyles(styles);
 const ExerciseLog: React.FunctionComponent<IProps> = ({
     log,
     postComment,
+    addComment,
     newComments,
     user,
     page,
@@ -67,6 +70,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                     comments={log.comments}
                     feel={log.feel}
                     postComment={postComment}
+                    addComment={addComment}
                     newComments={newComments}
                     logId={log.log_id}
                     user={user}

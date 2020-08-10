@@ -17,6 +17,8 @@ interface IProps {
     comments: Comment[];
     feel: number;
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
+    addComment: (logId: number, content: string, username: string, first: string, last: string,
+                 filterBy: string, bucket: string, page: number, index: number) => void;
     newComments: NewComments;
     logId: number;
     user: User;
@@ -32,6 +34,7 @@ const Comments: React.FunctionComponent<IProps> = ({
     comments,
     feel,
     postComment,
+    addComment,
     newComments,
     logId,
     user,
@@ -62,7 +65,9 @@ const Comments: React.FunctionComponent<IProps> = ({
                 if (!newComment[0][1].isFetching) {
                     setIsCreating(false);
 
-                    const newCommentValue = textAreaRef.current.value;
+                    const content = textAreaRef.current.value;
+                    addComment(logId, content, user.username, user.first, user.last, filterBy, bucket, page, index);
+                    textAreaRef.current.value = "";
                 }
             }
         }

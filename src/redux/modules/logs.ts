@@ -268,15 +268,18 @@ function addCommentReducer(state: LogsState, action: AddCommentAction): LogsStat
     const existingPage = existingPages[action.page] ?? {} as LogFeedPage;
 
     const newItems = [ ...existingPage.items];
-    newItems[action.index].comments.push({
-        comment_id: -1,
-        username: action.username,
-        first: action.first,
-        last: action.last,
-        log_id: action.logId,
-        time: moment().format("YYYY-MM-DD HH:mm:ss"),
-        content: action.content
-    });
+    newItems[action.index].comments = [
+        {
+            comment_id: -1,
+            username: action.username,
+            first: action.first,
+            last: action.last,
+            log_id: action.logId,
+            time: moment().format("YYYY-MM-DD HH:mm:ss"),
+            content: action.content
+        },
+        ...newItems[action.index].comments
+    ];
 
     return {
         ...state,
@@ -375,17 +378,8 @@ export function postCommentFailure(logId: number, serverError: string) {
     }
 }
 
-export function addComment(
-    logId: number,
-    content: string,
-    username: string,
-    first: string,
-    last: string,
-    filterBy: string,
-    bucket: string,
-    page: number,
-    index: number
-) {
+export function addComment(logId: number, content: string, username: string, first: string, last: string,
+                           filterBy: string, bucket: string, page: number, index: number) {
     return {
         type: ADD_COMMENT,
         logId,

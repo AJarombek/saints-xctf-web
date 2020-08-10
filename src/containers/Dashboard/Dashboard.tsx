@@ -15,7 +15,7 @@ import NavBar from '../../components/shared/NavBar';
 import {RootState} from "../../redux/types";
 import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
-import {logFeed, postComment} from "../../redux/modules/logs";
+import {addComment, logFeed, postComment} from "../../redux/modules/logs";
 import {setUserFromStorage} from "../../redux/modules/auth";
 
 const mapStateToProps = (state: RootState) => ({
@@ -28,7 +28,8 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
   getLogFeed: logFeed,
   postComment: postComment,
-  setUserFromStorage: setUserFromStorage
+  setUserFromStorage: setUserFromStorage,
+  addComment: addComment,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -45,6 +46,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
   newComments = {},
   getLogFeed,
   postComment,
+  addComment,
   setUserFromStorage
 }) => {
   const { signedInUser } = auth;
@@ -71,6 +73,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
               logFeeds={logFeeds}
               newComments={newComments}
               user={users[signedInUser]}
+              addComment={addComment}
           />
           <HomeFooter />
         </div>

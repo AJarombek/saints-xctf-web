@@ -15,6 +15,8 @@ import {LogFeeds, NewComments, User} from "../../../redux/types";
 interface IProps {
     getLogFeed: Function;
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
+    addComment: (logId: number, content: string, username: string, first: string, last: string,
+        filterBy: string, bucket: string, page: number, index: number) => void;
     logFeeds: LogFeeds;
     newComments: NewComments;
     user: User
@@ -25,6 +27,7 @@ const useStyles = createUseStyles(styles);
 const DashboardBody: React.FunctionComponent<IProps> = ({
     getLogFeed,
     postComment,
+    addComment,
     logFeeds,
     newComments,
     user
@@ -49,6 +52,7 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
                 <DashboardFeed
                     logFeeds={logFeeds}
                     postComment={postComment}
+                    addComment={addComment}
                     page={page}
                     newComments={newComments}
                     user={user}
