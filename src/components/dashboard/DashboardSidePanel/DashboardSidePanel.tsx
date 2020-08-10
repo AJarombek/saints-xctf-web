@@ -19,6 +19,7 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = () => {
 
     return (
         <div className={classes.dashboardSidePanel}>
+
         </div>
     );
 };

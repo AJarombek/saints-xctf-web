@@ -28,7 +28,7 @@ export function shortenTime(time: string): string {
  * Find tags in a string and turn them into links for user profiles.
  * @param text String to search for tags within.
  */
-const findTagsInText = (text: string) => {
+export function parseTagsInText(text: string) {
     const tagRegex = /@[a-zA-Z0-9]+/g;
 
     let start = 0;
@@ -38,13 +38,14 @@ const findTagsInText = (text: string) => {
     while ((matches = tagRegex.exec(text)) !== null) {
         const match = matches[0];
         const username = match.substring(1);
+        const end = tagRegex.lastIndex;
 
-        result.push(<p>{text.substring(start)}</p>);
+        result.push(text.substring(start, end - match.length));
         result.push(<a href={`/user/${username}`}>{match}</a>);
-        
-        start = tagRegex.lastIndex;
+
+        start = end;
     }
 
-    result.push(<p>{text.substring(start)}</p>);
+    result.push(text.substring(start));
     return result;
-};
+}

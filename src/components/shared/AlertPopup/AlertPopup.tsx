@@ -1,7 +1,7 @@
 /**
  * Component for an Alert that pops up with warnings or errors.
  * @author Andrew Jarombek
- * 8/8/2020
+ * @since 8/8/2020
  */
 
 import React from 'react';

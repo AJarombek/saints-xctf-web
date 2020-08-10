@@ -4,8 +4,9 @@
  * @since 7/26/2020
  */
 
-import {FeelColors} from "../../../styles/colors";
+import Colors, {FeelColors} from "../../../styles/colors";
 import {FontMixins} from "../../../styles/mixins";
+import color from "color";
 
 export default {
   exerciseLog: {
@@ -60,12 +61,20 @@ export default {
   },
   description: {
     marginTop: '10px',
+    display: 'inline-block',
+    ...FontMixins.robotoSlab(),
+    fontSize: '14px',
 
-    '& > p': {
-      ...FontMixins.robotoSlab(),
-      fontSize: '14px',
-      margin: 0,
-    }
+    '& > a': {
+      display: 'inline-block',
+      ...FontMixins.robotoSlabBold(),
+      color: '#444',
+      transition: 'color 0.4s ease',
+
+      '&:hover': {
+        color: color(Colors.spotPaletteBrown).darken(0.2).hex(),
+      }
+    },
   },
   commentSection: {
     margin: '10px 0 0 0',

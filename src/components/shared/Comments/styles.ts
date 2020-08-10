@@ -114,10 +114,19 @@ export default {
     },
     commentBody: {
         margin: '5px 0',
-    },
-    content: {
-        ...FontMixins.robotoSlab(),
+        display: 'inline-block',
+        ...FontMixins.robotoBold(),
         fontSize: '14px',
-        margin: 0,
-    }
+
+        '& > a': {
+            display: 'inline-block',
+            ...FontMixins.robotoBold(),
+            color: '#444',
+            transition: 'color 0.4s ease',
+
+            '&:hover': {
+                color: color(Colors.spotPaletteBrown).darken(0.2).hex(),
+            }
+        }
+    },
 };

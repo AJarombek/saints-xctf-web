@@ -4,14 +4,14 @@
  * @since 7/26/2020
  */
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import {Log, NewComments, User} from "../../../redux/types";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import Comments from "../Comments/Comments";
-import {shortenTime} from "../../../utils/logs";
+import {parseTagsInText, shortenTime} from "../../../utils/logs";
 
 interface IProps {
     log: Log;
@@ -41,6 +41,14 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
 }) => {
     const classes = useStyles({ feel: log?.feel });
 
+    const [isUsersLog, setIsUsersLog] = useState(false);
+
+    useEffect(() => {
+        if (user && log) {
+            setIsUsersLog(user.username === log.username);
+        }
+    }, [user, log]);
+
     return (
         <div className={classes.exerciseLog}>
             <div className={classes.headerSection}>
@@ -62,7 +70,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                     )}
                 </div>
                 <div className={classes.description}>
-                    <p>{log.description}</p>
+                    {!!log.description && parseTagsInText(log.description)}
                 </div>
             </div>
             <div className={classes.commentSection}>

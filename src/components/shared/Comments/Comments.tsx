@@ -12,6 +12,7 @@ import classNames from "classnames";
 import AlertPopup from "../AlertPopup/AlertPopup";
 import {Link} from "react-router-dom";
 import moment from "moment";
+import {parseTagsInText} from "../../../utils/logs";
 
 interface IProps {
     comments: Comment[];
@@ -127,7 +128,7 @@ const Comments: React.FunctionComponent<IProps> = ({
                                 </p>
                             </div>
                             <div className={classes.commentBody}>
-                                <p className={classes.content}>{comment.content}</p>
+                                {parseTagsInText(comment.content)}
                             </div>
                         </div>
                     ))}
