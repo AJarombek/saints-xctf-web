@@ -8,24 +8,38 @@ import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import Accordion from "../../shared/Accordion/Accordion";
+import {useHistory} from "react-router-dom";
+import {User, Group} from "../../../redux/types";
 
 interface IProps {
-
+    user: User;
+    groups: Group[];
 }
 
 const useStyles = createUseStyles(styles);
 
-const DashboardSidePanel: React.FunctionComponent<IProps> = () => {
+const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user }) => {
     const classes = useStyles();
+    const history = useHistory();
 
     return (
         <div className={classes.dashboardSidePanel}>
-            <Accordion iconNode={<p>&#xe107;</p>} title="Profile" expandable={false} />
-            <Accordion iconNode={<p>&#x0050;</p>} title="Create New Log" expandable={false} />
-            <Accordion iconNode={<p>&#xe026;</p>} title="Groups">
+            <Accordion
+                iconNode={<p>&#xe107;</p>}
+                title="Profile"
+                expandable={false}
+                onClick={() => history.push(`/profile/${user.username}`)}
+            />
+            <Accordion
+                iconNode={<p>&#x0050;</p>}
+                title="Create New Log"
+                expandable={false}
+                onClick={() => history.push('/newLog')}
+            />
+            <Accordion iconNode={<p>&#xe026;</p>} title="Groups" expandable={true}>
                 <div>Groups</div>
             </Accordion>
-            <Accordion iconNode={<p>&#x0057;</p>} title="Notifications">
+            <Accordion iconNode={<p>&#x0057;</p>} title="Notifications" expandable={true}>
                 <div>Notifications</div>
             </Accordion>
         </div>

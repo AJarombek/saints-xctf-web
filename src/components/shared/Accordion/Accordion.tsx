@@ -12,12 +12,19 @@ interface IProps {
     iconNode: React.ReactNode;
     title: React.ReactNode;
     children?: React.ReactNode;
+    onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
     expandable?: boolean;
 }
 
 const useStyles = createUseStyles(styles);
 
-const Accordion: React.FunctionComponent<IProps> = ({ iconNode, title, children, expandable = true }) => {
+const Accordion: React.FunctionComponent<IProps> = ({
+    iconNode,
+    title,
+    children,
+    onClick,
+    expandable = true
+}) => {
     const classes = useStyles();
 
     const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +36,7 @@ const Accordion: React.FunctionComponent<IProps> = ({ iconNode, title, children,
     };
 
     return (
-        <div className={classes.accordion}>
+        <div className={classes.accordion} onClick={onClick}>
             <div className={classes.header} onClick={onOpen}>
                 <p className={classes.icon}>{iconNode}</p>
                 <div className={classes.title}>{title}</div>

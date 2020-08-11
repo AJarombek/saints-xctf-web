@@ -126,3 +126,12 @@ export type NewComments = {
         serverError?: string;
     }
 }
+
+export type Group = {
+    group_name: string;
+    group_title: string;
+    newest_log?: string;
+    newest_message?: string;
+    status: string;
+    user: string;
+}

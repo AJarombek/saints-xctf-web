@@ -8,6 +8,7 @@ import {FontMixins} from "../../../styles/mixins";
 export default {
     accordion: {
         display: 'flex',
+        flexDirection: 'column',
         marginBottom: '5px',
         border: '1px solid #bbb',
         borderRadius: '3px',
@@ -16,6 +17,7 @@ export default {
         display: 'flex',
         alignItems: 'center',
         width: '100%',
+        cursor: 'pointer',
     },
     icon: {
         ...FontMixins.elegantIcons(),
@@ -31,6 +33,7 @@ export default {
         ...FontMixins.elegantIcons(),
         margin: '0 10px 0 auto',
         fontSize: '20px',
+        color: '#888',
     },
     body: {
 

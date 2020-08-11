@@ -46,7 +46,7 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
     return (
         <div className={classes.dashboardBody}>
             <div className={classes.sidePanel}>
-                <DashboardSidePanel />
+                <DashboardSidePanel user={user} />
             </div>
             <div className={classes.mainPanel}>
                 <DashboardFeed
