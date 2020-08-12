@@ -5,8 +5,9 @@
  */
 
 export type RootState = {
-    auth: AuthState,
-    logs: LogsState
+    auth: AuthState;
+    logs: LogsState;
+    memberships: MembershipsState;
 }
 
 export type LogsState = {

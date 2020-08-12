@@ -6,6 +6,7 @@
 
 import Colors from "../../../styles/colors";
 import color from "color";
+import {FontMixins} from "../../../styles/mixins";
 
 export default {
     dashboardSidePanel: {
@@ -16,5 +17,20 @@ export default {
         '& > div:nth-child(even)': {
             backgroundColor: color(Colors.spotPaletteBrown).lighten(0.85).hex()
         }
+    },
+    groupMembership: {
+        padding: '10px 10px 10px 20px',
+
+        '& > a': {
+            ...FontMixins.robotoSlab(),
+            fontSize: '14px',
+            margin: 0,
+        }
+    },
+    oddMember: {
+        backgroundColor: '#f1f1f1'
+    },
+    evenMember: {
+        backgroundColor: '#f8f8f8'
     }
 };

@@ -10,6 +10,8 @@ import styles from "./styles";
 import Accordion from "../../shared/Accordion/Accordion";
 import {useHistory} from "react-router-dom";
 import {User, GroupMember} from "../../../redux/types";
+import {AJButton} from "jarombek-react-components";
+import classNames from "classnames";
 
 interface IProps {
     user: User;
@@ -37,7 +39,26 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMember
                 onClick={() => history.push('/newLog')}
             />
             <Accordion iconNode={<p>&#xe026;</p>} title="Groups" expandable={true}>
-                <div>Groups</div>
+                <>
+                    {groupMemberships && (groupMemberships.map((group, index) => (
+                        <div className={
+                            classNames(classes.groupMembership, index % 2 ? classes.oddMember : classes.evenMember)
+                        }>
+                            <a>{group.group_title}</a>
+                        </div>
+                    )))}
+                    {!groupMemberships && (
+                        <div>
+                            <p>You have no group memberships.</p>
+                            <AJButton
+                                type="contained"
+                                onClick={() => history.push(`/profile/${user.username}/edit`)}
+                            >
+                                Join Groups
+                            </AJButton>
+                        </div>
+                    )}
+                </>
             </Accordion>
             <Accordion iconNode={<p>&#x0057;</p>} title="Notifications" expandable={true}>
                 <div>Notifications</div>

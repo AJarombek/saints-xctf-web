@@ -17,12 +17,14 @@ import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBod
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 import {addComment, logFeed, postComment} from "../../redux/modules/logs";
 import {setUserFromStorage} from "../../redux/modules/auth";
+import {getGroupMemberships} from "../../redux/modules/memberships";
 
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth.auth,
   users: state.auth.user,
   logFeeds: state.logs.feeds,
-  newComments: state.logs.newComments
+  newComments: state.logs.newComments,
+  groupMemberships: state.memberships.groups.items,
 });
 
 const mapDispatchToProps = {
@@ -30,6 +32,7 @@ const mapDispatchToProps = {
   postComment: postComment,
   setUserFromStorage: setUserFromStorage,
   addComment: addComment,
+  getGroupMemberships: getGroupMemberships,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -44,10 +47,12 @@ const Dashboard: React.FunctionComponent<Props> = ({
   users = {},
   logFeeds = {},
   newComments = {},
+  groupMemberships = [],
   getLogFeed,
   postComment,
   addComment,
-  setUserFromStorage
+  setUserFromStorage,
+  getGroupMemberships
 }) => {
   const { signedInUser } = auth;
   const history = useHistory();
@@ -73,7 +78,8 @@ const Dashboard: React.FunctionComponent<Props> = ({
               logFeeds={logFeeds}
               newComments={newComments}
               user={users[signedInUser]}
-              groupMemberships={}
+              groupMemberships={groupMemberships}
+              getGroupMemberships={getGroupMemberships}
               addComment={addComment}
           />
           <HomeFooter />

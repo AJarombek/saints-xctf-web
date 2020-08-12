@@ -17,6 +17,7 @@ interface IProps {
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     addComment: (logId: number, content: string, username: string, first: string, last: string,
         filterBy: string, bucket: string, page: number, index: number) => void;
+    getGroupMemberships: (username: string) => void,
     logFeeds: LogFeeds;
     newComments: NewComments;
     user: User;
@@ -29,6 +30,7 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
     getLogFeed,
     postComment,
     addComment,
+    getGroupMemberships,
     logFeeds,
     newComments,
     user,
@@ -44,6 +46,12 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
     useEffect(() => {
         getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
     }, []);
+
+    useEffect(() => {
+        if (!groupMemberships?.length && user) {
+            getGroupMemberships(user.username);
+        }
+    }, [user]);
 
     return (
         <div className={classes.dashboardBody}>
