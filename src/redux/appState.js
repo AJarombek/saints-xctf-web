@@ -67,6 +67,14 @@ const appState = {
       }
     }
   },
+  memberships: {
+    groups: {
+      isFetching: false,
+      didInvalidate: false,
+      lastUpdated: 1588530314,
+      items: []
+    }
+  },
   profile: {
     tom: {
       isFetching: false,

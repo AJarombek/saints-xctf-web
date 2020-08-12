@@ -23,6 +23,10 @@ export type AuthState = {
     user: Users;
 }
 
+export type MembershipsState = {
+    groups: GroupMembers
+}
+
 export interface Meta {
     isFetching?: boolean;
     lastUpdated?: number;
@@ -127,11 +131,18 @@ export type NewComments = {
     }
 }
 
-export type Group = {
+export type GroupMember = {
     group_name: string;
     group_title: string;
     newest_log?: string;
     newest_message?: string;
     status: string;
     user: string;
+}
+
+export type GroupMembers = {
+    isFetching: boolean;
+    lastUpdated: number;
+    serverError?: string;
+    items: GroupMember[];
 }

@@ -73,6 +73,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
               logFeeds={logFeeds}
               newComments={newComments}
               user={users[signedInUser]}
+              groupMemberships={}
               addComment={addComment}
           />
           <HomeFooter />

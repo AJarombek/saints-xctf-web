@@ -9,16 +9,16 @@ import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import Accordion from "../../shared/Accordion/Accordion";
 import {useHistory} from "react-router-dom";
-import {User, Group} from "../../../redux/types";
+import {User, GroupMember} from "../../../redux/types";
 
 interface IProps {
     user: User;
-    groups: Group[];
+    groupMemberships: GroupMember[];
 }
 
 const useStyles = createUseStyles(styles);
 
-const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user }) => {
+const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMemberships }) => {
     const classes = useStyles();
     const history = useHistory();
 

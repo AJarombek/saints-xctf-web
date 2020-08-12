@@ -10,7 +10,7 @@ import styles from "./styles";
 import DashboardSidePanel from "../DashboardSidePanel/DashboardSidePanel";
 import DashboardFeed from "../DashboardFeed/DashboardFeed";
 import DashboardPaginationBar from "../DashboardPaginationBar/DashboardPaginationBar";
-import {LogFeeds, NewComments, User} from "../../../redux/types";
+import {GroupMember, LogFeeds, NewComments, User} from "../../../redux/types";
 
 interface IProps {
     getLogFeed: Function;
@@ -19,7 +19,8 @@ interface IProps {
         filterBy: string, bucket: string, page: number, index: number) => void;
     logFeeds: LogFeeds;
     newComments: NewComments;
-    user: User
+    user: User;
+    groupMemberships: GroupMember[];
 }
 
 const useStyles = createUseStyles(styles);
@@ -30,7 +31,8 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
     addComment,
     logFeeds,
     newComments,
-    user
+    user,
+    groupMemberships
 }) => {
     const classes = useStyles();
 
@@ -46,7 +48,7 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
     return (
         <div className={classes.dashboardBody}>
             <div className={classes.sidePanel}>
-                <DashboardSidePanel user={user} />
+                <DashboardSidePanel user={user} groupMemberships={groupMemberships} />
             </div>
             <div className={classes.mainPanel}>
                 <DashboardFeed
