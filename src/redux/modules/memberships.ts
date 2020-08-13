@@ -8,7 +8,6 @@ import { api } from '../../datasources/apiRequest';
 import {Dispatch} from "redux";
 import {GroupMember, GroupMembers, MembershipsState} from "../types";
 import moment from "moment";
-import {getLogFailure, getLogRequest, getLogSuccess} from "./logs";
 
 // Actions
 const GET_GROUP_MEMBERSHIPS_REQUEST = 'saints-xctf-web/memberships/GET_GROUP_MEMBERSHIPS_REQUEST';

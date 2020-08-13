@@ -25,6 +25,12 @@ export default {
             ...FontMixins.robotoSlab(),
             fontSize: '14px',
             margin: 0,
+            color: '#444',
+            textDecoration: 'none',
+
+            '&:hover': {
+                textDecoration: 'underline'
+            }
         }
     },
     oddMember: {

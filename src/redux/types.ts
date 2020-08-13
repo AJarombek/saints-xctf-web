@@ -8,6 +8,7 @@ export type RootState = {
     auth: AuthState;
     logs: LogsState;
     memberships: MembershipsState;
+    notifications: NotificationsState;
 }
 
 export type LogsState = {
@@ -26,6 +27,13 @@ export type AuthState = {
 
 export type MembershipsState = {
     groups: GroupMembers
+}
+
+export type NotificationsState = {
+    isFetching?: boolean;
+    lastUpdated?: number;
+    serverError?: string;
+    items?: Notification[]
 }
 
 export interface Meta {
@@ -146,4 +154,13 @@ export type GroupMembers = {
     lastUpdated: number;
     serverError?: string;
     items: GroupMember[];
+}
+
+export type Notification = {
+    notification_id: number;
+    username: string;
+    time: string;
+    link?: string;
+    viewed: string;
+    description?: string;
 }

@@ -38,13 +38,13 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMember
                 expandable={false}
                 onClick={() => history.push('/newLog')}
             />
-            <Accordion iconNode={<p>&#xe026;</p>} title="Groups" expandable={true}>
+            <Accordion iconNode={<p>&#xe026;</p>} title="Groups" expandable={true} defaultState={true}>
                 <>
                     {groupMemberships && (groupMemberships.map((group, index) => (
                         <div className={
                             classNames(classes.groupMembership, index % 2 ? classes.oddMember : classes.evenMember)
                         }>
-                            <a>{group.group_title}</a>
+                            <a href={`/group/${group.group_name}`}>{group.group_title}</a>
                         </div>
                     )))}
                     {!groupMemberships && (

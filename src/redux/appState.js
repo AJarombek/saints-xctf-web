@@ -75,6 +75,17 @@ const appState = {
       items: []
     }
   },
+  notifications: {
+    isFetching: false,
+    didInvalidate: false,
+    lastUpdated: 1588530314,
+    items: [],
+    creating: {
+      isFetching: false,
+      lastUpdated: 1588530314,
+      created: true
+    }
+  },
   profile: {
     tom: {
       isFetching: false,

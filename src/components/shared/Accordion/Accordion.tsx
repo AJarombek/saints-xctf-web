@@ -14,6 +14,7 @@ interface IProps {
     children?: React.ReactNode;
     onClick?: (event: React.MouseEvent<HTMLDivElement>) => void;
     expandable?: boolean;
+    defaultState?: boolean;
 }
 
 const useStyles = createUseStyles(styles);
@@ -23,11 +24,12 @@ const Accordion: React.FunctionComponent<IProps> = ({
     title,
     children,
     onClick,
-    expandable = true
+    expandable = true,
+    defaultState = false,
 }) => {
     const classes = useStyles();
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(defaultState);
 
     const onOpen = () => {
         if (expandable) {
