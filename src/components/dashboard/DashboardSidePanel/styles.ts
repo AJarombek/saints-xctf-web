@@ -38,5 +38,26 @@ export default {
     },
     evenMember: {
         backgroundColor: '#f8f8f8'
+    },
+    noMemberships: {
+        padding: '10px 10px 10px 20px',
+
+        '& > p': {
+            ...FontMixins.robotoSlab(),
+            fontSize: '14px',
+            margin: 0,
+            color: '#444',
+        },
+
+        '& > .aj-contained-button': {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '30px',
+            width: '60%',
+            marginTop: '15px',
+            marginBottom: '10px',
+            backgroundColor: `${Colors.spotPaletteBrown} !important`,
+        }
     }
 };

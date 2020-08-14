@@ -39,17 +39,25 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMember
                 expandable={false}
                 onClick={() => history.push('/newLog')}
             />
-            <Accordion iconNode={<p>&#xe026;</p>} title="Groups" expandable={true} defaultState={true}>
+            <Accordion
+                id="groupsAccordion"
+                iconNode={<p>&#xe026;</p>}
+                title="Groups"
+                expandable={true}
+                defaultState={true}
+            >
                 <>
                     {groupMemberships && (groupMemberships.map((group, index) => (
-                        <div className={
-                            classNames(classes.groupMembership, index % 2 ? classes.oddMember : classes.evenMember)
-                        }>
+                        <div className={classNames(
+                            classes.groupMembership,
+                            index % 2 ? classes.oddMember : classes.evenMember,
+                            'groupMember'
+                        )}>
                             <a href={`/group/${group.group_name}`}>{group.group_title}</a>
                         </div>
                     )))}
-                    {!groupMemberships && (
-                        <div>
+                    {!groupMemberships?.length && (
+                        <div className={classes.noMemberships}>
                             <p>You have no group memberships.</p>
                             <AJButton
                                 type="contained"

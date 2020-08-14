@@ -10,6 +10,7 @@ import styles from "./styles";
 import classNames from "classnames";
 
 interface IProps {
+    id?: string;
     iconNode: React.ReactNode;
     title: React.ReactNode;
     children?: React.ReactNode;
@@ -21,6 +22,7 @@ interface IProps {
 const useStyles = createUseStyles(styles);
 
 const Accordion: React.FunctionComponent<IProps> = ({
+    id,
     iconNode,
     title,
     children,
@@ -39,7 +41,7 @@ const Accordion: React.FunctionComponent<IProps> = ({
     };
 
     return (
-        <div className={classNames(classes.accordion, 'accordion')} onClick={onClick}>
+        <div id={id} className={classNames(classes.accordion, 'accordion')} onClick={onClick}>
             <div className={classes.header} onClick={onOpen}>
                 <p className={classes.icon}>{iconNode}</p>
                 <div className={classes.title}>{title}</div>
