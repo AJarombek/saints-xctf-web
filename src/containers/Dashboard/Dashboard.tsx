@@ -12,19 +12,21 @@ import styles from "./styles";
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
-import {RootState} from "../../redux/types";
+import {GroupMembers, NotificationsState, RootState} from "../../redux/types";
 import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 import {addComment, logFeed, postComment} from "../../redux/modules/logs";
 import {setUserFromStorage} from "../../redux/modules/auth";
 import {getGroupMemberships} from "../../redux/modules/memberships";
+import {getUserNotifications} from "../../redux/modules/notifications";
 
 const mapStateToProps = (state: RootState) => ({
   auth: state.auth.auth,
   users: state.auth.user,
   logFeeds: state.logs.feeds,
   newComments: state.logs.newComments,
-  groupMemberships: state.memberships.groups.items,
+  groupMembershipInfo: state.memberships.groups,
+  notificationInfo: state.notifications
 });
 
 const mapDispatchToProps = {
@@ -33,6 +35,7 @@ const mapDispatchToProps = {
   setUserFromStorage: setUserFromStorage,
   addComment: addComment,
   getGroupMemberships: getGroupMemberships,
+  getUserNotifications: getUserNotifications
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -47,12 +50,14 @@ const Dashboard: React.FunctionComponent<Props> = ({
   users = {},
   logFeeds = {},
   newComments = {},
-  groupMemberships = [],
+  groupMembershipInfo = {} as GroupMembers,
+  notificationInfo = {} as NotificationsState,
   getLogFeed,
   postComment,
   addComment,
   setUserFromStorage,
-  getGroupMemberships
+  getGroupMemberships,
+  getUserNotifications
 }) => {
   const { signedInUser } = auth;
   const history = useHistory();
@@ -78,8 +83,10 @@ const Dashboard: React.FunctionComponent<Props> = ({
               logFeeds={logFeeds}
               newComments={newComments}
               user={users[signedInUser]}
-              groupMemberships={groupMemberships}
+              groupMemberships={groupMembershipInfo.items}
+              notificationInfo={notificationInfo}
               getGroupMemberships={getGroupMemberships}
+              getUserNotifications={getUserNotifications}
               addComment={addComment}
           />
           <HomeFooter />

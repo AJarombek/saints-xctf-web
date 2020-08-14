@@ -108,7 +108,7 @@ export function getUserNotifications(username: string) {
         dispatch(getUserNotificationsRequest());
 
         try {
-            const response = await api.get(`notifications/user/${username}`);
+            const response = await api.get(`users/notifications/${username}`);
             const { notifications } = response.data;
 
             dispatch(getUserNotificationsSuccess(notifications));

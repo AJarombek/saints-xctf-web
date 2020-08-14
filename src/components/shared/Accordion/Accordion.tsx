@@ -7,6 +7,7 @@
 import React, {useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
+import classNames from "classnames";
 
 interface IProps {
     iconNode: React.ReactNode;
@@ -38,11 +39,13 @@ const Accordion: React.FunctionComponent<IProps> = ({
     };
 
     return (
-        <div className={classes.accordion} onClick={onClick}>
+        <div className={classNames(classes.accordion, 'accordion')} onClick={onClick}>
             <div className={classes.header} onClick={onOpen}>
                 <p className={classes.icon}>{iconNode}</p>
                 <div className={classes.title}>{title}</div>
-                <p className={classes.arrow}>{expandable ? isOpen ? "\u0042" : "\u0043" : "\u0045"}</p>
+                <p className={classNames(classes.arrow, 'expandIcon')}>
+                    {expandable ? isOpen ? "\u0042" : "\u0043" : "\u0045"}
+                </p>
             </div>
             {isOpen && expandable && (
                 <div className={classes.body}>

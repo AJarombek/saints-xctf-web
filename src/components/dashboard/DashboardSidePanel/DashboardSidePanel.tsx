@@ -9,23 +9,24 @@ import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import Accordion from "../../shared/Accordion/Accordion";
 import {useHistory} from "react-router-dom";
-import {User, GroupMember} from "../../../redux/types";
+import {User, GroupMember, NotificationsState} from "../../../redux/types";
 import {AJButton} from "jarombek-react-components";
 import classNames from "classnames";
 
 interface IProps {
     user: User;
     groupMemberships: GroupMember[];
+    notificationInfo: NotificationsState;
 }
 
 const useStyles = createUseStyles(styles);
 
-const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMemberships }) => {
+const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMemberships, notificationInfo }) => {
     const classes = useStyles();
     const history = useHistory();
 
     return (
-        <div className={classes.dashboardSidePanel}>
+        <div id="dashboardSidePanel" className={classes.dashboardSidePanel}>
             <Accordion
                 iconNode={<p>&#xe107;</p>}
                 title="Profile"
@@ -61,7 +62,19 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMember
                 </>
             </Accordion>
             <Accordion iconNode={<p>&#x0057;</p>} title="Notifications" expandable={true}>
-                <div>Notifications</div>
+                <>
+                    {notificationInfo.serverError && (
+                        <div><p>&#x0062;</p><p>An error occurred while loading notifications.</p></div>
+                    )}
+                    {notificationInfo.isFetching && (
+                        <div>Loading...</div>
+                    )}
+                    {notificationInfo.items && (notificationInfo.items.map((notification, index) => (
+                        <div>
+
+                        </div>
+                    )))}
+                </>
             </Accordion>
         </div>
     );
