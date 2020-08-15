@@ -51,6 +51,19 @@ describe('Dashboard E2E Tests', () => {
 
       cy.get('#groupsAccordion .groupMember')
         .should('have.length', 0);
+
+      cy.get('#groupsAccordion p')
+        .contains('You have no group memberships.')
+        .should('not.exist');
+
+      cy.get('#groupsAccordion').contains('Join Groups').should('not.exist');
     });
+  });
+
+  it('has a side panel link to create a new log', () => {
+    cy.visit('/dashboard');
+
+    cy.get('#dashboardSidePanel .accordion .expandIcon').eq(1).click();
+    cy.url().should('include', '/log/new');
   });
 });

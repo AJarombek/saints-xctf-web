@@ -20,6 +20,7 @@ import ForgotPassword from './containers/ForgotPassword';
 import Register from './containers/Register';
 import { FeatureFlagProvider } from './components/shared/FeatureFlag';
 import { getFeatureFlags } from './utils/features';
+import NewLog from './containers/NewLog/NewLog';
 
 dotenv.config();
 const store = configureStore();
@@ -35,6 +36,7 @@ const RoutedApp = () =>
             <Route exact path="/forgotpassword" component={ForgotPassword}/>
             <Route exact path="/forgotpassword/email" component={ForgotPassword}/>
             <Route exact path="/forgotpassword/reset" component={ForgotPassword}/>
+            <Route exact path="/log/new" component={NewLog} />
             <Route exact path="/register" component={Register}/>
             <Route exact path="/signin" component={SignIn}/>
             <Route component={Home}/>
