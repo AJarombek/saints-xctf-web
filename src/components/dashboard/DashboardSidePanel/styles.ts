@@ -59,5 +59,33 @@ export default {
             marginBottom: '10px',
             backgroundColor: `${Colors.spotPaletteBrown} !important`,
         }
+    },
+    notificationCount: {
+        ...FontMixins.robotoBold(),
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '62px'
+    },
+    hasNotifications: {
+        '& .aj-notification-circle': {
+            backgroundColor: Colors.sxctfRed
+        }
+    },
+    noNotifications: {
+        '& .aj-notification-circle': {
+            backgroundColor: color(Colors.spotPaletteBrown).lighten(0.5).hex(),
+            color: '#333'
+        }
+    },
+    noNotificationsText: {
+        padding: '10px 10px 10px 20px',
+
+        '& > p': {
+            ...FontMixins.robotoSlab(),
+            fontSize: '14px',
+            margin: 0,
+            color: '#444',
+        },
     }
 };

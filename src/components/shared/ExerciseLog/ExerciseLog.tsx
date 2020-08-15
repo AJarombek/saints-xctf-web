@@ -53,7 +53,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
         <div className={classes.exerciseLog}>
             <div className={classes.headerSection}>
                 <div className={classes.titles}>
-                    <Link to="/user" className={classes.titleLink}>{log.first} {log.last}</Link>
+                    <Link to={`/user/${user.username}`} className={classes.titleLink}>{log.first} {log.last}</Link>
                     <h6 className={classes.title}>{log.name}</h6>
                 </div>
                 <div className={classes.metadata}>

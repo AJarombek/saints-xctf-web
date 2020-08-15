@@ -9,6 +9,7 @@ import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import {Log, LogFeeds, NewComments, User} from "../../../redux/types";
 import ExerciseLog from "../../shared/ExerciseLog/ExerciseLog";
+import {AJLoadingDots} from "jarombek-react-components";
 
 interface IProps {
     logFeeds: LogFeeds;
@@ -40,6 +41,10 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
         return logFeeds["all-all"]?.pages[page]?.items ?? []
     }, [logFeeds, page]);
 
+    const loading: boolean = useMemo(() => {
+        return logFeeds["all-all"]?.pages[page]?.isFetching ?? true;
+    }, [logFeeds, page]);
+
     return (
         <div className={classes.dashboardFeed}>
             { logs.map((log, index) => (
@@ -55,6 +60,9 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
                     index={index}
                 />
             ))}
+            {loading && (
+                <div className={classes.loading}><AJLoadingDots /></div>
+            )}
         </div>
     );
 };

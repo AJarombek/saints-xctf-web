@@ -10,11 +10,11 @@ describe('Dashboard E2E Tests', () => {
   beforeEach(() => {
     cy.server();
     cy.setUserInLocalStorage();
-    cy.visit('/dashboard');
   });
 
   it('has a side panel with expandable accordions', () => {
     cy.route('GET', '/api/v2/users/groups/andy').as('userGroups');
+    cy.visit('/dashboard');
 
     cy.wait('@userGroups').then(() => {
       cy.get('#groupsAccordion .groupMember').should('have.length', 1);
@@ -30,6 +30,8 @@ describe('Dashboard E2E Tests', () => {
   });
 
   it('displays a no group message if the user has no groups', () => {
+    cy.visit('/dashboard');
+
     cy.route('GET', '/api/v2/users/groups/andy', {
       "groups": [],
       "self": "/v2/users/groups/andy"
@@ -38,6 +40,12 @@ describe('Dashboard E2E Tests', () => {
     cy.wait('@userGroupsMock').then(() => {
       cy.get('#groupsAccordion .groupMember')
         .should('have.length', 0);
+
+      cy.get('#groupsAccordion p')
+        .contains('You have no group memberships.')
+        .should('exist');
+
+      cy.get('#groupsAccordion button').contains('Join Groups').should('exist');
 
       cy.get('#groupsAccordion .expandIcon').click();
 
