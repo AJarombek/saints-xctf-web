@@ -13,6 +13,7 @@ import {setUserFromStorage} from "../../redux/modules/auth";
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
+import NewLogBody from "../../components/new-log/NewLogBody";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
@@ -48,6 +49,7 @@ const NewLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}}) => {
         return (
             <div className={classes.newLog}>
                 <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
+                <NewLogBody postLog={() => {}}/>
             </div>
         )
     } else {
