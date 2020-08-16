@@ -89,7 +89,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
               getUserNotifications={getUserNotifications}
               addComment={addComment}
           />
-          <HomeFooter />
+          <HomeFooter showContactUs={false} />
         </div>
     );
   } else {

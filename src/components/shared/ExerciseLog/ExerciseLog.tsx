@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import moment from "moment";
 import Comments from "../Comments/Comments";
 import {parseTagsInText, shortenTime} from "../../../utils/logs";
+import classNames from "classnames";
 
 interface IProps {
     log: Log;
@@ -50,7 +51,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
     }, [user, log]);
 
     return (
-        <div className={classes.exerciseLog}>
+        <div className={classNames(classes.exerciseLog, 'exerciseLog')}>
             <div className={classes.headerSection}>
                 <div className={classes.titles}>
                     {isUsersLog ?

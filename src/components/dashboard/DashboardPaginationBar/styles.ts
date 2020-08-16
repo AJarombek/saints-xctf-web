@@ -12,7 +12,8 @@ export default {
         ...FontMixins.robotoBold(),
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        margin: '30px 0'
     },
     page: {
         cursor: 'pointer',

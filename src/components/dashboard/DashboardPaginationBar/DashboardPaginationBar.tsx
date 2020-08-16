@@ -21,7 +21,7 @@ const DashboardPaginationBar: React.FunctionComponent<IProps> = ({ page, totalPa
     const classes = useStyles();
 
     return (
-        <div className={classes.dashboardPaginationBar}>
+        <div id="dashboardPaginationBar" className={classes.dashboardPaginationBar}>
             {page > 3 && (
                 <div className={classNames(classes.page, classes.otherPage)} onClick={() => onChangePage(1)}>
                     1

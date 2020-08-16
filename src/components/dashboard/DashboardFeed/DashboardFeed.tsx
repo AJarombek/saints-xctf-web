@@ -46,7 +46,7 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
     }, [logFeeds, page]);
 
     return (
-        <div className={classes.dashboardFeed}>
+        <div id="dashboardFeed" className={classes.dashboardFeed}>
             { logs.map((log, index) => (
                 <ExerciseLog
                     log={log}

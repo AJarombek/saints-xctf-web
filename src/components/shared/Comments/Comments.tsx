@@ -91,7 +91,7 @@ const Comments: React.FunctionComponent<IProps> = ({
     };
 
     return (
-        <div className={classes.comments}>
+        <div className={classNames(classes.comments, 'comments')}>
             <div className={classes.newCommentForm}>
                 <textarea
                     className={classNames(
@@ -108,7 +108,7 @@ const Comments: React.FunctionComponent<IProps> = ({
                 />
                 {!!content && (
                     <button
-                        className={classNames(classes.addIcon, isCreating && classes.addIconDisabled)}
+                        className={classNames('addIcon', classes.addIcon, isCreating && classes.addIconDisabled)}
                         onClick={() => onCreateComment(content, user)}
                         disabled={isCreating}>
                         <p>&#x4c;</p>
@@ -116,9 +116,9 @@ const Comments: React.FunctionComponent<IProps> = ({
                 )}
             </div>
             {comments && (
-                <div className={classes.commentList}>
+                <div className={classNames('commentList', classes.commentList)}>
                     {comments.map((comment) => (
-                        <div className={classes.comment}>
+                        <div className={classNames('comment', classes.comment)}>
                             <div className={classes.commentHeader}>
                                 <Link to={`/user/${comment.username}`} className={classes.titleLink}>
                                     {comment.first} {comment.last}

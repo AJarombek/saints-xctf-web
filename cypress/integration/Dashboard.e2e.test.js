@@ -66,4 +66,73 @@ describe('Dashboard E2E Tests', () => {
     cy.get('#dashboardSidePanel .accordion .expandIcon').eq(1).click();
     cy.url().should('include', '/log/new');
   });
+
+  it('has a paginated log feed', () => {
+    cy.route('GET', '/api/v2/log_feed/all/all/10/0').as('logFeedRoute');
+    cy.visit('/dashboard');
+
+    cy.wait('@logFeedRoute').then(() => {
+      cy.get('#dashboardFeed .exerciseLog').should('have.length', 10);
+      cy.get('#dashboardPaginationBar').contains(1).should('exist');
+      cy.get('#dashboardPaginationBar').contains(2).should('exist');
+      cy.get('#dashboardPaginationBar').contains(3).should('exist');
+      cy.get('#dashboardPaginationBar').contains(4).should('not.exist');
+      cy.get('#dashboardPaginationBar').contains('...').should('not.exist');
+
+      cy.get('#dashboardPaginationBar').contains(3).click();
+
+      cy.get('#dashboardPaginationBar').contains(1).should('exist');
+      cy.get('#dashboardPaginationBar').contains(2).should('exist');
+      cy.get('#dashboardPaginationBar').contains(3).should('exist');
+      cy.get('#dashboardPaginationBar').contains(4).should('exist');
+      cy.get('#dashboardPaginationBar').contains(5).should('exist');
+      cy.get('#dashboardPaginationBar').contains(6).should('not.exist');
+      cy.get('#dashboardPaginationBar').contains('...').should('not.exist');
+
+      cy.get('#dashboardPaginationBar').contains(4).click();
+
+      cy.get('#dashboardPaginationBar').contains(1).should('exist');
+      cy.get('#dashboardPaginationBar').contains(2).should('exist');
+      cy.get('#dashboardPaginationBar').contains(3).should('exist');
+      cy.get('#dashboardPaginationBar').contains(4).should('exist');
+      cy.get('#dashboardPaginationBar').contains(5).should('exist');
+      cy.get('#dashboardPaginationBar').contains(6).should('exist');
+      cy.get('#dashboardPaginationBar').contains(7).should('not.exist');
+      cy.get('#dashboardPaginationBar').contains('...').should('not.exist');
+
+      cy.get('#dashboardPaginationBar').contains(5).click();
+
+      cy.get('#dashboardPaginationBar').contains(1).should('exist');
+      cy.get('#dashboardPaginationBar').contains(2).should('not.exist');
+      cy.get('#dashboardPaginationBar').contains(3).should('exist');
+      cy.get('#dashboardPaginationBar').contains(4).should('exist');
+      cy.get('#dashboardPaginationBar').contains(5).should('exist');
+      cy.get('#dashboardPaginationBar').contains(6).should('exist');
+      cy.get('#dashboardPaginationBar').contains(7).should('exist');
+      cy.get('#dashboardPaginationBar').contains(8).should('not.exist');
+      cy.get('#dashboardPaginationBar').contains('...').should('exist');
+    });
+  });
+
+  it('has the ability to comment on logs', () => {
+    cy.route('POST', '/api/v2/comments/').as('createCommentRoute');
+    cy.visit('/dashboard');
+
+    cy.get('#dashboardFeed .exerciseLog .commentList')
+      .eq(0)
+      .children()
+      .its('length')
+      .then((commentCount) => {
+
+        cy.get('#dashboardFeed .exerciseLog textarea').eq(0).type('Testing...');
+        cy.get('#dashboardFeed .exerciseLog .addIcon').eq(0).click();
+
+        cy.wait('@createCommentRoute').then(() => {
+          cy.get('#dashboardFeed .exerciseLog .commentList')
+            .eq(0)
+            .children()
+            .should('have.length', commentCount + 1);
+        });
+    });
+  });
 });

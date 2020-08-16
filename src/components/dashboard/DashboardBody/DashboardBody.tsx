@@ -88,7 +88,10 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
                 <DashboardPaginationBar
                     page={page}
                     totalPages={totalPages}
-                    onChangePage={(page) => setPage(page)}
+                    onChangePage={(page) => {
+                        setPage(page);
+                        window.scrollTo(0, 0);
+                    }}
                 />
             </div>
         </div>
