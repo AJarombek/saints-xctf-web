@@ -7,10 +7,10 @@
 import React, {ReactNode} from 'react';
 
 interface IProps {
-    src: string,
-    name: string,
-    title: string,
-    testimony: ReactNode
+    src: string;
+    name: string;
+    title: string;
+    testimony: ReactNode;
 }
 
 const Testimonial: React.FunctionComponent<IProps> = ({src, name, title, testimony}) => {
