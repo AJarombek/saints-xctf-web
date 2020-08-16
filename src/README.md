@@ -20,6 +20,7 @@ Client-side code for the SaintsXCTF web application.  The Client is made up of R
 | `index.html`          | HTML entry point for the application.                                                     |
 | `index.js`            | React and React Router bootstrapping.                                                     |
 | `index.scss`          | Global styles for the entire application.                                                 |
+| `mixins.scss`         | Global Sass mixins for the entire application.                                            |
 | `vars.scss`           | Variables uses in Sass stylesheets throughout the application.                            |
 
 ### Resources

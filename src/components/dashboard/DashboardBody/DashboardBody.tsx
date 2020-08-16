@@ -4,13 +4,13 @@
  * @since 7/24/2020
  */
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import DashboardSidePanel from "../DashboardSidePanel/DashboardSidePanel";
 import DashboardFeed from "../DashboardFeed/DashboardFeed";
 import DashboardPaginationBar from "../DashboardPaginationBar/DashboardPaginationBar";
-import {GroupMember, LogFeeds, NewComments, NotificationsState, User} from "../../../redux/types";
+import {GroupMember, Log, LogFeeds, NewComments, NotificationsState, User} from "../../../redux/types";
 
 interface IProps {
     getLogFeed: Function;
@@ -49,7 +49,7 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
 
     useEffect(() => {
         getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
-    }, []);
+    }, [filterBy, bucket, page]);
 
     useEffect(() => {
         if (user) {
@@ -60,6 +60,10 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
             getUserNotifications(user.username);
         }
     }, [user]);
+
+    const totalPages: number = useMemo(() => {
+        return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0
+    }, [logFeeds, page]);
 
     return (
         <div className={classes.dashboardBody}>
@@ -81,7 +85,11 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
                     filterBy={filterBy}
                     bucket={bucket}
                 />
-                <DashboardPaginationBar />
+                <DashboardPaginationBar
+                    page={page}
+                    totalPages={totalPages}
+                    onChangePage={(page) => setPage(page)}
+                />
             </div>
         </div>
     );

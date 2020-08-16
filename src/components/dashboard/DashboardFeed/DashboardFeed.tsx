@@ -38,11 +38,11 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
     const classes = useStyles();
 
     const logs: Log[] = useMemo(() => {
-        return logFeeds["all-all"]?.pages[page]?.items ?? []
+        return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.items ?? []
     }, [logFeeds, page]);
 
     const loading: boolean = useMemo(() => {
-        return logFeeds["all-all"]?.pages[page]?.isFetching ?? true;
+        return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.isFetching ?? true;
     }, [logFeeds, page]);
 
     return (

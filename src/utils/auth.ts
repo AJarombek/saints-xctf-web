@@ -6,6 +6,12 @@
 
 import {Users} from "../redux/types";
 
+/**
+ * Determine if is a user is signed in and properly authenticated.
+ * @param user An object of user objects stored in redux.
+ * @param signedInUser The username of the user to test whether or not they are signed in.
+ * @return {@code true} if the user is authenticated and signed in, {@code false} otherwise.
+ */
 export function userAuthenticated(user: Users, signedInUser: string) {
   if (!Object.keys(user).length) {
     const storedUser = JSON.parse(localStorage.getItem('user'));

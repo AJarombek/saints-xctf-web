@@ -118,6 +118,7 @@ export type LogFeedPage = {
     isFetching: boolean;
     lastUpdated: number;
     items: Log[];
+    pages: number;
     serverError: string;
 }
 

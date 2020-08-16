@@ -52,6 +52,7 @@ interface LogFeedSuccessAction {
     logs: Log[];
     next: string;
     page: number;
+    pages: number;
 }
 
 interface LogFeedFailureAction {
@@ -183,6 +184,7 @@ function logFeedSuccessReducer(state: LogsState, action: LogFeedSuccessAction): 
                         isFetching: false,
                         lastUpdated: moment().unix(),
                         items: action.logs,
+                        pages: action.pages,
                         serverError: null
                     }
                 }
@@ -334,14 +336,15 @@ export function logFeedRequest(page: number, filterBy: string, bucket: string): 
 }
 
 export function logFeedSuccess(page: number, filterBy: string, bucket: string, logs: Log[],
-                               next: string): LogFeedSuccessAction {
+                               next: string, pages: number): LogFeedSuccessAction {
     return {
         type: LOG_FEED_SUCCESS,
         filterBy,
         bucket,
         logs,
         next,
-        page
+        page,
+        pages
     }
 }
 
@@ -418,9 +421,9 @@ export function logFeed(filterBy: string, bucket: string, limit: number, offset:
 
         try {
             const response = await api.get(`log_feed/${filterBy}/${bucket}/${limit}/${offset}`);
-            const { logs, next } = response.data;
+            const { logs, next, pages } = response.data;
 
-            dispatch(logFeedSuccess(page, filterBy, bucket, logs, next));
+            dispatch(logFeedSuccess(page, filterBy, bucket, logs, next, pages));
         } catch (error) {
             const { response } = error;
             const serverError = response?.data?.error ?? 'An unexpected error occurred.';
