@@ -22,8 +22,6 @@ const feelList = [
 const exerciseTypes = ['Run', 'Bike', 'Swim', 'Other'];
 
 const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
-    const classes = useStyles();
-
     const [name, setName] = useState('');
     const [nameStatus, setNameStatus] = useState(ImageInputStatus.NONE);
     const [location, setLocation] = useState('');
@@ -33,13 +31,15 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
     const [feel, setFeel] = useState(5);
     const [feelStatus, setFeelStatus] = useState(ImageInputStatus.NONE);
 
+    const classes = useStyles({ feel });
+
     return (
         <div className={classes.newLogBody}>
-            <h3>Create a new exercise log.</h3>
+            <h3 className={classes.title}>Create a new exercise log.</h3>
             <div className={classes.logForm}>
                 <p className={classes.feel}>{feelList[feel]}</p>
-                <div>
-                    <p>Exercise Name</p>
+                <div className={classes.nameBody}>
+                    <p className={classes.inputTitle}>Exercise Name</p>
                     <ImageInput
                         type="text"
                         name="name"
@@ -48,19 +48,19 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                         status={nameStatus}
                     />
                 </div>
-                <div>
-                    <p>Location</p>
-                    <ImageInput
-                        type="text"
-                        name="location"
-                        placeholder=""
-                        onChange={(e) => setLocation(e.target.value)}
-                        status={locationStatus}
-                    />
-                </div>
-                <div>
-                    <div>
-                        <p>Date</p>
+                <div className={classes.twoInputs}>
+                    <div className={classes.locationInput}>
+                        <p className={classes.inputTitle}>Location</p>
+                        <ImageInput
+                            type="text"
+                            name="location"
+                            placeholder=""
+                            onChange={(e) => setLocation(e.target.value)}
+                            status={locationStatus}
+                        />
+                    </div>
+                    <div className={classes.dateInput}>
+                        <p className={classes.inputTitle}>Date</p>
                         <ImageInput
                             type="date"
                             name="date"
@@ -69,8 +69,10 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                             status={dateStatus}
                         />
                     </div>
+                </div>
+                <div>
                     <div>
-                        <p>Exercise Type</p>
+                        <p className={classes.inputTitle}>Exercise Type</p>
                         <select className={classes.select}>
                             {exerciseTypes.map((type) => (
                                 <option value={type.toLowerCase()}>{type}</option>
