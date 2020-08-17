@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="sxctf-testimonial"
+>
+  <p>
+    "
+    Test
+    "
+  </p>
+  <div>
+    <figure>
+      <img
+        alt=""
+        loading="lazy"
+        src="https://asset.saintsxctf.com/andy-j.jpg"
+      />
+    </figure>
+  </div>
+  <p>
+    Andy Jarombek
+  </p>
+  <p>
+    Software Engineer
+  </p>
+</div>
+`;

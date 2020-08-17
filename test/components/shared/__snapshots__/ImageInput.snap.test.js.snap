@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="sxctf-image-input"
+>
+  <div
+    className="no-icon"
+  >
+     
+  </div>
+  <input
+    autoComplete=""
+    name="test1"
+    onChange={[Function]}
+    placeholder="Test 1"
+    type="text"
+  />
+  <div>
+    <div
+      className="status none"
+    >
+      <p />
+    </div>
+  </div>
+</div>
+`;

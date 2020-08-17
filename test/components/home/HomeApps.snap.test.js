@@ -1,11 +1,11 @@
 /**
- * Snapshot test for the {@link ../../src/client/home/HomeApps} component.
+ * Snapshot test for the HomeApps component.
  * @author Andrew Jarombek
  * @since 2/18/2020
  */
 
 import React from 'react';
-import HomeApps from '../../src/components/home/HomeApps';
+import HomeApps from '../../../src/components/home/HomeApps';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {

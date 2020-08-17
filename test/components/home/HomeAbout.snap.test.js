@@ -1,11 +1,11 @@
 /**
- * Snapshot test for the {@link ../../src/client/home/HomeAbout} component.
+ * Snapshot test for the HomeAbout component.
  * @author Andrew Jarombek
  * @since 2/18/2020
  */
 
 import React from 'react';
-import HomeAbout from '../../src/components/home/HomeAbout';
+import HomeAbout from '../../../src/components/home/HomeAbout';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {

@@ -1,12 +1,12 @@
 /**
- * Unit tests with Jest and Enzyme for the {@link ../../src/client/pages/HomeBody} component.
+ * Unit tests with Jest and Enzyme for the HomeBody component.
  * @author Andrew Jarombek
  * @since 2/20/2020
  */
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import HomeBody from '../../src/components/home/HomeBody';
+import HomeBody from '../../../src/components/home/HomeBody';
 
 describe('unit tests', () => {
 

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="alertContainer-0-1-1"
+>
+  <div
+    className="alert-0-1-2 alert-d0-0-1-6"
+  >
+    <p
+      className="alertIcon-0-1-3 alertIcon-d1-0-1-7"
+    >
+      
+    </p>
+    <p
+      className="message-0-1-4"
+    >
+      An error occurred.
+    </p>
+    <p
+      className="closeIcon-0-1-5"
+      onClick={[Function]}
+    >
+      M
+    </p>
+  </div>
+</div>
+`;

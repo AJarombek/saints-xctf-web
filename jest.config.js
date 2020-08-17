@@ -7,19 +7,22 @@
 module.exports = {
   displayName: 'client',
   testEnvironment: 'jsdom',
-  testMatch: ['**/client/**/*.test.js'],
+  testMatch: ['**/test/**/*.test.js'],
   testURL: 'http://localhost/',
   setupFilesAfterEnv: ['<rootDir>/test/setupTests.js'],
   maxConcurrency: 5,
   moduleNameMapper: {
-    '\\.(png|mp4)$': '../../../test/client/mocks/fileMock.js'
+    '\\.(png|mp4)$': '../../../test/mocks/fileMock.js'
   },
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
   transform: {
-    '^.+\\.js$': 'babel-jest'
+    '^.+\\.js$': 'babel-jest',
+    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.tsx$': 'ts-jest'
   },
   collectCoverage: true,
-  collectCoverageFrom: ['src/client/**/*.js'],
-  coveragePathIgnorePatterns: ['src/client/index.js'],
+  collectCoverageFrom: ['src/**/*.js', 'src/**/*.ts', 'src/**/*.tsx'],
+  coveragePathIgnorePatterns: ['src/index.js'],
   coverageThreshold: {
     'global': {
       'branches': 100,

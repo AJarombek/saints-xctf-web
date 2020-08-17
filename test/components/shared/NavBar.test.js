@@ -1,14 +1,13 @@
 /**
- * Unit tests with Jest and Enzyme for the {@link ../../src/client/pages/NavBar} component.
+ * Unit tests with Jest and Enzyme for the NavBar component.
  * @author Andrew Jarombek
  * @since 3/20/2020
  */
 
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import NavBar from '../../src/components/shared/HomeNavBar';
+import NavBar from '../../../src/components/shared/NavBar';
 import { useHistory } from 'react-router-dom';
-import { act } from 'react-dom/test-utils';
 
 // Mock react router's useHistory() hook before the tests execute.
 jest.mock('react-router-dom', () => {
