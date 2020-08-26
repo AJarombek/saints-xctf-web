@@ -38,7 +38,9 @@ describe('integration tests', () => {
 
   it('has functional navigation buttons', () => {
     const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
-    const wrapper = mount(<NavBar />);
+    const wrapper = mount(
+      <NavBar includeHeaders={["about", "testimonials", "register", "signIn"]} />
+    );
 
     const websiteLogo = wrapper.find('.sxctf-logo').childAt(0);
     const websiteTitle = wrapper.find('.sxctf-home-nav-bar').childAt(1);

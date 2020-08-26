@@ -12,17 +12,7 @@ exports[`renders correctly 1`] = `
       className="options"
     >
       <div
-        className="ajBaseButton-0-2-4 ajBaseButtonEnabled-0-2-5 aj-contained-button ajContainedButton-0-2-1 ajContainedButtonEnabled-0-2-2"
-      >
-        <button
-          disabled={false}
-          type="button"
-        >
-          Try the Demo
-        </button>
-      </div>
-      <div
-        className="ajBaseButton-0-2-4 ajBaseButtonEnabled-0-2-5 aj-text-button ajTextButton-0-2-7 ajTextButtonEnabled-0-2-8"
+        className="ajBaseButton-0-2-4 ajBaseButtonEnabled-0-2-5 aj-text-button ajTextButton-0-2-1 ajTextButtonEnabled-0-2-2"
       >
         <button
           disabled={false}

@@ -7,6 +7,12 @@
 import React from 'react';
 import Home from '../../src/containers/Home';
 import renderer from 'react-test-renderer';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+
+const mockStore = configureStore([thunk]);
 
 // Mock react router's useHistory() hook before the tests execute.
 jest.mock('react-router-dom', () => {
@@ -20,7 +26,23 @@ jest.mock('react-router-dom', () => {
   }
 });
 
-it('renders correctly', () => {
-  const tree = renderer.create(<Home />).toJSON();
-  expect(tree).toMatchSnapshot();
+describe('Home Snapshot Tests', () => {
+  let store;
+
+  beforeEach(() => {
+    store = mockStore({
+      auth: {}
+    });
+  });
+
+  it('renders correctly', () => {
+    const tree = renderer.create(
+      <MemoryRouter>
+        <Provider store={store}>
+          <Home />
+        </Provider>
+      </MemoryRouter>
+    ).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

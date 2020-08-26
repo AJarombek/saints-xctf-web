@@ -12,7 +12,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/test/setupTests.js'],
   maxConcurrency: 5,
   moduleNameMapper: {
-    '\\.(png|mp4)$': '../../../test/mocks/fileMock.js'
+    '\\.(png|mp4)$': '<rootDir>/test/mocks/fileMock.js'
   },
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   transform: {

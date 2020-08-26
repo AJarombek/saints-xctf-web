@@ -7,5 +7,12 @@
 
 import {configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import nodeCrypto from 'crypto';
+
+window.crypto = {
+  getRandomValues: function (array) {
+    return nodeCrypto.randomFillSync(array);
+  }
+};
 
 configure({ adapter: new Adapter() });

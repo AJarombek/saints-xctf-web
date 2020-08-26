@@ -117,8 +117,8 @@ const Comments: React.FunctionComponent<IProps> = ({
             </div>
             {comments && (
                 <div className={classNames('commentList', classes.commentList)}>
-                    {comments.map((comment) => (
-                        <div className={classNames('comment', classes.comment)}>
+                    {comments.map((comment, index) => (
+                        <div className={classNames('comment', classes.comment)} key={index}>
                             <div className={classes.commentHeader}>
                                 <Link to={`/user/${comment.username}`} className={classes.titleLink}>
                                     {comment.first} {comment.last}

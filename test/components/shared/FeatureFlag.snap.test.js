@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import FeatureFlag from '../../../src/components/shared/FeatureFlag';
+import { FeatureFlag } from '../../../src/components/shared/FeatureFlag';
 import renderer from 'react-test-renderer';
 
 it('renders correctly', () => {

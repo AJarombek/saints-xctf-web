@@ -16,6 +16,8 @@ exports[`renders correctly 1`] = `
     <div>
       <figure>
         <img
+          alt=""
+          loading="lazy"
           src="https://asset.saintsxctf.com/thomas-c.jpg"
         />
       </figure>
@@ -38,6 +40,8 @@ exports[`renders correctly 1`] = `
     <div>
       <figure>
         <img
+          alt=""
+          loading="lazy"
           src="https://asset.saintsxctf.com/lisa-g.jpg"
         />
       </figure>
@@ -60,6 +64,8 @@ exports[`renders correctly 1`] = `
     <div>
       <figure>
         <img
+          alt=""
+          loading="lazy"
           src="https://asset.saintsxctf.com/evan-g.jpg"
         />
       </figure>
@@ -82,6 +88,8 @@ exports[`renders correctly 1`] = `
     <div>
       <figure>
         <img
+          alt=""
+          loading="lazy"
           src="https://asset.saintsxctf.com/joe-s.jpg"
         />
       </figure>
@@ -104,6 +112,8 @@ exports[`renders correctly 1`] = `
     <div>
       <figure>
         <img
+          alt=""
+          loading="lazy"
           src="https://asset.saintsxctf.com/ben-f.jpg"
         />
       </figure>
@@ -126,6 +136,8 @@ exports[`renders correctly 1`] = `
     <div>
       <figure>
         <img
+          alt=""
+          loading="lazy"
           src="https://asset.saintsxctf.com/trevor-b.jpg"
         />
       </figure>
