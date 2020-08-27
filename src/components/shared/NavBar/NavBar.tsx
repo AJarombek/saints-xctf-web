@@ -101,7 +101,7 @@ const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [] }) => {
       content: 'About',
       onClick: () => {
         navigateMobile('#about');
-        mobileHamburgerRef.current.click();
+        mobileHamburgerRef.current?.click();
       }
     },
     {
@@ -109,7 +109,7 @@ const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [] }) => {
       content: 'Testimonials',
       onClick: () => {
         navigateMobile('#testimonials');
-        mobileHamburgerRef.current.click();
+        mobileHamburgerRef.current?.click();
       }
     },
     {

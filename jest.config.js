@@ -8,6 +8,11 @@ module.exports = {
   displayName: 'client',
   testEnvironment: 'jsdom',
   testMatch: ['**/test/**/*.test.js'],
+  globals: {
+    'ts-jest': {
+      babelConfig: true,
+    }
+  },
   testURL: 'http://localhost/',
   setupFilesAfterEnv: ['<rootDir>/test/setupTests.js'],
   maxConcurrency: 5,

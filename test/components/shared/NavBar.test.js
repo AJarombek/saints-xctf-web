@@ -39,11 +39,11 @@ describe('integration tests', () => {
   it('has functional navigation buttons', () => {
     const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
     const wrapper = mount(
-      <NavBar includeHeaders={["about", "testimonials", "register", "signIn"]} />
+      <NavBar includeHeaders={["about", "testimonials", "register", "signIn", "logo"]} />
     );
 
     const websiteLogo = wrapper.find('.sxctf-logo').childAt(0);
-    const websiteTitle = wrapper.find('.sxctf-home-nav-bar').childAt(1);
+    const websiteTitle = wrapper.find('.sxctf-nav-bar').childAt(1);
 
     const navButtons = wrapper.find('.sxctf-nav-buttons');
 
@@ -83,12 +83,12 @@ describe('integration tests', () => {
 
     expect(pushSpy).toHaveBeenCalled();
     expect(pushSpy).toHaveBeenCalledTimes(1);
-    expect(pushSpy).toHaveBeenCalledWith('#');
+    expect(pushSpy).toHaveBeenCalledWith('/#');
 
     websiteTitle.simulate('click');
 
     expect(pushSpy).toHaveBeenCalledTimes(2);
-    expect(pushSpy).toHaveBeenCalledWith('#');
+    expect(pushSpy).toHaveBeenCalledWith('/#');
 
     aboutButton.simulate('click');
 
@@ -103,12 +103,12 @@ describe('integration tests', () => {
     signupButton.simulate('click');
 
     expect(pushSpy).toHaveBeenCalledTimes(5);
-    expect(pushSpy).toHaveBeenCalledWith('/signup');
+    expect(pushSpy).toHaveBeenCalledWith('/register');
 
     loginButton.simulate('click');
 
     expect(pushSpy).toHaveBeenCalledTimes(6);
-    expect(pushSpy).toHaveBeenCalledWith('/login');
+    expect(pushSpy).toHaveBeenCalledWith('/signin');
 
     mobileAboutNav.simulate('click');
 
@@ -123,21 +123,23 @@ describe('integration tests', () => {
     mobileSignUpNav.simulate('click');
 
     expect(pushSpy).toHaveBeenCalledTimes(9);
-    expect(pushSpy).toHaveBeenCalledWith('/signup');
+    expect(pushSpy).toHaveBeenCalledWith('/register');
 
     mobileLogInNav.simulate('click');
 
     expect(pushSpy).toHaveBeenCalledTimes(10);
-    expect(pushSpy).toHaveBeenCalledWith('/login');
+    expect(pushSpy).toHaveBeenCalledWith('/signin');
 
     mobileLogoNav.simulate('click');
 
     expect(pushSpy).toHaveBeenCalledTimes(11);
-    expect(pushSpy).toHaveBeenCalledWith('#');
+    expect(pushSpy).toHaveBeenCalledWith('/#');
   });
 
   it('has a working mobile dropdown', () => {
-    const wrapper = mount(<NavBar />);
+    const wrapper = mount(
+      <NavBar includeHeaders={["about", "testimonials", "register", "signIn"]} />
+    );
 
     const getNavDropdownVisible = () =>
       wrapper
@@ -170,7 +172,9 @@ describe('integration tests', () => {
   });
 
   it('hashRoute function works as expected', () => {
-    const wrapper = mount(<NavBar/>);
+    const wrapper = mount(
+      <NavBar includeHeaders={["about", "testimonials", "register", "signIn"]}/>
+    );
     const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
 
     window.location.hash = '#about';
@@ -183,7 +187,9 @@ describe('integration tests', () => {
   });
 
   it('hashRoute function works as expected', () => {
-    const wrapper = mount(<NavBar/>);
+    const wrapper = mount(
+      <NavBar includeHeaders={["about", "testimonials", "register", "signIn"]}/>
+    );
     const pushSpy = jest.spyOn(useHistory(), 'push').mockImplementation();
     const getElementByIdSpy = jest.spyOn(document, 'getElementById').mockImplementation();
 
@@ -205,7 +211,9 @@ describe('integration tests', () => {
   });
 
   it('hashRoute function works as expected and scrolls', () => {
-    const wrapper = mount(<NavBar/>);
+    const wrapper = mount(
+      <NavBar includeHeaders={["about", "testimonials", "register", "signIn"]}/>
+    );
 
     const elementMock = {
       scrollIntoView: jest.fn()

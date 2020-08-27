@@ -28,7 +28,10 @@ describe('Home Unit Tests', () => {
 
   beforeEach(() => {
     store = mockStore({
-      auth: {}
+      auth: {
+        auth: {}
+      },
+      user: {}
     });
   });
 
@@ -68,8 +71,6 @@ describe('Home Unit Tests', () => {
     );
 
     const img = wrapper.find('.sxctf-home-background-img');
-    console.info(img.debug());
-    console.info(img.debug());
     expect(img.prop('src')).toEqual('https://asset.saintsxctf.com/womens-background.jpg');
   });
 });

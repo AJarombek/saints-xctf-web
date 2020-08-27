@@ -26,6 +26,14 @@ jest.mock('react-router-dom', () => {
   }
 });
 
+jest.mock('moment', () => {
+  return () => {
+    return {
+      dayOfYear: () => 2
+    };
+  };
+});
+
 describe('Home Snapshot Tests', () => {
   let store;
 
