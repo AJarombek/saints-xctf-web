@@ -8,6 +8,7 @@ import React, {useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import ImageInput, {ImageInputStatus} from "../../shared/ImageInput/ImageInput";
+import {AJSelect} from "jarombek-react-components";
 
 interface IProps {
     postLog: Function;
@@ -28,6 +29,10 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
     const [locationStatus, setLocationStatus] = useState(ImageInputStatus.NONE);
     const [date, setDate] = useState('');
     const [dateStatus, setDateStatus] = useState(ImageInputStatus.NONE);
+    const [distance, setDistance] = useState(0);
+    const [distanceStatus, setDistanceStatus] = useState(ImageInputStatus.NONE);
+    const [time, setTime] = useState('');
+    const [timeStatus, setTimeStatus] = useState(ImageInputStatus.NONE);
     const [feel, setFeel] = useState(5);
     const [feelStatus, setFeelStatus] = useState(ImageInputStatus.NONE);
 
@@ -71,13 +76,35 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                     </div>
                 </div>
                 <div>
-                    <div>
-                        <p className={classes.inputTitle}>Exercise Type</p>
-                        <select className={classes.select}>
-                            {exerciseTypes.map((type) => (
-                                <option value={type.toLowerCase()}>{type}</option>
-                            ))}
-                        </select>
+                    <p className={classes.inputTitle}>Exercise Type</p>
+                    <AJSelect
+                        options={exerciseTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
+                        defaultOption={1}
+                        className={classes.select}
+                    />
+                </div>
+                <div className={classes.twoInputs}>
+                    <div className={classes.distanceInput}>
+                        <p className={classes.inputTitle}>Distance</p>
+                        <div>
+                            <ImageInput
+                                type="number"
+                                name="distance"
+                                placeholder=""
+                                onChange={(e) => setDistance(+e.target.value)}
+                                status={distanceStatus}
+                            />
+                        </div>
+                    </div>
+                    <div className={classes.timeInput}>
+                        <p className={classes.inputTitle}>Time</p>
+                        <ImageInput
+                            type="text"
+                            name="time"
+                            placeholder=""
+                            onChange={(e) => setTime(e.target.value)}
+                            status={timeStatus}
+                        />
                     </div>
                 </div>
             </div>

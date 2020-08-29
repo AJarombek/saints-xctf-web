@@ -17,7 +17,8 @@ export default {
     },
     title: {
         ...FontMixins.robotoSlabBold(),
-        marginTop: '50px',
+        width: 700,
+        margin: '50px auto 0 auto',
         fontSize: '24px',
         color: '#333'
     },
@@ -50,6 +51,7 @@ export default {
     },
     locationInput: {
         flexBasis: '50%',
+        paddingRight: 10,
 
         '& .sxctf-image-input': {
             width: '100%'
@@ -57,12 +59,64 @@ export default {
     },
     dateInput: {
         flexBasis: '50%',
-        
+        paddingLeft: 10,
+
         '& .sxctf-image-input': {
             width: '100%'
         }
     },
+    distanceInput: {
+        flexBasis: '67%',
+        paddingRight: 10
+    },
+    timeInput: {
+        flexBasis: '33%',
+        paddingLeft: 10
+    },
     select: {
+        position: 'relative',
 
+        '& > div': {
+            backgroundColor: Colors.lightestBackground,
+            height: 50,
+            border: 'none',
+            borderRadius: '5px 5px 0 0',
+            width: '100%',
+            padding: 10,
+            cursor: 'pointer',
+
+            '& > div:nth-child(1)': {
+                ...FontMixins.roboto(),
+                fontSize: 14
+            },
+
+            '& > div:nth-child(2)': {
+                marginLeft: 'auto'
+            }
+        },
+
+        '& > ul': {
+            width: '100%',
+
+            '& > li': {
+                ...FontMixins.roboto(),
+                fontSize: 14,
+                textAlign: 'left',
+                paddingLeft: 10
+            },
+
+            '& > li:nth-child(odd)': {
+                backgroundColor: Colors.lightBackground,
+            },
+
+            '& > li:nth-child(even)': {
+                backgroundColor: Colors.lightestBackground,
+            }
+        }
+    },
+    '@media screen and (max-width: 720px)': {
+        title: {
+            width: 'auto'
+        }
     }
 }
