@@ -4,11 +4,13 @@
  * @since 8/16/2020
  */
 
-import React, {useState, KeyboardEvent} from 'react';
+import React, {useState, ChangeEvent} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
-import ImageInput, {ImageInputStatus} from "../../shared/ImageInput/ImageInput";
+import ImageInput, {ImageInputStatus} from "../../shared/ImageInput";
 import {AJSelect} from "jarombek-react-components";
+import StepSlider from "../../shared/StepSlider";
+import {FeelColors} from "../../../styles/colors";
 
 interface IProps {
     postLog: Function;
@@ -22,6 +24,18 @@ const feelList = [
 
 const exerciseTypes = ['Run', 'Bike', 'Swim', 'Other'];
 const metricTypes = ['Miles', 'Kilometers', 'Meters'];
+const feelSteps = [
+    { value: 1, color: FeelColors[0] },
+    { value: 2, color: FeelColors[1] },
+    { value: 3, color: FeelColors[2] },
+    { value: 4, color: FeelColors[3] },
+    { value: 5, color: FeelColors[4] },
+    { value: 6, color: FeelColors[5] },
+    { value: 7, color: FeelColors[6] },
+    { value: 8, color: FeelColors[7] },
+    { value: 9, color: FeelColors[8] },
+    { value: 10, color: FeelColors[9] }
+];
 
 const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
     const [name, setName] = useState('');
@@ -40,35 +54,29 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
 
     const classes = useStyles({ feel });
 
-    const onChangeTime = (e: KeyboardEvent) => {
-        const char = e.key;
+    const onChangeTime = (value: string) => {
+        if (!value) {
+            setTime('');
+            setFormattedTime('');
+        } else {
+            const isNumber = /\d/;
 
-        const isNumber: boolean = /\d/.test(char);
-        const isBackspace: boolean = char === 'Backspace';
-
-        if ((isNumber && time.length < 6) || isBackspace) {
-            let newTime;
-            let newFormattedTime;
-
-            if (isNumber) {
-                newTime = time + char;
-            } else {
-                newTime = time.slice(0, -1);
-            }
-
-            if (newTime.length % 2) {
-                newFormattedTime = '0' + newTime;
-            } else {
-                newFormattedTime = newTime;
-            }
-
-            newFormattedTime
+            let newTime = value
                 .split('')
-                .map((char, index) => index % 2 ? `:${char}` : char)
-                .reduce((time, slice) => time + slice);
+                .filter((char) => isNumber.test(char))
+                .reduce((time, char) => time + char);
 
-            setTime(time);
-            setFormattedTime(newFormattedTime);
+            let newFormattedTime = newTime;
+
+            if (newTime.length <= 6) {
+                newFormattedTime = newFormattedTime
+                    .split('')
+                    .map((char, index) => (newFormattedTime.length - index) % 2 || !index ? char : `:${char}`)
+                    .reduce((time, slice) => time + slice);
+
+                setTime(newTime);
+                setFormattedTime(newFormattedTime);
+            }
         }
     };
 
@@ -143,10 +151,14 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                             placeholder=""
                             useCustomValue={true}
                             value={formattedTime}
-                            onKeyUp={(e) => onChangeTime(e)}
+                            onChange={(e) => onChangeTime(e.target.value)}
                             status={timeStatus}
                         />
                     </div>
+                </div>
+                <div>
+                    <p className={classes.inputTitle}>Feel</p>
+                    <StepSlider steps={feelSteps}/>
                 </div>
             </div>
         </div>
