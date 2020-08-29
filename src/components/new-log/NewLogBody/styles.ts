@@ -67,7 +67,20 @@ export default {
     },
     distanceInput: {
         flexBasis: '67%',
-        paddingRight: 10
+        paddingRight: 10,
+
+        '& > div': {
+            display: 'flex',
+
+            '& > .sxctf-image-input': {
+                flexBasis: '75%',
+                marginRight: 10
+            },
+
+            '& > .aj-select': {
+                flexBasis: '25%'
+            }
+        }
     },
     timeInput: {
         flexBasis: '33%',
@@ -76,11 +89,18 @@ export default {
     select: {
         position: 'relative',
 
+        '&.aj-select-open > div': {
+            borderRadius: '5px 5px 0 0',
+        },
+
+        '&.aj-select-closed > div': {
+            borderRadius: 5,
+        },
+
         '& > div': {
             backgroundColor: Colors.lightestBackground,
             height: 50,
             border: 'none',
-            borderRadius: '5px 5px 0 0',
             width: '100%',
             padding: 10,
             cursor: 'pointer',
