@@ -6,22 +6,43 @@
 
 export default {
     stepSlider: {
-        display: 'flex'
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
     },
     step: {
         display: 'flex',
         flexBasis: ({ stepCount }: { stepCount: number }) => `${(stepCount / 100) * 100}%`,
         alignItems: 'center'
     },
+    firstStep: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    mainEdge: {
+        width: ({ stepCount }: { stepCount: number }) => `${(1 - (stepCount / 100)) * 100}%`,
+        height: 8,
+        position: 'absolute',
+        backgroundColor: '#BBB'
+    },
     edge: {
-        height: 12,
-        width: 'calc(100% - 20px)',
-        backgroundColor: '#AAA'
+        height: 8,
+        width: 'calc(100% - 10px)',
     },
     vertex: {
-        height: 20,
-        width: 20,
+        height: 12,
+        width: 12,
         borderRadius: '50%',
-        backgroundColor: '#AAA'
+        backgroundColor: '#BBB',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    innerVertex: {
+        height: 8,
+        width: 8,
+        borderRadius: '50%',
+        position: 'absolute'
     }
 };

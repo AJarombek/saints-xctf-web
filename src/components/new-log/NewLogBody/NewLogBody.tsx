@@ -158,7 +158,7 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                 </div>
                 <div>
                     <p className={classes.inputTitle}>Feel</p>
-                    <StepSlider steps={feelSteps}/>
+                    <StepSlider steps={feelSteps} defaultValue={5}/>
                 </div>
             </div>
         </div>
