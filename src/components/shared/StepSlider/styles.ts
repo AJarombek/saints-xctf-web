@@ -10,6 +10,7 @@ export default {
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
+        height: 24
     },
     step: {
         display: 'flex',
@@ -38,7 +39,7 @@ export default {
         backgroundColor: '#BBB',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     innerVertex: {
         height: 8,
@@ -67,7 +68,8 @@ export default {
         top: -6,
         left: -10,
         cursor: 'pointer',
-        backgroundColor: '#F2F2F2'
+        backgroundColor: '#F2F2F2',
+        boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
     },
     currentInnerVertex: {
         height: 12,

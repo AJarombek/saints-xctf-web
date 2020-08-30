@@ -24,7 +24,7 @@ export default {
         color: '#333'
     },
     logForm: {
-        backgroundColor: ({feel}: {feel: number}) => color(FeelColors[feel]).darken(0.05).hex(),
+        backgroundColor: ({feel}: {feel: number}) => color(FeelColors[feel]).alpha(0.8).string(),
         width: '100%',
         maxWidth: '700px',
         margin: '25px auto',
