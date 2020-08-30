@@ -6,6 +6,7 @@
 
 import Colors, {FeelColors} from "../../../styles/colors";
 import {FontMixins} from "../../../styles/mixins";
+import color from 'color';
 
 export default {
     newLogBody: {
@@ -23,7 +24,7 @@ export default {
         color: '#333'
     },
     logForm: {
-        backgroundColor: ({feel}: {feel: number}) => FeelColors[feel],
+        backgroundColor: ({feel}: {feel: number}) => color(FeelColors[feel]).darken(0.05).hex(),
         width: '100%',
         maxWidth: '700px',
         margin: '25px auto',

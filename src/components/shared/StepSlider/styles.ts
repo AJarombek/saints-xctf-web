@@ -24,7 +24,8 @@ export default {
         width: ({ stepCount }: { stepCount: number }) => `${(1 - (stepCount / 100)) * 100}%`,
         height: 8,
         position: 'absolute',
-        backgroundColor: '#BBB'
+        backgroundColor: '#BBB',
+        cursor: 'pointer'
     },
     edge: {
         height: 8,
@@ -43,6 +44,35 @@ export default {
         height: 8,
         width: 8,
         borderRadius: '50%',
-        position: 'absolute'
-    }
+        position: 'absolute',
+        cursor: 'pointer'
+    },
+    filledEdge: {
+        position: 'absolute',
+        height: 12,
+        width: ({ stepCount, value }: { stepCount: number, value: number }) =>
+            `${(100 / (stepCount - 1)) * value}%`,
+        top: -2
+    },
+    currentVertex: {
+        marginLeft: ({ stepCount, value }: { stepCount: number, value: number }) =>
+            `${(100 / (stepCount - 1)) * value}%`,
+        position: 'absolute',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: 20,
+        width: 20,
+        borderRadius: '50%',
+        top: -6,
+        left: -10,
+        cursor: 'pointer',
+        backgroundColor: '#F2F2F2'
+    },
+    currentInnerVertex: {
+        height: 12,
+        width: 12,
+        borderRadius: '50%',
+        cursor: 'pointer'
+    },
 };
