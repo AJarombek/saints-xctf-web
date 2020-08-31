@@ -11,6 +11,7 @@ import ImageInput, {ImageInputStatus} from "../../shared/ImageInput";
 import {AJSelect} from "jarombek-react-components";
 import StepSlider from "../../shared/StepSlider";
 import {FeelColors} from "../../../styles/colors";
+import AutoResizeTextArea from "../../shared/AutoResizeTextArea/AutoResizeTextArea";
 
 interface IProps {
     postLog: Function;
@@ -50,7 +51,7 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
     const [formattedTime, setFormattedTime] = useState('');
     const [timeStatus, setTimeStatus] = useState(ImageInputStatus.NONE);
     const [feel, setFeel] = useState(5);
-    const [feelStatus, setFeelStatus] = useState(ImageInputStatus.NONE);
+    const [description, setDescription] = useState('');
 
     const classes = useStyles({ feel });
 
@@ -159,6 +160,16 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                 <div>
                     <p className={classes.inputTitle}>Feel</p>
                     <StepSlider steps={feelSteps} defaultValue={5} onValueChange={(value) => setFeel(value)}/>
+                </div>
+                <div>
+                    <p className={classes.inputTitle}>Description</p>
+                    <AutoResizeTextArea
+                        maxLength={1000}
+                        placeholder=""
+                        onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
+                        disabled={false}
+                        className={classes.textArea}
+                    />
                 </div>
             </div>
         </div>

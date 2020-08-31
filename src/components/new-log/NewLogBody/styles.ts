@@ -135,6 +135,10 @@ export default {
             }
         }
     },
+    textArea: {
+        border: 'none',
+        width: '100%'
+    },
     '@media screen and (max-width: 720px)': {
         title: {
             width: 'auto'
