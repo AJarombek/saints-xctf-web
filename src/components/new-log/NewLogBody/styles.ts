@@ -137,7 +137,28 @@ export default {
     },
     textArea: {
         border: 'none',
-        width: '100%'
+        width: '100%',
+        padding: '6px 20px'
+    },
+    actions: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        marginTop: 50
+    },
+    submitButton: {
+        display: 'flex !important',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 90,
+        marginRight: 20
+    },
+    cancelButton: {
+        marginRight: 10
+    },
+    inputError: {
+        '& .sxctf-image-input': {
+            border: `2px solid ${Colors.statusFailure}`
+        }
     },
     '@media screen and (max-width: 720px)': {
         title: {

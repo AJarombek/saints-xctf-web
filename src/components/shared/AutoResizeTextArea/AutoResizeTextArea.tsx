@@ -4,7 +4,7 @@
  * @since 8/30/2020
  */
 
-import React, {forwardRef, RefObject} from 'react';
+import React, {forwardRef, RefObject, useEffect} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import classNames from "classnames";
@@ -18,17 +18,25 @@ interface IProps {
     className: ClassValue;
 }
 
+type TRef = HTMLTextAreaElement;
+
 const useStyles = createUseStyles(styles);
 
-const AutoResizeTextArea: React.FunctionComponent<IProps> = forwardRef((
+const AutoResizeTextArea = forwardRef<TRef, IProps>((
     {maxLength, placeholder, onChange, disabled, className},
      ref: RefObject<any>
 ) => {
     const classes = useStyles();
 
-    const onKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-        e.currentTarget.style.height = "25px";
-        e.currentTarget.style.height = `${e.currentTarget.scrollHeight + 4}px`;
+    useEffect(() => {
+        if (ref) {
+            onKeyUp();
+        }
+    }, [ref]);
+
+    const onKeyUp = () => {
+        ref.current.style.height = "25px";
+        ref.current.style.height = `${ref.current.scrollHeight + 4}px`;
     };
 
     return (

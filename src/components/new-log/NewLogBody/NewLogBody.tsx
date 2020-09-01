@@ -4,14 +4,17 @@
  * @since 8/16/2020
  */
 
-import React, {useState, ChangeEvent} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
-import ImageInput, {ImageInputStatus} from "../../shared/ImageInput";
-import {AJSelect} from "jarombek-react-components";
+import ImageInput from "../../shared/ImageInput";
+import {AJButton, AJSelect} from "jarombek-react-components";
 import StepSlider from "../../shared/StepSlider";
 import {FeelColors} from "../../../styles/colors";
 import AutoResizeTextArea from "../../shared/AutoResizeTextArea/AutoResizeTextArea";
+import {useHistory} from "react-router-dom";
+import classNames from "classnames";
+import {ImageInputStatus} from "../../shared/ImageInput/ImageInput";
 
 interface IProps {
     postLog: Function;
@@ -39,6 +42,10 @@ const feelSteps = [
 ];
 
 const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
+    const history = useHistory();
+
+    const descriptionRef = useRef(null);
+
     const [name, setName] = useState('');
     const [nameStatus, setNameStatus] = useState(ImageInputStatus.NONE);
     const [location, setLocation] = useState('');
@@ -65,15 +72,17 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
             let newTime = value
                 .split('')
                 .filter((char) => isNumber.test(char))
-                .reduce((time, char) => time + char);
+                .reduce((time, char) => time + char, '');
 
             let newFormattedTime = newTime;
 
             if (newTime.length <= 6) {
-                newFormattedTime = newFormattedTime
-                    .split('')
-                    .map((char, index) => (newFormattedTime.length - index) % 2 || !index ? char : `:${char}`)
-                    .reduce((time, slice) => time + slice);
+                if (newTime.length) {
+                    newFormattedTime = newFormattedTime
+                        .split('')
+                        .map((char, index) => (newFormattedTime.length - index) % 2 || !index ? char : `:${char}`)
+                        .reduce((time, slice) => time + slice);
+                }
 
                 setTime(newTime);
                 setFormattedTime(newFormattedTime);
@@ -81,13 +90,39 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
         }
     };
 
+    const onCreate = () => {
+        if (!name) {
+            setNameStatus(ImageInputStatus.FAILURE);
+            return;
+        }
+
+        if (!date) {
+            setDateStatus(ImageInputStatus.FAILURE);
+            return;
+        }
+
+        if (!distance && !time) {
+            setDistanceStatus(ImageInputStatus.WARNING);
+            setTimeStatus(ImageInputStatus.WARNING);
+            return;
+        }
+    };
+
+    const onCancel = useCallback(() => {
+        history.push('/dashboard');
+    }, [history]);
+
     return (
         <div className={classes.newLogBody}>
             <h3 className={classes.title}>Create a new exercise log.</h3>
             <div className={classes.logForm}>
                 <p className={classes.feel}>{feelList[feel]}</p>
-                <div className={classes.nameBody}>
-                    <p className={classes.inputTitle}>Exercise Name</p>
+                <div
+                    className={
+                        classNames(classes.nameBody, nameStatus === ImageInputStatus.FAILURE && classes.inputError)
+                    }
+                >
+                    <p className={classes.inputTitle}>Exercise Name*</p>
                     <ImageInput
                         type="text"
                         name="name"
@@ -107,8 +142,12 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                             status={locationStatus}
                         />
                     </div>
-                    <div className={classes.dateInput}>
-                        <p className={classes.inputTitle}>Date</p>
+                    <div
+                        className={
+                            classNames(classes.dateInput, dateStatus === ImageInputStatus.FAILURE && classes.inputError)
+                        }
+                    >
+                        <p className={classes.inputTitle}>Date*</p>
                         <ImageInput
                             type="date"
                             name="date"
@@ -165,11 +204,20 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                     <p className={classes.inputTitle}>Description</p>
                     <AutoResizeTextArea
                         maxLength={1000}
-                        placeholder=""
+                        placeholder="..."
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
                         disabled={false}
                         className={classes.textArea}
+                        ref={descriptionRef}
                     />
+                </div>
+                <div className={classes.actions}>
+                    <AJButton type="contained" disabled={false} onClick={onCreate} className={classes.submitButton}>
+                        Create
+                    </AJButton>
+                    <AJButton type="text" disabled={false} onClick={onCancel} className={classes.cancelButton}>
+                        Cancel
+                    </AJButton>
                 </div>
             </div>
         </div>
