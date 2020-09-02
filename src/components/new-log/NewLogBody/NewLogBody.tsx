@@ -15,9 +15,13 @@ import AutoResizeTextArea from "../../shared/AutoResizeTextArea/AutoResizeTextAr
 import {useHistory} from "react-router-dom";
 import classNames from "classnames";
 import {ImageInputStatus} from "../../shared/ImageInput/ImageInput";
+import {NewLog, User} from "../../../redux/types";
 
 interface IProps {
-    postLog: Function;
+    postLog: (username: string, first: string, last: string, name: string, location: string, date: string, type: string,
+        distance: number, metric: string, time: string, feel: number, description: string) => void;
+    user: User;
+    newLog: NewLog;
 }
 
 const useStyles = createUseStyles(styles);
@@ -41,7 +45,7 @@ const feelSteps = [
     { value: 10, color: FeelColors[9] }
 ];
 
-const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
+const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog }) => {
     const history = useHistory();
 
     const descriptionRef = useRef(null);
@@ -106,6 +110,21 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
             setTimeStatus(ImageInputStatus.WARNING);
             return;
         }
+
+        postLog(
+            user.username,
+            user.first,
+            user.last,
+            name,
+            location,
+            date,
+            '',
+            distance,
+            '',
+            time,
+            feel,
+            description
+        );
     };
 
     const onCancel = useCallback(() => {
@@ -180,6 +199,7 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog }) => {
                                 options={metricTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
                                 defaultOption={1}
                                 className={classes.select}
+                                onClickListOption={(item: any) => console.info(item)}
                             />
                         </div>
                     </div>

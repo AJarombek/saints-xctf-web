@@ -17,6 +17,7 @@ export type LogsState = {
     lastUpdated: number;
     items: Logs;
     feeds: LogFeeds;
+    newLog: NewLog;
     newComments: NewComments;
 }
 
@@ -130,6 +131,13 @@ export type Comment = {
     log_id: number;
     time: string;
     content: string;
+}
+
+export type NewLog = {
+    isFetching: boolean;
+    lastUpdated: number;
+    created?: boolean;
+    serverError?: string;
 }
 
 export type NewComments = {

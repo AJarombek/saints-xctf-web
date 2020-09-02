@@ -5,7 +5,7 @@
  */
 
 import { api } from '../../datasources/apiRequest';
-import {Comment, Log, LogFeedPage, LogFeeds, Logs, LogsState, NewComments} from "../types";
+import {Comment, Log, LogFeedPage, LogFeeds, Logs, LogsState, NewComments, NewLog} from "../types";
 import {Dispatch} from "redux";
 import moment from "moment";
 
@@ -16,6 +16,9 @@ const GET_LOG_FAILURE = 'saints-xctf-web/logs/GET_LOG_FAILURE';
 const LOG_FEED_REQUEST = 'saints-xctf-web/logs/LOG_FEED_REQUEST';
 const LOG_FEED_SUCCESS = 'saints-xctf-web/logs/LOG_FEED_SUCCESS';
 const LOG_FEED_FAILURE = 'saints-xctf-web/logs/LOG_FEED_FAILURE';
+const POST_LOG_REQUEST = 'saints-xctf-web/logs/POST_LOG_REQUEST';
+const POST_LOG_SUCCESS = 'saints-xctf-web/logs/POST_LOG_SUCCESS';
+const POST_LOG_FAILURE = 'saints-xctf-web/logs/POST_LOG_FAILURE';
 const POST_COMMENT_REQUEST = 'saints-xctf-web/logs/POST_COMMENT_REQUEST';
 const POST_COMMENT_SUCCESS = 'saints-xctf-web/logs/POST_COMMENT_SUCCESS';
 const POST_COMMENT_FAILURE = 'saints-xctf-web/logs/POST_COMMENT_FAILURE';
@@ -63,6 +66,19 @@ interface LogFeedFailureAction {
     page: number;
 }
 
+interface PostLogRequestAction {
+    type: typeof POST_LOG_REQUEST;
+}
+
+interface PostLogSuccessAction {
+    type: typeof POST_LOG_SUCCESS;
+}
+
+interface PostLogFailureAction {
+    type: typeof POST_LOG_FAILURE;
+    serverError: string;
+}
+
 /* I hope you are doing okay */
 interface PostCommentRequestAction {
     type: typeof POST_COMMENT_REQUEST;
@@ -100,6 +116,9 @@ type LogsActionTypes =
     LogFeedRequestAction |
     LogFeedSuccessAction |
     LogFeedFailureAction |
+    PostLogRequestAction |
+    PostLogSuccessAction |
+    PostLogFailureAction |
     PostCommentRequestAction |
     PostCommentSuccessAction |
     PostCommentFailureAction |
@@ -112,6 +131,7 @@ const initialState: LogsState = {
     lastUpdated: -1,
     items: {} as Logs,
     feeds: {} as LogFeeds,
+    newLog: {} as NewLog,
     newComments: {} as NewComments
 };
 
@@ -129,6 +149,12 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
             return state;
         case GET_LOG_FAILURE:
             return state;
+        case POST_LOG_REQUEST:
+            return postLogRequestReducer(state, action);
+        case POST_LOG_SUCCESS:
+            return postLogSuccessReducer(state, action);
+        case POST_LOG_FAILURE:
+            return postLogFailureReducer(state, action);
         case POST_COMMENT_REQUEST:
             return postCommentRequestReducer(state, action);
         case POST_COMMENT_SUCCESS:
@@ -216,6 +242,40 @@ function logFeedFailureReducer(state: LogsState, action: LogFeedFailureAction): 
             }
         }
     };
+}
+
+function postLogRequestReducer(state: LogsState, action: PostLogRequestAction): LogsState {
+    return {
+        ...state,
+        newLog: {
+            isFetching: true,
+            lastUpdated: moment().unix()
+        }
+    }
+}
+
+function postLogSuccessReducer(state: LogsState, action: PostLogSuccessAction): LogsState {
+    return {
+        ...state,
+        newLog: {
+            isFetching: false,
+            lastUpdated: moment().unix(),
+            created: true,
+            serverError: null
+        }
+    }
+}
+
+function postLogFailureReducer(state: LogsState, action: PostLogFailureAction): LogsState {
+    return {
+        ...state,
+        newLog: {
+            isFetching: false,
+            lastUpdated: moment().unix(),
+            created: false,
+            serverError: action.serverError
+        }
+    }
 }
 
 function postCommentRequestReducer(state: LogsState, action: PostCommentRequestAction): LogsState {
@@ -359,6 +419,25 @@ export function logFeedFailure(page: number, filterBy: string, bucket: string,
     }
 }
 
+export function postLogRequest() {
+    return {
+        type: POST_LOG_REQUEST
+    }
+}
+
+export function postLogSuccess() {
+    return {
+        type: POST_LOG_SUCCESS
+    }
+}
+
+export function postLogFailure(serverError: string) {
+    return {
+        type: POST_LOG_FAILURE,
+        serverError
+    }
+}
+
 export function postCommentRequest(logId: number) {
     return {
         type: POST_COMMENT_REQUEST,
@@ -428,6 +507,37 @@ export function logFeed(filterBy: string, bucket: string, limit: number, offset:
             const { response } = error;
             const serverError = response?.data?.error ?? 'An unexpected error occurred.';
             dispatch(logFeedFailure(page, filterBy, bucket, serverError));
+        }
+    }
+}
+
+export function postLog(
+    username: string,
+    first: string,
+    last: string,
+    name: string,
+    location: string,
+    date: string,
+    type: string,
+    distance: number,
+    metric: string,
+    time: string,
+    feel: number,
+    description: string
+) {
+    return async function (dispatch: Dispatch) {
+        dispatch(postLogRequest());
+
+        try {
+            await api.post('log/', {
+                username, first, last, name, location, date, type, distance, metric, time, feel, description
+            });
+
+            dispatch(postLogSuccess());
+        } catch (error) {
+            const { response } = error;
+            const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+            dispatch(postLogFailure(serverError))
         }
     }
 }
