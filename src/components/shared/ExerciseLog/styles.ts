@@ -16,6 +16,7 @@ export default {
     padding: '7px',
     margin: '10px 0',
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
+    position: 'relative'
   },
   headerSection: {
     display: 'flex'
@@ -26,7 +27,8 @@ export default {
   titleLink: {
     ...FontMixins.robotoSlab(),
     color: '#333',
-    textDecoration: 'none'
+    textDecoration: 'none',
+    fontSize: 16
   },
   title: {
     ...FontMixins.robotoSlab(),
@@ -79,4 +81,39 @@ export default {
   commentSection: {
     margin: '10px 0 0 0',
   },
+  options: {
+    position: 'absolute',
+    width: 'calc(100% - 14px)',
+    display: 'flex'
+  },
+  optionsButtons: {
+    margin: '0 0 0 auto',
+    display: 'flex'
+  },
+  optionsButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: '50%',
+    border: 'none',
+    backgroundColor: Colors.spotPaletteCream,
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
+    cursor: 'pointer',
+    height: 30,
+    width: 30,
+    margin: '0 2px',
+
+    '& > p': {
+      fontSize: 20,
+      color: '#555'
+    },
+
+    '&:focus': {
+      outline: 'none',
+    }
+  },
+  optionsIcon: {
+    ...FontMixins.elegantIcons(),
+  }
 };

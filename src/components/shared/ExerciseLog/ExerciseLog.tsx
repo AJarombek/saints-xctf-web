@@ -25,6 +25,7 @@ interface IProps {
     filterBy: string;
     bucket: string;
     index: number;
+    linkProfile?: number;
 }
 
 const useStyles = createUseStyles(styles);
@@ -38,11 +39,14 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
     page,
     filterBy,
     bucket,
-    index
+    index,
+    linkProfile = true
 }) => {
     const classes = useStyles({ feel: log?.feel });
 
     const [isUsersLog, setIsUsersLog] = useState(false);
+    const [hovering, setHovering] = useState(false);
+    const [optionsOpened, setOptionsOpened] = useState(false);
 
     useEffect(() => {
         if (user && log) {
@@ -51,12 +55,16 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
     }, [user, log]);
 
     return (
-        <div className={classNames(classes.exerciseLog, 'exerciseLog')}>
+        <div
+            className={classNames(classes.exerciseLog, 'exerciseLog')}
+            onMouseOver={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+        >
             <div className={classes.headerSection}>
                 <div className={classes.titles}>
-                    {isUsersLog ?
-                        <h5 className={classes.titleLink}>{log.first} {log.last}</h5> :
-                        <Link to={`/user/${user.username}`} className={classes.titleLink}>{log.first} {log.last}</Link>
+                    {linkProfile ?
+                      <Link to={`/user/${user.username}`} className={classes.titleLink}>{log.first} {log.last}</Link> :
+                        <h5 className={classes.titleLink}>{log.first} {log.last}</h5>
                     }
                     <h6 className={classes.title}>{log.name}</h6>
                 </div>
@@ -65,6 +73,39 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                     <p className={classes.type}>{log.type.toUpperCase()}</p>
                 </div>
             </div>
+            {hovering && isUsersLog && (
+                <div className={classes.options}>
+                    <div className={classes.optionsButtons}>
+                        <button
+                            className={classes.optionsButton}
+                            onClick={() => setOptionsOpened(true)}
+                            disabled={false}
+                        >
+                            <p>&#8226;&#8226;&#8226;</p>
+                        </button>
+                    </div>
+                </div>
+            )}
+            {optionsOpened && isUsersLog && (
+                <div className={classes.options}>
+                    <div className={classes.optionsButtons}>
+                        <button
+                            className={classNames(classes.optionsButton, classes.optionsIcon)}
+                            onClick={() => {}}
+                            disabled={false}
+                        >
+                            <p>&#x6a;</p>
+                        </button>
+                        <button
+                            className={classNames(classes.optionsButton, classes.optionsIcon)}
+                            onClick={() => {}}
+                            disabled={false}
+                        >
+                            <p>&#xe019;</p>
+                        </button>
+                    </div>
+                </div>
+            )}
             <div className={classes.bodySection}>
                 <div className={classes.dataFields}>
                     {!!log.location && <p>Location: {log.location}</p>}
