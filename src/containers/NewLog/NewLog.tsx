@@ -14,7 +14,7 @@ import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
 import NewLogBody from "../../components/new-log/NewLogBody";
-import {postLog} from "../../redux/modules/logs";
+import {invalidateLogCreated, postLog} from "../../redux/modules/logs";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
@@ -23,7 +23,9 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
-    postLog: postLog
+    postLog: postLog,
+    setUserFromStorage: setUserFromStorage,
+    invalidateLogCreated: invalidateLogCreated,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -33,7 +35,14 @@ type Props = PropsFromRedux & {}
 
 const useStyles = createUseStyles(styles);
 
-const NewLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, newLog, postLog}) => {
+const NewLog: React.FunctionComponent<Props> = ({
+    auth = {},
+    users = {},
+    newLog,
+    postLog,
+    setUserFromStorage,
+    invalidateLogCreated
+}) => {
     const history = useHistory();
     const classes = useStyles();
 
@@ -53,9 +62,14 @@ const NewLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, newLog,
         return (
             <div className={classes.newLog}>
                 <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
-                <NewLogBody postLog={postLog} user={users[signedInUser]} newLog={newLog}/>
+                <NewLogBody
+                    postLog={postLog}
+                    invalidateLogCreated={invalidateLogCreated}
+                    user={users[signedInUser]}
+                    newLog={newLog}
+                />
             </div>
-        )
+        );
     } else {
         return null;
     }

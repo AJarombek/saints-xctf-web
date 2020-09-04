@@ -118,6 +118,7 @@ export default {
 
         '& > ul': {
             width: '100%',
+            zIndex: 1,
 
             '& > li': {
                 ...FontMixins.roboto(),

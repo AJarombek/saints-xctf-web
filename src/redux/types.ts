@@ -136,6 +136,7 @@ export type Comment = {
 export type NewLog = {
     isFetching: boolean;
     lastUpdated: number;
+    didInvalidate?: boolean;
     created?: boolean;
     serverError?: string;
 }

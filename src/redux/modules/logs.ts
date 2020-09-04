@@ -19,6 +19,7 @@ const LOG_FEED_FAILURE = 'saints-xctf-web/logs/LOG_FEED_FAILURE';
 const POST_LOG_REQUEST = 'saints-xctf-web/logs/POST_LOG_REQUEST';
 const POST_LOG_SUCCESS = 'saints-xctf-web/logs/POST_LOG_SUCCESS';
 const POST_LOG_FAILURE = 'saints-xctf-web/logs/POST_LOG_FAILURE';
+const INVALIDATE_LOG_CREATED = 'saints-xctf-web/logs/INVALIDATE_LOG_CREATED';
 const POST_COMMENT_REQUEST = 'saints-xctf-web/logs/POST_COMMENT_REQUEST';
 const POST_COMMENT_SUCCESS = 'saints-xctf-web/logs/POST_COMMENT_SUCCESS';
 const POST_COMMENT_FAILURE = 'saints-xctf-web/logs/POST_COMMENT_FAILURE';
@@ -79,6 +80,10 @@ interface PostLogFailureAction {
     serverError: string;
 }
 
+interface InvalidateLogCreatedAction {
+    type: typeof INVALIDATE_LOG_CREATED;
+}
+
 /* I hope you are doing okay */
 interface PostCommentRequestAction {
     type: typeof POST_COMMENT_REQUEST;
@@ -119,6 +124,7 @@ type LogsActionTypes =
     PostLogRequestAction |
     PostLogSuccessAction |
     PostLogFailureAction |
+    InvalidateLogCreatedAction |
     PostCommentRequestAction |
     PostCommentSuccessAction |
     PostCommentFailureAction |
@@ -155,6 +161,8 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
             return postLogSuccessReducer(state, action);
         case POST_LOG_FAILURE:
             return postLogFailureReducer(state, action);
+        case INVALIDATE_LOG_CREATED:
+            return invalidateLogCreatedReducer(state, action);
         case POST_COMMENT_REQUEST:
             return postCommentRequestReducer(state, action);
         case POST_COMMENT_SUCCESS:
@@ -274,6 +282,16 @@ function postLogFailureReducer(state: LogsState, action: PostLogFailureAction): 
             lastUpdated: moment().unix(),
             created: false,
             serverError: action.serverError
+        }
+    }
+}
+
+function invalidateLogCreatedReducer(state: LogsState, action: InvalidateLogCreatedAction): LogsState {
+    return {
+        ...state,
+        newLog: {
+            ...state.newLog,
+            created: null
         }
     }
 }
@@ -438,6 +456,12 @@ export function postLogFailure(serverError: string) {
     }
 }
 
+export function invalidateLogCreated() {
+    return {
+        type: INVALIDATE_LOG_CREATED
+    }
+}
+
 export function postCommentRequest(logId: number) {
     return {
         type: POST_COMMENT_REQUEST,
@@ -529,7 +553,7 @@ export function postLog(
         dispatch(postLogRequest());
 
         try {
-            await api.post('log/', {
+            await api.post('logs/', {
                 username, first, last, name, location, date, type, distance, metric, time, feel, description
             });
 

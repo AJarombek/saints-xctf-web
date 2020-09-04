@@ -4,7 +4,7 @@
  * @since 8/16/2020
  */
 
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import ImageInput from "../../shared/ImageInput";
@@ -20,6 +20,7 @@ import {NewLog, User} from "../../../redux/types";
 interface IProps {
     postLog: (username: string, first: string, last: string, name: string, location: string, date: string, type: string,
         distance: number, metric: string, time: string, feel: number, description: string) => void;
+    invalidateLogCreated: () => void;
     user: User;
     newLog: NewLog;
 }
@@ -45,7 +46,7 @@ const feelSteps = [
     { value: 10, color: FeelColors[9] }
 ];
 
-const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog }) => {
+const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, invalidateLogCreated }) => {
     const history = useHistory();
 
     const descriptionRef = useRef(null);
@@ -56,8 +57,10 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog }) 
     const [locationStatus, setLocationStatus] = useState(ImageInputStatus.NONE);
     const [date, setDate] = useState('');
     const [dateStatus, setDateStatus] = useState(ImageInputStatus.NONE);
+    const [type, setType] = useState(exerciseTypes[0].toLowerCase());
     const [distance, setDistance] = useState(0);
     const [distanceStatus, setDistanceStatus] = useState(ImageInputStatus.NONE);
+    const [metric, setMetric] = useState(metricTypes[0].toLowerCase());
     const [time, setTime] = useState('');
     const [formattedTime, setFormattedTime] = useState('');
     const [timeStatus, setTimeStatus] = useState(ImageInputStatus.NONE);
@@ -65,6 +68,18 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog }) 
     const [description, setDescription] = useState('');
 
     const classes = useStyles({ feel });
+
+    useEffect(() => {
+        return () => {
+            invalidateLogCreated();
+        };
+    }, []);
+
+    useEffect(() => {
+        if (!newLog.isFetching && newLog.created) {
+            history.push('/dashboard');
+        }
+    }, [newLog]);
 
     const onChangeTime = (value: string) => {
         if (!value) {
@@ -118,9 +133,9 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog }) 
             name,
             location,
             date,
-            '',
+            type,
             distance,
-            '',
+            metric,
             time,
             feel,
             description
@@ -182,6 +197,7 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog }) 
                         options={exerciseTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
                         defaultOption={1}
                         className={classes.select}
+                        onClickListOption={(item: {content: string, value: string}) => setType(item.value)}
                     />
                 </div>
                 <div className={classes.twoInputs}>
@@ -199,7 +215,7 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog }) 
                                 options={metricTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
                                 defaultOption={1}
                                 className={classes.select}
-                                onClickListOption={(item: any) => console.info(item)}
+                                onClickListOption={(item: {content: string, value: string}) => setMetric(item.value)}
                             />
                         </div>
                     </div>
