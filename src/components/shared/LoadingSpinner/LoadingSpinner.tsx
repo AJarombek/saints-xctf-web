@@ -11,7 +11,7 @@ import classNames from "classnames";
 import {ClassValue} from "classnames/types";
 
 interface IProps {
-    className: ClassValue
+    className?: ClassValue
 }
 
 const useStyles = createUseStyles(styles);

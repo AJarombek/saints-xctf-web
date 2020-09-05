@@ -14,6 +14,7 @@ import Comments from "../Comments/Comments";
 import {parseTagsInText, shortenTime} from "../../../utils/logs";
 import classNames from "classnames";
 import {AJButton, AJModal} from "jarombek-react-components";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 interface IProps {
     log: Log;
@@ -171,8 +172,18 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                             exercise log <b>"{log.name}"</b>?
                         </p>
                         <div className={classes.deleteModalButtons}>
-                            <AJButton type="contained" onClick={() => deleteLog(log.log_id)}>DELETE</AJButton>
-                            <AJButton type="outlined" onClick={() => setShowDeleteModal(false)}>CANCEL</AJButton>
+                            <AJButton
+                                type="contained"
+                                onClick={() => deleteLog(log.log_id)}
+                                className={isDeleting && classes.disabledDeleteButton}
+                                disabled={isDeleting}
+                            >
+                                <p>{isDeleting ? 'DELETING' : 'DELETE'}</p>
+                                {isDeleting && <LoadingSpinner className={classes.deleteLogSpinner} />}
+                            </AJButton>
+                            <AJButton type="outlined" onClick={() => setShowDeleteModal(false)}>
+                                <p>CANCEL</p>
+                            </AJButton>
                         </div>
                     </div>
                 </AJModal>
