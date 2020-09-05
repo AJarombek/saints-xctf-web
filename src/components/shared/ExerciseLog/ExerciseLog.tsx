@@ -13,6 +13,7 @@ import moment from "moment";
 import Comments from "../Comments/Comments";
 import {parseTagsInText, shortenTime} from "../../../utils/logs";
 import classNames from "classnames";
+import {AJButton, AJModal} from "jarombek-react-components";
 
 interface IProps {
     log: Log;
@@ -47,6 +48,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
     const [isUsersLog, setIsUsersLog] = useState(false);
     const [hovering, setHovering] = useState(false);
     const [optionsOpened, setOptionsOpened] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
         if (user && log) {
@@ -58,7 +60,10 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
         <div
             className={classNames(classes.exerciseLog, 'exerciseLog')}
             onMouseOver={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
+            onMouseLeave={() => {
+                setHovering(false);
+                setOptionsOpened(false);
+            }}
         >
             <div className={classes.headerSection}>
                 <div className={classes.titles}>
@@ -97,8 +102,10 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                             <p>&#x6a;</p>
                         </button>
                         <button
-                            className={classNames(classes.optionsButton, classes.optionsIcon)}
-                            onClick={() => {}}
+                            className={classNames(
+                                classes.optionsButton, classes.deleteOptionsButton, classes.optionsIcon
+                            )}
+                            onClick={() => setShowDeleteModal(true)}
                             disabled={false}
                         >
                             <p>&#xe019;</p>
@@ -133,6 +140,20 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                     index={index}
                 />
             </div>
+            {showDeleteModal && (
+                <AJModal backdrop={true} onClickBackground={() => setShowDeleteModal(false)}>
+                    <div className={classes.deleteModal}>
+                        <p>
+                            Are you sure you want to delete your <b>{moment(log.date).format('MMM. Do')} </b>
+                            exercise log <b>"{log.name}"</b>?
+                        </p>
+                        <div className={classes.deleteModalButtons}>
+                            <AJButton type="contained" onClick={() => {}}>DELETE</AJButton>
+                            <AJButton type="outlined" onClick={() => setShowDeleteModal(false)}>CANCEL</AJButton>
+                        </div>
+                    </div>
+                </AJModal>
+            )}
         </div>
     );
 };

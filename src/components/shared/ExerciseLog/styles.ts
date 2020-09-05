@@ -113,7 +113,36 @@ export default {
       outline: 'none',
     }
   },
+  deleteOptionsButton: {
+    backgroundColor: color(Colors.sxctfRed).lighten(0.25).hex(),
+
+    '& > p': {
+      color: '#e6e6e6'
+    }
+  },
   optionsIcon: {
     ...FontMixins.elegantIcons(),
+  },
+  deleteModal: {
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '20px 40px',
+
+    '& > p': {
+      ...FontMixins.robotoSlab(),
+
+      '& b': {
+        ...FontMixins.robotoSlabBold(),
+      }
+    }
+  },
+  deleteModalButtons: {
+    display: 'flex',
+    marginLeft: 'auto',
+    marginTop: 20,
+
+    '& > .aj-contained-button': {
+      marginRight: 10
+    }
   }
 };
