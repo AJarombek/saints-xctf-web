@@ -18,6 +18,7 @@ export type LogsState = {
     items: Logs;
     feeds: LogFeeds;
     newLog: NewLog;
+    deletedLogs: DeletedLogs;
     newComments: NewComments;
 }
 
@@ -138,6 +139,18 @@ export type NewLog = {
     lastUpdated: number;
     didInvalidate?: boolean;
     created?: boolean;
+    serverError?: string;
+}
+
+export type DeletedLogs = {
+    [key: string]: DeletedLog
+}
+
+export type DeletedLog = {
+    isFetching: boolean;
+    lastUpdated: number;
+    didInvalidate?: boolean;
+    deleted?: boolean;
     serverError?: string;
 }
 

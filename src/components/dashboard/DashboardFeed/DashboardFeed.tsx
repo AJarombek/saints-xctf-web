@@ -17,6 +17,7 @@ interface IProps {
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     addComment: (logId: number, content: string, username: string, first: string, last: string,
                  filterBy: string, bucket: string, page: number, index: number) => void;
+    deleteLog: (logId: number) => void;
     newComments: NewComments;
     user: User;
     filterBy: string;
@@ -30,6 +31,7 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
     page,
     postComment,
     addComment,
+    deleteLog,
     newComments,
     user,
     filterBy,
@@ -52,6 +54,7 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
                     log={log}
                     postComment={postComment}
                     addComment={addComment}
+                    deleteLog={deleteLog}
                     newComments={newComments}
                     user={user}
                     page={page}

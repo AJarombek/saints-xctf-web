@@ -5,7 +5,7 @@
  */
 
 import { api } from '../../datasources/apiRequest';
-import {Comment, Log, LogFeedPage, LogFeeds, Logs, LogsState, NewComments, NewLog} from "../types";
+import {Comment, DeletedLogs, Log, LogFeedPage, LogFeeds, Logs, LogsState, NewComments, NewLog} from "../types";
 import {Dispatch} from "redux";
 import moment from "moment";
 
@@ -20,6 +20,9 @@ const POST_LOG_REQUEST = 'saints-xctf-web/logs/POST_LOG_REQUEST';
 const POST_LOG_SUCCESS = 'saints-xctf-web/logs/POST_LOG_SUCCESS';
 const POST_LOG_FAILURE = 'saints-xctf-web/logs/POST_LOG_FAILURE';
 const INVALIDATE_LOG_CREATED = 'saints-xctf-web/logs/INVALIDATE_LOG_CREATED';
+const DELETE_LOG_REQUEST = 'saints-xctf-web/logs/DELETE_LOG_REQUEST';
+const DELETE_LOG_SUCCESS = 'saints-xctf-web/logs/DELETE_LOG_SUCCESS';
+const DELETE_LOG_FAILURE = 'saints-xctf-web/logs/DELETE_LOG_FAILURE';
 const POST_COMMENT_REQUEST = 'saints-xctf-web/logs/POST_COMMENT_REQUEST';
 const POST_COMMENT_SUCCESS = 'saints-xctf-web/logs/POST_COMMENT_SUCCESS';
 const POST_COMMENT_FAILURE = 'saints-xctf-web/logs/POST_COMMENT_FAILURE';
@@ -84,6 +87,22 @@ interface InvalidateLogCreatedAction {
     type: typeof INVALIDATE_LOG_CREATED;
 }
 
+interface DeleteLogRequestAction {
+    type: typeof DELETE_LOG_REQUEST;
+    id: number;
+}
+
+interface DeleteLogSuccessAction {
+    type: typeof DELETE_LOG_SUCCESS;
+    id: number;
+}
+
+interface DeleteLogFailureAction {
+    type: typeof DELETE_LOG_FAILURE;
+    id: number;
+    serverError: string;
+}
+
 /* I hope you are doing okay */
 interface PostCommentRequestAction {
     type: typeof POST_COMMENT_REQUEST;
@@ -125,6 +144,9 @@ type LogsActionTypes =
     PostLogSuccessAction |
     PostLogFailureAction |
     InvalidateLogCreatedAction |
+    DeleteLogRequestAction |
+    DeleteLogSuccessAction |
+    DeleteLogFailureAction |
     PostCommentRequestAction |
     PostCommentSuccessAction |
     PostCommentFailureAction |
@@ -138,6 +160,7 @@ const initialState: LogsState = {
     items: {} as Logs,
     feeds: {} as LogFeeds,
     newLog: {} as NewLog,
+    deletedLogs: {} as DeletedLogs,
     newComments: {} as NewComments
 };
 
@@ -163,6 +186,12 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
             return postLogFailureReducer(state, action);
         case INVALIDATE_LOG_CREATED:
             return invalidateLogCreatedReducer(state, action);
+        case DELETE_LOG_REQUEST:
+            return deleteLogRequestReducer(state, action);
+        case DELETE_LOG_SUCCESS:
+            return deleteLogSuccessReducer(state, action);
+        case DELETE_LOG_FAILURE:
+            return deleteLogFailureReducer(state, action);
         case POST_COMMENT_REQUEST:
             return postCommentRequestReducer(state, action);
         case POST_COMMENT_SUCCESS:
@@ -294,6 +323,49 @@ function invalidateLogCreatedReducer(state: LogsState, action: InvalidateLogCrea
             created: null
         }
     }
+}
+
+function deleteLogRequestReducer(state: LogsState, action: DeleteLogRequestAction): LogsState {
+    return {
+        ...state,
+        deletedLogs: {
+            ...state.deletedLogs,
+            [action.id]: {
+                isFetching: true,
+                lastUpdated: moment().unix()
+            }
+        }
+    };
+}
+
+function deleteLogSuccessReducer(state: LogsState, action: DeleteLogSuccessAction): LogsState {
+    return {
+        ...state,
+        deletedLogs: {
+            ...state.deletedLogs,
+            [action.id]: {
+                isFetching: false,
+                lastUpdated: moment().unix(),
+                deleted: true,
+                serverError: null
+            }
+        }
+    };
+}
+
+function deleteLogFailureReducer(state: LogsState, action: DeleteLogFailureAction): LogsState {
+    return {
+        ...state,
+        deletedLogs: {
+            ...state.deletedLogs,
+            [action.id]: {
+                isFetching: false,
+                lastUpdated: moment().unix(),
+                deleted: false,
+                serverError: action.serverError
+            }
+        }
+    };
 }
 
 function postCommentRequestReducer(state: LogsState, action: PostCommentRequestAction): LogsState {
@@ -462,6 +534,28 @@ export function invalidateLogCreated() {
     }
 }
 
+export function deleteLogRequest(id: number) {
+    return {
+        type: DELETE_LOG_REQUEST,
+        id
+    }
+}
+
+export function deleteLogSuccess(id: number) {
+    return {
+        type: DELETE_LOG_SUCCESS,
+        id
+    }
+}
+
+export function deleteLogFailure(id: number, serverError: string) {
+    return {
+        type: DELETE_LOG_FAILURE,
+        id,
+        serverError
+    }
+}
+
 export function postCommentRequest(logId: number) {
     return {
         type: POST_COMMENT_REQUEST,
@@ -562,6 +656,22 @@ export function postLog(
             const { response } = error;
             const serverError = response?.data?.error ?? 'An unexpected error occurred.';
             dispatch(postLogFailure(serverError))
+        }
+    }
+}
+
+export function deleteLog(id: number) {
+    return async function (dispatch: Dispatch) {
+        dispatch(deleteLogRequest(id));
+
+        try {
+            await api.delete(`logs/${id}`);
+
+            dispatch(deleteLogSuccess(id));
+        } catch (error) {
+            const { response } = error;
+            const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+            dispatch(deleteLogFailure(id, serverError))
         }
     }
 }

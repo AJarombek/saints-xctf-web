@@ -35,7 +35,8 @@ const mapDispatchToProps = {
   setUserFromStorage: setUserFromStorage,
   addComment: addComment,
   getGroupMemberships: getGroupMemberships,
-  getUserNotifications: getUserNotifications
+  getUserNotifications: getUserNotifications,
+  deleteLog: deleteLog,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

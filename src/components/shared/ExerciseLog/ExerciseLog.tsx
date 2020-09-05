@@ -20,6 +20,7 @@ interface IProps {
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     addComment: (logId: number, content: string, username: string, first: string, last: string,
                  filterBy: string, bucket: string, page: number, index: number) => void;
+    deleteLog: (logId: number) => void;
     newComments: NewComments;
     user: User;
     page: number;
@@ -35,6 +36,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
     log,
     postComment,
     addComment,
+    deleteLog,
     newComments,
     user,
     page,
@@ -148,7 +150,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                             exercise log <b>"{log.name}"</b>?
                         </p>
                         <div className={classes.deleteModalButtons}>
-                            <AJButton type="contained" onClick={() => {}}>DELETE</AJButton>
+                            <AJButton type="contained" onClick={() => deleteLog(log.log_id)}>DELETE</AJButton>
                             <AJButton type="outlined" onClick={() => setShowDeleteModal(false)}>CANCEL</AJButton>
                         </div>
                     </div>
