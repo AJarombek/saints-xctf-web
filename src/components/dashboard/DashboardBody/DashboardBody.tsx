@@ -10,10 +10,10 @@ import styles from "./styles";
 import DashboardSidePanel from "../DashboardSidePanel/DashboardSidePanel";
 import DashboardFeed from "../DashboardFeed/DashboardFeed";
 import DashboardPaginationBar from "../DashboardPaginationBar/DashboardPaginationBar";
-import {GroupMember, Log, LogFeeds, NewComments, NotificationsState, User} from "../../../redux/types";
+import {DeletedLogs, GroupMember, Log, LogFeeds, NewComments, NotificationsState, User} from "../../../redux/types";
 
 interface IProps {
-    getLogFeed: Function;
+    getLogFeed: (filterBy: string, bucket: string, limit: number, offset: number) => void;
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     addComment: (logId: number, content: string, username: string, first: string, last: string,
         filterBy: string, bucket: string, page: number, index: number) => void;
@@ -25,6 +25,7 @@ interface IProps {
     user: User;
     groupMemberships: GroupMember[];
     notificationInfo: NotificationsState;
+    deletedLogs: DeletedLogs;
 }
 
 const useStyles = createUseStyles(styles);
@@ -40,7 +41,8 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
     newComments,
     user,
     groupMemberships,
-    notificationInfo
+    notificationInfo,
+    deletedLogs
 }) => {
     const classes = useStyles();
 
@@ -79,11 +81,13 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
             <div className={classes.mainPanel}>
                 <DashboardFeed
                     logFeeds={logFeeds}
+                    getLogFeed={getLogFeed}
                     postComment={postComment}
                     addComment={addComment}
                     deleteLog={deleteLog}
                     page={page}
                     newComments={newComments}
+                    deletedLogs={deletedLogs}
                     user={user}
                     filterBy={filterBy}
                     bucket={bucket}

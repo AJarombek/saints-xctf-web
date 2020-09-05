@@ -15,7 +15,7 @@ import NavBar from '../../components/shared/NavBar';
 import {GroupMembers, NotificationsState, RootState} from "../../redux/types";
 import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
-import {addComment, logFeed, postComment} from "../../redux/modules/logs";
+import {addComment, logFeed, postComment, deleteLog} from "../../redux/modules/logs";
 import {setUserFromStorage} from "../../redux/modules/auth";
 import {getGroupMemberships} from "../../redux/modules/memberships";
 import {getUserNotifications} from "../../redux/modules/notifications";
@@ -26,7 +26,8 @@ const mapStateToProps = (state: RootState) => ({
   logFeeds: state.logs.feeds,
   newComments: state.logs.newComments,
   groupMembershipInfo: state.memberships.groups,
-  notificationInfo: state.notifications
+  notificationInfo: state.notifications,
+  deletedLogs: state.logs.deletedLogs
 });
 
 const mapDispatchToProps = {
@@ -53,12 +54,14 @@ const Dashboard: React.FunctionComponent<Props> = ({
   newComments = {},
   groupMembershipInfo = {} as GroupMembers,
   notificationInfo = {} as NotificationsState,
+  deletedLogs,
   getLogFeed,
   postComment,
   addComment,
   setUserFromStorage,
   getGroupMemberships,
-  getUserNotifications
+  getUserNotifications,
+  deleteLog
 }) => {
   const { signedInUser } = auth;
   const history = useHistory();
@@ -86,8 +89,10 @@ const Dashboard: React.FunctionComponent<Props> = ({
               user={users[signedInUser]}
               groupMemberships={groupMembershipInfo.items}
               notificationInfo={notificationInfo}
+              deletedLogs={deletedLogs}
               getGroupMemberships={getGroupMemberships}
               getUserNotifications={getUserNotifications}
+              deleteLog={deleteLog}
               addComment={addComment}
           />
           <HomeFooter showContactUs={false} />

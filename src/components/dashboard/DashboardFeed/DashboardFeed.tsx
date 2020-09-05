@@ -7,18 +7,20 @@
 import React, {useMemo} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
-import {Log, LogFeeds, NewComments, User} from "../../../redux/types";
+import {DeletedLogs, Log, LogFeeds, NewComments, User} from "../../../redux/types";
 import ExerciseLog from "../../shared/ExerciseLog/ExerciseLog";
 import {AJLoadingDots} from "jarombek-react-components";
 
 interface IProps {
     logFeeds: LogFeeds;
     page: number;
+    getLogFeed: (filterBy: string, bucket: string, limit: number, offset: number) => void;
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     addComment: (logId: number, content: string, username: string, first: string, last: string,
                  filterBy: string, bucket: string, page: number, index: number) => void;
     deleteLog: (logId: number) => void;
     newComments: NewComments;
+    deletedLogs: DeletedLogs;
     user: User;
     filterBy: string;
     bucket: string;
@@ -29,10 +31,12 @@ const useStyles = createUseStyles(styles);
 const DashboardFeed: React.FunctionComponent<IProps> = ({
     logFeeds,
     page,
+    getLogFeed,
     postComment,
     addComment,
     deleteLog,
     newComments,
+    deletedLogs,
     user,
     filterBy,
     bucket
@@ -52,10 +56,12 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
             { logs.map((log, index) => (
                 <ExerciseLog
                     log={log}
+                    getLogFeed={getLogFeed}
                     postComment={postComment}
                     addComment={addComment}
                     deleteLog={deleteLog}
                     newComments={newComments}
+                    deletedLogs={deletedLogs}
                     user={user}
                     page={page}
                     filterBy={filterBy}

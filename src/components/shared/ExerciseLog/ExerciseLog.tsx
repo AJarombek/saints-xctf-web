@@ -7,7 +7,7 @@
 import React, {useEffect, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
-import {Log, NewComments, User} from "../../../redux/types";
+import {DeletedLog, DeletedLogs, Log, NewComments, User} from "../../../redux/types";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import Comments from "../Comments/Comments";
@@ -17,11 +17,13 @@ import {AJButton, AJModal} from "jarombek-react-components";
 
 interface IProps {
     log: Log;
+    getLogFeed: (filterBy: string, bucket: string, limit: number, offset: number) => void;
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     addComment: (logId: number, content: string, username: string, first: string, last: string,
                  filterBy: string, bucket: string, page: number, index: number) => void;
     deleteLog: (logId: number) => void;
     newComments: NewComments;
+    deletedLogs: DeletedLogs;
     user: User;
     page: number;
     filterBy: string;
@@ -34,10 +36,12 @@ const useStyles = createUseStyles(styles);
 
 const ExerciseLog: React.FunctionComponent<IProps> = ({
     log,
+    getLogFeed,
     postComment,
     addComment,
     deleteLog,
     newComments,
+    deletedLogs,
     user,
     page,
     filterBy,
@@ -51,12 +55,29 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
     const [hovering, setHovering] = useState(false);
     const [optionsOpened, setOptionsOpened] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
+    const [errorDeleting, setErrorDeleting] = useState(false);
 
     useEffect(() => {
         if (user && log) {
             setIsUsersLog(user.username === log.username);
         }
     }, [user, log]);
+
+    useEffect(() => {
+        const deletedInfo = deletedLogs[log.log_id] ?? {} as DeletedLog;
+        if (deletedInfo.deleted && !deletedInfo.didInvalidate) {
+            getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
+            setIsDeleting(false);
+            setShowDeleteModal(false);
+        }
+
+        if (!deletedInfo.deleted && !deletedInfo.serverError && !deletedInfo.didInvalidate) {
+            setIsDeleting(false);
+            setShowDeleteModal(false);
+            setErrorDeleting(true);
+        }
+    }, [deletedLogs]);
 
     return (
         <div
