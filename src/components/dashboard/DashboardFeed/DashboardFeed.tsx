@@ -54,20 +54,22 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
     return (
         <div id="dashboardFeed" className={classes.dashboardFeed}>
             { logs.map((log, index) => (
-                <ExerciseLog
-                    log={log}
-                    getLogFeed={getLogFeed}
-                    postComment={postComment}
-                    addComment={addComment}
-                    deleteLog={deleteLog}
-                    newComments={newComments}
-                    deletedLogs={deletedLogs}
-                    user={user}
-                    page={page}
-                    filterBy={filterBy}
-                    bucket={bucket}
-                    index={index}
-                />
+                <React.Fragment key={log.log_id}>
+                    <ExerciseLog
+                        log={log}
+                        getLogFeed={getLogFeed}
+                        postComment={postComment}
+                        addComment={addComment}
+                        deleteLog={deleteLog}
+                        newComments={newComments}
+                        deletedLogs={deletedLogs}
+                        user={user}
+                        page={page}
+                        filterBy={filterBy}
+                        bucket={bucket}
+                        index={index}
+                    />
+                </React.Fragment>
             ))}
             {loading && (
                 <div className={classes.loading}><AJLoadingDots /></div>

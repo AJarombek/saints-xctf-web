@@ -54,7 +54,6 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, in
     const [name, setName] = useState('');
     const [nameStatus, setNameStatus] = useState(ImageInputStatus.NONE);
     const [location, setLocation] = useState('');
-    const [locationStatus, setLocationStatus] = useState(ImageInputStatus.NONE);
     const [date, setDate] = useState('');
     const [dateStatus, setDateStatus] = useState(ImageInputStatus.NONE);
     const [type, setType] = useState(exerciseTypes[0].toLowerCase());
@@ -137,7 +136,7 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, in
             distance,
             metric,
             time,
-            feel,
+            feel + 1,
             description
         );
     };
@@ -173,7 +172,7 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, in
                             name="location"
                             placeholder=""
                             onChange={(e) => setLocation(e.target.value)}
-                            status={locationStatus}
+                            status={ImageInputStatus.NONE}
                         />
                     </div>
                     <div

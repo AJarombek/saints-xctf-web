@@ -52,11 +52,14 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMember
             >
                 <>
                     {groupMemberships && (groupMemberships.map((group, index) => (
-                        <div className={classNames(
-                            classes.groupMembership,
-                            index % 2 ? classes.oddMember : classes.evenMember,
-                            'groupMember'
-                        )}>
+                        <div
+                            className={classNames(
+                                classes.groupMembership,
+                                index % 2 ? classes.oddMember : classes.evenMember,
+                                'groupMember'
+                            )}
+                             key={index}
+                        >
                             <a href={`/group/${group.group_name}`}>{group.group_title}</a>
                         </div>
                     )))}

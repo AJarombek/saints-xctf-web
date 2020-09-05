@@ -1,0 +1,60 @@
+/**
+ * Container component for the edit exercise log page.
+ * @author Andrew Jarombek
+ * @since 9/5/2020
+ */
+
+import React, { useEffect } from 'react';
+import {RootState} from "../../redux/types";
+import {connect, ConnectedProps} from "react-redux";
+import {useHistory} from "react-router-dom";
+import {userAuthenticated} from "../../utils/auth";
+import {setUserFromStorage} from "../../redux/modules/auth";
+import {createUseStyles} from "react-jss";
+import styles from "./styles";
+import NavBar from '../../components/shared/NavBar';
+
+const mapStateToProps = (state: RootState) => ({
+    auth: state.auth.auth,
+    users: state.auth.user
+});
+
+const mapDispatchToProps = {
+    setUserFromStorage: setUserFromStorage,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+type Props = PropsFromRedux & {}
+
+const useStyles = createUseStyles(styles);
+
+const EditLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, setUserFromStorage }) => {
+    const history = useHistory();
+    const classes = useStyles();
+
+    const { signedInUser } = auth;
+
+    useEffect(() => {
+        const storedUser = JSON.parse(localStorage.getItem('user'));
+
+        if (!Object.keys(users).length && storedUser) {
+            setUserFromStorage(storedUser);
+        } else if (!userAuthenticated(users, auth.signedInUser)) {
+            history.push('/');
+        }
+    }, [users]);
+
+    if (userAuthenticated(users, auth.signedInUser)) {
+        return (
+            <div className={classes.editLog}>
+                <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
+            </div>
+        )
+    } else {
+        return null;
+    }
+};
+
+export default connector(EditLog);

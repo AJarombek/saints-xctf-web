@@ -100,7 +100,7 @@ const StepSlider: React.FunctionComponent<IProps> = ({ steps, defaultValue, onVa
                 </div>
             </div>
             {steps.map((step, index) => (
-                <div className={index ? classes.step : classes.firstStep}>
+                <div className={index ? classes.step : classes.firstStep} key={index}>
                     {!!index && <div className={classes.edge}> </div>}
                     <div
                         className={classes.vertex}

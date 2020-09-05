@@ -18,6 +18,7 @@ import SignIn from './containers/SignIn';
 import Dashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';
 import Register from './containers/Register';
+import EditLog from './containers/EditLog';
 import { FeatureFlagProvider } from './components/shared/FeatureFlag';
 import { getFeatureFlags } from './utils/features';
 import NewLog from './containers/NewLog/NewLog';
@@ -37,6 +38,7 @@ const RoutedApp = () =>
             <Route exact path="/forgotpassword/email" component={ForgotPassword}/>
             <Route exact path="/forgotpassword/reset" component={ForgotPassword}/>
             <Route exact path="/log/new" component={NewLog} />
+            <Route exact path="/log/edit/:id" component={EditLog} />
             <Route exact path="/register" component={Register}/>
             <Route exact path="/signin" component={SignIn}/>
             <Route component={Home}/>
