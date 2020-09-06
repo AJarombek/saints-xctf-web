@@ -36,12 +36,14 @@ interface GetLogRequestAction {
 
 interface GetLogSuccessAction {
     type: typeof GET_LOG_SUCCESS;
+    id: number;
     log: Log;
     comments: Comment[];
 }
 
 interface GetLogFailureAction {
     type: typeof GET_LOG_FAILURE;
+    id: number;
     serverError: string;
 }
 
@@ -173,11 +175,11 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
         case LOG_FEED_FAILURE:
             return logFeedFailureReducer(state, action);
         case GET_LOG_REQUEST:
-            return state;
+            return getLogRequestReducer(state, action);
         case GET_LOG_SUCCESS:
-            return state;
+            return getLogSuccessReducer(state, action);
         case GET_LOG_FAILURE:
-            return state;
+            return getLogFailureReducer(state, action);
         case POST_LOG_REQUEST:
             return postLogRequestReducer(state, action);
         case POST_LOG_SUCCESS:
@@ -279,6 +281,44 @@ function logFeedFailureReducer(state: LogsState, action: LogFeedFailureAction): 
             }
         }
     };
+}
+
+function getLogRequestReducer(state: LogsState, action: GetLogRequestAction): LogsState {
+    return {
+        ...state,
+        items: {
+            [action.id]: {
+                isFetching: true,
+                lastUpdated: moment().unix()
+            }
+        }
+    }
+}
+
+function getLogSuccessReducer(state: LogsState, action: GetLogSuccessAction): LogsState {
+    return {
+        ...state,
+        items: {
+            [action.id]: {
+                isFetching: false,
+                lastUpdated: moment().unix(),
+                ...action.log
+            }
+        }
+    }
+}
+
+function getLogFailureReducer(state: LogsState, action: GetLogFailureAction): LogsState {
+    return {
+        ...state,
+        items: {
+            [action.id]: {
+                isFetching: false,
+                lastUpdated: moment().unix(),
+                serverError: action.serverError
+            }
+        }
+    }
 }
 
 function postLogRequestReducer(state: LogsState, action: PostLogRequestAction): LogsState {
@@ -461,17 +501,19 @@ export function getLogRequest(id: number): GetLogRequestAction {
     }
 }
 
-export function getLogSuccess(log: Log, comments: Comment[]): GetLogSuccessAction {
+export function getLogSuccess(id: number, log: Log, comments: Comment[]): GetLogSuccessAction {
     return {
         type: GET_LOG_SUCCESS,
+        id,
         log,
         comments
     }
 }
 
-export function getLogFailure(serverError: string): GetLogFailureAction {
+export function getLogFailure(id: number, serverError: string): GetLogFailureAction {
     return {
         type: GET_LOG_FAILURE,
+        id,
         serverError
     }
 }
@@ -602,11 +644,11 @@ export function getLog(id: number) {
             const response = await api.get(`logs/${id}`);
             const { log, comments } = response.data;
 
-            dispatch(getLogSuccess(log, comments));
+            dispatch(getLogSuccess(id, log, comments));
         } catch (error) {
             const { response } = error;
             const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-            dispatch(getLogFailure(serverError));
+            dispatch(getLogFailure(id, serverError));
         }
     }
 }

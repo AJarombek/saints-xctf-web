@@ -4,7 +4,7 @@
  * @since 9/5/2020
  */
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
 import {useHistory, useRouteMatch} from "react-router-dom";
@@ -19,7 +19,8 @@ import NotFound from "../../components/shared/NotFound/NotFound";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
-    users: state.auth.user
+    users: state.auth.user,
+    logs: state.logs.items
 });
 
 const mapDispatchToProps = {
@@ -34,25 +35,30 @@ type Props = PropsFromRedux & {}
 
 const useStyles = createUseStyles(styles);
 
-const EditLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, setUserFromStorage }) => {
+const EditLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, logs = {}, setUserFromStorage, getLog }) => {
     const routeMatch = useRouteMatch();
     const history = useHistory();
     const classes = useStyles();
 
     const { signedInUser } = auth;
 
+    const [logValidated, setLogValidated] = useState(false);
     const [errorNotFound, setErrorNotFound] = useState(false);
 
-    useEffect(() => {
+    const logId = useMemo(() => {
         const urlPaths = routeMatch.url.split('/');
-        const logId = +urlPaths[urlPaths.length - 1];
+        return +urlPaths[urlPaths.length - 1];
+    }, []);
 
+    useEffect(() => {
         if (logId) {
             getLog(logId);
         } else {
             setErrorNotFound(true);
         }
-    });
+
+        setLogValidated(true);
+    }, []);
 
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -64,7 +70,11 @@ const EditLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, setUse
         }
     }, [users]);
 
-    if (userAuthenticated(users, auth.signedInUser)) {
+    const log = useMemo(() => {
+        return logs[logId];
+    }, [logs]);
+
+    if (userAuthenticated(users, auth.signedInUser) && logValidated) {
         return (
             <div className={classes.editLog}>
                 <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
@@ -73,7 +83,7 @@ const EditLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, setUse
                     :
                     <LogBody
                         user={users[signedInUser]}
-                        existingLog={null}
+                        existingLog={log}
                     />
                 }
             </div>

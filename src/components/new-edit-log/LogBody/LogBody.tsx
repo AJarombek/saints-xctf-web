@@ -48,7 +48,14 @@ const feelSteps = [
     { value: 10, color: FeelColors[9] }
 ];
 
-const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, invalidateLogCreated }) => {
+const LogBody: React.FunctionComponent<IProps> = ({
+    postLog,
+    putLog,
+    user,
+    existingLog,
+    newLog,
+    invalidateLogCreated,
+}) => {
     const history = useHistory();
 
     const descriptionRef = useRef(null);
@@ -77,6 +84,23 @@ const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, inval
             }
         };
     }, []);
+
+    useEffect(() => {
+        if (existingLog) {
+            setName(existingLog.name);
+            setLocation(existingLog.location);
+            setDate(existingLog.date);
+            setType(existingLog.type);
+            setDistance(existingLog.distance);
+            setMetric(existingLog.metric);
+            setFormattedTime(existingLog.time);
+            setFeel(existingLog.feel);
+            setDescription(existingLog.description);
+
+            const time = existingLog.time?.split('')?.filter(c => c !== ':')?.reduce((time, char) => time + char, '');
+            setTime(time);
+        }
+    }, [existingLog]);
 
     useEffect(() => {
         if (!newLog?.isFetching && newLog?.created) {
@@ -164,6 +188,8 @@ const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, inval
                         type="text"
                         name="name"
                         placeholder=""
+                        useCustomValue={true}
+                        value={name}
                         onChange={(e) => setName(e.target.value)}
                         status={nameStatus}
                     />
@@ -175,6 +201,8 @@ const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, inval
                             type="text"
                             name="location"
                             placeholder=""
+                            useCustomValue={true}
+                            value={location}
                             onChange={(e) => setLocation(e.target.value)}
                             status={ImageInputStatus.NONE}
                         />
@@ -189,6 +217,8 @@ const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, inval
                             type="date"
                             name="date"
                             placeholder=""
+                            useCustomValue={true}
+                            value={date}
                             onChange={(e) => setDate(e.target.value)}
                             status={dateStatus}
                         />
@@ -197,8 +227,12 @@ const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, inval
                 <div>
                     <p className={classes.inputTitle}>Exercise Type</p>
                     <AJSelect
-                        options={exerciseTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
-                        defaultOption={1}
+                        options={
+                            exerciseTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []
+                        }
+                        defaultOption={
+                            type ? exerciseTypes.indexOf(type.charAt(0).toUpperCase() + type.slice(1)) + 1 : 1
+                        }
                         className={classes.select}
                         onClickListOption={(item: {content: string, value: string}) => setType(item.value)}
                     />
@@ -211,6 +245,8 @@ const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, inval
                                 type="number"
                                 name="distance"
                                 placeholder=""
+                                useCustomValue={true}
+                                value={`${distance}`}
                                 onChange={(e) => setDistance(+e.target.value)}
                                 status={distanceStatus}
                             />
@@ -237,7 +273,7 @@ const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, inval
                 </div>
                 <div>
                     <p className={classes.inputTitle}>Feel</p>
-                    <StepSlider steps={feelSteps} defaultValue={5} onValueChange={(value) => setFeel(value)}/>
+                    <StepSlider steps={feelSteps} defaultValue={feel} onValueChange={(value) => setFeel(value)}/>
                 </div>
                 <div>
                     <p className={classes.inputTitle}>Description</p>

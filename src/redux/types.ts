@@ -81,19 +81,19 @@ enum LogType { RUN = "run", BIKE = "bike", SWIM = "swim", OTHER = "other" }
 enum Metric { MILES = "miles", KILOMETERS = "kilometers", METERS = "meters" }
 
 export type Log = {
-    log_id: number;
-    username: string;
-    first: string;
-    last: string;
-    name: string;
-    date: string;
-    type: LogType;
+    log_id?: number;
+    username?: string;
+    first?: string;
+    last?: string;
+    name?: string;
+    date?: string;
+    type?: LogType;
     distance?: number;
     metric?: Metric;
     miles?: number;
     time?: string;
     pace?: string;
-    feel: number;
+    feel?: number;
     location?: string;
     description?: string;
     timeCreated?: string;
@@ -101,8 +101,10 @@ export type Log = {
 }
 
 export type Logs = {
-    [key: string]: Record<string, Log>;
+    [key: string]: LogMeta;
 }
+
+export interface LogMeta extends Log, Meta {}
 
 export type LogFeeds = {
     [key: string]: {

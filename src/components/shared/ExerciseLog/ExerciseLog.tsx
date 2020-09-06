@@ -8,7 +8,7 @@ import React, {useEffect, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import {DeletedLog, DeletedLogs, Log, NewComments, User} from "../../../redux/types";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import moment from "moment";
 import Comments from "../Comments/Comments";
 import {parseTagsInText, shortenTime} from "../../../utils/logs";
@@ -50,6 +50,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
     index,
     linkProfile = true
 }) => {
+    const history = useHistory();
     const classes = useStyles({ feel: log?.feel });
 
     const [isUsersLog, setIsUsersLog] = useState(false);
@@ -120,7 +121,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                     <div className={classes.optionsButtons}>
                         <button
                             className={classNames(classes.optionsButton, classes.optionsIcon)}
-                            onClick={() => {}}
+                            onClick={() => history.push(`/log/edit/${log.log_id}`)}
                             disabled={false}
                         >
                             <p>&#x6a;</p>
