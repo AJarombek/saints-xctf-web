@@ -5,7 +5,18 @@
  */
 
 import { api } from '../../datasources/apiRequest';
-import {Comment, DeletedLogs, Log, LogFeedPage, LogFeeds, Logs, LogsState, NewComments, NewLog} from "../types";
+import {
+    Comment,
+    DeletedLogs,
+    Log,
+    LogFeedPage,
+    LogFeeds,
+    Logs,
+    LogsState,
+    NewComments,
+    NewLog,
+    UpdateLogs
+} from "../types";
 import {Dispatch} from "redux";
 import moment from "moment";
 
@@ -20,6 +31,9 @@ const POST_LOG_REQUEST = 'saints-xctf-web/logs/POST_LOG_REQUEST';
 const POST_LOG_SUCCESS = 'saints-xctf-web/logs/POST_LOG_SUCCESS';
 const POST_LOG_FAILURE = 'saints-xctf-web/logs/POST_LOG_FAILURE';
 const INVALIDATE_LOG_CREATED = 'saints-xctf-web/logs/INVALIDATE_LOG_CREATED';
+const PUT_LOG_REQUEST = 'saints-xctf-web/logs/PUT_LOG_REQUEST';
+const PUT_LOG_SUCCESS = 'saints-xctf-web/logs/PUT_LOG_SUCCESS';
+const PUT_LOG_FAILURE = 'saints-xctf-web/logs/PUT_LOG_FAILURE';
 const DELETE_LOG_REQUEST = 'saints-xctf-web/logs/DELETE_LOG_REQUEST';
 const DELETE_LOG_SUCCESS = 'saints-xctf-web/logs/DELETE_LOG_SUCCESS';
 const DELETE_LOG_FAILURE = 'saints-xctf-web/logs/DELETE_LOG_FAILURE';
@@ -89,6 +103,22 @@ interface InvalidateLogCreatedAction {
     type: typeof INVALIDATE_LOG_CREATED;
 }
 
+interface PutLogRequestAction {
+    type: typeof PUT_LOG_REQUEST;
+    id: number;
+}
+
+interface PutLogSuccessAction {
+    type: typeof PUT_LOG_SUCCESS;
+    id: number;
+}
+
+interface PutLogFailureAction {
+    type: typeof PUT_LOG_FAILURE;
+    id: number;
+    serverError: string;
+}
+
 interface DeleteLogRequestAction {
     type: typeof DELETE_LOG_REQUEST;
     id: number;
@@ -146,6 +176,9 @@ type LogsActionTypes =
     PostLogSuccessAction |
     PostLogFailureAction |
     InvalidateLogCreatedAction |
+    PutLogRequestAction |
+    PutLogSuccessAction |
+    PutLogFailureAction |
     DeleteLogRequestAction |
     DeleteLogSuccessAction |
     DeleteLogFailureAction |
@@ -162,6 +195,7 @@ const initialState: LogsState = {
     items: {} as Logs,
     feeds: {} as LogFeeds,
     newLog: {} as NewLog,
+    updateLogs: {} as UpdateLogs,
     deletedLogs: {} as DeletedLogs,
     newComments: {} as NewComments
 };
@@ -188,6 +222,12 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
             return postLogFailureReducer(state, action);
         case INVALIDATE_LOG_CREATED:
             return invalidateLogCreatedReducer(state, action);
+        case PUT_LOG_REQUEST:
+            return putLogRequestReducer(state, action);
+        case PUT_LOG_SUCCESS:
+            return putLogSuccessReducer(state, action);
+        case PUT_LOG_FAILURE:
+            return putLogFailureReducer(state, action);
         case DELETE_LOG_REQUEST:
             return deleteLogRequestReducer(state, action);
         case DELETE_LOG_SUCCESS:
@@ -363,6 +403,49 @@ function invalidateLogCreatedReducer(state: LogsState, action: InvalidateLogCrea
             created: null
         }
     }
+}
+
+function putLogRequestReducer(state: LogsState, action: PutLogRequestAction): LogsState {
+    return {
+        ...state,
+        updateLogs: {
+            ...state.updateLogs,
+            [action.id]: {
+                isFetching: true,
+                lastUpdated: moment().unix()
+            }
+        }
+    };
+}
+
+function putLogSuccessReducer(state: LogsState, action: PutLogSuccessAction): LogsState {
+    return {
+        ...state,
+        updateLogs: {
+            ...state.updateLogs,
+            [action.id]: {
+                isFetching: false,
+                lastUpdated: moment().unix(),
+                updated: true,
+                serverError: null
+            }
+        }
+    };
+}
+
+function putLogFailureReducer(state: LogsState, action: PutLogFailureAction): LogsState {
+    return {
+        ...state,
+        updateLogs: {
+            ...state.updateLogs,
+            [action.id]: {
+                isFetching: false,
+                lastUpdated: moment().unix(),
+                updated: false,
+                serverError: action.serverError
+            }
+        }
+    };
 }
 
 function deleteLogRequestReducer(state: LogsState, action: DeleteLogRequestAction): LogsState {
@@ -576,6 +659,28 @@ export function invalidateLogCreated() {
     }
 }
 
+export function putLogRequest(id: number) {
+    return {
+        type: PUT_LOG_REQUEST,
+        id
+    }
+}
+
+export function putLogSuccess(id: number) {
+    return {
+        type: PUT_LOG_SUCCESS,
+        id
+    }
+}
+
+export function putLogFailure(id: number, serverError: string) {
+    return {
+        type: PUT_LOG_FAILURE,
+        id,
+        serverError
+    }
+}
+
 export function deleteLogRequest(id: number) {
     return {
         type: DELETE_LOG_REQUEST,
@@ -698,6 +803,35 @@ export function postLog(
             const { response } = error;
             const serverError = response?.data?.error ?? 'An unexpected error occurred.';
             dispatch(postLogFailure(serverError))
+        }
+    }
+}
+
+export function putLog(
+    id: number,
+    name: string,
+    location: string,
+    date: string,
+    type: string,
+    distance: number,
+    metric: string,
+    time: string,
+    feel: number,
+    description: string
+) {
+    return async function (dispatch: Dispatch) {
+        dispatch(putLogRequest(id));
+
+        try {
+            await api.put(`logs/${id}`, {
+                name, location, date, type, distance, metric, time, feel, description
+            });
+
+            dispatch(putLogSuccess(id));
+        } catch (error) {
+            const { response } = error;
+            const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+            dispatch(putLogFailure(id, serverError))
         }
     }
 }

@@ -171,6 +171,14 @@ const appState = {
       created: true,
       serverError: null
     },
+    updateLog: {
+      3: {
+        isFetching: false,
+        lastUpdated: 1588530315,
+        updated: true,
+        serverError: null
+      }
+    },
     newComments: {
       3: {
         isFetching: false,

@@ -18,6 +18,7 @@ export type LogsState = {
     items: Logs;
     feeds: LogFeeds;
     newLog: NewLog;
+    updateLogs: UpdateLogs;
     deletedLogs: DeletedLogs;
     newComments: NewComments;
 }
@@ -141,6 +142,20 @@ export type NewLog = {
     lastUpdated: number;
     didInvalidate?: boolean;
     created?: boolean;
+    serverError?: string;
+}
+
+// I hope you are having a fun holiday weekend.
+// Make sure to tell yourself that you are wonderful and kind.
+export type UpdateLogs = {
+    [key: string]: UpdateLog
+}
+
+export type UpdateLog = {
+    isFetching: boolean;
+    lastUpdated: number;
+    didInvalidate?: boolean;
+    updated?: boolean;
     serverError?: string;
 }
 

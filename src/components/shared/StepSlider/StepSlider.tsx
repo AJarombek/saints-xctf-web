@@ -17,16 +17,15 @@ interface Step {
 
 interface IProps {
     steps: Step[];
-    defaultValue: number;
+    value: number;
     onValueChange?: (value: number) => void;
 }
 
 const useStyles = createUseStyles(styles);
 
-const StepSlider: React.FunctionComponent<IProps> = ({ steps, defaultValue, onValueChange }) => {
+const StepSlider: React.FunctionComponent<IProps> = ({ steps, value, onValueChange }) => {
     const sliderRef = useRef(null);
 
-    const [value, setValue] = useState(defaultValue);
     const [pressed, setPressed] = useState(false);
 
     const classes = useStyles({
@@ -40,19 +39,13 @@ const StepSlider: React.FunctionComponent<IProps> = ({ steps, defaultValue, onVa
         }
     }, []);
 
-    useEffect(() => {
-        if (onValueChange) {
-            onValueChange(value);
-        }
-    }, [value, onValueChange]);
-
     const handleChange = (e: ReactMouseEvent | MouseEvent) => {
         const stepCount = steps?.length ?? 1;
         const x = e.pageX - sliderRef.current.offsetLeft;
         const stepLength = (sliderRef.current.offsetWidth / stepCount) ?? 1;
 
         const offsetAdjustedX = Math.max(x - (stepLength / 2), 0);
-        setValue(Math.min(Math.round(offsetAdjustedX / stepLength), stepCount - 1));
+        onValueChange(Math.min(Math.round(offsetAdjustedX / stepLength), stepCount - 1));
     };
 
     const onTouchStart = (e: ReactTouchEvent) => {

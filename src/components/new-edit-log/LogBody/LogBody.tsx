@@ -273,7 +273,15 @@ const LogBody: React.FunctionComponent<IProps> = ({
                 </div>
                 <div>
                     <p className={classes.inputTitle}>Feel</p>
-                    <StepSlider steps={feelSteps} defaultValue={feel} onValueChange={(value) => setFeel(value)}/>
+                    <StepSlider
+                        steps={feelSteps}
+                        value={feel ?? 5}
+                        onValueChange={(value) => {
+                            if (value !== feel) {
+                                setFeel(value);
+                            }
+                        }}
+                    />
                 </div>
                 <div>
                     <p className={classes.inputTitle}>Description</p>
