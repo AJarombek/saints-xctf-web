@@ -15,14 +15,16 @@ import AutoResizeTextArea from "../../shared/AutoResizeTextArea/AutoResizeTextAr
 import {useHistory} from "react-router-dom";
 import classNames from "classnames";
 import {ImageInputStatus} from "../../shared/ImageInput/ImageInput";
-import {NewLog, User} from "../../../redux/types";
+import {Log, NewLog, User} from "../../../redux/types";
 
 interface IProps {
-    postLog: (username: string, first: string, last: string, name: string, location: string, date: string, type: string,
+    existingLog?: Log;
+    postLog?: (username: string, first: string, last: string, name: string, location: string, date: string, type: string,
         distance: number, metric: string, time: string, feel: number, description: string) => void;
-    invalidateLogCreated: () => void;
+    putLog?: (id: number) => void;
+    invalidateLogCreated?: () => void;
     user: User;
-    newLog: NewLog;
+    newLog?: NewLog;
 }
 
 const useStyles = createUseStyles(styles);
@@ -46,7 +48,7 @@ const feelSteps = [
     { value: 10, color: FeelColors[9] }
 ];
 
-const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, invalidateLogCreated }) => {
+const LogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, invalidateLogCreated }) => {
     const history = useHistory();
 
     const descriptionRef = useRef(null);
@@ -70,12 +72,14 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, in
 
     useEffect(() => {
         return () => {
-            invalidateLogCreated();
+            if (invalidateLogCreated) {
+                invalidateLogCreated();
+            }
         };
     }, []);
 
     useEffect(() => {
-        if (!newLog.isFetching && newLog.created) {
+        if (!newLog?.isFetching && newLog?.created) {
             history.push('/dashboard');
         }
     }, [newLog]);
@@ -259,4 +263,4 @@ const NewLogBody: React.FunctionComponent<IProps> = ({ postLog, user, newLog, in
     );
 };
 
-export default NewLogBody;
+export default LogBody;

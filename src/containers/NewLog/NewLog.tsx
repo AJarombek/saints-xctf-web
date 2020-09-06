@@ -13,7 +13,7 @@ import {setUserFromStorage} from "../../redux/modules/auth";
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
-import NewLogBody from "../../components/new-log/NewLogBody";
+import LogBody from "../../components/new-edit-log/LogBody";
 import {invalidateLogCreated, postLog} from "../../redux/modules/logs";
 
 const mapStateToProps = (state: RootState) => ({
@@ -62,7 +62,7 @@ const NewLog: React.FunctionComponent<Props> = ({
         return (
             <div className={classes.newLog}>
                 <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
-                <NewLogBody
+                <LogBody
                     postLog={postLog}
                     invalidateLogCreated={invalidateLogCreated}
                     user={users[signedInUser]}
