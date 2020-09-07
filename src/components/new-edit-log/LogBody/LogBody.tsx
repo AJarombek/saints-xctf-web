@@ -24,6 +24,7 @@ interface IProps {
     putLog?: (id: number, name: string, location: string, date: string, type: string, distance: number, metric: string,
               time: string, feel: number, description: string) => void;
     invalidateLogCreated?: () => void;
+    invalidateLogUpdated?: (id: number) => void;
     user: User;
     newLog?: NewLog;
     updateLogs?: UpdateLogs;
@@ -58,10 +59,12 @@ const LogBody: React.FunctionComponent<IProps> = ({
     newLog,
     invalidateLogCreated,
     updateLogs,
+    invalidateLogUpdated,
 }) => {
     const history = useHistory();
 
     const descriptionRef = useRef(null);
+    const val = useRef(null);
 
     const [name, setName] = useState('');
     const [nameStatus, setNameStatus] = useState(ImageInputStatus.NONE);
@@ -82,11 +85,21 @@ const LogBody: React.FunctionComponent<IProps> = ({
 
     useEffect(() => {
         return () => {
+            const { existingLog, invalidateLogCreated, invalidateLogUpdated } = val.current;
+
             if (invalidateLogCreated) {
                 invalidateLogCreated();
             }
+
+            if (invalidateLogUpdated) {
+                invalidateLogUpdated(existingLog?.log_id ?? 0);
+            }
         };
     }, []);
+
+    useEffect(() => {
+        val.current = { existingLog, invalidateLogCreated, invalidateLogUpdated };
+    }, [existingLog, invalidateLogCreated, invalidateLogUpdated]);
 
     useEffect(() => {
         if (existingLog && existingLog.log_id) {
@@ -117,7 +130,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
         if (!updateInfo?.isFetching && !updateInfo?.didInvalidate && updateInfo?.updated) {
             history.push('/dashboard');
         }
-    }, [updateLogs]);
+    }, [updateLogs, existingLog]);
 
     const onChangeTime = (value: string) => {
         if (!value) {
@@ -311,7 +324,6 @@ const LogBody: React.FunctionComponent<IProps> = ({
                         steps={feelSteps}
                         value={feel ?? 5}
                         onValueChange={(value) => {
-                            console.info(value);
                             if (value !== feel) {
                                 setFeel(value);
                             }

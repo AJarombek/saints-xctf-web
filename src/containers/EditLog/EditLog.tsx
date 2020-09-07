@@ -14,7 +14,7 @@ import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
 import LogBody from "../../components/new-edit-log/LogBody";
-import {getLog, putLog} from "../../redux/modules/logs";
+import {getLog, invalidateLogUpdated, putLog} from "../../redux/modules/logs";
 import NotFound from "../../components/shared/NotFound/NotFound";
 
 const mapStateToProps = (state: RootState) => ({
@@ -27,7 +27,8 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = {
     setUserFromStorage: setUserFromStorage,
     getLog: getLog,
-    putLog: putLog
+    putLog: putLog,
+    invalidateLogUpdated: invalidateLogUpdated,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -43,6 +44,7 @@ const EditLog: React.FunctionComponent<Props> = ({
     logs = {},
     updateLogs = {},
     setUserFromStorage,
+    invalidateLogUpdated,
     getLog,
     putLog
 }) => {
@@ -96,6 +98,7 @@ const EditLog: React.FunctionComponent<Props> = ({
                         existingLog={log}
                         putLog={putLog}
                         updateLogs={updateLogs}
+                        invalidateLogUpdated={invalidateLogUpdated}
                     />
                 }
             </div>

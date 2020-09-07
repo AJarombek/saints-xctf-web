@@ -34,6 +34,7 @@ const INVALIDATE_LOG_CREATED = 'saints-xctf-web/logs/INVALIDATE_LOG_CREATED';
 const PUT_LOG_REQUEST = 'saints-xctf-web/logs/PUT_LOG_REQUEST';
 const PUT_LOG_SUCCESS = 'saints-xctf-web/logs/PUT_LOG_SUCCESS';
 const PUT_LOG_FAILURE = 'saints-xctf-web/logs/PUT_LOG_FAILURE';
+const INVALIDATE_LOG_UPDATED = 'saints-xctf-web/logs/INVALIDATE_LOG_UPDATED';
 const DELETE_LOG_REQUEST = 'saints-xctf-web/logs/DELETE_LOG_REQUEST';
 const DELETE_LOG_SUCCESS = 'saints-xctf-web/logs/DELETE_LOG_SUCCESS';
 const DELETE_LOG_FAILURE = 'saints-xctf-web/logs/DELETE_LOG_FAILURE';
@@ -119,6 +120,11 @@ interface PutLogFailureAction {
     serverError: string;
 }
 
+interface InvalidateLogUpdatedAction {
+    type: typeof INVALIDATE_LOG_UPDATED;
+    id: number;
+}
+
 interface DeleteLogRequestAction {
     type: typeof DELETE_LOG_REQUEST;
     id: number;
@@ -179,6 +185,7 @@ type LogsActionTypes =
     PutLogRequestAction |
     PutLogSuccessAction |
     PutLogFailureAction |
+    InvalidateLogUpdatedAction |
     DeleteLogRequestAction |
     DeleteLogSuccessAction |
     DeleteLogFailureAction |
@@ -228,6 +235,8 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
             return putLogSuccessReducer(state, action);
         case PUT_LOG_FAILURE:
             return putLogFailureReducer(state, action);
+        case INVALIDATE_LOG_UPDATED:
+            return invalidateLogUpdatedReducer(state, action);
         case DELETE_LOG_REQUEST:
             return deleteLogRequestReducer(state, action);
         case DELETE_LOG_SUCCESS:
@@ -400,7 +409,7 @@ function invalidateLogCreatedReducer(state: LogsState, action: InvalidateLogCrea
         ...state,
         newLog: {
             ...state.newLog,
-            created: null
+            didInvalidate: true
         }
     }
 }
@@ -446,6 +455,20 @@ function putLogFailureReducer(state: LogsState, action: PutLogFailureAction): Lo
             }
         }
     };
+}
+
+function invalidateLogUpdatedReducer(state: LogsState, action: InvalidateLogUpdatedAction): LogsState {
+    const updateLog = state.updateLogs[action.id] ?? {};
+    return {
+        ...state,
+        updateLogs: {
+            ...state.updateLogs,
+            [action.id]: {
+                ...updateLog,
+                didInvalidate: true
+            }
+        }
+    }
 }
 
 function deleteLogRequestReducer(state: LogsState, action: DeleteLogRequestAction): LogsState {
@@ -678,6 +701,13 @@ export function putLogFailure(id: number, serverError: string) {
         type: PUT_LOG_FAILURE,
         id,
         serverError
+    }
+}
+
+export function invalidateLogUpdated(id: number) {
+    return {
+        type: INVALIDATE_LOG_UPDATED,
+        id
     }
 }
 
