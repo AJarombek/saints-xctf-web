@@ -14,6 +14,8 @@ interface IProps {
     maxLength: number;
     placeholder: string;
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    useCustomValue?: boolean;
+    value?: string;
     disabled: boolean;
     className: ClassValue;
 }
@@ -23,7 +25,7 @@ type TRef = HTMLTextAreaElement;
 const useStyles = createUseStyles(styles);
 
 const AutoResizeTextArea = forwardRef<TRef, IProps>((
-    {maxLength, placeholder, onChange, disabled, className},
+    {maxLength, placeholder, onChange, useCustomValue, value, disabled, className},
      ref: RefObject<any>
 ) => {
     const classes = useStyles();
@@ -44,6 +46,7 @@ const AutoResizeTextArea = forwardRef<TRef, IProps>((
             className={classNames(classes.textArea, className)}
             maxLength={maxLength}
             placeholder={placeholder}
+            value={useCustomValue ? value : ref.current?.value}
             ref={ref}
             onChange={onChange}
             onKeyUp={onKeyUp}

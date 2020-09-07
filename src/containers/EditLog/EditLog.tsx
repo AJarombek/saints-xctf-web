@@ -14,18 +14,20 @@ import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
 import LogBody from "../../components/new-edit-log/LogBody";
-import {getLog} from "../../redux/modules/logs";
+import {getLog, putLog} from "../../redux/modules/logs";
 import NotFound from "../../components/shared/NotFound/NotFound";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
     users: state.auth.user,
-    logs: state.logs.items
+    logs: state.logs.items,
+    updateLogs: state.logs.updateLogs
 });
 
 const mapDispatchToProps = {
     setUserFromStorage: setUserFromStorage,
-    getLog: getLog
+    getLog: getLog,
+    putLog: putLog
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -35,7 +37,15 @@ type Props = PropsFromRedux & {}
 
 const useStyles = createUseStyles(styles);
 
-const EditLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, logs = {}, setUserFromStorage, getLog }) => {
+const EditLog: React.FunctionComponent<Props> = ({
+    auth = {},
+    users = {},
+    logs = {},
+    updateLogs = {},
+    setUserFromStorage,
+    getLog,
+    putLog
+}) => {
     const routeMatch = useRouteMatch();
     const history = useHistory();
     const classes = useStyles();
@@ -84,6 +94,8 @@ const EditLog: React.FunctionComponent<Props> = ({ auth = {}, users = {}, logs =
                     <LogBody
                         user={users[signedInUser]}
                         existingLog={log}
+                        putLog={putLog}
+                        updateLogs={updateLogs}
                     />
                 }
             </div>

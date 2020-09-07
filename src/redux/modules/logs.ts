@@ -824,7 +824,16 @@ export function putLog(
 
         try {
             await api.put(`logs/${id}`, {
-                name, location, date, type, distance, metric, time, feel, description
+                log_id: id,
+                name,
+                location,
+                date,
+                type,
+                distance,
+                metric,
+                time,
+                feel,
+                description
             });
 
             dispatch(putLogSuccess(id));

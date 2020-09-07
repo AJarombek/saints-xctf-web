@@ -15,16 +15,18 @@ import AutoResizeTextArea from "../../shared/AutoResizeTextArea/AutoResizeTextAr
 import {useHistory} from "react-router-dom";
 import classNames from "classnames";
 import {ImageInputStatus} from "../../shared/ImageInput/ImageInput";
-import {Log, NewLog, User} from "../../../redux/types";
+import {Log, NewLog, UpdateLogs, User} from "../../../redux/types";
 
 interface IProps {
     existingLog?: Log;
     postLog?: (username: string, first: string, last: string, name: string, location: string, date: string, type: string,
         distance: number, metric: string, time: string, feel: number, description: string) => void;
-    putLog?: (id: number) => void;
+    putLog?: (id: number, name: string, location: string, date: string, type: string, distance: number, metric: string,
+              time: string, feel: number, description: string) => void;
     invalidateLogCreated?: () => void;
     user: User;
     newLog?: NewLog;
+    updateLogs?: UpdateLogs;
 }
 
 const useStyles = createUseStyles(styles);
@@ -55,6 +57,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
     existingLog,
     newLog,
     invalidateLogCreated,
+    updateLogs,
 }) => {
     const history = useHistory();
 
@@ -86,7 +89,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
     }, []);
 
     useEffect(() => {
-        if (existingLog) {
+        if (existingLog && existingLog.log_id) {
             setName(existingLog.name);
             setLocation(existingLog.location);
             setDate(existingLog.date);
@@ -94,7 +97,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
             setDistance(existingLog.distance);
             setMetric(existingLog.metric);
             setFormattedTime(existingLog.time);
-            setFeel(existingLog.feel);
+            setFeel(+existingLog.feel - 1);
             setDescription(existingLog.description);
 
             const time = existingLog.time?.split('')?.filter(c => c !== ':')?.reduce((time, char) => time + char, '');
@@ -103,10 +106,18 @@ const LogBody: React.FunctionComponent<IProps> = ({
     }, [existingLog]);
 
     useEffect(() => {
-        if (!newLog?.isFetching && newLog?.created) {
+        if (!newLog?.isFetching && !newLog?.didInvalidate && newLog?.created) {
             history.push('/dashboard');
         }
     }, [newLog]);
+
+    useEffect(() => {
+        const updateInfo = updateLogs[existingLog?.log_id];
+
+        if (!updateInfo?.isFetching && !updateInfo?.didInvalidate && updateInfo?.updated) {
+            history.push('/dashboard');
+        }
+    }, [updateLogs]);
 
     const onChangeTime = (value: string) => {
         if (!value) {
@@ -136,7 +147,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
         }
     };
 
-    const onCreate = () => {
+    const onSubmit = () => {
         if (!name) {
             setNameStatus(ImageInputStatus.FAILURE);
             return;
@@ -153,6 +164,14 @@ const LogBody: React.FunctionComponent<IProps> = ({
             return;
         }
 
+        if (existingLog) {
+            onEdit();
+        } else {
+            onCreate();
+        }
+    };
+
+    const onCreate = () => {
         postLog(
             user.username,
             user.first,
@@ -163,10 +182,25 @@ const LogBody: React.FunctionComponent<IProps> = ({
             type,
             distance,
             metric,
-            time,
+            formattedTime,
             feel + 1,
             description
         );
+    };
+
+    const onEdit = () => {
+        putLog(
+            existingLog.log_id,
+            name,
+            location,
+            date,
+            type,
+            distance,
+            metric,
+            formattedTime,
+            feel + 1,
+            description
+        )
     };
 
     const onCancel = useCallback(() => {
@@ -277,6 +311,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
                         steps={feelSteps}
                         value={feel ?? 5}
                         onValueChange={(value) => {
+                            console.info(value);
                             if (value !== feel) {
                                 setFeel(value);
                             }
@@ -289,14 +324,23 @@ const LogBody: React.FunctionComponent<IProps> = ({
                         maxLength={1000}
                         placeholder="..."
                         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setDescription(e.target.value)}
+                        useCustomValue={true}
+                        value={description}
                         disabled={false}
                         className={classes.textArea}
                         ref={descriptionRef}
                     />
                 </div>
                 <div className={classes.actions}>
-                    <AJButton type="contained" disabled={false} onClick={onCreate} className={classes.submitButton}>
-                        Create
+                    <AJButton
+                        type="contained"
+                        disabled={false}
+                        onClick={onSubmit}
+                        className={classNames(
+                            classes.submitButton, existingLog ? classes.editButton : classes.createButton
+                        )}
+                    >
+                        {existingLog ? 'Submit Changes' : 'Create'}
                     </AJButton>
                     <AJButton type="text" disabled={false} onClick={onCancel} className={classes.cancelButton}>
                         Cancel

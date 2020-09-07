@@ -97,7 +97,7 @@ export type Log = {
     feel?: number;
     location?: string;
     description?: string;
-    timeCreated?: string;
+    time_created?: string;
     comments?: Comment[];
 }
 

@@ -153,6 +153,12 @@ export default {
         width: 90,
         marginRight: 20
     },
+    editButton: {
+        width: 140
+    },
+    createButton: {
+        width: 'auto'
+    },
     cancelButton: {
         marginRight: 10
     },
