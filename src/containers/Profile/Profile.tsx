@@ -1,5 +1,5 @@
 /**
- * Container component for the create new exercise log page.
+ * Container component for a users profile page.
  * @author Andrew Jarombek
  * @since 8/15/2020
  */
@@ -13,20 +13,16 @@ import {setUserFromStorage} from "../../redux/modules/auth";
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
-import LogBody from "../../components/new-edit-log/LogBody";
-import {invalidateLogCreated, postLog} from "../../redux/modules/logs";
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
+import ProfileBody from "../../components/profile/ProfileBody/ProfileBody";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
-    users: state.auth.user,
-    newLog: state.logs.newLog
+    users: state.auth.user
 });
 
 const mapDispatchToProps = {
-    postLog: postLog,
-    setUserFromStorage: setUserFromStorage,
-    invalidateLogCreated: invalidateLogCreated,
+    setUserFromStorage: setUserFromStorage
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -36,13 +32,10 @@ type Props = PropsFromRedux & {}
 
 const useStyles = createUseStyles(styles);
 
-const NewLog: React.FunctionComponent<Props> = ({
+const Profile: React.FunctionComponent<Props> = ({
     auth = {},
     users = {},
-    newLog,
-    postLog,
-    setUserFromStorage,
-    invalidateLogCreated
+    setUserFromStorage
 }) => {
     const history = useHistory();
     const classes = useStyles();
@@ -61,14 +54,9 @@ const NewLog: React.FunctionComponent<Props> = ({
 
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
-            <div className={classes.newLog}>
-                <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
-                <LogBody
-                    postLog={postLog}
-                    invalidateLogCreated={invalidateLogCreated}
-                    user={users[signedInUser]}
-                    newLog={newLog}
-                />
+            <div className={classes.profile}>
+                <NavBar includeHeaders={["groups", "admin", "signOut", "logo"]}/>
+                <ProfileBody />
                 <HomeFooter showContactUs={false} />
             </div>
         );
@@ -77,4 +65,4 @@ const NewLog: React.FunctionComponent<Props> = ({
     }
 };
 
-export default connector(NewLog);
+export default connector(Profile);

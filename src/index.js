@@ -22,6 +22,7 @@ import EditLog from './containers/EditLog';
 import { FeatureFlagProvider } from './components/shared/FeatureFlag';
 import { getFeatureFlags } from './utils/features';
 import NewLog from './containers/NewLog/NewLog';
+import Profile from './containers/Profile/Profile';
 
 dotenv.config();
 const store = configureStore();
@@ -39,6 +40,7 @@ const RoutedApp = () =>
             <Route exact path="/forgotpassword/reset" component={ForgotPassword}/>
             <Route exact path="/log/new" component={NewLog} />
             <Route exact path="/log/edit/:id" component={EditLog} />
+            <Route exact path="/profile/:username" component={Profile} />
             <Route exact path="/register" component={Register}/>
             <Route exact path="/signin" component={SignIn}/>
             <Route component={Home}/>

@@ -122,7 +122,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
     }, [existingLog]);
 
     useEffect(() => {
-        if (Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
+        if (newLog && Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
             if (newLog?.created) {
                 history.push('/dashboard');
             } else {
@@ -132,7 +132,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
     }, [newLog]);
 
     useEffect(() => {
-        if (Object.keys(updateLogs).length) {
+        if (updateLogs && Object.keys(updateLogs).length) {
             const updateInfo = updateLogs[existingLog?.log_id];
 
             if (!updateInfo?.isFetching && !updateInfo?.didInvalidate) {

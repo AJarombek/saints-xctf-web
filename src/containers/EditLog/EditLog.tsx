@@ -16,6 +16,7 @@ import NavBar from '../../components/shared/NavBar';
 import LogBody from "../../components/new-edit-log/LogBody";
 import {getLog, invalidateLogUpdated, putLog} from "../../redux/modules/logs";
 import NotFound from "../../components/shared/NotFound/NotFound";
+import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
@@ -101,6 +102,7 @@ const EditLog: React.FunctionComponent<Props> = ({
                         invalidateLogUpdated={invalidateLogUpdated}
                     />
                 }
+                <HomeFooter showContactUs={false} />
             </div>
         );
     } else {
