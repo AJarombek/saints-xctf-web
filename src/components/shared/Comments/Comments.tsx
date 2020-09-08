@@ -13,6 +13,7 @@ import AlertPopup from "../AlertPopup/AlertPopup";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import {parseTagsInText} from "../../../utils/logs";
+import DefaultErrorPopup from "../DefaultErrorPopup/DefaultErrorPopup";
 
 interface IProps {
     comments: Comment[];
@@ -135,10 +136,9 @@ const Comments: React.FunctionComponent<IProps> = ({
                 </div>
             )}
             {showError && (
-                <AlertPopup
-                    message="An unexpected error occurred while adding a comment."
+                <DefaultErrorPopup
+                    message="An unexpected error occurred while adding a comment"
                     onClose={() => setShowError(false)}
-                    type="error"
                 />
             )}
         </div>

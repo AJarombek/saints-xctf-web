@@ -22,7 +22,8 @@ export default {
         display: 'flex',
         alignItems: 'center',
         position: 'absolute',
-        width: '500px',
+        width: '80%',
+        padding: '10px 0',
         borderRadius: '3px',
         boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
         backgroundColor: ({ type }: {type: AlertPopupType}) =>
@@ -40,7 +41,7 @@ export default {
             type === 'warning' ? Colors.statusWarning : type === 'info' ? Colors.spotPaletteBlue : Colors.statusFailure,
     },
     message: {
-        ...FontMixins.robotoBold(),
+        ...FontMixins.roboto(),
         fontSize: '16px',
         margin: 0
     },

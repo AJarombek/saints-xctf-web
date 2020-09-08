@@ -16,6 +16,7 @@ import {useHistory} from "react-router-dom";
 import classNames from "classnames";
 import {ImageInputStatus} from "../../shared/ImageInput/ImageInput";
 import {Log, NewLog, UpdateLogs, User} from "../../../redux/types";
+import DefaultErrorPopup from "../../shared/DefaultErrorPopup/DefaultErrorPopup";
 
 interface IProps {
     existingLog?: Log;
@@ -80,6 +81,8 @@ const LogBody: React.FunctionComponent<IProps> = ({
     const [timeStatus, setTimeStatus] = useState(ImageInputStatus.NONE);
     const [feel, setFeel] = useState(5);
     const [description, setDescription] = useState('');
+    const [errorCreatingLog, setErrorCreatingLog] = useState(false);
+    const [errorUpdatingLog, setErrorUpdatingLog] = useState(false);
 
     const classes = useStyles({ feel });
 
@@ -119,16 +122,26 @@ const LogBody: React.FunctionComponent<IProps> = ({
     }, [existingLog]);
 
     useEffect(() => {
-        if (!newLog?.isFetching && !newLog?.didInvalidate && newLog?.created) {
-            history.push('/dashboard');
+        if (Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
+            if (newLog?.created) {
+                history.push('/dashboard');
+            } else {
+                setErrorCreatingLog(true);
+            }
         }
     }, [newLog]);
 
     useEffect(() => {
-        const updateInfo = updateLogs[existingLog?.log_id];
+        if (Object.keys(updateLogs).length) {
+            const updateInfo = updateLogs[existingLog?.log_id];
 
-        if (!updateInfo?.isFetching && !updateInfo?.didInvalidate && updateInfo?.updated) {
-            history.push('/dashboard');
+            if (!updateInfo?.isFetching && !updateInfo?.didInvalidate) {
+                if (updateInfo?.updated) {
+                    history.push('/dashboard');
+                } else {
+                    setErrorUpdatingLog(true);
+                }
+            }
         }
     }, [updateLogs, existingLog]);
 
@@ -195,7 +208,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
             type,
             distance,
             metric,
-            formattedTime,
+            '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
             feel + 1,
             description
         );
@@ -210,7 +223,7 @@ const LogBody: React.FunctionComponent<IProps> = ({
             type,
             distance,
             metric,
-            formattedTime,
+            '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
             feel + 1,
             description
         )
@@ -359,6 +372,18 @@ const LogBody: React.FunctionComponent<IProps> = ({
                     </AJButton>
                 </div>
             </div>
+            {errorCreatingLog && (
+                <DefaultErrorPopup
+                    message="An unexpected error occurred while creating an exercise log"
+                    onClose={() => setErrorCreatingLog(false)}
+                />
+            )}
+            {errorUpdatingLog && (
+                <DefaultErrorPopup
+                    message="An unexpected error occurred while updating the exercise log"
+                    onClose={() => setErrorUpdatingLog(false)}
+                />
+            )}
         </div>
     );
 };

@@ -4,14 +4,14 @@
  * @since 8/8/2020
  */
 
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 
 export type AlertPopupType = 'error' | 'warning' | 'info';
 
 interface IProps {
-    message: string;
+    message: ReactNode;
     onClose: () => void;
     type: AlertPopupType;
 }
@@ -40,7 +40,7 @@ const AlertPopup: React.FunctionComponent<IProps> = ({message, onClose, type}) =
         <div className={classes.alertContainer}>
             <div className={classes.alert}>
                 <p className={classes.alertIcon}>{alertIcon}</p>
-                <p className={classes.message}>{message}</p>
+                <div className={classes.message}>{message}</div>
                 <p className={classes.closeIcon} onClick={onClose}>&#x4d;</p>
             </div>
         </div>

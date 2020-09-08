@@ -128,5 +128,5 @@ export default {
                 color: color(Colors.spotPaletteBrown).darken(0.2).hex(),
             }
         }
-    },
+    }
 };
