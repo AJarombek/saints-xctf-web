@@ -93,7 +93,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
             <div className={classes.headerSection}>
                 <div className={classes.titles}>
                     {linkProfile ?
-                      <Link to={`/user/${user.username}`} className={classes.titleLink}>{log.first} {log.last}</Link> :
+                      <Link to={`/profile/${user.username}`} className={classes.titleLink}>{log.first} {log.last}</Link> :
                         <h5 className={classes.titleLink}>{log.first} {log.last}</h5>
                     }
                     <h6 className={classes.title}>{log.name}</h6>

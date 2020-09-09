@@ -41,7 +41,7 @@ export function parseTagsInText(text: string) {
         const end = tagRegex.lastIndex;
 
         result.push(text.substring(start, end - match.length));
-        result.push(<a href={`/user/${username}`}>{match}</a>);
+        result.push(<a href={`/profile/${username}`}>{match}</a>);
 
         start = end;
     }
