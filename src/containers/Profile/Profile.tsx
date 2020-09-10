@@ -4,10 +4,10 @@
  * @since 8/15/2020
  */
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
-import {useHistory} from "react-router-dom";
+import {useHistory, useRouteMatch} from "react-router-dom";
 import {userAuthenticated} from "../../utils/auth";
 import {setUserFromStorage} from "../../redux/modules/auth";
 import {createUseStyles} from "react-jss";
@@ -15,14 +15,22 @@ import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 import ProfileBody from "../../components/profile/ProfileBody/ProfileBody";
+import {addComment, deleteLog, logFeed, postComment} from "../../redux/modules/logs";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
-    users: state.auth.user
+    users: state.auth.user,
+    logFeeds: state.logs.feeds,
+    newComments: state.logs.newComments,
+    deletedLogs: state.logs.deletedLogs
 });
 
 const mapDispatchToProps = {
-    setUserFromStorage: setUserFromStorage
+    setUserFromStorage: setUserFromStorage,
+    getLogFeed: logFeed,
+    postComment: postComment,
+    addComment: addComment,
+    deleteLog: deleteLog,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -35,8 +43,16 @@ const useStyles = createUseStyles(styles);
 const Profile: React.FunctionComponent<Props> = ({
     auth = {},
     users = {},
-    setUserFromStorage
+    logFeeds = {},
+    setUserFromStorage,
+    getLogFeed,
+    postComment,
+    addComment,
+    deleteLog,
+    newComments,
+    deletedLogs
 }) => {
+    const routeMatch = useRouteMatch();
     const history = useHistory();
     const classes = useStyles();
 
@@ -52,11 +68,25 @@ const Profile: React.FunctionComponent<Props> = ({
         }
     }, [users]);
 
+    const username = useMemo(() => {
+        const urlPaths = routeMatch.url.split('/');
+        return urlPaths[urlPaths.length - 1];
+    }, []);
+
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
             <div className={classes.profile}>
                 <NavBar includeHeaders={["groups", "admin", "signOut", "logo"]}/>
-                <ProfileBody />
+                <ProfileBody
+                    username={username}
+                    getLogFeed={getLogFeed}
+                    logFeeds={logFeeds}
+                    postComment={postComment}
+                    addComment={addComment}
+                    deleteLog={deleteLog}
+                    newComments={newComments}
+                    deletedLogs={deletedLogs}
+                />
                 <HomeFooter showContactUs={false} />
             </div>
         );

@@ -1,5 +1,5 @@
 /**
- * DashboardFeed component which shows a log feed.
+ * LogFeed component which shows a log feed.
  * @author Andrew Jarombek
  * @since 7/25/2020
  */
@@ -28,7 +28,7 @@ interface IProps {
 
 const useStyles = createUseStyles(styles);
 
-const DashboardFeed: React.FunctionComponent<IProps> = ({
+const LogFeed: React.FunctionComponent<IProps> = ({
     logFeeds,
     page,
     getLogFeed,
@@ -52,7 +52,7 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
     }, [logFeeds, page]);
 
     return (
-        <div id="dashboardFeed" className={classes.dashboardFeed}>
+        <div id="logFeed" className={classes.logFeed}>
             { logs.map((log, index) => (
                 <React.Fragment key={log.log_id}>
                     <ExerciseLog
@@ -78,4 +78,4 @@ const DashboardFeed: React.FunctionComponent<IProps> = ({
     );
 };
 
-export default DashboardFeed;
+export default LogFeed;

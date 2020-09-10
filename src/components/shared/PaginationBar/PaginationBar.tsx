@@ -17,11 +17,11 @@ interface IProps {
 
 const useStyles = createUseStyles(styles);
 
-const DashboardPaginationBar: React.FunctionComponent<IProps> = ({ page, totalPages, onChangePage }) => {
+const PaginationBar: React.FunctionComponent<IProps> = ({ page, totalPages, onChangePage }) => {
     const classes = useStyles();
 
     return (
-        <div id="dashboardPaginationBar" className={classes.dashboardPaginationBar}>
+        <div id="paginationBar" className={classes.paginationBar}>
             {page > 3 && (
                 <div className={classNames(classes.page, classes.otherPage)} onClick={() => onChangePage(1)}>
                     1
@@ -57,4 +57,4 @@ const DashboardPaginationBar: React.FunctionComponent<IProps> = ({ page, totalPa
     );
 };
 
-export default DashboardPaginationBar;
+export default PaginationBar;

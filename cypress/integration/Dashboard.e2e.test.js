@@ -72,45 +72,45 @@ describe('Dashboard E2E Tests', () => {
     cy.visit('/dashboard');
 
     cy.wait('@logFeedRoute').then(() => {
-      cy.get('#dashboardFeed .exerciseLog').should('have.length', 10);
-      cy.get('#dashboardPaginationBar').contains(1).should('exist');
-      cy.get('#dashboardPaginationBar').contains(2).should('exist');
-      cy.get('#dashboardPaginationBar').contains(3).should('exist');
-      cy.get('#dashboardPaginationBar').contains(4).should('not.exist');
-      cy.get('#dashboardPaginationBar').contains('...').should('not.exist');
+      cy.get('#logFeed .exerciseLog').should('have.length', 10);
+      cy.get('#paginationBar').contains(1).should('exist');
+      cy.get('#paginationBar').contains(2).should('exist');
+      cy.get('#paginationBar').contains(3).should('exist');
+      cy.get('#paginationBar').contains(4).should('not.exist');
+      cy.get('#paginationBar').contains('...').should('not.exist');
 
-      cy.get('#dashboardPaginationBar').contains(3).click();
+      cy.get('#paginationBar').contains(3).click();
 
-      cy.get('#dashboardPaginationBar').contains(1).should('exist');
-      cy.get('#dashboardPaginationBar').contains(2).should('exist');
-      cy.get('#dashboardPaginationBar').contains(3).should('exist');
-      cy.get('#dashboardPaginationBar').contains(4).should('exist');
-      cy.get('#dashboardPaginationBar').contains(5).should('exist');
-      cy.get('#dashboardPaginationBar').contains(6).should('not.exist');
-      cy.get('#dashboardPaginationBar').contains('...').should('not.exist');
+      cy.get('#paginationBar').contains(1).should('exist');
+      cy.get('#paginationBar').contains(2).should('exist');
+      cy.get('#paginationBar').contains(3).should('exist');
+      cy.get('#paginationBar').contains(4).should('exist');
+      cy.get('#paginationBar').contains(5).should('exist');
+      cy.get('#paginationBar').contains(6).should('not.exist');
+      cy.get('#paginationBar').contains('...').should('not.exist');
 
-      cy.get('#dashboardPaginationBar').contains(4).click();
+      cy.get('#paginationBar').contains(4).click();
 
-      cy.get('#dashboardPaginationBar').contains(1).should('exist');
-      cy.get('#dashboardPaginationBar').contains(2).should('exist');
-      cy.get('#dashboardPaginationBar').contains(3).should('exist');
-      cy.get('#dashboardPaginationBar').contains(4).should('exist');
-      cy.get('#dashboardPaginationBar').contains(5).should('exist');
-      cy.get('#dashboardPaginationBar').contains(6).should('exist');
-      cy.get('#dashboardPaginationBar').contains(7).should('not.exist');
-      cy.get('#dashboardPaginationBar').contains('...').should('not.exist');
+      cy.get('#paginationBar').contains(1).should('exist');
+      cy.get('#paginationBar').contains(2).should('exist');
+      cy.get('#paginationBar').contains(3).should('exist');
+      cy.get('#paginationBar').contains(4).should('exist');
+      cy.get('#paginationBar').contains(5).should('exist');
+      cy.get('#paginationBar').contains(6).should('exist');
+      cy.get('#paginationBar').contains(7).should('not.exist');
+      cy.get('#paginationBar').contains('...').should('not.exist');
 
-      cy.get('#dashboardPaginationBar').contains(5).click();
+      cy.get('#paginationBar').contains(5).click();
 
-      cy.get('#dashboardPaginationBar').contains(1).should('exist');
-      cy.get('#dashboardPaginationBar').contains(2).should('not.exist');
-      cy.get('#dashboardPaginationBar').contains(3).should('exist');
-      cy.get('#dashboardPaginationBar').contains(4).should('exist');
-      cy.get('#dashboardPaginationBar').contains(5).should('exist');
-      cy.get('#dashboardPaginationBar').contains(6).should('exist');
-      cy.get('#dashboardPaginationBar').contains(7).should('exist');
-      cy.get('#dashboardPaginationBar').contains(8).should('not.exist');
-      cy.get('#dashboardPaginationBar').contains('...').should('exist');
+      cy.get('#paginationBar').contains(1).should('exist');
+      cy.get('#paginationBar').contains(2).should('not.exist');
+      cy.get('#paginationBar').contains(3).should('exist');
+      cy.get('#paginationBar').contains(4).should('exist');
+      cy.get('#paginationBar').contains(5).should('exist');
+      cy.get('#paginationBar').contains(6).should('exist');
+      cy.get('#paginationBar').contains(7).should('exist');
+      cy.get('#paginationBar').contains(8).should('not.exist');
+      cy.get('#paginationBar').contains('...').should('exist');
     });
   });
 
@@ -118,17 +118,17 @@ describe('Dashboard E2E Tests', () => {
     cy.route('POST', '/api/v2/comments/').as('createCommentRoute');
     cy.visit('/dashboard');
 
-    cy.get('#dashboardFeed .exerciseLog .commentList')
+    cy.get('#logFeed .exerciseLog .commentList')
       .eq(0)
       .children()
       .its('length')
       .then((commentCount) => {
 
-        cy.get('#dashboardFeed .exerciseLog textarea').eq(0).type('Testing...');
-        cy.get('#dashboardFeed .exerciseLog .addIcon').eq(0).click();
+        cy.get('#logFeed .exerciseLog textarea').eq(0).type('Testing...');
+        cy.get('#logFeed .exerciseLog .addIcon').eq(0).click();
 
         cy.wait('@createCommentRoute').then(() => {
-          cy.get('#dashboardFeed .exerciseLog .commentList')
+          cy.get('#logFeed .exerciseLog .commentList')
             .eq(0)
             .children()
             .should('have.length', commentCount + 1);

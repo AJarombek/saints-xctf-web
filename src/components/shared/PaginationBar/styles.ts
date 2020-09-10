@@ -1,5 +1,5 @@
 /**
- * JSS styles for the DashboardPaginationBar component.
+ * JSS styles for the PaginationBar component.
  * @author Andrew Jarombek
  * @since 7/25/2020
  */
@@ -8,7 +8,7 @@ import {FontMixins} from "../../../styles/mixins";
 import Colors from "../../../styles/colors";
 
 export default {
-    dashboardPaginationBar: {
+    paginationBar: {
         ...FontMixins.robotoBold(),
         display: 'flex',
         alignItems: 'center',

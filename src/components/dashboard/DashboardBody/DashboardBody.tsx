@@ -9,7 +9,7 @@ import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import DashboardSidePanel from "../DashboardSidePanel/DashboardSidePanel";
 import DashboardFeed from "../DashboardFeed/DashboardFeed";
-import DashboardPaginationBar from "../DashboardPaginationBar/DashboardPaginationBar";
+import PaginationBar from "../../shared/PaginationBar/PaginationBar";
 import {DeletedLogs, GroupMember, Log, LogFeeds, NewComments, NotificationsState, User} from "../../../redux/types";
 
 interface IProps {
@@ -92,7 +92,7 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
                     filterBy={filterBy}
                     bucket={bucket}
                 />
-                <DashboardPaginationBar
+                <PaginationBar
                     page={page}
                     totalPages={totalPages}
                     onChangePage={(page) => {
