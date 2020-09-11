@@ -8,7 +8,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import DashboardSidePanel from "../DashboardSidePanel/DashboardSidePanel";
-import DashboardFeed from "../DashboardFeed/DashboardFeed";
+import LogFeed from "../../shared/LogFeed/LogFeed";
 import PaginationBar from "../../shared/PaginationBar/PaginationBar";
 import {DeletedLogs, GroupMember, Log, LogFeeds, NewComments, NotificationsState, User} from "../../../redux/types";
 
@@ -79,7 +79,7 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
                 />
             </div>
             <div className={classes.mainPanel}>
-                <DashboardFeed
+                <LogFeed
                     logFeeds={logFeeds}
                     getLogFeed={getLogFeed}
                     postComment={postComment}

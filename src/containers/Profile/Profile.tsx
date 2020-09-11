@@ -16,17 +16,20 @@ import NavBar from '../../components/shared/NavBar';
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 import ProfileBody from "../../components/profile/ProfileBody/ProfileBody";
 import {addComment, deleteLog, logFeed, postComment} from "../../redux/modules/logs";
+import {getUser, setUser} from "../../redux/modules/profile";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
-    users: state.auth.user,
+    authUsers: state.auth.user,
     logFeeds: state.logs.feeds,
     newComments: state.logs.newComments,
-    deletedLogs: state.logs.deletedLogs
+    deletedLogs: state.logs.deletedLogs,
+    users: state.profile.users
 });
 
 const mapDispatchToProps = {
     getUser: getUser,
+    setUser: setUser,
     setUserFromStorage: setUserFromStorage,
     getLogFeed: logFeed,
     postComment: postComment,
@@ -43,8 +46,11 @@ const useStyles = createUseStyles(styles);
 
 const Profile: React.FunctionComponent<Props> = ({
     auth = {},
-    users = {},
+    authUsers = {},
     logFeeds = {},
+    users = {},
+    getUser,
+    setUser,
     setUserFromStorage,
     getLogFeed,
     postComment,
@@ -57,33 +63,37 @@ const Profile: React.FunctionComponent<Props> = ({
     const history = useHistory();
     const classes = useStyles();
 
-    const { signedInUser } = auth;
-
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
 
-        if (!Object.keys(users).length && storedUser) {
+        if (!Object.keys(authUsers).length && storedUser) {
             setUserFromStorage(storedUser);
-        } else if (!userAuthenticated(users, auth.signedInUser)) {
+        } else if (!userAuthenticated(authUsers, auth.signedInUser)) {
             history.push('/');
         }
-    }, [users]);
+    }, [authUsers]);
 
     useEffect(() => {
-
-    });
+        if (auth.signedInUser && !users[username]?.username) {
+            if (auth.signedInUser === username && authUsers[username]) {
+                setUser(authUsers[username]);
+            } else {
+                getUser(username);
+            }
+        }
+    }, [auth.signedInUser, users]);
 
     const username = useMemo(() => {
         const urlPaths = routeMatch.url.split('/');
         return urlPaths[urlPaths.length - 1];
-    }, []);
+    }, [routeMatch.url]);
 
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
             <div className={classes.profile}>
                 <NavBar includeHeaders={["groups", "admin", "signOut", "logo"]}/>
                 <ProfileBody
-                    user={user}
+                    user={users[username]}
                     getLogFeed={getLogFeed}
                     logFeeds={logFeeds}
                     postComment={postComment}

@@ -11,7 +11,7 @@ import PictureTitle from "../../shared/PictureTitle/PictureTitle";
 import Flair from "../Flair/Flair";
 import Memberships from "../Memberships/Memberships";
 import PageTabs from "../../shared/PageTabs/PageTabs";
-import {DeletedLogs, LogFeeds, NewComments} from "../../../redux/types";
+import {DeletedLogs, LogFeeds, NewComments, UserMeta} from "../../../redux/types";
 import PaginationBar from "../../shared/PaginationBar/PaginationBar";
 import LogFeed from "../../shared/LogFeed/LogFeed";
 
@@ -24,7 +24,7 @@ interface IProps {
     logFeeds: LogFeeds;
     newComments: NewComments;
     deletedLogs: DeletedLogs;
-    username: string;
+    user: UserMeta;
 }
 
 enum Tabs {
@@ -41,7 +41,7 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
     logFeeds,
     newComments,
     deletedLogs,
-    username
+    user
 }) => {
     const classes = useStyles();
 
@@ -55,8 +55,10 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
     }, [filterBy, bucket, page]);
 
     useEffect(() => {
-        setBucket(username);
-    }, [username]);
+        if (user) {
+            setBucket(user.username);
+        }
+    }, [user]);
 
     const totalPages: number = useMemo(() => {
         return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0
@@ -82,7 +84,7 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
                             deleteLog={deleteLog}
                             newComments={newComments}
                             deletedLogs={deletedLogs}
-                            user={}
+                            user={user}
                             filterBy={filterBy}
                             bucket={bucket}
                         />

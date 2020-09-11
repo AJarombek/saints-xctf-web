@@ -41,7 +41,7 @@ export type NotificationsState = {
 }
 
 export type ProfileState = {
-    [key: string]: Profile;
+    users?: Users;
 }
 
 export interface Meta {
@@ -208,8 +208,4 @@ export type Notification = {
     link?: string;
     viewed: string;
     description?: string;
-}
-
-export type Profile = {
-    users?: Users;
 }

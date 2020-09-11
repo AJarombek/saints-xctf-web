@@ -13,6 +13,7 @@ import {ProfileState, User} from "../types";
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
 const GET_USER_SUCCESS = 'saints-xctf-web/profile/GET_USER_SUCCESS';
 const GET_USER_FAILURE = 'saints-xctf-web/profile/GET_USER_FAILURE';
+const SET_USER = 'saints-xctf-web/profile/SET_USER';
 
 // Action Types
 
@@ -33,11 +34,16 @@ interface GetUserFailureAction {
     serverError: string;
 }
 
-type ProfileActionTypes = GetUserRequestAction | GetUserSuccessAction | GetUserFailureAction;
+interface SetUserAction {
+    type: typeof SET_USER;
+    user: User;
+}
+
+type ProfileActionTypes = GetUserRequestAction | GetUserSuccessAction | GetUserFailureAction | SetUserAction;
 
 // Reducer
 const initialState: ProfileState = {
-    user: {}
+    users: {}
 };
 
 export default function reducer(state = initialState, action : ProfileActionTypes) {
@@ -48,6 +54,8 @@ export default function reducer(state = initialState, action : ProfileActionType
             return getUserSuccessReducer(state, action);
         case GET_USER_FAILURE:
             return getUserFailureReducer(state, action);
+        case SET_USER:
+            return setUserReducer(state, action);
         default:
             return state;
     }
@@ -55,19 +63,56 @@ export default function reducer(state = initialState, action : ProfileActionType
 
 function getUserRequestReducer(state: ProfileState, action: GetUserRequestAction): ProfileState {
     return {
-        ...state
+        ...state,
+        users: {
+            ...state.users,
+            [action.username]: {
+                isFetching: true,
+                lastUpdated: moment().unix(),
+            }
+        },
     }
 }
 
 function getUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction): ProfileState {
     return {
-        ...state
+        ...state,
+        users: {
+            ...state.users,
+            [action.username]: {
+                isFetching: false,
+                lastUpdated: moment().unix(),
+                ...action.user
+            }
+        },
     }
 }
 
 function getUserFailureReducer(state: ProfileState, action: GetUserFailureAction): ProfileState {
     return {
-        ...state
+        ...state,
+        users: {
+            ...state.users,
+            [action.username]: {
+                isFetching: false,
+                lastUpdated: moment().unix(),
+                serverError: action.serverError
+            }
+        },
+    }
+}
+
+function setUserReducer(state: ProfileState, action: SetUserAction): ProfileState {
+    return {
+        ...state,
+        users: {
+            ...state.users,
+            [action.user.username]: {
+                ...action.user,
+                isFetching: false,
+                lastUpdated: moment().unix(),
+            }
+        }
     }
 }
 
@@ -92,6 +137,13 @@ export function getUserFailure(username: string, serverError: string): GetUserFa
         type: GET_USER_FAILURE,
         username,
         serverError
+    }
+}
+
+export function setUser(user: User): SetUserAction {
+    return {
+        type: SET_USER,
+        user
     }
 }
 
