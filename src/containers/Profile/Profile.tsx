@@ -26,6 +26,7 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 const mapDispatchToProps = {
+    getUser: getUser,
     setUserFromStorage: setUserFromStorage,
     getLogFeed: logFeed,
     postComment: postComment,
@@ -68,6 +69,10 @@ const Profile: React.FunctionComponent<Props> = ({
         }
     }, [users]);
 
+    useEffect(() => {
+
+    });
+
     const username = useMemo(() => {
         const urlPaths = routeMatch.url.split('/');
         return urlPaths[urlPaths.length - 1];
@@ -78,7 +83,7 @@ const Profile: React.FunctionComponent<Props> = ({
             <div className={classes.profile}>
                 <NavBar includeHeaders={["groups", "admin", "signOut", "logo"]}/>
                 <ProfileBody
-                    username={username}
+                    user={user}
                     getLogFeed={getLogFeed}
                     logFeeds={logFeeds}
                     postComment={postComment}

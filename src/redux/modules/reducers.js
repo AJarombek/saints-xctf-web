@@ -6,6 +6,7 @@ import registration from './registration';
 import logs from './logs';
 import memberships from './memberships';
 import notifications from './notifications';
+import profile from './profile';
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -13,7 +14,8 @@ const createRootReducer = (history) => combineReducers({
   registration,
   logs,
   memberships,
-  notifications
+  notifications,
+  profile
 });
 
 export default createRootReducer;

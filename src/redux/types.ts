@@ -9,6 +9,7 @@ export type RootState = {
     logs: LogsState;
     memberships: MembershipsState;
     notifications: NotificationsState;
+    profile: ProfileState;
 }
 
 export type LogsState = {
@@ -37,6 +38,10 @@ export type NotificationsState = {
     lastUpdated?: number;
     serverError?: string;
     items?: Notification[]
+}
+
+export type ProfileState = {
+    [key: string]: Profile;
 }
 
 export interface Meta {
@@ -203,4 +208,8 @@ export type Notification = {
     link?: string;
     viewed: string;
     description?: string;
+}
+
+export type Profile = {
+    users?: Users;
 }
