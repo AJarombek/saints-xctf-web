@@ -59,7 +59,10 @@ export type Auth = {
 }
 
 export type Users = {
-    [key: string]: UserMeta;
+    [key: string]: {
+        user?: UserMeta;
+        flair?: FlairMeta;
+    };
 }
 
 export interface UserMeta extends User, Meta {}
@@ -208,4 +211,12 @@ export type Notification = {
     link?: string;
     viewed: string;
     description?: string;
+}
+
+export interface FlairMeta extends Flair, Meta {}
+
+export type Flair = {
+    flair?: string;
+    flair_id?: number;
+    username?: string;
 }

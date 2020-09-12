@@ -47,11 +47,13 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
 
     const [tab, setTab] = useState(Tabs.LOGS);
     const [filterBy, setFilterBy] = useState('user');
-    const [bucket, setBucket] = useState('all');
+    const [bucket, setBucket] = useState(null);
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
+        if (bucket) {
+            getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
+        }
     }, [filterBy, bucket, page]);
 
     useEffect(() => {
@@ -64,43 +66,51 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
         return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0
     }, [logFeeds, page]);
 
-    return (
-        <div className={classes.container}>
-            <aside>
-                <PictureTitle />
-                <Flair />
-                <Memberships />
-                <PageTabs />
-            </aside>
-            <section>
-                {tab === Tabs.LOGS && (
-                    <>
-                        <LogFeed
-                            logFeeds={logFeeds}
-                            page={page}
-                            getLogFeed={getLogFeed}
-                            postComment={postComment}
-                            addComment={addComment}
-                            deleteLog={deleteLog}
-                            newComments={newComments}
-                            deletedLogs={deletedLogs}
-                            user={user}
-                            filterBy={filterBy}
-                            bucket={bucket}
-                        />
-                        <PaginationBar
-                            page={page}
-                            totalPages={totalPages}
-                            onChangePage={(page) => {
-                                setPage(page);
-                                window.scrollTo(0, 0);
-                            }}
-                        />
-                    </>
-                )}
-            </section>
-        </div>
-    );
+    if (user) {
+        return (
+            <div className={classes.container}>
+                <aside>
+                    <PictureTitle
+                        imageUrl={`${user?.username}`}
+                        title={`${user?.first} ${user?.last}`}
+                        subTitle={`@${user?.username}`}
+                    />
+                    <Flair />
+                    <Memberships />
+                    <PageTabs />
+                </aside>
+                <section>
+                    {tab === Tabs.LOGS && (
+                        <>
+                            <LogFeed
+                                logFeeds={logFeeds}
+                                page={page}
+                                getLogFeed={getLogFeed}
+                                postComment={postComment}
+                                addComment={addComment}
+                                deleteLog={deleteLog}
+                                newComments={newComments}
+                                deletedLogs={deletedLogs}
+                                user={user}
+                                filterBy={filterBy}
+                                bucket={bucket}
+                            />
+                            <PaginationBar
+                                page={page}
+                                totalPages={totalPages}
+                                onChangePage={(page) => {
+                                    setPage(page);
+                                    window.scrollTo(0, 0);
+                                }}
+                            />
+                        </>
+                    )}
+                </section>
+            </div>
+        );
+    } else {
+        return null;
+    }
 };
 
 export default ProfileBody;

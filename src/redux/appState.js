@@ -90,17 +90,25 @@ const appState = {
     tom: {
       isFetching: false,
       didInvalidate: false,
-      lastUpdated: 1588530311
+      lastUpdated: 1588530311,
+      flair: {
+        isFetching: false,
+        didInvalidate: false,
+        lastUpdated: 1588530311,
+        items: []
+      }
     },
     joe: {
       isFetching: false,
       didInvalidate: false,
-      lastUpdated: 1588530312
+      lastUpdated: 1588530312,
+      flair: {}
     },
     ben: {
       isFetching: false,
       didInvalidate: false,
-      lastUpdated: 1588530313
+      lastUpdated: 1588530313,
+      flair: {}
     }
   },
   group: {

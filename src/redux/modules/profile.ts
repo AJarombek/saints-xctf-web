@@ -7,13 +7,16 @@
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import {Dispatch} from "redux";
-import {ProfileState, User} from "../types";
+import {Flair, ProfileState, User} from "../types";
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
 const GET_USER_SUCCESS = 'saints-xctf-web/profile/GET_USER_SUCCESS';
 const GET_USER_FAILURE = 'saints-xctf-web/profile/GET_USER_FAILURE';
 const SET_USER = 'saints-xctf-web/profile/SET_USER';
+const GET_USER_FLAIR_REQUEST = 'saints-xctf-web/profile/GET_USER_FLAIR_REQUEST';
+const GET_USER_FLAIR_SUCCESS = 'saints-xctf-web/profile/GET_USER_FLAIR_SUCCESS';
+const GET_USER_FLAIR_FAILURE = 'saints-xctf-web/profile/GET_USER_FLAIR_FAILURE';
 
 // Action Types
 
@@ -39,7 +42,31 @@ interface SetUserAction {
     user: User;
 }
 
-type ProfileActionTypes = GetUserRequestAction | GetUserSuccessAction | GetUserFailureAction | SetUserAction;
+interface GetUserFlairRequestAction {
+    type: typeof GET_USER_FLAIR_REQUEST;
+    username: string;
+}
+
+interface GetUserFlairSuccessAction {
+    type: typeof GET_USER_FLAIR_SUCCESS;
+    username: string;
+    flair: Flair[];
+}
+
+interface GetUserFlairFailureAction {
+    type: typeof GET_USER_FLAIR_FAILURE;
+    username: string;
+    serverError: string;
+}
+
+type ProfileActionTypes =
+    GetUserRequestAction |
+    GetUserSuccessAction |
+    GetUserFailureAction |
+    SetUserAction |
+    GetUserFlairRequestAction |
+    GetUserFlairSuccessAction |
+    GetUserFlairFailureAction;
 
 // Reducer
 const initialState: ProfileState = {
@@ -56,61 +83,136 @@ export default function reducer(state = initialState, action : ProfileActionType
             return getUserFailureReducer(state, action);
         case SET_USER:
             return setUserReducer(state, action);
+        case GET_USER_FLAIR_REQUEST:
+            return getUserFlairRequestReducer(state, action);
+        case GET_USER_FLAIR_SUCCESS:
+            return getUserFlairSuccessReducer(state, action);
+        case GET_USER_FLAIR_FAILURE:
+            return getUserFlairFailureReducer(state, action);
         default:
             return state;
     }
 }
 
 function getUserRequestReducer(state: ProfileState, action: GetUserRequestAction): ProfileState {
+    const user = state.users[action.username] ?? {};
     return {
         ...state,
         users: {
             ...state.users,
             [action.username]: {
-                isFetching: true,
-                lastUpdated: moment().unix(),
+                ...user,
+                user: {
+                    isFetching: true,
+                    lastUpdated: moment().unix(),
+                }
             }
         },
     }
 }
 
 function getUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction): ProfileState {
+    const user = state.users[action.username] ?? {};
     return {
         ...state,
         users: {
             ...state.users,
             [action.username]: {
-                isFetching: false,
-                lastUpdated: moment().unix(),
-                ...action.user
+                ...user,
+                user: {
+                    isFetching: false,
+                    lastUpdated: moment().unix(),
+                    ...action.user
+                }
             }
         },
     }
 }
 
 function getUserFailureReducer(state: ProfileState, action: GetUserFailureAction): ProfileState {
+    const user = state.users[action.username] ?? {};
     return {
         ...state,
         users: {
             ...state.users,
             [action.username]: {
-                isFetching: false,
-                lastUpdated: moment().unix(),
-                serverError: action.serverError
+                ...user,
+                user: {
+                    isFetching: false,
+                    lastUpdated: moment().unix(),
+                    serverError: action.serverError
+                }
             }
         },
     }
 }
 
 function setUserReducer(state: ProfileState, action: SetUserAction): ProfileState {
+    const user = state.users[action.user.username] ?? {};
     return {
         ...state,
         users: {
             ...state.users,
             [action.user.username]: {
-                ...action.user,
-                isFetching: false,
-                lastUpdated: moment().unix(),
+                ...user,
+                user: {
+                    ...action.user,
+                    isFetching: false,
+                    lastUpdated: moment().unix()
+                }
+            }
+        }
+    }
+}
+
+function getUserFlairRequestReducer(state: ProfileState, action: GetUserFlairRequestAction): ProfileState {
+    const user = state.users[action.username] ?? {};
+    return {
+        ...state,
+        users: {
+            ...state.users,
+            [action.username]: {
+                ...user,
+                flair: {
+                    isFetching: true,
+                    lastUpdated: moment().unix(),
+                }
+            }
+        }
+    }
+}
+
+function getUserFlairSuccessReducer(state: ProfileState, action: GetUserFlairSuccessAction): ProfileState {
+    const user = state.users[action.username] ?? {};
+    return {
+        ...state,
+        users: {
+            ...state.users,
+            [action.username]: {
+                ...user,
+                flair: {
+                    isFetching: false,
+                    lastUpdated: moment().unix(),
+                    ...action.flair
+                }
+            }
+        }
+    }
+}
+
+function getUserFlairFailureReducer(state: ProfileState, action: GetUserFlairFailureAction): ProfileState {
+    const user = state.users[action.username] ?? {};
+    return {
+        ...state,
+        users: {
+            ...state.users,
+            [action.username]: {
+                ...user,
+                flair: {
+                    isFetching: false,
+                    lastUpdated: moment().unix(),
+                    serverError: action.serverError
+                }
             }
         }
     }
