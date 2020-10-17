@@ -28,7 +28,7 @@ export function userAuthenticated(user: Users, signedInUser: string) {
 
   if (!user) {
     return false;
-  } else if (!user[signedInUser]?.isFetching && !user[signedInUser]?.didInvalidate) {
+  } else if (!user[signedInUser]?.user?.isFetching && !user[signedInUser]?.user?.didInvalidate) {
     return true;
   }
 

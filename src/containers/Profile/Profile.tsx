@@ -74,9 +74,9 @@ const Profile: React.FunctionComponent<Props> = ({
     }, [authUsers]);
 
     useEffect(() => {
-        if (auth.signedInUser && !users[username]?.username) {
+        if (auth.signedInUser && !users[username]?.user?.username) {
             if (auth.signedInUser === username && authUsers[username]) {
-                setUser(authUsers[username]);
+                setUser(authUsers[username]?.user);
             } else {
                 getUser(username);
             }
@@ -93,7 +93,7 @@ const Profile: React.FunctionComponent<Props> = ({
             <div className={classes.profile}>
                 <NavBar includeHeaders={["groups", "admin", "signOut", "logo"]}/>
                 <ProfileBody
-                    user={users[username]}
+                    user={users[username]?.user}
                     getLogFeed={getLogFeed}
                     logFeeds={logFeeds}
                     postComment={postComment}

@@ -13,8 +13,9 @@ front-end is written in React.js and styled with Sass.  API calls are routed thr
 > Git, Node.js, npm, nvm, & yarn should be installed beforehand.
 
 ```bash
-git clone 
+git clone https://github.com/AJarombek/saints-xctf-web.git 
 cd saints-xctf-web
+nvm install v10.15.3
 nvm use v10.15.3
 yarn
 ```

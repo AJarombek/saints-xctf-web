@@ -95,7 +95,7 @@ const EditLog: React.FunctionComponent<Props> = ({
                     <NotFound />
                     :
                     <LogBody
-                        user={users[signedInUser]}
+                        user={users[signedInUser]?.user}
                         existingLog={log}
                         putLog={putLog}
                         updateLogs={updateLogs}

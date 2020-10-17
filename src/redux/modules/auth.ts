@@ -14,6 +14,7 @@ import {Dispatch} from "redux";
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
 const SIGNIN_FAILURE = 'saints-xctf-web/auth/SIGNIN_FAILURE';
 const SIGNIN_SUCCESS = 'saints-xctf-web/auth/SIGNIN_SUCCESS';
+export const SIGNOUT = 'saints-xctf-web/auth/SIGNOUT';
 const FORGOT_PASSWORD_EMAIL_REQUEST = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_REQUEST';
 const FORGOT_PASSWORD_EMAIL_FAILURE = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_FAILURE';
 const FORGOT_PASSWORD_EMAIL_SUCCESS = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_SUCCESS';
@@ -132,6 +133,8 @@ export default function reducer(state = initialState, action : AuthActionTypes) 
 }
 
 function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {
+  const existingUser = state.user[action.username] ?? {};
+
   return {
     ...state,
     auth: {
@@ -142,14 +145,19 @@ function signInRequestReducer(state: AuthState, action: SignInRequestAction): Au
     },
     user: {
       [action.username]: {
-        isFetching: true,
-        lastUpdated: moment().unix()
+        ...existingUser,
+        user: {
+          isFetching: true,
+          lastUpdated: moment().unix()
+        }
       }
     }
   };
 }
 
 function signInSuccessReducer(state: AuthState, action: SignInSuccessAction): AuthState {
+  const existingUser = state.user[action.username] ?? {};
+
   return {
     ...state,
     auth: {
@@ -160,10 +168,13 @@ function signInSuccessReducer(state: AuthState, action: SignInSuccessAction): Au
     },
     user: {
       [action.username]: {
-        isFetching: false,
-        didInvalidate: false,
-        lastUpdated: moment().unix(),
-        ...action.user
+        ...existingUser,
+        user: {
+          isFetching: false,
+          didInvalidate: false,
+          lastUpdated: moment().unix(),
+          ...action.user
+        }
       }
     }
   };
@@ -183,14 +194,19 @@ function signInFailureReducer(state: AuthState, action: SignInFailureAction): Au
 }
 
 function setUserFromStorageReducer(state: AuthState, action: SetUserFromStorageAction): AuthState {
+  const existingUser = state.user[action.user.username] ?? {};
+
   return {
     ...state,
     user: {
       [action.user.username]: {
-        ...action.user,
-        isFetching: false,
-        didInvalidate: false,
-        lastUpdated: moment().unix()
+        ...existingUser,
+        user: {
+          ...action.user,
+          isFetching: false,
+          didInvalidate: false,
+          lastUpdated: moment().unix()
+        }
       }
     },
     auth: {

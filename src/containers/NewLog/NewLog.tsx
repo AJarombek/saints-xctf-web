@@ -66,7 +66,7 @@ const NewLog: React.FunctionComponent<Props> = ({
                 <LogBody
                     postLog={postLog}
                     invalidateLogCreated={invalidateLogCreated}
-                    user={users[signedInUser]}
+                    user={users[signedInUser]?.user}
                     newLog={newLog}
                 />
                 <HomeFooter showContactUs={false} />

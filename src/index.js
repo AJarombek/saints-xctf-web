@@ -12,6 +12,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import configureStore, { history } from './redux/store';
 import { Provider } from 'react-redux';
 import dotenv from 'dotenv';
+import { interceptor } from "./datasources/apiRequest";
 
 import Home from './containers/Home';
 import SignIn from './containers/SignIn';
@@ -26,6 +27,7 @@ import Profile from './containers/Profile/Profile';
 
 dotenv.config();
 const store = configureStore();
+interceptor(store);
 
 const RoutedApp = () =>
   <Provider store={store}>

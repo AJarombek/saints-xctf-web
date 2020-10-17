@@ -1,3 +1,3 @@
-import LogFeed from "./DashboardFeed";
+import LogFeed from "./LogFeed";
 
 export default LogFeed;
