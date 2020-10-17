@@ -9,7 +9,7 @@ import {RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
 import {useHistory, useRouteMatch} from "react-router-dom";
 import {userAuthenticated} from "../../utils/auth";
-import {setUserFromStorage} from "../../redux/modules/auth";
+import {setUserFromStorage, signOut} from "../../redux/modules/auth";
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
@@ -30,6 +30,7 @@ const mapDispatchToProps = {
     getLog: getLog,
     putLog: putLog,
     invalidateLogUpdated: invalidateLogUpdated,
+    signOut: signOut
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -47,13 +48,12 @@ const EditLog: React.FunctionComponent<Props> = ({
     setUserFromStorage,
     invalidateLogUpdated,
     getLog,
-    putLog
+    putLog,
+    signOut
 }) => {
     const routeMatch = useRouteMatch();
     const history = useHistory();
     const classes = useStyles();
-
-    const { signedInUser } = auth;
 
     const [logValidated, setLogValidated] = useState(false);
     const [errorNotFound, setErrorNotFound] = useState(false);
@@ -90,12 +90,12 @@ const EditLog: React.FunctionComponent<Props> = ({
     if (userAuthenticated(users, auth.signedInUser) && logValidated) {
         return (
             <div className={classes.editLog}>
-                <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
+                <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]} signOut={signOut}/>
                 {errorNotFound ?
                     <NotFound />
                     :
                     <LogBody
-                        user={users[signedInUser]?.user}
+                        user={users[auth.signedInUser]?.user}
                         existingLog={log}
                         putLog={putLog}
                         updateLogs={updateLogs}

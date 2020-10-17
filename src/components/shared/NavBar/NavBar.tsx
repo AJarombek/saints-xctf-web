@@ -15,12 +15,13 @@ import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-component
 import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
 
 interface IProps {
-  includeHeaders?: Array<string>
+  includeHeaders?: Array<string>;
+  signOut?: () => void;
 }
 
 const useStyles = createUseStyles(styles);
 
-const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [] }) => {
+const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [], signOut = () => {} }) => {
   const classes = useStyles();
 
   const history = useHistory();
@@ -89,7 +90,7 @@ const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [] }) => {
     {
       name: 'signOut',
       content: 'Sign Out',
-      onClick: () => {}
+      onClick: signOut
     },
     {
       name: 'home',
@@ -193,7 +194,7 @@ const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [] }) => {
             </AJButton>
           }
           { includeHeaders.includes('signOut') &&
-            <AJButton type="contained" className="signOutButton" onClick={() => history.push('/signout')}>
+            <AJButton type="contained" className="signOutButton" onClick={signOut}>
               Sign Out
             </AJButton>
           }

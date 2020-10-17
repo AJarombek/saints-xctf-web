@@ -9,7 +9,7 @@ import {RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
 import {useHistory, useRouteMatch} from "react-router-dom";
 import {userAuthenticated} from "../../utils/auth";
-import {setUserFromStorage} from "../../redux/modules/auth";
+import {setUserFromStorage, signOut} from "../../redux/modules/auth";
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
@@ -35,6 +35,7 @@ const mapDispatchToProps = {
     postComment: postComment,
     addComment: addComment,
     deleteLog: deleteLog,
+    signOut: signOut,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -57,7 +58,8 @@ const Profile: React.FunctionComponent<Props> = ({
     addComment,
     deleteLog,
     newComments,
-    deletedLogs
+    deletedLogs,
+    signOut
 }) => {
     const routeMatch = useRouteMatch();
     const history = useHistory();
@@ -91,7 +93,7 @@ const Profile: React.FunctionComponent<Props> = ({
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
             <div className={classes.profile}>
-                <NavBar includeHeaders={["groups", "admin", "signOut", "logo"]}/>
+                <NavBar includeHeaders={["groups", "admin", "signOut", "logo"]} signOut={signOut}/>
                 <ProfileBody
                     user={users[username]?.user}
                     getLogFeed={getLogFeed}

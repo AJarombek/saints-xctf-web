@@ -119,7 +119,7 @@ const localConfig = {
       '/auth/**': {
         target: 'http://localhost:5001/',
         secure: false,
-        pathRewrite: { '^/api': '' }
+        pathRewrite: { '^/auth': '' }
       }
     }
   }

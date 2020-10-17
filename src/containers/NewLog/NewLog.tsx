@@ -9,7 +9,7 @@ import {RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {userAuthenticated} from "../../utils/auth";
-import {setUserFromStorage} from "../../redux/modules/auth";
+import {setUserFromStorage, signOut} from "../../redux/modules/auth";
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import NavBar from '../../components/shared/NavBar';
@@ -27,6 +27,7 @@ const mapDispatchToProps = {
     postLog: postLog,
     setUserFromStorage: setUserFromStorage,
     invalidateLogCreated: invalidateLogCreated,
+    signOut: signOut
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -42,12 +43,11 @@ const NewLog: React.FunctionComponent<Props> = ({
     newLog,
     postLog,
     setUserFromStorage,
-    invalidateLogCreated
+    invalidateLogCreated,
+    signOut
 }) => {
     const history = useHistory();
     const classes = useStyles();
-
-    const { signedInUser } = auth;
 
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -62,11 +62,11 @@ const NewLog: React.FunctionComponent<Props> = ({
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
             <div className={classes.newLog}>
-                <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
+                <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]} signOut={signOut}/>
                 <LogBody
                     postLog={postLog}
                     invalidateLogCreated={invalidateLogCreated}
-                    user={users[signedInUser]?.user}
+                    user={users[auth.signedInUser]?.user}
                     newLog={newLog}
                 />
                 <HomeFooter showContactUs={false} />

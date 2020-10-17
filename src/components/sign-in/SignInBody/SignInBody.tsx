@@ -64,9 +64,11 @@ const SignInBody: React.FunctionComponent<IProps> = ({ signIn, isFetching, statu
   }, [status]);
 
   const onClickSignIn = async () => {
-    setLoading(true);
-    await signIn(username, password);
-    setLoading(false);
+    if (username.length !== 0 && password.length !== 0) {
+      setLoading(true);
+      await signIn(username, password);
+      setLoading(false);
+    }
   };
 
   return (
@@ -101,7 +103,7 @@ const SignInBody: React.FunctionComponent<IProps> = ({ signIn, isFetching, statu
           <AJButton
             type="contained"
             onClick={onClickSignIn}
-            disabled={isFetching || loading || username.length === 0 || password.length === 0}>
+            disabled={isFetching || loading}>
             Sign In
           </AJButton>
           <AJButton

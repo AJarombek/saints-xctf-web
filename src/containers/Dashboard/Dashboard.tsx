@@ -16,7 +16,7 @@ import {GroupMembers, NotificationsState, RootState} from "../../redux/types";
 import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 import {addComment, logFeed, postComment, deleteLog} from "../../redux/modules/logs";
-import {setUserFromStorage} from "../../redux/modules/auth";
+import {setUserFromStorage, signOut} from "../../redux/modules/auth";
 import {getGroupMemberships} from "../../redux/modules/memberships";
 import {getUserNotifications} from "../../redux/modules/notifications";
 
@@ -38,6 +38,7 @@ const mapDispatchToProps = {
   getGroupMemberships: getGroupMemberships,
   getUserNotifications: getUserNotifications,
   deleteLog: deleteLog,
+  signOut: signOut
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -61,9 +62,9 @@ const Dashboard: React.FunctionComponent<Props> = ({
   setUserFromStorage,
   getGroupMemberships,
   getUserNotifications,
-  deleteLog
+  deleteLog,
+  signOut
 }) => {
-  const { signedInUser } = auth;
   const history = useHistory();
   const classes = useStyles();
 
@@ -72,21 +73,21 @@ const Dashboard: React.FunctionComponent<Props> = ({
 
     if (!Object.keys(users).length && storedUser) {
       setUserFromStorage(storedUser);
-    } else if (!userAuthenticated(users, signedInUser)) {
+    } else if (!userAuthenticated(users, auth.signedInUser)) {
       history.push('/');
     }
-  }, [users]);
+  }, [users, auth.signedInUser]);
 
-  if (userAuthenticated(users, signedInUser)) {
+  if (userAuthenticated(users, auth.signedInUser)) {
     return (
         <div className={classes.dashboard}>
-          <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}/>
+          <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]} signOut={signOut}/>
           <DashboardBody
               getLogFeed={getLogFeed}
               postComment={postComment}
               logFeeds={logFeeds}
               newComments={newComments}
-              user={users[signedInUser]?.user}
+              user={users[auth.signedInUser]?.user}
               groupMemberships={groupMembershipInfo.items}
               notificationInfo={notificationInfo}
               deletedLogs={deletedLogs}

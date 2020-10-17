@@ -9,6 +9,7 @@ import bcrypt from 'bcryptjs';
 import moment from 'moment';
 import {AuthState, User} from "../types";
 import {Dispatch} from "redux";
+import {auth} from "../../datasources/authRequest";
 
 // Actions
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
@@ -41,6 +42,10 @@ interface SignInSuccessAction {
 interface SignInFailureAction {
   type: typeof SIGNIN_FAILURE;
   status: string;
+}
+
+interface SignOutAction {
+  type: typeof SIGNOUT;
 }
 
 interface ForgotPasswordRequestAction {
@@ -79,6 +84,7 @@ type AuthActionTypes =
     SignInRequestAction |
     SignInSuccessAction |
     SignInFailureAction |
+    SignOutAction |
     ForgotPasswordRequestAction |
     ForgotPasswordSuccessAction |
     ForgotPasswordFailureAction |
@@ -101,6 +107,8 @@ export default function reducer(state = initialState, action : AuthActionTypes) 
       return signInSuccessReducer(state, action);
     case SIGNIN_FAILURE:
       return signInFailureReducer(state, action);
+    case SIGNOUT:
+      return signOutReducer(state, action);
     case FORGOT_PASSWORD_EMAIL_REQUEST:
       return {
         ...state
@@ -193,6 +201,19 @@ function signInFailureReducer(state: AuthState, action: SignInFailureAction): Au
   };
 }
 
+function signOutReducer(state: AuthState, action: SignOutAction): AuthState {
+  return {
+    ...state,
+    auth: {
+      isFetching: false,
+      lastUpdated: moment().unix(),
+      signedInUser: null,
+      status: "SIGNED OUT"
+    },
+    user: {}
+  }
+}
+
 function setUserFromStorageReducer(state: AuthState, action: SetUserFromStorageAction): AuthState {
   const existingUser = state.user[action.user.username] ?? {};
 
@@ -243,6 +264,12 @@ export function signInFailure(status: string): SignInFailureAction {
   }
 }
 
+export function signOut(): SignOutAction {
+  return {
+    type: SIGNOUT
+  }
+}
+
 export function forgotPasswordRequest(): ForgotPasswordRequestAction {
   return {
     type: FORGOT_PASSWORD_EMAIL_REQUEST
@@ -276,6 +303,14 @@ export function signIn(username: string, password: string) {
     dispatch(signInRequest(username, "PENDING"));
 
     try {
+      const authResponse = await auth.post(`token`, {
+        clientId: username,
+        clientSecret: password
+      });
+
+      const { result: token } = authResponse.data;
+      localStorage.setItem('token', token);
+
       const response = await api.get(`users/${username}`);
 
       const { user } = response.data;
@@ -288,7 +323,7 @@ export function signIn(username: string, password: string) {
       }
     } catch (error) {
       const { response } = error;
-      if (response.status === 400) {
+      if (response?.status === 400) {
         dispatch(signInFailure("INVALID USER"));
       } else {
         dispatch(signInFailure("INTERNAL ERROR"));
