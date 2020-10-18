@@ -10,6 +10,7 @@ describe('Dashboard E2E Tests', () => {
   beforeEach(() => {
     cy.server();
     cy.setUserInLocalStorage();
+    cy.setTokenInLocalStorage();
   });
 
   it('has a side panel with expandable accordions', () => {
@@ -117,6 +118,9 @@ describe('Dashboard E2E Tests', () => {
   it('has the ability to comment on logs', () => {
     cy.route('POST', '/api/v2/comments/').as('createCommentRoute');
     cy.visit('/dashboard');
+
+    cy.get('#logFeed .exerciseLog textarea').eq(0).type("I'm the existing comment.");
+    cy.get('#logFeed .exerciseLog .addIcon').eq(0).click();
 
     cy.get('#logFeed .exerciseLog .commentList')
       .eq(0)

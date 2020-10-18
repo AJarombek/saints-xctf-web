@@ -2,7 +2,9 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="exerciseLog-0-1-1 exerciseLog-d0-0-1-13 exerciseLog"
+  className="exerciseLog-0-1-1 exerciseLog-d0-0-1-22 exerciseLog"
+  onMouseLeave={[Function]}
+  onMouseOver={[Function]}
 >
   <div
     className="headerSection-0-1-2"
@@ -12,7 +14,7 @@ exports[`renders correctly 1`] = `
     >
       <a
         className="titleLink-0-1-4"
-        href="/user/andy"
+        href="/profile/andy"
         onClick={[Function]}
       >
         Andrew
@@ -72,13 +74,13 @@ exports[`renders correctly 1`] = `
     className="commentSection-0-1-12"
   >
     <div
-      className="comments-0-1-14 comments"
+      className="comments-0-1-23 comments"
     >
       <div
-        className="newCommentForm-0-1-15"
+        className="newCommentForm-0-1-24"
       >
         <textarea
-          className="newComment-0-1-16 newComment-d0-0-1-28 blurNewComment-0-1-18"
+          className="newComment-0-1-25 newComment-d0-0-1-37 blurNewComment-0-1-27"
           disabled={false}
           maxLength={1000}
           onChange={[Function]}
@@ -87,7 +89,7 @@ exports[`renders correctly 1`] = `
         />
       </div>
       <div
-        className="commentList commentList-0-1-22"
+        className="commentList commentList-0-1-31"
       />
     </div>
   </div>

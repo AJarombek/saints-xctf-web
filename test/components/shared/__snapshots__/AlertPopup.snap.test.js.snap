@@ -12,11 +12,11 @@ exports[`renders correctly 1`] = `
     >
       
     </p>
-    <p
+    <div
       className="message-0-1-4"
     >
       An error occurred.
-    </p>
+    </div>
     <p
       className="closeIcon-0-1-5"
       onClick={[Function]}

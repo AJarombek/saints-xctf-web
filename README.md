@@ -27,6 +27,15 @@ nvm use v10.15.3
 yarn start
 ```
 
+**Running snapshot, unit, and integration tests**
+
+```bash
+yarn test
+
+# Update snapshots
+yarn test-update
+```
+
 ### Files
 
 | Filename                 | Description                                                                |

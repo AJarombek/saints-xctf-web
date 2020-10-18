@@ -27,7 +27,7 @@ exports[`renders correctly 1`] = `
       >
         <a
           className="titleLink-0-1-12"
-          href="/user/andy"
+          href="/profile/andy"
           onClick={[Function]}
         >
           Andy

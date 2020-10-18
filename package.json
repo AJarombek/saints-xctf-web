@@ -106,6 +106,7 @@
     "build:dev": "webpack --env development",
     "build": "webpack --env production",
     "deploy": "node ./dist/bundle.js",
-    "start": "webpack-dev-server --hot --inline --env local"
+    "start": "webpack-dev-server --hot --inline --env local",
+    "start-e2e": "webpack-dev-server --hot --inline --env e2e"
   }
 }

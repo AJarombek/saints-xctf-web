@@ -1,11 +1,8 @@
-// https://on.cypress.io/custom-commands
-
 /**
- * Mock the SaintsXCTF API calls made from the UI.
+ * Custom commands to use in Cypress tests.  https://on.cypress.io/custom-commands
+ * @author Andrew Jarombek
+ * @since 7/18/2020
  */
-Cypress.Commands.add('mockAPI', () => {
-  cy.server();
-});
 
 Cypress.Commands.add('setUserInLocalStorage', () => {
   localStorage.setItem('user', JSON.stringify({
@@ -29,4 +26,8 @@ Cypress.Commands.add('setUserInLocalStorage', () => {
     username: 'andy',
     week_start: 'monday'
   }));
+});
+
+Cypress.Commands.add('setTokenInLocalStorage', () => {
+  localStorage.setItem('token', 'j.w.t');
 });
