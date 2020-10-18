@@ -5,7 +5,7 @@
  */
 
 import React, {useEffect, useMemo} from 'react';
-import {RootState} from "../../redux/types";
+import {GroupMembers, RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
 import {useHistory, useRouteMatch} from "react-router-dom";
 import {userAuthenticated} from "../../utils/auth";
@@ -17,6 +17,7 @@ import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 import ProfileBody from "../../components/profile/ProfileBody/ProfileBody";
 import {addComment, deleteLog, logFeed, postComment} from "../../redux/modules/logs";
 import {getUser, getUserFlair, setUser} from "../../redux/modules/profile";
+import {getGroupMemberships} from "../../redux/modules/memberships";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
@@ -24,7 +25,8 @@ const mapStateToProps = (state: RootState) => ({
     logFeeds: state.logs.feeds,
     newComments: state.logs.newComments,
     deletedLogs: state.logs.deletedLogs,
-    users: state.profile.users
+    users: state.profile.users,
+    groupMembershipInfo: state.memberships.groups
 });
 
 const mapDispatchToProps = {
@@ -36,7 +38,8 @@ const mapDispatchToProps = {
     addComment: addComment,
     deleteLog: deleteLog,
     signOut: signOut,
-    getUserFlair: getUserFlair
+    getUserFlair: getUserFlair,
+    getGroupMemberships: getGroupMemberships,
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -51,6 +54,7 @@ const Profile: React.FunctionComponent<Props> = ({
     authUsers = {},
     logFeeds = {},
     users = {},
+    groupMembershipInfo = {},
     getUser,
     setUser,
     setUserFromStorage,
@@ -61,7 +65,8 @@ const Profile: React.FunctionComponent<Props> = ({
     newComments,
     deletedLogs,
     signOut,
-    getUserFlair
+    getUserFlair,
+    getGroupMemberships
 }) => {
     const routeMatch = useRouteMatch();
     const history = useHistory();
@@ -84,8 +89,6 @@ const Profile: React.FunctionComponent<Props> = ({
             } else {
                 getUser(username);
             }
-
-            getUserFlair(username);
         }
     }, [auth.signedInUser, users]);
 
@@ -105,11 +108,14 @@ const Profile: React.FunctionComponent<Props> = ({
                 <ProfileBody
                     user={users[username]?.user}
                     flair={users[username]?.flair}
+                    groupMemberships={groupMembershipInfo.items}
                     getLogFeed={getLogFeed}
                     logFeeds={logFeeds}
                     postComment={postComment}
                     addComment={addComment}
                     deleteLog={deleteLog}
+                    getUserFlair={getUserFlair}
+                    getGroupMemberships={getGroupMemberships}
                     newComments={newComments}
                     deletedLogs={deletedLogs}
                 />

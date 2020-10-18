@@ -16,7 +16,15 @@ const PageTabs: React.FunctionComponent<IProps> = () => {
     const classes = useStyles();
 
     return (
-        <div className={classes.tabs}></div>
+        <div className={classes.tabs}>
+            <div>
+                <p onClick={() => {}}>Exercise Logs</p>
+                <p onClick={() => {}}>Monthly Calendar</p>
+                <p onClick={() => {}}>Weekly Chart</p>
+                <p onClick={() => {}}>Details</p>
+                <p onClick={() => {}}>Edit Profile</p>
+            </div>
+        </div>
     );
 };
 

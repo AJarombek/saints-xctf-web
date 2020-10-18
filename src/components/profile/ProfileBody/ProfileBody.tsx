@@ -11,7 +11,7 @@ import PictureTitle from "../../shared/PictureTitle/PictureTitle";
 import Flair from "../Flair/Flair";
 import Memberships from "../Memberships/Memberships";
 import PageTabs from "../../shared/PageTabs/PageTabs";
-import {DeletedLogs, FlairMeta, LogFeeds, NewComments, UserMeta} from "../../../redux/types";
+import {DeletedLogs, FlairMeta, GroupMember, LogFeeds, NewComments, UserMeta} from "../../../redux/types";
 import PaginationBar from "../../shared/PaginationBar/PaginationBar";
 import LogFeed from "../../shared/LogFeed/LogFeed";
 
@@ -21,11 +21,14 @@ interface IProps {
     addComment: (logId: number, content: string, username: string, first: string, last: string,
                  filterBy: string, bucket: string, page: number, index: number) => void;
     deleteLog: (logId: number) => void;
+    getGroupMemberships: (username: string) => void;
+    getUserFlair: (username: string) => void;
     logFeeds: LogFeeds;
     newComments: NewComments;
     deletedLogs: DeletedLogs;
     user: UserMeta;
     flair: FlairMeta;
+    groupMemberships: GroupMember[];
 }
 
 enum Tabs {
@@ -39,11 +42,14 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
     postComment,
     addComment,
     deleteLog,
+    getGroupMemberships,
+    getUserFlair,
     logFeeds,
     newComments,
     deletedLogs,
     user,
-    flair
+    flair,
+    groupMemberships
 }) => {
     const classes = useStyles();
 
@@ -60,9 +66,19 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
 
     useEffect(() => {
         if (user) {
-            setBucket(user.username);
+            if (user.username !== bucket) {
+                setBucket(user.username);
+            }
+
+            if (!groupMemberships) {
+                getGroupMemberships(user.username);
+            }
+
+            if (!flair) {
+                getUserFlair(user.username);
+            }
         }
-    }, [user]);
+    }, [user, groupMemberships, flair]);
 
     const totalPages: number = useMemo(() => {
         return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0
@@ -78,7 +94,7 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
                         subTitle={`@${user?.username}`}
                     />
                     <Flair flair={flair} />
-                    <Memberships />
+                    <Memberships groupMemberships={groupMemberships} />
                     <PageTabs />
                 </aside>
                 <section>

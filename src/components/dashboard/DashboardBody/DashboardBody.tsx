@@ -17,7 +17,7 @@ interface IProps {
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     addComment: (logId: number, content: string, username: string, first: string, last: string,
         filterBy: string, bucket: string, page: number, index: number) => void;
-    getGroupMemberships: (username: string) => void,
+    getGroupMemberships: (username: string) => void;
     getUserNotifications: (username: string) => void;
     deleteLog: (logId: number) => void;
     logFeeds: LogFeeds;
@@ -57,13 +57,15 @@ const DashboardBody: React.FunctionComponent<IProps> = ({
 
     useEffect(() => {
         if (user) {
-            if (!groupMemberships?.length) {
+            if (!groupMemberships) {
                 getGroupMemberships(user.username);
             }
 
-            getUserNotifications(user.username);
+            if (!notificationInfo.items) {
+                getUserNotifications(user.username);
+            }
         }
-    }, [user]);
+    }, [user, groupMemberships]);
 
     const totalPages: number = useMemo(() => {
         return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0

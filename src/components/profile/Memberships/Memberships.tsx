@@ -7,16 +7,21 @@
 import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
+import {GroupMember} from "../../../redux/types";
 
-interface IProps {}
+interface IProps {
+    groupMemberships?: GroupMember[];
+}
 
 const useStyles = createUseStyles(styles);
 
-const Memberships: React.FunctionComponent<IProps> = () => {
+const Memberships: React.FunctionComponent<IProps> = ({ groupMemberships = [] }) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.memberships}></div>
+        <div className={classes.memberships}>
+            {groupMemberships.map((membership) => (<p>{membership.group_title}</p>))}
+        </div>
     );
 };
 
