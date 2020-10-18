@@ -7,23 +7,35 @@
 import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
+import { ProfileTab } from "../../profile/ProfileBody/ProfileBody";
 
-interface IProps {}
+interface IProps {
+    currentTab: ProfileTab;
+    viewExerciseLogs: () => void;
+    viewMonthlyCalendar: () => void;
+    viewWeeklyChart: () => void;
+    viewDetails: () => void;
+    viewEditProfile: () => void;
+}
 
 const useStyles = createUseStyles(styles);
 
-const PageTabs: React.FunctionComponent<IProps> = () => {
+const PageTabs: React.FunctionComponent<IProps> = ({
+    viewExerciseLogs,
+    viewMonthlyCalendar,
+    viewWeeklyChart,
+    viewDetails,
+    viewEditProfile
+}) => {
     const classes = useStyles();
 
     return (
         <div className={classes.tabs}>
-            <div>
-                <p onClick={() => {}}>Exercise Logs</p>
-                <p onClick={() => {}}>Monthly Calendar</p>
-                <p onClick={() => {}}>Weekly Chart</p>
-                <p onClick={() => {}}>Details</p>
-                <p onClick={() => {}}>Edit Profile</p>
-            </div>
+            <p className={classes.tab} onClick={viewExerciseLogs}>Exercise Logs</p>
+            <p className={classes.tab} onClick={viewMonthlyCalendar}>Monthly Calendar</p>
+            <p className={classes.tab} onClick={viewWeeklyChart}>Weekly Chart</p>
+            <p className={classes.tab} onClick={viewDetails}>Details</p>
+            <p className={classes.tab} onClick={viewEditProfile}>Edit Profile</p>
         </div>
     );
 };

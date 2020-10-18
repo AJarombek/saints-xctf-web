@@ -73,7 +73,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
 
     if (!Object.keys(users).length && storedUser) {
       setUserFromStorage(storedUser);
-    } else if (!userAuthenticated(users, auth.signedInUser)) {
+    } else if (!userAuthenticated(users, auth.signedInUser) && !storedUser) {
       history.push('/');
     }
   }, [users, auth.signedInUser]);

@@ -77,7 +77,7 @@ const Profile: React.FunctionComponent<Props> = ({
 
         if (!Object.keys(authUsers).length && storedUser) {
             setUserFromStorage(storedUser);
-        } else if (!userAuthenticated(authUsers, auth.signedInUser)) {
+        } else if (!userAuthenticated(authUsers, auth.signedInUser) && !storedUser) {
             history.push('/');
         }
     }, [authUsers]);

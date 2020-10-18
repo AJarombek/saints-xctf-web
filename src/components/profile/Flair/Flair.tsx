@@ -1,5 +1,5 @@
 /**
- * Component for on the profile page which shows the flair given to the user.
+ * Component on the profile page which shows the flair given to the user.
  * @author Andrew Jarombek
  * @since 9/8/2020
  */

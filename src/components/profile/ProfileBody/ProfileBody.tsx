@@ -31,7 +31,7 @@ interface IProps {
     groupMemberships: GroupMember[];
 }
 
-enum Tabs {
+export enum ProfileTab {
     LOGS, CALENDAR, CHART, DETAILS, EDIT
 }
 
@@ -53,7 +53,7 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
 }) => {
     const classes = useStyles();
 
-    const [tab, setTab] = useState(Tabs.LOGS);
+    const [tab, setTab] = useState(ProfileTab.LOGS);
     const [filterBy, setFilterBy] = useState('user');
     const [bucket, setBucket] = useState(null);
     const [page, setPage] = useState(1);
@@ -95,10 +95,17 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
                     />
                     <Flair flair={flair} />
                     <Memberships groupMemberships={groupMemberships} />
-                    <PageTabs />
+                    <PageTabs
+                        currentTab={tab}
+                        viewExerciseLogs={() => setTab(ProfileTab.LOGS)}
+                        viewMonthlyCalendar={() => setTab(ProfileTab.CALENDAR)}
+                        viewWeeklyChart={() => setTab(ProfileTab.CHART)}
+                        viewDetails={() => setTab(ProfileTab.DETAILS)}
+                        viewEditProfile={() => setTab(ProfileTab.EDIT)}
+                    />
                 </aside>
                 <section>
-                    {tab === Tabs.LOGS && (
+                    {tab === ProfileTab.LOGS && (
                         <>
                             <LogFeed
                                 logFeeds={logFeeds}
