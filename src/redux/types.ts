@@ -213,7 +213,11 @@ export type Notification = {
     description?: string;
 }
 
-export interface FlairMeta extends Flair, Meta {}
+export interface FlairMeta extends Flairs, Meta {}
+
+export type Flairs = {
+    items?: Flair[];
+}
 
 export type Flair = {
     flair?: string;

@@ -11,7 +11,7 @@ import PictureTitle from "../../shared/PictureTitle/PictureTitle";
 import Flair from "../Flair/Flair";
 import Memberships from "../Memberships/Memberships";
 import PageTabs from "../../shared/PageTabs/PageTabs";
-import {DeletedLogs, LogFeeds, NewComments, UserMeta} from "../../../redux/types";
+import {DeletedLogs, FlairMeta, LogFeeds, NewComments, UserMeta} from "../../../redux/types";
 import PaginationBar from "../../shared/PaginationBar/PaginationBar";
 import LogFeed from "../../shared/LogFeed/LogFeed";
 
@@ -25,6 +25,7 @@ interface IProps {
     newComments: NewComments;
     deletedLogs: DeletedLogs;
     user: UserMeta;
+    flair: FlairMeta;
 }
 
 enum Tabs {
@@ -41,7 +42,8 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
     logFeeds,
     newComments,
     deletedLogs,
-    user
+    user,
+    flair
 }) => {
     const classes = useStyles();
 
@@ -75,7 +77,7 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
                         title={`${user?.first} ${user?.last}`}
                         subTitle={`@${user?.username}`}
                     />
-                    <Flair />
+                    <Flair flair={flair} />
                     <Memberships />
                     <PageTabs />
                 </aside>

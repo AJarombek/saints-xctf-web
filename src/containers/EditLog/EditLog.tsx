@@ -90,7 +90,11 @@ const EditLog: React.FunctionComponent<Props> = ({
     if (userAuthenticated(users, auth.signedInUser) && logValidated) {
         return (
             <div className={classes.editLog}>
-                <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]} signOut={signOut}/>
+                <NavBar
+                    includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}
+                    signOut={signOut}
+                    user={users[auth.signedInUser]?.user}
+                />
                 {errorNotFound ?
                     <NotFound />
                     :

@@ -16,7 +16,7 @@ import NavBar from '../../components/shared/NavBar';
 import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
 import ProfileBody from "../../components/profile/ProfileBody/ProfileBody";
 import {addComment, deleteLog, logFeed, postComment} from "../../redux/modules/logs";
-import {getUser, setUser} from "../../redux/modules/profile";
+import {getUser, getUserFlair, setUser} from "../../redux/modules/profile";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
@@ -36,6 +36,7 @@ const mapDispatchToProps = {
     addComment: addComment,
     deleteLog: deleteLog,
     signOut: signOut,
+    getUserFlair: getUserFlair
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -59,7 +60,8 @@ const Profile: React.FunctionComponent<Props> = ({
     deleteLog,
     newComments,
     deletedLogs,
-    signOut
+    signOut,
+    getUserFlair
 }) => {
     const routeMatch = useRouteMatch();
     const history = useHistory();
@@ -82,6 +84,8 @@ const Profile: React.FunctionComponent<Props> = ({
             } else {
                 getUser(username);
             }
+
+            getUserFlair(username);
         }
     }, [auth.signedInUser, users]);
 
@@ -93,9 +97,14 @@ const Profile: React.FunctionComponent<Props> = ({
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
             <div className={classes.profile}>
-                <NavBar includeHeaders={["groups", "admin", "signOut", "logo"]} signOut={signOut}/>
+                <NavBar
+                    includeHeaders={["groups", "admin", "signOut", "logo"]}
+                    signOut={signOut}
+                    user={users[username]?.user}
+                />
                 <ProfileBody
                     user={users[username]?.user}
+                    flair={users[username]?.flair}
                     getLogFeed={getLogFeed}
                     logFeeds={logFeeds}
                     postComment={postComment}

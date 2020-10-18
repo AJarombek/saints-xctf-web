@@ -81,7 +81,11 @@ const Dashboard: React.FunctionComponent<Props> = ({
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
         <div className={classes.dashboard}>
-          <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]} signOut={signOut}/>
+          <NavBar
+              includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}
+              signOut={signOut}
+              user={users[auth.signedInUser]?.user}
+          />
           <DashboardBody
               getLogFeed={getLogFeed}
               postComment={postComment}

@@ -193,7 +193,7 @@ function getUserFlairSuccessReducer(state: ProfileState, action: GetUserFlairSuc
                 flair: {
                     isFetching: false,
                     lastUpdated: moment().unix(),
-                    ...action.flair
+                    items: action.flair
                 }
             }
         }
@@ -249,6 +249,29 @@ export function setUser(user: User): SetUserAction {
     }
 }
 
+export function getUserFlairRequest(username: string): GetUserFlairRequestAction {
+    return {
+        type: GET_USER_FLAIR_REQUEST,
+        username,
+    }
+}
+
+export function getUserFlairSuccess(username: string, flair: Flair[]): GetUserFlairSuccessAction {
+    return {
+        type: GET_USER_FLAIR_SUCCESS,
+        username,
+        flair
+    }
+}
+
+export function getUserFlairFailure(username: string, serverError: string): GetUserFlairFailureAction {
+    return {
+        type: GET_USER_FLAIR_FAILURE,
+        username,
+        serverError
+    }
+}
+
 export function getUser(username: string) {
     return async function (dispatch: Dispatch) {
         dispatch(getUserRequest(username));
@@ -263,6 +286,24 @@ export function getUser(username: string) {
             const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
             dispatch(getUserFailure(username, serverError));
+        }
+    }
+}
+
+export function getUserFlair(username: string) {
+    return async function (dispatch: Dispatch) {
+        dispatch(getUserFlairRequest(username));
+
+        try {
+            const response = await api.get(`users/flair/${username}`);
+            const { flair } = response.data;
+
+            dispatch(getUserFlairSuccess(username, flair));
+        } catch (error) {
+            const { response } = error;
+            const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+            dispatch(getUserFlairFailure(username, serverError));
         }
     }
 }

@@ -62,7 +62,11 @@ const NewLog: React.FunctionComponent<Props> = ({
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
             <div className={classes.newLog}>
-                <NavBar includeHeaders={["profile", "groups", "admin", "signOut", "logo"]} signOut={signOut}/>
+                <NavBar
+                    includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}
+                    signOut={signOut}
+                    user={users[auth.signedInUser]?.user}
+                />
                 <LogBody
                     postLog={postLog}
                     invalidateLogCreated={invalidateLogCreated}

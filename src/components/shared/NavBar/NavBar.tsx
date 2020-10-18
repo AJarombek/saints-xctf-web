@@ -13,15 +13,21 @@ import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-component
 
 // @ts-ignore
 import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
+import {UserMeta} from "../../../redux/types";
 
 interface IProps {
   includeHeaders?: Array<string>;
   signOut?: () => void;
+  user?: UserMeta;
 }
 
 const useStyles = createUseStyles(styles);
 
-const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [], signOut = () => {} }) => {
+const NavBar: React.FunctionComponent<IProps> = ({
+  includeHeaders = [],
+  signOut = () => {},
+  user
+}) => {
   const classes = useStyles();
 
   const history = useHistory();
@@ -75,7 +81,7 @@ const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [], signOut 
     {
       name: 'profile',
       content: 'Profile',
-      onClick: () => navigateMobile('/profile')
+      onClick: () => navigateMobile(`/profile/${user?.username}`)
     },
     {
       name: 'groups',
@@ -179,7 +185,7 @@ const NavBar: React.FunctionComponent<IProps> = ({ includeHeaders = [], signOut 
             </AJButton>
           }
           { includeHeaders.includes('profile') &&
-            <AJButton type="text" className="profileButton" onClick={() => history.push('/profile')}>
+            <AJButton type="text" className="profileButton" onClick={() => history.push(`/profile/${user?.username}`)}>
               Profile
             </AJButton>
           }
