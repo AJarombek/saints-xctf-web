@@ -23,13 +23,11 @@ const PictureTitle: React.FunctionComponent<IProps> = ({ imageUrl, title, subTit
 
     return (
         <div className={classes.container}>
-            <figure>
-                <img src={imageUrl} alt=""/>
+            <figure className={classes.picture}>
+                <img src={imageUrl} alt="" />
             </figure>
-            <div>
-                <h5>{title}</h5>
-            </div>
-            <div>{subTitle}</div>
+            <h5 className={classes.title}>{title}</h5>
+            <div className={classes.subTitle}>{subTitle}</div>
         </div>
     );
 };

@@ -89,7 +89,7 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
             <div className={classes.container}>
                 <aside>
                     <PictureTitle
-                        imageUrl={`${user?.username}`}
+                        imageUrl={null}
                         title={`${user?.first} ${user?.last}`}
                         subTitle={`@${user?.username}`}
                     />

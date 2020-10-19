@@ -19,7 +19,7 @@ const HomeFooter: React.FunctionComponent<IProps> = ({ showContactUs = true }) =
         {showContactUs && <a className="contact-us-link" href="mailto:andrew@jarombek.com">Contact Us</a>}
       <a className="sxctf-logo-link" href="#">
         <figure className="sxctf-logo">
-          <img src={saints_xctf_logo}/>
+          <img src={saints_xctf_logo} alt=""/>
         </figure>
       </a>
     </div>

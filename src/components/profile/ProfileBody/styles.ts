@@ -14,7 +14,8 @@ export default {
         display: 'flex',
 
         '& > aside': {
-            flexBasis: '30%'
+            flexBasis: '30%',
+            marginRight: 20
         },
 
         '& > section': {

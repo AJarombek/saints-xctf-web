@@ -265,6 +265,8 @@ export function signInFailure(status: string): SignInFailureAction {
 }
 
 export function signOut(): SignOutAction {
+  localStorage.removeItem('user');
+
   return {
     type: SIGNOUT
   }
