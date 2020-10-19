@@ -16,10 +16,10 @@ export default {
 
         '& > p': {
             textAlign: 'center',
-            margin: '5px 0',
+            margin: '2px 0',
             color: Colors.sxctfRed,
             ...FontMixins.robotoSlabBold(),
-            fontSize: 12
+            fontSize: 13
         }
     }
 };

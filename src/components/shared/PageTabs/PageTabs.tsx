@@ -7,7 +7,8 @@
 import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
-import { ProfileTab } from "../../profile/ProfileBody/ProfileBody";
+import {ProfileTab} from "../../profile/ProfileBody/ProfileBody";
+import classNames from "classnames";
 
 interface IProps {
     currentTab: ProfileTab;
@@ -21,6 +22,7 @@ interface IProps {
 const useStyles = createUseStyles(styles);
 
 const PageTabs: React.FunctionComponent<IProps> = ({
+    currentTab,
     viewExerciseLogs,
     viewMonthlyCalendar,
     viewWeeklyChart,
@@ -31,11 +33,26 @@ const PageTabs: React.FunctionComponent<IProps> = ({
 
     return (
         <div className={classes.tabs}>
-            <p className={classes.tab} onClick={viewExerciseLogs}>Exercise Logs</p>
-            <p className={classes.tab} onClick={viewMonthlyCalendar}>Monthly Calendar</p>
-            <p className={classes.tab} onClick={viewWeeklyChart}>Weekly Chart</p>
-            <p className={classes.tab} onClick={viewDetails}>Details</p>
-            <p className={classes.tab} onClick={viewEditProfile}>Edit Profile</p>
+            <p className={classNames(classes.tab, currentTab === ProfileTab.LOGS && classes.currentTab)}
+               onClick={viewExerciseLogs}>
+                Exercise Logs
+            </p>
+            <p className={classNames(classes.tab, currentTab === ProfileTab.CALENDAR && classes.currentTab)}
+               onClick={viewMonthlyCalendar}>
+                Monthly Calendar
+            </p>
+            <p className={classNames(classes.tab, currentTab === ProfileTab.CHART && classes.currentTab)}
+               onClick={viewWeeklyChart}>
+                Weekly Chart
+            </p>
+            <p className={classNames(classes.tab, currentTab === ProfileTab.DETAILS && classes.currentTab)}
+               onClick={viewDetails}>
+                Details
+            </p>
+            <p className={classNames(classes.tab, currentTab === ProfileTab.EDIT && classes.currentTab)}
+               onClick={viewEditProfile}>
+                Edit Profile
+            </p>
         </div>
     );
 };

@@ -20,7 +20,7 @@ const Flair: React.FunctionComponent<IProps> = ({ flair = {} }) => {
 
     return (
         <div className={classes.flair}>
-            {flair.items?.map((item) => (<p>{item.flair}</p>))}
+            {flair.items?.slice(0, 2).map((item) => (<p>{item.flair}</p>))}
         </div>
     );
 };
