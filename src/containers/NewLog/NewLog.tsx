@@ -4,7 +4,7 @@
  * @since 8/15/2020
  */
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import {RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
 import {useHistory} from "react-router-dom";
@@ -49,6 +49,8 @@ const NewLog: React.FunctionComponent<Props> = ({
     const history = useHistory();
     const classes = useStyles();
 
+    const ref = useRef(null);
+
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
 
@@ -61,11 +63,12 @@ const NewLog: React.FunctionComponent<Props> = ({
 
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
-            <div className={classes.newLog}>
+            <div className={classes.newLog} ref={ref}>
                 <NavBar
                     includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}
                     signOut={signOut}
                     user={users[auth.signedInUser]?.user}
+                    bodyRef={ref}
                 />
                 <LogBody
                     postLog={postLog}

@@ -4,7 +4,7 @@
  * @since 1/12/2020
  */
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -27,6 +27,8 @@ const mapStateToProps = state => ({
 const Home = ({ auth = {}, user = {} }) => {
   const history = useHistory();
 
+  const ref = useRef(null);
+
   useEffect(() => {
     if (userAuthenticated(user, auth.signedInUser)) {
       history.push('/dashboard');
@@ -39,8 +41,8 @@ const Home = ({ auth = {}, user = {} }) => {
     'https://asset.saintsxctf.com/womens-background.jpg';
 
   return (
-    <div className="sxctf-home">
-      <NavBar includeHeaders={["about", "testimonials", "register", "signIn", "logo"]}/>
+    <div className="sxctf-home" ref={ref}>
+      <NavBar includeHeaders={["about", "testimonials", "register", "signIn", "logo"]} bodyRef={ref}/>
       <HomeBody/>
       <div className="sxctf-home-overlay"> </div>
       <img className="sxctf-home-background-img" src={mobileBackgroundPicture} alt="" />

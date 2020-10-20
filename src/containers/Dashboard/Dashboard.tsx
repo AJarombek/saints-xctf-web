@@ -4,7 +4,7 @@
  * @since 5/9/2020
  */
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import {createUseStyles} from "react-jss";
@@ -68,6 +68,8 @@ const Dashboard: React.FunctionComponent<Props> = ({
   const history = useHistory();
   const classes = useStyles();
 
+  const ref = useRef(null);
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
 
@@ -80,11 +82,12 @@ const Dashboard: React.FunctionComponent<Props> = ({
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
-        <div className={classes.dashboard}>
+        <div className={classes.dashboard} ref={ref}>
           <NavBar
               includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}
               signOut={signOut}
               user={users[auth.signedInUser]?.user}
+              bodyRef={ref}
           />
           <DashboardBody
               getLogFeed={getLogFeed}

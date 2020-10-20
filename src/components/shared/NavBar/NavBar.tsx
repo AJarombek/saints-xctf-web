@@ -4,7 +4,7 @@
  * @since 1/12/2020
  */
 
-import React, {useState, createRef} from 'react';
+import React, {useState, createRef, useEffect} from 'react';
 import {createUseStyles} from "react-jss";
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
@@ -19,25 +19,46 @@ interface IProps {
   includeHeaders?: Array<string>;
   signOut?: () => void;
   user?: UserMeta;
+  bodyRef: React.RefObject<any>;
 }
 
 const useStyles = createUseStyles(styles);
 
+const handleScroll = (ref: React.RefObject<any>, setStickyHeader: (isSticky: boolean) => void) => {
+  if (ref.current) {
+    setStickyHeader(ref.current.getBoundingClientRect().top <= -100);
+  }
+};
+
 const NavBar: React.FunctionComponent<IProps> = ({
   includeHeaders = [],
   signOut = () => {},
-  user
+  user,
+  bodyRef
 }) => {
   const classes = useStyles();
 
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [stickyHeader, setStickyHeader] = useState<boolean>(false);
 
   const mobileHamburgerRef: React.RefObject<HTMLInputElement> = createRef();
 
+  const scrollEventListener = () => handleScroll(bodyRef, setStickyHeader);
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollEventListener);
+
+    return () => {
+      window.removeEventListener('scroll', scrollEventListener);
+    };
+  }, []);
+
+  const stickyClass = stickyHeader ? classes.sticky : classes.dry;
+
   const navBarClass = showDropdown ?
-    classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible') :
-    classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-hidden');
+    classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible', stickyClass) :
+    classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-hidden', stickyClass);
 
   const dropdownClass = showDropdown ?
     classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-visible') :

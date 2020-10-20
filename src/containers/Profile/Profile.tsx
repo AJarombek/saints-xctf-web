@@ -4,8 +4,8 @@
  * @since 8/15/2020
  */
 
-import React, {useEffect, useMemo} from 'react';
-import {GroupMembers, RootState} from "../../redux/types";
+import React, {useEffect, useMemo, useRef} from 'react';
+import {RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
 import {useHistory, useRouteMatch} from "react-router-dom";
 import {userAuthenticated} from "../../utils/auth";
@@ -72,6 +72,8 @@ const Profile: React.FunctionComponent<Props> = ({
     const history = useHistory();
     const classes = useStyles();
 
+    const ref = useRef(null);
+
     useEffect(() => {
         const storedUser = JSON.parse(localStorage.getItem('user'));
 
@@ -99,11 +101,12 @@ const Profile: React.FunctionComponent<Props> = ({
 
     if (userAuthenticated(users, auth.signedInUser)) {
         return (
-            <div className={classes.profile}>
+            <div className={classes.profile} ref={ref}>
                 <NavBar
                     includeHeaders={["groups", "admin", "signOut", "logo"]}
                     signOut={signOut}
                     user={users[username]?.user}
+                    bodyRef={ref}
                 />
                 <ProfileBody
                     user={users[username]?.user}

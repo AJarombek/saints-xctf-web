@@ -4,7 +4,7 @@
  * @since 4/30/2020
  */
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import { useHistory } from 'react-router-dom';
 import {connect, ConnectedProps} from 'react-redux';
 import { signIn } from '../../redux/modules/auth';
@@ -31,6 +31,8 @@ const SignIn: React.FunctionComponent<Props> = ({ auth = {}, user = {}, signInUs
   const { isFetching = false, status } = auth;
   const history = useHistory();
 
+  const ref = useRef(null);
+
   useEffect(() => {
     if (userAuthenticated(user, auth.signedInUser)) {
       localStorage.setItem('user', JSON.stringify({
@@ -44,8 +46,8 @@ const SignIn: React.FunctionComponent<Props> = ({ auth = {}, user = {}, signInUs
   }, [user]);
 
   return (
-    <div className="sxctf-sign-in">
-      <NavBar includeHeaders={["home", "register", "logo"]}/>
+    <div className="sxctf-sign-in" ref={ref}>
+      <NavBar includeHeaders={["home", "register", "logo"]} bodyRef={ref}/>
       <SignInBody signIn={signInUser} isFetching={isFetching} status={status}/>
     </div>
   );

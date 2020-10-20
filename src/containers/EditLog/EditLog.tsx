@@ -4,7 +4,7 @@
  * @since 9/5/2020
  */
 
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {RootState} from "../../redux/types";
 import {connect, ConnectedProps} from "react-redux";
 import {useHistory, useRouteMatch} from "react-router-dom";
@@ -55,6 +55,8 @@ const EditLog: React.FunctionComponent<Props> = ({
     const history = useHistory();
     const classes = useStyles();
 
+    const ref = useRef(null);
+
     const [logValidated, setLogValidated] = useState(false);
     const [errorNotFound, setErrorNotFound] = useState(false);
 
@@ -89,11 +91,12 @@ const EditLog: React.FunctionComponent<Props> = ({
 
     if (userAuthenticated(users, auth.signedInUser) && logValidated) {
         return (
-            <div className={classes.editLog}>
+            <div className={classes.editLog} ref={ref}>
                 <NavBar
                     includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}
                     signOut={signOut}
                     user={users[auth.signedInUser]?.user}
+                    bodyRef={ref}
                 />
                 {errorNotFound ?
                     <NotFound />

@@ -4,7 +4,7 @@
  * @since 5/9/2020
  */
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -36,6 +36,8 @@ const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInf
                     registerCredentials, registerBack }) => {
   let { stage = 0 } = registration;
 
+  const ref = useRef(null);
+
   // In the development environment, stages can be skipped by adding the 'stage' query parameter
   // to the URL.
   if (process.env.NODE_ENV === 'local') {
@@ -55,8 +57,8 @@ const Register = ({ auth = {}, user = {}, registration = {}, registerPersonalInf
   }, [user]);
 
   return (
-    <div className="sxctf-register">
-      <NavBar includeHeaders={["home", "signIn", "logo"]}/>
+    <div className="sxctf-register" ref={ref}>
+      <NavBar includeHeaders={["home", "signIn", "logo"]} bodyRef={ref}/>
       <RegisterBody
         stage={stage}
         registerPersonalInfo={registerPersonalInfo}

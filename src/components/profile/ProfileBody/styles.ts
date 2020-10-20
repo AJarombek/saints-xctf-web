@@ -10,7 +10,7 @@ export default {
     container: {
         minHeight: 'calc(100vh - 100px)',
         backgroundColor: Colors.lightBackground,
-        margin: '100px 6% 0 6%',
+        margin: '100px 4% 0 4%',
         display: 'flex',
 
         '& > aside': {
@@ -21,5 +21,15 @@ export default {
         '& > section': {
             flexBasis: '70%'
         }
-    }
+    },
+    '@media screen and (max-width: 1200px)': {
+        container: {
+            margin: '100px 6% 0 2%',
+        }
+    },
+    '@media screen and (max-width: 900px)': {
+        container: {
+            margin: '100px 2% 0 2%',
+        }
+    },
 };

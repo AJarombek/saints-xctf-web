@@ -7,7 +7,7 @@
  * @since 5/18/2020
  */
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useRef} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -24,6 +24,8 @@ const mapStateToProps = state => ({
 const ForgotPasswordReset = ({ auth = {}, user = {} }) => {
   const history = useHistory();
 
+  const ref = useRef(null);
+
   useEffect(() => {
     if (userAuthenticated(user, auth.signedInUser)) {
       history.push('/dashboard');
@@ -31,8 +33,8 @@ const ForgotPasswordReset = ({ auth = {}, user = {} }) => {
   }, [user]);
 
   return (
-    <div className="sxctf-forgot-password-reset">
-      <NavBar includeHeaders={["home", "register", "signIn", "logo"]}/>
+    <div className="sxctf-forgot-password-reset" ref={ref}>
+      <NavBar includeHeaders={["home", "register", "signIn", "logo"]} bodyRef={ref}/>
       <ForgotPasswordResetBody/>
     </div>
   );

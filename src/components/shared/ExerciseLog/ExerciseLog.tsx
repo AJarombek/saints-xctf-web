@@ -143,7 +143,7 @@ const ExerciseLog: React.FunctionComponent<IProps> = ({
                     {!!log.location && <p>Location: {log.location}</p>}
                     {!!log.distance && <p>{log.distance} {log.metric}</p>}
                     {!!log.time && log.time !== "0:00:00" && (
-                        <p>{shortenTime(log.time)} ({shortenTime(log.pace)}/mi)</p>
+                        <p>{shortenTime(log.time)} {log.pace && `(${shortenTime(log.pace)}/mi)`}</p>
                     )}
                 </div>
                 <div className={classes.description}>
