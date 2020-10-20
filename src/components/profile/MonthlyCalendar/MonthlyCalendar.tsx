@@ -16,7 +16,9 @@ const MonthlyCalendar: React.FunctionComponent<IProps> = ({}) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.monthlyCalendar}></div>
+        <div className={classes.monthlyCalendar}>
+
+        </div>
     );
 };
 

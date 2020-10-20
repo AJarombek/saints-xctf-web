@@ -14,17 +14,28 @@ export default {
         display: 'flex',
 
         '& > aside': {
-            flexBasis: '30%',
-            marginRight: 20
+            flexBasis: '20%',
+            marginRight: 40
         },
 
         '& > section': {
-            flexBasis: '70%'
+            flexBasis: '80%',
+            margin: '0 20px'
         }
     },
     '@media screen and (max-width: 1200px)': {
         container: {
             margin: '100px 6% 0 2%',
+
+            '& > aside': {
+                flexBasis: '30%',
+                marginRight: 20
+            },
+
+            '& > section': {
+                flexBasis: '70%',
+                margin: 0
+            }
         }
     },
     '@media screen and (max-width: 900px)': {
