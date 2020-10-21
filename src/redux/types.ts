@@ -45,10 +45,7 @@ export type ProfileState = {
     users?: Users;
 }
 
-export type RangeViewState = {
-    users: UserRangeViews;
-    groups: GroupRangeViews;
-}
+export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
 
 export interface Meta {
     isFetching?: boolean;
@@ -231,38 +228,16 @@ export type Flair = {
     username?: string;
 }
 
-export enum ExerciseTypeCombination {
-    r = 'r',
-    b = 'b',
-    s = 's',
-    o = 'o',
-    rb = 'rb',
-    rs = 'rs',
-    ro = 'ro',
-    bs = 'bs',
-    bo = 'bo',
-    so = 'so',
-    rbs = 'rbs',
-    rbo = 'rbo',
-    rso = 'rso',
-    bso = 'bso',
-    rbso = 'rbso'
-}
+export type RangeViewFilter = 'users' | 'groups';
 
-export type UserRangeViews = {
-    [key: string]: {
-        [key in ExerciseTypeCombination]: {
-            [key: string]: RangeViewItemsMeta
-        }
-    }
-}
+export type RangeViewExerciseType =
+    'r' | 'b' | 's' | 'o' | 'rb' | 'rs' | 'ro' | 'bs' | 'bo' | 'so' | 'rbs' | 'rbo' | 'rso' | 'bso' | 'rbso';
 
-export type GroupRangeViews = {
-    [key: string]: {
-        [key in ExerciseTypeCombination]: {
-            [key: string]: RangeViewItemsMeta
-        }
-    }
+export type RangeViewBuckets = Record<string, RangeViewExerciseTypeFilters>;
+export type RangeViewExerciseTypeFilters = Record<RangeViewExerciseType, RangeViews>;
+
+export type RangeViews = {
+    [key: string]: RangeViewItemsMeta
 }
 
 export interface RangeViewItemsMeta extends RangeViewItems, Meta {}

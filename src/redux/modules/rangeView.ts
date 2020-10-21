@@ -7,7 +7,15 @@
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import {Dispatch} from "redux";
-import {ProfileState, RangeViewItem, RangeViewState} from "../types";
+import {
+    RangeViewBuckets,
+    RangeViewExerciseType,
+    RangeViewExerciseTypeFilters,
+    RangeViewFilter,
+    RangeViewItem,
+    RangeViews,
+    RangeViewState, User
+} from "../types";
 
 // Actions
 const GET_RANGE_VIEW_REQUEST = 'saints-xctf-web/rangeView/GET_RANGE_VIEW_REQUEST';
@@ -67,19 +75,130 @@ export default function reducer(state = initialState, action : RangeViewActionTy
 }
 
 function getRangeViewRequestReducer(state: RangeViewState, action: GetRangeViewRequestAction): RangeViewState {
-    return {
+    const buckets = state[action.filterBy as RangeViewFilter] ?? {} as RangeViewBuckets;
+    const exerciseTypes = buckets[action.bucket] ?? {} as RangeViewExerciseTypeFilters;
+    const rangeViews = exerciseTypes[action.exerciseTypes as RangeViewExerciseType] ?? {} as RangeViews;
 
+    return {
+        ...state,
+        [action.filterBy]: {
+            ...buckets,
+            [action.bucket]: {
+                ...exerciseTypes,
+                [action.exerciseTypes]: {
+                    ...rangeViews,
+                    [`${action.start}:${action.end}`]: {
+                        isFetching: true,
+                        lastUpdated: moment().unix()
+                    }
+                }
+            }
+        }
     };
 }
 
 function getRangeViewSuccessReducer(state: RangeViewState, action: GetRangeViewSuccessAction): RangeViewState {
-    return {
+    const buckets = state[action.filterBy as RangeViewFilter] ?? {} as RangeViewBuckets;
+    const exerciseTypes = buckets[action.bucket] ?? {} as RangeViewExerciseTypeFilters;
+    const rangeViews = exerciseTypes[action.exerciseTypes as RangeViewExerciseType] ?? {} as RangeViews;
 
+    return {
+        ...state,
+        [action.filterBy]: {
+            ...buckets,
+            [action.bucket]: {
+                ...exerciseTypes,
+                [action.exerciseTypes]: {
+                    ...rangeViews,
+                    [`${action.start}:${action.end}`]: {
+                        isFetching: false,
+                        lastUpdated: moment().unix(),
+                        items: action.items,
+                        serverError: null
+                    }
+                }
+            }
+        }
     };
 }
 
 function getRangeViewFailureReducer(state: RangeViewState, action: GetRangeViewFailureAction): RangeViewState {
-    return {
+    const buckets = state[action.filterBy as RangeViewFilter] ?? {} as RangeViewBuckets;
+    const exerciseTypes = buckets[action.bucket] ?? {} as RangeViewExerciseTypeFilters;
+    const rangeViews = exerciseTypes[action.exerciseTypes as RangeViewExerciseType] ?? {} as RangeViews;
 
+    return {
+        ...state,
+        [action.filterBy]: {
+            ...buckets,
+            [action.bucket]: {
+                ...exerciseTypes,
+                [action.exerciseTypes]: {
+                    ...rangeViews,
+                    [`${action.start}:${action.end}`]: {
+                        isFetching: false,
+                        lastUpdated: moment().unix(),
+                        items: null,
+                        serverError: action.serverError
+                    }
+                }
+            }
+        }
     };
+}
+
+// Action Creators
+export function getRangeViewRequest(
+    filterBy: string,
+    bucket: string,
+    exerciseTypes: string,
+    start: string,
+    end: string
+): GetRangeViewRequestAction {
+    return {
+        type: GET_RANGE_VIEW_REQUEST,
+        filterBy,
+        bucket,
+        exerciseTypes,
+        start,
+        end
+    }
+}
+
+export function getRangeViewSuccess(
+    filterBy: string,
+    bucket: string,
+    exerciseTypes: string,
+    start: string,
+    end: string,
+    items: RangeViewItem[]
+): GetRangeViewSuccessAction {
+    return {
+        type: GET_RANGE_VIEW_SUCCESS,
+        filterBy,
+        bucket,
+        exerciseTypes,
+        start,
+        end,
+        items
+    }
+}
+
+export function getRangeViewFailure(
+    filterBy: string,
+    bucket: string,
+    exerciseTypes: string,
+    start: string,
+    end: string,
+    serverError: string
+): GetRangeViewFailureAction {
+    return {
+        type: GET_RANGE_VIEW_FAILURE,
+        filterBy,
+        bucket,
+        exerciseTypes,
+        start,
+        end,
+        serverError
+    }
 }
