@@ -7,7 +7,7 @@
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import {Dispatch} from "redux";
-import {RangeViewItem} from "../types";
+import {ProfileState, RangeViewItem, RangeViewState} from "../types";
 
 // Actions
 const GET_RANGE_VIEW_REQUEST = 'saints-xctf-web/rangeView/GET_RANGE_VIEW_REQUEST';
@@ -43,4 +43,43 @@ interface GetRangeViewFailureAction {
     start: string;
     end: string;
     serverError: string;
+}
+
+type RangeViewActionTypes = GetRangeViewRequestAction | GetRangeViewSuccessAction | GetRangeViewFailureAction;
+
+// Reducer
+const initialState: RangeViewState = {
+    users: {},
+    groups: {},
+};
+
+export default function reducer(state = initialState, action : RangeViewActionTypes) {
+    switch (action.type) {
+        case GET_RANGE_VIEW_REQUEST:
+            return getRangeViewRequestReducer(state, action);
+        case GET_RANGE_VIEW_SUCCESS:
+            return getRangeViewSuccessReducer(state, action);
+        case GET_RANGE_VIEW_FAILURE:
+            return getRangeViewFailureReducer(state, action);
+        default:
+            return state;
+    }
+}
+
+function getRangeViewRequestReducer(state: RangeViewState, action: GetRangeViewRequestAction): RangeViewState {
+    return {
+
+    };
+}
+
+function getRangeViewSuccessReducer(state: RangeViewState, action: GetRangeViewSuccessAction): RangeViewState {
+    return {
+
+    };
+}
+
+function getRangeViewFailureReducer(state: RangeViewState, action: GetRangeViewFailureAction): RangeViewState {
+    return {
+
+    };
 }

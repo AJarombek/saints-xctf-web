@@ -10,6 +10,7 @@ export type RootState = {
     memberships: MembershipsState;
     notifications: NotificationsState;
     profile: ProfileState;
+    rangeView: RangeViewState;
 }
 
 export type LogsState = {
@@ -42,6 +43,11 @@ export type NotificationsState = {
 
 export type ProfileState = {
     users?: Users;
+}
+
+export type RangeViewState = {
+    users: UserRangeViews;
+    groups: GroupRangeViews;
 }
 
 export interface Meta {
@@ -223,6 +229,46 @@ export type Flair = {
     flair?: string;
     flair_id?: number;
     username?: string;
+}
+
+export enum ExerciseTypeCombination {
+    r = 'r',
+    b = 'b',
+    s = 's',
+    o = 'o',
+    rb = 'rb',
+    rs = 'rs',
+    ro = 'ro',
+    bs = 'bs',
+    bo = 'bo',
+    so = 'so',
+    rbs = 'rbs',
+    rbo = 'rbo',
+    rso = 'rso',
+    bso = 'bso',
+    rbso = 'rbso'
+}
+
+export type UserRangeViews = {
+    [key: string]: {
+        [key in ExerciseTypeCombination]: {
+            [key: string]: RangeViewItemsMeta
+        }
+    }
+}
+
+export type GroupRangeViews = {
+    [key: string]: {
+        [key in ExerciseTypeCombination]: {
+            [key: string]: RangeViewItemsMeta
+        }
+    }
+}
+
+export interface RangeViewItemsMeta extends RangeViewItems, Meta {}
+
+export type RangeViewItems = {
+    items?: RangeViewItem[]
 }
 
 export type RangeViewItem = {
