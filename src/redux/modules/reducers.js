@@ -7,6 +7,7 @@ import logs from './logs';
 import memberships from './memberships';
 import notifications from './notifications';
 import profile from './profile';
+import rangeView from './rangeView';
 
 const createRootReducer = (history) => combineReducers({
   router: connectRouter(history),
@@ -15,7 +16,8 @@ const createRootReducer = (history) => combineReducers({
   logs,
   memberships,
   notifications,
-  profile
+  profile,
+  rangeView
 });
 
 export default createRootReducer;

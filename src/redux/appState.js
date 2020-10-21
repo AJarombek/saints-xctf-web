@@ -111,6 +111,21 @@ const appState = {
       flair: {}
     }
   },
+  rangeView: {
+    users: {
+      joe: {
+        'r': {
+          '2020-08-31:2020-10-04': {
+            isFetching: false,
+            didInvalidate: false,
+            lastUpdated: 1588530313,
+            items: []
+          }
+        }
+      }
+    },
+    groups: {},
+  },
   group: {
     wmenstf: {
       isFetching: false,

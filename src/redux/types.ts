@@ -224,3 +224,9 @@ export type Flair = {
     flair_id?: number;
     username?: string;
 }
+
+export type RangeViewItem = {
+    date: string;
+    feel: number;
+    miles: number;
+}

@@ -7,6 +7,7 @@
 import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
+import Month from "../Month";
 
 interface IProps {}
 
@@ -16,7 +17,9 @@ const Calendar: React.FunctionComponent<IProps> = ({}) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.calendar}></div>
+        <div className={classes.calendar}>
+            <Month />
+        </div>
     );
 };
 
