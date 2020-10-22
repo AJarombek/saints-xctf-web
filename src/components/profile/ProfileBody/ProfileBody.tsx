@@ -144,7 +144,7 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
                         </>
                     )}
                     {tab === ProfileTab.CALENDAR && (
-                        <MonthlyCalendar getRangeView={getRangeView} rangeViews={rangeViews} />
+                        <MonthlyCalendar getRangeView={getRangeView} rangeViews={rangeViews} user={user} />
                     )}
                 </section>
             </div>

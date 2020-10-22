@@ -7,12 +7,15 @@
 import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
+import moment from "moment";
 
-interface IProps {}
+interface IProps {
+    date: moment.Moment;
+}
 
 const useStyles = createUseStyles(styles);
 
-const Day: React.FunctionComponent<IProps> = ({}) => {
+const Day: React.FunctionComponent<IProps> = ({ date }) => {
     const classes = useStyles();
 
     return (
