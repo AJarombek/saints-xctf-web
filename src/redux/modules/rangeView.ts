@@ -14,7 +14,7 @@ import {
     RangeViewFilter,
     RangeViewItem,
     RangeViews,
-    RangeViewState, User
+    RangeViewState
 } from "../types";
 
 // Actions
@@ -200,5 +200,23 @@ export function getRangeViewFailure(
         start,
         end,
         serverError
+    }
+}
+
+export function getRangeView(filterBy: string, bucket: string, exerciseTypes: string, start: string, end: string) {
+    return async function (dispatch: Dispatch) {
+        dispatch(getRangeViewRequest(filterBy, bucket, exerciseTypes, start, end));
+
+        try {
+            const response = await api.get(`range_view/${filterBy}/${bucket}/${exerciseTypes}/${start}/${end}`);
+            const { range_view: rangeView } = response.data;
+
+            dispatch(getRangeViewSuccess(filterBy, bucket, exerciseTypes, start, end, rangeView));
+        } catch (error) {
+            const { response } = error;
+            const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+            dispatch(getRangeViewFailure(filterBy, bucket, exerciseTypes, start, end, serverError));
+        }
     }
 }

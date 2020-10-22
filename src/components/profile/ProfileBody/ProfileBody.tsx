@@ -11,9 +11,18 @@ import PictureTitle from "../../shared/PictureTitle/PictureTitle";
 import Flair from "../Flair/Flair";
 import Memberships from "../Memberships/Memberships";
 import PageTabs from "../../shared/PageTabs/PageTabs";
-import {DeletedLogs, FlairMeta, GroupMember, LogFeeds, NewComments, UserMeta} from "../../../redux/types";
+import {
+    DeletedLogs,
+    FlairMeta,
+    GroupMember,
+    LogFeeds,
+    NewComments,
+    RangeViewExerciseTypeFilters,
+    UserMeta
+} from "../../../redux/types";
 import PaginationBar from "../../shared/PaginationBar/PaginationBar";
 import LogFeed from "../../shared/LogFeed/LogFeed";
+import MonthlyCalendar from "../MonthlyCalendar";
 
 interface IProps {
     getLogFeed: (filterBy: string, bucket: string, limit: number, offset: number) => void;
@@ -23,12 +32,14 @@ interface IProps {
     deleteLog: (logId: number) => void;
     getGroupMemberships: (username: string) => void;
     getUserFlair: (username: string) => void;
+    getRangeView: (filterBy: string, bucket: string, exerciseTypes: string, start: string, end: string) => void;
     logFeeds: LogFeeds;
     newComments: NewComments;
     deletedLogs: DeletedLogs;
     user: UserMeta;
     flair: FlairMeta;
     groupMemberships: GroupMember[];
+    rangeViews: RangeViewExerciseTypeFilters;
 }
 
 export enum ProfileTab {
@@ -44,12 +55,14 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
     deleteLog,
     getGroupMemberships,
     getUserFlair,
+    getRangeView,
     logFeeds,
     newComments,
     deletedLogs,
     user,
     flair,
-    groupMemberships
+    groupMemberships,
+    rangeViews
 }) => {
     const classes = useStyles();
 
@@ -129,6 +142,9 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
                                 }}
                             />
                         </>
+                    )}
+                    {tab === ProfileTab.CALENDAR && (
+                        <MonthlyCalendar getRangeView={getRangeView} rangeViews={rangeViews} />
                     )}
                 </section>
             </div>

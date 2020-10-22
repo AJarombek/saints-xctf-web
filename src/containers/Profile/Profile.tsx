@@ -18,6 +18,7 @@ import ProfileBody from "../../components/profile/ProfileBody/ProfileBody";
 import {addComment, deleteLog, logFeed, postComment} from "../../redux/modules/logs";
 import {getUser, getUserFlair, setUser} from "../../redux/modules/profile";
 import {getGroupMemberships} from "../../redux/modules/memberships";
+import {getRangeView} from "../../redux/modules/rangeView";
 
 const mapStateToProps = (state: RootState) => ({
     auth: state.auth.auth,
@@ -26,7 +27,8 @@ const mapStateToProps = (state: RootState) => ({
     newComments: state.logs.newComments,
     deletedLogs: state.logs.deletedLogs,
     users: state.profile.users,
-    groupMembershipInfo: state.memberships.groups
+    groupMembershipInfo: state.memberships.groups,
+    rangeViews: state.rangeView
 });
 
 const mapDispatchToProps = {
@@ -40,6 +42,7 @@ const mapDispatchToProps = {
     signOut: signOut,
     getUserFlair: getUserFlair,
     getGroupMemberships: getGroupMemberships,
+    getRangeView: getRangeView
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
@@ -55,6 +58,7 @@ const Profile: React.FunctionComponent<Props> = ({
     logFeeds = {},
     users = {},
     groupMembershipInfo = {},
+    rangeViews = {},
     getUser,
     setUser,
     setUserFromStorage,
@@ -66,7 +70,8 @@ const Profile: React.FunctionComponent<Props> = ({
     deletedLogs,
     signOut,
     getUserFlair,
-    getGroupMemberships
+    getGroupMemberships,
+    getRangeView
 }) => {
     const routeMatch = useRouteMatch();
     const history = useHistory();
@@ -121,6 +126,8 @@ const Profile: React.FunctionComponent<Props> = ({
                     getGroupMemberships={getGroupMemberships}
                     newComments={newComments}
                     deletedLogs={deletedLogs}
+                    getRangeView={getRangeView}
+                    rangeViews={rangeViews.users[username]}
                 />
                 <HomeFooter showContactUs={false} />
             </div>
