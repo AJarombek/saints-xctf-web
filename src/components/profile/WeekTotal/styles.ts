@@ -5,12 +5,15 @@
  */
 
 import {FontMixins} from "../../../styles/mixins";
+import color from "color";
+import Colors from "../../../styles/colors";
 
 export default {
     weekTotal: {
         position: 'relative',
         width: `${(1 / 8) * 100}%`,
-        border: '1px solid',
+        border: '1px solid #555',
+        backgroundColor: color(Colors.lightBackground).darken(0.05).hex(),
 
         '&:before': {
             content: '" "',

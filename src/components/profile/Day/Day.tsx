@@ -8,6 +8,7 @@ import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import moment from "moment";
+import classNames from "classnames";
 
 interface IProps {
     date: moment.Moment;
@@ -22,13 +23,15 @@ const Day: React.FunctionComponent<IProps> = ({ date, monthStart, monthEnd, mile
     const classes = useStyles();
 
     return (
-        <div className={classes.day}>
+        <div className={classNames(classes.day, date >= monthStart && date <= monthEnd && classes.currentMonth)}>
             <div>
                 <p className={classes.dayOfMonth}>{date.date()}</p>
-                <div>
-                    <p>{miles}</p>
-                    <p>Miles</p>
-                </div>
+                {miles && (
+                    <div className={classes.miles}>
+                        <p>{miles}</p>
+                        <p>Miles</p>
+                    </div>
+                )}
             </div>
         </div>
     );

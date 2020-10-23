@@ -26,12 +26,24 @@ const Calendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeViews, f
     const [currentMonth, setCurrentMonth] = useState(moment().startOf('month'));
 
     const start = useMemo(() => {
-        return currentMonth.clone().startOf('week');
-    }, [currentMonth]);
+        const startOfRange = currentMonth.clone().startOf('week');
+
+        if (user.week_start === 'monday') {
+            startOfRange.add(1, 'day');
+        }
+
+        return startOfRange;
+    }, [currentMonth, user]);
 
     const end = useMemo(() => {
-        return currentMonth.clone().endOf('month').endOf('week');
-    }, [currentMonth]);
+        const endOfRange = currentMonth.clone().endOf('month').endOf('week');
+
+        if (user.week_start === 'monday') {
+            endOfRange.add(1, 'day');
+        }
+
+        return endOfRange;
+    }, [currentMonth, user]);
 
     const currentRangeView = useMemo(() => {
         if (rangeViews) {
@@ -43,10 +55,10 @@ const Calendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeViews, f
     }, [rangeViews, filter, currentMonth]);
 
     useEffect(() => {
-        if (!currentRangeView?.items && !currentRangeView?.isFetching) {
+        if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching) {
             getRangeView('user', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
         }
-    }, [filter, currentMonth]);
+    }, [filter, currentMonth, user]);
 
     return (
         <div className={classes.calendar}>
@@ -58,6 +70,12 @@ const Calendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeViews, f
                 <p onClick={() => setCurrentMonth(currentMonth.add(1, 'month'))}>
                     &#x35;
                 </p>
+            </div>
+            <div className={classes.weekdays}>
+                {Array(7).fill(0).map((_, i) => (
+                    <p>{start.clone().add(i, 'days').format('dddd')}</p>
+                ))}
+                <p>Total</p>
             </div>
             <Month
                 rangeView={currentRangeView}

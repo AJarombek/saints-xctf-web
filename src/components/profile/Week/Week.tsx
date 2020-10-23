@@ -25,7 +25,12 @@ const Week: React.FunctionComponent<IProps> = ({ start, monthStart, monthEnd }) 
     return (
         <div className={classes.week}>
             {Array(7).fill(0).map((_, i) => (
-                <Day date={start.clone().add(i, 'days')} monthStart={monthStart} monthEnd={monthEnd} />
+                <Day
+                    date={start.clone().add(i, 'days')}
+                    monthStart={monthStart}
+                    monthEnd={monthEnd}
+                    miles={null}
+                />
             ))}
             <WeekTotal miles={0} />
         </div>

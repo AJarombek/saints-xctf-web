@@ -6,6 +6,6 @@
 
 export default {
     month: {
-        border: '1px solid'
+        border: '1px solid #555'
     }
 };
