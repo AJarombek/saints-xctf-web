@@ -62,11 +62,11 @@ const Calendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeViews, f
 
     return (
         <div className={classes.calendar}>
-            <div>
+            <div className={classes.monthNavigation}>
                 <p onClick={() => setCurrentMonth(currentMonth.subtract(1, 'month'))}>
                     &#x34;
                 </p>
-                <h3>{currentMonth.format('MMMM YYYY')}</h3>
+                <h2>{currentMonth.format('MMMM YYYY')}</h2>
                 <p onClick={() => setCurrentMonth(currentMonth.add(1, 'month'))}>
                     &#x35;
                 </p>

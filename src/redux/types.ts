@@ -3,6 +3,7 @@
  * @author Andrew Jarombek
  * @since 7/23/2020
  */
+import moment from "moment";
 
 export type RootState = {
     auth: AuthState;
@@ -247,7 +248,7 @@ export type RangeViewItems = {
 }
 
 export type RangeViewItem = {
-    date: string;
+    date: string | moment.Moment;
     feel: number;
     miles: number;
 }

@@ -15,11 +15,12 @@ interface IProps {
     monthStart: moment.Moment;
     monthEnd: moment.Moment;
     miles: number;
+    feel: number;
 }
 
 const useStyles = createUseStyles(styles);
 
-const Day: React.FunctionComponent<IProps> = ({ date, monthStart, monthEnd, miles }) => {
+const Day: React.FunctionComponent<IProps> = ({ date, monthStart, monthEnd, miles, feel }) => {
     const classes = useStyles();
 
     return (

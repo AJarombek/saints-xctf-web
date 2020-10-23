@@ -8,6 +8,25 @@ import {FontMixins} from "../../../styles/mixins";
 
 export default {
     calendar: {},
+    monthNavigation: {
+        display: 'flex',
+        alignItems: 'center',
+
+        '& > p': {
+            ...FontMixins.elegantIcons(),
+            fontSize: '42px',
+            textAlign: 'center',
+            width: '5%',
+            cursor: 'pointer',
+            margin: '20px 0'
+        },
+
+        '& > h2': {
+            ...FontMixins.robotoSlab(),
+            textAlign: 'center',
+            width: '90%',
+        }
+    },
     weekdays: {
         display: 'flex',
 

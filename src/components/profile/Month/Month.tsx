@@ -26,21 +26,31 @@ const Month: React.FunctionComponent<IProps> = ({ rangeView, start, monthStart, 
     const weeks = useMemo(() => {
         let startDate = start.clone();
         let endDate = start.clone().add(6, 'days');
+        const rangeViewItems = rangeView?.items ?
+            rangeView.items.map((item) => ({ ...item, date: moment(item.date) })) : [];
 
-        const weekList = [];
+        // The first item in weekList is the start date of the week.  The second item in weekList is the range view
+        // for the week.
+        const weekList = [] as any[];
         for (let i = 0; i < 6; i++) {
-            weekList.push([startDate.clone(), endDate.clone()])
+            const items = [];
+            while (rangeViewItems.length && rangeViewItems[0].date >= startDate && rangeViewItems[0].date <= endDate) {
+                items.push(rangeViewItems.shift());
+            }
+
+            weekList.push([startDate.clone(), items]);
             startDate.add(1, 'week');
             endDate.add(1, 'week');
         }
 
+        console.info(weekList)
         return weekList;
-    }, []);
+    }, [start, rangeView]);
 
     return (
         <div className={classes.month}>
-            {weeks.map(([weekStart, _]) => (
-                <Week start={weekStart} monthStart={monthStart} monthEnd={monthEnd} />
+            {weeks.map(([weekStart, rangeViewItems]) => (
+                <Week start={weekStart} monthStart={monthStart} monthEnd={monthEnd} rangeViewItems={rangeViewItems} />
             ))}
         </div>
     );

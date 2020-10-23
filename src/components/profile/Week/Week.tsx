@@ -10,28 +10,37 @@ import styles from "./styles";
 import moment from "moment";
 import Day from "../Day";
 import WeekTotal from "../WeekTotal";
+import {RangeViewItem} from "../../../redux/types";
 
 interface IProps {
     start: moment.Moment;
     monthStart: moment.Moment;
     monthEnd: moment.Moment;
+    rangeViewItems: RangeViewItem[]
 }
 
 const useStyles = createUseStyles(styles);
 
-const Week: React.FunctionComponent<IProps> = ({ start, monthStart, monthEnd }) => {
+const Week: React.FunctionComponent<IProps> = ({ start, monthStart, monthEnd, rangeViewItems }) => {
     const classes = useStyles();
+
+    const items = [...rangeViewItems];
 
     return (
         <div className={classes.week}>
-            {Array(7).fill(0).map((_, i) => (
-                <Day
-                    date={start.clone().add(i, 'days')}
-                    monthStart={monthStart}
-                    monthEnd={monthEnd}
-                    miles={null}
-                />
-            ))}
+            {Array(7).fill(0).map((_, i) => {
+                const date = start.clone().add(i, 'days');
+                const item = items.length && items[0].date === date ? items.shift() : null;
+                return (
+                    <Day
+                        date={date}
+                        monthStart={monthStart}
+                        monthEnd={monthEnd}
+                        miles={item?.miles}
+                        feel={item?.feel}
+                    />
+                );
+            })}
             <WeekTotal miles={0} />
         </div>
     );
