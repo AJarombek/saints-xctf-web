@@ -26,16 +26,20 @@ const Calendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeViews, f
     const [currentMonth, setCurrentMonth] = useState(moment().startOf('month'));
 
     const start = useMemo(() => {
-        return currentMonth.startOf('week');
+        return currentMonth.clone().startOf('week');
     }, [currentMonth]);
 
     const end = useMemo(() => {
-        return currentMonth.endOf('month').endOf('week');
+        return currentMonth.clone().endOf('month').endOf('week');
     }, [currentMonth]);
 
     const currentRangeView = useMemo(() => {
-        const rangeViewsWithFilter = rangeViews[filter] ?? {};
-        return rangeViewsWithFilter[`${start.format('YYYY-MM-DD')}:${end.format('YYYY-MM-DD')}`];
+        if (rangeViews) {
+            const rangeViewsWithFilter = rangeViews[filter] ?? {};
+            return rangeViewsWithFilter[`${start.format('YYYY-MM-DD')}:${end.format('YYYY-MM-DD')}`];
+        } else {
+            return {};
+        }
     }, [rangeViews, filter, currentMonth]);
 
     useEffect(() => {
@@ -55,7 +59,12 @@ const Calendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeViews, f
                     &#x35;
                 </p>
             </div>
-            <Month rangeView={currentRangeView} start={start} monthStart={currentMonth} />
+            <Month
+                rangeView={currentRangeView}
+                start={start}
+                monthStart={currentMonth}
+                monthEnd={currentMonth.clone().endOf('month')}
+            />
         </div>
     );
 };

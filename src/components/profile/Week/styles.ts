@@ -5,5 +5,7 @@
  */
 
 export default {
-    week: {}
+    week: {
+        display: 'flex'
+    }
 };

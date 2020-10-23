@@ -11,15 +11,26 @@ import moment from "moment";
 
 interface IProps {
     date: moment.Moment;
+    monthStart: moment.Moment;
+    monthEnd: moment.Moment;
+    miles: number;
 }
 
 const useStyles = createUseStyles(styles);
 
-const Day: React.FunctionComponent<IProps> = ({ date }) => {
+const Day: React.FunctionComponent<IProps> = ({ date, monthStart, monthEnd, miles }) => {
     const classes = useStyles();
 
     return (
-        <div className={classes.day}></div>
+        <div className={classes.day}>
+            <div>
+                <p className={classes.dayOfMonth}>{date.date()}</p>
+                <div>
+                    <p>{miles}</p>
+                    <p>Miles</p>
+                </div>
+            </div>
+        </div>
     );
 };
 

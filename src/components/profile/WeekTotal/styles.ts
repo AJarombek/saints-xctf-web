@@ -7,7 +7,7 @@
 import {FontMixins} from "../../../styles/mixins";
 
 export default {
-    day: {
+    weekTotal: {
         position: 'relative',
         width: `${(1 / 8) * 100}%`,
         border: '1px solid',
@@ -27,10 +27,16 @@ export default {
             bottom: 0
         }
     },
-    dayOfMonth: {
-        ...FontMixins.robotoSlabBold(),
-        margin: 0,
-        textAlign: 'end',
-        padding: 4
+    miles: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+
+        '& > p': {
+            ...FontMixins.robotoSlab(),
+            margin: 0,
+            textAlign: 'center'
+        }
     }
 };
