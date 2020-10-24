@@ -17,7 +17,7 @@ import {
     GroupMember,
     LogFeeds,
     NewComments,
-    RangeViewExerciseTypeFilters,
+    RangeViewExerciseTypeFilters, RangeViewFilter,
     UserMeta
 } from "../../../redux/types";
 import PaginationBar from "../../shared/PaginationBar/PaginationBar";
@@ -32,7 +32,7 @@ interface IProps {
     deleteLog: (logId: number) => void;
     getGroupMemberships: (username: string) => void;
     getUserFlair: (username: string) => void;
-    getRangeView: (filterBy: string, bucket: string, exerciseTypes: string, start: string, end: string) => void;
+    getRangeView: (filterBy: RangeViewFilter, bucket: string, exerciseTypes: string, start: string, end: string) => void;
     logFeeds: LogFeeds;
     newComments: NewComments;
     deletedLogs: DeletedLogs;

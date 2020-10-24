@@ -8,10 +8,10 @@ import React, {useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import Calendar from "../Calendar";
-import {RangeViewExerciseType, RangeViewExerciseTypeFilters, UserMeta} from "../../../redux/types";
+import {RangeViewExerciseType, RangeViewExerciseTypeFilters, RangeViewFilter, UserMeta} from "../../../redux/types";
 
 interface IProps {
-    getRangeView: (filterBy: string, bucket: string, exerciseTypes: string, start: string, end: string) => void;
+    getRangeView: (filterBy: RangeViewFilter, bucket: string, exerciseTypes: string, start: string, end: string) => void;
     rangeViews: RangeViewExerciseTypeFilters;
     user: UserMeta;
 }

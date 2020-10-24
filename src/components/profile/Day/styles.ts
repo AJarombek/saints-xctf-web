@@ -5,7 +5,7 @@
  */
 
 import {FontMixins} from "../../../styles/mixins";
-import Colors from "../../../styles/colors";
+import Colors, {FeelColors} from "../../../styles/colors";
 import color from "color";
 
 export default {
@@ -30,13 +30,16 @@ export default {
             bottom: 0
         }
     },
+    feel: {
+        backgroundColor: ({feel}: {feel: number}) => FeelColors[feel - 1],
+    },
     currentMonth: {
         backgroundColor: Colors.lightestBackground,
     },
     dayOfMonth: {
         ...FontMixins.robotoSlabBold(),
         margin: 0,
-        textAlign: 'end',
+        textAlign: 'start',
         padding: 4
     },
     miles: {
@@ -54,6 +57,28 @@ export default {
             ...FontMixins.robotoSlab(),
             margin: 0,
             textAlign: 'center'
+        }
+    },
+    '@media screen and (max-width: 1050px)': {
+        miles: {
+            '& > p': {
+                fontSize: 14
+            }
+        },
+        dayOfMonth: {
+            fontSize: 15
+        }
+    },
+    '@media screen and (max-width: 950px)': {
+        dayOfMonth: {
+            fontSize: 14
+        }
+    },
+    '@media screen and (max-width: 900px)': {
+        miles: {
+            '& > p': {
+                fontSize: 13
+            }
         }
     }
 };

@@ -7,21 +7,21 @@
 import React from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
-import moment from "moment";
+import {RangeViewItem} from "../../../redux/types";
 
 interface IProps {
-    miles: number;
+    rangeViewItems?: RangeViewItem[];
 }
 
 const useStyles = createUseStyles(styles);
 
-const WeekTotal: React.FunctionComponent<IProps> = ({ miles }) => {
+const WeekTotal: React.FunctionComponent<IProps> = ({ rangeViewItems = [] }) => {
     const classes = useStyles();
 
     return (
         <div className={classes.weekTotal}>
             <div className={classes.miles}>
-                <p>{miles}</p>
+                <p>{rangeViewItems.reduce((acc, item) => acc + item.miles, 0).toFixed(2)}</p>
                 <p>Miles</p>
             </div>
         </div>

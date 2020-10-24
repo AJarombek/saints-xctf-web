@@ -28,7 +28,7 @@ const mapStateToProps = (state: RootState) => ({
     deletedLogs: state.logs.deletedLogs,
     users: state.profile.users,
     groupMembershipInfo: state.memberships.groups,
-    rangeViews: state.rangeView
+    rangeViews: state.rangeView.users
 });
 
 const mapDispatchToProps = {
@@ -127,7 +127,7 @@ const Profile: React.FunctionComponent<Props> = ({
                     newComments={newComments}
                     deletedLogs={deletedLogs}
                     getRangeView={getRangeView}
-                    rangeViews={rangeViews.users[username]}
+                    rangeViews={rangeViews[username]}
                 />
                 <HomeFooter showContactUs={false} />
             </div>

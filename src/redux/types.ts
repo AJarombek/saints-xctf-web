@@ -248,7 +248,13 @@ export type RangeViewItems = {
 }
 
 export type RangeViewItem = {
-    date: string | moment.Moment;
+    date: string;
+    feel: number;
+    miles: number;
+}
+
+export type RangeViewItemMoment = {
+    date: moment.Moment;
     feel: number;
     miles: number;
 }

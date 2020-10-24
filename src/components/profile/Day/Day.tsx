@@ -21,15 +21,19 @@ interface IProps {
 const useStyles = createUseStyles(styles);
 
 const Day: React.FunctionComponent<IProps> = ({ date, monthStart, monthEnd, miles, feel }) => {
-    const classes = useStyles();
+    const classes = useStyles({ feel });
 
     return (
-        <div className={classNames(classes.day, date >= monthStart && date <= monthEnd && classes.currentMonth)}>
+        <div className={classNames(
+            classes.day,
+            date >= monthStart && date <= monthEnd && classes.currentMonth,
+            feel && classes.feel
+        )}>
             <div>
                 <p className={classes.dayOfMonth}>{date.date()}</p>
                 {miles && (
                     <div className={classes.miles}>
-                        <p>{miles}</p>
+                        <p>{miles.toFixed(2)}</p>
                         <p>Miles</p>
                     </div>
                 )}

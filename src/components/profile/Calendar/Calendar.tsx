@@ -8,11 +8,11 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import Month from "../Month";
-import {RangeViewExerciseType, RangeViewExerciseTypeFilters, UserMeta} from "../../../redux/types";
+import {RangeViewExerciseType, RangeViewExerciseTypeFilters, RangeViewFilter, UserMeta} from "../../../redux/types";
 import moment from "moment";
 
 interface IProps {
-    getRangeView: (filterBy: string, bucket: string, exerciseTypes: string, start: string, end: string) => void;
+    getRangeView: (filterBy: RangeViewFilter, bucket: string, exerciseTypes: string, start: string, end: string) => void;
     rangeViews: RangeViewExerciseTypeFilters;
     filter: RangeViewExerciseType;
     user: UserMeta;
@@ -56,18 +56,18 @@ const Calendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeViews, f
 
     useEffect(() => {
         if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching) {
-            getRangeView('user', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
+            getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
         }
     }, [filter, currentMonth, user]);
 
     return (
         <div className={classes.calendar}>
             <div className={classes.monthNavigation}>
-                <p onClick={() => setCurrentMonth(currentMonth.subtract(1, 'month'))}>
+                <p onClick={() => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))}>
                     &#x34;
                 </p>
                 <h2>{currentMonth.format('MMMM YYYY')}</h2>
-                <p onClick={() => setCurrentMonth(currentMonth.add(1, 'month'))}>
+                <p onClick={() => setCurrentMonth(currentMonth.clone().add(1, 'month'))}>
                     &#x35;
                 </p>
             </div>

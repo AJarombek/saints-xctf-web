@@ -8,7 +8,7 @@ import React, {useMemo} from 'react';
 import {createUseStyles} from "react-jss";
 import styles from "./styles";
 import Week from "../Week";
-import {RangeViewItemsMeta} from "../../../redux/types";
+import {RangeViewItemMoment, RangeViewItemsMeta} from "../../../redux/types";
 import moment from "moment";
 
 interface IProps {
@@ -26,7 +26,7 @@ const Month: React.FunctionComponent<IProps> = ({ rangeView, start, monthStart, 
     const weeks = useMemo(() => {
         let startDate = start.clone();
         let endDate = start.clone().add(6, 'days');
-        const rangeViewItems = rangeView?.items ?
+        const rangeViewItems: RangeViewItemMoment[] = rangeView?.items ?
             rangeView.items.map((item) => ({ ...item, date: moment(item.date) })) : [];
 
         // The first item in weekList is the start date of the week.  The second item in weekList is the range view
@@ -34,8 +34,10 @@ const Month: React.FunctionComponent<IProps> = ({ rangeView, start, monthStart, 
         const weekList = [] as any[];
         for (let i = 0; i < 6; i++) {
             const items = [];
-            while (rangeViewItems.length && rangeViewItems[0].date >= startDate && rangeViewItems[0].date <= endDate) {
-                items.push(rangeViewItems.shift());
+
+            while (rangeViewItems.length && rangeViewItems[0].date < endDate) {
+                const item = rangeViewItems.shift();
+                items.push({ ...item, date: item.date.utc(false).format('YYYY-MM-DD') });
             }
 
             weekList.push([startDate.clone(), items]);
@@ -43,7 +45,6 @@ const Month: React.FunctionComponent<IProps> = ({ rangeView, start, monthStart, 
             endDate.add(1, 'week');
         }
 
-        console.info(weekList)
         return weekList;
     }, [start, rangeView]);
 
