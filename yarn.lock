@@ -7071,9 +7071,9 @@ istanbul-reports@^3.0.2:
     html-escaper "^2.0.0"
     istanbul-lib-report "^3.0.0"
 
-"jarombek-react-components@git://github.com/ajarombek/jarombek-react-components.git#v0.3.6":
+"jarombek-react-components@git://github.com/ajarombek/jarombek-react-components.git#v0.3.7":
   version "0.3.0"
-  resolved "git://github.com/ajarombek/jarombek-react-components.git#4f06013922a7c8a60226428f174a2e383a0b79e5"
+  resolved "git://github.com/ajarombek/jarombek-react-components.git#5b5451cff2e8dac4ab83228db266730e0942f60e"
   dependencies:
     classnames "^2.2.6"
     highlight.js "^10.0.3"

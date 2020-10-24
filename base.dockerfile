@@ -11,4 +11,4 @@ LABEL maintainer="andrew@jarombek.com" \
 COPY . src
 
 WORKDIR src
-RUN npm install -g yarn && yarn
+RUN yarn

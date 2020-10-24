@@ -1,0 +1,19 @@
+# Docker Compose configuration for the web application.  Simulates the setup of the application in production.
+# Author: Andrew Jarombek
+# Date: 10/24/2020
+
+version: '3.7'
+services:
+  saints-xctf-web:
+    build:
+      context: .
+      dockerfile: app.local.dockerfile
+      network: host
+    ports:
+      - 80:80
+    networks:
+      - docker-compose_saints-xctf-api-net
+
+networks:
+  docker-compose_saints-xctf-api-net:
+    external: true

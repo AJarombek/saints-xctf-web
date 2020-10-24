@@ -18,8 +18,8 @@ const HomeAbout: React.FunctionComponent = () => {
         </p>
         <p>
           What started as a spare time project during my Senior year of college has transformed into a
-          sophisticated exercise logging platform both on the web and mobile devices.  I hope you and
-          your team finds SaintsXCTF to be a helpful and fun tool.
+          sophisticated exercise logging platform both on the web and mobile devices.  I hope you
+          find SaintsXCTF to be a helpful and fun tool.
         </p>
       </div>
       <p className="signature">Andrew Jarombek</p>

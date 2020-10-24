@@ -40,18 +40,27 @@ yarn test-update
 
 | Filename                 | Description                                                                |
 |--------------------------|----------------------------------------------------------------------------|
+| `assets`                 | Assets (images, videos, etc) bundled with the application source code.     |
+| `cypress`                | Cypress end to end test source code.                                       |
 | `src`                    | Application source code for both client and server.                        |
 | `test`                   | Jest/Enzyme test code for both client and server.                          |
 | `.babelrc`               | Configuration for the Babel transpiler.                                    |
+| `.dockerignore`          | Directories and files for Docker to ignore when building an image.         |
+| `.env`                   | Environment variables for the application.                                 |
 | `.eslintrc.js`           | Configuration for ESLint JavaScript linting (AirBnb style guide).          |
-| `Dockerfile`             | Blueprint for a Docker image which containerizes the application.          |
-| `jest.client-config.js`  | Jest testing configuration for the client side code.                       |
-| `jest.server-config.js`  | Jest testing configuration for the server side code.                       |
+| `app.dockerfile`         | Docker image for the application in production.                            |
+| `app.local.dockerfile`   | Docker image for the application locally.                                  |
+| `base.dockerfile`        | Base image with the application source code used in production & for tests.|
+| `cypress.json`           | Cypress end to end test configuration file.                                |
+| `docker-compose.yml`     | Docker compose configuration for running the Dockerized app locally.       |
+| `jest.config.js`         | Jest testing configuration for the application code.                       |
+| `nginx.conf`             | Nginx web server configuration.                                            |
 | `package.json`           | Entry point for the npm application.  Contains dependency definitions.     |
 | `setup.sh`               | Bash commands for setting up the application.                              |
+| `tsconfig.json`          | TypeScript configuration for the application.                              |
 | `webpack.config.js`      | Main webpack configuration file.                                           |
 | `webpack.parts.js`       | Smaller webpack parts to combine with the main configuration.              |
-| `.yarn.lock`             | Where Yarn stores the versions of each dependency.                         | 
+| `yarn.lock`              | Where Yarn stores the versions of each dependency.                         | 
 
 ### Version History
 
