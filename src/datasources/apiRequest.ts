@@ -10,7 +10,7 @@ import {SIGNOUT} from "../redux/modules/auth";
 
 export const api = axios.create({
   baseURL: '/api/v2/',
-  timeout: 1000,
+  timeout: 5000,
   responseType: 'json'
 });
 

@@ -67,13 +67,16 @@ docker-compose up --build
 | `.dockerignore`          | Directories and files for Docker to ignore when building an image.         |
 | `.env`                   | Environment variables for the application.                                 |
 | `.eslintrc.js`           | Configuration for ESLint JavaScript linting (AirBnb style guide).          |
+| `app.dev.dockerfile`     | Docker image for the application in development.                           |
 | `app.dockerfile`         | Docker image for the application in production.                            |
 | `app.local.dockerfile`   | Docker image for the application locally.                                  |
 | `base.dockerfile`        | Base image with the application source code used in production & for tests.|
 | `cypress.json`           | Cypress end to end test configuration file.                                |
 | `docker-compose.yml`     | Docker compose configuration for running the Dockerized app locally.       |
 | `jest.config.js`         | Jest testing configuration for the application code.                       |
-| `nginx.conf`             | Nginx web server configuration.                                            |
+| `nginx.conf`             | Nginx web server configuration in the production environment.              |
+| `nginx.dev.conf`         | Nginx web server configuration in the development environment.             |
+| `nginx.local.conf`       | Nginx web server configuration for running locally.                        |
 | `package.json`           | Entry point for the npm application.  Contains dependency definitions.     |
 | `setup.sh`               | Bash commands for setting up the application.                              |
 | `tsconfig.json`          | TypeScript configuration for the application.                              |
