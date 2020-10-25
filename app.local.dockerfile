@@ -16,6 +16,6 @@ LABEL maintainer="andrew@jarombek.com" \
       description="Dockerfile for running the SaintsXCTF web application locally."
 
 RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d
+COPY nginx.local.conf /etc/nginx/conf.d
 
 COPY --from=base /src/dist /usr/share/nginx/html

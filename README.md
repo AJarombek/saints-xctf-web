@@ -36,6 +36,25 @@ yarn test
 yarn test-update
 ```
 
+**Starting the server using Docker Compose**
+
+Starting the server locally with Docker Compose is useful for simulating the production Kubernetes environment locally.
+Before running the web apps Docker Compose file, the API and Auth Docker Compose files should be run.
+
+```bash
+# First start the API server.
+cd ~/repos/saints-xctf-api/infra/docker-compose
+docker-compose -f docker-compose-api.yml --env-file .env.dev up --build
+
+# Second start the Auth server.
+cd ~/repos/saints-xctf-auth
+docker-compose -f docker-compose.yml up --build
+
+# Third and finally, start the web application.
+cd ~/repos/saints-xctf-web
+docker-compose up --build
+```
+
 ### Files
 
 | Filename                 | Description                                                                |
