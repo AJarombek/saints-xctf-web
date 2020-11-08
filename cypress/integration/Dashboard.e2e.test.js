@@ -6,7 +6,6 @@
  */
 
 describe('Dashboard E2E Tests', () => {
-
   beforeEach(() => {
     cy.server();
     cy.setUserInLocalStorage();
@@ -34,8 +33,8 @@ describe('Dashboard E2E Tests', () => {
     cy.visit('/dashboard');
 
     cy.route('GET', '/api/v2/users/groups/andy', {
-      "groups": [],
-      "self": "/v2/users/groups/andy"
+      groups: [],
+      self: '/v2/users/groups/andy',
     }).as('userGroupsMock');
 
     cy.wait('@userGroupsMock').then(() => {
@@ -127,7 +126,6 @@ describe('Dashboard E2E Tests', () => {
       .children()
       .its('length')
       .then((commentCount) => {
-
         cy.get('#logFeed .exerciseLog textarea').eq(0).type('Testing...');
         cy.get('#logFeed .exerciseLog .addIcon').eq(0).click();
 
@@ -137,6 +135,6 @@ describe('Dashboard E2E Tests', () => {
             .children()
             .should('have.length', commentCount + 1);
         });
-    });
+      });
   });
 });

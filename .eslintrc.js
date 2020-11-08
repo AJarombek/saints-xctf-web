@@ -5,14 +5,28 @@
  */
 
 module.exports = {
-    env: {
-        browser: true,
-        es2020: true,
-        jest: true
-    },
+    parser: "@typescript-eslint/parser",
     extends: [
-        'airbnb',
-        'plugin:react/recommended'
+        'plugin:react/recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier/@typescript-eslint'
     ],
-    parser: "babel-eslint"
+    parserOptions: {
+        ecmaVersion: 2020,
+        sourceType: 'module',
+        ecmaFeatures: {
+            jsx: true
+        }
+    },
+    settings: {
+        react: {
+            version: 'detect'
+        }
+    },
+    rules: {
+        "max-len": ["error", { "code": 120 }],
+        "quotes": ["error", "single", { "avoidEscape": true }],
+        "react/prop-types": ["off"],
+        "react/no-unescaped-entities": ["off"]
+    }
 };
