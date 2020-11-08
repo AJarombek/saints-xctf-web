@@ -7,20 +7,20 @@
 import React, {useEffect, useRef} from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
+import {createUseStyles} from 'react-jss';
+import styles from './styles';
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
-import {GroupMembers, NotificationsState, RootState} from "../../redux/types";
-import DashboardBody from "../../components/dashboard/DashboardBody/DashboardBody";
-import HomeFooter from "../../components/home/HomeFooter/HomeFooter";
-import {addComment, logFeed, postComment, deleteLog} from "../../redux/modules/logs";
-import {setUserFromStorage, signOut} from "../../redux/modules/auth";
-import {getGroupMemberships} from "../../redux/modules/memberships";
-import {getUserNotifications} from "../../redux/modules/notifications";
+import {Auth, GroupMembers, LogFeeds, NewComments, NotificationsState, RootState, Users} from '../../redux/types';
+import DashboardBody from '../../components/dashboard/DashboardBody/DashboardBody';
+import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
+import {addComment, logFeed, postComment, deleteLog} from '../../redux/modules/logs';
+import {setUserFromStorage, signOut} from '../../redux/modules/auth';
+import {getGroupMemberships} from '../../redux/modules/memberships';
+import {getUserNotifications} from '../../redux/modules/notifications';
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): object => ({
   auth: state.auth.auth,
   users: state.auth.user,
   logFeeds: state.logs.feeds,
@@ -49,10 +49,10 @@ type Props = PropsFromRedux & {}
 const useStyles = createUseStyles(styles);
 
 const Dashboard: React.FunctionComponent<Props> = ({
-  auth = {},
-  users = {},
-  logFeeds = {},
-  newComments = {},
+  auth = {} as Auth,
+  users = {} as Users,
+  logFeeds = {} as LogFeeds,
+  newComments = {} as NewComments,
   groupMembershipInfo = {} as GroupMembers,
   notificationInfo = {} as NotificationsState,
   deletedLogs,
@@ -64,7 +64,7 @@ const Dashboard: React.FunctionComponent<Props> = ({
   getUserNotifications,
   deleteLog,
   signOut
-}) => {
+}: Props) => {
   const history = useHistory();
   const classes = useStyles();
 
@@ -82,29 +82,29 @@ const Dashboard: React.FunctionComponent<Props> = ({
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
-        <div className={classes.dashboard} ref={ref}>
-          <NavBar
-              includeHeaders={["profile", "groups", "admin", "signOut", "logo"]}
-              signOut={signOut}
-              user={users[auth.signedInUser]?.user}
-              bodyRef={ref}
-          />
-          <DashboardBody
-              getLogFeed={getLogFeed}
-              postComment={postComment}
-              logFeeds={logFeeds}
-              newComments={newComments}
-              user={users[auth.signedInUser]?.user}
-              groupMemberships={groupMembershipInfo.items}
-              notificationInfo={notificationInfo}
-              deletedLogs={deletedLogs}
-              getGroupMemberships={getGroupMemberships}
-              getUserNotifications={getUserNotifications}
-              deleteLog={deleteLog}
-              addComment={addComment}
-          />
-          <HomeFooter showContactUs={false} />
-        </div>
+      <div className={classes.dashboard} ref={ref}>
+        <NavBar
+          includeHeaders={['profile', 'groups', 'admin', 'signOut', 'logo']}
+          signOut={signOut}
+          user={users[auth.signedInUser]?.user}
+          bodyRef={ref}
+        />
+        <DashboardBody
+          getLogFeed={getLogFeed}
+          postComment={postComment}
+          logFeeds={logFeeds}
+          newComments={newComments}
+          user={users[auth.signedInUser]?.user}
+          groupMemberships={groupMembershipInfo.items}
+          notificationInfo={notificationInfo}
+          deletedLogs={deletedLogs}
+          getGroupMemberships={getGroupMemberships}
+          getUserNotifications={getUserNotifications}
+          deleteLog={deleteLog}
+          addComment={addComment}
+        />
+        <HomeFooter showContactUs={false} />
+      </div>
     );
   } else {
     return null;

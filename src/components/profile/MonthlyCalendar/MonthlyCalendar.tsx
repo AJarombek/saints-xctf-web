@@ -5,21 +5,22 @@
  */
 
 import React, {useMemo, useState} from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
-import Calendar from "../Calendar";
-import {RangeViewExerciseType, RangeViewExerciseTypeFilters, RangeViewFilter, UserMeta} from "../../../redux/types";
-import {AJButton, AJButtonGroup} from "jarombek-react-components";
+import {createUseStyles} from 'react-jss';
+import styles from './styles';
+import Calendar from '../Calendar';
+import {RangeViewExerciseType, RangeViewExerciseTypeFilters, RangeViewFilter, UserMeta} from '../../../redux/types';
+import {AJButton, AJButtonGroup} from 'jarombek-react-components';
 
-interface IProps {
-    getRangeView: (filterBy: RangeViewFilter, bucket: string, exerciseTypes: string, start: string, end: string) => void;
+interface Props {
+    getRangeView: 
+        (filterBy: RangeViewFilter, bucket: string, exerciseTypes: string, start: string, end: string) => void;
     rangeViews: RangeViewExerciseTypeFilters;
     user: UserMeta;
 }
 
 const useStyles = createUseStyles(styles);
 
-const MonthlyCalendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeViews, user }) => {
+const MonthlyCalendar: React.FunctionComponent<Props> = ({ getRangeView, rangeViews, user }) => {
     const classes = useStyles();
 
     const [selectedFilters, setSelectedFilters] = useState({ run: true, bike: false, swim: false, other: false });
@@ -30,28 +31,28 @@ const MonthlyCalendar: React.FunctionComponent<IProps> = ({ getRangeView, rangeV
     }, [selectedFilters]);
 
     return (
-        <div className={classes.monthlyCalendar}>
+        <div className={classes.monthlyCalendar} id="monthlyCalendar">
             <div className={classes.filters}>
                 <p className={classes.filterTitle}>Calendar Filters:</p>
                 <AJButtonGroup className={classes.filterButtons}>
                     <AJButton
                         type={selectedFilters.run ? 'contained' : 'outlined'}
-                        onClick={() => setSelectedFilters({ ...selectedFilters, run: !selectedFilters.run })}>
+                        onClick={(): void => setSelectedFilters({ ...selectedFilters, run: !selectedFilters.run })}>
                         Run
                     </AJButton>
                     <AJButton
                         type={selectedFilters.bike ? 'contained' : 'outlined'}
-                        onClick={() => setSelectedFilters({ ...selectedFilters, bike: !selectedFilters.bike })}>
+                        onClick={(): void => setSelectedFilters({ ...selectedFilters, bike: !selectedFilters.bike })}>
                         Bike
                     </AJButton>
                     <AJButton
                         type={selectedFilters.swim ? 'contained' : 'outlined'}
-                        onClick={() => setSelectedFilters({ ...selectedFilters, swim: !selectedFilters.swim })}>
+                        onClick={(): void => setSelectedFilters({ ...selectedFilters, swim: !selectedFilters.swim })}>
                         Swim
                     </AJButton>
                     <AJButton
                         type={selectedFilters.other ? 'contained' : 'outlined'}
-                        onClick={() => setSelectedFilters({ ...selectedFilters, other: !selectedFilters.other })}>
+                        onClick={(): void => setSelectedFilters({ ...selectedFilters, other: !selectedFilters.other })}>
                         Other
                     </AJButton>
                 </AJButtonGroup>

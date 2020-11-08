@@ -5,12 +5,12 @@
  */
 
 import React from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
-import {ProfileTab} from "../../profile/ProfileBody/ProfileBody";
-import classNames from "classnames";
+import {createUseStyles} from 'react-jss';
+import styles from './styles';
+import {ProfileTab} from '../../profile/ProfileBody/ProfileBody';
+import classNames from 'classnames';
 
-interface IProps {
+interface Props {
     currentTab: ProfileTab;
     viewExerciseLogs: () => void;
     viewMonthlyCalendar: () => void;
@@ -21,7 +21,7 @@ interface IProps {
 
 const useStyles = createUseStyles(styles);
 
-const PageTabs: React.FunctionComponent<IProps> = ({
+const PageTabs: React.FunctionComponent<Props> = ({
     currentTab,
     viewExerciseLogs,
     viewMonthlyCalendar,
@@ -32,7 +32,7 @@ const PageTabs: React.FunctionComponent<IProps> = ({
     const classes = useStyles();
 
     return (
-        <div className={classes.tabs}>
+        <div className={classNames(classes.tabs, 'tabs')}>
             <p className={classNames(classes.tab, currentTab === ProfileTab.LOGS && classes.currentTab)}
                onClick={viewExerciseLogs}>
                 Exercise Logs

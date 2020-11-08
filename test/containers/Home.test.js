@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {mount} from 'enzyme';
-import Home from '../../src/containers/Home';
+import Home from '../../src/containers/Home/Home';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';

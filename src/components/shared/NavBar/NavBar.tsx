@@ -5,17 +5,18 @@
  */
 
 import React, {useState, createRef, useEffect} from 'react';
-import {createUseStyles} from "react-jss";
+import {createUseStyles} from 'react-jss';
 import { useHistory } from 'react-router-dom';
 import classnames from 'classnames';
-import styles from "./styles";
+import styles from './styles';
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
-import {UserMeta} from "../../../redux/types";
+import {UserMeta} from '../../../redux/types';
 
-interface IProps {
+interface Props {
   includeHeaders?: Array<string>;
   signOut?: () => void;
   user?: UserMeta;
@@ -24,15 +25,15 @@ interface IProps {
 
 const useStyles = createUseStyles(styles);
 
-const handleScroll = (ref: React.RefObject<any>, setStickyHeader: (isSticky: boolean) => void) => {
+const handleScroll = (ref: React.RefObject<any>, setStickyHeader: (isSticky: boolean) => void): void => {
   if (ref.current) {
     setStickyHeader(ref.current.getBoundingClientRect().top <= -100);
   }
 };
 
-const NavBar: React.FunctionComponent<IProps> = ({
+const NavBar: React.FunctionComponent<Props> = ({
   includeHeaders = [],
-  signOut = () => {},
+  signOut,
   user,
   bodyRef
 }) => {
@@ -44,12 +45,12 @@ const NavBar: React.FunctionComponent<IProps> = ({
 
   const mobileHamburgerRef: React.RefObject<HTMLInputElement> = createRef();
 
-  const scrollEventListener = () => handleScroll(bodyRef, setStickyHeader);
+  const scrollEventListener = (): void => handleScroll(bodyRef, setStickyHeader);
 
   useEffect(() => {
     window.addEventListener('scroll', scrollEventListener);
 
-    return () => {
+    return (): void => {
       window.removeEventListener('scroll', scrollEventListener);
     };
   }, []);
@@ -65,23 +66,10 @@ const NavBar: React.FunctionComponent<IProps> = ({
     classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-hidden');
 
   /**
-   * Navigate to a new page using the mobile dropdown navigation list.
-   * @param path The new path to navigate to within the website.
-   */
-  const navigateMobile = (path: string) => {
-    setShowDropdown(!showDropdown);
-    history.push(path);
-
-    if (path.includes('#')) {
-      hashRoute();
-    }
-  };
-
-  /**
    * There is an issue with React Router not working with hashed routes.  This helper method uses
    * the DOM API to navigate to the hashed route.
    */
-  const hashRoute = () => {
+  const hashRoute = (): void => {
     const { hash } = window.location;
     if (hash !== '') {
       const id = hash.replace('#', '');
@@ -93,26 +81,39 @@ const NavBar: React.FunctionComponent<IProps> = ({
     }
   };
 
+  /**
+   * Navigate to a new page using the mobile dropdown navigation list.
+   * @param path The new path to navigate to within the website.
+   */
+  const navigateMobile = (path: string): void => {
+    setShowDropdown(!showDropdown);
+    history.push(path);
+
+    if (path.includes('#')) {
+      hashRoute();
+    }
+  };
+
   const mobileNavItems = [
     {
       name: 'dashboard',
       content: 'Dashboard',
-      onClick: () => navigateMobile('/dashboard')
+      onClick: (): void => navigateMobile('/dashboard')
     },
     {
       name: 'profile',
       content: 'Profile',
-      onClick: () => navigateMobile(`/profile/${user?.username}`)
+      onClick: (): void => navigateMobile(`/profile/${user?.username}`)
     },
     {
       name: 'groups',
       content: 'Groups',
-      onClick: () => navigateMobile('/groups')
+      onClick: (): void => navigateMobile('/groups')
     },
     {
       name: 'admin',
       content: 'Admin',
-      onClick: () => navigateMobile('/admin')
+      onClick: (): void => navigateMobile('/admin')
     },
     {
       name: 'signOut',
@@ -122,12 +123,12 @@ const NavBar: React.FunctionComponent<IProps> = ({
     {
       name: 'home',
       content: 'Home',
-      onClick: () => navigateMobile('/')
+      onClick: (): void => navigateMobile('/')
     },
     {
       name: 'about',
       content: 'About',
-      onClick: () => {
+      onClick: (): void => {
         navigateMobile('#about');
         mobileHamburgerRef.current?.click();
       }
@@ -135,7 +136,7 @@ const NavBar: React.FunctionComponent<IProps> = ({
     {
       name: 'testimonials',
       content: 'Testimonials',
-      onClick: () => {
+      onClick: (): void => {
         navigateMobile('#testimonials');
         mobileHamburgerRef.current?.click();
       }
@@ -143,17 +144,17 @@ const NavBar: React.FunctionComponent<IProps> = ({
     {
       name: 'register',
       content: 'Register',
-      onClick: () => navigateMobile('/register')
+      onClick: (): void => navigateMobile('/register')
     },
     {
       name: 'signIn',
       content: 'Sign In',
-      onClick: () => navigateMobile('/signin')
+      onClick: (): void => navigateMobile('/signin')
     },
     {
       name: 'logo',
       content: <img className="mobile-dropdown-logo" src={saintsXCTFLogo} alt="" />,
-      onClick: () => navigateMobile('#')
+      onClick: (): void => navigateMobile('#')
     }
   ];
 
@@ -163,19 +164,19 @@ const NavBar: React.FunctionComponent<IProps> = ({
         <figure className="sxctf-logo">
           <img
             src={saintsXCTFLogo}
-            onClick={() => history.push('/#')}
+            onClick={(): void => history.push('/#')}
             alt=""
           />
         </figure>
-        <h1 onClick={() => history.push('/#')}>SaintsXCTF</h1>
+        <h1 onClick={(): void => history.push('/#')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
           { includeHeaders.includes('home') &&
-            <AJButton type="text" className="homeButton" onClick={() => history.push('/')}>
+            <AJButton type="text" className="homeButton" onClick={(): void => history.push('/')}>
               Home
             </AJButton>
           }
           { includeHeaders.includes('about') &&
-            <AJButton type="text" className="aboutButton" onClick={() => {
+            <AJButton type="text" className="aboutButton" onClick={(): void => {
               history.push('/#about');
               hashRoute();
             }}>
@@ -183,7 +184,7 @@ const NavBar: React.FunctionComponent<IProps> = ({
             </AJButton>
           }
           { includeHeaders.includes('testimonials') &&
-            <AJButton type="text"  className="testimonialsButton" onClick={() => {
+            <AJButton type="text"  className="testimonialsButton" onClick={(): void => {
               history.push('/#testimonials');
               hashRoute();
             }}>
@@ -191,32 +192,36 @@ const NavBar: React.FunctionComponent<IProps> = ({
             </AJButton>
           }
           { includeHeaders.includes('register') &&
-            <AJButton type="outlined" className="registerButton" onClick={() => history.push('/register')}>
+            <AJButton type="outlined" className="registerButton" onClick={(): void => history.push('/register')}>
               Register
             </AJButton>
           }
           { includeHeaders.includes('signIn') &&
-            <AJButton type="contained" className="signInButton" onClick={() => history.push('/signin')}>
+            <AJButton type="contained" className="signInButton" onClick={(): void => history.push('/signin')}>
               Sign In
             </AJButton>
           }
           { includeHeaders.includes('dashboard') &&
-            <AJButton type="text" className="dashboardButton" onClick={() => history.push('/dashboard')}>
+            <AJButton type="text" className="dashboardButton" onClick={(): void => history.push('/dashboard')}>
               Dashboard
             </AJButton>
           }
           { includeHeaders.includes('profile') &&
-            <AJButton type="text" className="profileButton" onClick={() => history.push(`/profile/${user?.username}`)}>
+            <AJButton
+                type="text"
+                className="profileButton"
+                onClick={(): void => history.push(`/profile/${user?.username}`)}
+            >
               Profile
             </AJButton>
           }
           { includeHeaders.includes('groups') &&
-            <AJButton type="text" className="groupsButton" onClick={() => history.push('/groups')}>
+            <AJButton type="text" className="groupsButton" onClick={(): void => history.push('/groups')}>
               Groups
             </AJButton>
           }
           { includeHeaders.includes('admin') &&
-            <AJButton type="outlined" className="adminButton" onClick={() => history.push('/admin')}>
+            <AJButton type="outlined" className="adminButton" onClick={(): void => history.push('/admin')}>
               Admin
             </AJButton>
           }
@@ -228,7 +233,7 @@ const NavBar: React.FunctionComponent<IProps> = ({
         </div>
         <div className="sxctf-nav-hamburger">
           <AJMobileHamburger
-            onClick={() => setShowDropdown(!showDropdown)}
+            onClick={(): void => setShowDropdown(!showDropdown)}
             ref={mobileHamburgerRef}
           />
         </div>

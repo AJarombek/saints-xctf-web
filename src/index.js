@@ -14,7 +14,7 @@ import { Provider } from 'react-redux';
 import dotenv from 'dotenv';
 import { interceptor } from "./datasources/apiRequest";
 
-import Home from './containers/Home';
+import Home from './containers/Home/Home';
 import SignIn from './containers/SignIn';
 import Dashboard from './containers/Dashboard';
 import ForgotPassword from './containers/ForgotPassword';

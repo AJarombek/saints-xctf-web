@@ -5,12 +5,12 @@
  */
 
 import React, {useEffect, useMemo, useState} from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
-import PictureTitle from "../../shared/PictureTitle/PictureTitle";
-import Flair from "../Flair/Flair";
-import Memberships from "../Memberships/Memberships";
-import PageTabs from "../../shared/PageTabs/PageTabs";
+import {createUseStyles} from 'react-jss';
+import styles from './styles';
+import PictureTitle from '../../shared/PictureTitle/PictureTitle';
+import Flair from '../Flair/Flair';
+import Memberships from '../Memberships/Memberships';
+import PageTabs from '../../shared/PageTabs/PageTabs';
 import {
     DeletedLogs,
     FlairMeta,
@@ -19,12 +19,12 @@ import {
     NewComments,
     RangeViewExerciseTypeFilters, RangeViewFilter,
     UserMeta
-} from "../../../redux/types";
-import PaginationBar from "../../shared/PaginationBar/PaginationBar";
-import LogFeed from "../../shared/LogFeed/LogFeed";
-import MonthlyCalendar from "../MonthlyCalendar";
+} from '../../../redux/types';
+import PaginationBar from '../../shared/PaginationBar/PaginationBar';
+import LogFeed from '../../shared/LogFeed/LogFeed';
+import MonthlyCalendar from '../MonthlyCalendar';
 
-interface IProps {
+interface Props {
     getLogFeed: (filterBy: string, bucket: string, limit: number, offset: number) => void;
     postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
     addComment: (logId: number, content: string, username: string, first: string, last: string,
@@ -32,7 +32,8 @@ interface IProps {
     deleteLog: (logId: number) => void;
     getGroupMemberships: (username: string) => void;
     getUserFlair: (username: string) => void;
-    getRangeView: (filterBy: RangeViewFilter, bucket: string, exerciseTypes: string, start: string, end: string) => void;
+    getRangeView: (filterBy: RangeViewFilter, bucket: string, exerciseTypes: string, start: string, 
+                   end: string) => void;
     logFeeds: LogFeeds;
     newComments: NewComments;
     deletedLogs: DeletedLogs;
@@ -48,7 +49,7 @@ export enum ProfileTab {
 
 const useStyles = createUseStyles(styles);
 
-const ProfileBody: React.FunctionComponent<IProps> = ({
+const ProfileBody: React.FunctionComponent<Props> = ({
     getLogFeed,
     postComment,
     addComment,
@@ -66,16 +67,15 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
 }) => {
     const classes = useStyles();
 
-    const [tab, setTab] = useState(ProfileTab.LOGS);
-    const [filterBy, setFilterBy] = useState('user');
-    const [bucket, setBucket] = useState(null);
+    const [tab, setTab] = useState<ProfileTab>(ProfileTab.LOGS);
+    const [bucket, setBucket] = useState<string>(null);
     const [page, setPage] = useState(1);
 
     useEffect(() => {
         if (bucket) {
-            getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
+            getLogFeed('user', bucket, 10, 10 * (page - 1));
         }
-    }, [filterBy, bucket, page]);
+    }, [bucket, page]);
 
     useEffect(() => {
         if (user) {
@@ -94,7 +94,7 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
     }, [user, groupMemberships, flair]);
 
     const totalPages: number = useMemo(() => {
-        return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0
+        return logFeeds[`user-${bucket}`]?.pages[page]?.pages ?? 0
     }, [logFeeds, page]);
 
     if (user) {
@@ -110,11 +110,11 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
                     <Memberships groupMemberships={groupMemberships} />
                     <PageTabs
                         currentTab={tab}
-                        viewExerciseLogs={() => setTab(ProfileTab.LOGS)}
-                        viewMonthlyCalendar={() => setTab(ProfileTab.CALENDAR)}
-                        viewWeeklyChart={() => setTab(ProfileTab.CHART)}
-                        viewDetails={() => setTab(ProfileTab.DETAILS)}
-                        viewEditProfile={() => setTab(ProfileTab.EDIT)}
+                        viewExerciseLogs={(): void => setTab(ProfileTab.LOGS)}
+                        viewMonthlyCalendar={(): void => setTab(ProfileTab.CALENDAR)}
+                        viewWeeklyChart={(): void => setTab(ProfileTab.CHART)}
+                        viewDetails={(): void => setTab(ProfileTab.DETAILS)}
+                        viewEditProfile={(): void => setTab(ProfileTab.EDIT)}
                     />
                 </aside>
                 <section>
@@ -130,13 +130,13 @@ const ProfileBody: React.FunctionComponent<IProps> = ({
                                 newComments={newComments}
                                 deletedLogs={deletedLogs}
                                 user={user}
-                                filterBy={filterBy}
+                                filterBy="user"
                                 bucket={bucket}
                             />
                             <PaginationBar
                                 page={page}
                                 totalPages={totalPages}
-                                onChangePage={(page) => {
+                                onChangePage={(page): void => {
                                     setPage(page);
                                     window.scrollTo(0, 0);
                                 }}

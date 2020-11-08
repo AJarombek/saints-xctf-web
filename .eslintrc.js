@@ -27,6 +27,7 @@ module.exports = {
         "max-len": ["error", { "code": 120 }],
         "quotes": ["error", "single", { "avoidEscape": true }],
         "react/prop-types": ["off"],
-        "react/no-unescaped-entities": ["off"]
+        "react/no-unescaped-entities": ["off"],
+        "indent": ["error", 2]
     }
 };
