@@ -219,6 +219,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
         <AJModal
           backdrop={true}
           onClickBackground={(): void => setShowDeleteModal(false)}
+          className="deleteLogModal"
         >
           <div className={classes.deleteModal}>
             <p>

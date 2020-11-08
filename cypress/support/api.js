@@ -9,7 +9,17 @@
  */
 Cypress.Commands.add('mockAPI', () => {
     cy.server();
+    cy.mockLogAPI();
     cy.mockLogFeedAPI();
+});
+
+Cypress.Commands.add('mockLogAPI', () => {
+    const logDeleteRoute = cy.route({
+        method: 'DELETE',
+        url: '**/api/v2/logs/*'
+    });
+
+    logDeleteRoute.as('logDeleteRoute');
 });
 
 Cypress.Commands.add('mockLogFeedAPI', () => {
@@ -19,9 +29,9 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
         method: 'GET',
         url: '**/api/v2/log_feed/all/all/10/0',
         response: '@logFeedAllPageOne'
-    })
+    });
 
-    logFeedAllPageOneRoute.as('logFeedAllPageOneRoute')
+    logFeedAllPageOneRoute.as('logFeedAllPageOneRoute');
 });
 
 /**

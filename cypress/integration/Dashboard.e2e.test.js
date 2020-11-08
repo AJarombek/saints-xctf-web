@@ -67,6 +67,13 @@ describe('Dashboard E2E Tests', () => {
     cy.url().should('include', '/log/new');
   });
 
+  it('has a side panel link to view the users profile', () => {
+    cy.visit('/dashboard');
+
+    cy.get('#dashboardSidePanel .accordion .expandIcon').eq(0).click();
+    cy.url().should('include', '/profile/andy');
+  });
+
   it('has a paginated log feed', () => {
     cy.route('GET', '/api/v2/log_feed/all/all/10/0').as('logFeedRoute');
     cy.visit('/dashboard');
