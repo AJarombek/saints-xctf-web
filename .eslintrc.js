@@ -28,6 +28,7 @@ module.exports = {
         "quotes": ["error", "single", { "avoidEscape": true }],
         "react/prop-types": ["off"],
         "react/no-unescaped-entities": ["off"],
-        "indent": ["error", 2]
+        "indent": ["error", 2],
+        "@typescript-eslint/camelcase": ["off"]
     }
 };

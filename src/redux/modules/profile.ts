@@ -6,8 +6,8 @@
 
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
-import {Dispatch} from "redux";
-import {Flair, ProfileState, User} from "../types";
+import {Dispatch} from 'redux';
+import {Flair, ProfileState, User} from '../types';
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -70,240 +70,240 @@ type ProfileActionTypes =
 
 // Reducer
 const initialState: ProfileState = {
-    users: {}
+  users: {}
 };
 
-export default function reducer(state = initialState, action : ProfileActionTypes) {
-    switch (action.type) {
-        case GET_USER_REQUEST:
-            return getUserRequestReducer(state, action);
-        case GET_USER_SUCCESS:
-            return getUserSuccessReducer(state, action);
-        case GET_USER_FAILURE:
-            return getUserFailureReducer(state, action);
-        case SET_USER:
-            return setUserReducer(state, action);
-        case GET_USER_FLAIR_REQUEST:
-            return getUserFlairRequestReducer(state, action);
-        case GET_USER_FLAIR_SUCCESS:
-            return getUserFlairSuccessReducer(state, action);
-        case GET_USER_FLAIR_FAILURE:
-            return getUserFlairFailureReducer(state, action);
-        default:
-            return state;
-    }
+export default function reducer(state = initialState, action: ProfileActionTypes): ProfileState {
+  switch (action.type) {
+  case GET_USER_REQUEST:
+    return getUserRequestReducer(state, action);
+  case GET_USER_SUCCESS:
+    return getUserSuccessReducer(state, action);
+  case GET_USER_FAILURE:
+    return getUserFailureReducer(state, action);
+  case SET_USER:
+    return setUserReducer(state, action);
+  case GET_USER_FLAIR_REQUEST:
+    return getUserFlairRequestReducer(state, action);
+  case GET_USER_FLAIR_SUCCESS:
+    return getUserFlairSuccessReducer(state, action);
+  case GET_USER_FLAIR_FAILURE:
+    return getUserFlairFailureReducer(state, action);
+  default:
+    return state;
+  }
 }
 
 function getUserRequestReducer(state: ProfileState, action: GetUserRequestAction): ProfileState {
-    const user = state.users[action.username] ?? {};
-    return {
-        ...state,
-        users: {
-            ...state.users,
-            [action.username]: {
-                ...user,
-                user: {
-                    isFetching: true,
-                    lastUpdated: moment().unix(),
-                }
-            }
-        },
-    }
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        user: {
+          isFetching: true,
+          lastUpdated: moment().unix(),
+        }
+      }
+    },
+  }
 }
 
 function getUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction): ProfileState {
-    const user = state.users[action.username] ?? {};
-    return {
-        ...state,
-        users: {
-            ...state.users,
-            [action.username]: {
-                ...user,
-                user: {
-                    isFetching: false,
-                    lastUpdated: moment().unix(),
-                    ...action.user
-                }
-            }
-        },
-    }
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        user: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          ...action.user
+        }
+      }
+    },
+  }
 }
 
 function getUserFailureReducer(state: ProfileState, action: GetUserFailureAction): ProfileState {
-    const user = state.users[action.username] ?? {};
-    return {
-        ...state,
-        users: {
-            ...state.users,
-            [action.username]: {
-                ...user,
-                user: {
-                    isFetching: false,
-                    lastUpdated: moment().unix(),
-                    serverError: action.serverError
-                }
-            }
-        },
-    }
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        user: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          serverError: action.serverError
+        }
+      }
+    },
+  }
 }
 
 function setUserReducer(state: ProfileState, action: SetUserAction): ProfileState {
-    const user = state.users[action.user.username] ?? {};
-    return {
-        ...state,
-        users: {
-            ...state.users,
-            [action.user.username]: {
-                ...user,
-                user: {
-                    ...action.user,
-                    isFetching: false,
-                    lastUpdated: moment().unix()
-                }
-            }
+  const user = state.users[action.user.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.user.username]: {
+        ...user,
+        user: {
+          ...action.user,
+          isFetching: false,
+          lastUpdated: moment().unix()
         }
+      }
     }
+  }
 }
 
 function getUserFlairRequestReducer(state: ProfileState, action: GetUserFlairRequestAction): ProfileState {
-    const user = state.users[action.username] ?? {};
-    return {
-        ...state,
-        users: {
-            ...state.users,
-            [action.username]: {
-                ...user,
-                flair: {
-                    isFetching: true,
-                    lastUpdated: moment().unix(),
-                }
-            }
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        flair: {
+          isFetching: true,
+          lastUpdated: moment().unix(),
         }
+      }
     }
+  }
 }
 
 function getUserFlairSuccessReducer(state: ProfileState, action: GetUserFlairSuccessAction): ProfileState {
-    const user = state.users[action.username] ?? {};
-    return {
-        ...state,
-        users: {
-            ...state.users,
-            [action.username]: {
-                ...user,
-                flair: {
-                    isFetching: false,
-                    lastUpdated: moment().unix(),
-                    items: action.flair
-                }
-            }
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        flair: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          items: action.flair
         }
+      }
     }
+  }
 }
 
 function getUserFlairFailureReducer(state: ProfileState, action: GetUserFlairFailureAction): ProfileState {
-    const user = state.users[action.username] ?? {};
-    return {
-        ...state,
-        users: {
-            ...state.users,
-            [action.username]: {
-                ...user,
-                flair: {
-                    isFetching: false,
-                    lastUpdated: moment().unix(),
-                    serverError: action.serverError
-                }
-            }
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        flair: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          serverError: action.serverError
         }
+      }
     }
+  }
 }
 
 // Action Creators
 export function getUserRequest(username: string): GetUserRequestAction {
-    return {
-        type: GET_USER_REQUEST,
-        username
-    }
+  return {
+    type: GET_USER_REQUEST,
+    username
+  }
 }
 
 export function getUserSuccess(username: string, user: User): GetUserSuccessAction {
-    return {
-        type: GET_USER_SUCCESS,
-        username,
-        user
-    }
+  return {
+    type: GET_USER_SUCCESS,
+    username,
+    user
+  }
 }
 
 export function getUserFailure(username: string, serverError: string): GetUserFailureAction {
-    return {
-        type: GET_USER_FAILURE,
-        username,
-        serverError
-    }
+  return {
+    type: GET_USER_FAILURE,
+    username,
+    serverError
+  }
 }
 
 export function setUser(user: User): SetUserAction {
-    return {
-        type: SET_USER,
-        user
-    }
+  return {
+    type: SET_USER,
+    user
+  }
 }
 
 export function getUserFlairRequest(username: string): GetUserFlairRequestAction {
-    return {
-        type: GET_USER_FLAIR_REQUEST,
-        username,
-    }
+  return {
+    type: GET_USER_FLAIR_REQUEST,
+    username,
+  }
 }
 
 export function getUserFlairSuccess(username: string, flair: Flair[]): GetUserFlairSuccessAction {
-    return {
-        type: GET_USER_FLAIR_SUCCESS,
-        username,
-        flair
-    }
+  return {
+    type: GET_USER_FLAIR_SUCCESS,
+    username,
+    flair
+  }
 }
 
 export function getUserFlairFailure(username: string, serverError: string): GetUserFlairFailureAction {
-    return {
-        type: GET_USER_FLAIR_FAILURE,
-        username,
-        serverError
-    }
+  return {
+    type: GET_USER_FLAIR_FAILURE,
+    username,
+    serverError
+  }
 }
 
 export function getUser(username: string) {
-    return async function (dispatch: Dispatch) {
-        dispatch(getUserRequest(username));
+  return async function (dispatch: Dispatch) {
+    dispatch(getUserRequest(username));
 
-        try {
-            const response = await api.get(`users/${username}`);
-            const { user } = response.data;
+    try {
+      const response = await api.get(`users/${username}`);
+      const { user } = response.data;
 
-            dispatch(getUserSuccess(username, user));
-        } catch (error) {
-            const { response } = error;
-            const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+      dispatch(getUserSuccess(username, user));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-            dispatch(getUserFailure(username, serverError));
-        }
+      dispatch(getUserFailure(username, serverError));
     }
+  }
 }
 
 export function getUserFlair(username: string) {
-    return async function (dispatch: Dispatch) {
-        dispatch(getUserFlairRequest(username));
+  return async function (dispatch: Dispatch) {
+    dispatch(getUserFlairRequest(username));
 
-        try {
-            const response = await api.get(`users/flair/${username}`);
-            const { flair } = response.data;
+    try {
+      const response = await api.get(`users/flair/${username}`);
+      const { flair } = response.data;
 
-            dispatch(getUserFlairSuccess(username, flair));
-        } catch (error) {
-            const { response } = error;
-            const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+      dispatch(getUserFlairSuccess(username, flair));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-            dispatch(getUserFlairFailure(username, serverError));
-        }
+      dispatch(getUserFlairFailure(username, serverError));
     }
+  }
 }

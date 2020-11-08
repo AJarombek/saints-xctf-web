@@ -3,7 +3,8 @@
  * @author Andrew Jarombek
  * @since 7/23/2020
  */
-import moment from "moment";
+
+import moment from 'moment';
 
 export type RootState = {
     auth: AuthState;
@@ -12,6 +13,7 @@ export type RootState = {
     notifications: NotificationsState;
     profile: ProfileState;
     rangeView: RangeViewState;
+    registration: RegistrationState;
 }
 
 export type LogsState = {
@@ -44,6 +46,22 @@ export type NotificationsState = {
 
 export type ProfileState = {
     users?: Users;
+}
+
+export type RegistrationState = {
+    isFetching?: boolean;
+    lastUpdated?: number;
+    serverError?: string;
+    stage?: number;
+    valid?: boolean;
+    status?: string;
+    first?: string;
+    last?: string;
+    email?: string;
+    username?: string;
+    password?: string;
+    activationCode?: string;
+    teams?: TeamRegistration;
 }
 
 export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
@@ -90,8 +108,8 @@ export interface User {
     week_start?: string;
 }
 
-enum LogType { RUN = "run", BIKE = "bike", SWIM = "swim", OTHER = "other" }
-enum Metric { MILES = "miles", KILOMETERS = "kilometers", METERS = "meters" }
+enum LogType { RUN = 'run', BIKE = 'bike', SWIM = 'swim', OTHER = 'other' }
+enum Metric { MILES = 'miles', KILOMETERS = 'kilometers', METERS = 'meters' }
 
 export type Log = {
     log_id?: number;
@@ -257,4 +275,17 @@ export type RangeViewItemMoment = {
     date: moment.Moment;
     feel: number;
     miles: number;
+}
+
+export type TeamRegistration = {
+    [key: string]: {
+        status: string;
+        groups: GroupRegistration
+    }
+}
+
+export type GroupRegistration = {
+    [key: string]: {
+        status: string;
+    }
 }

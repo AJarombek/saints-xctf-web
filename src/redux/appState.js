@@ -10,26 +10,26 @@ const appState = {
       isFetching: false,
       lastUpdated: 1588530309,
       signedInUser: 'andy',
-      status: "SUCCESS"
+      status: 'SUCCESS'
     },
     user: {
       andy: {
         isFetching: false,
         didInvalidate: false,
         lastUpdated: 1588530310,
-        username: "andy",
-        first: "Andrew",
-        last: "Jarombek",
-        password: "xxxxxx",
-        description: "Test Description",
-        memberSince: "2016-02-23 12:00:00",
+        username: 'andy',
+        first: 'Andrew',
+        last: 'Jarombek',
+        password: 'xxxxxx',
+        description: 'Test Description',
+        memberSince: '2016-02-23 12:00:00',
         classYear: 2017,
-        location: "New York, NY",
-        favoriteEvent: "Cooldown Jog",
-        activationCode: "ABCD1234",
-        email: "andrew@jarombek.com",
-        lastSignIn: "2020-05-03 12:00:00",
-        subscribed: "Y",
+        location: 'New York, NY',
+        favoriteEvent: 'Cooldown Jog',
+        activationCode: 'ABCD1234',
+        email: 'andrew@jarombek.com',
+        lastSignIn: '2020-05-03 12:00:00',
+        subscribed: 'Y',
         logs: []
       }
     },
@@ -37,7 +37,7 @@ const appState = {
       email: {
         isFetching: false,
         lastUpdated: 1588530309,
-        status: "SUCCESS",
+        status: 'SUCCESS',
         serverError: null
       },
       reset: {
@@ -50,18 +50,18 @@ const appState = {
   },
   registration: {
     stage: 1,
-    first: "Andy",
-    last: "Jarombek",
-    email: "andrew@jarombek.com",
+    first: 'Andy',
+    last: 'Jarombek',
+    email: 'andrew@jarombek.com',
     username: undefined,
     password: undefined,
     activationCode: undefined,
     teams: {
       saintsXCTFAlumni: {
-        status: "accepted",
+        status: 'accepted',
         groups: {
           alumni: {
-            status: "accepted"
+            status: 'accepted'
           }
         }
       }
@@ -131,10 +131,10 @@ const appState = {
       isFetching: false,
       didInvalidate: false,
       lastUpdated: 1588530314,
-      groupName: "wmenstf",
+      groupName: 'wmenstf',
       groupTitle: "Women's Track & Field",
-      description: "",
-      weekStart: "monday",
+      description: '',
+      weekStart: 'monday',
       members: [],
       logs: []
     }
@@ -146,38 +146,38 @@ const appState = {
     items: {
       1: {
         logId: 1,
-        username: "andy",
-        first: "Andrew",
-        last: "Jarombek",
-        name: "Reservoir Loop",
-        location: "New York, NY",
-        date: "2020-05-03",
-        type: "run",
+        username: 'andy',
+        first: 'Andrew',
+        last: 'Jarombek',
+        name: 'Reservoir Loop',
+        location: 'New York, NY',
+        date: '2020-05-03',
+        type: 'run',
         distance: 6.37,
-        metric: "miles",
+        metric: 'miles',
         miles: 6.37,
-        time: "00:45:37",
-        pace: "00:07:10",
+        time: '00:45:37',
+        pace: '00:07:10',
         feel: 6,
-        description: "",
-        timeCreated: "2020-05-03 12:00:00",
+        description: '',
+        timeCreated: '2020-05-03 12:00:00',
         comments: [
           {
             commentId: 1,
-            username: "andy",
-            first: "Andrew",
-            last: "Jarombek",
+            username: 'andy',
+            first: 'Andrew',
+            last: 'Jarombek',
             logId: 1,
-            time: "2020-05-03 12:00:00",
-            content: "test"
+            time: '2020-05-03 12:00:00',
+            content: 'test'
           }
         ]
       }
     },
     feeds: {
-      "all-all": {
-        filterBy: "all",
-        bucket: "all",
+      'all-all': {
+        filterBy: 'all',
+        bucket: 'all',
         pages: {
           1: {
             isFetching: false,
