@@ -6,7 +6,7 @@
 
 import React, {useEffect, useRef} from 'react';
 import moment from 'moment';
-import {connect, ConnectedProps} from 'react-redux';
+import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../../utils/auth';
@@ -22,18 +22,12 @@ import HomeFooter from '../../components/home/HomeFooter';
 import saintsXCTFVideo from '../../../assets/saints-xctf-vid.mp4';
 import {RootState} from '../../redux/types';
 
-const mapStateToProps = (state: RootState): object => ({
-  auth: state.auth.auth,
-  user: state.auth.user
-});
+type Props = {}
 
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>
-type Props = PropsFromRedux & {}
-
-const Home: React.FunctionComponent<Props> = ({ auth, user }: Props) => {
+const Home: React.FunctionComponent<Props> = () => {
   const history = useHistory();
+  const auth = useSelector((state: RootState) => state.auth.auth);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const ref = useRef(null);
 
@@ -73,4 +67,4 @@ const Home: React.FunctionComponent<Props> = ({ auth, user }: Props) => {
   }
 };
 
-export default connect(mapStateToProps)(Home);
+export default Home;

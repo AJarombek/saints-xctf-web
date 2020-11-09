@@ -44,7 +44,7 @@ interface SignInFailureAction {
   status: string;
 }
 
-interface SignOutAction {
+export interface SignOutAction {
   type: typeof SIGNOUT;
 }
 

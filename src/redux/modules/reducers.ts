@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+import {combineReducers, Reducer} from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import auth from './auth';
@@ -9,7 +9,7 @@ import notifications from './notifications';
 import profile from './profile';
 import rangeView from './rangeView';
 
-const createRootReducer = (history) => combineReducers({
+const createRootReducer = (history): Reducer => combineReducers({
   router: connectRouter(history),
   auth,
   registration,

@@ -8,6 +8,7 @@
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import {RegistrationState} from '../types';
+import {Dispatch} from "redux";
 
 // Actions
 const REGISTER_PERSONAL_INFO_REQUEST = 'saints-xctf-web/registration/REGISTER_PERSONAL_INFO_REQUEST';
@@ -187,7 +188,11 @@ export function registerPersonalInfoRequest(): RegisterPersonalInfoRequestAction
   };
 }
 
-export function registerPersonalInfoSuccess(email, first, last): RegisterPersonalInfoSuccessAction {
+export function registerPersonalInfoSuccess(
+  email: string,
+  first: string,
+  last: string
+): RegisterPersonalInfoSuccessAction {
   return {
     type: REGISTER_PERSONAL_INFO_SUCCESS,
     email,
@@ -196,7 +201,7 @@ export function registerPersonalInfoSuccess(email, first, last): RegisterPersona
   };
 }
 
-export function registerPersonalInfoFailure(status, serverError): RegisterPersonalInfoFailureAction {
+export function registerPersonalInfoFailure(status: string, serverError: string): RegisterPersonalInfoFailureAction {
   return {
     type: REGISTER_PERSONAL_INFO_FAILURE,
     status,
@@ -210,14 +215,14 @@ export function registerCredentialsRequest(): RegisterCredentialsRequestAction {
   };
 }
 
-export function registerCredentialsSuccess(username): RegisterCredentialsSuccessAction {
+export function registerCredentialsSuccess(username: string): RegisterCredentialsSuccessAction {
   return {
     type: REGISTER_CREDENTIALS_SUCCESS,
     username
   };
 }
 
-export function registerCredentialsFailure(status, serverError): RegisterCredentialsFailureAction {
+export function registerCredentialsFailure(status: string, serverError: string): RegisterCredentialsFailureAction {
   return {
     type: REGISTER_CREDENTIALS_FAILURE,
     status,
@@ -240,7 +245,7 @@ export function registerBack(): RegisterBackAction {
  * @param email Email address associated with the new user.
  * @return {function(...[*]=)} Function which dispatches action creators.
  */
-export function registerPersonalInfo(first, last, email) {
+export function registerPersonalInfo(first: string, last: string, email: string) {
   return async function(dispatch): Promise<void> {
     dispatch(registerPersonalInfoRequest());
 
@@ -270,7 +275,7 @@ export function registerPersonalInfo(first, last, email) {
  * @param username Username which uniquely identifies the new user.
  * @return {Promise<boolean>} true if the username is valid, false otherwise.
  */
-async function validateUsername(dispatch, username): Promise<void> {
+async function validateUsername(dispatch: Dispatch, username: string): Promise<boolean> {
   try {
     await api.get(`users/${username}`);
     dispatch(registerCredentialsFailure('USERNAME ALREADY IN USE', null));
@@ -280,8 +285,12 @@ async function validateUsername(dispatch, username): Promise<void> {
 
     if (response.status !== 400) {
       dispatch(registerCredentialsFailure('INTERNAL ERROR', serverError));
+    } else {
+      return false;
     }
   }
+
+  return true;
 }
 
 /**
@@ -295,8 +304,15 @@ async function validateUsername(dispatch, username): Promise<void> {
  * @param activationCode Activation code for the new user.
  * @return {function(...[*]=)} Function which dispatches action creators.
  */
-export function registerCredentials(first, last, email, username, password, activationCode) {
-  return async function(dispatch): Promise<void> {
+export function registerCredentials(
+  first: string,
+  last: string,
+  email: string,
+  username: string,
+  password: string,
+  activationCode: string
+) {
+  return async function(dispatch: Dispatch): Promise<void> {
     dispatch(registerCredentialsRequest());
 
     const usernameValid = await validateUsername(dispatch, username);

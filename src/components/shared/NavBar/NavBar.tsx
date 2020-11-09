@@ -15,10 +15,12 @@ import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-component
 // @ts-ignore
 import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
 import {UserMeta} from '../../../redux/types';
+import {useDispatch} from 'react-redux';
+import {signOut, SignOutAction} from '../../../redux/modules/auth';
+import {Dispatch} from "redux";
 
 interface Props {
   includeHeaders?: Array<string>;
-  signOut?: () => void;
   user?: UserMeta;
   bodyRef: React.RefObject<any>;
 }
@@ -33,11 +35,12 @@ const handleScroll = (ref: React.RefObject<any>, setStickyHeader: (isSticky: boo
 
 const NavBar: React.FunctionComponent<Props> = ({
   includeHeaders = [],
-  signOut,
   user,
   bodyRef
 }) => {
   const classes = useStyles();
+  
+  const dispatch = useDispatch();
 
   const history = useHistory();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -118,7 +121,7 @@ const NavBar: React.FunctionComponent<Props> = ({
     {
       name: 'signOut',
       content: 'Sign Out',
-      onClick: signOut
+      onClick: (): SignOutAction => dispatch(signOut())
     },
     {
       name: 'home',
@@ -208,9 +211,9 @@ const NavBar: React.FunctionComponent<Props> = ({
           }
           { includeHeaders.includes('profile') &&
             <AJButton
-                type="text"
-                className="profileButton"
-                onClick={(): void => history.push(`/profile/${user?.username}`)}
+              type="text"
+              className="profileButton"
+              onClick={(): void => history.push(`/profile/${user?.username}`)}
             >
               Profile
             </AJButton>
@@ -226,7 +229,7 @@ const NavBar: React.FunctionComponent<Props> = ({
             </AJButton>
           }
           { includeHeaders.includes('signOut') &&
-            <AJButton type="contained" className="signOutButton" onClick={signOut}>
+            <AJButton type="contained" className="signOutButton" onClick={(): SignOutAction => dispatch(signOut())}>
               Sign Out
             </AJButton>
           }

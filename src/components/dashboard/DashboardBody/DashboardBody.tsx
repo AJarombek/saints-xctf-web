@@ -5,106 +5,86 @@
  */
 
 import React, {useEffect, useMemo, useState} from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
-import DashboardSidePanel from "../DashboardSidePanel/DashboardSidePanel";
-import LogFeed from "../../shared/LogFeed/LogFeed";
-import PaginationBar from "../../shared/PaginationBar/PaginationBar";
-import {DeletedLogs, GroupMember, Log, LogFeeds, NewComments, NotificationsState, User} from "../../../redux/types";
+import {createUseStyles} from 'react-jss';
+import styles from './styles';
+import DashboardSidePanel from '../DashboardSidePanel/DashboardSidePanel';
+import LogFeed from '../../shared/LogFeed/LogFeed';
+import PaginationBar from '../../shared/PaginationBar/PaginationBar';
+import {LogFeeds, RootState, User} from '../../../redux/types';
+import {useDispatch, useSelector} from 'react-redux';
+import {logFeed} from '../../../redux/modules/logs';
+import {getGroupMemberships} from '../../../redux/modules/memberships';
+import {getUserNotifications} from '../../../redux/modules/notifications';
 
-interface IProps {
-    getLogFeed: (filterBy: string, bucket: string, limit: number, offset: number) => void;
-    postComment: (logId: number, username: string, first: string, last: string, content: string) => void;
-    addComment: (logId: number, content: string, username: string, first: string, last: string,
-        filterBy: string, bucket: string, page: number, index: number) => void;
-    getGroupMemberships: (username: string) => void;
-    getUserNotifications: (username: string) => void;
-    deleteLog: (logId: number) => void;
-    logFeeds: LogFeeds;
-    newComments: NewComments;
+interface Props {
     user: User;
-    groupMemberships: GroupMember[];
-    notificationInfo: NotificationsState;
-    deletedLogs: DeletedLogs;
 }
 
 const useStyles = createUseStyles(styles);
 
-const DashboardBody: React.FunctionComponent<IProps> = ({
-    getLogFeed,
-    postComment,
-    addComment,
-    getGroupMemberships,
-    getUserNotifications,
-    deleteLog,
-    logFeeds,
-    newComments,
-    user,
-    groupMemberships,
-    notificationInfo,
-    deletedLogs
+const DashboardBody: React.FunctionComponent<Props> = ({
+  user
 }) => {
-    const classes = useStyles();
+  const classes = useStyles();
 
-    const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const logFeeds: LogFeeds = useSelector((state: RootState) => state.logs.feeds);
+  const groupMembershipInfo = useSelector((state: RootState) => state.memberships.groups);
+  const notificationInfo = useSelector((state: RootState) => state.notifications);
 
-    const filterBy = "all";
-    const bucket = "all";
+  const [page, setPage] = useState(1);
 
-    useEffect(() => {
-        getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
-    }, [filterBy, bucket, page]);
+  const filterBy = 'all';
+  const bucket = 'all';
 
-    useEffect(() => {
-        if (user) {
-            if (!groupMemberships) {
-                getGroupMemberships(user.username);
-            }
+  useEffect(() => {
+    dispatch(logFeed(filterBy, bucket, 10, 10 * (page - 1)));
+  }, [filterBy, bucket, page]);
 
-            if (!notificationInfo.items) {
-                getUserNotifications(user.username);
-            }
-        }
-    }, [user, groupMemberships]);
+  useEffect(() => {
+    if (user) {
+      if (!groupMembershipInfo.items) {
+        dispatch(getGroupMemberships(user.username));
+      }
 
-    const totalPages: number = useMemo(() => {
-        return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0
-    }, [logFeeds, page]);
+      if (!notificationInfo.items) {
+        dispatch(getUserNotifications(user.username));
+      }
+    }
+  }, [user, groupMembershipInfo, notificationInfo]);
 
-    return (
-        <div className={classes.dashboardBody}>
-            <div className={classes.sidePanel}>
-                <DashboardSidePanel
-                    user={user}
-                    groupMemberships={groupMemberships}
-                    notificationInfo={notificationInfo}
-                />
-            </div>
-            <div className={classes.mainPanel}>
-                <LogFeed
-                    logFeeds={logFeeds}
-                    getLogFeed={getLogFeed}
-                    postComment={postComment}
-                    addComment={addComment}
-                    deleteLog={deleteLog}
-                    page={page}
-                    newComments={newComments}
-                    deletedLogs={deletedLogs}
-                    user={user}
-                    filterBy={filterBy}
-                    bucket={bucket}
-                />
-                <PaginationBar
-                    page={page}
-                    totalPages={totalPages}
-                    onChangePage={(page) => {
-                        setPage(page);
-                        window.scrollTo(0, 0);
-                    }}
-                />
-            </div>
-        </div>
-    );
+  const totalPages: number = useMemo(() => {
+    return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0
+  }, [logFeeds, page]);
+
+  return (
+    <div className={classes.dashboardBody}>
+      <div className={classes.sidePanel}>
+        <DashboardSidePanel
+          user={user}
+          groupMemberships={groupMembershipInfo.items}
+          notificationInfo={notificationInfo}
+        />
+      </div>
+      <div className={classes.mainPanel}>
+        <LogFeed
+          logFeeds={logFeeds}
+          page={page}
+          user={user}
+          filterBy={filterBy}
+          bucket={bucket}
+        />
+        <PaginationBar
+          page={page}
+          totalPages={totalPages}
+          onChangePage={(page): void => {
+            setPage(page);
+            window.scrollTo(0, 0);
+          }}
+        />
+      </div>
+    </div>
+  );
 };
 
 export default DashboardBody;

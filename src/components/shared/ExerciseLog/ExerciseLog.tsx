@@ -11,7 +11,7 @@ import {
   DeletedLog,
   DeletedLogs,
   Log,
-  NewComments,
+  RootState,
   User,
 } from '../../../redux/types';
 import { Link, useHistory } from 'react-router-dom';
@@ -21,36 +21,11 @@ import { parseTagsInText, shortenTime } from '../../../utils/logs';
 import classNames from 'classnames';
 import { AJButton, AJModal } from 'jarombek-react-components';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteLog, logFeed} from '../../../redux/modules/logs';
 
 interface Props {
   log: Log;
-  getLogFeed: (
-    filterBy: string,
-    bucket: string,
-    limit: number,
-    offset: number
-  ) => void;
-  postComment: (
-    logId: number,
-    username: string,
-    first: string,
-    last: string,
-    content: string
-  ) => void;
-  addComment: (
-    logId: number,
-    content: string,
-    username: string,
-    first: string,
-    last: string,
-    filterBy: string,
-    bucket: string,
-    page: number,
-    index: number
-  ) => void;
-  deleteLog: (logId: number) => void;
-  newComments: NewComments;
-  deletedLogs: DeletedLogs;
   user: User;
   page: number;
   filterBy: string;
@@ -63,12 +38,6 @@ const useStyles = createUseStyles(styles);
 
 const ExerciseLog: React.FunctionComponent<Props> = ({
   log,
-  getLogFeed,
-  postComment,
-  addComment,
-  deleteLog,
-  newComments,
-  deletedLogs,
   user,
   page,
   filterBy,
@@ -78,6 +47,9 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
 }) => {
   const history = useHistory();
   const classes = useStyles({ feel: log?.feel });
+
+  const dispatch = useDispatch();
+  const deletedLogs: DeletedLogs = useSelector((state: RootState) => state.logs.deletedLogs);
 
   const [isUsersLog, setIsUsersLog] = useState(false);
   const [hovering, setHovering] = useState(false);
@@ -95,7 +67,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
   useEffect(() => {
     const deletedInfo = deletedLogs[log.log_id] ?? ({} as DeletedLog);
     if (deletedInfo.deleted && !deletedInfo.didInvalidate) {
-      getLogFeed(filterBy, bucket, 10, 10 * (page - 1));
+      dispatch(logFeed(filterBy, bucket, 10, 10 * (page - 1)));
       setIsDeleting(false);
       setShowDeleteModal(false);
     }
@@ -204,9 +176,6 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
         <Comments
           comments={log.comments}
           feel={log.feel}
-          postComment={postComment}
-          addComment={addComment}
-          newComments={newComments}
           logId={log.log_id}
           user={user}
           page={page}
@@ -230,7 +199,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
             <div className={classes.deleteModalButtons}>
               <AJButton
                 type="contained"
-                onClick={(): void => deleteLog(log.log_id)}
+                onClick={(): void => { dispatch(deleteLog(log.log_id)) }}
                 className={isDeleting && classes.disabledDeleteButton}
                 disabled={isDeleting}
               >
