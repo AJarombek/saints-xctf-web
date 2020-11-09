@@ -19,24 +19,11 @@ const RegisterBody: React.FunctionComponent<Props> = ({ stage, registration }) =
   function renderStage(): JSX.Element {
     switch (stage) {
     case 0:
-      return (
-        <RegisterPersonalInfo
-          registration={registration}
-        />
-      );
+      return <RegisterPersonalInfo registration={registration}/>;
     case 1:
-      return (
-        <RegisterCredentials
-          registration={registration}
-        />
-      );
+      return <RegisterCredentials registration={registration}/>;
     default:
-      return (
-        <RegisterPersonalInfo
-          registerPersonalInfo={registerPersonalInfo}
-          registration={registration}
-        />
-      );
+      return <RegisterPersonalInfo registration={registration}/>;
     }
   }
 

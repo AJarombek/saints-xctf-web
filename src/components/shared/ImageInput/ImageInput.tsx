@@ -9,7 +9,7 @@ import classnames from 'classnames';
 
 enum ImageInputStatus { NONE, SUCCESS, WARNING, FAILURE }
 
-interface IProps {
+interface Props {
   type: string;
   name: string;
   placeholder: string;
@@ -23,11 +23,11 @@ interface IProps {
   status: ImageInputStatus;
 }
 
-const ImageInput: React.FunctionComponent<IProps> = ({
+const ImageInput: React.FunctionComponent<Props> = ({
   type,
   name,
   placeholder,
-  autoComplete = "",
+  autoComplete = '',
   maxLength,
   onChange,
   onKeyUp,
@@ -40,25 +40,25 @@ const ImageInput: React.FunctionComponent<IProps> = ({
 
   let statusIcon, statusClass;
   switch (status) {
-    case ImageInputStatus.NONE:
-      statusIcon = null;
-      statusClass = 'none';
-      break;
-    case ImageInputStatus.SUCCESS:
-      statusIcon = '\u0052';
-      statusClass = 'success';
-      break;
-    case ImageInputStatus.WARNING:
-      statusIcon = '\u004f';
-      statusClass = 'warning';
-      break;
-    case ImageInputStatus.FAILURE:
-      statusIcon = '\u0051';
-      statusClass = 'failure';
-      break;
-    default:
-      statusIcon = null;
-      statusClass = 'none';
+  case ImageInputStatus.NONE:
+    statusIcon = null;
+    statusClass = 'none';
+    break;
+  case ImageInputStatus.SUCCESS:
+    statusIcon = '\u0052';
+    statusClass = 'success';
+    break;
+  case ImageInputStatus.WARNING:
+    statusIcon = '\u004f';
+    statusClass = 'warning';
+    break;
+  case ImageInputStatus.FAILURE:
+    statusIcon = '\u0051';
+    statusClass = 'failure';
+    break;
+  default:
+    statusIcon = null;
+    statusClass = 'none';
   }
 
   return (
@@ -80,7 +80,7 @@ const ImageInput: React.FunctionComponent<IProps> = ({
         ref={inputRef}
       />
       <div>
-        <div className={classnames("status", statusClass)}>
+        <div className={classnames('status', statusClass)}>
           <p>{statusIcon}</p>
         </div>
       </div>
