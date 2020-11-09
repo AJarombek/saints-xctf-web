@@ -12,10 +12,10 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 
-import { userAuthenticated } from '../utils/auth';
-import NavBar from '../components/shared/NavBar';
-import ForgotPasswordBody from '../components/forgot-password/ForgotPasswordBody';
-import { forgotPasswordEmail } from '../redux/modules/auth';
+import { userAuthenticated } from '../../utils/auth';
+import NavBar from '../../components/shared/NavBar';
+import ForgotPasswordBody from '../../components/forgot-password/ForgotPasswordBody';
+import { forgotPasswordEmail } from '../../redux/modules/auth';
 
 const mapStateToProps = state => ({
   auth: state.auth?.auth ?? {},

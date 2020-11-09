@@ -246,7 +246,7 @@ export function registerBack(): RegisterBackAction {
  * @return {function(...[*]=)} Function which dispatches action creators.
  */
 export function registerPersonalInfo(first: string, last: string, email: string) {
-  return async function(dispatch): Promise<void> {
+  return async function(dispatch: Dispatch): Promise<void> {
     dispatch(registerPersonalInfoRequest());
 
     try {

@@ -14,12 +14,12 @@ import reducer from './modules/reducers';
 
 export const history = createBrowserHistory();
 
-export default function configureStore(data): Store {
+export default function configureStore(): Store {
   const loggerMiddleware = createLogger();
   const middleware = [routerMiddleware(history), loggerMiddleware, thunkMiddleware];
 
   const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
-  const store = createStoreWithMiddleware(reducer(history), data);
+  const store = createStoreWithMiddleware(reducer(history));
 
   if (process.env.NODE_ENV !== 'production' && module.hot) {
     module.hot.accept('./modules/reducers', () => store.replaceReducer(reducer))

@@ -8,8 +8,10 @@ import memberships from './memberships';
 import notifications from './notifications';
 import profile from './profile';
 import rangeView from './rangeView';
+import {History} from 'history';
+import LocationState = History.LocationState;
 
-const createRootReducer = (history): Reducer => combineReducers({
+const createRootReducer = (history: History<LocationState>): Reducer => combineReducers({
   router: connectRouter(history),
   auth,
   registration,

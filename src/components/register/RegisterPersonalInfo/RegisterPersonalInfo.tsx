@@ -10,18 +10,26 @@
 import { AJButton } from 'jarombek-react-components';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
 
-import emailLogo from '../../../assets/email.png';
-import ImageInputSet from '../shared/ImageInputSet';
-import ImageInput from '../shared/ImageInput';
+import { registerPersonalInfo } from '../../../redux/modules/registration';
+import emailLogo from '../../../../assets/email.png';
+import ImageInputSet from '../../shared/ImageInputSet';
+import ImageInput from '../../shared/ImageInput';
+import {RegistrationState} from '../../../redux/types';
 
-const RegisterPersonalInfo = ({ registerPersonalInfo, registration }) => {
+interface Props {
+  registration: RegistrationState;
+}
+
+const RegisterPersonalInfo: React.FunctionComponent<Props> = ({ registration }) => {
   const history = useHistory();
+  
+  const dispatch = useDispatch();
 
-  const [firstName, setFirstName] = useState(registration.first || "");
-  const [lastName, setLastName] = useState(registration.last || "");
-  const [email, setEmail] = useState(registration.email || "");
+  const [firstName, setFirstName] = useState(registration.first || '');
+  const [lastName, setLastName] = useState(registration.last || '');
+  const [email, setEmail] = useState(registration.email || '');
   const [loading, setLoading] = useState(false);
   const [emailStatus, setEmailStatus] = useState(ImageInput.Status.NONE);
   const [errorStatus, setErrorStatus] = useState(null);
@@ -29,20 +37,20 @@ const RegisterPersonalInfo = ({ registerPersonalInfo, registration }) => {
   useEffect(() => {
     let message;
     switch (registration.status) {
-      case "USER ALREADY EXISTS":
-        message = "A user already exists with this email.";
-        setErrorStatus(message);
-        setEmailStatus(ImageInput.Status.FAILURE);
-        break;
-      case "INTERNAL ERROR":
-        message =  "An unexpected error occurred.  " +
-          "Contact andrew@jarombek.com if this error persists.";
-        setErrorStatus(message);
-        setEmailStatus(ImageInput.Status.NONE);
-        break;
-      default:
-        setErrorStatus(null);
-        setEmailStatus(ImageInput.Status.NONE);
+    case 'USER ALREADY EXISTS':
+      message = 'A user already exists with this email.';
+      setErrorStatus(message);
+      setEmailStatus(ImageInput.Status.FAILURE);
+      break;
+    case 'INTERNAL ERROR':
+      message =  'An unexpected error occurred.  ' +
+          'Contact andrew@jarombek.com if this error persists.';
+      setErrorStatus(message);
+      setEmailStatus(ImageInput.Status.NONE);
+      break;
+    default:
+      setErrorStatus(null);
+      setEmailStatus(ImageInput.Status.NONE);
     }
 
     setLoading(false);
@@ -64,7 +72,7 @@ const RegisterPersonalInfo = ({ registerPersonalInfo, registration }) => {
 
   const onClickContinue = async () => {
     setLoading(true);
-    await registerPersonalInfo(firstName, lastName, email);
+    await dispatch(registerPersonalInfo(firstName, lastName, email));
   };
 
   return (
@@ -123,20 +131,6 @@ const RegisterPersonalInfo = ({ registerPersonalInfo, registration }) => {
       </div>
     </div>
   );
-};
-
-RegisterPersonalInfo.propTypes = {
-  registerPersonalInfo: PropTypes.func.isRequired,
-  registration: PropTypes.shape({
-    isFetching: PropTypes.bool,
-    lastUpdated: PropTypes.number,
-    valid: PropTypes.bool,
-    status: PropTypes.string,
-    stage: PropTypes.number,
-    first: PropTypes.string,
-    last: PropTypes.string,
-    email: PropTypes.string
-  })
 };
 
 export default RegisterPersonalInfo;

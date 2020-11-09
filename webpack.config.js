@@ -13,7 +13,7 @@ const webpack = require("webpack");
 const parts = require('./webpack.parts');
 
 const PATHS = {
-  bundle: path.join(__dirname, 'src/index.js'),
+  bundle: path.join(__dirname, 'src/index.tsx'),
   styles: glob.sync('./src/**/*.scss'),
   build: path.join(__dirname, 'dist/')
 };

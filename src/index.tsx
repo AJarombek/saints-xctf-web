@@ -12,13 +12,13 @@ import { ConnectedRouter } from 'connected-react-router';
 import configureStore, { history } from './redux/store';
 import { Provider } from 'react-redux';
 import dotenv from 'dotenv';
-import { interceptor } from "./datasources/apiRequest";
+import { interceptor } from './datasources/apiRequest';
 
 import Home from './containers/Home/Home';
 import SignIn from './containers/SignIn';
 import Dashboard from './containers/Dashboard';
-import ForgotPassword from './containers/ForgotPassword';
-import Register from './containers/Register';
+import ForgotPassword from './containers/ForgotPassword/ForgotPassword';
+import Register from './containers/Register/Register';
 import EditLog from './containers/EditLog';
 import { FeatureFlagProvider } from './components/shared/FeatureFlag';
 import { getFeatureFlags } from './utils/features';
@@ -29,7 +29,7 @@ dotenv.config();
 const store = configureStore();
 interceptor(store);
 
-const RoutedApp = () =>
+const RoutedApp = (): JSX.Element =>
   <Provider store={store}>
     <FeatureFlagProvider values={getFeatureFlags()}>
       <ConnectedRouter history={history}>

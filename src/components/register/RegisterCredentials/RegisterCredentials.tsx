@@ -6,20 +6,27 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-
-import ImageInput from '../shared/ImageInput';
-import ImageInputSet from '../shared/ImageInputSet';
-import usernameLogo from '../../../assets/username.png';
-import passwordLogo from '../../../assets/password.png';
-import keyLogo from '../../../assets/key.png';
+import ImageInput from '../../shared/ImageInput';
+import ImageInputSet from '../../shared/ImageInputSet';
+import usernameLogo from '../../../../assets/username.png';
+import passwordLogo from '../../../../assets/password.png';
+import keyLogo from '../../../../assets/key.png';
 import { AJButton } from 'jarombek-react-components';
+import {useDispatch} from 'react-redux';
+import {registerBack, registerCredentials} from '../../../redux/modules/registration';
+import {RegistrationState} from '../../../redux/types';
 
-const RegisterCredentials = ({ registration, registerCredentials, registerBack }) => {
-  const [username, setUsername] = useState(registration.username || "");
-  const [password, setPassword] = useState(registration.password || "");
-  const [confirmPassword, setConfirmPassword] = useState(registration.password || "");
-  const [activationCode, setActivationCode] = useState(registration.activation_code || "");
+interface Props {
+  registration: RegistrationState;
+}
+
+const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) => {
+  const dispatch = useDispatch();
+  
+  const [username, setUsername] = useState(registration.username || '');
+  const [password, setPassword] = useState(registration.password || '');
+  const [confirmPassword, setConfirmPassword] = useState(registration.password || '');
+  const [activationCode, setActivationCode] = useState(registration.activation_code || '');
 
   const [usernameValid, setUsernameValid] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
@@ -36,16 +43,16 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
   useEffect(() => {
     let message;
     if (registration.status)
-    switch (registration.status) {
-      case "USERNAME ALREADY IN USE":
-        message = "A user already exists with this username.";
+      switch (registration.status) {
+      case 'USERNAME ALREADY IN USE':
+        message = 'A user already exists with this username.';
         setErrorStatus(message);
 
         setUsernameStatus(ImageInput.Status.FAILURE);
         setActivationCodeStatus(ImageInput.Status.NONE);
         setPasswordStatus(ImageInput.Status.NONE);
         break;
-      case "VALIDATION ERROR":
+      case 'VALIDATION ERROR':
         setErrorStatus(registration.serverError);
 
         const activationCodeError =
@@ -61,9 +68,9 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
         setActivationCodeStatus(activationCodeStatus);
         setPasswordStatus(passwordStatus);
         break;
-      case "INTERNAL ERROR":
-        message =  "An unexpected error occurred.  " +
-          "Contact andrew@jarombek.com if this error persists.";
+      case 'INTERNAL ERROR':
+        message =  'An unexpected error occurred.  ' +
+          'Contact andrew@jarombek.com if this error persists.';
         setErrorStatus(message);
 
         setUsernameStatus(ImageInput.Status.NONE);
@@ -76,7 +83,7 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
         setUsernameStatus(ImageInput.Status.NONE);
         setActivationCodeStatus(ImageInput.Status.NONE);
         setPasswordStatus(ImageInput.Status.NONE);
-    }
+      }
 
     setLoading(false);
 
@@ -157,14 +164,14 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
    */
   const onClickRegister = async () => {
     setLoading(true);
-    await registerCredentials(
+    await dispatch(registerCredentials(
       registration.first,
       registration.last,
       registration.email,
       username,
       password,
       activationCode
-    );
+    ));
   };
 
   /**
@@ -172,7 +179,7 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
    */
   const onClickBack = () => {
     setLoading(true);
-    registerBack();
+    dispatch(registerBack());
   };
 
   return (
@@ -241,21 +248,6 @@ const RegisterCredentials = ({ registration, registerCredentials, registerBack }
       </div>
     </div>
   );
-};
-
-RegisterCredentials.propTypes = {
-  registration: PropTypes.shape({
-    isFetching: PropTypes.bool,
-    lastUpdated: PropTypes.number,
-    valid: PropTypes.bool,
-    status: PropTypes.string,
-    stage: PropTypes.number,
-    first: PropTypes.string,
-    last: PropTypes.string,
-    email: PropTypes.string
-  }),
-  registerCredentials: PropTypes.func.isRequired,
-  registerBack: PropTypes.func.isRequired
 };
 
 export default RegisterCredentials;
