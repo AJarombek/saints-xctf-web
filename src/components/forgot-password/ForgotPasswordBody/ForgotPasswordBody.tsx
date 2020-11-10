@@ -6,26 +6,28 @@
  */
 
 import React, {ChangeEvent, useState} from 'react';
-import PropTypes from 'prop-types';
 
 import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import emailLogo from '../../../../assets/email.png';
+import {forgotPasswordEmail} from '../../../redux/modules/auth';
+import {useDispatch} from 'react-redux';
 
-interface IProps {
-  forgotPasswordEmail: Function
-}
+type Props = {}
 
-const ForgotPasswordBody: React.FunctionComponent<IProps> = ({ forgotPasswordEmail }) => {
-  const [email, setEmail] = useState("");
+const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
+  const dispatch = useDispatch();
+  
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
-  const [emailStatus, setEmailStatus] = useState(ImageInputStatus.NONE);
+  const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [emailValid, setEmailValid] = useState(false);
   const [errorStatus, setErrorStatus] = useState(null);
 
-  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeEmail = (e: ChangeEvent<HTMLInputElement>): void => {
     const target = e.target as HTMLInputElement;
     const value = target.value;
     setEmail(value);
@@ -39,9 +41,9 @@ const ForgotPasswordBody: React.FunctionComponent<IProps> = ({ forgotPasswordEma
     }
   };
 
-  const onClickSend = async () => {
+  const onClickSend = async (): Promise<void> => {
     setLoading(true);
-    await forgotPasswordEmail(email);
+    await dispatch(forgotPasswordEmail(email));
   };
 
   return (
@@ -71,10 +73,6 @@ const ForgotPasswordBody: React.FunctionComponent<IProps> = ({ forgotPasswordEma
       </div>
     </div>
   );
-};
-
-ForgotPasswordBody.propTypes = {
-  forgotPasswordEmail: PropTypes.func.isRequired
 };
 
 export default ForgotPasswordBody;

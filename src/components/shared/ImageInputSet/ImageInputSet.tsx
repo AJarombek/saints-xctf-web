@@ -8,17 +8,17 @@ import React, {ReactNode} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-enum ImageInputDirection { ROW = "row", COLUMN = "column" }
+enum ImageInputDirection { ROW = 'row', COLUMN = 'column' }
 
-interface IProps {
+interface Props {
     children: ReactNode;
     direction?: ImageInputDirection;
 }
 
-const ImageInputSet: React.FunctionComponent<IProps> = ({ children, direction = ImageInputDirection.ROW }) => {
+const ImageInputSet: React.FunctionComponent<Props> = ({ children, direction = ImageInputDirection.ROW }) => {
 
   return (
-    <div className={classnames("sxctf-image-input-set", direction)}>
+    <div className={classnames('sxctf-image-input-set', direction)}>
       <form>
         { children }
       </form>

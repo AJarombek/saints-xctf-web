@@ -8,80 +8,36 @@
  */
 
 import React, {useEffect, useRef} from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import ForgotPasswordBody from '../../components/forgot-password/ForgotPasswordBody';
-import { forgotPasswordEmail } from '../../redux/modules/auth';
+import {RootState} from '../../redux/types';
 
-const mapStateToProps = state => ({
-  auth: state.auth?.auth ?? {},
-  user: state.auth?.user ?? {},
-  forgotPassword: state.auth?.forgotPassword ?? {}
-});
+type Props = {};
 
-const mapDispatchToProps = {
-  forgotPasswordEmail
-};
-
-const ForgotPassword = ({ auth, user, forgotPassword, forgotPasswordEmail }) => {
+const ForgotPassword: React.FunctionComponent<Props> = () => {
   const history = useHistory();
+
+  const auth = useSelector((state: RootState) => state.auth.auth);
+  const users = useSelector((state: RootState) => state.auth.user);
 
   const ref = useRef(null);
 
   useEffect(() => {
-    if (userAuthenticated(user, auth.signedInUser)) {
+    if (userAuthenticated(users, auth.signedInUser)) {
       history.push('/dashboard');
     }
-  }, [user]);
+  }, [users]);
 
   return (
     <div className="sxctf-forgot-password" ref={ref}>
-      <NavBar includeHeaders={["home", "register", "signIn", "logo"]} bodyRef={ref}/>
-      <ForgotPasswordBody forgotPasswordEmail={forgotPasswordEmail}/>
+      <NavBar includeHeaders={['home', 'register', 'signIn', 'logo']} bodyRef={ref}/>
+      <ForgotPasswordBody />
     </div>
   );
 };
 
-ForgotPassword.propTypes = {
-  auth: PropTypes.shape({
-    isFetching: PropTypes.bool,
-    lastUpdated: PropTypes.number,
-    signedIn: PropTypes.bool,
-    status: PropTypes.string
-  }),
-  user: PropTypes.shape({
-    isFetching: PropTypes.bool,
-    didInvalidate: PropTypes.bool,
-    lastUpdated: PropTypes.number,
-    activation_code: PropTypes.string,
-    class_year: PropTypes.number,
-    deleted: PropTypes.string,
-    description: PropTypes.string,
-    email: PropTypes.string,
-    favorite_event: PropTypes.string,
-    first: PropTypes.string,
-    last: PropTypes.string,
-    last_signin: PropTypes.string,
-    location: PropTypes.string,
-    member_since: PropTypes.string,
-    password: PropTypes.string,
-    subscribed: PropTypes.string,
-    username: PropTypes.string,
-    week_start: PropTypes.string
-  }),
-  forgotPassword: PropTypes.shape({
-    email: PropTypes.shape({
-      isFetching: PropTypes.bool,
-      lastUpdated: PropTypes.number,
-      status: PropTypes.string,
-      serverError: PropTypes.string
-    })
-  }),
-  forgotPasswordEmail: PropTypes.func.isRequired
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword);
+export default ForgotPassword;
