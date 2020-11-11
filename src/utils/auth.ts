@@ -4,7 +4,7 @@
  * @since 5/9/2020
  */
 
-import {Users} from "../redux/types";
+import {Users} from '../redux/types';
 
 /**
  * Determine if is a user is signed in and properly authenticated.
@@ -12,7 +12,7 @@ import {Users} from "../redux/types";
  * @param signedInUser The username of the user to test whether or not they are signed in.
  * @return {@code true} if the user is authenticated and signed in, {@code false} otherwise.
  */
-export function userAuthenticated(user: Users, signedInUser: string) {
+export function userAuthenticated(user: Users, signedInUser: string): boolean {
   if (!Object.keys(user).length) {
     const storedUser = JSON.parse(localStorage.getItem('user'));
 

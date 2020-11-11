@@ -19,6 +19,7 @@ import {logFeed} from '../../../redux/modules/logs';
 import {useDispatch, useSelector} from 'react-redux';
 import {getUserFlair} from '../../../redux/modules/profile';
 import {getGroupMemberships} from '../../../redux/modules/memberships';
+import WeeklyChart from '../WeeklyChart';
 
 interface Props {
     user: UserMeta;
@@ -111,6 +112,9 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }
           )}
           {tab === ProfileTab.CALENDAR && (
             <MonthlyCalendar rangeViews={rangeViews} user={user} />
+          )}
+          {tab === ProfileTab.CHART && (
+            <WeeklyChart rangeViews={rangeViews} />
           )}
         </section>
       </div>

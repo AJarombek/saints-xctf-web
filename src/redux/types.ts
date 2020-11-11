@@ -60,7 +60,7 @@ export type RegistrationState = {
     email?: string;
     username?: string;
     password?: string;
-    activationCode?: string;
+    activation_code?: string;
     teams?: TeamRegistration;
 }
 
@@ -288,4 +288,11 @@ export type GroupRegistration = {
     [key: string]: {
         status: string;
     }
+}
+
+export type ExerciseFilters = {
+    run: boolean;
+    bike: boolean;
+    swim: boolean;
+    other: boolean;
 }

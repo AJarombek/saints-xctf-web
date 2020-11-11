@@ -4,20 +4,27 @@
  * @since 10/18/2020
  */
 
-import React from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
+import React, {useState} from 'react';
+import {createUseStyles} from 'react-jss';
+import styles from './styles';
+import {RangeViewExerciseTypeFilters} from '../../../redux/types';
 
-interface IProps {}
+interface Props {
+  rangeViews: RangeViewExerciseTypeFilters;
+}
 
 const useStyles = createUseStyles(styles);
 
-const WeeklyChart: React.FunctionComponent<IProps> = ({}) => {
-    const classes = useStyles();
+const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews }) => {
+  const classes = useStyles();
 
-    return (
-        <div className={classes.weeklyChart}></div>
-    );
+  const [selectedFilters, setSelectedFilters] = useState({ run: true, bike: false, swim: false, other: false });
+
+  return (
+    <div className={classes.weeklyChart}>
+
+    </div>
+  );
 };
 
 export default WeeklyChart;

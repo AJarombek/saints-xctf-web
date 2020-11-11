@@ -8,12 +8,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {createUseStyles} from 'react-jss';
 import styles from './styles';
 import Month from '../Month';
-import {
-  RangeViewExerciseType,
-  RangeViewExerciseTypeFilters,
-  RangeViewItemsMeta,
-  UserMeta
-} from '../../../redux/types';
+import {RangeViewExerciseType, RangeViewExerciseTypeFilters, RangeViewItemsMeta, UserMeta} from '../../../redux/types';
 import moment from 'moment';
 import {getRangeView} from '../../../redux/modules/rangeView';
 import {useDispatch} from 'react-redux';
@@ -81,7 +76,7 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) 
       </div>
       <div className={classes.weekdays}>
         {Array(7).fill(0).map((_, i) => (
-          <p>{start.clone().add(i, 'days').format('dddd')}</p>
+          <p key={i}>{start.clone().add(i, 'days').format('dddd')}</p>
         ))}
         <p>Total</p>
       </div>

@@ -9,7 +9,7 @@ import {createUseStyles} from 'react-jss';
 import styles from './styles';
 import Calendar from '../Calendar';
 import {RangeViewExerciseType, RangeViewExerciseTypeFilters, UserMeta} from '../../../redux/types';
-import {AJButton, AJButtonGroup} from 'jarombek-react-components';
+import FilterButtons from '../../shared/FilterButtons';
 
 interface Props {
     rangeViews: RangeViewExerciseTypeFilters;
@@ -32,28 +32,7 @@ const MonthlyCalendar: React.FunctionComponent<Props> = ({ rangeViews, user }) =
     <div className={classes.monthlyCalendar} id="monthlyCalendar">
       <div className={classes.filters}>
         <p className={classes.filterTitle}>Calendar Filters:</p>
-        <AJButtonGroup className={classes.filterButtons}>
-          <AJButton
-            type={selectedFilters.run ? 'contained' : 'outlined'}
-            onClick={(): void => setSelectedFilters({ ...selectedFilters, run: !selectedFilters.run })}>
-                        Run
-          </AJButton>
-          <AJButton
-            type={selectedFilters.bike ? 'contained' : 'outlined'}
-            onClick={(): void => setSelectedFilters({ ...selectedFilters, bike: !selectedFilters.bike })}>
-                        Bike
-          </AJButton>
-          <AJButton
-            type={selectedFilters.swim ? 'contained' : 'outlined'}
-            onClick={(): void => setSelectedFilters({ ...selectedFilters, swim: !selectedFilters.swim })}>
-                        Swim
-          </AJButton>
-          <AJButton
-            type={selectedFilters.other ? 'contained' : 'outlined'}
-            onClick={(): void => setSelectedFilters({ ...selectedFilters, other: !selectedFilters.other })}>
-                        Other
-          </AJButton>
-        </AJButtonGroup>
+        <FilterButtons selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
       </div>
       <Calendar rangeViews={rangeViews} filter={filter} user={user} />
     </div>

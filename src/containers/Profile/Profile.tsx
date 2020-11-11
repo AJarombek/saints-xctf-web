@@ -52,12 +52,12 @@ const Profile: React.FunctionComponent<Props> = () => {
   useEffect(() => {
     if (auth.signedInUser && !users[username]?.user?.username) {
       if (auth.signedInUser === username && authUsers[username]) {
-        setUser(authUsers[username]?.user);
+        dispatch(setUser(authUsers[username]?.user));
       } else {
-        getUser(username);
+        dispatch(getUser(username));
       }
     }
-  }, [auth.signedInUser, users]);
+  }, [auth.signedInUser, authUsers]);
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (

@@ -6,15 +6,22 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import ImageInput from '../../shared/ImageInput';
-import ImageInputSet from '../../shared/ImageInputSet';
-import usernameLogo from '../../../../assets/username.png';
-import passwordLogo from '../../../../assets/password.png';
-import keyLogo from '../../../../assets/key.png';
+import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
+import ImageInputSet, {ImageInputDirection} from '../../shared/ImageInputSet';
 import { AJButton } from 'jarombek-react-components';
 import {useDispatch} from 'react-redux';
 import {registerBack, registerCredentials} from '../../../redux/modules/registration';
 import {RegistrationState} from '../../../redux/types';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import usernameLogo from '../../../../assets/username.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import passwordLogo from '../../../../assets/password.png';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import keyLogo from '../../../../assets/key.png';
 
 interface Props {
   registration: RegistrationState;
@@ -33,10 +40,10 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
   const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
   const [activationCodeValid, setActivationCodeValid] = useState(false);
 
-  const [usernameStatus, setUsernameStatus] = useState(ImageInput.Status.NONE);
-  const [passwordStatus, setPasswordStatus] = useState(ImageInput.Status.NONE);
-  const [confirmPasswordStatus, setConfirmPasswordStatus] = useState(ImageInput.Status.NONE);
-  const [activationCodeStatus, setActivationCodeStatus] = useState(ImageInput.Status.NONE);
+  const [usernameStatus, setUsernameStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
+  const [passwordStatus, setPasswordStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
+  const [confirmPasswordStatus, setConfirmPasswordStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
+  const [activationCodeStatus, setActivationCodeStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [errorStatus, setErrorStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -48,41 +55,39 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
         message = 'A user already exists with this username.';
         setErrorStatus(message);
 
-        setUsernameStatus(ImageInput.Status.FAILURE);
-        setActivationCodeStatus(ImageInput.Status.NONE);
-        setPasswordStatus(ImageInput.Status.NONE);
+        setUsernameStatus(ImageInputStatus.FAILURE);
+        setActivationCodeStatus(ImageInputStatus.NONE);
+        setPasswordStatus(ImageInputStatus.NONE);
         break;
       case 'VALIDATION ERROR':
         setErrorStatus(registration.serverError);
 
         const activationCodeError =
           registration.serverError === 'The activation code is invalid or expired.';
-        const activationCodeStatus = activationCodeError ?
-          ImageInput.Status.FAILURE : ImageInput.Status.NONE;
+        const activationCodeStatus = activationCodeError ? ImageInputStatus.FAILURE : ImageInputStatus.NONE;
 
         const passwordError =
           registration.serverError === 'Password must contain at least 8 characters.';
-        const passwordStatus = passwordError ? ImageInput.Status.FAILURE : ImageInput.Status.NONE;
+        const passwordStatus = passwordError ? ImageInputStatus.FAILURE : ImageInputStatus.NONE;
 
-        setUsernameStatus(ImageInput.Status.NONE);
+        setUsernameStatus(ImageInputStatus.NONE);
         setActivationCodeStatus(activationCodeStatus);
         setPasswordStatus(passwordStatus);
         break;
       case 'INTERNAL ERROR':
-        message =  'An unexpected error occurred.  ' +
-          'Contact andrew@jarombek.com if this error persists.';
+        message =  'An unexpected error occurred.  Contact andrew@jarombek.com if this error persists.';
         setErrorStatus(message);
 
-        setUsernameStatus(ImageInput.Status.NONE);
-        setActivationCodeStatus(ImageInput.Status.NONE);
-        setPasswordStatus(ImageInput.Status.NONE);
+        setUsernameStatus(ImageInputStatus.NONE);
+        setActivationCodeStatus(ImageInputStatus.NONE);
+        setPasswordStatus(ImageInputStatus.NONE);
         break;
       default:
         setErrorStatus(null);
 
-        setUsernameStatus(ImageInput.Status.NONE);
-        setActivationCodeStatus(ImageInput.Status.NONE);
-        setPasswordStatus(ImageInput.Status.NONE);
+        setUsernameStatus(ImageInputStatus.NONE);
+        setActivationCodeStatus(ImageInputStatus.NONE);
+        setPasswordStatus(ImageInputStatus.NONE);
       }
 
     setLoading(false);
@@ -95,12 +100,12 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
    * Perform validation and hook updates when the username input is updated.
    * @param e DOM event object.
    */
-  const onChangeUsername = (e) => {
+  const onChangeUsername = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setUsername(value);
 
     const isValid = usernamePattern.test(value);
-    const status = isValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+    const status = isValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
 
     setUsernameStatus(status);
     setUsernameValid(isValid);
@@ -111,15 +116,15 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
    * the password and confirm password inputs.
    * @param e DOM event object.
    */
-  const onChangePassword = (e) => {
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setPassword(value);
 
     const lengthValid = value.length >= 6;
     const valueValid = value === confirmPassword;
 
-    const status = lengthValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
-    const confirmStatus = valueValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+    const status = lengthValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
+    const confirmStatus = valueValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
 
     setPasswordStatus(status);
     setPasswordValid(lengthValid);
@@ -132,12 +137,12 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
    * Perform validation and hook updates when the 'confirm password' input is updated.
    * @param e DOM event object.
    */
-  const onChangeConfirmPassword = (e) => {
+  const onChangeConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setConfirmPassword(value);
 
     const isValid = value === password;
-    const status = isValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+    const status = isValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
 
     setConfirmPasswordStatus(status);
     setConfirmPasswordValid(isValid);
@@ -147,12 +152,12 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
    * Perform validation and hook updates when the 'activation code' input is updated.
    * @param e DOM event object.
    */
-  const onChangeActivationCode = (e) => {
+  const onChangeActivationCode = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = e.target.value;
     setActivationCode(value);
 
     const isValid = value.length === 8;
-    const status = isValid ? ImageInput.Status.NONE : ImageInput.Status.WARNING;
+    const status = isValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
 
     setActivationCodeStatus(status);
     setActivationCodeValid(isValid);
@@ -162,7 +167,7 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
    * When the register button is clicked, attempt to register the new user with the
    * credentials given.
    */
-  const onClickRegister = async () => {
+  const onClickRegister = async (): Promise<void> => {
     setLoading(true);
     await dispatch(registerCredentials(
       registration.first,
@@ -177,7 +182,7 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
   /**
    * When users click the 'Back' button, move the registration process back to the first stage.
    */
-  const onClickBack = () => {
+  const onClickBack = (): void => {
     setLoading(true);
     dispatch(registerBack());
   };
@@ -197,7 +202,7 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
           status={usernameStatus}
         />
         <p className="input-tip">Username can only contain Roman characters and numbers.</p>
-        <ImageInputSet direction={ImageInputSet.Direction.ROW}>
+        <ImageInputSet direction={ImageInputDirection.ROW}>
           <ImageInput
             onChange={onChangePassword}
             icon={passwordLogo}
