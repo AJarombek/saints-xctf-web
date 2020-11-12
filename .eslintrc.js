@@ -23,12 +23,22 @@ module.exports = {
             version: 'detect'
         }
     },
+    plugins: [
+        "prettier",
+        "react-hooks"
+    ],
     rules: {
         "max-len": ["error", { "code": 120 }],
         "quotes": ["error", "single", { "avoidEscape": true }],
         "react/prop-types": ["off"],
         "react/no-unescaped-entities": ["off"],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
         "indent": ["error", 2],
-        "@typescript-eslint/camelcase": ["off"]
+        "@typescript-eslint/camelcase": ["off"],
+        "prettier/prettier": ["error", {
+            "singleQuote": true,
+            "printWidth": 120
+        }]
     }
 };

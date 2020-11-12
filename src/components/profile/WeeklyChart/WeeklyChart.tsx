@@ -4,10 +4,13 @@
  * @since 10/18/2020
  */
 
-import React, {useState} from 'react';
-import {createUseStyles} from 'react-jss';
+import React, { useState } from 'react';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {RangeViewExerciseTypeFilters} from '../../../redux/types';
+import { RangeViewExerciseTypeFilters } from '../../../redux/types';
+import FilterButtons from '../../shared/FilterButtons';
+import {Bar, BarChart, CartesianGrid, Cell, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis} from 'recharts';
+import { FeelColors } from '../../../styles/colors';
 
 interface Props {
   rangeViews: RangeViewExerciseTypeFilters;
@@ -20,9 +23,60 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews }) => {
 
   const [selectedFilters, setSelectedFilters] = useState({ run: true, bike: false, swim: false, other: false });
 
+  const data = [
+    {
+      name: 'Week 1',
+      miles: 36,
+      feel: 7,
+    },
+    {
+      name: 'Week 2',
+      miles: 47,
+      feel: 5,
+    },
+    {
+      name: 'Week 3',
+      miles: 50,
+      feel: 6,
+    },
+    {
+      name: 'Week 4',
+      miles: 16,
+      feel: 4,
+    },
+    {
+      name: 'Week 5',
+      miles: 22,
+      feel: 5,
+    },
+  ];
+
   return (
     <div className={classes.weeklyChart}>
-
+      <div className={classes.filters}>
+        <p className={classes.filterTitle}>Chart Filters:</p>
+        <FilterButtons selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
+      </div>
+      <div>
+        <ResponsiveContainer height={400} width="100%">
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip
+              labelFormatter={(): string => ''}
+              formatter={(value: string): Array<string> => [value, 'Miles']}
+              separator=": "
+              cursor={false}
+            />
+            <Bar dataKey="miles">
+              {data.map((entry, index) => (
+                <Cell key={index} fill={FeelColors[entry.feel]} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
