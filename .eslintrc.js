@@ -38,7 +38,8 @@ module.exports = {
         "@typescript-eslint/camelcase": ["off"],
         "prettier/prettier": ["error", {
             "singleQuote": true,
-            "printWidth": 120
+            "printWidth": 120,
+            "trailingComma": "none",
         }]
     }
 };

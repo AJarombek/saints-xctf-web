@@ -1,4 +1,4 @@
-import {FontMixins} from '../../../styles/mixins';
+import { FontMixins } from '../../../styles/mixins';
 
 /**
  * JSS styles for the WeeklyChart component.
@@ -21,5 +21,8 @@ export default {
     filterTitle: {
       margin: '20px 20px 20px 0'
     }
+  },
+  chart: {
+    ...FontMixins.robotoSlabThin()
   }
 };
