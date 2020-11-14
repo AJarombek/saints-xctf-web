@@ -4,23 +4,42 @@
  * @since 10/18/2020
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { ExerciseFilters, RangeViewExerciseType, RangeViewExerciseTypeFilters } from '../../../redux/types';
+import {
+  ExerciseFilters,
+  RangeViewExerciseType,
+  RangeViewExerciseTypeFilters,
+  RangeViewItemMoment,
+  RangeViewItemsMeta,
+  UserMeta
+} from '../../../redux/types';
 import FilterButtons from '../../shared/FilterButtons';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { FeelColors } from '../../../styles/colors';
 import { useExerciseFilter } from '../../../hooks/shared';
+import moment from 'moment';
+import { getRangeView } from '../../../redux/modules/rangeView';
+import { useDispatch } from 'react-redux';
 
 interface Props {
   rangeViews: RangeViewExerciseTypeFilters;
+  user: UserMeta;
 }
+
+type WeeklyChartData = {
+  name: string;
+  miles: number;
+  feel: number;
+};
 
 const useStyles = createUseStyles(styles);
 
-const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews }) => {
+const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
 
   const [selectedFilters, setSelectedFilters] = useState<ExerciseFilters>({
     run: true,
@@ -31,33 +50,64 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews }) => {
 
   const filter: RangeViewExerciseType = useExerciseFilter(selectedFilters);
 
-  const data = [
-    {
-      name: 'Week 1',
-      miles: 36,
-      feel: 7
-    },
-    {
-      name: 'Week 2',
-      miles: 47,
-      feel: 5
-    },
-    {
-      name: 'Week 3',
-      miles: 50,
-      feel: 6
-    },
-    {
-      name: 'Week 4',
-      miles: 16,
-      feel: 4
-    },
-    {
-      name: 'Week 5',
-      miles: 22,
-      feel: 5
+  const end = useMemo(() => {
+    const startOfRange = moment().endOf('week');
+
+    if (user.week_start === 'monday') {
+      startOfRange.add(1, 'day');
     }
-  ];
+
+    return startOfRange;
+  }, [user.week_start]);
+
+  const start = useMemo(() => {
+    return end.clone().subtract(8, 'weeks');
+  }, [end]);
+
+  const currentRangeView: RangeViewItemsMeta = useMemo(() => {
+    if (rangeViews) {
+      const rangeViewsWithFilter = rangeViews[filter] ?? {};
+      return rangeViewsWithFilter[`${start.format('YYYY-MM-DD')}:${end.format('YYYY-MM-DD')}`];
+    } else {
+      return {};
+    }
+  }, [rangeViews, filter, start, end]);
+
+  useEffect(() => {
+    if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching && !currentRangeView?.serverError) {
+      dispatch(getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')));
+    }
+  }, [filter, currentRangeView, user, start, end, dispatch]);
+
+  const weeklyData = useMemo(() => {
+    const startDate = start.clone();
+    const endDate = start.clone().add(1, 'week');
+    const rangeViewItems: RangeViewItemMoment[] = currentRangeView?.items
+      ? currentRangeView.items.map((item) => ({ ...item, date: moment(item.date) }))
+      : [];
+
+    const weeklyDataList = [] as WeeklyChartData[];
+    for (let i = 0; i < 8; i++) {
+      let data = { name: startDate.format('YYYY-MM-DD'), miles: 0, feel: 0 };
+      let exerciseCount = 0;
+      let totalFeel = 0;
+
+      while (rangeViewItems.length && rangeViewItems[0].date < endDate) {
+        const item = rangeViewItems.shift();
+        data = { ...data, miles: data.miles + item.miles };
+        exerciseCount += 1;
+        totalFeel += item.feel;
+      }
+
+      data.feel = Math.round(totalFeel / exerciseCount);
+
+      weeklyDataList.push(data);
+      startDate.add(1, 'week');
+      endDate.add(1, 'week');
+    }
+
+    return weeklyDataList;
+  }, [currentRangeView, start]);
 
   return (
     <div className={classes.weeklyChart}>
@@ -67,7 +117,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews }) => {
       </div>
       <div>
         <ResponsiveContainer height={500} width="100%">
-          <BarChart data={data} className={classes.chart}>
+          <BarChart data={weeklyData} className={classes.chart}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
@@ -78,7 +128,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews }) => {
               cursor={false}
             />
             <Bar dataKey="miles">
-              {data.map((entry, index) => (
+              {weeklyData.map((entry, index) => (
                 <Cell key={index} fill={FeelColors[entry.feel]} />
               ))}
             </Bar>

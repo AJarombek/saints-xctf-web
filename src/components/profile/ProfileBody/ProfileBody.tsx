@@ -4,38 +4,42 @@
  * @since 9/7/2020
  */
 
-import React, {useEffect, useMemo, useState} from 'react';
-import {createUseStyles} from 'react-jss';
+import React, { useEffect, useMemo, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import PictureTitle from '../../shared/PictureTitle/PictureTitle';
 import Flair from '../Flair/Flair';
 import Memberships from '../Memberships/Memberships';
 import PageTabs from '../../shared/PageTabs/PageTabs';
-import {FlairMeta, LogFeeds, RangeViewExerciseTypeFilters, RootState, UserMeta} from '../../../redux/types';
+import { FlairMeta, LogFeeds, RangeViewExerciseTypeFilters, RootState, UserMeta } from '../../../redux/types';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
 import LogFeed from '../../shared/LogFeed/LogFeed';
 import MonthlyCalendar from '../MonthlyCalendar';
-import {logFeed} from '../../../redux/modules/logs';
-import {useDispatch, useSelector} from 'react-redux';
-import {getUserFlair} from '../../../redux/modules/profile';
-import {getGroupMemberships} from '../../../redux/modules/memberships';
+import { logFeed } from '../../../redux/modules/logs';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserFlair } from '../../../redux/modules/profile';
+import { getGroupMemberships } from '../../../redux/modules/memberships';
 import WeeklyChart from '../WeeklyChart';
 
 interface Props {
-    user: UserMeta;
-    flair: FlairMeta;
-    rangeViews: RangeViewExerciseTypeFilters;
+  user: UserMeta;
+  flair: FlairMeta;
+  rangeViews: RangeViewExerciseTypeFilters;
 }
 
 export enum ProfileTab {
-    LOGS, CALENDAR, CHART, DETAILS, EDIT
+  LOGS,
+  CALENDAR,
+  CHART,
+  DETAILS,
+  EDIT
 }
 
 const useStyles = createUseStyles(styles);
 
 const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }) => {
   const classes = useStyles();
-  
+
   const dispatch = useDispatch();
   const groupMemberships = useSelector((state: RootState) => state.memberships.groups?.items);
   const logFeeds: LogFeeds = useSelector((state: RootState) => state.logs.feeds);
@@ -67,18 +71,14 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }
   }, [user, groupMemberships, flair]);
 
   const totalPages: number = useMemo(() => {
-    return logFeeds[`user-${bucket}`]?.pages[page]?.pages ?? 0
+    return logFeeds[`user-${bucket}`]?.pages[page]?.pages ?? 0;
   }, [logFeeds, page]);
 
   if (user) {
     return (
       <div className={classes.container}>
         <aside>
-          <PictureTitle
-            imageUrl={null}
-            title={`${user?.first} ${user?.last}`}
-            subTitle={`@${user?.username}`}
-          />
+          <PictureTitle imageUrl={null} title={`${user?.first} ${user?.last}`} subTitle={`@${user?.username}`} />
           <Flair flair={flair} />
           <Memberships groupMemberships={groupMemberships} />
           <PageTabs
@@ -93,13 +93,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }
         <section>
           {tab === ProfileTab.LOGS && (
             <>
-              <LogFeed
-                logFeeds={logFeeds}
-                page={page}
-                user={user}
-                filterBy="user"
-                bucket={bucket}
-              />
+              <LogFeed logFeeds={logFeeds} page={page} user={user} filterBy="user" bucket={bucket} />
               <PaginationBar
                 page={page}
                 totalPages={totalPages}
@@ -110,12 +104,8 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }
               />
             </>
           )}
-          {tab === ProfileTab.CALENDAR && (
-            <MonthlyCalendar rangeViews={rangeViews} user={user} />
-          )}
-          {tab === ProfileTab.CHART && (
-            <WeeklyChart rangeViews={rangeViews} />
-          )}
+          {tab === ProfileTab.CALENDAR && <MonthlyCalendar rangeViews={rangeViews} user={user} />}
+          {tab === ProfileTab.CHART && <WeeklyChart rangeViews={rangeViews} user={user} />}
         </section>
       </div>
     );
