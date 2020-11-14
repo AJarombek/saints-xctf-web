@@ -96,25 +96,28 @@ const appState = {
         didInvalidate: false,
         lastUpdated: 1588530311,
         items: []
-      }
+      },
+      stats: {}
     },
     joe: {
       isFetching: false,
       didInvalidate: false,
       lastUpdated: 1588530312,
-      flair: {}
+      flair: {},
+      stats: {}
     },
     ben: {
       isFetching: false,
       didInvalidate: false,
       lastUpdated: 1588530313,
-      flair: {}
+      flair: {},
+      stats: {}
     }
   },
   rangeView: {
     users: {
       joe: {
-        'r': {
+        r: {
           '2020-08-31:2020-10-04': {
             isFetching: false,
             didInvalidate: false,
@@ -124,7 +127,7 @@ const appState = {
         }
       }
     },
-    groups: {},
+    groups: {}
   },
   group: {
     wmenstf: {

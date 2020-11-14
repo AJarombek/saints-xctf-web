@@ -88,7 +88,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
 
     const weeklyDataList = [] as WeeklyChartData[];
     for (let i = 0; i < 8; i++) {
-      let data = { name: startDate.format('YYYY-MM-DD'), miles: 0, feel: 0 };
+      let data = { name: startDate.format('MMM. Do'), miles: 0, feel: 0 };
       let exerciseCount = 0;
       let totalFeel = 0;
 
@@ -122,8 +122,8 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip
-              labelFormatter={(): string => ''}
-              formatter={(value: string): Array<string> => [value, 'Miles']}
+              labelFormatter={(label: string): string => `Week of ${label}`}
+              formatter={(value: string): Array<string> => [(+value).toFixed(2), 'Miles']}
               separator=": "
               cursor={false}
             />

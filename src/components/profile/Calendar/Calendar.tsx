@@ -37,7 +37,11 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) 
     const startOfRange = currentMonth.clone().startOf('week');
 
     if (user.week_start === 'monday') {
-      startOfRange.add(1, 'day');
+      if (startOfRange.date() !== 1) {
+        startOfRange.add(1, 'day');
+      } else {
+        startOfRange.subtract(6, 'day');
+      }
     }
 
     return startOfRange;

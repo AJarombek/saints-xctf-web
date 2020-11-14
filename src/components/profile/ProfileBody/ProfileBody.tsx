@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserFlair } from '../../../redux/modules/profile';
 import { getGroupMemberships } from '../../../redux/modules/memberships';
 import WeeklyChart from '../WeeklyChart';
+import ProfileDetails from "../ProfileDetails";
 
 interface Props {
   user: UserMeta;
@@ -106,6 +107,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }
           )}
           {tab === ProfileTab.CALENDAR && <MonthlyCalendar rangeViews={rangeViews} user={user} />}
           {tab === ProfileTab.CHART && <WeeklyChart rangeViews={rangeViews} user={user} />}
+          {tab === ProfileTab.DETAILS && <ProfileDetails />}
         </section>
       </div>
     );

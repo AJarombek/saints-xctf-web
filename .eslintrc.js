@@ -34,7 +34,6 @@ module.exports = {
         "react/no-unescaped-entities": ["off"],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "indent": ["error", 2],
         "@typescript-eslint/camelcase": ["off"],
         "prettier/prettier": ["error", {
             "singleQuote": true,

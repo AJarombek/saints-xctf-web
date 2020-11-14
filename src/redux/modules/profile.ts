@@ -6,8 +6,8 @@
 
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
-import {Dispatch} from 'redux';
-import {Flair, ProfileState, User} from '../types';
+import { Dispatch } from 'redux';
+import { Flair, ProfileState, User, UserStats } from '../types';
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -17,82 +17,84 @@ const SET_USER = 'saints-xctf-web/profile/SET_USER';
 const GET_USER_FLAIR_REQUEST = 'saints-xctf-web/profile/GET_USER_FLAIR_REQUEST';
 const GET_USER_FLAIR_SUCCESS = 'saints-xctf-web/profile/GET_USER_FLAIR_SUCCESS';
 const GET_USER_FLAIR_FAILURE = 'saints-xctf-web/profile/GET_USER_FLAIR_FAILURE';
+const GET_USER_STATS_REQUEST = 'saints-xctf-web/profile/GET_USER_STATS_REQUEST';
+const GET_USER_STATS_SUCCESS = 'saints-xctf-web/profile/GET_USER_STATS_SUCCESS';
+const GET_USER_STATS_FAILURE = 'saints-xctf-web/profile/GET_USER_STATS_FAILURE';
 
 // Action Types
 
 interface GetUserRequestAction {
-    type: typeof GET_USER_REQUEST;
-    username: string;
+  type: typeof GET_USER_REQUEST;
+  username: string;
 }
 
 interface GetUserSuccessAction {
-    type: typeof GET_USER_SUCCESS;
-    username: string;
-    user: User;
+  type: typeof GET_USER_SUCCESS;
+  username: string;
+  user: User;
 }
 
 interface GetUserFailureAction {
-    type: typeof GET_USER_FAILURE;
-    username: string;
-    serverError: string;
+  type: typeof GET_USER_FAILURE;
+  username: string;
+  serverError: string;
 }
 
 interface SetUserAction {
-    type: typeof SET_USER;
-    user: User;
+  type: typeof SET_USER;
+  user: User;
 }
 
 interface GetUserFlairRequestAction {
-    type: typeof GET_USER_FLAIR_REQUEST;
-    username: string;
+  type: typeof GET_USER_FLAIR_REQUEST;
+  username: string;
 }
 
 interface GetUserFlairSuccessAction {
-    type: typeof GET_USER_FLAIR_SUCCESS;
-    username: string;
-    flair: Flair[];
+  type: typeof GET_USER_FLAIR_SUCCESS;
+  username: string;
+  flair: Flair[];
 }
 
 interface GetUserFlairFailureAction {
-    type: typeof GET_USER_FLAIR_FAILURE;
-    username: string;
-    serverError: string;
+  type: typeof GET_USER_FLAIR_FAILURE;
+  username: string;
+  serverError: string;
+}
+
+interface GetUserStatsRequestAction {
+  type: typeof GET_USER_STATS_REQUEST;
+  username: string;
+}
+
+interface GetUserStatsSuccessAction {
+  type: typeof GET_USER_STATS_SUCCESS;
+  username: string;
+  stats: UserStats[];
+}
+
+interface GetUserStatsFailureAction {
+  type: typeof GET_USER_STATS_FAILURE;
+  username: string;
+  serverError: string;
 }
 
 type ProfileActionTypes =
-    GetUserRequestAction |
-    GetUserSuccessAction |
-    GetUserFailureAction |
-    SetUserAction |
-    GetUserFlairRequestAction |
-    GetUserFlairSuccessAction |
-    GetUserFlairFailureAction;
+  | GetUserRequestAction
+  | GetUserSuccessAction
+  | GetUserFailureAction
+  | SetUserAction
+  | GetUserFlairRequestAction
+  | GetUserFlairSuccessAction
+  | GetUserFlairFailureAction
+  | GetUserStatsRequestAction
+  | GetUserStatsSuccessAction
+  | GetUserStatsFailureAction;
 
 // Reducer
 const initialState: ProfileState = {
   users: {}
 };
-
-export default function reducer(state = initialState, action: ProfileActionTypes): ProfileState {
-  switch (action.type) {
-  case GET_USER_REQUEST:
-    return getUserRequestReducer(state, action);
-  case GET_USER_SUCCESS:
-    return getUserSuccessReducer(state, action);
-  case GET_USER_FAILURE:
-    return getUserFailureReducer(state, action);
-  case SET_USER:
-    return setUserReducer(state, action);
-  case GET_USER_FLAIR_REQUEST:
-    return getUserFlairRequestReducer(state, action);
-  case GET_USER_FLAIR_SUCCESS:
-    return getUserFlairSuccessReducer(state, action);
-  case GET_USER_FLAIR_FAILURE:
-    return getUserFlairFailureReducer(state, action);
-  default:
-    return state;
-  }
-}
 
 function getUserRequestReducer(state: ProfileState, action: GetUserRequestAction): ProfileState {
   const user = state.users[action.username] ?? {};
@@ -104,11 +106,11 @@ function getUserRequestReducer(state: ProfileState, action: GetUserRequestAction
         ...user,
         user: {
           isFetching: true,
-          lastUpdated: moment().unix(),
+          lastUpdated: moment().unix()
         }
       }
-    },
-  }
+    }
+  };
 }
 
 function getUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction): ProfileState {
@@ -125,8 +127,8 @@ function getUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction
           ...action.user
         }
       }
-    },
-  }
+    }
+  };
 }
 
 function getUserFailureReducer(state: ProfileState, action: GetUserFailureAction): ProfileState {
@@ -143,8 +145,8 @@ function getUserFailureReducer(state: ProfileState, action: GetUserFailureAction
           serverError: action.serverError
         }
       }
-    },
-  }
+    }
+  };
 }
 
 function setUserReducer(state: ProfileState, action: SetUserAction): ProfileState {
@@ -162,7 +164,7 @@ function setUserReducer(state: ProfileState, action: SetUserAction): ProfileStat
         }
       }
     }
-  }
+  };
 }
 
 function getUserFlairRequestReducer(state: ProfileState, action: GetUserFlairRequestAction): ProfileState {
@@ -175,11 +177,11 @@ function getUserFlairRequestReducer(state: ProfileState, action: GetUserFlairReq
         ...user,
         flair: {
           isFetching: true,
-          lastUpdated: moment().unix(),
+          lastUpdated: moment().unix()
         }
       }
     }
-  }
+  };
 }
 
 function getUserFlairSuccessReducer(state: ProfileState, action: GetUserFlairSuccessAction): ProfileState {
@@ -197,7 +199,7 @@ function getUserFlairSuccessReducer(state: ProfileState, action: GetUserFlairSuc
         }
       }
     }
-  }
+  };
 }
 
 function getUserFlairFailureReducer(state: ProfileState, action: GetUserFlairFailureAction): ProfileState {
@@ -215,6 +217,80 @@ function getUserFlairFailureReducer(state: ProfileState, action: GetUserFlairFai
         }
       }
     }
+  };
+}
+
+function getUserStatsRequestReducer(state: ProfileState, action: GetUserStatsRequestAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        stats: {
+          isFetching: true,
+          lastUpdated: moment().unix()
+        }
+      }
+    }
+  };
+}
+
+function getUserStatsSuccessReducer(state: ProfileState, action: GetUserStatsSuccessAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        stats: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          ...action.stats
+        }
+      }
+    }
+  };
+}
+
+function getUserStatsFailureReducer(state: ProfileState, action: GetUserStatsFailureAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        stats: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          serverError: action.serverError
+        }
+      }
+    }
+  };
+}
+
+export default function reducer(state = initialState, action: ProfileActionTypes): ProfileState {
+  switch (action.type) {
+    case GET_USER_REQUEST:
+      return getUserRequestReducer(state, action);
+    case GET_USER_SUCCESS:
+      return getUserSuccessReducer(state, action);
+    case GET_USER_FAILURE:
+      return getUserFailureReducer(state, action);
+    case SET_USER:
+      return setUserReducer(state, action);
+    case GET_USER_FLAIR_REQUEST:
+      return getUserFlairRequestReducer(state, action);
+    case GET_USER_FLAIR_SUCCESS:
+      return getUserFlairSuccessReducer(state, action);
+    case GET_USER_FLAIR_FAILURE:
+      return getUserFlairFailureReducer(state, action);
+    default:
+      return state;
   }
 }
 
@@ -223,7 +299,7 @@ export function getUserRequest(username: string): GetUserRequestAction {
   return {
     type: GET_USER_REQUEST,
     username
-  }
+  };
 }
 
 export function getUserSuccess(username: string, user: User): GetUserSuccessAction {
@@ -231,7 +307,7 @@ export function getUserSuccess(username: string, user: User): GetUserSuccessActi
     type: GET_USER_SUCCESS,
     username,
     user
-  }
+  };
 }
 
 export function getUserFailure(username: string, serverError: string): GetUserFailureAction {
@@ -239,21 +315,21 @@ export function getUserFailure(username: string, serverError: string): GetUserFa
     type: GET_USER_FAILURE,
     username,
     serverError
-  }
+  };
 }
 
 export function setUser(user: User): SetUserAction {
   return {
     type: SET_USER,
     user
-  }
+  };
 }
 
 export function getUserFlairRequest(username: string): GetUserFlairRequestAction {
   return {
     type: GET_USER_FLAIR_REQUEST,
-    username,
-  }
+    username
+  };
 }
 
 export function getUserFlairSuccess(username: string, flair: Flair[]): GetUserFlairSuccessAction {
@@ -261,7 +337,7 @@ export function getUserFlairSuccess(username: string, flair: Flair[]): GetUserFl
     type: GET_USER_FLAIR_SUCCESS,
     username,
     flair
-  }
+  };
 }
 
 export function getUserFlairFailure(username: string, serverError: string): GetUserFlairFailureAction {
@@ -269,7 +345,7 @@ export function getUserFlairFailure(username: string, serverError: string): GetU
     type: GET_USER_FLAIR_FAILURE,
     username,
     serverError
-  }
+  };
 }
 
 export function getUser(username: string) {
@@ -287,7 +363,7 @@ export function getUser(username: string) {
 
       dispatch(getUserFailure(username, serverError));
     }
-  }
+  };
 }
 
 export function getUserFlair(username: string) {
@@ -305,5 +381,5 @@ export function getUserFlair(username: string) {
 
       dispatch(getUserFlairFailure(username, serverError));
     }
-  }
+  };
 }
