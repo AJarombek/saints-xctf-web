@@ -5,24 +5,26 @@
  */
 
 import React from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
-import {GroupMember} from "../../../redux/types";
+import { createUseStyles } from 'react-jss';
+import styles from './styles';
+import { GroupMember } from '../../../redux/types';
 
-interface IProps {
-    groupMemberships?: GroupMember[];
+interface Props {
+  groupMemberships?: GroupMember[];
 }
 
 const useStyles = createUseStyles(styles);
 
-const Memberships: React.FunctionComponent<IProps> = ({ groupMemberships = [] }) => {
-    const classes = useStyles();
+const Memberships: React.FunctionComponent<Props> = ({ groupMemberships = [] }) => {
+  const classes = useStyles();
 
-    return (
-        <div className={classes.memberships}>
-            {groupMemberships.map((membership) => (<p>{membership.group_title}</p>))}
-        </div>
-    );
+  return (
+    <div className={classes.memberships}>
+      {groupMemberships.map((membership) => (
+        <p key={membership.group_name}>{membership.group_title}</p>
+      ))}
+    </div>
+  );
 };
 
 export default Memberships;

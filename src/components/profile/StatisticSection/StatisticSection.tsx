@@ -10,8 +10,13 @@ import styles from './styles';
 
 interface Props {
   title: ReactNode;
-  sections: Array<object>;
+  stats: Stat[];
 }
+
+type Stat = {
+  name: ReactNode;
+  value: string | number;
+};
 
 const useStyles = createUseStyles(styles);
 
@@ -21,7 +26,7 @@ const StatisticSection: React.FunctionComponent<Props> = ({ title, stats }) => {
   return (
     <div className={classes.stats}>
       <h5>{title}</h5>
-      {stats.map((stat, i) => (
+      {stats.map((stat: Stat, i: number) => (
         <div key={i} className={classes.section}>
           <p>{stat.name}</p>
           <p>{stat.value}</p>
