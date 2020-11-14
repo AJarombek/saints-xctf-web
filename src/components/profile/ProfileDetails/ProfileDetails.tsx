@@ -4,32 +4,38 @@
  * @since 10/18/2020
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { UserMeta } from '../../../redux/types';
+import { UserMeta, UserStatsMeta } from '../../../redux/types';
+import { useDispatch } from 'react-redux';
+import { getUserStats } from '../../../redux/modules/profile';
+import StatisticSection from '../StatisticSection/StatisticSection';
 
 interface Props {
   user: UserMeta;
+  stats: UserStatsMeta;
 }
 
 const useStyles = createUseStyles(styles);
 
-const ProfileDetails: React.FunctionComponent<Props> = ({ user }) => {
+const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (user?.username && !stats && !stats.isFetching && !stats.serverError) {
+      dispatch(getUserStats(user.username));
+    }
+  }, [user, stats, dispatch]);
 
   return (
     <div className={classes.profileDetails}>
       <p>Member Since: {user.member_since}</p>
-      <div>
-        <h5>Exercise Statistics</h5>
-      </div>
-      <div>
-        <h5>Running Statistics</h5>
-      </div>
-      <div>
-        <h5>Feel Statistics</h5>
-      </div>
+      <StatisticSection title="Exercise Statistics" sections={[]} />
+      <StatisticSection title="Running Statistics" sections={[]} />
+      <StatisticSection title="Feel Statistics" sections={[]} />
     </div>
   );
 };

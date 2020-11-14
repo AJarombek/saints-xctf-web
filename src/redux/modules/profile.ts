@@ -289,6 +289,12 @@ export default function reducer(state = initialState, action: ProfileActionTypes
       return getUserFlairSuccessReducer(state, action);
     case GET_USER_FLAIR_FAILURE:
       return getUserFlairFailureReducer(state, action);
+    case GET_USER_STATS_REQUEST:
+      return getUserStatsRequestReducer(state, action);
+    case GET_USER_STATS_SUCCESS:
+      return getUserStatsSuccessReducer(state, action);
+    case GET_USER_STATS_FAILURE:
+      return getUserStatsFailureReducer(state, action);
     default:
       return state;
   }
@@ -348,8 +354,31 @@ export function getUserFlairFailure(username: string, serverError: string): GetU
   };
 }
 
+export function getUserStatsRequest(username: string): GetUserStatsRequestAction {
+  return {
+    type: GET_USER_STATS_REQUEST,
+    username
+  };
+}
+
+export function getUserStatsSuccess(username: string, stats: UserStats[]): GetUserStatsSuccessAction {
+  return {
+    type: GET_USER_STATS_SUCCESS,
+    username,
+    stats
+  };
+}
+
+export function getUserStatsFailure(username: string, serverError: string): GetUserStatsFailureAction {
+  return {
+    type: GET_USER_STATS_FAILURE,
+    username,
+    serverError
+  };
+}
+
 export function getUser(username: string) {
-  return async function (dispatch: Dispatch) {
+  return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getUserRequest(username));
 
     try {
@@ -367,7 +396,7 @@ export function getUser(username: string) {
 }
 
 export function getUserFlair(username: string) {
-  return async function (dispatch: Dispatch) {
+  return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getUserFlairRequest(username));
 
     try {
@@ -380,6 +409,24 @@ export function getUserFlair(username: string) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getUserFlairFailure(username, serverError));
+    }
+  };
+}
+
+export function getUserStats(username: string) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(getUserStatsRequest(username));
+
+    try {
+      const response = await api.get(`users/statistics/${username}`);
+      const { stats } = response.data;
+
+      dispatch(getUserStatsSuccess(username, stats));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(getUserStatsFailure(username, serverError));
     }
   };
 }

@@ -4,20 +4,20 @@
  * @since 8/15/2020
  */
 
-import React, {useEffect, useMemo, useRef} from 'react';
-import {RootState} from '../../redux/types';
-import {useDispatch, useSelector} from 'react-redux';
-import {useHistory, useRouteMatch} from 'react-router-dom';
-import {userAuthenticated} from '../../utils/auth';
-import {setUserFromStorage} from '../../redux/modules/auth';
-import {createUseStyles} from 'react-jss';
+import React, { useEffect, useMemo, useRef } from 'react';
+import { RootState } from '../../redux/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import { userAuthenticated } from '../../utils/auth';
+import { setUserFromStorage } from '../../redux/modules/auth';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import NavBar from '../../components/shared/NavBar';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import ProfileBody from '../../components/profile/ProfileBody/ProfileBody';
-import {getUser, setUser} from '../../redux/modules/profile';
+import { getUser, setUser } from '../../redux/modules/profile';
 
-type Props = {}
+type Props = {};
 
 const useStyles = createUseStyles(styles);
 
@@ -42,7 +42,7 @@ const Profile: React.FunctionComponent<Props> = () => {
     } else if (!userAuthenticated(authUsers, auth.signedInUser) && !storedUser) {
       history.push('/');
     }
-  }, [authUsers]);
+  }, [authUsers, auth.signedInUser, history, dispatch]);
 
   const username = useMemo(() => {
     const urlPaths = routeMatch.url.split('/');
@@ -57,19 +57,20 @@ const Profile: React.FunctionComponent<Props> = () => {
         dispatch(getUser(username));
       }
     }
-  }, [auth.signedInUser, authUsers]);
+  }, [auth.signedInUser, authUsers, username, users, dispatch]);
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
       <div className={classes.profile} ref={ref}>
         <NavBar
           includeHeaders={['groups', 'admin', 'signOut', 'logo']}
-          user={users[username]?.user}
+          user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
         <ProfileBody
           user={users[username]?.user}
           flair={users[username]?.flair}
+          stats={users[username]?.stats}
           rangeViews={rangeViews[username]}
         />
         <HomeFooter showContactUs={false} />

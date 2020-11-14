@@ -11,7 +11,14 @@ import PictureTitle from '../../shared/PictureTitle/PictureTitle';
 import Flair from '../Flair/Flair';
 import Memberships from '../Memberships/Memberships';
 import PageTabs from '../../shared/PageTabs/PageTabs';
-import { FlairMeta, LogFeeds, RangeViewExerciseTypeFilters, RootState, UserMeta } from '../../../redux/types';
+import {
+  FlairMeta,
+  LogFeeds,
+  RangeViewExerciseTypeFilters,
+  RootState,
+  UserMeta,
+  UserStatsMeta
+} from '../../../redux/types';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
 import LogFeed from '../../shared/LogFeed/LogFeed';
 import MonthlyCalendar from '../MonthlyCalendar';
@@ -20,11 +27,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserFlair } from '../../../redux/modules/profile';
 import { getGroupMemberships } from '../../../redux/modules/memberships';
 import WeeklyChart from '../WeeklyChart';
-import ProfileDetails from "../ProfileDetails";
+import ProfileDetails from '../ProfileDetails';
 
 interface Props {
   user: UserMeta;
   flair: FlairMeta;
+  stats: UserStatsMeta;
   rangeViews: RangeViewExerciseTypeFilters;
 }
 
@@ -38,7 +46,7 @@ export enum ProfileTab {
 
 const useStyles = createUseStyles(styles);
 
-const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }) => {
+const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, rangeViews }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -53,7 +61,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }
     if (bucket) {
       dispatch(logFeed('user', bucket, 10, 10 * (page - 1)));
     }
-  }, [bucket, page]);
+  }, [bucket, page, dispatch]);
 
   useEffect(() => {
     if (user) {
@@ -69,11 +77,11 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }
         dispatch(getUserFlair(user.username));
       }
     }
-  }, [user, groupMemberships, flair]);
+  }, [user, groupMemberships, flair, bucket, dispatch]);
 
   const totalPages: number = useMemo(() => {
     return logFeeds[`user-${bucket}`]?.pages[page]?.pages ?? 0;
-  }, [logFeeds, page]);
+  }, [logFeeds, page, bucket]);
 
   if (user) {
     return (
@@ -107,7 +115,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, rangeViews }
           )}
           {tab === ProfileTab.CALENDAR && <MonthlyCalendar rangeViews={rangeViews} user={user} />}
           {tab === ProfileTab.CHART && <WeeklyChart rangeViews={rangeViews} user={user} />}
-          {tab === ProfileTab.DETAILS && <ProfileDetails />}
+          {tab === ProfileTab.DETAILS && <ProfileDetails user={user} stats={stats} />}
         </section>
       </div>
     );
