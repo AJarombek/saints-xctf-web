@@ -25,7 +25,7 @@ const StatisticSection: React.FunctionComponent<Props> = ({ title, stats }) => {
 
   return (
     <div className={classes.stats}>
-      <h5>{title}</h5>
+      <h3>{title}</h3>
       {stats.map((stat: Stat, i: number) => (
         <div key={i} className={classes.section}>
           <p>{stat.name}</p>

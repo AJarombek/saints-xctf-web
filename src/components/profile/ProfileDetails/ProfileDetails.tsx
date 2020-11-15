@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { getUserStats } from '../../../redux/modules/profile';
 import StatisticSection from '../StatisticSection/StatisticSection';
 import moment from 'moment';
+import classNames from 'classnames';
 
 interface Props {
   user: UserMeta;
@@ -72,7 +73,21 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
 
   return (
     <div className={classes.profileDetails}>
-      <p>Member Since: {user.member_since}</p>
+      <div className={classNames(classes.profileDetail, classes.defaultText)}>
+        <p>Member Since:</p>
+        <p>{user.member_since}</p>
+      </div>
+      <div className={classes.profileDetail}>
+        <p className={classes.normal}>Class of</p>
+        <p className={classes.strong}>{user.class_year}</p>
+      </div>
+      <div className={classNames(classes.profileDetail, classes.defaultText)}>
+        <p>Favorite Event:</p>
+        <p>{user.favorite_event}</p>
+      </div>
+      <div className={classNames(classes.profileDetail, classes.description)}>
+        <p className={classes.thin}>{user.description}</p>
+      </div>
       <StatisticSection title="Exercise Statistics" stats={exerciseStats} />
       <StatisticSection title="Running Statistics" stats={runningStats} />
       <StatisticSection title="Feel Statistics" stats={feelStats} />
