@@ -4,7 +4,7 @@
  * @since 10/18/2020
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import Calendar from '../Calendar';

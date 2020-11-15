@@ -48,14 +48,8 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) 
   }, [currentMonth, user]);
 
   const end = useMemo(() => {
-    const endOfRange = currentMonth.clone().endOf('month').endOf('week');
-
-    if (user.week_start === 'monday') {
-      endOfRange.add(1, 'day');
-    }
-
-    return endOfRange;
-  }, [currentMonth, user]);
+    return start.clone().add(6, 'weeks').subtract(1, 'day');
+  }, [start]);
 
   const currentRangeView: RangeViewItemsMeta = useMemo(() => {
     if (rangeViews) {

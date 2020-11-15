@@ -39,6 +39,7 @@ const Profile: React.FunctionComponent<Props> = () => {
 
     if (!Object.keys(authUsers).length && storedUser) {
       dispatch(setUserFromStorage(storedUser));
+      dispatch(setUser(storedUser));
     } else if (!userAuthenticated(authUsers, auth.signedInUser) && !storedUser) {
       history.push('/');
     }

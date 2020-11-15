@@ -4,19 +4,19 @@
  * @since 5/9/2020
  */
 
-import React, {useEffect, useRef} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {createUseStyles} from 'react-jss';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
-import {RootState} from '../../redux/types';
+import { RootState } from '../../redux/types';
 import DashboardBody from '../../components/dashboard/DashboardBody/DashboardBody';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import {setUserFromStorage} from '../../redux/modules/auth';
+import { setUserFromStorage } from '../../redux/modules/auth';
 
-type Props = {}
+type Props = {};
 
 const useStyles = createUseStyles(styles);
 
@@ -38,7 +38,7 @@ const Dashboard: React.FunctionComponent<Props> = () => {
     } else if (!userAuthenticated(users, auth.signedInUser) && !storedUser) {
       history.push('/');
     }
-  }, [users, auth.signedInUser]);
+  }, [users, auth.signedInUser, history, dispatch]);
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
@@ -48,9 +48,7 @@ const Dashboard: React.FunctionComponent<Props> = () => {
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
-        <DashboardBody
-          user={users[auth.signedInUser]?.user}
-        />
+        <DashboardBody user={users[auth.signedInUser]?.user} />
         <HomeFooter showContactUs={false} />
       </div>
     );

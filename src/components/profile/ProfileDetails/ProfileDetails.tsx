@@ -75,19 +75,25 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
     <div className={classes.profileDetails}>
       <div className={classNames(classes.profileDetail, classes.defaultText)}>
         <p>Member Since:</p>
-        <p>{user.member_since}</p>
+        <p>{moment(user.member_since).format('MMM Do, YYYY')}</p>
       </div>
-      <div className={classes.profileDetail}>
-        <p className={classes.normal}>Class of</p>
-        <p className={classes.strong}>{user.class_year}</p>
-      </div>
-      <div className={classNames(classes.profileDetail, classes.defaultText)}>
-        <p>Favorite Event:</p>
-        <p>{user.favorite_event}</p>
-      </div>
-      <div className={classNames(classes.profileDetail, classes.description)}>
-        <p className={classes.thin}>{user.description}</p>
-      </div>
+      {!!user.class_year && (
+        <div className={classes.profileDetail}>
+          <p className={classes.normal}>Class of</p>
+          <p className={classes.strong}>{user.class_year}</p>
+        </div>
+      )}
+      {!!user.favorite_event && (
+        <div className={classNames(classes.profileDetail, classes.defaultText)}>
+          <p>Favorite Event:</p>
+          <p>{user.favorite_event}</p>
+        </div>
+      )}
+      {!!user.description && (
+        <div className={classNames(classes.profileDetail, classes.description)}>
+          <p className={classes.thin}>{user.description}</p>
+        </div>
+      )}
       <div className={classes.statisticSections}>
         <StatisticSection title="Exercise Statistics" stats={exerciseStats} />
         <StatisticSection title="Running Statistics" stats={runningStats} />
