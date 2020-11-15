@@ -7,13 +7,7 @@
 import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {
-  DeletedLog,
-  DeletedLogs,
-  Log,
-  RootState,
-  User,
-} from '../../../redux/types';
+import { DeletedLog, DeletedLogs, Log, RootState, User } from '../../../redux/types';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import Comments from '../Comments/Comments';
@@ -21,8 +15,8 @@ import { parseTagsInText, shortenTime } from '../../../utils/logs';
 import classNames from 'classnames';
 import { AJButton, AJModal } from 'jarombek-react-components';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import {useDispatch, useSelector} from 'react-redux';
-import {deleteLog, logFeed} from '../../../redux/modules/logs';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteLog, logFeed } from '../../../redux/modules/logs';
 
 interface Props {
   log: Log;
@@ -43,7 +37,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
   filterBy,
   bucket,
   index,
-  linkProfile = true,
+  linkProfile = true
 }) => {
   const history = useHistory();
   const classes = useStyles({ feel: log?.feel });
@@ -72,16 +66,12 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
       setShowDeleteModal(false);
     }
 
-    if (
-      !deletedInfo.deleted &&
-      !deletedInfo.serverError &&
-      !deletedInfo.didInvalidate
-    ) {
+    if (!deletedInfo.deleted && !deletedInfo.serverError && !deletedInfo.didInvalidate) {
       setIsDeleting(false);
       setShowDeleteModal(false);
       setErrorDeleting(true);
     }
-  }, [deletedLogs]);
+  }, [deletedLogs, log, bucket, filterBy, page, dispatch]);
 
   return (
     <div
@@ -95,10 +85,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
       <div className={classes.headerSection}>
         <div className={classes.titles}>
           {linkProfile ? (
-            <Link
-              to={`/profile/${user?.username}`}
-              className={classes.titleLink}
-            >
+            <Link to={`/profile/${log?.username}`} className={classes.titleLink}>
               {log.first} {log.last}
             </Link>
           ) : (
@@ -109,9 +96,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
           <h6 className={classes.title}>{log.name}</h6>
         </div>
         <div className={classes.metadata}>
-          <p className={classes.date}>
-            {moment(log.date).format('MMM. Do, YYYY')}
-          </p>
+          <p className={classes.date}>{moment(log.date).format('MMM. Do, YYYY')}</p>
           <p className={classes.type}>{log.type.toUpperCase()}</p>
         </div>
       </div>
@@ -139,12 +124,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
               <p>&#x6a;</p>
             </button>
             <button
-              className={classNames(
-                classes.optionsButton,
-                classes.deleteOptionsButton,
-                classes.optionsIcon,
-                'delete'
-              )}
+              className={classNames(classes.optionsButton, classes.deleteOptionsButton, classes.optionsIcon, 'delete')}
               onClick={(): void => setShowDeleteModal(true)}
               disabled={false}
             >
@@ -163,14 +143,11 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
           )}
           {!!log.time && log.time !== '0:00:00' && (
             <p>
-              {shortenTime(log.time)}{' '}
-              {log.pace && `(${shortenTime(log.pace)}/mi)`}
+              {shortenTime(log.time)} {log.pace && `(${shortenTime(log.pace)}/mi)`}
             </p>
           )}
         </div>
-        <div className={classes.description}>
-          {!!log.description && parseTagsInText(log.description)}
-        </div>
+        <div className={classes.description}>{!!log.description && parseTagsInText(log.description)}</div>
       </div>
       <div className={classes.commentSection}>
         <Comments
@@ -185,33 +162,25 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
         />
       </div>
       {showDeleteModal && (
-        <AJModal
-          backdrop={true}
-          onClickBackground={(): void => setShowDeleteModal(false)}
-          className="deleteLogModal"
-        >
+        <AJModal backdrop={true} onClickBackground={(): void => setShowDeleteModal(false)} className="deleteLogModal">
           <div className={classes.deleteModal}>
             <p>
-              Are you sure you want to delete your{' '}
-              <b>{moment(log.date).format('MMM. Do')} </b>
+              Are you sure you want to delete your <b>{moment(log.date).format('MMM. Do')} </b>
               exercise log <b>"{log.name}"</b>?
             </p>
             <div className={classes.deleteModalButtons}>
               <AJButton
                 type="contained"
-                onClick={(): void => { dispatch(deleteLog(log.log_id)) }}
+                onClick={(): void => {
+                  dispatch(deleteLog(log.log_id));
+                }}
                 className={isDeleting && classes.disabledDeleteButton}
                 disabled={isDeleting}
               >
                 <p>{isDeleting ? 'DELETING' : 'DELETE'}</p>
-                {isDeleting && (
-                  <LoadingSpinner className={classes.deleteLogSpinner} />
-                )}
+                {isDeleting && <LoadingSpinner className={classes.deleteLogSpinner} />}
               </AJButton>
-              <AJButton
-                type="outlined"
-                onClick={(): void => setShowDeleteModal(false)}
-              >
+              <AJButton type="outlined" onClick={(): void => setShowDeleteModal(false)}>
                 <p>CANCEL</p>
               </AJButton>
             </div>

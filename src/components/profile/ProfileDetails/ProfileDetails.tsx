@@ -37,8 +37,8 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
       return [
         { name: 'All Time', value: `${stats.miles_all_time?.toFixed(2)} mi.` },
         { name: moment().year(), value: `${stats.miles_past_year?.toFixed(2)} mi.` },
-        { name: moment().format('MMMM YYYY'), value: `${stats.miles_all_time?.toFixed(2)} mi.` },
-        { name: 'This Week', value: `${stats.miles_all_time?.toFixed(2)} mi.` }
+        { name: moment().format('MMMM YYYY'), value: `${stats.miles_past_month?.toFixed(2)} mi.` },
+        { name: 'This Week', value: `${stats.miles_past_week?.toFixed(2)} mi.` }
       ];
     } else {
       return [];
@@ -50,8 +50,8 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
       return [
         { name: 'All Time', value: `${stats.run_miles_all_time?.toFixed(2)} mi.` },
         { name: moment().year(), value: `${stats.run_miles_past_year?.toFixed(2)} mi.` },
-        { name: moment().format('MMMM YYYY'), value: `${stats.run_miles_all_time?.toFixed(2)} mi.` },
-        { name: 'This Week', value: `${stats.run_miles_all_time?.toFixed(2)} mi.` }
+        { name: moment().format('MMMM YYYY'), value: `${stats.run_miles_past_month?.toFixed(2)} mi.` },
+        { name: 'This Week', value: `${stats.run_miles_past_week?.toFixed(2)} mi.` }
       ];
     } else {
       return [];
@@ -63,8 +63,8 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
       return [
         { name: 'All Time', value: stats.feel_all_time?.toFixed(2) },
         { name: moment().year(), value: stats.feel_past_year?.toFixed(2) },
-        { name: moment().format('MMMM YYYY'), value: stats.feel_all_time?.toFixed(2) },
-        { name: 'This Week', value: stats.feel_all_time?.toFixed(2) }
+        { name: moment().format('MMMM YYYY'), value: stats.feel_past_month?.toFixed(2) },
+        { name: 'This Week', value: stats.feel_past_week?.toFixed(2) }
       ];
     } else {
       return [];
@@ -88,9 +88,11 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
       <div className={classNames(classes.profileDetail, classes.description)}>
         <p className={classes.thin}>{user.description}</p>
       </div>
-      <StatisticSection title="Exercise Statistics" stats={exerciseStats} />
-      <StatisticSection title="Running Statistics" stats={runningStats} />
-      <StatisticSection title="Feel Statistics" stats={feelStats} />
+      <div className={classes.statisticSections}>
+        <StatisticSection title="Exercise Statistics" stats={exerciseStats} />
+        <StatisticSection title="Running Statistics" stats={runningStats} />
+        <StatisticSection title="Feel Statistics" stats={feelStats} />
+      </div>
     </div>
   );
 };

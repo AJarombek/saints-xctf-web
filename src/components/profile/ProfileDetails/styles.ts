@@ -7,7 +7,16 @@
 import { FontMixins } from '../../../styles/mixins';
 
 export default {
-  profileDetails: {},
+  profileDetails: {
+    marginTop: 40
+  },
+  statisticSections: {
+    display: 'flex',
+    flexBasis: 'auto',
+    flexFlow: 'row wrap',
+    justifyContent: 'space-around',
+    borderTop: '1px dashed'
+  },
   profileDetail: {
     display: 'flex',
 
@@ -38,6 +47,7 @@ export default {
     ...FontMixins.robotoBold()
   },
   description: {
-    marginTop: 15
+    marginTop: 15,
+    marginBottom: 20
   }
 };
