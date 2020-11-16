@@ -13,7 +13,7 @@ class Mixins {
         backgroundColor: 'white'
       }
     },
-    '@media screen and (min-width: 800px)': {
+    '@media screen and (min-width: 801px)': {
       '& .sxctf-nav-bar-dropdown-visible': {
         backgroundColor: 'transparent'
       }
@@ -26,7 +26,7 @@ class Mixins {
       },
 
       '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-        backgroundColor: 'black'
+        backgroundColor: 'black !important'
       }
     },
     '& .sxctf-nav-bar .aj-text-button > button, .sxctf-nav-bar .aj-outlined-button > button': {

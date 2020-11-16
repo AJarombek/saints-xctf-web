@@ -52,15 +52,16 @@ const NavBar: React.FunctionComponent<Props> = ({ includeHeaders = [], user, bod
     };
   }, [bodyRef]);
 
-  const stickyClass = stickyHeader ? classes.sticky : classes.dry;
+  const stickyHeaderClass = stickyHeader ? classes.sticky : classes.dry;
+  const stickyDropdownClass = stickyHeader ? classes.stickyDropdown : classes.dryDropdown;
 
   const navBarClass = showDropdown
-    ? classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible', stickyClass)
-    : classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-hidden', stickyClass);
+    ? classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible', stickyHeaderClass)
+    : classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-hidden', stickyHeaderClass);
 
   const dropdownClass = showDropdown
-    ? classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-visible')
-    : classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-hidden');
+    ? classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-visible', stickyDropdownClass)
+    : classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-hidden', stickyDropdownClass);
 
   /**
    * There is an issue with React Router not working with hashed routes.  This helper method uses

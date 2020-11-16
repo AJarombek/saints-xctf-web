@@ -4,9 +4,9 @@
  * @since 1/12/2020
  */
 
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import moment from 'moment';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../../utils/auth';
@@ -20,9 +20,9 @@ import HomeFooter from '../../components/home/HomeFooter';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import saintsXCTFVideo from '../../../assets/saints-xctf-vid.mp4';
-import {RootState} from '../../redux/types';
+import { RootState } from '../../redux/types';
 
-type Props = {}
+type Props = {};
 
 const Home: React.FunctionComponent<Props> = () => {
   const history = useHistory();
@@ -38,28 +38,23 @@ const Home: React.FunctionComponent<Props> = () => {
   }, [user]);
 
   const day = moment().dayOfYear();
-  const mobileBackgroundPicture = day % 2 === 0 ?
-    'https://asset.saintsxctf.com/mens-background.jpg' :
-    'https://asset.saintsxctf.com/womens-background.jpg';
+  const mobileBackgroundPicture =
+    day % 2 === 0
+      ? 'https://asset.saintsxctf.com/mens-background.jpg'
+      : 'https://asset.saintsxctf.com/womens-background.jpg';
 
   if (!userAuthenticated(user, auth.signedInUser)) {
     return (
       <div className="sxctf-home" ref={ref}>
-        <NavBar includeHeaders={['about', 'testimonials', 'register', 'signIn', 'logo']} bodyRef={ref}/>
-        <HomeBody/>
+        <NavBar includeHeaders={['about', 'testimonials', 'register', 'signIn', 'logo']} bodyRef={ref} />
+        <HomeBody />
         <div className="sxctf-home-overlay"> </div>
         <img className="sxctf-home-background-img" src={mobileBackgroundPicture} alt="" />
-        <video
-          className="sxctf-home-background-video"
-          src={saintsXCTFVideo}
-          autoPlay
-          loop
-          muted
-          playsInline />
-        <HomeAbout/>
-        <HomeApps/>
-        <HomeTestimonials/>
-        <HomeFooter/>
+        <video className="sxctf-home-background-video" src={saintsXCTFVideo} autoPlay loop muted playsInline />
+        <HomeAbout />
+        <HomeApps />
+        <HomeTestimonials />
+        <HomeFooter />
       </div>
     );
   } else {
