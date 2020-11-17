@@ -1,5 +1,6 @@
 /**
  * JSS styles for the NavBar component.
+ * Nothing but love for you here.
  * @author Andrew Jarombek
  * @since 10/19/2020
  */
@@ -8,30 +9,11 @@ import Colors from '../../../styles/colors';
 import color from 'color';
 
 export default {
-  sticky: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    right: 0,
-    zIndex: 1,
-    borderBottom: `2px solid ${color(Colors.spotPaletteBrown).darken(0.2)}`,
+  lightTheme: {
     backgroundColor: '#f5f5f5',
 
-    '& .sxctf-logo': {
-      height: 55,
-      width: 75
-    },
-
     '& h1': {
-      fontSize: 20
-    },
-
-    '&.sxctf-nav-bar-dropdown-hidden h1': {
       color: '#282828'
-    },
-
-    '&.sxctf-nav-bar-dropdown-visible h1': {
-      color: 'white'
     },
 
     '& .aj-text-button > button, & .aj-outlined-button > button': {
@@ -44,12 +26,88 @@ export default {
       }
     },
 
+    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
+      backgroundColor: 'black'
+    }
+  },
+  darkTheme: {
+    backgroundColor: '#131313',
+
+    '& h1': {
+      color: '#eee'
+    },
+
+    '& .aj-text-button > button, & .aj-outlined-button > button': {
+      color: '#eee !important'
+    },
+
+    '& .aj-text-button:hover, & .aj-outlined-button:hover': {
+      '& > button': {
+        color: 'white !important'
+      }
+    },
+
+    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
+      backgroundColor: 'white'
+    }
+  },
+  transparentTheme: {
+    backgroundColor: 'transparent',
+
+    '& h1': {
+      color: '#eee'
+    },
+
+    '& .aj-text-button > button, & .aj-outlined-button > button': {
+      color: '#eee !important'
+    },
+
+    '& .aj-text-button:hover, & .aj-outlined-button:hover': {
+      '& > button': {
+        color: 'white !important'
+      }
+    },
+
+    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
+      backgroundColor: 'white'
+    }
+  },
+  lightDropdownTheme: {
+    backgroundColor: '#f5f5f5',
+
+    '& .aj-nav-list-item > div > div': {
+      color: '#131313'
+    }
+  },
+  darkDropdownTheme: {
+    backgroundColor: '#131313',
+
+    '& .aj-nav-list-item > div > div': {
+      color: '#eee'
+    }
+  },
+  sticky: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+    borderBottom: `2px solid ${color(Colors.spotPaletteBrown).darken(0.2)}`,
+
+    '& .sxctf-logo': {
+      height: 55,
+      width: 75
+    },
+
+    '& h1': {
+      fontSize: 20
+    },
+
     '& .aj-text-button > button, & .aj-outlined-button > button, & .aj-contained-button > button': {
       fontSize: 12
     },
 
     '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-      backgroundColor: 'black',
       width: '25px',
       height: '3px'
     },

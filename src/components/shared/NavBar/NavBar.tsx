@@ -22,7 +22,12 @@ interface Props {
   includeHeaders?: Array<string>;
   user?: UserMeta;
   bodyRef: React.RefObject<any>;
+  dryTheme?: NavBarTheme;
+  stickyTheme?: NavBarDropdownTheme;
 }
+
+type NavBarTheme = 'light' | 'dark' | 'transparent';
+type NavBarDropdownTheme = 'light' | 'dark';
 
 const useStyles = createUseStyles(styles);
 
@@ -32,7 +37,13 @@ const handleScroll = (ref: React.RefObject<any>, setStickyHeader: (isSticky: boo
   }
 };
 
-const NavBar: React.FunctionComponent<Props> = ({ includeHeaders = [], user, bodyRef }) => {
+const NavBar: React.FunctionComponent<Props> = ({
+  includeHeaders = [],
+  user,
+  bodyRef,
+  dryTheme = 'light',
+  stickyTheme = 'light'
+}) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -52,12 +63,30 @@ const NavBar: React.FunctionComponent<Props> = ({ includeHeaders = [], user, bod
     };
   }, [bodyRef]);
 
-  const stickyHeaderClass = stickyHeader ? classes.sticky : classes.dry;
-  const stickyDropdownClass = stickyHeader ? classes.stickyDropdown : classes.dryDropdown;
+  const stickyHeaderClass =
+    stickyTheme === 'light'
+      ? classes.lightTheme
+      : stickyTheme === 'dark'
+      ? classes.darkTheme
+      : classes.transparentTheme;
+
+  const dryHeaderClass =
+    dryTheme === 'light' ? classes.lightTheme : dryTheme === 'dark' ? classes.darkTheme : classes.transparentTheme;
+
+  const headerClass = stickyHeader
+    ? classnames(classes.sticky, stickyHeaderClass)
+    : classnames(classes.dry, dryHeaderClass);
+
+  const stickyDropdownClass = stickyHeader
+    ? classnames(
+        classes.stickyDropdown,
+        stickyTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme
+      )
+    : classnames(classes.dryDropdown, stickyTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme);
 
   const navBarClass = showDropdown
-    ? classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible', stickyHeaderClass)
-    : classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-hidden', stickyHeaderClass);
+    ? classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible', headerClass)
+    : classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-hidden', headerClass);
 
   const dropdownClass = showDropdown
     ? classnames('sxctf-nav-dropdown', 'sxctf-nav-dropdown-visible', stickyDropdownClass)

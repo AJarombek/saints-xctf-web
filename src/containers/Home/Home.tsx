@@ -35,7 +35,7 @@ const Home: React.FunctionComponent<Props> = () => {
     if (userAuthenticated(user, auth.signedInUser)) {
       history.push('/dashboard');
     }
-  }, [user]);
+  }, [user, history, auth]);
 
   const day = moment().dayOfYear();
   const mobileBackgroundPicture =
@@ -46,7 +46,12 @@ const Home: React.FunctionComponent<Props> = () => {
   if (!userAuthenticated(user, auth.signedInUser)) {
     return (
       <div className="sxctf-home" ref={ref}>
-        <NavBar includeHeaders={['about', 'testimonials', 'register', 'signIn', 'logo']} bodyRef={ref} />
+        <NavBar
+          includeHeaders={['about', 'testimonials', 'register', 'signIn', 'logo']}
+          bodyRef={ref}
+          dryTheme="transparent"
+          stickyTheme="light"
+        />
         <HomeBody />
         <div className="sxctf-home-overlay"> </div>
         <img className="sxctf-home-background-img" src={mobileBackgroundPicture} alt="" />
