@@ -51,6 +51,10 @@ const Home: React.FunctionComponent<Props> = () => {
           bodyRef={ref}
           dryTheme="transparent"
           stickyTheme="light"
+          dryDropdownTheme="dark"
+          stickyDropdownTheme="light"
+          dryDropdownHeaderTheme="dark"
+          stickyDropdownHeaderTheme="light"
         />
         <HomeBody />
         <div className="sxctf-home-overlay"> </div>

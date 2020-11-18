@@ -24,6 +24,10 @@ interface Props {
   bodyRef: React.RefObject<any>;
   dryTheme?: NavBarTheme;
   stickyTheme?: NavBarDropdownTheme;
+  dryDropdownTheme?: NavBarDropdownTheme;
+  stickyDropdownTheme?: NavBarDropdownTheme;
+  dryDropdownHeaderTheme?: NavBarTheme;
+  stickyDropdownHeaderTheme?: NavBarDropdownTheme;
 }
 
 type NavBarTheme = 'light' | 'dark' | 'transparent';
@@ -42,7 +46,11 @@ const NavBar: React.FunctionComponent<Props> = ({
   user,
   bodyRef,
   dryTheme = 'light',
-  stickyTheme = 'light'
+  stickyTheme = 'light',
+  dryDropdownTheme = 'light',
+  stickyDropdownTheme = 'light',
+  dryDropdownHeaderTheme = 'light',
+  stickyDropdownHeaderTheme = 'light'
 }) => {
   const classes = useStyles();
 
@@ -73,16 +81,33 @@ const NavBar: React.FunctionComponent<Props> = ({
   const dryHeaderClass =
     dryTheme === 'light' ? classes.lightTheme : dryTheme === 'dark' ? classes.darkTheme : classes.transparentTheme;
 
+  const stickyDropdownHeaderClass =
+    stickyDropdownHeaderTheme === 'light'
+      ? classes.lightDropdownHeaderTheme
+      : stickyDropdownHeaderTheme === 'dark'
+      ? classes.darkDropdownHeaderTheme
+      : classes.transparentDropdownHeaderTheme;
+
+  const dryDropdownHeaderClass =
+    dryDropdownHeaderTheme === 'light'
+      ? classes.lightDropdownHeaderTheme
+      : dryDropdownHeaderTheme === 'dark'
+      ? classes.darkDropdownHeaderTheme
+      : classes.transparentDropdownHeaderTheme;
+
   const headerClass = stickyHeader
-    ? classnames(classes.sticky, stickyHeaderClass)
-    : classnames(classes.dry, dryHeaderClass);
+    ? classnames(classes.sticky, stickyHeaderClass, stickyDropdownHeaderClass)
+    : classnames(classes.dry, dryHeaderClass, dryDropdownHeaderClass);
 
   const stickyDropdownClass = stickyHeader
     ? classnames(
         classes.stickyDropdown,
-        stickyTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme
+        stickyDropdownTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme
       )
-    : classnames(classes.dryDropdown, stickyTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme);
+    : classnames(
+        classes.dryDropdown,
+        dryDropdownTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme
+      );
 
   const navBarClass = showDropdown
     ? classnames('sxctf-nav-bar', 'sxctf-nav-bar-dropdown-visible', headerClass)

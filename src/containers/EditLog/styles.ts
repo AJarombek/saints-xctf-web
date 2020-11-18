@@ -1,5 +1,4 @@
-import Colors from "../../styles/colors";
-import Mixins from "../../styles/mixins";
+import Colors from '../../styles/colors';
 
 /**
  * JSS styles for the EditLog component.
@@ -8,12 +7,11 @@ import Mixins from "../../styles/mixins";
  */
 
 export default {
-    editLog: {
-        backgroundColor: Colors.lightBackground,
-        ...Mixins.lightNavDarkDropdown(),
+  editLog: {
+    backgroundColor: Colors.lightBackground,
 
-        '& .sxctf-home-footer': {
-            backgroundColor: Colors.lightBackground,
-        }
+    '& .sxctf-home-footer': {
+      backgroundColor: Colors.lightBackground
     }
+  }
 };

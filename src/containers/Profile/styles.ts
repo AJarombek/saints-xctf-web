@@ -10,7 +10,6 @@ import Mixins from '../../styles/mixins';
 export default {
   profile: {
     backgroundColor: Colors.lightBackground,
-    ...Mixins.lightNavDarkDropdown(),
 
     '& .sxctf-home-footer': {
       backgroundColor: Colors.lightBackground

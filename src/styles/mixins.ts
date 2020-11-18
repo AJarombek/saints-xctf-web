@@ -5,36 +5,69 @@
  */
 
 class Mixins {
-  static lightNavDarkDropdown = (): object => ({
-    '& .sxctf-nav-bar-dropdown-visible': {
-      backgroundColor: '#131313',
+  static lightNavTheme = (): object => ({
+    backgroundColor: '#f5f5f5',
 
-      '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-        backgroundColor: 'white'
-      }
+    '& h1': {
+      color: '#282828'
     },
-    '@media screen and (min-width: 801px)': {
-      '& .sxctf-nav-bar-dropdown-visible': {
-        backgroundColor: 'transparent'
-      }
+
+    '& .aj-text-button > button, & .aj-outlined-button > button': {
+      color: '#555 !important'
     },
-    '& .sxctf-nav-bar-dropdown-hidden': {
-      backgroundColor: '#f5f5f5',
 
-      '& h1': {
-        color: '#282828'
-      },
-
-      '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-        backgroundColor: 'black !important'
-      }
-    },
-    '& .sxctf-nav-bar .aj-text-button > button, .sxctf-nav-bar .aj-outlined-button > button': {
-      color: '#555 !important',
-
-      '&:hover': {
+    '& .aj-text-button:hover, & .aj-outlined-button:hover': {
+      '& > button': {
         color: '#0e0e0e !important'
       }
+    },
+
+    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
+      backgroundColor: 'black'
+    }
+  });
+
+  static darkNavTheme = (): object => ({
+    backgroundColor: '#131313',
+
+    '& h1': {
+      color: '#eee'
+    },
+
+    '& .aj-text-button > button, & .aj-outlined-button > button': {
+      color: '#eee !important'
+    },
+
+    '& .aj-text-button:hover, & .aj-outlined-button:hover': {
+      '& > button': {
+        color: 'white !important'
+      }
+    },
+
+    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
+      backgroundColor: 'white'
+    }
+  });
+
+  static transparentNavTheme = (): object => ({
+    backgroundColor: 'transparent',
+
+    '& h1': {
+      color: '#eee'
+    },
+
+    '& .aj-text-button > button, & .aj-outlined-button > button': {
+      color: '#eee !important'
+    },
+
+    '& .aj-text-button:hover, & .aj-outlined-button:hover': {
+      '& > button': {
+        color: 'white !important'
+      }
+    },
+
+    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
+      backgroundColor: 'white'
     }
   });
 

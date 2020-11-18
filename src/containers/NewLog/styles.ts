@@ -4,16 +4,14 @@
  * @since 8/16/2020
  */
 
-import Colors from "../../styles/colors";
-import Mixins from "../../styles/mixins";
+import Colors from '../../styles/colors';
 
 export default {
-    newLog: {
-        backgroundColor: Colors.lightBackground,
-        ...Mixins.lightNavDarkDropdown(),
+  newLog: {
+    backgroundColor: Colors.lightBackground,
 
-        '& .sxctf-home-footer': {
-            backgroundColor: Colors.lightBackground,
-        }
+    '& .sxctf-home-footer': {
+      backgroundColor: Colors.lightBackground
     }
+  }
 };

@@ -7,70 +7,17 @@
 
 import Colors from '../../../styles/colors';
 import color from 'color';
+import Mixins from "../../../styles/mixins";
 
 export default {
   lightTheme: {
-    backgroundColor: '#f5f5f5',
-
-    '& h1': {
-      color: '#282828'
-    },
-
-    '& .aj-text-button > button, & .aj-outlined-button > button': {
-      color: '#555 !important'
-    },
-
-    '& .aj-text-button:hover, & .aj-outlined-button:hover': {
-      '& > button': {
-        color: '#0e0e0e !important'
-      }
-    },
-
-    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-      backgroundColor: 'black'
-    }
+    ...Mixins.lightNavTheme()
   },
   darkTheme: {
-    backgroundColor: '#131313',
-
-    '& h1': {
-      color: '#eee'
-    },
-
-    '& .aj-text-button > button, & .aj-outlined-button > button': {
-      color: '#eee !important'
-    },
-
-    '& .aj-text-button:hover, & .aj-outlined-button:hover': {
-      '& > button': {
-        color: 'white !important'
-      }
-    },
-
-    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-      backgroundColor: 'white'
-    }
+    ...Mixins.darkNavTheme()
   },
   transparentTheme: {
-    backgroundColor: 'transparent',
-
-    '& h1': {
-      color: '#eee'
-    },
-
-    '& .aj-text-button > button, & .aj-outlined-button > button': {
-      color: '#eee !important'
-    },
-
-    '& .aj-text-button:hover, & .aj-outlined-button:hover': {
-      '& > button': {
-        color: 'white !important'
-      }
-    },
-
-    '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-      backgroundColor: 'white'
-    }
+    ...Mixins.transparentNavTheme()
   },
   lightDropdownTheme: {
     backgroundColor: '#f5f5f5',
@@ -84,6 +31,21 @@ export default {
 
     '& .aj-nav-list-item > div > div': {
       color: '#eee'
+    }
+  },
+  lightDropdownHeaderTheme: {
+    '&.sxctf-nav-bar-dropdown-visible': {
+      ...Mixins.lightNavTheme()
+    }
+  },
+  darkDropdownHeaderTheme: {
+    '&.sxctf-nav-bar-dropdown-visible': {
+      ...Mixins.darkNavTheme()
+    }
+  },
+  transparentDropdownHeaderTheme: {
+    '&.sxctf-nav-bar-dropdown-visible': {
+      ...Mixins.transparentNavTheme()
     }
   },
   sticky: {

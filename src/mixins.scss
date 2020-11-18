@@ -8,54 +8,6 @@
 @import "vars";
 
 /**
- * Configures a container component using the NavBar component to have a light styling for the NavBar in the standard
- * view.  When the mobile dropdown is activated, a dark styling is applied.
- */
-@mixin lightNavDarkDropdown() {
-  .sxctf-nav-bar-dropdown-visible {
-    background-color: #131313;
-
-    @media screen and (min-width: 800px) {
-      background-color: transparent !important;
-    }
-
-    .sxctf-nav-hamburger {
-      .aj-mobile-hamburger {
-        span, span:before, span:after {
-          background-color: white;
-        }
-      }
-    }
-  }
-
-  .sxctf-nav-bar-dropdown-hidden {
-    background-color: #f5f5f5;
-
-    h1 {
-      color: lighten(#0e0e0e, 10%);
-    }
-
-    .sxctf-nav-hamburger {
-      .aj-mobile-hamburger {
-        span, span:before, span:after {
-          background-color: black;
-        }
-      }
-    }
-  }
-
-  .sxctf-nav-bar {
-    .aj-text-button > button, .aj-outlined-button > button {
-      color: #555 !important;
-
-      &:hover {
-        color: #0e0e0e !important;
-      }
-    }
-  }
-}
-
-/**
  * Center a page body component using flex.  Provide enough room for the NavBar at the top of the page.
  */
 @mixin centeredBody {
