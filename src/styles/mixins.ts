@@ -147,6 +147,24 @@ class Mixins {
     color: Colors.spotPaletteBrown
   });
 
+  static rightInput = (widthPercentage: number): object => ({
+    flexBasis: `${widthPercentage}%`,
+    paddingRight: 10,
+
+    '& .sxctf-image-input': {
+      width: '100%'
+    }
+  });
+
+  static leftInput = (widthPercentage: number): object => ({
+    flexBasis: `${widthPercentage}%`,
+    paddingLeft: 10,
+
+    '& .sxctf-image-input': {
+      width: '100%'
+    }
+  });
+
   static centeredBody = (): object => ({});
   static formTitle = (): object => ({});
   static formSubtitle = (): object => ({});

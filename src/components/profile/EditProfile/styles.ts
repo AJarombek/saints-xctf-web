@@ -26,20 +26,31 @@ export default {
   twoInputs: {
     display: 'flex'
   },
+  textArea: {
+    border: 'none',
+    width: '100%',
+    padding: '6px 20px'
+  },
   firstNameInput: {
-    flexBasis: '50%',
-    paddingRight: 10,
-
-    '& .sxctf-image-input': {
-      width: '100%'
-    }
+    ...Mixins.rightInput(50)
   },
   lastNameInput: {
-    flexBasis: '50%',
-    paddingLeft: 10,
+    ...Mixins.leftInput(50)
+  },
+  emailInput: {
+    ...Mixins.rightInput(80)
+  },
+  classYearInput: {
+    ...Mixins.leftInput(20),
 
-    '& .sxctf-image-input': {
-      width: '100%'
+    '& input': {
+      width: 'auto'
     }
+  },
+  locationInput: {
+    ...Mixins.rightInput(50)
+  },
+  favoriteEventInput: {
+    ...Mixins.leftInput(50)
   }
 };
