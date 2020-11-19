@@ -4,21 +4,21 @@
  * @since 8/16/2020
  */
 
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {createUseStyles} from 'react-jss';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import ImageInput from '../../shared/ImageInput';
-import {AJButton, AJSelect} from 'jarombek-react-components';
+import { AJButton, AJSelect } from 'jarombek-react-components';
 import StepSlider from '../../shared/StepSlider';
-import {FeelColors} from '../../../styles/colors';
+import { FeelColors } from '../../../styles/colors';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea/AutoResizeTextArea';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
-import {ImageInputStatus} from '../../shared/ImageInput';
-import {Log, RootState, User} from '../../../redux/types';
+import { ImageInputStatus } from '../../shared/ImageInput';
+import { Log, RootState, User } from '../../../redux/types';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup/DefaultErrorPopup';
-import {useDispatch, useSelector} from 'react-redux';
-import {invalidateLogUpdated, invalidateLogCreated, postLog, putLog} from '../../../redux/modules/logs';
+import { useDispatch, useSelector } from 'react-redux';
+import { invalidateLogUpdated, invalidateLogCreated, postLog, putLog } from '../../../redux/modules/logs';
 
 interface Props {
   user: User;
@@ -28,7 +28,16 @@ interface Props {
 const useStyles = createUseStyles(styles);
 
 const feelList = [
-  'Terrible', 'Very Bad', 'Bad', 'Pretty Bad', 'Mediocre', 'Average', 'Fairly Good', 'Good', 'Great', 'Fantastic'
+  'Terrible',
+  'Very Bad',
+  'Bad',
+  'Pretty Bad',
+  'Mediocre',
+  'Average',
+  'Fairly Good',
+  'Good',
+  'Great',
+  'Fantastic'
 ];
 
 const exerciseTypes = ['Run', 'Bike', 'Swim', 'Other'];
@@ -93,7 +102,10 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
       setFeel(+existingLog.feel - 1);
       setDescription(existingLog.description);
 
-      const time = existingLog.time?.split('')?.filter(c => c !== ':')?.reduce((time, char) => time + char, '');
+      const time = existingLog.time
+        ?.split('')
+        ?.filter((c) => c !== ':')
+        ?.reduce((time, char) => time + char, '');
       setTime(time);
     }
   }, [existingLog]);
@@ -140,7 +152,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         if (newTime.length) {
           newFormattedTime = newFormattedTime
             .split('')
-            .map((char, index) => (newFormattedTime.length - index) % 2 || !index ? char : `:${char}`)
+            .map((char, index) => ((newFormattedTime.length - index) % 2 || !index ? char : `:${char}`))
             .reduce((time, slice) => time + slice);
         }
 
@@ -151,35 +163,39 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   };
 
   const onCreate = (): void => {
-    dispatch(postLog(
-      user.username,
-      user.first,
-      user.last,
-      name,
-      location,
-      date,
-      type,
-      distance,
-      metric,
-      '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
-      feel + 1,
-      description
-    ));
+    dispatch(
+      postLog(
+        user.username,
+        user.first,
+        user.last,
+        name,
+        location,
+        date,
+        type,
+        distance,
+        metric,
+        '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
+        feel + 1,
+        description
+      )
+    );
   };
 
   const onEdit = (): void => {
-    dispatch(putLog(
-      existingLog.log_id,
-      name,
-      location,
-      date,
-      type,
-      distance,
-      metric,
-      '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
-      feel + 1,
-      description
-    ));
+    dispatch(
+      putLog(
+        existingLog.log_id,
+        name,
+        location,
+        date,
+        type,
+        distance,
+        metric,
+        '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
+        feel + 1,
+        description
+      )
+    );
   };
 
   const onSubmit = (): void => {
@@ -215,11 +231,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
       <h3 className={classes.title}>Create a new exercise log.</h3>
       <div className={classes.logForm}>
         <p className={classes.feel}>{feelList[feel]}</p>
-        <div
-          className={
-            classNames(classes.nameBody, nameStatus === ImageInputStatus.FAILURE && classes.inputError)
-          }
-        >
+        <div className={classNames(classes.nameBody, nameStatus === ImageInputStatus.FAILURE && classes.inputError)}>
           <p className={classes.inputTitle}>Exercise Name*</p>
           <ImageInput
             type="text"
@@ -227,7 +239,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
             placeholder=""
             useCustomValue={true}
             value={name}
-            onChange={(e) : void => setName(e.target.value)}
+            onChange={(e): void => setName(e.target.value)}
             status={nameStatus}
           />
         </div>
@@ -263,7 +275,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
             options={exerciseTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
             defaultOption={type ? exerciseTypes.indexOf(type.charAt(0).toUpperCase() + type.slice(1)) + 1 : 1}
             className={classes.select}
-            onClickListOption={(item: {content: string, value: string}): void => setType(item.value)}
+            onClickListOption={(item: { content: string; value: string }): void => setType(item.value)}
           />
         </div>
         <div className={classes.twoInputs}>
@@ -283,7 +295,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
                 options={metricTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
                 defaultOption={1}
                 className={classes.select}
-                onClickListOption={(item: {content: string, value: string}): void => setMetric(item.value)}
+                onClickListOption={(item: { content: string; value: string }): void => setMetric(item.value)}
               />
             </div>
           </div>

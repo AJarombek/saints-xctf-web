@@ -1,8 +1,72 @@
+import Colors from './colors';
+
 /**
  * JSS mixins reused throughout the application.
  * @author Andrew Jarombek
  * @since 7/25/2020
  */
+
+class FontMixins {
+  static longway = (): object => ({
+    fontFamily: "'Longway', Helvetica, sans-serif !important",
+    fontWeight: 'normal',
+    fontStyle: 'normal'
+  });
+
+  static allura = (): object => ({
+    fontFamily: "'Allura', Helvetica, sans-serif !important",
+    fontWeight: 'normal',
+    fontStyle: 'normal'
+  });
+
+  static elegantIcons = (): object => ({
+    fontFamily: "'ElegantIcons', Helvetica, sans-serif !important",
+    fontWeight: 'normal',
+    fontStyle: 'normal'
+  });
+
+  static robotoBold = (): object => ({
+    fontFamily: "'Roboto-Bold', Helvetica, sans-serif !important",
+    fontWeight: 'bold',
+    fontStyle: 'normal'
+  });
+
+  static roboto = (): object => ({
+    fontFamily: "'Roboto-Regular', Helvetica, sans-serif !important",
+    fontWeight: 'normal',
+    fontStyle: 'normal'
+  });
+
+  static robotoThin = (): object => ({
+    fontFamily: "'Roboto-Thin', Helvetica, sans-serif !important",
+    fontWeight: 'lighter',
+    fontStyle: 'normal'
+  });
+
+  static robotoSlabBold = (): object => ({
+    fontFamily: "'RobotoSlab-Bold', Helvetica, serif !important",
+    fontWeight: 'bold',
+    fontStyle: 'normal'
+  });
+
+  static robotoSlab = (): object => ({
+    fontFamily: "'RobotoSlab-Regular', Helvetica, serif !important",
+    fontWeight: 'normal',
+    fontStyle: 'normal'
+  });
+
+  static robotoSlabLight = (): object => ({
+    fontFamily: "'RobotoSlab-Light', Helvetica, serif !important",
+    fontWeight: 'lighter',
+    fontStyle: 'normal'
+  });
+
+  static robotoSlabThin = (): object => ({
+    fontFamily: "'RobotoSlab-Thin', Helvetica, serif !important",
+    fontWeight: 'normal',
+    fontStyle: 'normal'
+  });
+}
 
 class Mixins {
   static lightNavTheme = (): object => ({
@@ -71,73 +135,23 @@ class Mixins {
     }
   });
 
+  static inputError = (): object => ({
+    '& .sxctf-image-input': {
+      border: `2px solid ${Colors.statusFailure}`
+    }
+  });
+
+  static inputTitle = (): object => ({
+    ...FontMixins.robotoSlabBold(),
+    fontSize: '16px',
+    color: Colors.spotPaletteBrown
+  });
+
   static centeredBody = (): object => ({});
   static formTitle = (): object => ({});
   static formSubtitle = (): object => ({});
   static formError = (): object => ({});
   static formButtons = (): object => ({});
-}
-
-class FontMixins {
-  static longway = (): object => ({
-    fontFamily: "'Longway', Helvetica, sans-serif !important",
-    fontWeight: 'normal',
-    fontStyle: 'normal'
-  });
-
-  static allura = (): object => ({
-    fontFamily: "'Allura', Helvetica, sans-serif !important",
-    fontWeight: 'normal',
-    fontStyle: 'normal'
-  });
-
-  static elegantIcons = (): object => ({
-    fontFamily: "'ElegantIcons', Helvetica, sans-serif !important",
-    fontWeight: 'normal',
-    fontStyle: 'normal'
-  });
-
-  static robotoBold = (): object => ({
-    fontFamily: "'Roboto-Bold', Helvetica, sans-serif !important",
-    fontWeight: 'bold',
-    fontStyle: 'normal'
-  });
-
-  static roboto = (): object => ({
-    fontFamily: "'Roboto-Regular', Helvetica, sans-serif !important",
-    fontWeight: 'normal',
-    fontStyle: 'normal'
-  });
-
-  static robotoThin = (): object => ({
-    fontFamily: "'Roboto-Thin', Helvetica, sans-serif !important",
-    fontWeight: 'lighter',
-    fontStyle: 'normal'
-  });
-
-  static robotoSlabBold = (): object => ({
-    fontFamily: "'RobotoSlab-Bold', Helvetica, serif !important",
-    fontWeight: 'bold',
-    fontStyle: 'normal'
-  });
-
-  static robotoSlab = (): object => ({
-    fontFamily: "'RobotoSlab-Regular', Helvetica, serif !important",
-    fontWeight: 'normal',
-    fontStyle: 'normal'
-  });
-
-  static robotoSlabLight = (): object => ({
-    fontFamily: "'RobotoSlab-Light', Helvetica, serif !important",
-    fontWeight: 'lighter',
-    fontStyle: 'normal'
-  });
-
-  static robotoSlabThin = (): object => ({
-    fontFamily: "'RobotoSlab-Thin', Helvetica, serif !important",
-    fontWeight: 'normal',
-    fontStyle: 'normal'
-  });
 }
 
 export { Mixins, FontMixins };
