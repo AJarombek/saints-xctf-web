@@ -35,8 +35,11 @@ export default {
     width: '100%',
     padding: '6px 20px'
   },
+  radioGroup: {
+    display: 'flex'
+  },
   radio: {
-
+    margin: '0 20px'
   },
   firstNameInput: {
     ...Mixins.rightInput(50)

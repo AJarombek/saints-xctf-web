@@ -7,6 +7,8 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
+import classNames from 'classnames';
+import { ClassValue } from 'classnames/types';
 
 interface Props {
   id: string;
@@ -14,18 +16,38 @@ interface Props {
   value: string;
   label: React.ReactNode;
   defaultChecked?: boolean;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className?: ClassValue;
 }
 
 const useStyles = createUseStyles(styles);
 
-const RadioButton: React.FunctionComponent<Props> = ({ id, name, value, label, defaultChecked = false }) => {
+const RadioButton: React.FunctionComponent<Props> = ({
+  id,
+  name,
+  value,
+  label,
+  defaultChecked = false,
+  onChange,
+  className
+}) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.radio}>
+    <div className={classNames(classes.radio, className)}>
       <label>
-        <input type="radio" id={id} name={name} value={value} checked={defaultChecked} className={classes.input} />
-        <div className={classes.customRadio} />
+        <div className={classes.inputWrapper}>
+          <input
+            type="radio"
+            id={id}
+            name={name}
+            value={value}
+            className={classes.input}
+            defaultChecked={defaultChecked}
+            onChange={onChange}
+          />
+          <div className={classes.customRadio} />
+        </div>
         <div className={classes.customLabel}>{label}</div>
       </label>
     </div>

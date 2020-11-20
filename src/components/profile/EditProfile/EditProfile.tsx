@@ -11,7 +11,7 @@ import { UserMeta } from '../../../redux/types';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
-import RadioButton from "../../shared/RadioButton";
+import RadioButton from '../../shared/RadioButton';
 
 interface Props {
   user: UserMeta;
@@ -34,6 +34,13 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const [location, setLocation] = useState('');
   const [favoriteEvent, setFavoriteEvent] = useState('');
   const [description, setDescription] = useState('');
+  const [weekStart, setWeekStart] = useState('');
+
+  const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.checked) {
+      setWeekStart(e.target.value);
+    }
+  };
 
   return (
     <div className={classes.editProfile}>
@@ -144,15 +151,25 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         </div>
         <div>
           <p className={classes.inputTitle}>Week Start</p>
-          <RadioButton id="sunday" name="weekStart" value="sunday" label="Sunday" defaultChecked={true} />
-          <label>
-            <input type="radio" id="sunday" name="weekStart" value="sunday" checked={true} className={classes.radio} />
-            Sunday
-          </label>
-          <label>
-            <input type="radio" id="monday" name="weekStart" value="monday" checked={true} className={classes.radio} />
-            Monday
-          </label>
+          <div className={classes.radioGroup}>
+            <RadioButton
+              id="sunday"
+              name="weekStart"
+              value="sunday"
+              label="Sunday"
+              onChange={onWeekStartChange}
+              defaultChecked={true}
+              className={classes.radio}
+            />
+            <RadioButton
+              id="monday"
+              name="weekStart"
+              value="monday"
+              label="Monday"
+              onChange={onWeekStartChange}
+              className={classes.radio}
+            />
+          </div>
         </div>
       </div>
     </div>
