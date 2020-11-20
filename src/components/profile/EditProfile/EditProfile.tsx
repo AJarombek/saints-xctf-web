@@ -12,6 +12,7 @@ import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
+import UploadFile from '../../shared/UploadFile/UploadFile';
 
 interface Props {
   user: UserMeta;
@@ -171,6 +172,10 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
             />
           </div>
         </div>
+      </div>
+      <h3 className={classes.title}>Profile Picture</h3>
+      <div className={classes.form}>
+        <UploadFile />
       </div>
     </div>
   );
