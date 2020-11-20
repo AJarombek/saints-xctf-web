@@ -17,11 +17,7 @@ export default {
     margin: '100px 6% 0 6%'
   },
   title: {
-    ...FontMixins.robotoSlabBold(),
-    width: 700,
-    margin: '50px auto 0 auto',
-    fontSize: '24px',
-    color: '#333'
+    ...Mixins.formTitle()
   },
   logForm: {
     backgroundColor: ({ feel }: { feel: number }): string => color(FeelColors[feel]).alpha(0.8).string(),

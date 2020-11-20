@@ -4,13 +4,14 @@
  * @since 10/18/2020
  */
 
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { UserMeta } from '../../../redux/types';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
+import RadioButton from "../../shared/RadioButton";
 
 interface Props {
   user: UserMeta;
@@ -104,7 +105,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         </div>
         <div className={classes.twoInputs}>
           <div className={classes.locationInput}>
-            <p className={classes.inputTitle}>Email*</p>
+            <p className={classes.inputTitle}>Location</p>
             <ImageInput
               type="text"
               name="location"
@@ -140,6 +141,18 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
             className={classes.textArea}
             ref={descriptionRef}
           />
+        </div>
+        <div>
+          <p className={classes.inputTitle}>Week Start</p>
+          <RadioButton id="sunday" name="weekStart" value="sunday" label="Sunday" defaultChecked={true} />
+          <label>
+            <input type="radio" id="sunday" name="weekStart" value="sunday" checked={true} className={classes.radio} />
+            Sunday
+          </label>
+          <label>
+            <input type="radio" id="monday" name="weekStart" value="monday" checked={true} className={classes.radio} />
+            Monday
+          </label>
         </div>
       </div>
     </div>

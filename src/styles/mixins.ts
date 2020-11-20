@@ -165,8 +165,15 @@ class Mixins {
     }
   });
 
+  static formTitle = (): object => ({
+    ...FontMixins.robotoSlabBold(),
+    width: 700,
+    margin: '50px auto 0 auto',
+    fontSize: '24px',
+    color: '#333'
+  });
+
   static centeredBody = (): object => ({});
-  static formTitle = (): object => ({});
   static formSubtitle = (): object => ({});
   static formError = (): object => ({});
   static formButtons = (): object => ({});

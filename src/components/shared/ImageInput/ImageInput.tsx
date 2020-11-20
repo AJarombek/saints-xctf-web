@@ -4,10 +4,15 @@
  * @since 5/2/2020
  */
 
-import React, {ChangeEvent, KeyboardEvent, useRef} from 'react';
+import React, { ChangeEvent, KeyboardEvent, useRef } from 'react';
 import classnames from 'classnames';
 
-enum ImageInputStatus { NONE, SUCCESS, WARNING, FAILURE }
+enum ImageInputStatus {
+  NONE,
+  SUCCESS,
+  WARNING,
+  FAILURE
+}
 
 interface Props {
   type: string;
@@ -40,34 +45,30 @@ const ImageInput: React.FunctionComponent<Props> = ({
 
   let statusIcon, statusClass;
   switch (status) {
-  case ImageInputStatus.NONE:
-    statusIcon = null;
-    statusClass = 'none';
-    break;
-  case ImageInputStatus.SUCCESS:
-    statusIcon = '\u0052';
-    statusClass = 'success';
-    break;
-  case ImageInputStatus.WARNING:
-    statusIcon = '\u004f';
-    statusClass = 'warning';
-    break;
-  case ImageInputStatus.FAILURE:
-    statusIcon = '\u0051';
-    statusClass = 'failure';
-    break;
-  default:
-    statusIcon = null;
-    statusClass = 'none';
+    case ImageInputStatus.NONE:
+      statusIcon = null;
+      statusClass = 'none';
+      break;
+    case ImageInputStatus.SUCCESS:
+      statusIcon = '\u0052';
+      statusClass = 'success';
+      break;
+    case ImageInputStatus.WARNING:
+      statusIcon = '\u004f';
+      statusClass = 'warning';
+      break;
+    case ImageInputStatus.FAILURE:
+      statusIcon = '\u0051';
+      statusClass = 'failure';
+      break;
+    default:
+      statusIcon = null;
+      statusClass = 'none';
   }
 
   return (
     <div className="sxctf-image-input">
-      {icon ?
-        <img src={icon} alt="" />
-        :
-        <div className="no-icon"> </div>
-      }
+      {icon ? <img src={icon} alt="" /> : <div className="no-icon"> </div>}
       <input
         name={name}
         type={type}
@@ -88,5 +89,5 @@ const ImageInput: React.FunctionComponent<Props> = ({
   );
 };
 
-export {ImageInputStatus};
+export { ImageInputStatus };
 export default ImageInput;

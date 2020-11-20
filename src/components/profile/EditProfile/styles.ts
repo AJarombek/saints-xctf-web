@@ -9,6 +9,10 @@ import Mixins from '../../../styles/mixins';
 
 export default {
   editProfile: {},
+  title: {
+    ...Mixins.formTitle(),
+    fontSize: 20
+  },
   form: {
     backgroundColor: color('#E3E3E3').alpha(0.8).string(),
     width: '100%',
@@ -31,6 +35,9 @@ export default {
     width: '100%',
     padding: '6px 20px'
   },
+  radio: {
+
+  },
   firstNameInput: {
     ...Mixins.rightInput(50)
   },
@@ -52,5 +59,10 @@ export default {
   },
   favoriteEventInput: {
     ...Mixins.leftInput(50)
+  },
+  '@media screen and (max-width: 720px)': {
+    title: {
+      width: 'auto'
+    }
   }
 };
