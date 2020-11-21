@@ -173,6 +173,12 @@ class Mixins {
     color: '#333'
   });
 
+  static formActions = (): object => ({
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: 50
+  });
+
   static centeredBody = (): object => ({});
   static formSubtitle = (): object => ({});
   static formError = (): object => ({});

@@ -136,9 +136,7 @@ export default {
     padding: '6px 20px'
   },
   actions: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: 50
+    ...Mixins.formActions()
   },
   submitButton: {
     display: 'flex !important',

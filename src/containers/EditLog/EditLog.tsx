@@ -4,21 +4,21 @@
  * @since 9/5/2020
  */
 
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {RootState} from '../../redux/types';
-import {useDispatch, useSelector} from 'react-redux';
-import {useHistory, useRouteMatch} from 'react-router-dom';
-import {userAuthenticated} from '../../utils/auth';
-import {setUserFromStorage} from '../../redux/modules/auth';
-import {createUseStyles} from 'react-jss';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { RootState } from '../../redux/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useRouteMatch } from 'react-router-dom';
+import { userAuthenticated } from '../../utils/auth';
+import { setUserFromStorage } from '../../redux/modules/auth';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import NavBar from '../../components/shared/NavBar';
 import LogBody from '../../components/new-edit-log/LogBody';
-import {getLog} from '../../redux/modules/logs';
+import { getLog } from '../../redux/modules/logs';
 import NotFound from '../../components/shared/NotFound/NotFound';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 
-type Props = {}
+type Props = {};
 
 const useStyles = createUseStyles(styles);
 
@@ -74,14 +74,7 @@ const EditLog: React.FunctionComponent<Props> = () => {
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
-        {errorNotFound ?
-          <NotFound />
-          :
-          <LogBody
-            user={users[auth.signedInUser]?.user}
-            existingLog={log}
-          />
-        }
+        {errorNotFound ? <NotFound /> : <LogBody user={users[auth.signedInUser]?.user} existingLog={log} />}
         <HomeFooter showContactUs={false} />
       </div>
     );

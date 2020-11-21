@@ -13,6 +13,7 @@ import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
 import UploadFile from '../../shared/UploadFile/UploadFile';
+import { AJButton } from 'jarombek-react-components';
 
 interface Props {
   user: UserMeta;
@@ -42,6 +43,11 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       setWeekStart(e.target.value);
     }
   };
+
+  const onSubmitDetails = (): void => {};
+  const onCancelDetails = (): void => {};
+  const onSubmitPicture = (): void => {};
+  const onCancelPicture = (): void => {};
 
   return (
     <div className={classes.editProfile}>
@@ -171,6 +177,14 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               className={classes.radio}
             />
           </div>
+        </div>
+        <div className={classes.actions}>
+          <AJButton type="contained" disabled={false} onClick={onSubmitDetails} className={classes.submitButton}>
+            Save Changes
+          </AJButton>
+          <AJButton type="text" disabled={false} onClick={onCancelDetails} className={classes.cancelButton}>
+            Cancel
+          </AJButton>
         </div>
       </div>
       <h3 className={classes.title}>Profile Picture</h3>

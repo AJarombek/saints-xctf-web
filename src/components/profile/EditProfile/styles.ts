@@ -63,6 +63,15 @@ export default {
   favoriteEventInput: {
     ...Mixins.leftInput(50)
   },
+  actions: {
+    ...Mixins.formActions()
+  },
+  submitButton: {
+    marginRight: 20
+  },
+  cancelButton: {
+    marginRight: 10
+  },
   '@media screen and (max-width: 720px)': {
     title: {
       width: 'auto'
