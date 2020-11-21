@@ -179,6 +179,25 @@ class Mixins {
     marginTop: 50
   });
 
+  static profilePicture = (): object => ({
+    width: 150,
+    height: 150,
+    borderRadius: '50%',
+    backgroundColor: Colors.spotPaletteCream,
+    border: '3px solid #888',
+    transition: 'border 0.5s ease',
+
+    '&:hover': {
+      border: '3px solid #333'
+    },
+
+    '& > img': {
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%'
+    }
+  });
+
   static centeredBody = (): object => ({});
   static formSubtitle = (): object => ({});
   static formError = (): object => ({});

@@ -75,7 +75,13 @@ const UploadFile: React.FunctionComponent<Props> = ({ className }) => {
       onDrop={handleDrop}
       onClick={handleClickUpload}
     >
-      <input type="file" className={classes.hiddenInput} onClick={handleClickUploadInput} ref={fileInputRef} />
+      <input
+        type="file"
+        accept="image/*"
+        className={classes.hiddenInput}
+        onClick={handleClickUploadInput}
+        ref={fileInputRef}
+      />
       <p className={classNames(classes.uploadText, !!dragCounter ? classes.uploadTextDrag : classes.uploadTextEmpty)}>
         Click here or drag and drop a file.
       </p>

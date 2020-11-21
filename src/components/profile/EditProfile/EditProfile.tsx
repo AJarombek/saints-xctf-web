@@ -14,6 +14,7 @@ import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
 import UploadFile from '../../shared/UploadFile/UploadFile';
 import { AJButton } from 'jarombek-react-components';
+import { useDispatch } from 'react-redux';
 
 interface Props {
   user: UserMeta;
@@ -24,6 +25,8 @@ const useStyles = createUseStyles(styles);
 const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   const descriptionRef = useRef(null);
 
   const [firstName, setFirstName] = useState('');
@@ -32,7 +35,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const [lastNameStatus, setLastNameStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [email, setEmail] = useState('');
   const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
-  const [classYear, setClassYear] = useState('');
+  const [classYear, setClassYear] = useState(0);
   const [location, setLocation] = useState('');
   const [favoriteEvent, setFavoriteEvent] = useState('');
   const [description, setDescription] = useState('');
@@ -45,7 +48,18 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   };
 
   const onSubmitDetails = (): void => {};
-  const onCancelDetails = (): void => {};
+
+  const onCancelDetails = (): void => {
+    setFirstName(user.first);
+    setLastName(user.last);
+    setEmail(user.email);
+    setClassYear(user.class_year);
+    setLocation(user.location);
+    setFavoriteEvent(user.favorite_event);
+    setDescription(user.description);
+    setWeekStart(user.week_start);
+  };
+
   const onSubmitPicture = (): void => {};
   const onCancelPicture = (): void => {};
 
@@ -111,8 +125,8 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               name="classYear"
               placeholder=""
               useCustomValue={true}
-              value={classYear}
-              onChange={(e): void => setClassYear(e.target.value)}
+              value={`${classYear}`}
+              onChange={(e): void => setClassYear(+e.target.value)}
               status={ImageInputStatus.NONE}
             />
           </div>
@@ -165,7 +179,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               value="sunday"
               label="Sunday"
               onChange={onWeekStartChange}
-              defaultChecked={true}
+              defaultChecked={user.week_start === 'sunday'}
               className={classes.radio}
             />
             <RadioButton
@@ -174,13 +188,14 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               value="monday"
               label="Monday"
               onChange={onWeekStartChange}
+              defaultChecked={user.week_start === 'monday'}
               className={classes.radio}
             />
           </div>
         </div>
         <div className={classes.actions}>
           <AJButton type="contained" disabled={false} onClick={onSubmitDetails} className={classes.submitButton}>
-            Save Changes
+            Save Details
           </AJButton>
           <AJButton type="text" disabled={false} onClick={onCancelDetails} className={classes.cancelButton}>
             Cancel
@@ -189,7 +204,31 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       </div>
       <h3 className={classes.title}>Profile Picture</h3>
       <div className={classes.form}>
-        <UploadFile />
+        <div className={classes.profilePictureContainer}>
+          <figure className={classes.picture}>
+            <img src="" alt="" />
+          </figure>
+          <UploadFile />
+        </div>
+        <div className={classes.actions}>
+          <AJButton type="contained" disabled={false} onClick={onSubmitPicture} className={classes.submitButton}>
+            Save Picture
+          </AJButton>
+          <AJButton type="text" disabled={false} onClick={onCancelPicture} className={classes.cancelButton}>
+            Cancel
+          </AJButton>
+        </div>
+      </div>
+      <h3 className={classes.title}>Teams and Groups</h3>
+      <div className={classes.form}>
+        <div className={classes.actions}>
+          <AJButton type="contained" disabled={false} onClick={onSubmitPicture} className={classes.submitButton}>
+            Save Teams & Groups
+          </AJButton>
+          <AJButton type="text" disabled={false} onClick={onCancelPicture} className={classes.cancelButton}>
+            Cancel
+          </AJButton>
+        </div>
       </div>
     </div>
   );

@@ -7,29 +7,29 @@
  */
 
 import React from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
+import { createUseStyles } from 'react-jss';
+import styles from './styles';
 
-interface IProps {
-    imageUrl: string;
-    title: string;
-    subTitle: string;
+interface Props {
+  imageUrl: string;
+  title: string;
+  subTitle: string;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PictureTitle: React.FunctionComponent<IProps> = ({ imageUrl, title, subTitle }) => {
-    const classes = useStyles();
+const PictureTitle: React.FunctionComponent<Props> = ({ imageUrl, title, subTitle }) => {
+  const classes = useStyles();
 
-    return (
-        <div className={classes.container}>
-            <figure className={classes.picture}>
-                <img src={imageUrl} alt="" />
-            </figure>
-            <h5 className={classes.title}>{title}</h5>
-            <div className={classes.subTitle}>{subTitle}</div>
-        </div>
-    );
+  return (
+    <div className={classes.container}>
+      <figure className={classes.picture}>
+        <img src={imageUrl} alt="" />
+      </figure>
+      <h5 className={classes.title}>{title}</h5>
+      <div className={classes.subTitle}>{subTitle}</div>
+    </div>
+  );
 };
 
 export default PictureTitle;
