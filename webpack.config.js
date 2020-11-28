@@ -120,6 +120,11 @@ const localConfig = {
         target: 'http://localhost:5001/',
         secure: false,
         pathRewrite: { '^/auth': '' }
+      },
+      '/fn/**': {
+        target: 'https://dev.fn.saintsxctf.com/',
+        secure: true,
+        pathRewrite: { '^/fn': '' }
       }
     }
   }

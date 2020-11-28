@@ -7,9 +7,9 @@
 import { api } from '../../datasources/apiRequest';
 import bcrypt from 'bcryptjs';
 import moment from 'moment';
-import {AuthState, User} from "../types";
-import {Dispatch} from "redux";
-import {auth} from "../../datasources/authRequest";
+import { AuthState, User } from '../types';
+import { Dispatch } from 'redux';
+import { auth } from '../../datasources/authRequest';
 
 // Actions
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
@@ -81,64 +81,23 @@ interface SetUserFromStorageAction {
 }
 
 type AuthActionTypes =
-    SignInRequestAction |
-    SignInSuccessAction |
-    SignInFailureAction |
-    SignOutAction |
-    ForgotPasswordRequestAction |
-    ForgotPasswordSuccessAction |
-    ForgotPasswordFailureAction |
-    ChangeEmailRequestAction |
-    ChangeEmailSuccessAction |
-    ChangeEmailFailureAction |
-    SetUserFromStorageAction;
+  | SignInRequestAction
+  | SignInSuccessAction
+  | SignInFailureAction
+  | SignOutAction
+  | ForgotPasswordRequestAction
+  | ForgotPasswordSuccessAction
+  | ForgotPasswordFailureAction
+  | ChangeEmailRequestAction
+  | ChangeEmailSuccessAction
+  | ChangeEmailFailureAction
+  | SetUserFromStorageAction;
 
 // Reducer
 const initialState: AuthState = {
   auth: {},
   user: {}
 };
-
-export default function reducer(state = initialState, action : AuthActionTypes) {
-  switch (action.type) {
-    case SIGNIN_REQUEST:
-      return signInRequestReducer(state, action);
-    case SIGNIN_SUCCESS:
-      return signInSuccessReducer(state, action);
-    case SIGNIN_FAILURE:
-      return signInFailureReducer(state, action);
-    case SIGNOUT:
-      return signOutReducer(state, action);
-    case FORGOT_PASSWORD_EMAIL_REQUEST:
-      return {
-        ...state
-      };
-    case FORGOT_PASSWORD_EMAIL_SUCCESS:
-      return {
-        ...state
-      };
-    case FORGOT_PASSWORD_EMAIL_FAILURE:
-      return {
-        ...state
-      };
-    case CHANGE_EMAIL_REQUEST:
-      return {
-        ...state
-      };
-    case CHANGE_EMAIL_SUCCESS:
-      return {
-        ...state
-      };
-    case CHANGE_EMAIL_FAILURE:
-      return {
-        ...state
-      };
-    case SET_USER_FROM_STORAGE:
-      return setUserFromStorageReducer(state, action);
-    default:
-      return state;
-  }
-}
 
 function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {
   const existingUser = state.user[action.username] ?? {};
@@ -208,10 +167,10 @@ function signOutReducer(state: AuthState, action: SignOutAction): AuthState {
       isFetching: false,
       lastUpdated: moment().unix(),
       signedInUser: null,
-      status: "SIGNED OUT"
+      status: 'SIGNED OUT'
     },
     user: {}
-  }
+  };
 }
 
 function setUserFromStorageReducer(state: AuthState, action: SetUserFromStorageAction): AuthState {
@@ -234,8 +193,49 @@ function setUserFromStorageReducer(state: AuthState, action: SetUserFromStorageA
       isFetching: false,
       lastUpdated: moment().unix(),
       signedInUser: action.user.username,
-      status: "SUCCESS"
-    },
+      status: 'SUCCESS'
+    }
+  };
+}
+
+export default function reducer(state = initialState, action: AuthActionTypes) {
+  switch (action.type) {
+    case SIGNIN_REQUEST:
+      return signInRequestReducer(state, action);
+    case SIGNIN_SUCCESS:
+      return signInSuccessReducer(state, action);
+    case SIGNIN_FAILURE:
+      return signInFailureReducer(state, action);
+    case SIGNOUT:
+      return signOutReducer(state, action);
+    case FORGOT_PASSWORD_EMAIL_REQUEST:
+      return {
+        ...state
+      };
+    case FORGOT_PASSWORD_EMAIL_SUCCESS:
+      return {
+        ...state
+      };
+    case FORGOT_PASSWORD_EMAIL_FAILURE:
+      return {
+        ...state
+      };
+    case CHANGE_EMAIL_REQUEST:
+      return {
+        ...state
+      };
+    case CHANGE_EMAIL_SUCCESS:
+      return {
+        ...state
+      };
+    case CHANGE_EMAIL_FAILURE:
+      return {
+        ...state
+      };
+    case SET_USER_FROM_STORAGE:
+      return setUserFromStorageReducer(state, action);
+    default:
+      return state;
   }
 }
 
@@ -245,7 +245,7 @@ export function signInRequest(username: string, status: string): SignInRequestAc
     type: SIGNIN_REQUEST,
     username,
     status
-  }
+  };
 }
 
 export function signInSuccess(username: string, user: User, status: string): SignInSuccessAction {
@@ -254,14 +254,14 @@ export function signInSuccess(username: string, user: User, status: string): Sig
     username,
     user,
     status
-  }
+  };
 }
 
 export function signInFailure(status: string): SignInFailureAction {
   return {
     type: SIGNIN_FAILURE,
     status
-  }
+  };
 }
 
 export function signOut(): SignOutAction {
@@ -269,20 +269,20 @@ export function signOut(): SignOutAction {
 
   return {
     type: SIGNOUT
-  }
+  };
 }
 
 export function forgotPasswordRequest(): ForgotPasswordRequestAction {
   return {
     type: FORGOT_PASSWORD_EMAIL_REQUEST
-  }
+  };
 }
 
 export function forgotPasswordSuccess(status: string): ForgotPasswordSuccessAction {
   return {
     type: FORGOT_PASSWORD_EMAIL_SUCCESS,
     status
-  }
+  };
 }
 
 export function forgotPasswordFailure(status: string, serverError: string): ForgotPasswordFailureAction {
@@ -290,22 +290,22 @@ export function forgotPasswordFailure(status: string, serverError: string): Forg
     type: FORGOT_PASSWORD_EMAIL_FAILURE,
     status,
     serverError
-  }
+  };
 }
 
 export function setUserFromStorage(user: User): SetUserFromStorageAction {
   return {
     type: SET_USER_FROM_STORAGE,
     user
-  }
+  };
 }
 
 export function signIn(username: string, password: string) {
   return async function (dispatch: Dispatch) {
-    dispatch(signInRequest(username, "PENDING"));
+    dispatch(signInRequest(username, 'PENDING'));
 
     try {
-      const authResponse = await auth.post(`token`, {
+      const authResponse = await auth.post('token', {
         clientId: username,
         clientSecret: password
       });
@@ -319,19 +319,19 @@ export function signIn(username: string, password: string) {
       const match = await bcrypt.compare(password, user.password);
 
       if (match) {
-        dispatch(signInSuccess(username, user, "SUCCESS"));
+        dispatch(signInSuccess(username, user, 'SUCCESS'));
       } else {
-        dispatch(signInFailure("INVALID PASSWORD"));
+        dispatch(signInFailure('INVALID PASSWORD'));
       }
     } catch (error) {
       const { response } = error;
       if (response?.status === 400) {
-        dispatch(signInFailure("INVALID USER"));
+        dispatch(signInFailure('INVALID USER'));
       } else {
-        dispatch(signInFailure("INTERNAL ERROR"));
+        dispatch(signInFailure('INTERNAL ERROR'));
       }
     }
-  }
+  };
 }
 
 export function forgotPasswordEmail(email: string) {
@@ -340,16 +340,16 @@ export function forgotPasswordEmail(email: string) {
 
     try {
       await api.post(`forgot_password/${email}`);
-      dispatch(forgotPasswordSuccess("SUCCESS"));
+      dispatch(forgotPasswordSuccess('SUCCESS'));
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       if (response.status === 400) {
-        dispatch(forgotPasswordFailure("INVALID USERNAME/EMAIL", serverError));
+        dispatch(forgotPasswordFailure('INVALID USERNAME/EMAIL', serverError));
       } else {
-        dispatch(forgotPasswordFailure("INTERNAL ERROR", serverError));
+        dispatch(forgotPasswordFailure('INTERNAL ERROR', serverError));
       }
     }
-  }
+  };
 }

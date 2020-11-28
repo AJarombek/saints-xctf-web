@@ -40,5 +40,6 @@ module.exports = {
             "printWidth": 120,
             "trailingComma": "none",
         }]
-    }
+    },
+    ignorePatterns: ['webpack.config.js', 'webpack.parts.js', 'jest.config.js']
 };

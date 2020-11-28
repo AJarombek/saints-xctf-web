@@ -20,6 +20,10 @@ const GET_USER_FLAIR_FAILURE = 'saints-xctf-web/profile/GET_USER_FLAIR_FAILURE';
 const GET_USER_STATS_REQUEST = 'saints-xctf-web/profile/GET_USER_STATS_REQUEST';
 const GET_USER_STATS_SUCCESS = 'saints-xctf-web/profile/GET_USER_STATS_SUCCESS';
 const GET_USER_STATS_FAILURE = 'saints-xctf-web/profile/GET_USER_STATS_FAILURE';
+const POST_PROFILE_PICTURE_REQUEST = 'saints-xctf-web/profile/POST_PROFILE_PICTURE_REQUEST';
+const POST_PROFILE_PICTURE_PROGRESS = 'saints-xctf-web/profile/POST_PROFILE_PICTURE_PROGRESS';
+const POST_PROFILE_PICTURE_SUCCESS = 'saints-xctf-web/profile/POST_PROFILE_PICTURE_SUCCESS';
+const POST_PROFILE_PICTURE_FAILURE = 'saints-xctf-web/profile/POST_PROFILE_PICTURE_FAILURE';
 
 // Action Types
 
@@ -79,6 +83,25 @@ interface GetUserStatsFailureAction {
   serverError: string;
 }
 
+interface PostProfilePictureRequestAction {
+  type: typeof POST_PROFILE_PICTURE_REQUEST;
+}
+
+interface PostProfilePictureProgressAction {
+  type: typeof POST_PROFILE_PICTURE_PROGRESS;
+  totalSize: number;
+  uploadedSize: number;
+}
+
+interface PostProfilePictureSuccessAction {
+  type: typeof POST_PROFILE_PICTURE_SUCCESS;
+}
+
+interface PostProfilePictureFailureAction {
+  type: typeof POST_PROFILE_PICTURE_FAILURE;
+  serverError: string;
+}
+
 type ProfileActionTypes =
   | GetUserRequestAction
   | GetUserSuccessAction
@@ -89,7 +112,11 @@ type ProfileActionTypes =
   | GetUserFlairFailureAction
   | GetUserStatsRequestAction
   | GetUserStatsSuccessAction
-  | GetUserStatsFailureAction;
+  | GetUserStatsFailureAction
+  | PostProfilePictureRequestAction
+  | PostProfilePictureProgressAction
+  | PostProfilePictureSuccessAction
+  | PostProfilePictureFailureAction;
 
 // Reducer
 const initialState: ProfileState = {
