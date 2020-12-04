@@ -85,6 +85,7 @@ export type Users = {
     user?: UserMeta;
     flair?: FlairMeta;
     stats?: UserStatsMeta;
+    memberships?: Memberships;
   };
 };
 
@@ -218,6 +219,38 @@ export type NewComments = {
     created?: boolean;
     serverError?: string;
   };
+};
+
+export interface Memberships extends Meta {
+  teams?: TeamMembership[];
+}
+
+export interface TeamMembership extends TeamMember {
+  groups?: GroupMember[];
+}
+
+export type Team = {
+  name?: string;
+  title?: string;
+  picture_name?: string;
+  description?: string;
+  week_start?: string;
+};
+
+export type Group = {
+  id?: number;
+  group_name?: string;
+  group_title?: string;
+  grouppic_name?: string;
+  description?: string;
+  week_start?: string;
+};
+
+export type TeamMember = {
+  team_name: string;
+  team_title: string;
+  status: string;
+  user: string;
 };
 
 export type GroupMember = {

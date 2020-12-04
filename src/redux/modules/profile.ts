@@ -7,7 +7,7 @@
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import { Dispatch } from 'redux';
-import { Flair, ProfileState, User, UserStats } from '../types';
+import { Flair, ProfileState, TeamMembership, User, UserStats } from '../types';
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -24,6 +24,9 @@ const POST_PROFILE_PICTURE_REQUEST = 'saints-xctf-web/profile/POST_PROFILE_PICTU
 const POST_PROFILE_PICTURE_PROGRESS = 'saints-xctf-web/profile/POST_PROFILE_PICTURE_PROGRESS';
 const POST_PROFILE_PICTURE_SUCCESS = 'saints-xctf-web/profile/POST_PROFILE_PICTURE_SUCCESS';
 const POST_PROFILE_PICTURE_FAILURE = 'saints-xctf-web/profile/POST_PROFILE_PICTURE_FAILURE';
+const GET_USER_MEMBERSHIPS_REQUEST = 'saints-xctf-web/profile/GET_USER_MEMBERSHIPS_REQUEST';
+const GET_USER_MEMBERSHIPS_SUCCESS = 'saints-xctf-web/profile/GET_USER_MEMBERSHIPS_SUCCESS';
+const GET_USER_MEMBERSHIPS_FAILURE = 'saints-xctf-web/profile/GET_USER_MEMBERSHIPS_FAILURE';
 
 // Action Types
 
@@ -102,6 +105,23 @@ interface PostProfilePictureFailureAction {
   serverError: string;
 }
 
+interface GetUserMembershipsRequestAction {
+  type: typeof GET_USER_MEMBERSHIPS_REQUEST;
+  username: string;
+}
+
+interface GetUserMembershipsSuccessAction {
+  type: typeof GET_USER_MEMBERSHIPS_SUCCESS;
+  username: string;
+  memberships: TeamMembership[];
+}
+
+interface GetUserMembershipsFailureAction {
+  type: typeof GET_USER_MEMBERSHIPS_FAILURE;
+  username: string;
+  serverError: string;
+}
+
 type ProfileActionTypes =
   | GetUserRequestAction
   | GetUserSuccessAction
@@ -116,7 +136,10 @@ type ProfileActionTypes =
   | PostProfilePictureRequestAction
   | PostProfilePictureProgressAction
   | PostProfilePictureSuccessAction
-  | PostProfilePictureFailureAction;
+  | PostProfilePictureFailureAction
+  | GetUserMembershipsRequestAction
+  | GetUserMembershipsSuccessAction
+  | GetUserMembershipsFailureAction;
 
 // Reducer
 const initialState: ProfileState = {
@@ -300,6 +323,59 @@ function getUserStatsFailureReducer(state: ProfileState, action: GetUserStatsFai
   };
 }
 
+function getUserMembershipsRequestReducer(state: ProfileState, action: GetUserMembershipsRequestAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        memberships: {
+          isFetching: true,
+          lastUpdated: moment().unix()
+        }
+      }
+    }
+  };
+}
+
+function getUserMembershipsSuccessReducer(state: ProfileState, action: GetUserMembershipsSuccessAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        memberships: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          teams: action.memberships
+        }
+      }
+    }
+  };
+}
+
+function getUserMembershipsFailureReducer(state: ProfileState, action: GetUserMembershipsFailureAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        memberships: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          serverError: action.serverError
+        }
+      }
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: ProfileActionTypes): ProfileState {
   switch (action.type) {
     case GET_USER_REQUEST:
@@ -322,6 +398,12 @@ export default function reducer(state = initialState, action: ProfileActionTypes
       return getUserStatsSuccessReducer(state, action);
     case GET_USER_STATS_FAILURE:
       return getUserStatsFailureReducer(state, action);
+    case GET_USER_MEMBERSHIPS_REQUEST:
+      return getUserMembershipsRequestReducer(state, action);
+    case GET_USER_MEMBERSHIPS_SUCCESS:
+      return getUserMembershipsSuccessReducer(state, action);
+    case GET_USER_MEMBERSHIPS_FAILURE:
+      return getUserMembershipsFailureReducer(state, action);
     default:
       return state;
   }
@@ -404,6 +486,32 @@ export function getUserStatsFailure(username: string, serverError: string): GetU
   };
 }
 
+export function getUserMembershipsRequest(username: string): GetUserMembershipsRequestAction {
+  return {
+    type: GET_USER_MEMBERSHIPS_REQUEST,
+    username
+  };
+}
+
+export function getUserMembershipsSuccess(
+  username: string,
+  memberships: TeamMembership[]
+): GetUserMembershipsSuccessAction {
+  return {
+    type: GET_USER_MEMBERSHIPS_SUCCESS,
+    username,
+    memberships
+  };
+}
+
+export function getUserMembershipsFailure(username: string, serverError: string): GetUserMembershipsFailureAction {
+  return {
+    type: GET_USER_MEMBERSHIPS_FAILURE,
+    username,
+    serverError
+  };
+}
+
 export function getUser(username: string) {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getUserRequest(username));
@@ -454,6 +562,24 @@ export function getUserStats(username: string) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getUserStatsFailure(username, serverError));
+    }
+  };
+}
+
+export function getUserMemberships(username: string) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(getUserMembershipsRequest(username));
+
+    try {
+      const response = await api.get(`users/memberships/${username}`);
+      const { memberships } = response.data;
+
+      dispatch(getUserMembershipsSuccess(username, memberships));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(getUserMembershipsFailure(username, serverError));
     }
   };
 }
