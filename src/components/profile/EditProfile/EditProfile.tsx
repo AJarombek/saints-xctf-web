@@ -4,17 +4,19 @@
  * @since 10/18/2020
  */
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { UserMeta } from '../../../redux/types';
+import { Memberships, RootState, UserMeta, Users } from '../../../redux/types';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
 import UploadFile from '../../shared/UploadFile/UploadFile';
 import { AJButton } from 'jarombek-react-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserMemberships } from '../../../redux/modules/profile';
+import PickTeams from "../PickTeams";
 
 interface Props {
   user: UserMeta;
@@ -26,9 +28,11 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const userProfiles: Users = useSelector((state: RootState) => state.profile.users);
 
   const descriptionRef = useRef(null);
 
+  const [memberships, setMemberships] = useState<Memberships>(null);
   const [firstName, setFirstName] = useState('');
   const [firstNameStatus, setFirstNameStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [lastName, setLastName] = useState('');
@@ -40,6 +44,14 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const [favoriteEvent, setFavoriteEvent] = useState('');
   const [description, setDescription] = useState('');
   const [weekStart, setWeekStart] = useState('');
+
+  useEffect(() => {
+    dispatch(getUserMemberships(user.username));
+  }, [dispatch, user.username]);
+
+  useEffect(() => {
+    setMemberships(userProfiles[user.username].memberships);
+  }, [userProfiles, user.username]);
 
   const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.checked) {
@@ -220,6 +232,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         </div>
       </div>
       <h3 className={classes.title}>Teams and Groups</h3>
+      <PickTeams teams={memberships.teams} />
       <div className={classes.form}>
         <div className={classes.actions}>
           <AJButton type="contained" disabled={false} onClick={onSubmitPicture} className={classes.submitButton}>
