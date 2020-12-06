@@ -5,5 +5,9 @@
  */
 
 export default {
-  pickGroups: {}
+  pickGroups: {},
+  group: {
+    display: 'flex',
+    alignItems: 'center'
+  }
 };

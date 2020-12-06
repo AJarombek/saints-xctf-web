@@ -16,7 +16,7 @@ import UploadFile from '../../shared/UploadFile/UploadFile';
 import { AJButton } from 'jarombek-react-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMemberships } from '../../../redux/modules/profile';
-import PickTeams from "../PickTeams";
+import PickTeams from '../PickTeams';
 
 interface Props {
   user: UserMeta;
@@ -232,8 +232,8 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         </div>
       </div>
       <h3 className={classes.title}>Teams and Groups</h3>
-      <PickTeams teams={memberships.teams} />
       <div className={classes.form}>
+        <PickTeams teams={memberships?.teams} />
         <div className={classes.actions}>
           <AJButton type="contained" disabled={false} onClick={onSubmitPicture} className={classes.submitButton}>
             Save Teams & Groups

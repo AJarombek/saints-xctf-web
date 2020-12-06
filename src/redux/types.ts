@@ -248,7 +248,7 @@ export type Group = {
 
 export type TeamMember = {
   team_name: string;
-  team_title: string;
+  title: string;
   status: string;
   user: string;
 };

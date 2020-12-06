@@ -8,17 +8,35 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { GroupMember } from '../../../redux/types';
+import { AJButton } from 'jarombek-react-components';
 
 interface Props {
+  teamName?: string;
   groups?: GroupMember[];
 }
 
 const useStyles = createUseStyles(styles);
 
-const PickGroups: React.FunctionComponent<Props> = ({ groups }) => {
+const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
   const classes = useStyles();
 
-  return <div className={classes.pickGroups}></div>;
+  return (
+    <div className={classes.pickGroups}>
+      {!!groups && (
+        <>
+          {groups.map((group) => (
+            <div key={`${teamName}-${group.group_name}`} className={classes.group}>
+              <p>{group.group_title}</p>
+              <AJButton type="text">
+                {(group.status === 'accepted' || group.status === 'pending') && <p>X</p>}
+                {group.status === null && <p>+</p>}
+              </AJButton>
+            </div>
+          ))}
+        </>
+      )}
+    </div>
+  );
 };
 
 export default PickGroups;

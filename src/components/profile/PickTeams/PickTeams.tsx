@@ -8,7 +8,7 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { TeamMembership } from '../../../redux/types';
-import PickGroups from '../PickGroups';
+import PickTeam from '../PickTeam';
 
 interface Props {
   teams?: TeamMembership[];
@@ -21,13 +21,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
 
   return (
     <div className={classes.pickTeams}>
-      {teams.map((team) => (
-        <div className={classes.team} key={team.team_name}>
-          <p>{team.team_title}</p>
-          <PickGroups groups={team.groups} />
-        </div>
-      ))}
-      <PickGroups />
+      {!!teams && teams.map((team) => <PickTeam team={team} key={team.team_name} />)}
     </div>
   );
 };
