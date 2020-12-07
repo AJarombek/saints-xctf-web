@@ -35,13 +35,13 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMember
                 iconNode={<p>&#xe107;</p>}
                 title="Profile"
                 expandable={false}
-                onClick={() => history.push(`/profile/${user.username}`)}
+                onClick={(): void => history.push(`/profile/${user.username}`)}
             />
             <Accordion
                 iconNode={<p>&#x0050;</p>}
                 title="Create New Log"
                 expandable={false}
-                onClick={() => history.push('/log/new')}
+                onClick={(): void => history.push('/log/new')}
             />
             <Accordion
                 id="groupsAccordion"

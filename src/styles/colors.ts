@@ -13,7 +13,7 @@ const Colors = {
   statusWarning: '#ffc107',
   statusFailure: '#dc3545',
   lightestBackground: '#fdfdfd',
-  lightBackground: '#f5f5f5',
+  lightBackground: '#f5f5f5'
 };
 
 export const FeelColors = [

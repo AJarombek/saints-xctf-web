@@ -26,10 +26,10 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
         <>
           {groups.map((group) => (
             <div key={`${teamName}-${group.group_name}`} className={classes.group}>
-              <p>{group.group_title}</p>
-              <AJButton type="text">
-                {(group.status === 'accepted' || group.status === 'pending') && <p>X</p>}
-                {group.status === null && <p>+</p>}
+              <p className={classes.groupTitle}>{group.group_title}</p>
+              <AJButton type="text" className={classes.groupActionIcon}>
+                {(group.status === 'accepted' || group.status === 'pending') && <p>&#x0050;</p>}
+                {group.status === null && <p>&#x0051;</p>}
               </AJButton>
             </div>
           ))}

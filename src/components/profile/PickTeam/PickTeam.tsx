@@ -18,11 +18,11 @@ interface Props {
 const useStyles = createUseStyles(styles);
 
 const PickTeam: React.FunctionComponent<Props> = ({ team }) => {
-  const classes = useStyles({});
+  const classes = useStyles({ status: team.status });
 
   const memberTag = useMemo(() => {
     if (team.status === 'accepted') {
-      return `Member - ${team.user}`;
+      return `Member - ${team.user.charAt(0).toUpperCase() + team.user.slice(1)}`;
     } else if (team.status === 'pending') {
       return 'Pending';
     } else {
@@ -32,7 +32,7 @@ const PickTeam: React.FunctionComponent<Props> = ({ team }) => {
 
   return (
     <div className={classes.team}>
-      <div>
+      <div className={classes.teamTitleHeader}>
         <p className={classes.title}>{team.title}</p>
         <AJTag content={memberTag} className={classes.memberTag} />
       </div>
