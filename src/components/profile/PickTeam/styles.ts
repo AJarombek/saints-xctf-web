@@ -21,6 +21,7 @@ export default {
     ...FontMixins.robotoThin(),
     fontSize: 14,
     marginLeft: 20,
+    cursor: 'auto !important',
     backgroundColor: ({ status }: { status: string }): string =>
       status === 'accepted'
         ? `${Colors.sxctfRed} !important`

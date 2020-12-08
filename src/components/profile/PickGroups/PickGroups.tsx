@@ -8,7 +8,7 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { GroupMember } from '../../../redux/types';
-import { AJButton } from 'jarombek-react-components';
+import PickGroup from '../PickGroup';
 
 interface Props {
   teamName?: string;
@@ -20,23 +20,17 @@ const useStyles = createUseStyles(styles);
 const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
   const classes = useStyles();
 
-  return (
-    <div className={classes.pickGroups}>
-      {!!groups && (
-        <>
-          {groups.map((group) => (
-            <div key={`${teamName}-${group.group_name}`} className={classes.group}>
-              <p className={classes.groupTitle}>{group.group_title}</p>
-              <AJButton type="text" className={classes.groupActionIcon}>
-                {(group.status === 'accepted' || group.status === 'pending') && <p>&#x0050;</p>}
-                {group.status === null && <p>&#x0051;</p>}
-              </AJButton>
-            </div>
-          ))}
-        </>
-      )}
-    </div>
-  );
+  if (groups) {
+    return (
+      <div className={classes.pickGroups}>
+        {groups.map((group) => (
+          <PickGroup key={`${teamName}-${group.group_name}`} group={group} />
+        ))}
+      </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default PickGroups;
