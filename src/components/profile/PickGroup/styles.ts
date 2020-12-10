@@ -35,7 +35,9 @@ export default {
 
     '& > button > p': {
       ...FontMixins.elegantIcons(),
-      color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000')
+      color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000'),
+      fontSize: 18,
+      margin: 0
     }
   }
 };

@@ -23,8 +23,8 @@ const PickGroup: React.FunctionComponent<Props> = ({ group }) => {
     <div className={classes.group}>
       <p className={classes.groupTitle}>{group.group_title}</p>
       <AJButton type="text" className={classes.groupActionIcon}>
-        {(group.status === 'accepted' || group.status === 'pending') && <p>&#x0050;</p>}
-        {group.status === null && <p>&#x0051;</p>}
+        {(group.status === 'accepted' || group.status === 'pending') && <p>&#x0051;</p>}
+        {group.status === null && <p>&#x0050;</p>}
       </AJButton>
     </div>
   );

@@ -23,11 +23,7 @@ export default {
     marginLeft: 20,
     cursor: 'auto !important',
     backgroundColor: ({ status }: { status: string }): string =>
-      status === 'accepted'
-        ? `${Colors.sxctfRed} !important`
-        : status === 'pending'
-        ? `${Colors.spotPaletteBrown} !important`
-        : `${Colors.lightBackground} !important`,
+      status === 'accepted' ? Colors.sxctfRed : status === 'pending' ? Colors.spotPaletteBrown : Colors.lightBackground,
     color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000')
   }
 };
