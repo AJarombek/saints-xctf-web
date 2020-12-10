@@ -6,7 +6,7 @@
  */
 
 import { createBrowserHistory } from 'history';
-import {createStore, applyMiddleware, Store} from 'redux';
+import { createStore, applyMiddleware, Store } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
@@ -22,7 +22,7 @@ export default function configureStore(): Store {
   const store = createStoreWithMiddleware(reducer(history));
 
   if (process.env.NODE_ENV !== 'production' && module.hot) {
-    module.hot.accept('./modules/reducers', () => store.replaceReducer(reducer))
+    module.hot.accept('./modules/reducers', () => store.replaceReducer(reducer));
   }
 
   return store;

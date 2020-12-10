@@ -8,6 +8,7 @@ import memberships from './memberships';
 import notifications from './notifications';
 import profile from './profile';
 import rangeView from './rangeView';
+import teams from './teams';
 import { History } from 'history';
 import LocationState = History.LocationState;
 
@@ -20,7 +21,8 @@ const createRootReducer = (history: History<LocationState>): Reducer =>
     memberships,
     notifications,
     profile,
-    rangeView
+    rangeView,
+    teams
   });
 
 export default createRootReducer;

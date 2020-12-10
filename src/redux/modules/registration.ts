@@ -7,8 +7,8 @@
 
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
-import {RegistrationState} from '../types';
-import {Dispatch} from "redux";
+import { RegistrationState } from '../types';
+import { Dispatch } from 'redux';
 
 // Actions
 const REGISTER_PERSONAL_INFO_REQUEST = 'saints-xctf-web/registration/REGISTER_PERSONAL_INFO_REQUEST';
@@ -57,14 +57,14 @@ interface RegisterBackAction {
   type: typeof REGISTER_BACK;
 }
 
-type RegistrationActionTypes = 
-  RegisterPersonalInfoRequestAction |
-  RegisterPersonalInfoSuccessAction |
-  RegisterPersonalInfoFailureAction |
-  RegisterCredentialsRequestAction |
-  RegisterCredentialsSuccessAction |
-  RegisterCredentialsFailureAction |
-  RegisterBackAction
+type RegistrationActionTypes =
+  | RegisterPersonalInfoRequestAction
+  | RegisterPersonalInfoSuccessAction
+  | RegisterPersonalInfoFailureAction
+  | RegisterCredentialsRequestAction
+  | RegisterCredentialsSuccessAction
+  | RegisterCredentialsFailureAction
+  | RegisterBackAction;
 
 // Reducer
 const initialState: RegistrationState = {};
@@ -162,22 +162,22 @@ function registerBackReducer(state: RegistrationState): RegistrationState {
 
 export default function reducer(state = initialState, action: RegistrationActionTypes): RegistrationState {
   switch (action.type) {
-  case REGISTER_PERSONAL_INFO_REQUEST:
-    return registerPersonalInfoRequestReducer(state);
-  case REGISTER_PERSONAL_INFO_SUCCESS:
-    return registerPersonalInfoSuccessReducer(state, action);
-  case REGISTER_PERSONAL_INFO_FAILURE:
-    return registerPersonalInfoFailureReducer(state, action);
-  case REGISTER_CREDENTIALS_REQUEST:
-    return registerCredentialsRequestReducer(state);
-  case REGISTER_CREDENTIALS_SUCCESS:
-    return registerCredentialsSuccessReducer(state, action);
-  case REGISTER_CREDENTIALS_FAILURE:
-    return registerCredentialsFailureReducer(state, action);
-  case REGISTER_BACK:
-    return registerBackReducer(state);
-  default:
-    return state;
+    case REGISTER_PERSONAL_INFO_REQUEST:
+      return registerPersonalInfoRequestReducer(state);
+    case REGISTER_PERSONAL_INFO_SUCCESS:
+      return registerPersonalInfoSuccessReducer(state, action);
+    case REGISTER_PERSONAL_INFO_FAILURE:
+      return registerPersonalInfoFailureReducer(state, action);
+    case REGISTER_CREDENTIALS_REQUEST:
+      return registerCredentialsRequestReducer(state);
+    case REGISTER_CREDENTIALS_SUCCESS:
+      return registerCredentialsSuccessReducer(state, action);
+    case REGISTER_CREDENTIALS_FAILURE:
+      return registerCredentialsFailureReducer(state, action);
+    case REGISTER_BACK:
+      return registerBackReducer(state);
+    default:
+      return state;
   }
 }
 
@@ -246,7 +246,7 @@ export function registerBack(): RegisterBackAction {
  * @return {function(...[*]=)} Function which dispatches action creators.
  */
 export function registerPersonalInfo(first: string, last: string, email: string) {
-  return async function(dispatch: Dispatch): Promise<void> {
+  return async function (dispatch: Dispatch): Promise<void> {
     dispatch(registerPersonalInfoRequest());
 
     try {
@@ -266,7 +266,7 @@ export function registerPersonalInfo(first: string, last: string, email: string)
         dispatch(registerPersonalInfoFailure('INTERNAL ERROR', serverError));
       }
     }
-  }
+  };
 }
 
 /**
@@ -312,7 +312,7 @@ export function registerCredentials(
   password: string,
   activationCode: string
 ) {
-  return async function(dispatch: Dispatch): Promise<void> {
+  return async function (dispatch: Dispatch): Promise<void> {
     dispatch(registerCredentialsRequest());
 
     const usernameValid = await validateUsername(dispatch, username);
@@ -340,5 +340,5 @@ export function registerCredentials(
         }
       }
     }
-  }
+  };
 }

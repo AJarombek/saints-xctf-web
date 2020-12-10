@@ -14,6 +14,7 @@ export type RootState = {
   profile: ProfileState;
   rangeView: RangeViewState;
   registration: RegistrationState;
+  teams: TeamState;
 };
 
 export type LogsState = {
@@ -65,6 +66,8 @@ export type RegistrationState = {
 };
 
 export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
+
+export type TeamState = Record<string, TeamMeta>;
 
 export interface Meta {
   isFetching?: boolean;
@@ -237,6 +240,8 @@ export type Team = {
   week_start?: string;
 };
 
+export interface TeamMeta extends Team, Meta {}
+
 export type Group = {
   id?: number;
   group_name?: string;
@@ -245,6 +250,8 @@ export type Group = {
   description?: string;
   week_start?: string;
 };
+
+export interface GroupMeta extends Group, Meta {}
 
 export type TeamMember = {
   team_name: string;
