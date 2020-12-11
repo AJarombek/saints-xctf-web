@@ -240,7 +240,9 @@ export type Team = {
   week_start?: string;
 };
 
-export interface TeamMeta extends Team, Meta {}
+export interface TeamMeta extends Team, Meta {
+  groups?: Groups;
+}
 
 export type Group = {
   id?: number;
@@ -249,6 +251,13 @@ export type Group = {
   grouppic_name?: string;
   description?: string;
   week_start?: string;
+};
+
+export type Groups = {
+  isFetching: boolean;
+  lastUpdated: number;
+  serverError?: string;
+  items?: GroupMeta[];
 };
 
 export interface GroupMeta extends Group, Meta {}

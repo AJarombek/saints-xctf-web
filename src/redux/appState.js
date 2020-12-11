@@ -213,5 +213,18 @@ const appState = {
         serverError: null
       }
     }
+  },
+  teams: {
+    saintsxctf: {
+      isFetching: false,
+      lastUpdated: 1588530315,
+      serverError: null,
+      groups: {
+        isFetching: false,
+        lastUpdated: 1588530315,
+        serverError: null,
+        items: []
+      }
+    }
   }
 };
