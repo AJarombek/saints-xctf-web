@@ -16,6 +16,9 @@ const GET_TEAM_FAILURE = 'saints-xctf-web/teams/GET_TEAM_FAILURE';
 const GET_TEAM_GROUPS_REQUEST = 'saints-xctf-web/teams/GET_TEAM_GROUPS_REQUEST';
 const GET_TEAM_GROUPS_SUCCESS = 'saints-xctf-web/teams/GET_TEAM_GROUPS_SUCCESS';
 const GET_TEAM_GROUPS_FAILURE = 'saints-xctf-web/teams/GET_TEAM_GROUPS_FAILURE';
+const SEARCH_TEAMS_REQUEST = 'saints-xctf-web/teams/SEARCH_TEAMS_REQUEST';
+const SEARCH_TEAMS_SUCCESS = 'saints-xctf-web/teams/SEARCH_TEAMS_SUCCESS';
+const SEARCH_TEAMS_FAILURE = 'saints-xctf-web/teams/SEARCH_TEAMS_FAILURE';
 
 // Action Types
 
@@ -62,93 +65,107 @@ type TeamActionTypes =
   | GetTeamGroupsFailureAction;
 
 // Reducer
-const initialState: TeamState = {};
+const initialState: TeamState = {
+  team: {}
+};
 
 function getTeamRequestReducer(state: TeamState, action: GetTeamRequestAction): TeamState {
-  const existingTeamState = state[action.teamName] ?? {};
+  const existingTeamState = state.team[action.teamName] ?? {};
 
   return {
     ...state,
-    [action.teamName]: {
-      ...existingTeamState,
-      isFetching: true,
-      lastUpdated: moment().unix(),
-      serverError: null
+    team: {
+      [action.teamName]: {
+        ...existingTeamState,
+        isFetching: true,
+        lastUpdated: moment().unix(),
+        serverError: null
+      }
     }
   };
 }
 
 function getTeamSuccessReducer(state: TeamState, action: GetTeamSuccessAction): TeamState {
-  const existingTeamState = state[action.teamName] ?? {};
+  const existingTeamState = state.team[action.teamName] ?? {};
 
   return {
     ...state,
-    [action.teamName]: {
-      ...existingTeamState,
-      isFetching: false,
-      lastUpdated: moment().unix(),
-      serverError: null,
-      ...action.team
+    team: {
+      [action.teamName]: {
+        ...existingTeamState,
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: null,
+        ...action.team
+      }
     }
   };
 }
 
 function getTeamFailureReducer(state: TeamState, action: GetTeamFailureAction): TeamState {
-  const existingTeamState = state[action.teamName] ?? {};
+  const existingTeamState = state.team[action.teamName] ?? {};
 
   return {
     ...state,
-    [action.teamName]: {
-      ...existingTeamState,
-      isFetching: false,
-      lastUpdated: moment().unix(),
-      serverError: action.serverError
+    team: {
+      [action.teamName]: {
+        ...existingTeamState,
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError
+      }
     }
   };
 }
 
 function getTeamGroupsRequestReducer(state: TeamState, action: GetTeamGroupsRequestAction): TeamState {
-  const existingTeamState = state[action.teamName] ?? {};
+  const existingTeamState = state.team[action.teamName] ?? {};
 
   return {
     ...state,
-    [action.teamName]: {
-      ...existingTeamState,
-      groups: {
-        isFetching: true,
-        lastUpdated: moment().unix()
+    team: {
+      [action.teamName]: {
+        ...existingTeamState,
+        groups: {
+          isFetching: true,
+          lastUpdated: moment().unix()
+        }
       }
     }
   };
 }
 
 function getTeamGroupsSuccessReducer(state: TeamState, action: GetTeamGroupsSuccessAction): TeamState {
-  const existingTeamState = state[action.teamName] ?? {};
+  const existingTeamState = state.team[action.teamName] ?? {};
 
   return {
     ...state,
-    [action.teamName]: {
-      ...existingTeamState,
-      groups: {
-        isFetching: false,
-        lastUpdated: moment().unix(),
-        items: action.groups
+    team: {
+      [action.teamName]: {
+        ...existingTeamState,
+        groups: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          items: action.groups
+        }
       }
     }
   };
 }
 
 function getTeamGroupsFailureReducer(state: TeamState, action: GetTeamGroupsFailureAction): TeamState {
-  const existingTeamState = state[action.teamName] ?? {};
+  const existingTeamState = state.team[action.teamName] ?? {};
 
   return {
     ...state,
-    [action.teamName]: {
-      ...existingTeamState,
-      groups: {
-        isFetching: false,
-        lastUpdated: moment().unix(),
-        serverError: action.serverError
+    team: {
+      [action.teamName]: {
+        ...existingTeamState,
+        groups: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          serverError: action.serverError
+        }
       }
     }
   };

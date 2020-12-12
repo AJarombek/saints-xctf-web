@@ -4,12 +4,13 @@
  * @since 12/4/2020
  */
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMember } from '../../../redux/types';
+import { GroupMember, RootState } from '../../../redux/types';
 import PickGroup from '../PickGroup';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getTeamGroups } from '../../../redux/modules/teams';
 
 interface Props {
   teamName?: string;
@@ -22,11 +23,30 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const otherGroups = useSelector((state: RootState) => state.teams.team[teamName]?.groups?.items ?? []);
 
   const [showMore, setShowMore] = useState(false);
 
+  const allGroups = useMemo(() => {
+    const memberGroups = new Set(groups.map((group) => group.group_name));
+    return groups.concat(
+      otherGroups
+        .filter((group) => !memberGroups.has(group.group_name))
+        .map((group) => ({
+          group_name: group.group_name,
+          group_title: group.group_title,
+          status: null,
+          user: null
+        }))
+    );
+  }, [groups, otherGroups]);
+
   const onLoadMore = (): void => {
     setShowMore(true);
+
+    if (!otherGroups.length) {
+      dispatch(getTeamGroups(teamName));
+    }
   };
 
   const onShowLess = (): void => {
@@ -37,7 +57,7 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
     return (
       <div>
         <div className={classes.pickGroups}>
-          {groups.map((group) => (
+          {(showMore ? allGroups : groups).map((group) => (
             <PickGroup key={`${teamName}-${group.group_name}`} group={group} />
           ))}
         </div>

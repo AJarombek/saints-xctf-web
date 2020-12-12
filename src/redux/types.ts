@@ -67,7 +67,9 @@ export type RegistrationState = {
 
 export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
 
-export type TeamState = Record<string, TeamMeta>;
+export type TeamState = {
+  team: Record<string, TeamMeta>;
+};
 
 export interface Meta {
   isFetching?: boolean;

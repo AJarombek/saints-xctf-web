@@ -215,15 +215,30 @@ const appState = {
     }
   },
   teams: {
-    saintsxctf: {
-      isFetching: false,
-      lastUpdated: 1588530315,
-      serverError: null,
-      groups: {
+    team: {
+      saintsxctf: {
         isFetching: false,
         lastUpdated: 1588530315,
         serverError: null,
-        items: []
+        groups: {
+          isFetching: false,
+          lastUpdated: 1588530315,
+          serverError: null,
+          items: []
+        }
+      }
+    },
+    search: {
+      s: {
+        isFetching: false,
+        lastUpdated: 1588530315,
+        serverError: null,
+        items: [
+          {
+            group_name: 'saintsxctf',
+            group_title: 'St. Lawrence Cross Country & Track'
+          }
+        ]
       }
     }
   }
