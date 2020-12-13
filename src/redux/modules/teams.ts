@@ -369,7 +369,7 @@ export function searchTeams(text: string) {
     dispatch(searchTeamsRequest(text));
 
     try {
-      const response = await api.get(`teams/search/${text}`);
+      const response = await api.get(`teams/search/${text}/6`);
       const { teams } = response.data;
 
       dispatch(searchTeamsSuccess(teams, text));
