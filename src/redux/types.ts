@@ -69,6 +69,7 @@ export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
 
 export type TeamState = {
   team: Record<string, TeamMeta>;
+  search: Record<string, TeamsInfo>;
 };
 
 export interface Meta {
@@ -245,6 +246,18 @@ export type Team = {
 export interface TeamMeta extends Team, Meta {
   groups?: Groups;
 }
+
+export type TeamInfo = {
+  name?: string;
+  title?: string;
+};
+
+export type TeamsInfo = {
+  isFetching: boolean;
+  lastUpdated: number;
+  serverError?: string;
+  items?: TeamInfo[];
+};
 
 export type Group = {
   id?: number;

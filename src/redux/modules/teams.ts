@@ -56,17 +56,38 @@ interface GetTeamGroupsFailureAction {
   teamName: string;
 }
 
+interface SearchTeamsRequestAction {
+  type: typeof SEARCH_TEAMS_REQUEST;
+  text: string;
+}
+
+interface SearchTeamsSuccessAction {
+  type: typeof SEARCH_TEAMS_SUCCESS;
+  teams: Team[];
+  text: string;
+}
+
+interface SearchTeamsFailureAction {
+  type: typeof SEARCH_TEAMS_FAILURE;
+  serverError: string;
+  text: string;
+}
+
 type TeamActionTypes =
   | GetTeamRequestAction
   | GetTeamSuccessAction
   | GetTeamFailureAction
   | GetTeamGroupsRequestAction
   | GetTeamGroupsSuccessAction
-  | GetTeamGroupsFailureAction;
+  | GetTeamGroupsFailureAction
+  | SearchTeamsRequestAction
+  | SearchTeamsSuccessAction
+  | SearchTeamsFailureAction;
 
 // Reducer
 const initialState: TeamState = {
-  team: {}
+  team: {},
+  search: {}
 };
 
 function getTeamRequestReducer(state: TeamState, action: GetTeamRequestAction): TeamState {
@@ -171,6 +192,47 @@ function getTeamGroupsFailureReducer(state: TeamState, action: GetTeamGroupsFail
   };
 }
 
+export function getSearchTeamsRequestReducer(state: TeamState, action: SearchTeamsRequestAction): TeamState {
+  return {
+    ...state,
+    search: {
+      ...state.search,
+      [action.text]: {
+        isFetching: true,
+        lastUpdated: moment().unix()
+      }
+    }
+  };
+}
+
+export function getSearchTeamsSuccessReducer(state: TeamState, action: SearchTeamsSuccessAction): TeamState {
+  return {
+    ...state,
+    search: {
+      ...state.search,
+      [action.text]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        items: action.teams
+      }
+    }
+  };
+}
+
+export function getSearchTeamsFailureReducer(state: TeamState, action: SearchTeamsFailureAction): TeamState {
+  return {
+    ...state,
+    search: {
+      ...state.search,
+      [action.text]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError
+      }
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: TeamActionTypes): TeamState {
   switch (action.type) {
     case GET_TEAM_REQUEST:
@@ -185,6 +247,12 @@ export default function reducer(state = initialState, action: TeamActionTypes): 
       return getTeamGroupsSuccessReducer(state, action);
     case GET_TEAM_GROUPS_FAILURE:
       return getTeamGroupsFailureReducer(state, action);
+    case SEARCH_TEAMS_REQUEST:
+      return getSearchTeamsRequestReducer(state, action);
+    case SEARCH_TEAMS_SUCCESS:
+      return getSearchTeamsSuccessReducer(state, action);
+    case SEARCH_TEAMS_FAILURE:
+      return getSearchTeamsFailureReducer(state, action);
     default:
       return state;
   }
@@ -237,6 +305,29 @@ export function getTeamGroupsFailure(serverError: string, teamName: string): Get
   };
 }
 
+export function searchTeamsRequest(text: string): SearchTeamsRequestAction {
+  return {
+    type: SEARCH_TEAMS_REQUEST,
+    text
+  };
+}
+
+export function searchTeamsSuccess(teams: Team[], text: string): SearchTeamsSuccessAction {
+  return {
+    type: SEARCH_TEAMS_SUCCESS,
+    teams,
+    text
+  };
+}
+
+export function searchTeamsFailure(serverError: string, text: string): SearchTeamsFailureAction {
+  return {
+    type: SEARCH_TEAMS_FAILURE,
+    serverError,
+    text
+  };
+}
+
 export function getTeam(teamName: string) {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getTeamRequest(teamName));
@@ -269,6 +360,24 @@ export function getTeamGroups(teamName: string) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getTeamGroupsFailure(serverError, teamName));
+    }
+  };
+}
+
+export function searchTeams(text: string) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(searchTeamsRequest(text));
+
+    try {
+      const response = await api.get(`teams/search/${text}`);
+      const { teams } = response.data;
+
+      dispatch(searchTeamsSuccess(teams, text));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(getTeamGroupsFailure(serverError, text));
     }
   };
 }
