@@ -13,11 +13,12 @@ import { AJTag } from 'jarombek-react-components';
 
 interface Props {
   team?: TeamMembership;
+  onMembershipTagClick: () => void;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PickTeam: React.FunctionComponent<Props> = ({ team }) => {
+const PickTeam: React.FunctionComponent<Props> = ({ team, onMembershipTagClick }) => {
   const classes = useStyles({ status: team.status });
 
   const memberTag = useMemo(() => {
@@ -30,11 +31,23 @@ const PickTeam: React.FunctionComponent<Props> = ({ team }) => {
     }
   }, [team]);
 
+  const memberTagIcon = useMemo(() => {
+    return team.status ? '\u004f' : '\u0050';
+  }, [team.status]);
+
   return (
     <div className={classes.team}>
       <div className={classes.teamTitleHeader}>
         <p className={classes.title}>{team.title}</p>
-        <AJTag content={memberTag} className={classes.memberTag} />
+        <AJTag
+          content={
+            <div className={classes.memberTagContent} onClick={onMembershipTagClick}>
+              <p>{memberTag}</p>
+              <p>{memberTagIcon}</p>
+            </div>
+          }
+          className={classes.memberTag}
+        />
       </div>
       <PickGroups groups={team.groups} teamName={team.team_name} />
     </div>

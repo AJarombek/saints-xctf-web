@@ -27,6 +27,9 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
 
   const [showMore, setShowMore] = useState(false);
 
+  const [groupJoinRequests, setGroupJoinRequests] = useState([]);
+  const [groupLeaveRequests, setGroupLeaveRequests] = useState([]);
+
   const allGroups = useMemo(() => {
     const memberGroups = new Set(groups.map((group) => group.group_name));
     return groups.concat(

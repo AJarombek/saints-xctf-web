@@ -18,12 +18,30 @@ export default {
     fontSize: 18
   },
   memberTag: {
-    ...FontMixins.robotoThin(),
     fontSize: 14,
     marginLeft: 20,
     cursor: 'auto !important',
     backgroundColor: ({ status }: { status: string }): string =>
       status === 'accepted' ? Colors.sxctfRed : status === 'pending' ? Colors.spotPaletteBrown : Colors.lightBackground,
     color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000')
+  },
+  memberTagContent: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '1px 0',
+
+    '& > p': {
+      margin: 0
+    },
+
+    '& > p:nth-child(1)': {
+      ...FontMixins.robotoThin()
+    },
+
+    '& > p:nth-child(2)': {
+      ...FontMixins.elegantIcons(),
+      marginLeft: 8,
+      cursor: 'pointer'
+    }
   }
 };

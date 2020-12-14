@@ -34,6 +34,7 @@ export default {
     margin: 6,
     borderRadius: 4,
     backgroundColor: '#CCC',
+    cursor: 'pointer',
 
     '& > p:nth-child(1)': {
       ...FontMixins.robotoSlabThin(),

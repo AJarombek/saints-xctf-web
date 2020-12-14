@@ -12,7 +12,7 @@ import PickTeam from '../PickTeam';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchTeams } from '../../../redux/modules/teams';
-import classNames from "classnames";
+import classNames from 'classnames';
 
 interface Props {
   teams?: TeamMembership[];
@@ -27,10 +27,22 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
   const allTeamSearches = useSelector((state: RootState) => state.teams.search);
 
   const [searchString, setSearchString] = useState('');
+  const [addedTeams, setAddedTeams] = useState([]);
+
+  const [showMembershipModificationModal, setShowMembershipModificationModal] = useState(false);
+  const [membershipModificationTeam, setMembershipModificationTeam] = useState(null);
+
+  const [teamJoinRequests, setTeamJoinRequests] = useState([]);
+  const [teamLeaveRequests, setTeamLeaveRequests] = useState([]);
+
+  const teamSet = useMemo(() => {
+    return new Set(teams?.map((team) => team.team_name) ?? []);
+  }, [teams]);
 
   const searchedTeamMatches = useMemo(() => {
-    return allTeamSearches[searchString]?.items ?? [];
-  }, [allTeamSearches, searchString]);
+    const matches = allTeamSearches[searchString]?.items ?? [];
+    return matches.filter((teamInfo) => !teamSet.has(teamInfo.name));
+  }, [allTeamSearches, searchString, teamSet]);
 
   const onChangeTeamSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     const searchText = e.target.value;
@@ -40,6 +52,8 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
       dispatch(searchTeams(searchText));
     }
   };
+
+  const onMembershipTagClick = (): void => {};
 
   return (
     <div className={classes.pickTeams}>
@@ -60,7 +74,12 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
           ))}
         </div>
       </div>
-      <div>{!!teams && teams.map((team) => <PickTeam team={team} key={team.team_name} />)}</div>
+      <div>
+        {!!teams &&
+          teams.map((team) => (
+            <PickTeam team={team} key={team.team_name} onMembershipTagClick={onMembershipTagClick} />
+          ))}
+      </div>
     </div>
   );
 };
