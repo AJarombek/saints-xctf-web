@@ -1,5 +1,7 @@
 /**
  * Component for picking teams to join.
+ * I want you to do whatever makes you happy.  If for you that is in my direction, I will love you the best I'm
+ * capable of.  If its somewhere else, I'll be so happy that you are doing what you dream of.
  * @author Andrew Jarombek
  * @since 12/4/2020
  */
