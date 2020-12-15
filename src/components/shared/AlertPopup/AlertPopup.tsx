@@ -4,47 +4,49 @@
  * @since 8/8/2020
  */
 
-import React, {ReactNode} from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
+import React, { ReactNode } from 'react';
+import { createUseStyles } from 'react-jss';
+import styles from './styles';
 
 export type AlertPopupType = 'error' | 'warning' | 'info';
 
-interface IProps {
-    message: ReactNode;
-    onClose: () => void;
-    type: AlertPopupType;
+interface Props {
+  message: ReactNode;
+  onClose: () => void;
+  type: AlertPopupType;
 }
 
 const useStyles = createUseStyles(styles);
 
-const AlertPopup: React.FunctionComponent<IProps> = ({message, onClose, type}) => {
-    const classes = useStyles({ type });
+const AlertPopup: React.FunctionComponent<Props> = ({ message, onClose, type }) => {
+  const classes = useStyles({ type });
 
-    let alertIcon;
-    switch (type) {
-        case "error":
-            alertIcon = "\ue062";
-            break;
-        case "info":
-            alertIcon = "\ue063";
-            break;
-        case "warning":
-            alertIcon = "\ue064";
-            break;
-        default:
-            alertIcon = "\ue062";
-    }
+  let alertIcon;
+  switch (type) {
+    case 'error':
+      alertIcon = '\ue062';
+      break;
+    case 'info':
+      alertIcon = '\ue063';
+      break;
+    case 'warning':
+      alertIcon = '\ue064';
+      break;
+    default:
+      alertIcon = '\ue062';
+  }
 
-    return (
-        <div className={classes.alertContainer}>
-            <div className={classes.alert}>
-                <p className={classes.alertIcon}>{alertIcon}</p>
-                <div className={classes.message}>{message}</div>
-                <p className={classes.closeIcon} onClick={onClose}>&#x4d;</p>
-            </div>
-        </div>
-    );
+  return (
+    <div className={classes.alertContainer}>
+      <div className={classes.alert}>
+        <p className={classes.alertIcon}>{alertIcon}</p>
+        <div className={classes.message}>{message}</div>
+        <p className={classes.closeIcon} onClick={onClose}>
+          &#x4d;
+        </p>
+      </div>
+    </div>
+  );
 };
 
 export default AlertPopup;

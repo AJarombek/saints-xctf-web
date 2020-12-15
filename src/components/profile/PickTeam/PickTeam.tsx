@@ -13,7 +13,7 @@ import { AJTag } from 'jarombek-react-components';
 
 interface Props {
   team?: TeamMembership;
-  onMembershipTagClick: () => void;
+  onMembershipTagClick: (team: TeamMembership) => void;
 }
 
 const useStyles = createUseStyles(styles);
@@ -41,7 +41,7 @@ const PickTeam: React.FunctionComponent<Props> = ({ team, onMembershipTagClick }
         <p className={classes.title}>{team.title}</p>
         <AJTag
           content={
-            <div className={classes.memberTagContent} onClick={onMembershipTagClick}>
+            <div className={classes.memberTagContent} onClick={(): void => onMembershipTagClick(team)}>
               <p>{memberTag}</p>
               <p>{memberTagIcon}</p>
             </div>

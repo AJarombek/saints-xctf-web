@@ -15,6 +15,7 @@ import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchTeams } from '../../../redux/modules/teams';
 import classNames from 'classnames';
+import TeamMembershipsModal from '../TeamMembershipModal';
 
 interface Props {
   teams?: TeamMembership[];
@@ -32,10 +33,10 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
   const [addedTeams, setAddedTeams] = useState([]);
 
   const [showMembershipModificationModal, setShowMembershipModificationModal] = useState(false);
-  const [membershipModificationTeam, setMembershipModificationTeam] = useState(null);
+  const [membershipModificationTeam, setMembershipModificationTeam] = useState<TeamMembership>(null);
 
-  const [teamJoinRequests, setTeamJoinRequests] = useState([]);
-  const [teamLeaveRequests, setTeamLeaveRequests] = useState([]);
+  const [teamJoinRequests, setTeamJoinRequests] = useState(new Set());
+  const [teamLeaveRequests, setTeamLeaveRequests] = useState(new Set());
 
   const teamSet = useMemo(() => {
     return new Set(teams?.map((team) => team.team_name) ?? []);
@@ -55,7 +56,14 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
     }
   };
 
-  const onMembershipTagClick = (): void => {};
+  const onMembershipTagClick = (team: TeamMembership): void => {
+    setShowMembershipModificationModal(true);
+    setMembershipModificationTeam(team);
+  };
+
+  const onCloseMembershipModal = (): void => {
+    setShowMembershipModificationModal(false);
+  };
 
   return (
     <div className={classes.pickTeams}>
@@ -82,6 +90,11 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
             <PickTeam team={team} key={team.team_name} onMembershipTagClick={onMembershipTagClick} />
           ))}
       </div>
+      <TeamMembershipsModal
+        team={membershipModificationTeam}
+        onClose={onCloseMembershipModal}
+        show={showMembershipModificationModal}
+      />
     </div>
   );
 };

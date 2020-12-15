@@ -16,7 +16,7 @@ export default {
   form: {
     backgroundColor: color('#E3E3E3').alpha(0.8).string(),
     width: '100%',
-    maxWidth: '700px',
+    maxWidth: '900px',
     margin: '25px auto',
     borderRadius: '6px',
     padding: '20px'
