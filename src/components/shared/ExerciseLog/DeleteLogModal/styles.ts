@@ -4,7 +4,7 @@
  * @since 12/15/2020
  */
 
-import { FontMixins } from '../../../../styles/mixins';
+import Mixins, { FontMixins } from '../../../../styles/mixins';
 import color from 'color';
 import Colors from '../../../../styles/colors';
 
@@ -23,20 +23,7 @@ export default {
     }
   },
   deleteModalButtons: {
-    display: 'flex',
-    marginLeft: 'auto',
-    marginTop: 20,
-
-    '& button': {
-      display: 'flex',
-      alignItems: 'center'
-    },
-
-    '& > .aj-contained-button, & > .aj-outlined-button': {
-      '& p': {
-        margin: 0
-      }
-    },
+    ...Mixins.modalButtons(),
 
     '& > .aj-contained-button': {
       marginRight: 10

@@ -198,6 +198,23 @@ class Mixins {
     }
   });
 
+  static modalButtons = (): object => ({
+    display: 'flex',
+    marginLeft: 'auto',
+    marginTop: 20,
+
+    '& button': {
+      display: 'flex',
+      alignItems: 'center'
+    },
+
+    '& > .aj-contained-button, & > .aj-outlined-button, & > .aj-text-button': {
+      '& p': {
+        margin: 0
+      }
+    }
+  });
+
   static centeredBody = (): object => ({});
   static formSubtitle = (): object => ({});
   static formError = (): object => ({});

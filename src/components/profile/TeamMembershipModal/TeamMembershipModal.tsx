@@ -13,8 +13,8 @@ import { TeamMembership } from '../../../redux/types';
 interface Props {
   team?: TeamMembership;
   onClose: () => void;
-  onJoin: () => void;
-  onLeave: () => void;
+  onJoin: (teamName: string) => void;
+  onLeave: (teamName: string) => void;
   show: boolean;
   joinedTeam: boolean;
   leftTeam: boolean;
@@ -34,29 +34,40 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
   const classes = useStyles();
 
   const showJoining = useMemo(() => {
-    return show && !team.status && !joinedTeam;
-  }, [show, team.status, joinedTeam]);
+    return show && !team?.status && !joinedTeam;
+  }, [show, team?.status, joinedTeam]);
 
   const showLeaving = useMemo(() => {
-    return show && team.status && !leftTeam;
-  }, [show, team.status, leftTeam]);
+    return show && team?.status && !leftTeam;
+  }, [show, team?.status, leftTeam]);
 
   if (showJoining || showLeaving) {
     return (
       <AJModal onClickBackground={onClose}>
         <div className={classes.body}>
-          <div>
-            <p>Are you sure you want to join</p>
-            <p>{team?.title}</p>
-          </div>
-          <div>
+          <div className={classes.title}>
             {showJoining && (
-              <AJButton type="contained" onClick={onJoin}>
+              <p>
+                Are you sure you want to join the team <b>{team?.title}</b>?
+              </p>
+            )}
+            {showLeaving && (
+              <p>
+                Are you sure you want to leave the team <b>{team?.title}</b>?
+              </p>
+            )}
+          </div>
+          <div className={classes.buttons}>
+            <AJButton type="text" onClick={onClose}>
+              <p>CANCEL</p>
+            </AJButton>
+            {showJoining && (
+              <AJButton type="contained" onClick={(): void => onJoin(team.team_name)}>
                 <p>JOIN</p>
               </AJButton>
             )}
             {showLeaving && (
-              <AJButton type="contained" onClick={onLeave}>
+              <AJButton type="contained" onClick={(): void => onLeave(team.team_name)}>
                 <p>LEAVE</p>
               </AJButton>
             )}

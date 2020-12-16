@@ -35,8 +35,8 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
   const [showMembershipModificationModal, setShowMembershipModificationModal] = useState(false);
   const [membershipModificationTeam, setMembershipModificationTeam] = useState<TeamMembership>(null);
 
-  const [teamJoinRequests, setTeamJoinRequests] = useState(new Set());
-  const [teamLeaveRequests, setTeamLeaveRequests] = useState(new Set());
+  const [teamJoinRequests, setTeamJoinRequests] = useState(new Set<string>());
+  const [teamLeaveRequests, setTeamLeaveRequests] = useState(new Set<string>());
 
   const teamSet = useMemo(() => {
     return new Set(teams?.map((team) => team.team_name) ?? []);
@@ -65,12 +65,22 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
     setShowMembershipModificationModal(false);
   };
 
-  const onJoinTeam = (): void => {
-
+  const onJoinTeam = (teamName: string): void => {
+    setTeamJoinRequests((joinSet) => {
+      const newJoinSet = new Set<string>(joinSet);
+      newJoinSet.add(teamName);
+      return newJoinSet;
+    });
+    setShowMembershipModificationModal(false);
   };
 
-  const onLeaveTeam = (): void => {
-
+  const onLeaveTeam = (teamName: string): void => {
+    setTeamLeaveRequests((leaveSet) => {
+      const newLeaveSet = new Set<string>(leaveSet);
+      newLeaveSet.add(teamName);
+      return newLeaveSet;
+    });
+    setShowMembershipModificationModal(false);
   };
 
   return (
@@ -104,8 +114,8 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
         onJoin={onJoinTeam}
         onLeave={onLeaveTeam}
         show={showMembershipModificationModal}
-        joinedTeam={teamJoinRequests.has(membershipModificationTeam.team_name)}
-        leftTeam={teamLeaveRequests.has(membershipModificationTeam.team_name)}
+        joinedTeam={teamJoinRequests.has(membershipModificationTeam?.team_name)}
+        leftTeam={teamLeaveRequests.has(membershipModificationTeam?.team_name)}
       />
     </div>
   );
