@@ -4,13 +4,13 @@
  * @since 7/26/2020
  */
 
-import Colors, {FeelColors} from "../../../styles/colors";
-import {FontMixins} from "../../../styles/mixins";
-import color from "color";
+import Colors, { FeelColors } from '../../../styles/colors';
+import { FontMixins } from '../../../styles/mixins';
+import color from 'color';
 
 export default {
   exerciseLog: {
-    backgroundColor: ({feel}: {feel: number}) => FeelColors[feel - 1],
+    backgroundColor: ({ feel }: { feel: number }): string => FeelColors[feel - 1],
     border: '2px solid #888',
     borderRadius: '3px',
     padding: '7px',
@@ -33,7 +33,7 @@ export default {
   title: {
     ...FontMixins.robotoSlab(),
     textDecoration: 'underline',
-    fontSize: '16px',
+    fontSize: '16px'
   },
   metadata: {
     display: 'block',
@@ -42,23 +42,23 @@ export default {
   date: {
     ...FontMixins.robotoBold(),
     fontSize: '14px',
-    margin: 0,
+    margin: 0
   },
   type: {
     ...FontMixins.robotoSlab(),
     fontSize: '14px',
     fontColor: '#666',
     margin: 0,
-    textAlign: 'right',
+    textAlign: 'right'
   },
   bodySection: {
-    marginTop: '20px',
+    marginTop: '20px'
   },
   dataFields: {
     '& > p': {
       ...FontMixins.robotoSlab(),
       fontSize: '14px',
-      margin: 0,
+      margin: 0
     }
   },
   description: {
@@ -74,12 +74,12 @@ export default {
       transition: 'color 0.4s ease',
 
       '&:hover': {
-        color: color(Colors.spotPaletteBrown).darken(0.2).hex(),
+        color: color(Colors.spotPaletteBrown).darken(0.2).hex()
       }
-    },
+    }
   },
   commentSection: {
-    margin: '10px 0 0 0',
+    margin: '10px 0 0 0'
   },
   options: {
     position: 'absolute',
@@ -110,7 +110,7 @@ export default {
     },
 
     '&:focus': {
-      outline: 'none',
+      outline: 'none'
     }
   },
   deleteOptionsButton: {
@@ -121,56 +121,6 @@ export default {
     }
   },
   optionsIcon: {
-    ...FontMixins.elegantIcons(),
-  },
-  deleteModal: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '20px 40px',
-
-    '& > p': {
-      ...FontMixins.robotoSlab(),
-
-      '& b': {
-        ...FontMixins.robotoSlabBold(),
-      }
-    }
-  },
-  deleteModalButtons: {
-    display: 'flex',
-    marginLeft: 'auto',
-    marginTop: 20,
-
-    '& button': {
-      display: 'flex',
-      alignItems: 'center'
-    },
-
-    '& > .aj-contained-button, & > .aj-outlined-button': {
-
-      '& p': {
-        margin: 0
-      }
-    },
-
-    '& > .aj-contained-button': {
-      marginRight: 10
-    }
-  },
-  disabledDeleteButton: {
-    backgroundColor: '#e6e6e6 !important',
-
-    '& p': {
-      color: '#555'
-    }
-  },
-  deleteLogSpinner: {
-    marginLeft: 25,
-    marginRight: 10,
-
-    '&:before': {
-      border: `solid 4px ${color(Colors.spotPaletteBrown).lighten(0.75).hex()}`,
-      borderTopColor: Colors.spotPaletteBrown,
-    }
+    ...FontMixins.elegantIcons()
   }
 };

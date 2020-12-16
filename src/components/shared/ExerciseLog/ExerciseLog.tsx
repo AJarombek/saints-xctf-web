@@ -13,10 +13,10 @@ import moment from 'moment';
 import Comments from '../Comments/Comments';
 import { parseTagsInText, shortenTime } from '../../../utils/logs';
 import classNames from 'classnames';
-import { AJButton, AJModal } from 'jarombek-react-components';
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteLog, logFeed } from '../../../redux/modules/logs';
+import DeleteLogModal from './DeleteLogModal';
+import { Dispatch } from 'redux';
 
 interface Props {
   log: Log;
@@ -161,32 +161,13 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
           index={index}
         />
       </div>
-      {showDeleteModal && (
-        <AJModal backdrop={true} onClickBackground={(): void => setShowDeleteModal(false)} className="deleteLogModal">
-          <div className={classes.deleteModal}>
-            <p>
-              Are you sure you want to delete your <b>{moment(log.date).format('MMM. Do')} </b>
-              exercise log <b>"{log.name}"</b>?
-            </p>
-            <div className={classes.deleteModalButtons}>
-              <AJButton
-                type="contained"
-                onClick={(): void => {
-                  dispatch(deleteLog(log.log_id));
-                }}
-                className={isDeleting && classes.disabledDeleteButton}
-                disabled={isDeleting}
-              >
-                <p>{isDeleting ? 'DELETING' : 'DELETE'}</p>
-                {isDeleting && <LoadingSpinner className={classes.deleteLogSpinner} />}
-              </AJButton>
-              <AJButton type="outlined" onClick={(): void => setShowDeleteModal(false)}>
-                <p>CANCEL</p>
-              </AJButton>
-            </div>
-          </div>
-        </AJModal>
-      )}
+      <DeleteLogModal
+        onClose={(): void => setShowDeleteModal(false)}
+        onDelete={(): ((dispatch: Dispatch) => Promise<void>) => dispatch(deleteLog(log.log_id))}
+        show={showDeleteModal}
+        log={log}
+        isDeleting={isDeleting}
+      />
     </div>
   );
 };

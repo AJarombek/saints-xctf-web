@@ -65,6 +65,14 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
     setShowMembershipModificationModal(false);
   };
 
+  const onJoinTeam = (): void => {
+
+  };
+
+  const onLeaveTeam = (): void => {
+
+  };
+
   return (
     <div className={classes.pickTeams}>
       <div className={classNames(classes.search, !!searchedTeamMatches.length && classes.successfulSearch)}>
@@ -93,7 +101,11 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
       <TeamMembershipsModal
         team={membershipModificationTeam}
         onClose={onCloseMembershipModal}
+        onJoin={onJoinTeam}
+        onLeave={onLeaveTeam}
         show={showMembershipModificationModal}
+        joinedTeam={teamJoinRequests.has(membershipModificationTeam.team_name)}
+        leftTeam={teamLeaveRequests.has(membershipModificationTeam.team_name)}
       />
     </div>
   );
