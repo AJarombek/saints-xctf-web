@@ -29,6 +29,7 @@ export default {
     display: 'flex',
     alignItems: 'center',
     padding: '1px 0',
+    cursor: 'pointer',
 
     '& > p': {
       margin: 0
@@ -40,8 +41,7 @@ export default {
 
     '& > p:nth-child(2)': {
       ...FontMixins.elegantIcons(),
-      marginLeft: 8,
-      cursor: 'pointer'
+      marginLeft: 8
     }
   }
 };

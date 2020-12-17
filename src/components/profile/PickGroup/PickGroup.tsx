@@ -12,17 +12,20 @@ import { AJButton } from 'jarombek-react-components';
 
 interface Props {
   group?: GroupMember;
+  onMembershipClick: (group: GroupMember) => void;
+  joined: boolean;
+  left: boolean;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PickGroup: React.FunctionComponent<Props> = ({ group }) => {
-  const classes = useStyles({ status: group.status });
+const PickGroup: React.FunctionComponent<Props> = ({ group, onMembershipClick, joined, left }) => {
+  const classes = useStyles({ status: joined ? 'pending' : left ? null : group.status });
 
   return (
     <div className={classes.group}>
       <p className={classes.groupTitle}>{group.group_title}</p>
-      <AJButton type="text" className={classes.groupActionIcon}>
+      <AJButton type="text" className={classes.groupActionIcon} onClick={onMembershipClick}>
         {(group.status === 'accepted' || group.status === 'pending') && <p>&#x0051;</p>}
         {group.status === null && <p>&#x0050;</p>}
       </AJButton>

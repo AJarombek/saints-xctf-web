@@ -52,9 +52,15 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
               </p>
             )}
             {showLeaving && (
-              <p>
-                Are you sure you want to leave the team <b>{team?.title}</b>?
-              </p>
+              <>
+                <p>
+                  Are you sure you want to leave the team <b>{team?.title}</b>?{' '}
+                  {!!team?.groups.length && 'You will also be removed from the following groups:'}
+                </p>
+                <p>
+                  <b>{team?.groups?.reduce((acc, group) => `${acc}${group.group_title}, `, '').slice(0, -2)}</b>
+                </p>
+              </>
             )}
           </div>
           <div className={classes.buttons}>

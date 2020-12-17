@@ -7,7 +7,7 @@
 import React, { useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMember, RootState } from '../../../redux/types';
+import { GroupMember, RootState, TeamMembership } from '../../../redux/types';
 import PickGroup from '../PickGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeamGroups } from '../../../redux/modules/teams';
@@ -27,8 +27,11 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
 
   const [showMore, setShowMore] = useState(false);
 
-  const [groupJoinRequests, setGroupJoinRequests] = useState([]);
-  const [groupLeaveRequests, setGroupLeaveRequests] = useState([]);
+  const [groupJoinRequests, setGroupJoinRequests] = useState(new Set<string>());
+  const [groupLeaveRequests, setGroupLeaveRequests] = useState(new Set<string>());
+
+  const [showMembershipModificationModal, setShowMembershipModificationModal] = useState(false);
+  const [membershipModificationGroup, setMembershipModificationGroup] = useState<GroupMember>(null);
 
   const allGroups = useMemo(() => {
     const memberGroups = new Set(groups.map((group) => group.group_name));
@@ -56,12 +59,37 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
     setShowMore(false);
   };
 
+  const onMembershipClick = (group: GroupMember): void => {
+    if (groupLeaveRequests.has(group.group_name)) {
+      setGroupLeaveRequests((leaveSet) => {
+        const newLeaveSet = new Set(leaveSet);
+        newLeaveSet.delete(group.group_name);
+        return newLeaveSet;
+      });
+    } else if (groupJoinRequests.has(group.group_name)) {
+      setGroupJoinRequests((joinSet) => {
+        const newJoinSet = new Set(joinSet);
+        newJoinSet.delete(group.group_name);
+        return newJoinSet;
+      });
+    } else {
+      setShowMembershipModificationModal(true);
+      setMembershipModificationGroup(group);
+    }
+  };
+
   if (groups) {
     return (
       <div>
         <div className={classes.pickGroups}>
           {(showMore ? allGroups : groups).map((group) => (
-            <PickGroup key={`${teamName}-${group.group_name}`} group={group} />
+            <PickGroup
+              key={`${teamName}-${group.group_name}`}
+              group={group}
+              onMembershipClick={onMembershipClick}
+              joined={groupJoinRequests.has(group.group_name)}
+              left={groupLeaveRequests.has(group.group_name)}
+            />
           ))}
         </div>
         <div className={classes.showMore}>

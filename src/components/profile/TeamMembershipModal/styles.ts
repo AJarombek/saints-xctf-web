@@ -14,6 +14,7 @@ export default {
   },
   title: {
     display: 'flex',
+    flexDirection: 'column',
 
     '& > p': {
       ...FontMixins.robotoSlab(),

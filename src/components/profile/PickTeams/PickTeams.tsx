@@ -57,8 +57,22 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
   };
 
   const onMembershipTagClick = (team: TeamMembership): void => {
-    setShowMembershipModificationModal(true);
-    setMembershipModificationTeam(team);
+    if (teamLeaveRequests.has(team.team_name)) {
+      setTeamLeaveRequests((leaveSet) => {
+        const newLeaveSet = new Set(leaveSet);
+        newLeaveSet.delete(team.team_name);
+        return newLeaveSet;
+      });
+    } else if (teamJoinRequests.has(team.team_name)) {
+      setTeamJoinRequests((joinSet) => {
+        const newJoinSet = new Set(joinSet);
+        newJoinSet.delete(team.team_name);
+        return newJoinSet;
+      });
+    } else {
+      setShowMembershipModificationModal(true);
+      setMembershipModificationTeam(team);
+    }
   };
 
   const onCloseMembershipModal = (): void => {
@@ -105,7 +119,13 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
       <div>
         {!!teams &&
           teams.map((team) => (
-            <PickTeam team={team} key={team.team_name} onMembershipTagClick={onMembershipTagClick} />
+            <PickTeam
+              team={team}
+              key={team.team_name}
+              onMembershipTagClick={onMembershipTagClick}
+              joined={teamJoinRequests.has(team.team_name)}
+              left={teamLeaveRequests.has(team.team_name)}
+            />
           ))}
       </div>
       <TeamMembershipsModal

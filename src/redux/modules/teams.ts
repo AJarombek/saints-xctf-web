@@ -96,6 +96,7 @@ function getTeamRequestReducer(state: TeamState, action: GetTeamRequestAction): 
   return {
     ...state,
     team: {
+      ...state.team,
       [action.teamName]: {
         ...existingTeamState,
         isFetching: true,
@@ -112,6 +113,7 @@ function getTeamSuccessReducer(state: TeamState, action: GetTeamSuccessAction): 
   return {
     ...state,
     team: {
+      ...state.team,
       [action.teamName]: {
         ...existingTeamState,
         isFetching: false,
@@ -129,6 +131,7 @@ function getTeamFailureReducer(state: TeamState, action: GetTeamFailureAction): 
   return {
     ...state,
     team: {
+      ...state.team,
       [action.teamName]: {
         ...existingTeamState,
         isFetching: false,
@@ -145,6 +148,7 @@ function getTeamGroupsRequestReducer(state: TeamState, action: GetTeamGroupsRequ
   return {
     ...state,
     team: {
+      ...state.team,
       [action.teamName]: {
         ...existingTeamState,
         groups: {
@@ -162,6 +166,7 @@ function getTeamGroupsSuccessReducer(state: TeamState, action: GetTeamGroupsSucc
   return {
     ...state,
     team: {
+      ...state.team,
       [action.teamName]: {
         ...existingTeamState,
         groups: {
@@ -180,6 +185,7 @@ function getTeamGroupsFailureReducer(state: TeamState, action: GetTeamGroupsFail
   return {
     ...state,
     team: {
+      ...state.team,
       [action.teamName]: {
         ...existingTeamState,
         groups: {

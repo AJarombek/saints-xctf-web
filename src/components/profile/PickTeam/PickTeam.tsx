@@ -14,26 +14,28 @@ import { AJTag } from 'jarombek-react-components';
 interface Props {
   team?: TeamMembership;
   onMembershipTagClick: (team: TeamMembership) => void;
+  joined: boolean;
+  left: boolean;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PickTeam: React.FunctionComponent<Props> = ({ team, onMembershipTagClick }) => {
-  const classes = useStyles({ status: team.status });
+const PickTeam: React.FunctionComponent<Props> = ({ team, onMembershipTagClick, joined, left }) => {
+  const classes = useStyles({ status: joined ? 'pending' : left ? null : team.status });
 
   const memberTag = useMemo(() => {
-    if (team.status === 'accepted') {
+    if (team.status === 'accepted' && !left) {
       return `Member - ${team.user.charAt(0).toUpperCase() + team.user.slice(1)}`;
-    } else if (team.status === 'pending') {
+    } else if ((team.status === 'pending' && !left) || joined) {
       return 'Pending';
     } else {
       return 'Non-Member';
     }
-  }, [team]);
+  }, [team, joined, left]);
 
   const memberTagIcon = useMemo(() => {
-    return team.status ? '\u004f' : '\u0050';
-  }, [team.status]);
+    return (team.status && !left) || joined ? '\u004f' : '\u0050';
+  }, [team.status, joined, left]);
 
   return (
     <div className={classes.team}>
