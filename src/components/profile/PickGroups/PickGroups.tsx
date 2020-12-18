@@ -7,10 +7,11 @@
 import React, { useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMember, RootState, TeamMembership } from '../../../redux/types';
+import { GroupMember, RootState } from '../../../redux/types';
 import PickGroup from '../PickGroup';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeamGroups } from '../../../redux/modules/teams';
+import GroupMembershipsModal from '../GroupMembershipModal';
 
 interface Props {
   teamName?: string;
@@ -78,6 +79,28 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
     }
   };
 
+  const onCloseMembershipModal = (): void => {
+    setShowMembershipModificationModal(false);
+  };
+
+  const onJoinGroup = (groupName: string): void => {
+    setGroupJoinRequests((joinSet) => {
+      const newJoinSet = new Set<string>(joinSet);
+      newJoinSet.add(groupName);
+      return newJoinSet;
+    });
+    setShowMembershipModificationModal(false);
+  };
+
+  const onLeaveGroup = (groupName: string): void => {
+    setGroupLeaveRequests((leaveSet) => {
+      const newLeaveSet = new Set<string>(leaveSet);
+      newLeaveSet.add(groupName);
+      return newLeaveSet;
+    });
+    setShowMembershipModificationModal(false);
+  };
+
   if (groups) {
     return (
       <div>
@@ -105,6 +128,15 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
             </div>
           )}
         </div>
+        <GroupMembershipsModal
+          group={membershipModificationGroup}
+          onClose={onCloseMembershipModal}
+          onJoin={onJoinGroup}
+          onLeave={onLeaveGroup}
+          show={showMembershipModificationModal}
+          joinedGroup={groupJoinRequests.has(membershipModificationGroup?.group_name)}
+          leftGroup={groupLeaveRequests.has(membershipModificationGroup?.group_name)}
+        />
       </div>
     );
   } else {

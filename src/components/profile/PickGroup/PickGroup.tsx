@@ -25,9 +25,9 @@ const PickGroup: React.FunctionComponent<Props> = ({ group, onMembershipClick, j
   return (
     <div className={classes.group}>
       <p className={classes.groupTitle}>{group.group_title}</p>
-      <AJButton type="text" className={classes.groupActionIcon} onClick={onMembershipClick}>
-        {(group.status === 'accepted' || group.status === 'pending') && <p>&#x0051;</p>}
-        {group.status === null && <p>&#x0050;</p>}
+      <AJButton type="text" className={classes.groupActionIcon} onClick={(): void => onMembershipClick(group)}>
+        {(((group.status === 'accepted' || group.status === 'pending') && !left) || joined) && <p>&#x0051;</p>}
+        {((group.status === null && !joined) || left) && <p>&#x0050;</p>}
       </AJButton>
     </div>
   );

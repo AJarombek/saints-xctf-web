@@ -1,45 +1,45 @@
 /**
- * Component for a modal that allows users to join or leave teams.
+ * Component for a modal that allows users to join or leave groups.
  * @author Andrew Jarombek
- * @since 12/14/2020
+ * @since 12/16/2020
  */
 
-import React, { useMemo } from 'react';
+import { GroupMember } from '../../../redux/types';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
+import React, { useMemo } from 'react';
 import { AJButton, AJModal } from 'jarombek-react-components';
-import { TeamMembership } from '../../../redux/types';
 
 interface Props {
-  team?: TeamMembership;
+  group?: GroupMember;
   onClose: () => void;
-  onJoin: (teamName: string) => void;
-  onLeave: (teamName: string) => void;
+  onJoin: (groupName: string) => void;
+  onLeave: (groupName: string) => void;
   show: boolean;
-  joinedTeam: boolean;
-  leftTeam: boolean;
+  joinedGroup: boolean;
+  leftGroup: boolean;
 }
 
 const useStyles = createUseStyles(styles);
 
-const TeamMembershipsModal: React.FunctionComponent<Props> = ({
-  team,
+const GroupMembershipsModal: React.FunctionComponent<Props> = ({
+  group,
   onClose,
   onJoin,
   onLeave,
   show,
-  joinedTeam,
-  leftTeam
+  joinedGroup,
+  leftGroup
 }) => {
   const classes = useStyles();
 
   const showJoining = useMemo(() => {
-    return show && !team?.status && !joinedTeam;
-  }, [show, team?.status, joinedTeam]);
+    return show && !group?.status && !joinedGroup;
+  }, [show, group?.status, joinedGroup]);
 
   const showLeaving = useMemo(() => {
-    return show && team?.status && !leftTeam;
-  }, [show, team?.status, leftTeam]);
+    return show && group?.status && !leftGroup;
+  }, [show, group?.status, leftGroup]);
 
   if (showJoining || showLeaving) {
     return (
@@ -48,17 +48,13 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
           <div className={classes.title}>
             {showJoining && (
               <p>
-                Are you sure you want to request to join the team <b>{team?.title}</b>?
+                Are you sure you want to request to join the group <b>{group?.group_title}</b>?
               </p>
             )}
             {showLeaving && (
               <>
                 <p>
-                  Are you sure you want to leave the team <b>{team?.title}</b>?{' '}
-                  {!!team?.groups.length && 'You will also be removed from the following groups:'}
-                </p>
-                <p>
-                  <b>{team?.groups?.reduce((acc, group) => `${acc}${group.group_title}, `, '').slice(0, -2)}</b>
+                  Are you sure you want to leave the group <b>{group?.group_title}</b>?
                 </p>
               </>
             )}
@@ -68,12 +64,12 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
               <p>CANCEL</p>
             </AJButton>
             {showJoining && (
-              <AJButton type="contained" onClick={(): void => onJoin(team.team_name)}>
+              <AJButton type="contained" onClick={(): void => onJoin(group.group_name)}>
                 <p>JOIN</p>
               </AJButton>
             )}
             {showLeaving && (
-              <AJButton type="contained" onClick={(): void => onLeave(team.team_name)}>
+              <AJButton type="contained" onClick={(): void => onLeave(group.group_name)}>
                 <p>LEAVE</p>
               </AJButton>
             )}
@@ -86,4 +82,4 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
   }
 };
 
-export default TeamMembershipsModal;
+export default GroupMembershipsModal;

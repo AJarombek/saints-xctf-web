@@ -1,7 +1,7 @@
 /**
- * JSS styles for the TeamMembershipsModal component.
+ * JSS styles for the GroupMembershipsModal component.
  * @author Andrew Jarombek
- * @since 12/14/2020
+ * @since 12/17/2020
  */
 
 import { Modules } from '../../../styles/modules';
