@@ -92,6 +92,7 @@ export type Users = {
     flair?: FlairMeta;
     stats?: UserStatsMeta;
     memberships?: Memberships;
+    updateMemberships?: UpdateMemberships;
   };
 };
 
@@ -231,6 +232,10 @@ export interface Memberships extends Meta {
   teams?: TeamMembership[];
 }
 
+export interface UpdateMemberships extends Meta {
+  updated?: boolean;
+}
+
 export interface TeamMembership extends TeamMember {
   groups?: GroupMember[];
 }
@@ -276,6 +281,11 @@ export type Groups = {
 };
 
 export interface GroupMeta extends Group, Meta {}
+
+export type TeamGroupMapping = {
+  team_name: string;
+  group_name: string;
+};
 
 export type TeamMember = {
   team_name: string;

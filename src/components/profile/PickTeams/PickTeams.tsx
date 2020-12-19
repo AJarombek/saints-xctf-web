@@ -130,9 +130,13 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
     setShowMembershipModificationModal(false);
   };
 
-  const onSaveMemberships = (): void => {};
+  const onSaveMemberships = (): void => {
 
-  const onCancelChanges = (): void => {};
+  };
+
+  const onCancelChanges = (): void => {
+
+  };
 
   return (
     <>

@@ -7,7 +7,7 @@
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import { Dispatch } from 'redux';
-import { Flair, ProfileState, TeamMembership, User, UserStats } from '../types';
+import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, UserStats } from '../types';
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -27,6 +27,9 @@ const POST_PROFILE_PICTURE_FAILURE = 'saints-xctf-web/profile/POST_PROFILE_PICTU
 const GET_USER_MEMBERSHIPS_REQUEST = 'saints-xctf-web/profile/GET_USER_MEMBERSHIPS_REQUEST';
 const GET_USER_MEMBERSHIPS_SUCCESS = 'saints-xctf-web/profile/GET_USER_MEMBERSHIPS_SUCCESS';
 const GET_USER_MEMBERSHIPS_FAILURE = 'saints-xctf-web/profile/GET_USER_MEMBERSHIPS_FAILURE';
+const PUT_USER_MEMBERSHIPS_REQUEST = 'saints-xctf-web/profile/PUT_USER_MEMBERSHIPS_REQUEST';
+const PUT_USER_MEMBERSHIPS_SUCCESS = 'saints-xctf-web/profile/PUT_USER_MEMBERSHIPS_SUCCESS';
+const PUT_USER_MEMBERSHIPS_FAILURE = 'saints-xctf-web/profile/PUT_USER_MEMBERSHIPS_FAILURE';
 
 // Action Types
 
@@ -122,6 +125,22 @@ interface GetUserMembershipsFailureAction {
   serverError: string;
 }
 
+interface PutUserMembershipsRequestAction {
+  type: typeof PUT_USER_MEMBERSHIPS_REQUEST;
+  username: string;
+}
+
+interface PutUserMembershipsSuccessAction {
+  type: typeof PUT_USER_MEMBERSHIPS_SUCCESS;
+  username: string;
+}
+
+interface PutUserMembershipsFailureAction {
+  type: typeof PUT_USER_MEMBERSHIPS_FAILURE;
+  username: string;
+  serverError: string;
+}
+
 type ProfileActionTypes =
   | GetUserRequestAction
   | GetUserSuccessAction
@@ -139,7 +158,10 @@ type ProfileActionTypes =
   | PostProfilePictureFailureAction
   | GetUserMembershipsRequestAction
   | GetUserMembershipsSuccessAction
-  | GetUserMembershipsFailureAction;
+  | GetUserMembershipsFailureAction
+  | PutUserMembershipsRequestAction
+  | PutUserMembershipsSuccessAction
+  | PutUserMembershipsFailureAction;
 
 // Reducer
 const initialState: ProfileState = {
@@ -376,6 +398,60 @@ function getUserMembershipsFailureReducer(state: ProfileState, action: GetUserMe
   };
 }
 
+function putUserMembershipsRequestReducer(state: ProfileState, action: PutUserMembershipsRequestAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        updateMemberships: {
+          isFetching: true,
+          lastUpdated: moment().unix()
+        }
+      }
+    }
+  };
+}
+
+function putUserMembershipsSuccessReducer(state: ProfileState, action: PutUserMembershipsSuccessAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        updateMemberships: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          updated: true
+        }
+      }
+    }
+  };
+}
+
+function putUserMembershipsFailureReducer(state: ProfileState, action: PutUserMembershipsFailureAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        updateMemberships: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          updated: false,
+          serverError: action.serverError
+        }
+      }
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: ProfileActionTypes): ProfileState {
   switch (action.type) {
     case GET_USER_REQUEST:
@@ -404,6 +480,12 @@ export default function reducer(state = initialState, action: ProfileActionTypes
       return getUserMembershipsSuccessReducer(state, action);
     case GET_USER_MEMBERSHIPS_FAILURE:
       return getUserMembershipsFailureReducer(state, action);
+    case PUT_USER_MEMBERSHIPS_REQUEST:
+      return putUserMembershipsRequestReducer(state, action);
+    case PUT_USER_MEMBERSHIPS_SUCCESS:
+      return putUserMembershipsSuccessReducer(state, action);
+    case PUT_USER_MEMBERSHIPS_FAILURE:
+      return putUserMembershipsFailureReducer(state, action);
     default:
       return state;
   }
@@ -512,6 +594,28 @@ export function getUserMembershipsFailure(username: string, serverError: string)
   };
 }
 
+export function putUserMembershipsRequest(username: string): PutUserMembershipsRequestAction {
+  return {
+    type: PUT_USER_MEMBERSHIPS_REQUEST,
+    username
+  };
+}
+
+export function putUserMembershipsSuccess(username: string): PutUserMembershipsSuccessAction {
+  return {
+    type: PUT_USER_MEMBERSHIPS_SUCCESS,
+    username
+  };
+}
+
+export function putUserMembershipsFailure(username: string, serverError: string): PutUserMembershipsFailureAction {
+  return {
+    type: PUT_USER_MEMBERSHIPS_FAILURE,
+    username,
+    serverError
+  };
+}
+
 export function getUser(username: string) {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getUserRequest(username));
@@ -580,6 +684,34 @@ export function getUserMemberships(username: string) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getUserMembershipsFailure(username, serverError));
+    }
+  };
+}
+
+export function updateUserMemberships(
+  username: string,
+  teamsJoined: string[],
+  teamsLeft: string[],
+  groupsJoined: TeamGroupMapping[],
+  groupsLeft: TeamGroupMapping[]
+) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(putUserMembershipsRequest(username));
+
+    try {
+      await api.put(`users/memberships/${username}`, {
+        teams_joined: teamsJoined,
+        teams_left: teamsLeft,
+        groups_joined: groupsJoined,
+        groups_left: groupsLeft
+      });
+
+      dispatch(putUserMembershipsSuccess(username));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(putUserMembershipsFailure(username, serverError));
     }
   };
 }
