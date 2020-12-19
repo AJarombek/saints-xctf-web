@@ -234,14 +234,6 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       <h3 className={classes.title}>Teams and Groups</h3>
       <div className={classes.form}>
         <PickTeams teams={memberships?.teams} />
-        <div className={classes.actions}>
-          <AJButton type="contained" disabled={false} onClick={onSubmitPicture} className={classes.submitButton}>
-            Save Teams & Groups
-          </AJButton>
-          <AJButton type="text" disabled={false} onClick={onCancelPicture} className={classes.cancelButton}>
-            Cancel
-          </AJButton>
-        </div>
       </div>
     </div>
   );

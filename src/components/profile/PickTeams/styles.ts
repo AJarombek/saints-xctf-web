@@ -4,7 +4,7 @@
  * @since 12/4/2020
  */
 
-import { FontMixins } from '../../../styles/mixins';
+import Mixins, { FontMixins } from '../../../styles/mixins';
 
 export default {
   pickTeams: {},
@@ -46,5 +46,14 @@ export default {
       margin: '0 0 0 4px',
       color: '#990000'
     }
+  },
+  actions: {
+    ...Mixins.formActions()
+  },
+  submitButton: {
+    marginRight: 20
+  },
+  cancelButton: {
+    marginRight: 10
   }
 };
