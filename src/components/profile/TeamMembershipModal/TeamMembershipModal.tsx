@@ -8,7 +8,8 @@ import React, { useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { AJButton, AJModal } from 'jarombek-react-components';
-import { TeamMembership } from '../../../redux/types';
+import { GroupMember, GroupMeta, RootState, TeamMembership } from '../../../redux/types';
+import { useSelector } from 'react-redux';
 
 interface Props {
   team?: TeamMembership;
@@ -18,6 +19,8 @@ interface Props {
   show: boolean;
   joinedTeam: boolean;
   leftTeam: boolean;
+  groupsJoined?: Set<string>;
+  groupsLeft?: Set<string>;
 }
 
 const useStyles = createUseStyles(styles);
@@ -29,9 +32,13 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
   onLeave,
   show,
   joinedTeam,
-  leftTeam
+  leftTeam,
+  groupsJoined,
+  groupsLeft
 }) => {
   const classes = useStyles();
+
+  const otherGroups = useSelector((state: RootState) => state.teams.team[team?.team_name]?.groups?.items ?? []);
 
   const showJoining = useMemo(() => {
     return show && !team?.status && !joinedTeam;
@@ -40,6 +47,20 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
   const showLeaving = useMemo(() => {
     return show && team?.status && !leftTeam;
   }, [show, team?.status, leftTeam]);
+
+  const groupsLeavingList = useMemo<string[]>(() => {
+    if (showLeaving && team?.groups) {
+      const groupsLeftSet = groupsLeft ?? new Set<string>();
+      const groupsJoinedSet = groupsJoined ?? new Set<string>();
+
+      return team.groups
+        .filter((group) => !groupsLeftSet.has(group.group_name))
+        .map((group) => group.group_title)
+        .concat(otherGroups.filter((group) => groupsJoinedSet.has(group.group_name)).map((group) => group.group_title));
+    } else {
+      return null;
+    }
+  }, [showLeaving, team?.groups, groupsLeft, groupsJoined, otherGroups]);
 
   if (showJoining || showLeaving) {
     return (
@@ -58,7 +79,7 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
                   {!!team?.groups.length && 'You will also be removed from the following groups:'}
                 </p>
                 <p>
-                  <b>{team?.groups?.reduce((acc, group) => `${acc}${group.group_title}, `, '').slice(0, -2)}</b>
+                  <b>{groupsLeavingList?.reduce((acc, groupTitle) => `${acc}${groupTitle}, `, '').slice(0, -2)}</b>
                 </p>
               </>
             )}

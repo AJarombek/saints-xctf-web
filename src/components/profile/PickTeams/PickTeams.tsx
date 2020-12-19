@@ -37,6 +37,8 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
 
   const [teamJoinRequests, setTeamJoinRequests] = useState(new Set<string>());
   const [teamLeaveRequests, setTeamLeaveRequests] = useState(new Set<string>());
+  const [groupJoinRequests, setGroupJoinRequests] = useState<Record<string, Set<string>>>({});
+  const [groupLeaveRequests, setGroupLeaveRequests] = useState<Record<string, Set<string>>>({});
 
   const teamSet = useMemo(() => {
     return new Set(teams?.map((team) => team.team_name) ?? []);
@@ -125,6 +127,10 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
               onMembershipTagClick={onMembershipTagClick}
               joined={teamJoinRequests.has(team.team_name)}
               left={teamLeaveRequests.has(team.team_name)}
+              groupJoinRequests={groupJoinRequests[team.team_name] ?? new Set<string>()}
+              groupLeaveRequests={groupLeaveRequests[team.team_name] ?? new Set<string>()}
+              setGroupJoinRequests={setGroupJoinRequests}
+              setGroupLeaveRequests={setGroupLeaveRequests}
             />
           ))}
       </div>
@@ -136,6 +142,8 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
         show={showMembershipModificationModal}
         joinedTeam={teamJoinRequests.has(membershipModificationTeam?.team_name)}
         leftTeam={teamLeaveRequests.has(membershipModificationTeam?.team_name)}
+        groupsJoined={groupJoinRequests[membershipModificationTeam?.team_name]}
+        groupsLeft={groupLeaveRequests[membershipModificationTeam?.team_name]}
       />
     </div>
   );

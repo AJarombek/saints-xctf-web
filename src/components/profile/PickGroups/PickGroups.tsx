@@ -4,7 +4,7 @@
  * @since 12/4/2020
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { GroupMember, RootState } from '../../../redux/types';
@@ -16,20 +16,28 @@ import GroupMembershipsModal from '../GroupMembershipModal';
 interface Props {
   teamName?: string;
   groups?: GroupMember[];
+  groupJoinRequests: Set<string>;
+  groupLeaveRequests: Set<string>;
+  setGroupJoinRequests: Dispatch<SetStateAction<Record<string, Set<string>>>>;
+  setGroupLeaveRequests: Dispatch<SetStateAction<Record<string, Set<string>>>>;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
+const PickGroups: React.FunctionComponent<Props> = ({
+  teamName,
+  groups,
+  groupJoinRequests,
+  groupLeaveRequests,
+  setGroupJoinRequests,
+  setGroupLeaveRequests
+}) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
   const otherGroups = useSelector((state: RootState) => state.teams.team[teamName]?.groups?.items ?? []);
 
   const [showMore, setShowMore] = useState(false);
-
-  const [groupJoinRequests, setGroupJoinRequests] = useState(new Set<string>());
-  const [groupLeaveRequests, setGroupLeaveRequests] = useState(new Set<string>());
 
   const [showMembershipModificationModal, setShowMembershipModificationModal] = useState(false);
   const [membershipModificationGroup, setMembershipModificationGroup] = useState<GroupMember>(null);
@@ -62,16 +70,18 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
 
   const onMembershipClick = (group: GroupMember): void => {
     if (groupLeaveRequests.has(group.group_name)) {
-      setGroupLeaveRequests((leaveSet) => {
-        const newLeaveSet = new Set(leaveSet);
-        newLeaveSet.delete(group.group_name);
-        return newLeaveSet;
+      setGroupLeaveRequests((leaveRequests) => {
+        const newLeaveRequests = { ...leaveRequests };
+        const leaveSet = newLeaveRequests[teamName];
+        leaveSet.delete(group.group_name);
+        return newLeaveRequests;
       });
     } else if (groupJoinRequests.has(group.group_name)) {
-      setGroupJoinRequests((joinSet) => {
-        const newJoinSet = new Set(joinSet);
-        newJoinSet.delete(group.group_name);
-        return newJoinSet;
+      setGroupJoinRequests((joinRequests) => {
+        const newJoinRequests = { ...joinRequests };
+        const joinSet = newJoinRequests[teamName];
+        joinSet.delete(group.group_name);
+        return newJoinRequests;
       });
     } else {
       setShowMembershipModificationModal(true);
@@ -84,19 +94,37 @@ const PickGroups: React.FunctionComponent<Props> = ({ teamName, groups }) => {
   };
 
   const onJoinGroup = (groupName: string): void => {
-    setGroupJoinRequests((joinSet) => {
-      const newJoinSet = new Set<string>(joinSet);
-      newJoinSet.add(groupName);
-      return newJoinSet;
+    setGroupJoinRequests((joinRequests) => {
+      const newJoinRequests = { ...joinRequests };
+      const joinSet = newJoinRequests[teamName];
+
+      if (joinSet) {
+        joinSet.add(groupName);
+      } else {
+        const newJoinSet = new Set<string>();
+        newJoinSet.add(groupName);
+        newJoinRequests[teamName] = newJoinSet;
+      }
+
+      return newJoinRequests;
     });
     setShowMembershipModificationModal(false);
   };
 
   const onLeaveGroup = (groupName: string): void => {
-    setGroupLeaveRequests((leaveSet) => {
-      const newLeaveSet = new Set<string>(leaveSet);
-      newLeaveSet.add(groupName);
-      return newLeaveSet;
+    setGroupLeaveRequests((leaveRequests) => {
+      const newLeaveRequests = { ...leaveRequests };
+      const leaveSet = newLeaveRequests[teamName];
+
+      if (leaveSet) {
+        leaveSet.add(groupName);
+      } else {
+        const newLeaveSet = new Set<string>();
+        newLeaveSet.add(groupName);
+        newLeaveRequests[teamName] = newLeaveSet;
+      }
+
+      return newLeaveRequests;
     });
     setShowMembershipModificationModal(false);
   };
