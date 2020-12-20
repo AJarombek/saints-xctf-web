@@ -701,7 +701,7 @@ export function updateUserMemberships(
     dispatch(putUserMembershipsRequest(username));
 
     try {
-      await api.put(`users/memberships/${username}`, {
+      const response = await api.put(`users/memberships/${username}`, {
         teams_joined: teamsJoined,
         teams_left: teamsLeft,
         groups_joined: groupsJoined,
@@ -709,7 +709,7 @@ export function updateUserMemberships(
       });
 
       dispatch(putUserMembershipsSuccess(username));
-      return true;
+      return response.data.updated;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';

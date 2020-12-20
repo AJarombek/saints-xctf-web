@@ -30,19 +30,9 @@ export default {
     }
   },
   disabledDeleteButton: {
-    backgroundColor: '#e6e6e6 !important',
-
-    '& p': {
-      color: '#555'
-    }
+    ...Mixins.disabledButton()
   },
   deleteLogSpinner: {
-    marginLeft: 25,
-    marginRight: 10,
-
-    '&:before': {
-      border: `solid 4px ${color(Colors.spotPaletteBrown).lighten(0.75).hex()}`,
-      borderTopColor: Colors.spotPaletteBrown
-    }
+    ...Mixins.buttonSpinner()
   }
 };

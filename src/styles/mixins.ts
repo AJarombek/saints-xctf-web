@@ -1,4 +1,5 @@
 import Colors from './colors';
+import color from "color";
 
 /**
  * JSS mixins reused throughout the application.
@@ -212,6 +213,36 @@ class Mixins {
       '& p': {
         margin: 0
       }
+    }
+  });
+
+  static saintsXCTFLink = (): object => ({
+    ...FontMixins.robotoSlabBold(),
+    textDecoration: 'none',
+    color: '#777',
+    transition: 'color 0.5s ease',
+
+    '&:hover': {
+      color: Colors.sxctfRed,
+      textDecoration: 'underline'
+    }
+  });
+
+  static disabledButton = (): object => ({
+    backgroundColor: '#e6e6e6 !important',
+
+    '& p': {
+      color: '#555'
+    }
+  });
+
+  static buttonSpinner = (): object => ({
+    marginLeft: 25,
+    marginRight: 10,
+
+    '&:before': {
+      border: `solid 4px ${color(Colors.spotPaletteBrown).lighten(0.75).hex()}`,
+      borderTopColor: Colors.spotPaletteBrown
     }
   });
 

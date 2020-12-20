@@ -20,6 +20,7 @@ import { AJButton } from 'jarombek-react-components';
 import { getUserMemberships, updateUserMemberships } from '../../../redux/modules/profile';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 import AlertPopup from '../../shared/AlertPopup';
+import LoadingSpinner from '../../shared/LoadingSpinner';
 
 interface Props {
   teams?: TeamMembership[];
@@ -44,6 +45,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   const [groupJoinRequests, setGroupJoinRequests] = useState<Record<string, Set<string>>>({});
   const [groupLeaveRequests, setGroupLeaveRequests] = useState<Record<string, Set<string>>>({});
 
+  const [saving, setSaving] = useState(false);
   const [errorUpdatingMemberships, setErrorUpdatingMemberships] = useState(false);
   const [errorGetMemberships, setErrorGetMemberships] = useState(false);
 
@@ -146,30 +148,37 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   };
 
   const onSaveMemberships = async (): Promise<void> => {
+    setSaving(true);
+
     const teamsJoined = [...teamJoinRequests];
     const teamsLeft = [...teamLeaveRequests];
-    const groupsJoined: TeamGroupMapping[] = [];
-    const groupsLeft: TeamGroupMapping[] = [];
+    let groupsJoined: TeamGroupMapping[] = [];
+    let groupsLeft: TeamGroupMapping[] = [];
 
-    Object.entries(groupJoinRequests).forEach(([teamName, groups]) =>
-      groupsJoined.concat(
-        [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping))
-      )
+    Object.entries(groupJoinRequests).forEach(
+      ([teamName, groups]) =>
+        (groupsJoined = groupsJoined.concat(
+          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping))
+        ))
     );
 
-    Object.entries(groupLeaveRequests).forEach(([teamName, groups]) =>
-      groupsLeft.concat(
-        [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping))
-      )
+    Object.entries(groupLeaveRequests).forEach(
+      ([teamName, groups]) =>
+        (groupsLeft = groupsLeft.concat(
+          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping))
+        ))
     );
 
     const result = await dispatch(updateUserMemberships(username, teamsJoined, teamsLeft, groupsJoined, groupsLeft));
 
     if (result) {
+      setErrorUpdatingMemberships(false);
       await getUpdatedMemberships();
     } else {
       setErrorUpdatingMemberships(true);
     }
+
+    setSaving(false);
   };
 
   const onCancelChanges = (): void => {
@@ -228,8 +237,14 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
         />
       </div>
       <div className={classes.actions}>
-        <AJButton type="contained" disabled={false} onClick={onSaveMemberships} className={classes.submitButton}>
-          Save Teams & Groups
+        <AJButton
+          type="contained"
+          disabled={false}
+          onClick={onSaveMemberships}
+          className={classNames(classes.submitButton, saving && classes.disabledSubmitButton)}
+        >
+          <p>{saving ? 'Saving Teams & Groups...' : 'Save Teams & Groups'}</p>
+          {saving && <LoadingSpinner className={classes.buttonSpinner} />}
         </AJButton>
         <AJButton type="text" disabled={false} onClick={onCancelChanges} className={classes.cancelButton}>
           Cancel
@@ -244,7 +259,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
       {errorGetMemberships && (
         <AlertPopup
           message={
-            <div>
+            <div className={classes.alertMessage}>
               <p>
                 Failed to retrieve your new team and group memberships. If this error persists, contact{' '}
                 <a className={classes.emailLink} href="mailto:andrew@jarombek.com">
@@ -252,7 +267,9 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
                 </a>
                 .
               </p>
-              <p onClick={getUpdatedMemberships}>Retry</p>
+              <p onClick={getUpdatedMemberships} className={classes.retry}>
+                Retry
+              </p>
             </div>
           }
           onClose={(): void => setErrorGetMemberships(false)}

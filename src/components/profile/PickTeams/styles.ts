@@ -5,6 +5,7 @@
  */
 
 import Mixins, { FontMixins } from '../../../styles/mixins';
+import Colors from '../../../styles/colors';
 
 export default {
   pickTeams: {},
@@ -51,9 +52,46 @@ export default {
     ...Mixins.formActions()
   },
   submitButton: {
-    marginRight: 20
+    marginRight: 20,
+
+    '& > button': {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+
+    '& p': {
+      margin: 0
+    }
+  },
+  disabledSubmitButton: {
+    ...Mixins.disabledButton(),
+    backgroundColor: '#d6d6d6 !important'
+  },
+  buttonSpinner: {
+    ...Mixins.buttonSpinner()
   },
   cancelButton: {
     marginRight: 10
+  },
+  emailLink: {
+    ...Mixins.saintsXCTFLink()
+  },
+  alertMessage: {
+    margin: '0 4px',
+
+    '& > p:nth-child(1)': {
+      margin: 0
+    }
+  },
+  retry: {
+    ...FontMixins.robotoSlabBold(),
+    margin: '10px 0 0 5px',
+    color: Colors.spotPaletteBlue,
+    cursor: 'pointer',
+
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   }
 };
