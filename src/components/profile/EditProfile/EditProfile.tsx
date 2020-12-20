@@ -233,7 +233,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       </div>
       <h3 className={classes.title}>Teams and Groups</h3>
       <div className={classes.form}>
-        <PickTeams teams={memberships?.teams} />
+        <PickTeams teams={memberships?.teams} username={user.username} />
       </div>
     </div>
   );

@@ -9,7 +9,7 @@
 import React, { ChangeEvent, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMember, RootState, TeamInfo, TeamMembership } from '../../../redux/types';
+import { GroupMember, RootState, TeamGroupMapping, TeamInfo, TeamMembership } from '../../../redux/types';
 import PickTeam from '../PickTeam';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,14 +17,18 @@ import { searchTeams } from '../../../redux/modules/teams';
 import classNames from 'classnames';
 import TeamMembershipsModal from '../TeamMembershipModal';
 import { AJButton } from 'jarombek-react-components';
+import { getUserMemberships, updateUserMemberships } from '../../../redux/modules/profile';
+import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
+import AlertPopup from '../../shared/AlertPopup';
 
 interface Props {
   teams?: TeamMembership[];
+  username: string;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
+const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -39,6 +43,9 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
   const [teamLeaveRequests, setTeamLeaveRequests] = useState(new Set<string>());
   const [groupJoinRequests, setGroupJoinRequests] = useState<Record<string, Set<string>>>({});
   const [groupLeaveRequests, setGroupLeaveRequests] = useState<Record<string, Set<string>>>({});
+
+  const [errorUpdatingMemberships, setErrorUpdatingMemberships] = useState(false);
+  const [errorGetMemberships, setErrorGetMemberships] = useState(false);
 
   const teamSet = useMemo(() => {
     return new Set(teams?.map((team) => team.team_name) ?? []);
@@ -130,12 +137,46 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
     setShowMembershipModificationModal(false);
   };
 
-  const onSaveMemberships = (): void => {
+  const getUpdatedMemberships = async (): Promise<void> => {
+    const memberships = await dispatch(getUserMemberships(username));
 
+    if (!memberships) {
+      setErrorGetMemberships(true);
+    }
+  };
+
+  const onSaveMemberships = async (): Promise<void> => {
+    const teamsJoined = [...teamJoinRequests];
+    const teamsLeft = [...teamLeaveRequests];
+    const groupsJoined: TeamGroupMapping[] = [];
+    const groupsLeft: TeamGroupMapping[] = [];
+
+    Object.entries(groupJoinRequests).forEach(([teamName, groups]) =>
+      groupsJoined.concat(
+        [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping))
+      )
+    );
+
+    Object.entries(groupLeaveRequests).forEach(([teamName, groups]) =>
+      groupsLeft.concat(
+        [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping))
+      )
+    );
+
+    const result = await dispatch(updateUserMemberships(username, teamsJoined, teamsLeft, groupsJoined, groupsLeft));
+
+    if (result) {
+      await getUpdatedMemberships();
+    } else {
+      setErrorUpdatingMemberships(true);
+    }
   };
 
   const onCancelChanges = (): void => {
-
+    setTeamJoinRequests(new Set<string>());
+    setTeamLeaveRequests(new Set<string>());
+    setGroupJoinRequests({});
+    setGroupLeaveRequests({});
   };
 
   return (
@@ -194,6 +235,30 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams }) => {
           Cancel
         </AJButton>
       </div>
+      {errorUpdatingMemberships && (
+        <DefaultErrorPopup
+          message="Failed to update your team and group memberships"
+          onClose={(): void => setErrorUpdatingMemberships(false)}
+        />
+      )}
+      {errorGetMemberships && (
+        <AlertPopup
+          message={
+            <div>
+              <p>
+                Failed to retrieve your new team and group memberships. If this error persists, contact{' '}
+                <a className={classes.emailLink} href="mailto:andrew@jarombek.com">
+                  andrew@jarombek.com
+                </a>
+                .
+              </p>
+              <p onClick={getUpdatedMemberships}>Retry</p>
+            </div>
+          }
+          onClose={(): void => setErrorGetMemberships(false)}
+          type="error"
+        />
+      )}
     </>
   );
 };

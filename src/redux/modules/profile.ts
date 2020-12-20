@@ -671,7 +671,7 @@ export function getUserStats(username: string) {
 }
 
 export function getUserMemberships(username: string) {
-  return async function (dispatch: Dispatch): Promise<void> {
+  return async function (dispatch: Dispatch): Promise<TeamMembership[]> {
     dispatch(getUserMembershipsRequest(username));
 
     try {
@@ -679,11 +679,13 @@ export function getUserMemberships(username: string) {
       const { memberships } = response.data;
 
       dispatch(getUserMembershipsSuccess(username, memberships));
+      return memberships;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getUserMembershipsFailure(username, serverError));
+      return null;
     }
   };
 }
@@ -695,7 +697,7 @@ export function updateUserMemberships(
   groupsJoined: TeamGroupMapping[],
   groupsLeft: TeamGroupMapping[]
 ) {
-  return async function (dispatch: Dispatch): Promise<void> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putUserMembershipsRequest(username));
 
     try {
@@ -707,11 +709,13 @@ export function updateUserMemberships(
       });
 
       dispatch(putUserMembershipsSuccess(username));
+      return true;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(putUserMembershipsFailure(username, serverError));
+      return false;
     }
   };
 }
