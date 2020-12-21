@@ -125,6 +125,18 @@ const localConfig = {
         target: 'https://dev.fn.saintsxctf.com/',
         secure: true,
         pathRewrite: { '^/fn': '' }
+      },
+      '/asset/**': {
+        target: 'https://asset.saintsxctf.com/',
+        secure: true,
+        changeOrigin: true,
+        pathRewrite: { '^/asset': '' }
+      },
+      '/uasset/**': {
+        target: 'https://uasset.saintsxctf.com/dev/',
+        secure: true,
+        changeOrigin: true,
+        pathRewrite: { '^/uasset': '' }
       }
     }
   }

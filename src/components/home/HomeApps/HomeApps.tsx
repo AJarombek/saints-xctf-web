@@ -13,17 +13,17 @@ const HomeApps: React.FunctionComponent = () => {
       <div className="app-stores">
         <a href="#">
           <figure>
-            <img src="https://asset.saintsxctf.com/app-store.png"/>
+            <img src="/asset/app-store.png" alt="" />
           </figure>
         </a>
         <a href="#">
           <figure>
-            <img src="https://asset.saintsxctf.com/google-play-store.svg"/>
+            <img src="/asset/google-play-store.svg" alt="" />
           </figure>
         </a>
         <a href="#">
           <figure>
-            <img src="https://asset.saintsxctf.com/amazon-app-store.png"/>
+            <img src="/asset/amazon-app-store.png" alt="" />
           </figure>
         </a>
       </div>

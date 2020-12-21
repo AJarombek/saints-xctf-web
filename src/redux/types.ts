@@ -104,6 +104,7 @@ export interface User {
   deleted?: string;
   description?: string;
   email?: string;
+  profilepic_name?: string;
   favorite_event?: string;
   first?: string;
   last?: string;

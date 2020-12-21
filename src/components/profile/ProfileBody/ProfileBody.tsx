@@ -28,7 +28,7 @@ import { getUserFlair } from '../../../redux/modules/profile';
 import { getGroupMemberships } from '../../../redux/modules/memberships';
 import WeeklyChart from '../WeeklyChart';
 import ProfileDetails from '../ProfileDetails';
-import EditProfile from "../EditProfile";
+import EditProfile from '../EditProfile';
 
 interface Props {
   user: UserMeta;
@@ -88,7 +88,15 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
     return (
       <div className={classes.container}>
         <aside>
-          <PictureTitle imageUrl={null} title={`${user?.first} ${user?.last}`} subTitle={`@${user?.username}`} />
+          <PictureTitle
+            imageUrl={
+              user?.profilepic_name
+                ? `/uasset/profile/${user?.username}/${user?.profilepic_name}`
+                : '/asset/saintsxctf.png'
+            }
+            title={`${user?.first} ${user?.last}`}
+            subTitle={`@${user?.username}`}
+          />
           <Flair flair={flair} />
           <Memberships groupMemberships={groupMemberships} />
           <PageTabs

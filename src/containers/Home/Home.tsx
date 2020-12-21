@@ -38,10 +38,7 @@ const Home: React.FunctionComponent<Props> = () => {
   }, [user, history, auth]);
 
   const day = moment().dayOfYear();
-  const mobileBackgroundPicture =
-    day % 2 === 0
-      ? 'https://asset.saintsxctf.com/mens-background.jpg'
-      : 'https://asset.saintsxctf.com/womens-background.jpg';
+  const mobileBackgroundPicture = day % 2 === 0 ? '/asset/mens-background.jpg' : '/asset/womens-background.jpg';
 
   if (!userAuthenticated(user, auth.signedInUser)) {
     return (
