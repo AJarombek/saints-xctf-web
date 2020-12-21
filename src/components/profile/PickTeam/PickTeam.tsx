@@ -64,14 +64,16 @@ const PickTeam: React.FunctionComponent<Props> = ({
           className={classes.memberTag}
         />
       </div>
-      <PickGroups
-        groups={team.groups}
-        teamName={team.team_name}
-        groupJoinRequests={groupJoinRequests}
-        groupLeaveRequests={groupLeaveRequests}
-        setGroupJoinRequests={setGroupJoinRequests}
-        setGroupLeaveRequests={setGroupLeaveRequests}
-      />
+      {((team.user && team.status) || joined) && (
+        <PickGroups
+          groups={team.groups}
+          teamName={team.team_name}
+          groupJoinRequests={groupJoinRequests}
+          groupLeaveRequests={groupLeaveRequests}
+          setGroupJoinRequests={setGroupJoinRequests}
+          setGroupLeaveRequests={setGroupLeaveRequests}
+        />
+      )}
     </div>
   );
 };

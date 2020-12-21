@@ -36,6 +36,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   const allTeamSearches = useSelector((state: RootState) => state.teams.search);
 
   const [searchString, setSearchString] = useState('');
+  const [searchedTeamsAdded, setSearchedTeamsAdded] = useState<TeamMembership[]>([]);
 
   const [showMembershipModificationModal, setShowMembershipModificationModal] = useState(false);
   const [membershipModificationTeam, setMembershipModificationTeam] = useState<TeamMembership>(null);
@@ -49,14 +50,20 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   const [errorUpdatingMemberships, setErrorUpdatingMemberships] = useState(false);
   const [errorGetMemberships, setErrorGetMemberships] = useState(false);
 
-  const teamSet = useMemo(() => {
-    return new Set(teams?.map((team) => team.team_name) ?? []);
-  }, [teams]);
+  const displayedTeams = useMemo(() => {
+    if (teams) {
+      const teamSet = new Set(teams?.map((team) => team.team_name) ?? []);
+      return teams.concat(searchedTeamsAdded.filter((teamMembership) => !teamSet.has(teamMembership.team_name)));
+    } else {
+      return searchedTeamsAdded;
+    }
+  }, [teams, searchedTeamsAdded]);
 
   const searchedTeamMatches = useMemo(() => {
+    const teamSet = new Set(displayedTeams?.map((team) => team.team_name) ?? []);
     const matches = allTeamSearches[searchString]?.items ?? [];
     return matches.filter((teamInfo) => !teamSet.has(teamInfo.name));
-  }, [allTeamSearches, searchString, teamSet]);
+  }, [allTeamSearches, searchString, displayedTeams]);
 
   const onChangeTeamSearch = (e: ChangeEvent<HTMLInputElement>): void => {
     const searchText = e.target.value;
@@ -65,6 +72,13 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
     if (searchText && !allTeamSearches[searchText]?.items?.length) {
       dispatch(searchTeams(searchText));
     }
+  };
+
+  const onAddSearchedTeam = (team: TeamInfo): void => {
+    setSearchedTeamsAdded((addedTeams) => [
+      ...addedTeams,
+      { team_name: team.name, title: team.title, status: null, user: null, groups: [] }
+    ]);
   };
 
   const onMembershipTagClick = (team: TeamMembership): void => {
@@ -201,7 +215,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
           />
           <div className={classes.searchedTeams}>
             {searchedTeamMatches.map((team: TeamInfo) => (
-              <div className={classes.searchedTeam} key={team.name}>
+              <div className={classes.searchedTeam} key={team.name} onClick={(): void => onAddSearchedTeam(team)}>
                 <p>{team.title}</p>
                 <p>&#x4c;</p>
               </div>
@@ -209,20 +223,19 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
           </div>
         </div>
         <div>
-          {!!teams &&
-            teams.map((team) => (
-              <PickTeam
-                team={team}
-                key={team.team_name}
-                onMembershipTagClick={onMembershipTagClick}
-                joined={teamJoinRequests.has(team.team_name)}
-                left={teamLeaveRequests.has(team.team_name)}
-                groupJoinRequests={groupJoinRequests[team.team_name] ?? new Set<string>()}
-                groupLeaveRequests={groupLeaveRequests[team.team_name] ?? new Set<string>()}
-                setGroupJoinRequests={setGroupJoinRequests}
-                setGroupLeaveRequests={setGroupLeaveRequests}
-              />
-            ))}
+          {displayedTeams.map((team) => (
+            <PickTeam
+              team={team}
+              key={team.team_name}
+              onMembershipTagClick={onMembershipTagClick}
+              joined={teamJoinRequests.has(team.team_name)}
+              left={teamLeaveRequests.has(team.team_name)}
+              groupJoinRequests={groupJoinRequests[team.team_name] ?? new Set<string>()}
+              groupLeaveRequests={groupLeaveRequests[team.team_name] ?? new Set<string>()}
+              setGroupJoinRequests={setGroupJoinRequests}
+              setGroupLeaveRequests={setGroupLeaveRequests}
+            />
+          ))}
         </div>
         <TeamMembershipsModal
           team={membershipModificationTeam}
