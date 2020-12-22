@@ -111,20 +111,24 @@ interface GetUserStatsFailureAction {
 
 interface PostProfilePictureRequestAction {
   type: typeof POST_PROFILE_PICTURE_REQUEST;
+  username: string;
 }
 
 interface PostProfilePictureProgressAction {
   type: typeof POST_PROFILE_PICTURE_PROGRESS;
+  username: string;
   totalSize: number;
   uploadedSize: number;
 }
 
 interface PostProfilePictureSuccessAction {
   type: typeof POST_PROFILE_PICTURE_SUCCESS;
+  username: string;
 }
 
 interface PostProfilePictureFailureAction {
   type: typeof POST_PROFILE_PICTURE_FAILURE;
+  username: string;
   serverError: string;
 }
 
@@ -244,7 +248,7 @@ function getUserFailureReducer(state: ProfileState, action: GetUserFailureAction
   };
 }
 
-function putUserRequestReducer(state: ProfileState, action: GetUserRequestAction): ProfileState {
+function putUserRequestReducer(state: ProfileState, action: PutUserRequestAction): ProfileState {
   const user = state.users[action.username] ?? {};
   return {
     ...state,
@@ -252,7 +256,7 @@ function putUserRequestReducer(state: ProfileState, action: GetUserRequestAction
       ...state.users,
       [action.username]: {
         ...user,
-        user: {
+        updating: {
           isFetching: true,
           lastUpdated: moment().unix()
         }
@@ -261,7 +265,7 @@ function putUserRequestReducer(state: ProfileState, action: GetUserRequestAction
   };
 }
 
-function putUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction): ProfileState {
+function putUserSuccessReducer(state: ProfileState, action: PutUserSuccessAction): ProfileState {
   const user = state.users[action.username] ?? {};
   return {
     ...state,
@@ -269,6 +273,11 @@ function putUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction
       ...state.users,
       [action.username]: {
         ...user,
+        updating: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          updated: true
+        },
         user: {
           isFetching: false,
           lastUpdated: moment().unix(),
@@ -279,7 +288,7 @@ function putUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction
   };
 }
 
-function putUserFailureReducer(state: ProfileState, action: GetUserFailureAction): ProfileState {
+function putUserFailureReducer(state: ProfileState, action: PutUserFailureAction): ProfileState {
   const user = state.users[action.username] ?? {};
   return {
     ...state,
@@ -287,7 +296,7 @@ function putUserFailureReducer(state: ProfileState, action: GetUserFailureAction
       ...state.users,
       [action.username]: {
         ...user,
-        user: {
+        updating: {
           isFetching: false,
           lastUpdated: moment().unix(),
           serverError: action.serverError
@@ -414,6 +423,82 @@ function getUserStatsFailureReducer(state: ProfileState, action: GetUserStatsFai
         stats: {
           isFetching: false,
           lastUpdated: moment().unix(),
+          serverError: action.serverError
+        }
+      }
+    }
+  };
+}
+
+function postProfilePictureRequestReducer(state: ProfileState, action: PostProfilePictureRequestAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        uploadingProfilePicture: {
+          isFetching: true,
+          lastUpdated: moment().unix()
+        }
+      }
+    }
+  };
+}
+
+function postProfilePictureProgressReducer(
+  state: ProfileState,
+  action: PostProfilePictureProgressAction
+): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        uploadingProfilePicture: {
+          isFetching: true,
+          lastUpdated: moment().unix(),
+          uploadedSize: action.uploadedSize,
+          totalSize: action.totalSize
+        }
+      }
+    }
+  };
+}
+
+function postProfilePictureSuccessReducer(state: ProfileState, action: PostProfilePictureSuccessAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        uploadingProfilePicture: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          uploaded: true
+        }
+      }
+    }
+  };
+}
+
+function postProfilePictureFailureReducer(state: ProfileState, action: PostProfilePictureFailureAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        uploadingProfilePicture: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          uploaded: false,
           serverError: action.serverError
         }
       }
@@ -556,6 +641,14 @@ export default function reducer(state = initialState, action: ProfileActionTypes
       return getUserStatsSuccessReducer(state, action);
     case GET_USER_STATS_FAILURE:
       return getUserStatsFailureReducer(state, action);
+    case POST_PROFILE_PICTURE_REQUEST:
+      return postProfilePictureRequestReducer(state, action);
+    case POST_PROFILE_PICTURE_PROGRESS:
+      return postProfilePictureProgressReducer(state, action);
+    case POST_PROFILE_PICTURE_SUCCESS:
+      return postProfilePictureSuccessReducer(state, action);
+    case POST_PROFILE_PICTURE_FAILURE:
+      return postProfilePictureFailureReducer(state, action);
     case GET_USER_MEMBERSHIPS_REQUEST:
       return getUserMembershipsRequestReducer(state, action);
     case GET_USER_MEMBERSHIPS_SUCCESS:
@@ -592,6 +685,29 @@ export function getUserSuccess(username: string, user: User): GetUserSuccessActi
 export function getUserFailure(username: string, serverError: string): GetUserFailureAction {
   return {
     type: GET_USER_FAILURE,
+    username,
+    serverError
+  };
+}
+
+export function putUserRequest(username: string): PutUserRequestAction {
+  return {
+    type: PUT_USER_REQUEST,
+    username
+  };
+}
+
+export function putUserSuccess(username: string, user: User): PutUserSuccessAction {
+  return {
+    type: PUT_USER_SUCCESS,
+    username,
+    user
+  };
+}
+
+export function putUserFailure(username: string, serverError: string): PutUserFailureAction {
+  return {
+    type: PUT_USER_FAILURE,
     username,
     serverError
   };
@@ -712,6 +828,24 @@ export function getUser(username: string) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getUserFailure(username, serverError));
+    }
+  };
+}
+
+export function putUser(user: User) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(putUserRequest(user.username));
+
+    try {
+      const response = await api.put(`users/${user.username}`, user);
+      const { user: updatedUser } = response.data;
+
+      dispatch(putUserSuccess(user.username, updatedUser));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(putUserFailure(user.username, serverError));
     }
   };
 }

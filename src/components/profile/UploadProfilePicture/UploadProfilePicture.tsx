@@ -11,21 +11,27 @@ import UploadFile from '../../shared/UploadFile/UploadFile';
 import { AJButton } from 'jarombek-react-components';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
+import { useDispatch } from 'react-redux';
+import { putUser } from '../../../redux/modules/profile';
+import { UserMeta } from '../../../redux/types';
 
 interface Props {
-  username: string;
+  user: UserMeta;
   profilePictureUrl: string;
 }
 
 const useStyles = createUseStyles(styles);
 
-const UploadProfilePicture: React.FunctionComponent<Props> = ({ username, profilePictureUrl }) => {
+const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePictureUrl }) => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
 
   const [saving, setSaving] = useState(false);
 
   const onUpload = async (): Promise<void> => {
     setSaving(true);
+    await dispatch(putUser(user));
     setSaving(false);
   };
 

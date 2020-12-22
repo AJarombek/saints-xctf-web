@@ -94,6 +94,7 @@ export type Users = {
     memberships?: Memberships;
     updateMemberships?: UpdateMemberships;
     updating?: UpdateUser;
+    uploadingProfilePicture?: UploadingProfilePicture;
   };
 };
 
@@ -121,6 +122,12 @@ export interface User {
 
 export interface UpdateUser extends Meta {
   updated?: boolean;
+}
+
+export interface UploadingProfilePicture extends Meta {
+  uploaded?: boolean;
+  uploadedSize?: number;
+  totalSize?: number;
 }
 
 enum LogType {

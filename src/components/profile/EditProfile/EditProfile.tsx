@@ -214,7 +214,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       <h3 className={classes.title}>Profile Picture</h3>
       <div className={classes.form}>
         <UploadProfilePicture
-          username={user.username}
+          user={user}
           profilePictureUrl={
             user.profilepic_name ? `/uasset/profile/${user.username}/${user.profilepic_name}` : '/asset/saintsxctf.png'
           }
