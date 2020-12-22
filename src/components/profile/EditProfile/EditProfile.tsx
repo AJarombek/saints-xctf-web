@@ -12,11 +12,11 @@ import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
-import UploadFile from '../../shared/UploadFile/UploadFile';
 import { AJButton } from 'jarombek-react-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMemberships } from '../../../redux/modules/profile';
 import PickTeams from '../PickTeams';
+import UploadProfilePicture from '../UploadProfilePicture';
 
 interface Props {
   user: UserMeta;
@@ -71,9 +71,6 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
     setDescription(user.description);
     setWeekStart(user.week_start);
   };
-
-  const onSubmitPicture = (): void => {};
-  const onCancelPicture = (): void => {};
 
   return (
     <div className={classes.editProfile}>
@@ -216,20 +213,12 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       </div>
       <h3 className={classes.title}>Profile Picture</h3>
       <div className={classes.form}>
-        <div className={classes.profilePictureContainer}>
-          <figure className={classes.picture}>
-            <img src="" alt="" />
-          </figure>
-          <UploadFile />
-        </div>
-        <div className={classes.actions}>
-          <AJButton type="contained" disabled={false} onClick={onSubmitPicture} className={classes.submitButton}>
-            Save Picture
-          </AJButton>
-          <AJButton type="text" disabled={false} onClick={onCancelPicture} className={classes.cancelButton}>
-            Cancel
-          </AJButton>
-        </div>
+        <UploadProfilePicture
+          username={user.username}
+          profilePictureUrl={
+            user.profilepic_name ? `/uasset/profile/${user.username}/${user.profilepic_name}` : '/asset/saintsxctf.png'
+          }
+        />
       </div>
       <h3 className={classes.title}>Teams and Groups</h3>
       <div className={classes.form}>

@@ -13,6 +13,9 @@ import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, UserStats 
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
 const GET_USER_SUCCESS = 'saints-xctf-web/profile/GET_USER_SUCCESS';
 const GET_USER_FAILURE = 'saints-xctf-web/profile/GET_USER_FAILURE';
+const PUT_USER_REQUEST = 'saints-xctf-web/profile/PUT_USER_REQUEST';
+const PUT_USER_SUCCESS = 'saints-xctf-web/profile/PUT_USER_SUCCESS';
+const PUT_USER_FAILURE = 'saints-xctf-web/profile/PUT_USER_FAILURE';
 const SET_USER = 'saints-xctf-web/profile/SET_USER';
 const GET_USER_FLAIR_REQUEST = 'saints-xctf-web/profile/GET_USER_FLAIR_REQUEST';
 const GET_USER_FLAIR_SUCCESS = 'saints-xctf-web/profile/GET_USER_FLAIR_SUCCESS';
@@ -46,6 +49,23 @@ interface GetUserSuccessAction {
 
 interface GetUserFailureAction {
   type: typeof GET_USER_FAILURE;
+  username: string;
+  serverError: string;
+}
+
+interface PutUserRequestAction {
+  type: typeof PUT_USER_REQUEST;
+  username: string;
+}
+
+interface PutUserSuccessAction {
+  type: typeof PUT_USER_SUCCESS;
+  username: string;
+  user: User;
+}
+
+interface PutUserFailureAction {
+  type: typeof PUT_USER_FAILURE;
   username: string;
   serverError: string;
 }
@@ -145,6 +165,9 @@ type ProfileActionTypes =
   | GetUserRequestAction
   | GetUserSuccessAction
   | GetUserFailureAction
+  | PutUserRequestAction
+  | PutUserSuccessAction
+  | PutUserFailureAction
   | SetUserAction
   | GetUserFlairRequestAction
   | GetUserFlairSuccessAction
@@ -204,6 +227,59 @@ function getUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction
 }
 
 function getUserFailureReducer(state: ProfileState, action: GetUserFailureAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        user: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          serverError: action.serverError
+        }
+      }
+    }
+  };
+}
+
+function putUserRequestReducer(state: ProfileState, action: GetUserRequestAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        user: {
+          isFetching: true,
+          lastUpdated: moment().unix()
+        }
+      }
+    }
+  };
+}
+
+function putUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction): ProfileState {
+  const user = state.users[action.username] ?? {};
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {
+        ...user,
+        user: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          ...action.user
+        }
+      }
+    }
+  };
+}
+
+function putUserFailureReducer(state: ProfileState, action: GetUserFailureAction): ProfileState {
   const user = state.users[action.username] ?? {};
   return {
     ...state,
@@ -460,6 +536,12 @@ export default function reducer(state = initialState, action: ProfileActionTypes
       return getUserSuccessReducer(state, action);
     case GET_USER_FAILURE:
       return getUserFailureReducer(state, action);
+    case PUT_USER_REQUEST:
+      return putUserRequestReducer(state, action);
+    case PUT_USER_SUCCESS:
+      return putUserSuccessReducer(state, action);
+    case PUT_USER_FAILURE:
+      return putUserFailureReducer(state, action);
     case SET_USER:
       return setUserReducer(state, action);
     case GET_USER_FLAIR_REQUEST:

@@ -93,6 +93,7 @@ export type Users = {
     stats?: UserStatsMeta;
     memberships?: Memberships;
     updateMemberships?: UpdateMemberships;
+    updating?: UpdateUser;
   };
 };
 
@@ -116,6 +117,10 @@ export interface User {
   subscribed?: string;
   username?: string;
   week_start?: string;
+}
+
+export interface UpdateUser extends Meta {
+  updated?: boolean;
 }
 
 enum LogType {

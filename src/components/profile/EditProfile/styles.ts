@@ -72,15 +72,6 @@ export default {
   cancelButton: {
     marginRight: 10
   },
-  profilePictureContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  picture: {
-    ...Mixins.profilePicture(),
-    marginLeft: 0
-  },
   '@media screen and (max-width: 720px)': {
     title: {
       width: 'auto'

@@ -11,12 +11,13 @@ import classNames from 'classnames';
 import { ClassValue } from 'classnames/types';
 
 interface Props {
+  onUpload: () => void;
   className?: ClassValue;
 }
 
 const useStyles = createUseStyles(styles);
 
-const UploadFile: React.FunctionComponent<Props> = ({ className }) => {
+const UploadFile: React.FunctionComponent<Props> = ({ onUpload, className }) => {
   const classes = useStyles();
 
   const fileInputRef = useRef(null);
