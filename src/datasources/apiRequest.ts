@@ -4,9 +4,9 @@
  * @since 5/2/2020
  */
 
-import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios';
-import { Store } from "redux";
-import {SIGNOUT} from "../redux/modules/auth";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { Store } from 'redux';
+import { SIGNOUT } from '../redux/modules/auth';
 
 export const api = axios.create({
   baseURL: '/api/v2/',
@@ -14,7 +14,7 @@ export const api = axios.create({
   responseType: 'json'
 });
 
-export const interceptor = (store: Store) => {
+export const interceptor = (store: Store): void => {
   api.interceptors.request.use(
     (req: AxiosRequestConfig) => {
       const token = localStorage.getItem('token') ?? '';

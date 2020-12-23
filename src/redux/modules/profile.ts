@@ -8,6 +8,7 @@ import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import { Dispatch } from 'redux';
 import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, UserStats } from '../types';
+import {fn} from "../../datasources/fnRequest";
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -766,6 +767,41 @@ export function getUserStatsFailure(username: string, serverError: string): GetU
   };
 }
 
+export function postProfilePictureRequest(username: string): PostProfilePictureRequestAction {
+  return {
+    type: POST_PROFILE_PICTURE_REQUEST,
+    username
+  };
+}
+
+export function postProfilePictureProgress(
+  username: string,
+  totalSize: number,
+  uploadedSize: number
+): PostProfilePictureProgressAction {
+  return {
+    type: POST_PROFILE_PICTURE_PROGRESS,
+    username,
+    totalSize,
+    uploadedSize
+  };
+}
+
+export function postProfilePictureSuccess(username: string): PostProfilePictureSuccessAction {
+  return {
+    type: POST_PROFILE_PICTURE_SUCCESS,
+    username
+  };
+}
+
+export function postProfilePictureFailure(username: string, serverError: string): PostProfilePictureFailureAction {
+  return {
+    type: POST_PROFILE_PICTURE_FAILURE,
+    username,
+    serverError
+  };
+}
+
 export function getUserMembershipsRequest(username: string): GetUserMembershipsRequestAction {
   return {
     type: GET_USER_MEMBERSHIPS_REQUEST,
@@ -882,6 +918,32 @@ export function getUserStats(username: string) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getUserStatsFailure(username, serverError));
+    }
+  };
+}
+
+export function uploadProfilePicture(username: string, file: File) {
+  return async function (dispatch: Dispatch): Promise<boolean> {
+    dispatch(postProfilePictureRequest(username));
+
+    try {
+      const options = {
+        onUploadProgress: (progressEvent): void => {
+          const { uploadedSize, totalSize } = progressEvent;
+          dispatch(postProfilePictureProgress(username, totalSize, uploadedSize));
+        }
+      };
+
+      const response = await fn.post('/uasset/user', { username, fileName: file.name, base64Image: '' }, options);
+      const { result } = response.data;
+
+      dispatch(postProfilePictureSuccess(username));
+      return result;
+    } catch (error) {
+      const serverError = 'An unexpected error occurred.';
+
+      dispatch(postProfilePictureFailure(username, serverError));
+      return false;
     }
   };
 }

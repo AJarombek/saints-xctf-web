@@ -7,7 +7,7 @@
 import axios from 'axios';
 
 export const auth = axios.create({
-    baseURL: '/auth/',
-    timeout: 5000,
-    responseType: 'json'
+  baseURL: '/auth/',
+  timeout: 5000,
+  responseType: 'json'
 });
