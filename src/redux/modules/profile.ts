@@ -5,10 +5,10 @@
  */
 
 import { api } from '../../datasources/apiRequest';
+import { fn } from '../../datasources/fnRequest';
 import moment from 'moment';
 import { Dispatch } from 'redux';
 import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, UserStats } from '../types';
-import {fn} from "../../datasources/fnRequest";
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -869,7 +869,7 @@ export function getUser(username: string) {
 }
 
 export function putUser(user: User) {
-  return async function (dispatch: Dispatch): Promise<void> {
+  return async function (dispatch: Dispatch): Promise<User> {
     dispatch(putUserRequest(user.username));
 
     try {
@@ -877,11 +877,13 @@ export function putUser(user: User) {
       const { user: updatedUser } = response.data;
 
       dispatch(putUserSuccess(user.username, updatedUser));
+      return updatedUser;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(putUserFailure(user.username, serverError));
+      return null;
     }
   };
 }
@@ -927,6 +929,11 @@ export function uploadProfilePicture(username: string, file: File) {
     dispatch(postProfilePictureRequest(username));
 
     try {
+      const data = new FormData();
+      data.append('file', file);
+      data.append('fileName', file.name);
+      data.append('username', username);
+
       const options = {
         onUploadProgress: (progressEvent): void => {
           const { uploadedSize, totalSize } = progressEvent;
@@ -934,7 +941,7 @@ export function uploadProfilePicture(username: string, file: File) {
         }
       };
 
-      const response = await fn.post('/uasset/user', { username, fileName: file.name, base64Image: '' }, options);
+      const response = await fn.post('/uasset/user', data, options);
       const { result } = response.data;
 
       dispatch(postProfilePictureSuccess(username));

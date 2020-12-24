@@ -11,18 +11,17 @@ import classNames from 'classnames';
 import { ClassValue } from 'classnames/types';
 
 interface Props {
-  onUpload: () => void;
+  setFile: () => void;
   className?: ClassValue;
 }
 
 const useStyles = createUseStyles(styles);
 
-const UploadFile: React.FunctionComponent<Props> = ({ onUpload, className }) => {
+const UploadFile: React.FunctionComponent<Props> = ({ setFile, className }) => {
   const classes = useStyles();
 
   const fileInputRef = useRef(null);
 
-  const [file, setFile] = useState(null);
   const [dragCounter, setDragCounter] = useState(0);
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>): void => {
@@ -59,8 +58,8 @@ const UploadFile: React.FunctionComponent<Props> = ({ onUpload, className }) => 
     }
   };
 
-  const handleClickUploadInput = (): void => {
-    console.info('upload!');
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFile(e.target.files[0]);
   };
 
   return (
@@ -80,7 +79,7 @@ const UploadFile: React.FunctionComponent<Props> = ({ onUpload, className }) => 
         type="file"
         accept="image/*"
         className={classes.hiddenInput}
-        onClick={handleClickUploadInput}
+        onChange={handleFileInput}
         ref={fileInputRef}
       />
       <p className={classNames(classes.uploadText, !!dragCounter ? classes.uploadTextDrag : classes.uploadTextEmpty)}>
