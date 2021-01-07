@@ -67,6 +67,10 @@ export type RegistrationState = {
 
 export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
 
+export type GroupState = {
+  group: Record<string, GroupMeta>;
+};
+
 export type TeamState = {
   team: Record<string, TeamMeta>;
   search: Record<string, TeamsInfo>;
