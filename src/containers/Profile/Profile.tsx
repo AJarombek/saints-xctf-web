@@ -64,7 +64,7 @@ const Profile: React.FunctionComponent<Props> = () => {
     return (
       <div className={classes.profile} ref={ref}>
         <NavBar
-          includeHeaders={['groups', 'admin', 'signOut', 'logo']}
+          includeHeaders={['teams', 'admin', 'signOut', 'logo']}
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />

@@ -24,37 +24,39 @@ import { FeatureFlagProvider } from './components/shared/FeatureFlag';
 import { getFeatureFlags } from './utils/features';
 import NewLog from './containers/NewLog/NewLog';
 import Profile from './containers/Profile/Profile';
+import Teams from './containers/Teams';
+import Group from './containers/Group';
 
 dotenv.config();
 const store = configureStore();
 interceptor(store);
 
-const RoutedApp = (): JSX.Element =>
+const RoutedApp = (): JSX.Element => (
   <Provider store={store}>
     <FeatureFlagProvider values={getFeatureFlags()}>
       <ConnectedRouter history={history}>
         <>
           <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route exact path="/dashboard" component={Dashboard}/>
-            <Route exact path="/forgotpassword" component={ForgotPassword}/>
-            <Route exact path="/forgotpassword/email" component={ForgotPassword}/>
-            <Route exact path="/forgotpassword/reset" component={ForgotPassword}/>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
+            <Route exact path="/forgotpassword/email" component={ForgotPassword} />
+            <Route exact path="/forgotpassword/reset" component={ForgotPassword} />
+            <Route exact path="/group/:id" component={Group} />
             <Route exact path="/log/new" component={NewLog} />
             <Route exact path="/log/edit/:id" component={EditLog} />
             <Route exact path="/profile/:username" component={Profile} />
-            <Route exact path="/register" component={Register}/>
-            <Route exact path="/signin" component={SignIn}/>
-            <Route component={Home}/>
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/signin" component={SignIn} />
+            <Route exact path="/teams" component={Teams} />
+            <Route component={Home} />
           </Switch>
         </>
       </ConnectedRouter>
     </FeatureFlagProvider>
-  </Provider>;
-
-render(
-  <RoutedApp/>,
-  document.getElementById('react-container')
+  </Provider>
 );
+
+render(<RoutedApp />, document.getElementById('react-container'));
 
 export default hot(RoutedApp);

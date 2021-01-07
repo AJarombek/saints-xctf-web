@@ -4,20 +4,21 @@
  * @since 11/20/2020
  */
 
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
 import { ClassValue } from 'classnames/types';
 
 interface Props {
-  setFile: () => void;
+  setFile: Dispatch<SetStateAction<File>>;
+  onUpload: () => Promise<void>;
   className?: ClassValue;
 }
 
 const useStyles = createUseStyles(styles);
 
-const UploadFile: React.FunctionComponent<Props> = ({ setFile, className }) => {
+const UploadFile: React.FunctionComponent<Props> = ({ setFile, onUpload, className }) => {
   const classes = useStyles();
 
   const fileInputRef = useRef(null);

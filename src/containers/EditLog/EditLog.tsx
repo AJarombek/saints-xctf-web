@@ -70,7 +70,7 @@ const EditLog: React.FunctionComponent<Props> = () => {
     return (
       <div className={classes.editLog} ref={ref}>
         <NavBar
-          includeHeaders={['profile', 'groups', 'admin', 'signOut', 'logo']}
+          includeHeaders={['profile', 'teams', 'admin', 'signOut', 'logo']}
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />

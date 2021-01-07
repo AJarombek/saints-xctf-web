@@ -13,7 +13,7 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { putUser, uploadProfilePicture } from '../../../redux/modules/profile';
-import { User, UserMeta } from '../../../redux/types';
+import { UserMeta } from '../../../redux/types';
 import AlertPopup from '../../shared/AlertPopup';
 
 interface Props {
@@ -34,7 +34,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
   const [errorUpdatingUser, setErrorUpdatingUser] = useState(false);
 
   const updateUser = async (): Promise<void> => {
-    const updatedUser: User = await dispatch(putUser(user));
+    const updatedUser = await dispatch(putUser(user));
 
     if (!updatedUser) {
       setErrorUpdatingUser(true);

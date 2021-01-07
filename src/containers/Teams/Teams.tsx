@@ -1,7 +1,7 @@
 /**
- * Dashboard component displayed when a user is signed in.  Shows an overview of user activity.
+ * Teams component representing a page that displays all the teams that a user is a member of.
  * @author Andrew Jarombek
- * @since 5/9/2020
+ * @since 1/6/2021
  */
 
 import React, { useEffect, useRef } from 'react';
@@ -12,7 +12,6 @@ import styles from './styles';
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
-import DashboardBody from '../../components/dashboard/DashboardBody/DashboardBody';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { setUserFromStorage } from '../../redux/modules/auth';
 
@@ -20,7 +19,7 @@ type Props = {};
 
 const useStyles = createUseStyles(styles);
 
-const Dashboard: React.FunctionComponent<Props> = () => {
+const Teams: React.FunctionComponent<Props> = () => {
   const history = useHistory();
   const classes = useStyles();
 
@@ -42,13 +41,13 @@ const Dashboard: React.FunctionComponent<Props> = () => {
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
-      <div className={classes.dashboard} ref={ref}>
+      <div className={classes.teams} ref={ref}>
         <NavBar
-          includeHeaders={['profile', 'teams', 'admin', 'signOut', 'logo']}
+          includeHeaders={['dashboard', 'profile', 'teams', 'admin', 'signOut', 'logo']}
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
-        <DashboardBody user={users[auth.signedInUser]?.user} />
+        <TeamsBody user={users[auth.signedInUser]?.user} />
         <HomeFooter showContactUs={false} />
       </div>
     );
@@ -57,4 +56,4 @@ const Dashboard: React.FunctionComponent<Props> = () => {
   }
 };
 
-export default Dashboard;
+export default Teams;

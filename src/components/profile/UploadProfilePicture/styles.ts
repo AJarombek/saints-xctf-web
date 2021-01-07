@@ -31,5 +31,14 @@ export default {
   },
   cancelButton: {
     marginRight: 10
+  },
+  alertMessage: {
+
+  },
+  emailLink: {
+
+  },
+  retry: {
+
   }
 };

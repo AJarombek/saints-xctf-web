@@ -158,9 +158,9 @@ const NavBar: React.FunctionComponent<Props> = ({
       onClick: (): void => navigateMobile(`/profile/${user?.username}`)
     },
     {
-      name: 'groups',
-      content: 'Groups',
-      onClick: (): void => navigateMobile('/groups')
+      name: 'teams',
+      content: 'Teams',
+      onClick: (): void => navigateMobile('/teams')
     },
     {
       name: 'admin',
@@ -271,9 +271,9 @@ const NavBar: React.FunctionComponent<Props> = ({
               Profile
             </AJButton>
           )}
-          {includeHeaders.includes('groups') && (
-            <AJButton type="text" className="groupsButton" onClick={(): void => history.push('/groups')}>
-              Groups
+          {includeHeaders.includes('teams') && (
+            <AJButton type="text" className="teamsButton" onClick={(): void => history.push('/teams')}>
+              Teams
             </AJButton>
           )}
           {includeHeaders.includes('admin') && (

@@ -935,8 +935,8 @@ export function uploadProfilePicture(username: string, file: File) {
       data.append('username', username);
 
       const options = {
-        onUploadProgress: (progressEvent): void => {
-          const { uploadedSize, totalSize } = progressEvent;
+        onUploadProgress: (progressEvent: ProgressEvent): void => {
+          const { loaded: uploadedSize, total: totalSize } = progressEvent;
           dispatch(postProfilePictureProgress(username, totalSize, uploadedSize));
         }
       };

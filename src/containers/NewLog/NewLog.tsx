@@ -44,7 +44,7 @@ const NewLog: React.FunctionComponent<Props> = () => {
     return (
       <div className={classes.newLog} ref={ref}>
         <NavBar
-          includeHeaders={['profile', 'groups', 'admin', 'signOut', 'logo']}
+          includeHeaders={['profile', 'teams', 'admin', 'signOut', 'logo']}
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
