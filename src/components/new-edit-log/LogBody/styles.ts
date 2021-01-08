@@ -10,11 +10,7 @@ import color from 'color';
 
 export default {
   newLogBody: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: 'calc(100vh - 100px)',
-    backgroundColor: Colors.lightBackground,
-    margin: '100px 6% 0 6%'
+    ...Mixins.defaultBody()
   },
   title: {
     ...Mixins.formTitle()

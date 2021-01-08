@@ -246,10 +246,13 @@ class Mixins {
     }
   });
 
-  static centeredBody = (): object => ({});
-  static formSubtitle = (): object => ({});
-  static formError = (): object => ({});
-  static formButtons = (): object => ({});
+  static defaultBody = (): object => ({
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 'calc(100vh - 100px)',
+    backgroundColor: Colors.lightBackground,
+    margin: '100px 6% 0 6%'
+  });
 }
 
 export { Mixins, FontMixins };
