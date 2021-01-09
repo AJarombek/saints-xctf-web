@@ -7,21 +7,21 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMember } from '../../../redux/types';
+import { Memberships, TeamMembership } from '../../../redux/types';
 
 interface Props {
-  groupMemberships?: GroupMember[];
+  teamMemberships?: Memberships;
 }
 
 const useStyles = createUseStyles(styles);
 
-const Memberships: React.FunctionComponent<Props> = ({ groupMemberships = [] }) => {
+const Memberships: React.FunctionComponent<Props> = ({ teamMemberships }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.memberships}>
-      {groupMemberships.map((membership) => (
-        <p key={membership.group_name}>{membership.group_title}</p>
+      {teamMemberships?.teams?.map((membership: TeamMembership) => (
+        <p key={membership.team_name}>{membership.title}</p>
       ))}
     </div>
   );

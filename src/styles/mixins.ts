@@ -246,6 +246,14 @@ class Mixins {
     }
   });
 
+  static defaultPage = (): object => ({
+    backgroundColor: Colors.lightBackground,
+
+    '& .sxctf-home-footer': {
+      backgroundColor: Colors.lightBackground
+    }
+  });
+
   static defaultBody = (): object => ({
     display: 'flex',
     flexDirection: 'column',

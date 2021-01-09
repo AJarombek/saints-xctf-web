@@ -7,7 +7,7 @@
 import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { Memberships, RootState, TeamMembership, User, Users } from '../../../redux/types';
+import { GroupMeta, Memberships, RootState, TeamMembership, User, Users } from '../../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMemberships } from '../../../redux/modules/profile';
 import { getTeamGroups } from '../../../redux/modules/teams';
@@ -32,11 +32,13 @@ const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
   }, [dispatch, user.username]);
 
   useEffect(() => {
-    setMemberships(userProfiles[user.username].memberships);
+    if (userProfiles && user.username) {
+      setMemberships(userProfiles[user.username]?.memberships);
+    }
   }, [userProfiles, user.username]);
 
   useEffect(() => {
-    if (memberships) {
+    if (memberships?.teams) {
       memberships.teams.forEach((membership: TeamMembership) => {
         dispatch(getTeamGroups(membership.team_name));
       });
@@ -47,9 +49,16 @@ const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
     <div className={classes.teamsBody}>
       <h3 className={classes.title}>Select a group.</h3>
       <div className={classes.container}>
-        {memberships.teams.map((membership) => (
+        {memberships?.teams?.map((membership) => (
           <div key={membership.team_name}>
-            <h4>{membership.title}</h4>
+            <h4 className={classes.teamTitle}>{membership.title}</h4>
+            <div className={classes.groups}>
+              {teams[membership.team_name]?.groups?.items?.map((group: GroupMeta) => (
+                <div className={classes.group}>
+                  <p className={classes.groupTitle}>{group.group_title}</p>
+                </div>
+              ))}
+            </div>
           </div>
         ))}
       </div>

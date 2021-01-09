@@ -4,15 +4,10 @@
  * @since 9/7/2020
  */
 
-import Colors from '../../styles/colors';
 import Mixins from '../../styles/mixins';
 
 export default {
   profile: {
-    backgroundColor: Colors.lightBackground,
-
-    '& .sxctf-home-footer': {
-      backgroundColor: Colors.lightBackground
-    }
+    ...Mixins.defaultPage()
   }
 };

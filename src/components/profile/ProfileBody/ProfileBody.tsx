@@ -17,6 +17,7 @@ import {
   RangeViewExerciseTypeFilters,
   RootState,
   UserMeta,
+  Users,
   UserStatsMeta
 } from '../../../redux/types';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
@@ -24,8 +25,7 @@ import LogFeed from '../../shared/LogFeed/LogFeed';
 import MonthlyCalendar from '../MonthlyCalendar';
 import { logFeed } from '../../../redux/modules/logs';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserFlair } from '../../../redux/modules/profile';
-import { getGroupMemberships } from '../../../redux/modules/memberships';
+import { getUserFlair, getUserMemberships } from '../../../redux/modules/profile';
 import WeeklyChart from '../WeeklyChart';
 import ProfileDetails from '../ProfileDetails';
 import EditProfile from '../EditProfile';
@@ -51,7 +51,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const groupMemberships = useSelector((state: RootState) => state.memberships.groups?.items);
+  const userProfiles: Users = useSelector((state: RootState) => state.profile.users);
   const logFeeds: LogFeeds = useSelector((state: RootState) => state.logs.feeds);
 
   const [tab, setTab] = useState<ProfileTab>(ProfileTab.LOGS);
@@ -70,15 +70,15 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
         setBucket(user.username);
       }
 
-      if (!groupMemberships) {
-        dispatch(getGroupMemberships(user.username));
+      if (!userProfiles[user.username]?.memberships) {
+        dispatch(getUserMemberships(user.username));
       }
 
       if (!flair) {
         dispatch(getUserFlair(user.username));
       }
     }
-  }, [user, groupMemberships, flair, bucket, dispatch]);
+  }, [user, userProfiles, flair, bucket, dispatch]);
 
   const totalPages: number = useMemo(() => {
     return logFeeds[`user-${bucket}`]?.pages[page]?.pages ?? 0;
@@ -98,7 +98,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
             subTitle={`@${user?.username}`}
           />
           <Flair flair={flair} />
-          <Memberships groupMemberships={groupMemberships} />
+          <Memberships teamMemberships={userProfiles[user.username]?.memberships} />
           <PageTabs
             currentTab={tab}
             viewExerciseLogs={(): void => setTab(ProfileTab.LOGS)}
