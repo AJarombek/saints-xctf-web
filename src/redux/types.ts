@@ -15,6 +15,7 @@ export type RootState = {
   rangeView: RangeViewState;
   registration: RegistrationState;
   teams: TeamState;
+  groups: GroupState;
 };
 
 export type LogsState = {

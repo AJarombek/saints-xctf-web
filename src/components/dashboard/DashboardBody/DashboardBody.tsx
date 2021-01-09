@@ -4,27 +4,25 @@
  * @since 7/24/2020
  */
 
-import React, {useEffect, useMemo, useState} from 'react';
-import {createUseStyles} from 'react-jss';
+import React, { useEffect, useMemo, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import DashboardSidePanel from '../DashboardSidePanel/DashboardSidePanel';
 import LogFeed from '../../shared/LogFeed/LogFeed';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
-import {LogFeeds, RootState, User} from '../../../redux/types';
-import {useDispatch, useSelector} from 'react-redux';
-import {logFeed} from '../../../redux/modules/logs';
-import {getGroupMemberships} from '../../../redux/modules/memberships';
-import {getUserNotifications} from '../../../redux/modules/notifications';
+import { LogFeeds, RootState, User } from '../../../redux/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { logFeed } from '../../../redux/modules/logs';
+import { getGroupMemberships } from '../../../redux/modules/memberships';
+import { getUserNotifications } from '../../../redux/modules/notifications';
 
 interface Props {
-    user: User;
+  user: User;
 }
 
 const useStyles = createUseStyles(styles);
 
-const DashboardBody: React.FunctionComponent<Props> = ({
-  user
-}) => {
+const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -54,7 +52,7 @@ const DashboardBody: React.FunctionComponent<Props> = ({
   }, [user, groupMembershipInfo, notificationInfo]);
 
   const totalPages: number = useMemo(() => {
-    return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0
+    return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0;
   }, [logFeeds, page]);
 
   return (
@@ -67,13 +65,7 @@ const DashboardBody: React.FunctionComponent<Props> = ({
         />
       </div>
       <div className={classes.mainPanel}>
-        <LogFeed
-          logFeeds={logFeeds}
-          page={page}
-          user={user}
-          filterBy={filterBy}
-          bucket={bucket}
-        />
+        <LogFeed logFeeds={logFeeds} page={page} user={user} filterBy={filterBy} bucket={bucket} />
         <PaginationBar
           page={page}
           totalPages={totalPages}

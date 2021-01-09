@@ -4,57 +4,41 @@
  * @since 9/8/2020
  */
 
-import React from 'react';
-import {createUseStyles} from 'react-jss';
+import React, { ReactNode } from 'react';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {ProfileTab} from '../../profile/ProfileBody/ProfileBody';
+import { ProfileTab } from '../../profile/ProfileBody/ProfileBody';
 import classNames from 'classnames';
 
+type Tab = {
+  tab: number;
+  onView: () => void;
+  content: ReactNode;
+};
+
 interface Props {
-    currentTab: ProfileTab;
-    viewExerciseLogs: () => void;
-    viewMonthlyCalendar: () => void;
-    viewWeeklyChart: () => void;
-    viewDetails: () => void;
-    viewEditProfile: () => void;
+  currentTab: ProfileTab;
+  tabs: Tab[];
 }
 
 const useStyles = createUseStyles(styles);
 
-const PageTabs: React.FunctionComponent<Props> = ({
-    currentTab,
-    viewExerciseLogs,
-    viewMonthlyCalendar,
-    viewWeeklyChart,
-    viewDetails,
-    viewEditProfile
-}) => {
-    const classes = useStyles();
+const PageTabs: React.FunctionComponent<Props> = ({ currentTab, tabs }) => {
+  const classes = useStyles();
 
-    return (
-        <div className={classNames(classes.tabs, 'tabs')}>
-            <p className={classNames(classes.tab, currentTab === ProfileTab.LOGS && classes.currentTab)}
-               onClick={viewExerciseLogs}>
-                Exercise Logs
-            </p>
-            <p className={classNames(classes.tab, currentTab === ProfileTab.CALENDAR && classes.currentTab)}
-               onClick={viewMonthlyCalendar}>
-                Monthly Calendar
-            </p>
-            <p className={classNames(classes.tab, currentTab === ProfileTab.CHART && classes.currentTab)}
-               onClick={viewWeeklyChart}>
-                Weekly Chart
-            </p>
-            <p className={classNames(classes.tab, currentTab === ProfileTab.DETAILS && classes.currentTab)}
-               onClick={viewDetails}>
-                Details
-            </p>
-            <p className={classNames(classes.tab, currentTab === ProfileTab.EDIT && classes.currentTab)}
-               onClick={viewEditProfile}>
-                Edit Profile
-            </p>
-        </div>
-    );
+  return (
+    <div className={classNames(classes.tabs, 'tabs')}>
+      {tabs.map((tab: Tab) => (
+        <p
+          className={classNames(classes.tab, currentTab === tab.tab && classes.currentTab)}
+          onClick={tab.onView}
+          key={tab.tab}
+        >
+          {tab.content}
+        </p>
+      ))}
+    </div>
+  );
 };
 
 export default PageTabs;

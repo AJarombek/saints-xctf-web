@@ -4,6 +4,10 @@
  * @since 1/6/2021
  */
 
+import Mixins from '../../styles/mixins';
+
 export default {
-  group: {}
+  group: {
+    ...Mixins.defaultPage()
+  }
 };

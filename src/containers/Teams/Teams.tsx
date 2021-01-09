@@ -13,7 +13,7 @@ import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useSignInCheck } from '../../hooks/shared';
-import TeamsBody from '../../components/teams/TeamsBody/TeamBody';
+import TeamsBody from '../../components/teams/TeamsBody/TeamsBody';
 
 type Props = {};
 

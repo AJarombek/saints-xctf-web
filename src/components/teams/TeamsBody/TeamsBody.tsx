@@ -11,6 +11,7 @@ import { GroupMeta, Memberships, RootState, TeamMembership, User, Users } from '
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMemberships } from '../../../redux/modules/profile';
 import { getTeamGroups } from '../../../redux/modules/teams';
+import { useHistory } from 'react-router-dom';
 
 interface Props {
   user: User;
@@ -20,6 +21,8 @@ const useStyles = createUseStyles(styles);
 
 const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
   const classes = useStyles();
+
+  const history = useHistory();
 
   const dispatch = useDispatch();
   const userProfiles: Users = useSelector((state: RootState) => state.profile.users);
@@ -54,7 +57,7 @@ const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
             <h4 className={classes.teamTitle}>{membership.title}</h4>
             <div className={classes.groups}>
               {teams[membership.team_name]?.groups?.items?.map((group: GroupMeta) => (
-                <div className={classes.group}>
+                <div className={classes.group} onClick={(): void => history.push(`group/${group.id}`)}>
                   <p className={classes.groupTitle}>{group.group_title}</p>
                 </div>
               ))}

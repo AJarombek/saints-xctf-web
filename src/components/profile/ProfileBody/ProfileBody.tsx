@@ -84,6 +84,21 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
     return logFeeds[`user-${bucket}`]?.pages[page]?.pages ?? 0;
   }, [logFeeds, page, bucket]);
 
+  const tabs = useMemo(
+    () => [
+      { tab: ProfileTab.LOGS, onView: (): void => setTab(ProfileTab.LOGS), content: 'Exercise Logs' },
+      {
+        tab: ProfileTab.CALENDAR,
+        onView: (): void => setTab(ProfileTab.CALENDAR),
+        content: 'Monthly Calendar'
+      },
+      { tab: ProfileTab.CHART, onView: (): void => setTab(ProfileTab.CHART), content: 'Weekly Chart' },
+      { tab: ProfileTab.DETAILS, onView: (): void => setTab(ProfileTab.DETAILS), content: 'Details' },
+      { tab: ProfileTab.EDIT, onView: (): void => setTab(ProfileTab.EDIT), content: 'Edit Profile' }
+    ],
+    []
+  );
+
   if (user) {
     return (
       <div className={classes.container}>
@@ -99,14 +114,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
           />
           <Flair flair={flair} />
           <Memberships teamMemberships={userProfiles[user.username]?.memberships} />
-          <PageTabs
-            currentTab={tab}
-            viewExerciseLogs={(): void => setTab(ProfileTab.LOGS)}
-            viewMonthlyCalendar={(): void => setTab(ProfileTab.CALENDAR)}
-            viewWeeklyChart={(): void => setTab(ProfileTab.CHART)}
-            viewDetails={(): void => setTab(ProfileTab.DETAILS)}
-            viewEditProfile={(): void => setTab(ProfileTab.EDIT)}
-          />
+          <PageTabs currentTab={tab} tabs={tabs} />
         </aside>
         <section>
           {tab === ProfileTab.LOGS && (

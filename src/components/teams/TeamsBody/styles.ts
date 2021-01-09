@@ -33,6 +33,7 @@ export default {
   group: {
     display: 'flex',
     alignItems: 'center',
+    cursor: 'pointer',
     marginBottom: 10,
     borderRadius: 4,
     boxShadow: 'rgba(170, 170, 170, 0.2) 0px 1px 3px',
