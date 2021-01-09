@@ -70,6 +70,7 @@ export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
 
 export type GroupState = {
   group: Record<string, GroupMeta>;
+  members: Record<string, MemberDetailsMeta>;
 };
 
 export type TeamState = {
@@ -326,6 +327,19 @@ export type GroupMembers = {
   lastUpdated: number;
   serverError?: string;
   items: GroupMember[];
+};
+
+export interface MemberDetailsMeta extends Meta {
+  items?: MemberDetails[];
+}
+
+export type MemberDetails = {
+  username: string;
+  first: string;
+  last: string;
+  member_since: string;
+  user: string;
+  status: string;
 };
 
 export type Notification = {
