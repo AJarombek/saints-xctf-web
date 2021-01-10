@@ -7,16 +7,17 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {GroupMeta, LogFeeds, RootState, StatsMeta, User} from '../../../redux/types';
+import {GroupMeta, LogFeeds, MemberDetails, MemberDetailsMeta, RootState, StatsMeta, User} from '../../../redux/types';
 import PageTabs from '../../shared/PageTabs';
 import PictureTitle from '../../shared/PictureTitle';
 import { useDispatch, useSelector } from 'react-redux';
-import { getGroup } from '../../../redux/modules/groups';
+import { getGroup, getGroupMembers } from '../../../redux/modules/groups';
 import { useRouteMatch } from 'react-router-dom';
 import LogFeed from '../../shared/LogFeed';
 import PaginationBar from '../../shared/PaginationBar';
 import { logFeed } from '../../../redux/modules/logs';
-import GroupDetails from "../GroupDetails/GroupDetails";
+import GroupDetails from '../GroupDetails/GroupDetails';
+import GroupMembers from '../GroupMembers';
 
 interface Props {
   user: User;
@@ -39,6 +40,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
   const dispatch = useDispatch();
   const logFeeds: LogFeeds = useSelector((state: RootState) => state.logs.feeds);
   const allStats: Record<string, StatsMeta> = useSelector((state: RootState) => state.groups.stats ?? {});
+  const membersInfo = useSelector((state: RootState) => state.groups.members ?? {});
 
   const [tab, setTab] = useState<GroupTab>(GroupTab.LOGS);
   const [bucket, setBucket] = useState<string>(null);
@@ -49,6 +51,10 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
     return groupId;
   }, [routeMatch.params]);
 
+  const members = useMemo(() => {
+    return membersInfo[groupId]?.items?.filter((member: MemberDetails) => member.status === 'accepted') ?? [];
+  }, [membersInfo, groupId]);
+
   useEffect(() => {
     if (!group) {
       dispatch(getGroup(+groupId));
@@ -56,6 +62,13 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
       setBucket(groupId);
     }
   }, [groupId, group, dispatch]);
+
+  useEffect(() => {
+    const groupMembers: MemberDetailsMeta = membersInfo[groupId];
+    if (!groupMembers?.items && !groupMembers?.isFetching && !groupMembers?.serverError) {
+      dispatch(getGroupMembers(+groupId));
+    }
+  }, [dispatch, groupId, membersInfo]);
 
   useEffect(() => {
     if (bucket) {
@@ -87,7 +100,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
               : '/asset/saintsxctf.png'
           }
           title={group?.group_title}
-          subTitle={'Members: 0'}
+          subTitle={`Members: ${members.length}`}
         />
         <PageTabs currentTab={tab} tabs={tabs} />
       </aside>
@@ -105,7 +118,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
             />
           </>
         )}
-        {tab === GroupTab.MEMBERS && <></>}
+        {tab === GroupTab.MEMBERS && <GroupMembers members={members} />}
         {tab === GroupTab.LEADERBOARD && <></>}
         {tab === GroupTab.DETAILS && <GroupDetails group={group} stats={allStats[groupId]} />}
       </section>
