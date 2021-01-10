@@ -6,7 +6,7 @@
 
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
-import { Group, GroupState, MemberDetails } from '../types';
+import { Group, GroupState, MemberDetails, StatsMeta } from '../types';
 import { Dispatch } from 'redux';
 
 // Actions
@@ -16,6 +16,9 @@ const GET_GROUP_FAILURE = 'saints-xctf-web/groups/GET_GROUP_FAILURE';
 const GET_GROUP_MEMBERS_REQUEST = 'saints-xctf-web/groups/GET_GROUP_MEMBERS_REQUEST';
 const GET_GROUP_MEMBERS_SUCCESS = 'saints-xctf-web/groups/GET_GROUP_MEMBERS_SUCCESS';
 const GET_GROUP_MEMBERS_FAILURE = 'saints-xctf-web/groups/GET_GROUP_MEMBERS_FAILURE';
+const GET_GROUP_STATS_REQUEST = 'saints-xctf-web/groups/GET_GROUP_STATS_REQUEST';
+const GET_GROUP_STATS_SUCCESS = 'saints-xctf-web/groups/GET_GROUP_STATS_SUCCESS';
+const GET_GROUP_STATS_FAILURE = 'saints-xctf-web/groups/GET_GROUP_STATS_FAILURE';
 
 // Action Types
 
@@ -53,18 +56,39 @@ interface GetGroupMembersFailureAction {
   groupId: number;
 }
 
+interface GetGroupStatsRequestAction {
+  type: typeof GET_GROUP_STATS_REQUEST;
+  groupId: number;
+}
+
+interface GetGroupStatsSuccessAction {
+  type: typeof GET_GROUP_STATS_SUCCESS;
+  stats: StatsMeta;
+  groupId: number;
+}
+
+interface GetGroupStatsFailureAction {
+  type: typeof GET_GROUP_STATS_FAILURE;
+  serverError: string;
+  groupId: number;
+}
+
 type GroupActionTypes =
   | GetGroupRequestAction
   | GetGroupSuccessAction
   | GetGroupFailureAction
   | GetGroupMembersRequestAction
   | GetGroupMembersSuccessAction
-  | GetGroupMembersFailureAction;
+  | GetGroupMembersFailureAction
+  | GetGroupStatsRequestAction
+  | GetGroupStatsSuccessAction
+  | GetGroupStatsFailureAction;
 
 // Reducer
 const initialState: GroupState = {
   group: {},
-  members: {}
+  members: {},
+  stats: {}
 };
 
 function getGroupRequestReducer(state: GroupState, action: GetGroupRequestAction): GroupState {
@@ -171,6 +195,58 @@ function getGroupMembersFailureReducer(state: GroupState, action: GetGroupMember
   };
 }
 
+function getGroupStatsRequestReducer(state: GroupState, action: GetGroupStatsRequestAction): GroupState {
+  const existingGroupStatsState = state.stats[action.groupId] ?? {};
+
+  return {
+    ...state,
+    stats: {
+      ...state.stats,
+      [action.groupId]: {
+        ...existingGroupStatsState,
+        isFetching: true,
+        lastUpdated: moment().unix(),
+        serverError: null
+      }
+    }
+  };
+}
+
+function getGroupStatsSuccessReducer(state: GroupState, action: GetGroupStatsSuccessAction): GroupState {
+  const existingGroupStatsState = state.stats[action.groupId] ?? {};
+
+  return {
+    ...state,
+    stats: {
+      ...state.stats,
+      [action.groupId]: {
+        ...existingGroupStatsState,
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: null,
+        ...action.stats
+      }
+    }
+  };
+}
+
+function getGroupStatsFailureReducer(state: GroupState, action: GetGroupStatsFailureAction): GroupState {
+  const existingGroupStatsState = state.stats[action.groupId] ?? {};
+
+  return {
+    ...state,
+    stats: {
+      ...state.stats,
+      [action.groupId]: {
+        ...existingGroupStatsState,
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError
+      }
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: GroupActionTypes): GroupState {
   switch (action.type) {
     case GET_GROUP_REQUEST:
@@ -185,6 +261,12 @@ export default function reducer(state = initialState, action: GroupActionTypes):
       return getGroupMembersSuccessReducer(state, action);
     case GET_GROUP_MEMBERS_FAILURE:
       return getGroupMembersFailureReducer(state, action);
+    case GET_GROUP_STATS_REQUEST:
+      return getGroupStatsRequestReducer(state, action);
+    case GET_GROUP_STATS_SUCCESS:
+      return getGroupStatsSuccessReducer(state, action);
+    case GET_GROUP_STATS_FAILURE:
+      return getGroupStatsFailureReducer(state, action);
     default:
       return state;
   }
@@ -237,6 +319,29 @@ export function getGroupMembersFailure(serverError: string, groupId: number): Ge
   };
 }
 
+export function getGroupStatsRequest(groupId: number): GetGroupStatsRequestAction {
+  return {
+    type: GET_GROUP_STATS_REQUEST,
+    groupId
+  };
+}
+
+export function getGroupStatsSuccess(stats: StatsMeta, groupId: number): GetGroupStatsSuccessAction {
+  return {
+    type: GET_GROUP_STATS_SUCCESS,
+    stats,
+    groupId
+  };
+}
+
+export function getGroupStatsFailure(serverError: string, groupId: number): GetGroupStatsFailureAction {
+  return {
+    type: GET_GROUP_STATS_FAILURE,
+    serverError,
+    groupId
+  };
+}
+
 export function getGroup(groupId: number) {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupRequest(groupId));
@@ -269,6 +374,24 @@ export function getGroupMembers(groupId: number) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getGroupMembersFailure(serverError, groupId));
+    }
+  };
+}
+
+export function getGroupStats(groupId: number) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(getGroupStatsRequest(groupId));
+
+    try {
+      const response = await api.get(`groups/statistics/${groupId}`);
+      const { stats } = response.data;
+
+      dispatch(getGroupStatsSuccess(stats, groupId));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(getGroupStatsFailure(serverError, groupId));
     }
   };
 }

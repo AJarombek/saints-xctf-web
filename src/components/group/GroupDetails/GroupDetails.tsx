@@ -11,6 +11,7 @@ import { GroupMeta, StatsMeta } from '../../../redux/types';
 import { useDispatch } from 'react-redux';
 import StatisticSection from '../../shared/StatisticSection/StatisticSection';
 import { useStatsExercises, useStatsFeeling, useStatsRunning } from '../../../hooks/stats';
+import { getGroupStats } from '../../../redux/modules/groups';
 
 interface Props {
   group: GroupMeta;
@@ -26,7 +27,7 @@ const GroupDetails: React.FunctionComponent<Props> = ({ group, stats }) => {
 
   useEffect(() => {
     if (group?.id && !stats && !stats?.isFetching && !stats?.serverError) {
-      // dispatch(getGroupStats(group.id)); // TODO
+      dispatch(getGroupStats(group.id));
     }
   }, [group, stats, dispatch]);
 

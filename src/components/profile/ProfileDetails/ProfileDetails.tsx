@@ -4,7 +4,7 @@
  * @since 10/18/2020
  */
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { UserMeta, StatsMeta } from '../../../redux/types';
@@ -13,7 +13,7 @@ import { getUserStats } from '../../../redux/modules/profile';
 import StatisticSection from '../../shared/StatisticSection/StatisticSection';
 import moment from 'moment';
 import classNames from 'classnames';
-import {useStatsExercises, useStatsFeeling, useStatsRunning} from "../../../hooks/stats";
+import { useStatsExercises, useStatsFeeling, useStatsRunning } from '../../../hooks/stats';
 
 interface Props {
   user: UserMeta;

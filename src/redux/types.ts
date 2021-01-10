@@ -71,6 +71,7 @@ export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
 export type GroupState = {
   group: Record<string, GroupMeta>;
   members: Record<string, MemberDetailsMeta>;
+  stats: Record<string, StatsMeta>;
 };
 
 export type TeamState = {

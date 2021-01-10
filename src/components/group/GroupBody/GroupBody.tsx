@@ -7,7 +7,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMeta, LogFeeds, RootState, User } from '../../../redux/types';
+import {GroupMeta, LogFeeds, RootState, StatsMeta, User} from '../../../redux/types';
 import PageTabs from '../../shared/PageTabs';
 import PictureTitle from '../../shared/PictureTitle';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,20 +38,24 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
 
   const dispatch = useDispatch();
   const logFeeds: LogFeeds = useSelector((state: RootState) => state.logs.feeds);
+  const allStats: Record<string, StatsMeta> = useSelector((state: RootState) => state.groups.stats ?? {});
 
   const [tab, setTab] = useState<GroupTab>(GroupTab.LOGS);
   const [bucket, setBucket] = useState<string>(null);
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
+  const groupId = useMemo(() => {
     const { id: groupId } = routeMatch.params as { id: string };
+    return groupId;
+  }, [routeMatch.params]);
 
+  useEffect(() => {
     if (!group) {
       dispatch(getGroup(+groupId));
     } else {
       setBucket(groupId);
     }
-  }, [routeMatch.params, group, dispatch]);
+  }, [groupId, group, dispatch]);
 
   useEffect(() => {
     if (bucket) {
@@ -103,7 +107,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
         )}
         {tab === GroupTab.MEMBERS && <></>}
         {tab === GroupTab.LEADERBOARD && <></>}
-        {tab === GroupTab.DETAILS && <GroupDetails group={group} stats={null} />}
+        {tab === GroupTab.DETAILS && <GroupDetails group={group} stats={allStats[groupId]} />}
       </section>
     </div>
   );
