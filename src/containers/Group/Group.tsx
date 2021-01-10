@@ -26,15 +26,19 @@ const Group: React.FunctionComponent<Props> = () => {
 
   const auth = useSelector((state: RootState) => state.auth.auth);
   const users = useSelector((state: RootState) => state.auth.user);
-  const groups = useSelector((state: RootState) => state.groups.group);
+  const groups = useSelector((state: RootState) => state.groups?.group);
 
   const ref = useRef(null);
 
   useSignInCheck();
 
   const group: GroupMeta = useMemo(() => {
-    const { id: groupId } = routeMatch.params;
-    return groups[groupId];
+    if (groups) {
+      const { id: groupId } = routeMatch.params as { id: string };
+      return groups[groupId];
+    } else {
+      return null;
+    }
   }, [routeMatch.params, groups]);
 
   if (userAuthenticated(users, auth.signedInUser)) {

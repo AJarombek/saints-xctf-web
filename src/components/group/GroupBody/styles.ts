@@ -11,6 +11,6 @@ import Mixins from '../../../styles/mixins';
 
 export default {
   groupBody: {
-    ...Mixins.defaultBody()
+    ...Mixins.profileAndGroupBody()
   }
 };

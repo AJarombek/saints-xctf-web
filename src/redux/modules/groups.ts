@@ -185,6 +185,8 @@ export default function reducer(state = initialState, action: GroupActionTypes):
       return getGroupMembersSuccessReducer(state, action);
     case GET_GROUP_MEMBERS_FAILURE:
       return getGroupMembersFailureReducer(state, action);
+    default:
+      return state;
   }
 }
 

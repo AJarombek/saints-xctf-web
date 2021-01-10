@@ -13,7 +13,7 @@ interface Props {
   stats: Stat[];
 }
 
-type Stat = {
+export type Stat = {
   name: ReactNode;
   value: string | number;
 };

@@ -96,7 +96,7 @@ export type Users = {
   [key: string]: {
     user?: UserMeta;
     flair?: FlairMeta;
-    stats?: UserStatsMeta;
+    stats?: StatsMeta;
     memberships?: Memberships;
     updateMemberships?: UpdateMemberships;
     updating?: UpdateUser;
@@ -363,9 +363,9 @@ export type Flair = {
   username?: string;
 };
 
-export interface UserStatsMeta extends UserStats, Meta {}
+export interface StatsMeta extends Stats, Meta {}
 
-export type UserStats = {
+export type Stats = {
   miles_all_time?: number;
   miles_past_year?: number;
   miles_past_month?: number;

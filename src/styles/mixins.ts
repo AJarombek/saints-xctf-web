@@ -261,6 +261,22 @@ class Mixins {
     backgroundColor: Colors.lightBackground,
     margin: '100px 6% 0 6%'
   });
+
+  static profileAndGroupBody = (): object => ({
+    ...Mixins.defaultBody(),
+    flexDirection: 'row',
+    margin: '100px 4% 0 4%',
+
+    '& > aside': {
+      flexBasis: '20%',
+      marginRight: 40
+    },
+
+    '& > section': {
+      flexBasis: '80%',
+      margin: '0 20px'
+    }
+  });
 }
 
 export { Mixins, FontMixins };

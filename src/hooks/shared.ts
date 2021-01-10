@@ -1,9 +1,9 @@
-import {ExerciseFilters, RangeViewExerciseType, RootState} from '../redux/types';
+import { ExerciseFilters, RangeViewExerciseType, RootState } from '../redux/types';
 import { useEffect, useState } from 'react';
-import {setUserFromStorage} from "../redux/modules/auth";
-import {userAuthenticated} from "../utils/auth";
-import {useDispatch, useSelector} from "react-redux";
-import {useHistory} from "react-router-dom";
+import { setUserFromStorage } from '../redux/modules/auth';
+import { userAuthenticated } from '../utils/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 /**
  * Custom React hook which constructs an exercise type string from an exercise filter object.

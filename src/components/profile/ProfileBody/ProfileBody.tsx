@@ -18,7 +18,7 @@ import {
   RootState,
   UserMeta,
   Users,
-  UserStatsMeta
+  StatsMeta
 } from '../../../redux/types';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
 import LogFeed from '../../shared/LogFeed/LogFeed';
@@ -33,7 +33,7 @@ import EditProfile from '../EditProfile';
 interface Props {
   user: UserMeta;
   flair: FlairMeta;
-  stats: UserStatsMeta;
+  stats: StatsMeta;
   rangeViews: RangeViewExerciseTypeFilters;
 }
 

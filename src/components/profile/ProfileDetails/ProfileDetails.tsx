@@ -1,5 +1,5 @@
 /**
- * Component for a tab on the profile page which shows a details about a user's profile.
+ * Component for a tab on the profile page which shows details about a user's profile.
  * @author Andrew Jarombek
  * @since 10/18/2020
  */
@@ -7,16 +7,17 @@
 import React, { useEffect, useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { UserMeta, UserStatsMeta } from '../../../redux/types';
+import { UserMeta, StatsMeta } from '../../../redux/types';
 import { useDispatch } from 'react-redux';
 import { getUserStats } from '../../../redux/modules/profile';
-import StatisticSection from '../StatisticSection/StatisticSection';
+import StatisticSection from '../../shared/StatisticSection/StatisticSection';
 import moment from 'moment';
 import classNames from 'classnames';
+import {useStatsExercises, useStatsFeeling, useStatsRunning} from "../../../hooks/stats";
 
 interface Props {
   user: UserMeta;
-  stats: UserStatsMeta;
+  stats: StatsMeta;
 }
 
 const useStyles = createUseStyles(styles);
@@ -32,44 +33,9 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
     }
   }, [user, stats, dispatch]);
 
-  const exerciseStats = useMemo(() => {
-    if (stats) {
-      return [
-        { name: 'All Time', value: `${stats.miles_all_time?.toFixed(2)} mi.` },
-        { name: moment().year(), value: `${stats.miles_past_year?.toFixed(2)} mi.` },
-        { name: moment().format('MMMM YYYY'), value: `${stats.miles_past_month?.toFixed(2)} mi.` },
-        { name: 'This Week', value: `${stats.miles_past_week?.toFixed(2)} mi.` }
-      ];
-    } else {
-      return [];
-    }
-  }, [stats]);
-
-  const runningStats = useMemo(() => {
-    if (stats) {
-      return [
-        { name: 'All Time', value: `${stats.run_miles_all_time?.toFixed(2)} mi.` },
-        { name: moment().year(), value: `${stats.run_miles_past_year?.toFixed(2)} mi.` },
-        { name: moment().format('MMMM YYYY'), value: `${stats.run_miles_past_month?.toFixed(2)} mi.` },
-        { name: 'This Week', value: `${stats.run_miles_past_week?.toFixed(2)} mi.` }
-      ];
-    } else {
-      return [];
-    }
-  }, [stats]);
-
-  const feelStats = useMemo(() => {
-    if (stats) {
-      return [
-        { name: 'All Time', value: stats.feel_all_time?.toFixed(2) },
-        { name: moment().year(), value: stats.feel_past_year?.toFixed(2) },
-        { name: moment().format('MMMM YYYY'), value: stats.feel_past_month?.toFixed(2) },
-        { name: 'This Week', value: stats.feel_past_week?.toFixed(2) }
-      ];
-    } else {
-      return [];
-    }
-  }, [stats]);
+  const exerciseStats = useStatsExercises(stats);
+  const runningStats = useStatsRunning(stats);
+  const feelStats = useStatsFeeling(stats);
 
   return (
     <div className={classes.profileDetails}>

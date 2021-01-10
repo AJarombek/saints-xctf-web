@@ -17,7 +17,7 @@ type Tab = {
 };
 
 interface Props {
-  currentTab: ProfileTab;
+  currentTab: number;
   tabs: Tab[];
 }
 

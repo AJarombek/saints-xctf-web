@@ -26,11 +26,11 @@ const LogFeed: React.FunctionComponent<Props> = ({ logFeeds, page, user, filterB
 
   const logs: Log[] = useMemo(() => {
     return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.items ?? [];
-  }, [logFeeds, page]);
+  }, [logFeeds, page, bucket, filterBy]);
 
   const loading: boolean = useMemo(() => {
     return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.isFetching ?? true;
-  }, [logFeeds, page]);
+  }, [logFeeds, page, bucket, filterBy]);
 
   return (
     <div id="logFeed" className={classes.logFeed}>

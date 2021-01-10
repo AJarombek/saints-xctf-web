@@ -8,7 +8,7 @@ import { api } from '../../datasources/apiRequest';
 import { fn } from '../../datasources/fnRequest';
 import moment from 'moment';
 import { Dispatch } from 'redux';
-import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, UserStats } from '../types';
+import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, Stats } from '../types';
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -101,7 +101,7 @@ interface GetUserStatsRequestAction {
 interface GetUserStatsSuccessAction {
   type: typeof GET_USER_STATS_SUCCESS;
   username: string;
-  stats: UserStats[];
+  stats: Stats[];
 }
 
 interface GetUserStatsFailureAction {
@@ -751,7 +751,7 @@ export function getUserStatsRequest(username: string): GetUserStatsRequestAction
   };
 }
 
-export function getUserStatsSuccess(username: string, stats: UserStats[]): GetUserStatsSuccessAction {
+export function getUserStatsSuccess(username: string, stats: Stats[]): GetUserStatsSuccessAction {
   return {
     type: GET_USER_STATS_SUCCESS,
     username,

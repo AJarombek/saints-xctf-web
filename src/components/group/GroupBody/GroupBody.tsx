@@ -16,6 +16,7 @@ import { useRouteMatch } from 'react-router-dom';
 import LogFeed from '../../shared/LogFeed';
 import PaginationBar from '../../shared/PaginationBar';
 import { logFeed } from '../../../redux/modules/logs';
+import GroupDetails from "../GroupDetails/GroupDetails";
 
 interface Props {
   user: User;
@@ -43,10 +44,10 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    const { id: groupId } = routeMatch.params;
+    const { id: groupId } = routeMatch.params as { id: string };
 
     if (!group) {
-      dispatch(getGroup(groupId));
+      dispatch(getGroup(+groupId));
     } else {
       setBucket(groupId);
     }
@@ -89,7 +90,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
       <section>
         {tab === GroupTab.LOGS && (
           <>
-            <LogFeed logFeeds={logFeeds} page={page} user={user} filterBy="user" bucket={bucket} />
+            <LogFeed logFeeds={logFeeds} page={page} user={user} filterBy="group" bucket={bucket} />
             <PaginationBar
               page={page}
               totalPages={totalPages}
@@ -102,7 +103,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
         )}
         {tab === GroupTab.MEMBERS && <></>}
         {tab === GroupTab.LEADERBOARD && <></>}
-        {tab === GroupTab.DETAILS && <></>}
+        {tab === GroupTab.DETAILS && <GroupDetails group={group} stats={null} />}
       </section>
     </div>
   );
