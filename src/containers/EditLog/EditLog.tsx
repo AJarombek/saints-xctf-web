@@ -7,9 +7,8 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { RootState } from '../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useRouteMatch } from 'react-router-dom';
 import { userAuthenticated } from '../../utils/auth';
-import { setUserFromStorage } from '../../redux/modules/auth';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import NavBar from '../../components/shared/NavBar';
@@ -17,6 +16,7 @@ import LogBody from '../../components/new-edit-log/LogBody';
 import { getLog } from '../../redux/modules/logs';
 import NotFound from '../../components/shared/NotFound/NotFound';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
+import { useSignInCheck } from '../../hooks/shared';
 
 type Props = {};
 
@@ -24,7 +24,6 @@ const useStyles = createUseStyles(styles);
 
 const EditLog: React.FunctionComponent<Props> = () => {
   const routeMatch = useRouteMatch();
-  const history = useHistory();
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -40,7 +39,7 @@ const EditLog: React.FunctionComponent<Props> = () => {
   const logId = useMemo(() => {
     const urlPaths = routeMatch.url.split('/');
     return +urlPaths[urlPaths.length - 1];
-  }, []);
+  }, [routeMatch.url]);
 
   useEffect(() => {
     if (logId) {
@@ -50,21 +49,13 @@ const EditLog: React.FunctionComponent<Props> = () => {
     }
 
     setLogValidated(true);
-  }, []);
+  }, [dispatch, logId]);
 
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-
-    if (!Object.keys(users).length && storedUser) {
-      dispatch(setUserFromStorage(storedUser));
-    } else if (!userAuthenticated(users, auth.signedInUser) && !storedUser) {
-      history.push('/');
-    }
-  }, [users]);
+  useSignInCheck();
 
   const log = useMemo(() => {
     return logs[logId];
-  }, [logs]);
+  }, [logs, logId]);
 
   if (userAuthenticated(users, auth.signedInUser) && logValidated) {
     return (

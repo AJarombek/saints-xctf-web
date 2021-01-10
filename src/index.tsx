@@ -26,6 +26,8 @@ import NewLog from './containers/NewLog/NewLog';
 import Profile from './containers/Profile/Profile';
 import Teams from './containers/Teams';
 import Group from './containers/Group';
+import Admin from './containers/Admin';
+import GroupAdmin from './containers/GroupAdmin';
 
 dotenv.config();
 const store = configureStore();
@@ -38,6 +40,8 @@ const RoutedApp = (): JSX.Element => (
         <>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/admin" component={Admin} />
+            <Route exact path="/admin/group/:id" component={GroupAdmin} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/forgotpassword/email" component={ForgotPassword} />
