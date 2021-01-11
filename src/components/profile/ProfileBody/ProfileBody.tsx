@@ -70,11 +70,11 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
         setBucket(user.username);
       }
 
-      if (!userProfiles[user.username]?.memberships) {
+      if (!userProfiles[user.username]?.memberships && user.username) {
         dispatch(getUserMemberships(user.username));
       }
 
-      if (!flair) {
+      if (!flair && user.username) {
         dispatch(getUserFlair(user.username));
       }
     }

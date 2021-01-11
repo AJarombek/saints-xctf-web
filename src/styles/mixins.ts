@@ -1,5 +1,5 @@
 import Colors from './colors';
-import color from "color";
+import color from 'color';
 
 /**
  * JSS mixins reused throughout the application.

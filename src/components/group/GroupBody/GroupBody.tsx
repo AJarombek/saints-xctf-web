@@ -18,6 +18,7 @@ import PaginationBar from '../../shared/PaginationBar';
 import { logFeed } from '../../../redux/modules/logs';
 import GroupDetails from '../GroupDetails/GroupDetails';
 import GroupMembers from '../GroupMembers';
+import Leaderboard from "../Leaderboard";
 
 interface Props {
   user: User;
@@ -119,7 +120,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
           </>
         )}
         {tab === GroupTab.MEMBERS && <GroupMembers members={members} />}
-        {tab === GroupTab.LEADERBOARD && <></>}
+        {tab === GroupTab.LEADERBOARD && <Leaderboard />}
         {tab === GroupTab.DETAILS && <GroupDetails group={group} stats={allStats[groupId]} />}
       </section>
     </div>

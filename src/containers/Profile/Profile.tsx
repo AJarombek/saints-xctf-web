@@ -54,7 +54,7 @@ const Profile: React.FunctionComponent<Props> = () => {
     if (auth.signedInUser && !users[username]?.user?.isFetching && !users[username]?.user?.username) {
       if (auth.signedInUser === username && authUsers[username]) {
         dispatch(setUser(authUsers[username]?.user));
-      } else {
+      } else if (username) {
         dispatch(getUser(username));
       }
     }
