@@ -6,7 +6,7 @@
 
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
-import { Group, GroupState, MemberDetails, StatsMeta } from '../types';
+import { Group, GroupState, LeaderboardInterval, LeaderboardItem, MemberDetails, Stats } from '../types';
 import { Dispatch } from 'redux';
 
 // Actions
@@ -19,6 +19,9 @@ const GET_GROUP_MEMBERS_FAILURE = 'saints-xctf-web/groups/GET_GROUP_MEMBERS_FAIL
 const GET_GROUP_STATS_REQUEST = 'saints-xctf-web/groups/GET_GROUP_STATS_REQUEST';
 const GET_GROUP_STATS_SUCCESS = 'saints-xctf-web/groups/GET_GROUP_STATS_SUCCESS';
 const GET_GROUP_STATS_FAILURE = 'saints-xctf-web/groups/GET_GROUP_STATS_FAILURE';
+const GET_GROUP_LEADERBOARD_REQUEST = 'saints-xctf-web/groups/GET_GROUP_LEADERBOARD_REQUEST';
+const GET_GROUP_LEADERBOARD_SUCCESS = 'saints-xctf-web/groups/GET_GROUP_LEADERBOARD_SUCCESS';
+const GET_GROUP_LEADERBOARD_FAILURE = 'saints-xctf-web/groups/GET_GROUP_LEADERBOARD_FAILURE';
 
 // Action Types
 
@@ -63,7 +66,7 @@ interface GetGroupStatsRequestAction {
 
 interface GetGroupStatsSuccessAction {
   type: typeof GET_GROUP_STATS_SUCCESS;
-  stats: StatsMeta;
+  stats: Stats;
   groupId: number;
 }
 
@@ -71,6 +74,26 @@ interface GetGroupStatsFailureAction {
   type: typeof GET_GROUP_STATS_FAILURE;
   serverError: string;
   groupId: number;
+}
+
+interface GetGroupLeaderboardRequestAction {
+  type: typeof GET_GROUP_LEADERBOARD_REQUEST;
+  groupId: number;
+  interval?: LeaderboardInterval;
+}
+
+interface GetGroupLeaderboardSuccessAction {
+  type: typeof GET_GROUP_LEADERBOARD_SUCCESS;
+  leaderboardItems: LeaderboardItem[];
+  groupId: number;
+  interval?: LeaderboardInterval;
+}
+
+interface GetGroupLeaderboardFailureAction {
+  type: typeof GET_GROUP_LEADERBOARD_FAILURE;
+  serverError: string;
+  groupId: number;
+  interval?: LeaderboardInterval;
 }
 
 type GroupActionTypes =
@@ -82,13 +105,17 @@ type GroupActionTypes =
   | GetGroupMembersFailureAction
   | GetGroupStatsRequestAction
   | GetGroupStatsSuccessAction
-  | GetGroupStatsFailureAction;
+  | GetGroupStatsFailureAction
+  | GetGroupLeaderboardRequestAction
+  | GetGroupLeaderboardSuccessAction
+  | GetGroupLeaderboardFailureAction;
 
 // Reducer
 const initialState: GroupState = {
   group: {},
   members: {},
-  stats: {}
+  stats: {},
+  leaderboards: {}
 };
 
 function getGroupRequestReducer(state: GroupState, action: GetGroupRequestAction): GroupState {
@@ -247,6 +274,64 @@ function getGroupStatsFailureReducer(state: GroupState, action: GetGroupStatsFai
   };
 }
 
+function getGroupLeaderboardRequestReducer(state: GroupState, action: GetGroupLeaderboardRequestAction): GroupState {
+  const existingLeaderboardStatsState = state.leaderboards[action.groupId] ?? {};
+
+  return {
+    ...state,
+    leaderboards: {
+      ...state.leaderboards,
+      [action.groupId]: {
+        ...existingLeaderboardStatsState,
+        [action.interval ?? 'all']: {
+          isFetching: true,
+          lastUpdated: moment().unix(),
+          serverError: null
+        }
+      }
+    }
+  };
+}
+
+function getGroupLeaderboardSuccessReducer(state: GroupState, action: GetGroupLeaderboardSuccessAction): GroupState {
+  const existingGroupLeaderboardState = state.leaderboards[action.groupId] ?? {};
+
+  return {
+    ...state,
+    leaderboards: {
+      ...state.leaderboards,
+      [action.groupId]: {
+        ...existingGroupLeaderboardState,
+        [action.interval ?? 'all']: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          serverError: null,
+          items: action.leaderboardItems
+        }
+      }
+    }
+  };
+}
+
+function getGroupLeaderboardFailureReducer(state: GroupState, action: GetGroupLeaderboardFailureAction): GroupState {
+  const existingGroupLeaderboardState = state.leaderboards[action.groupId] ?? {};
+
+  return {
+    ...state,
+    leaderboards: {
+      ...state.leaderboards,
+      [action.groupId]: {
+        ...existingGroupLeaderboardState,
+        [action.interval ?? 'all']: {
+          isFetching: false,
+          lastUpdated: moment().unix(),
+          serverError: action.serverError
+        }
+      }
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: GroupActionTypes): GroupState {
   switch (action.type) {
     case GET_GROUP_REQUEST:
@@ -267,6 +352,12 @@ export default function reducer(state = initialState, action: GroupActionTypes):
       return getGroupStatsSuccessReducer(state, action);
     case GET_GROUP_STATS_FAILURE:
       return getGroupStatsFailureReducer(state, action);
+    case GET_GROUP_LEADERBOARD_REQUEST:
+      return getGroupLeaderboardRequestReducer(state, action);
+    case GET_GROUP_LEADERBOARD_SUCCESS:
+      return getGroupLeaderboardSuccessReducer(state, action);
+    case GET_GROUP_LEADERBOARD_FAILURE:
+      return getGroupLeaderboardFailureReducer(state, action);
     default:
       return state;
   }
@@ -326,7 +417,7 @@ export function getGroupStatsRequest(groupId: number): GetGroupStatsRequestActio
   };
 }
 
-export function getGroupStatsSuccess(stats: StatsMeta, groupId: number): GetGroupStatsSuccessAction {
+export function getGroupStatsSuccess(stats: Stats, groupId: number): GetGroupStatsSuccessAction {
   return {
     type: GET_GROUP_STATS_SUCCESS,
     stats,
@@ -339,6 +430,43 @@ export function getGroupStatsFailure(serverError: string, groupId: number): GetG
     type: GET_GROUP_STATS_FAILURE,
     serverError,
     groupId
+  };
+}
+
+export function getGroupLeaderboardRequest(
+  groupId: number,
+  interval: LeaderboardInterval
+): GetGroupLeaderboardRequestAction {
+  return {
+    type: GET_GROUP_LEADERBOARD_REQUEST,
+    groupId,
+    interval
+  };
+}
+
+export function getGroupLeaderboardSuccess(
+  leaderboardItems: LeaderboardItem[],
+  groupId: number,
+  interval: LeaderboardInterval
+): GetGroupLeaderboardSuccessAction {
+  return {
+    type: GET_GROUP_LEADERBOARD_SUCCESS,
+    leaderboardItems,
+    groupId,
+    interval
+  };
+}
+
+export function getGroupLeaderboardFailure(
+  serverError: string,
+  groupId: number,
+  interval: LeaderboardInterval
+): GetGroupLeaderboardFailureAction {
+  return {
+    type: GET_GROUP_LEADERBOARD_FAILURE,
+    serverError,
+    groupId,
+    interval
   };
 }
 
@@ -392,6 +520,24 @@ export function getGroupStats(groupId: number) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getGroupStatsFailure(serverError, groupId));
+    }
+  };
+}
+
+export function getGroupLeaderboard(groupId: number, interval: LeaderboardInterval = null) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(getGroupLeaderboardRequest(groupId, interval));
+
+    try {
+      const response = await api.get(`groups/leaderboard/${groupId}${interval ? `/${interval}` : ''}`);
+      const { leaderboard: leaderboardItems } = response.data;
+
+      dispatch(getGroupLeaderboardSuccess(leaderboardItems, groupId, interval));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(getGroupLeaderboardFailure(serverError, groupId, interval));
     }
   };
 }

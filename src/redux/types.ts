@@ -72,6 +72,7 @@ export type GroupState = {
   group: Record<string, GroupMeta>;
   members: Record<string, MemberDetailsMeta>;
   stats: Record<string, StatsMeta>;
+  leaderboards: Record<string, Leaderboards>;
 };
 
 export type TeamState = {
@@ -379,6 +380,30 @@ export type Stats = {
   feel_past_year?: number;
   feel_past_month?: number;
   feel_past_week?: number;
+};
+
+export type LeaderboardInterval = 'year' | 'month' | 'week';
+
+export type Leaderboards = {
+  all?: LeaderboardItemMeta;
+  year?: LeaderboardItemMeta;
+  month?: LeaderboardItemMeta;
+  week?: LeaderboardItemMeta;
+};
+
+export interface LeaderboardItemMeta extends Meta {
+  items: LeaderboardItem[];
+}
+
+export type LeaderboardItem = {
+  username: string;
+  first: string;
+  last: string;
+  miles: number;
+  miles_run: number;
+  miles_biked: number;
+  miles_swam: number;
+  miles_other: number;
 };
 
 export type RangeViewFilter = 'users' | 'groups';
