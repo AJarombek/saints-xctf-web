@@ -34,4 +34,21 @@ export class Modules {
       }
     }
   });
+
+  static filters = (): Styles<'filters' | 'filterTitle' | '@media screen and (max-width: 900px)'> => ({
+    filters: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    filterTitle: {
+      ...FontMixins.robotoSlab(),
+      margin: '30px 40px 30px 0'
+    },
+    '@media screen and (max-width: 900px)': {
+      filterTitle: {
+        margin: '20px 20px 20px 0'
+      }
+    }
+  });
 }

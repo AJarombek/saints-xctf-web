@@ -120,7 +120,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
           </>
         )}
         {tab === GroupTab.MEMBERS && <GroupMembers members={members} />}
-        {tab === GroupTab.LEADERBOARD && <Leaderboard />}
+        {tab === GroupTab.LEADERBOARD && <Leaderboard group={group} />}
         {tab === GroupTab.DETAILS && <GroupDetails group={group} stats={allStats[groupId]} />}
       </section>
     </div>

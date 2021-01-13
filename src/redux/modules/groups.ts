@@ -283,7 +283,7 @@ function getGroupLeaderboardRequestReducer(state: GroupState, action: GetGroupLe
       ...state.leaderboards,
       [action.groupId]: {
         ...existingLeaderboardStatsState,
-        [action.interval ?? 'all']: {
+        [action.interval]: {
           isFetching: true,
           lastUpdated: moment().unix(),
           serverError: null
@@ -302,7 +302,7 @@ function getGroupLeaderboardSuccessReducer(state: GroupState, action: GetGroupLe
       ...state.leaderboards,
       [action.groupId]: {
         ...existingGroupLeaderboardState,
-        [action.interval ?? 'all']: {
+        [action.interval]: {
           isFetching: false,
           lastUpdated: moment().unix(),
           serverError: null,
@@ -322,7 +322,7 @@ function getGroupLeaderboardFailureReducer(state: GroupState, action: GetGroupLe
       ...state.leaderboards,
       [action.groupId]: {
         ...existingGroupLeaderboardState,
-        [action.interval ?? 'all']: {
+        [action.interval]: {
           isFetching: false,
           lastUpdated: moment().unix(),
           serverError: action.serverError
@@ -529,7 +529,7 @@ export function getGroupLeaderboard(groupId: number, interval: LeaderboardInterv
     dispatch(getGroupLeaderboardRequest(groupId, interval));
 
     try {
-      const response = await api.get(`groups/leaderboard/${groupId}${interval ? `/${interval}` : ''}`);
+      const response = await api.get(`groups/leaderboard/${groupId}${interval === 'all' ? '' : `/${interval}`}`);
       const { leaderboard: leaderboardItems } = response.data;
 
       dispatch(getGroupLeaderboardSuccess(leaderboardItems, groupId, interval));

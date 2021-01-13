@@ -4,22 +4,9 @@
  * @since 10/18/2020
  */
 
-import {FontMixins} from '../../../styles/mixins';
+import { Modules } from '../../../styles/modules';
 
 export default {
   monthlyCalendar: {},
-  filters: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  filterTitle: {
-    ...FontMixins.robotoSlab(),
-    margin: '30px 40px 30px 0'
-  },
-  '@media screen and (max-width: 900px)': {
-    filterTitle: {
-      margin: '20px 20px 20px 0'
-    }
-  }
+  ...Modules.filters()
 };

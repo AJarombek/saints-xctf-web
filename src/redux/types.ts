@@ -382,7 +382,7 @@ export type Stats = {
   feel_past_week?: number;
 };
 
-export type LeaderboardInterval = 'year' | 'month' | 'week';
+export type LeaderboardInterval = 'all' | 'year' | 'month' | 'week';
 
 export type Leaderboards = {
   all?: LeaderboardItemMeta;
