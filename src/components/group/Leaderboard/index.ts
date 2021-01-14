@@ -1,3 +1,4 @@
-import Leaderboard from './Leaderboard';
+import Leaderboard, { CurrentLeaderboardItem } from './Leaderboard';
 
+export { CurrentLeaderboardItem };
 export default Leaderboard;

@@ -12,17 +12,18 @@ import {
   ExerciseFilters,
   GroupMeta,
   LeaderboardInterval,
-  LeaderboardItem,
+  LeaderboardItem as LeaderboardItemType,
   Leaderboards,
   RootState
 } from '../../../redux/types';
 import { getGroupLeaderboard } from '../../../redux/modules/groups';
 import FilterButtons from '../../shared/FilterButtons';
 import { AJSelect } from 'jarombek-react-components';
+import LeaderboardItem from '../LeaderboardItem';
 
 const useStyles = createUseStyles(styles);
 
-type CurrentLeaderboardItem = {
+export type CurrentLeaderboardItem = {
   username: string;
   first: string;
   last: string;
@@ -54,7 +55,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
     }
   }, [group, dispatch, interval]);
 
-  const leaderboardItems: LeaderboardItem[] = useMemo(() => {
+  const leaderboardItems: LeaderboardItemType[] = useMemo(() => {
     if (group?.id) {
       const groupLeaderboard: Leaderboards = allLeaderboards[group.id] ?? {};
       return groupLeaderboard[interval]?.items;
@@ -66,7 +67,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
   const currentLeaderboard: CurrentLeaderboardItem[] = useMemo(() => {
     return (
       leaderboardItems
-        ?.map((item: LeaderboardItem) => ({
+        ?.map((item: LeaderboardItemType) => ({
           username: item.username,
           first: item.first,
           last: item.last,
@@ -107,17 +108,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
       </div>
       <div className={classes.barChart}>
         {currentLeaderboard.map((item: CurrentLeaderboardItem) => (
-          <div key={item.username} className={classes.leaderboardItem}>
-            <p className={classes.itemName}>
-              {item.first} {item.last}
-            </p>
-            <div className={classes.bar}>
-              <div className={classes.barBackground} />
-              <div className={classes.barFill} style={{ width: `${(item.value / leaderMiles) * 100}%` }}>
-                <p>{item.value.toFixed(2)}</p>
-              </div>
-            </div>
-          </div>
+          <LeaderboardItem key={item.username} item={item} leaderMiles={leaderMiles} />
         ))}
       </div>
     </div>
