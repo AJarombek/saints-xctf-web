@@ -22,6 +22,13 @@ import { AJSelect } from 'jarombek-react-components';
 
 const useStyles = createUseStyles(styles);
 
+type CurrentLeaderboardItem = {
+  username: string;
+  first: string;
+  last: string;
+  value: number;
+};
+
 interface Props {
   group: GroupMeta;
 }
@@ -47,7 +54,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
     }
   }, [group, dispatch, interval]);
 
-  const leaderboard: LeaderboardItem[] = useMemo(() => {
+  const leaderboardItems: LeaderboardItem[] = useMemo(() => {
     if (group?.id) {
       const groupLeaderboard: Leaderboards = allLeaderboards[group.id] ?? {};
       return groupLeaderboard[interval]?.items;
@@ -55,6 +62,27 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
       return [];
     }
   }, [allLeaderboards, group.id, interval]);
+
+  const currentLeaderboard: CurrentLeaderboardItem[] = useMemo(() => {
+    return (
+      leaderboardItems
+        ?.map((item: LeaderboardItem) => ({
+          username: item.username,
+          first: item.first,
+          last: item.last,
+          value:
+            (selectedFilters.run ? item.miles_run : 0) +
+            (selectedFilters.bike ? item.miles_biked : 0) +
+            (selectedFilters.swim ? item.miles_swam : 0) +
+            (selectedFilters.other ? item.miles_other : 0)
+        }))
+        .sort((a: CurrentLeaderboardItem, b: CurrentLeaderboardItem) => b.value - a.value) ?? []
+    );
+  }, [selectedFilters, leaderboardItems]);
+
+  const leaderMiles: number = useMemo(() => {
+    return currentLeaderboard.length ? currentLeaderboard[0].value : 0;
+  }, [currentLeaderboard]);
 
   return (
     <div className={classes.leaderboard}>
@@ -70,11 +98,27 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
             { content: 'Past Month', value: 'month' },
             { content: 'Past Week', value: 'week' }
           ]}
-          defaultOption={0}
+          defaultOption={1}
           onClickListOption={(item: { content: string; value: string }): void =>
             setInterval(item.value as LeaderboardInterval)
           }
+          className={classes.select}
         />
+      </div>
+      <div className={classes.barChart}>
+        {currentLeaderboard.map((item: CurrentLeaderboardItem) => (
+          <div key={item.username} className={classes.leaderboardItem}>
+            <p className={classes.itemName}>
+              {item.first} {item.last}
+            </p>
+            <div className={classes.bar}>
+              <div className={classes.barBackground} />
+              <div className={classes.barFill} style={{ width: `${(item.value / leaderMiles) * 100}%` }}>
+                <p>{item.value.toFixed(2)}</p>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

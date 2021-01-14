@@ -279,5 +279,57 @@ class Mixins {
   });
 }
 
-export { Mixins, FontMixins };
+class AJComponentMixins {
+  static ajSelect = (): object => ({
+    position: 'relative',
+
+    '&.aj-select-open > div': {
+      borderRadius: '5px 5px 0 0'
+    },
+
+    '&.aj-select-closed > div': {
+      borderRadius: 5
+    },
+
+    '& > div': {
+      backgroundColor: Colors.lightestBackground,
+      height: 50,
+      border: 'none',
+      width: '100%',
+      padding: 10,
+      cursor: 'pointer',
+
+      '& > div:nth-child(1)': {
+        ...FontMixins.roboto(),
+        fontSize: 14
+      },
+
+      '& > div:nth-child(2)': {
+        marginLeft: 'auto'
+      }
+    },
+
+    '& > ul': {
+      width: '100%',
+      zIndex: 1,
+
+      '& > li': {
+        ...FontMixins.roboto(),
+        fontSize: 14,
+        textAlign: 'left',
+        paddingLeft: 10
+      },
+
+      '& > li:nth-child(odd)': {
+        backgroundColor: Colors.lightBackground
+      },
+
+      '& > li:nth-child(even)': {
+        backgroundColor: Colors.lightestBackground
+      }
+    }
+  });
+}
+
+export { Mixins, FontMixins, AJComponentMixins };
 export default Mixins;

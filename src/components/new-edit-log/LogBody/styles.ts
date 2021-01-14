@@ -5,7 +5,7 @@
  */
 
 import Colors, { FeelColors } from '../../../styles/colors';
-import Mixins, { FontMixins } from '../../../styles/mixins';
+import Mixins, {AJComponentMixins, FontMixins} from '../../../styles/mixins';
 import color from 'color';
 
 export default {
@@ -78,53 +78,7 @@ export default {
     paddingLeft: 10
   },
   select: {
-    position: 'relative',
-
-    '&.aj-select-open > div': {
-      borderRadius: '5px 5px 0 0'
-    },
-
-    '&.aj-select-closed > div': {
-      borderRadius: 5
-    },
-
-    '& > div': {
-      backgroundColor: Colors.lightestBackground,
-      height: 50,
-      border: 'none',
-      width: '100%',
-      padding: 10,
-      cursor: 'pointer',
-
-      '& > div:nth-child(1)': {
-        ...FontMixins.roboto(),
-        fontSize: 14
-      },
-
-      '& > div:nth-child(2)': {
-        marginLeft: 'auto'
-      }
-    },
-
-    '& > ul': {
-      width: '100%',
-      zIndex: 1,
-
-      '& > li': {
-        ...FontMixins.roboto(),
-        fontSize: 14,
-        textAlign: 'left',
-        paddingLeft: 10
-      },
-
-      '& > li:nth-child(odd)': {
-        backgroundColor: Colors.lightBackground
-      },
-
-      '& > li:nth-child(even)': {
-        backgroundColor: Colors.lightestBackground
-      }
-    }
+    ...AJComponentMixins.ajSelect()
   },
   textArea: {
     border: 'none',
