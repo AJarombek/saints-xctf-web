@@ -6,6 +6,8 @@
 
 import { Modules } from '../../../styles/modules';
 import { AJComponentMixins } from '../../../styles/mixins';
+import Colors from '../../../styles/colors';
+import color from 'color';
 
 export default {
   leaderboard: {},
@@ -17,5 +19,11 @@ export default {
   select: {
     ...AJComponentMixins.ajSelect()
   },
-  barChart: {}
+  barChart: {
+    backgroundColor: color(Colors.lightBackground).darken(0.05).hex(),
+    padding: 20,
+    borderRadius: 6,
+    marginTop: 10
+  },
+  errorMessage: {}
 };

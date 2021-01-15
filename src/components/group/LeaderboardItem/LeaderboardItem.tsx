@@ -4,7 +4,7 @@
  * @since 1/13/2021
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { CurrentLeaderboardItem } from '../Leaderboard';
@@ -17,7 +17,11 @@ interface Props {
 }
 
 const LeaderboardItem: React.FunctionComponent<Props> = ({ item, leaderMiles }) => {
-  const classes = useStyles({ barWidth: (item.value / leaderMiles) * 100 });
+  const width = useMemo(() => {
+    return (item.value / leaderMiles) * 100;
+  }, [item.value, leaderMiles]);
+
+  const classes = useStyles({ barWidth: width });
 
   return (
     <div key={item.username} className={classes.leaderboardItem}>
@@ -27,7 +31,7 @@ const LeaderboardItem: React.FunctionComponent<Props> = ({ item, leaderMiles }) 
       <div className={classes.bar}>
         <div className={classes.barBackground} />
         <div className={classes.barFill}>
-          <p>{item.value.toFixed(2)}</p>
+          <p className={width < 20 ? classes.textAfter : classes.textInner}>{item.value.toFixed(2)}</p>
         </div>
       </div>
     </div>

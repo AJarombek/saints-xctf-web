@@ -22,11 +22,15 @@ export default {
     }
   },
   itemName: {
-    flexBasis: '20%',
-    ...FontMixins.robotoSlab()
+    width: '25%',
+    ...FontMixins.robotoSlab(),
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    margin: '13px 10px 13px 0'
   },
   bar: {
-    flexBasis: '80%',
+    width: '75%',
     position: 'relative',
 
     '& > div': {
@@ -43,11 +47,20 @@ export default {
     alignItems: 'center',
     justifyContent: 'flex-end',
     width: ({ barWidth }: { barWidth: number }): string => `${barWidth}%`,
+    borderRadius: '0 5px 5px 0',
 
     '& > p': {
       ...FontMixins.robotoBold(),
-      color: 'white',
       marginRight: 10
     }
+  },
+  textInner: {
+    color: 'white'
+  },
+  textAfter: {
+    position: 'absolute',
+    left: '100%',
+    paddingLeft: 10,
+    color: '#555'
   }
 };

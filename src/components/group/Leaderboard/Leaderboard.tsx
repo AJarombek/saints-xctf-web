@@ -13,6 +13,7 @@ import {
   GroupMeta,
   LeaderboardInterval,
   LeaderboardItem as LeaderboardItemType,
+  LeaderboardItemMeta,
   Leaderboards,
   RootState
 } from '../../../redux/types';
@@ -50,19 +51,23 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
   });
 
   useEffect(() => {
-    if (group?.id) {
+    if (group?.id && !(allLeaderboards[group.id] && allLeaderboards[group.id][interval])) {
       dispatch(getGroupLeaderboard(group.id, interval));
     }
-  }, [group, dispatch, interval]);
+  }, [group, dispatch, interval, allLeaderboards]);
 
-  const leaderboardItems: LeaderboardItemType[] = useMemo(() => {
+  const leaderboardItemMeta: LeaderboardItemMeta = useMemo(() => {
     if (group?.id) {
       const groupLeaderboard: Leaderboards = allLeaderboards[group.id] ?? {};
-      return groupLeaderboard[interval]?.items;
+      return groupLeaderboard[interval];
     } else {
-      return [];
+      return null;
     }
   }, [allLeaderboards, group.id, interval]);
+
+  const leaderboardItems: LeaderboardItemType[] = useMemo(() => {
+    return leaderboardItemMeta ? leaderboardItemMeta?.items : [];
+  }, [leaderboardItemMeta]);
 
   const currentLeaderboard: CurrentLeaderboardItem[] = useMemo(() => {
     return (
@@ -106,11 +111,16 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
           className={classes.select}
         />
       </div>
-      <div className={classes.barChart}>
-        {currentLeaderboard.map((item: CurrentLeaderboardItem) => (
-          <LeaderboardItem key={item.username} item={item} leaderMiles={leaderMiles} />
-        ))}
-      </div>
+      {!!currentLeaderboard?.length && (
+        <div className={classes.barChart}>
+          {currentLeaderboard.map((item: CurrentLeaderboardItem) => (
+            <LeaderboardItem key={item.username} item={item} leaderMiles={leaderMiles} />
+          ))}
+        </div>
+      )}
+      {!currentLeaderboard?.length && !leaderboardItemMeta?.isFetching && !!leaderboardItemMeta?.serverError && (
+        <div className={classes.errorMessage}>Error</div>
+      )}
     </div>
   );
 };

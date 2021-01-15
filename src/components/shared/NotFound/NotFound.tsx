@@ -5,26 +5,26 @@
  */
 
 import React from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
+import { createUseStyles } from 'react-jss';
+import styles from './styles';
 
 // @ts-ignore
 import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
 
-interface IProps {}
+interface Props {}
 
 const useStyles = createUseStyles(styles);
 
-const NotFound: React.FunctionComponent<IProps> = ({}) => {
-    const classes = useStyles();
+const NotFound: React.FunctionComponent<Props> = ({}) => {
+  const classes = useStyles();
 
-    return (
-        <div className={classes.container}>
-            <img src={saintsXCTFLogo} alt="" className={classes.logo} />
-            <h4 className={classes.title}>Page Not Found</h4>
-            <p className={classes.description}>The requested page is invalid or no longer exists.</p>
-        </div>
-    );
+  return (
+    <div className={classes.container}>
+      <img src={saintsXCTFLogo} alt="" className={classes.logo} />
+      <h4 className={classes.title}>Page Not Found</h4>
+      <p className={classes.description}>The requested page is invalid or no longer exists.</p>
+    </div>
+  );
 };
 
 export default NotFound;
