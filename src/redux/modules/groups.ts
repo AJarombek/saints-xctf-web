@@ -85,6 +85,7 @@ interface GetGroupLeaderboardRequestAction {
 interface GetGroupLeaderboardSuccessAction {
   type: typeof GET_GROUP_LEADERBOARD_SUCCESS;
   leaderboardItems: LeaderboardItem[];
+  serverWarning: string;
   groupId: number;
   interval?: LeaderboardInterval;
 }
@@ -306,6 +307,7 @@ function getGroupLeaderboardSuccessReducer(state: GroupState, action: GetGroupLe
           isFetching: false,
           lastUpdated: moment().unix(),
           serverError: null,
+          serverWarning: action.serverWarning,
           items: action.leaderboardItems
         }
       }
@@ -447,13 +449,15 @@ export function getGroupLeaderboardRequest(
 export function getGroupLeaderboardSuccess(
   leaderboardItems: LeaderboardItem[],
   groupId: number,
-  interval: LeaderboardInterval
+  interval: LeaderboardInterval,
+  serverWarning: string
 ): GetGroupLeaderboardSuccessAction {
   return {
     type: GET_GROUP_LEADERBOARD_SUCCESS,
     leaderboardItems,
     groupId,
-    interval
+    interval,
+    serverWarning
   };
 }
 
@@ -530,12 +534,12 @@ export function getGroupLeaderboard(groupId: number, interval: LeaderboardInterv
 
     try {
       const response = await api.get(`groups/leaderboard/${groupId}${interval === 'all' ? '' : `/${interval}`}`);
-      const { leaderboard: leaderboardItems } = response.data;
+      const { leaderboard: leaderboardItems, warning: serverWarning } = response.data;
 
-      dispatch(getGroupLeaderboardSuccess(leaderboardItems, groupId, interval));
+      dispatch(getGroupLeaderboardSuccess(leaderboardItems, groupId, interval, serverWarning));
     } catch (error) {
       const { response } = error;
-      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+      const serverError = response?.data?.error ?? 'An unexpected error occurred while retrieving the leaderboard.';
 
       dispatch(getGroupLeaderboardFailure(serverError, groupId, interval));
     }

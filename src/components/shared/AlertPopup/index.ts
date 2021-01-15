@@ -1,3 +1,3 @@
-import AlertPopup from "./AlertPopup";
+import AlertPopup from './AlertPopup';
 
 export default AlertPopup;

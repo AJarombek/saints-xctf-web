@@ -21,6 +21,7 @@ import { getGroupLeaderboard } from '../../../redux/modules/groups';
 import FilterButtons from '../../shared/FilterButtons';
 import { AJSelect } from 'jarombek-react-components';
 import LeaderboardItem from '../LeaderboardItem';
+import Alert from '../../shared/Alert';
 
 const useStyles = createUseStyles(styles);
 
@@ -82,7 +83,8 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
             (selectedFilters.swim ? item.miles_swam : 0) +
             (selectedFilters.other ? item.miles_other : 0)
         }))
-        .sort((a: CurrentLeaderboardItem, b: CurrentLeaderboardItem) => b.value - a.value) ?? []
+        .sort((a: CurrentLeaderboardItem, b: CurrentLeaderboardItem) => b.value - a.value)
+        .filter((item: CurrentLeaderboardItem) => item.value > 0) ?? []
     );
   }, [selectedFilters, leaderboardItems]);
 
@@ -119,7 +121,14 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
         </div>
       )}
       {!currentLeaderboard?.length && !leaderboardItemMeta?.isFetching && !!leaderboardItemMeta?.serverError && (
-        <div className={classes.errorMessage}>Error</div>
+        <div className={classes.alertMessage}>
+          <Alert message={leaderboardItemMeta.serverError} type="error" closeable={false} />
+        </div>
+      )}
+      {!currentLeaderboard?.length && !leaderboardItemMeta?.isFetching && !!leaderboardItemMeta?.serverWarning && (
+        <div className={classes.alertMessage}>
+          <Alert message={leaderboardItemMeta.serverWarning} type="warning" closeable={false} />
+        </div>
       )}
     </div>
   );

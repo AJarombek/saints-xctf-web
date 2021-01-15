@@ -25,5 +25,11 @@ export default {
     borderRadius: 6,
     marginTop: 10
   },
-  errorMessage: {}
+  alertMessage: {
+    marginTop: 10,
+
+    '& > div': {
+      padding: '4px 0'
+    }
+  }
 };

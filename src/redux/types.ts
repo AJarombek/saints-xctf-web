@@ -393,6 +393,7 @@ export type Leaderboards = {
 
 export interface LeaderboardItemMeta extends Meta {
   items: LeaderboardItem[];
+  serverWarning: string;
 }
 
 export type LeaderboardItem = {
