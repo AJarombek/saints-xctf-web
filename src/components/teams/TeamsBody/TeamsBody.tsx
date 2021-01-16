@@ -31,8 +31,10 @@ const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
   const [memberships, setMemberships] = useState<Memberships>(null);
 
   useEffect(() => {
-    dispatch(getUserMemberships(user.username));
-  }, [dispatch, user.username]);
+    if (userProfiles && user?.username && !userProfiles[user.username]?.memberships) {
+      dispatch(getUserMemberships(user.username));
+    }
+  }, [dispatch, user.username, userProfiles]);
 
   useEffect(() => {
     if (userProfiles && user.username) {

@@ -50,6 +50,7 @@ const PickGroups: React.FunctionComponent<Props> = ({
         .map((group) => ({
           group_name: group.group_name,
           group_title: group.group_title,
+          group_id: group.id,
           status: null,
           user: null
         }))

@@ -1,34 +1,35 @@
 /**
- * JSS styles for the TeamsBody component.
+ * JSS styles for the AdminBody component.
  * @author Andrew Jarombek
- * @since 1/6/2021
+ * @since 1/15/2021
  */
 
 import Mixins, { FontMixins } from '../../../styles/mixins';
 import Colors from '../../../styles/colors';
 
 export default {
-  teamsBody: {
+  adminBody: {
     ...Mixins.defaultBody()
   },
   title: {
-    ...Mixins.formTitle()
+    ...Mixins.formTitle(),
+    fontSize: 20
   },
   container: {
     backgroundColor: '#E3E3E3',
     width: '100%',
-    maxWidth: '700px',
+    maxWidth: 700,
     margin: '25px auto',
-    borderRadius: '6px',
-    padding: '20px'
+    borderRadius: 6,
+    padding: 20
   },
   teamTitle: {
     ...FontMixins.robotoBold(),
     fontSize: 20
   },
   groups: {
-    marginTop: 20,
-    marginBottom: 10
+    marginTop: 25,
+    marginBottom: 15
   },
   group: {
     display: 'flex',
@@ -38,7 +39,6 @@ export default {
     borderRadius: 4,
     boxShadow: 'rgba(170, 170, 170, 0.2) 0px 1px 3px',
     backgroundColor: Colors.lightestBackground,
-    /* ❤️ */
     transition: 'background-color 0.5s ease, color 0.4s ease',
 
     '&:hover': {
@@ -49,6 +49,6 @@ export default {
   groupTitle: {
     ...FontMixins.roboto(),
     fontSize: 18,
-    margin: '15px'
+    margin: 15
   }
 };

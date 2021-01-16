@@ -170,7 +170,7 @@ class Mixins {
     ...FontMixins.robotoSlabBold(),
     width: 700,
     margin: '50px auto 0 auto',
-    fontSize: '24px',
+    fontSize: 24,
     color: '#333'
   });
 

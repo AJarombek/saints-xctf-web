@@ -13,6 +13,7 @@ import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import {useAdminCheck, useSignInCheck} from '../../hooks/shared';
+import AdminBody from "../../components/admin/AdminBody";
 
 type Props = {};
 
@@ -37,6 +38,7 @@ const Admin: React.FunctionComponent<Props> = () => {
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
+        <AdminBody user={users[auth.signedInUser]?.user} />
         <HomeFooter showContactUs={false} />
       </div>
     );

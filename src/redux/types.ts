@@ -318,6 +318,7 @@ export type TeamMember = {
 export type GroupMember = {
   group_name: string;
   group_title: string;
+  group_id: number;
   newest_log?: string;
   newest_message?: string;
   status: string;
