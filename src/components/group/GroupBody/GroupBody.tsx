@@ -7,7 +7,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {GroupMeta, LogFeeds, MemberDetails, MemberDetailsMeta, RootState, StatsMeta, User} from '../../../redux/types';
+import {
+  GroupMeta,
+  LogFeeds,
+  MemberDetails,
+  MemberDetailsMeta,
+  RootState,
+  StatsMeta,
+  User
+} from '../../../redux/types';
 import PageTabs from '../../shared/PageTabs';
 import PictureTitle from '../../shared/PictureTitle';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +26,7 @@ import PaginationBar from '../../shared/PaginationBar';
 import { logFeed } from '../../../redux/modules/logs';
 import GroupDetails from '../GroupDetails/GroupDetails';
 import GroupMembers from '../GroupMembers';
-import Leaderboard from "../Leaderboard";
+import Leaderboard from '../Leaderboard';
 
 interface Props {
   user: User;
