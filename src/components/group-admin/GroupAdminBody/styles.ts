@@ -4,12 +4,25 @@
  * @since 1/16/2021
  */
 
-import Mixins from '../../../styles/mixins';
+import Mixins, { FontMixins } from '../../../styles/mixins';
 
 export default {
   groupAdminBody: {
-    ...Mixins.profileAndGroupBody()
+    ...Mixins.profileAndGroupBody(),
+
+    '& > aside > .tabs': {
+      width: 200
+    }
   },
-  title: {},
-  subTitle: {}
+  title: {
+    ...FontMixins.robotoSlabBold(),
+    fontSize: 20,
+    marginTop: 30
+  },
+  subTitle: {
+    ...FontMixins.robotoBold()
+  },
+  text: {
+    marginLeft: 20
+  }
 };

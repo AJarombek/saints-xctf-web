@@ -32,14 +32,18 @@ const GroupAdmin: React.FunctionComponent<Props> = () => {
 
   useSignInCheck();
 
+  const groupId = useMemo(() => {
+    const { id: groupId } = routeMatch.params as { id: string };
+    return +groupId;
+  }, [routeMatch.params]);
+
   const group: GroupMeta = useMemo(() => {
     if (groups) {
-      const { id: groupId } = routeMatch.params as { id: string };
       return groups[groupId];
     } else {
       return null;
     }
-  }, [routeMatch.params, groups]);
+  }, [groups, groupId]);
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
@@ -49,7 +53,7 @@ const GroupAdmin: React.FunctionComponent<Props> = () => {
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
-        <GroupAdminBody group={group} />
+        <GroupAdminBody group={group} groupId={groupId} />
         <HomeFooter showContactUs={false} />
       </div>
     );

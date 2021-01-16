@@ -7,14 +7,16 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMeta, MemberDetailsMeta, RootState } from '../../../redux/types';
+import { GroupMeta } from '../../../redux/types';
 import PageTabs from '../../shared/PageTabs';
-import { useDispatch, useSelector } from 'react-redux';
-import { getGroup, getGroupMembers } from '../../../redux/modules/groups';
-import { useRouteMatch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { getGroup } from '../../../redux/modules/groups';
+import classNames from 'classnames';
+import ManageUsers from '../ManageUsers/ManageUsers';
 
 interface Props {
   group: GroupMeta;
+  groupId: number;
 }
 
 export enum GroupAdminTab {
@@ -26,36 +28,18 @@ export enum GroupAdminTab {
 
 const useStyles = createUseStyles(styles);
 
-const GroupAdminBody: React.FunctionComponent<Props> = ({ group }) => {
-  const routeMatch = useRouteMatch();
+const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const membersInfo = useSelector((state: RootState) => state.groups.members ?? {});
 
   const [tab, setTab] = useState<GroupAdminTab>(GroupAdminTab.MANAGE_USERS);
-
-  const groupId = useMemo(() => {
-    const { id: groupId } = routeMatch.params as { id: string };
-    return groupId;
-  }, [routeMatch.params]);
-
-  const members = useMemo(() => {
-    return membersInfo[groupId]?.items ?? [];
-  }, [membersInfo, groupId]);
 
   useEffect(() => {
     if (!group) {
       dispatch(getGroup(+groupId));
     }
   }, [groupId, group, dispatch]);
-
-  useEffect(() => {
-    const groupMembers: MemberDetailsMeta = membersInfo[groupId];
-    if (!groupMembers?.items && !groupMembers?.isFetching && !groupMembers?.serverError) {
-      dispatch(getGroupMembers(+groupId));
-    }
-  }, [dispatch, groupId, membersInfo]);
 
   const tabs = useMemo(
     () => [
@@ -82,12 +66,12 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group }) => {
   return (
     <div className={classes.groupAdminBody}>
       <aside>
-        <h5 className={classes.title}>{group?.group_title}</h5>
-        <div className={classes.subTitle}>Team Name</div>
+        <h5 className={classNames(classes.title, classes.text)}>{group?.group_title}</h5>
+        <div className={classNames(classes.subTitle, classes.text)}>Team Name</div>
         <PageTabs currentTab={tab} tabs={tabs} />
       </aside>
       <section>
-        {tab === GroupAdminTab.MANAGE_USERS && <></>}
+        {tab === GroupAdminTab.MANAGE_USERS && <ManageUsers groupId={groupId} />}
         {tab === GroupAdminTab.SEND_ACTIVATION_CODE && <></>}
         {tab === GroupAdminTab.SEND_NOTIFICATIONS && <></>}
         {tab === GroupAdminTab.EDIT_GROUP && <></>}
