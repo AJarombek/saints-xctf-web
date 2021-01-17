@@ -6,7 +6,7 @@
 
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
-import { Group, GroupState, LeaderboardInterval, LeaderboardItem, MemberDetails, Stats } from '../types';
+import { Group, GroupState, LeaderboardInterval, LeaderboardItem, MemberDetails, Stats, Team } from '../types';
 import { Dispatch } from 'redux';
 
 // Actions
@@ -22,6 +22,9 @@ const GET_GROUP_STATS_FAILURE = 'saints-xctf-web/groups/GET_GROUP_STATS_FAILURE'
 const GET_GROUP_LEADERBOARD_REQUEST = 'saints-xctf-web/groups/GET_GROUP_LEADERBOARD_REQUEST';
 const GET_GROUP_LEADERBOARD_SUCCESS = 'saints-xctf-web/groups/GET_GROUP_LEADERBOARD_SUCCESS';
 const GET_GROUP_LEADERBOARD_FAILURE = 'saints-xctf-web/groups/GET_GROUP_LEADERBOARD_FAILURE';
+const GET_GROUP_TEAM_REQUEST = 'saints-xctf-web/groups/GET_GROUP_TEAM_REQUEST';
+const GET_GROUP_TEAM_SUCCESS = 'saints-xctf-web/groups/GET_GROUP_TEAM_SUCCESS';
+const GET_GROUP_TEAM_FAILURE = 'saints-xctf-web/groups/GET_GROUP_TEAM_FAILURE';
 
 // Action Types
 
@@ -97,6 +100,23 @@ interface GetGroupLeaderboardFailureAction {
   interval?: LeaderboardInterval;
 }
 
+interface GetGroupTeamRequestAction {
+  type: typeof GET_GROUP_TEAM_REQUEST;
+  groupId: number;
+}
+
+interface GetGroupTeamSuccessAction {
+  type: typeof GET_GROUP_TEAM_SUCCESS;
+  team: Team;
+  groupId: number;
+}
+
+interface GetGroupTeamFailureAction {
+  type: typeof GET_GROUP_TEAM_FAILURE;
+  serverError: string;
+  groupId: number;
+}
+
 type GroupActionTypes =
   | GetGroupRequestAction
   | GetGroupSuccessAction
@@ -109,14 +129,18 @@ type GroupActionTypes =
   | GetGroupStatsFailureAction
   | GetGroupLeaderboardRequestAction
   | GetGroupLeaderboardSuccessAction
-  | GetGroupLeaderboardFailureAction;
+  | GetGroupLeaderboardFailureAction
+  | GetGroupTeamRequestAction
+  | GetGroupTeamSuccessAction
+  | GetGroupTeamFailureAction;
 
 // Reducer
 const initialState: GroupState = {
   group: {},
   members: {},
   stats: {},
-  leaderboards: {}
+  leaderboards: {},
+  team: {}
 };
 
 function getGroupRequestReducer(state: GroupState, action: GetGroupRequestAction): GroupState {
@@ -334,6 +358,58 @@ function getGroupLeaderboardFailureReducer(state: GroupState, action: GetGroupLe
   };
 }
 
+function getGroupTeamRequestReducer(state: GroupState, action: GetGroupTeamRequestAction): GroupState {
+  const existingGroupTeamState = state.team[action.groupId] ?? {};
+
+  return {
+    ...state,
+    team: {
+      ...state.team,
+      [action.groupId]: {
+        ...existingGroupTeamState,
+        isFetching: true,
+        lastUpdated: moment().unix(),
+        serverError: null
+      }
+    }
+  };
+}
+
+function getGroupTeamSuccessReducer(state: GroupState, action: GetGroupTeamSuccessAction): GroupState {
+  const existingGroupTeamState = state.team[action.groupId] ?? {};
+
+  return {
+    ...state,
+    stats: {
+      ...state.stats,
+      [action.groupId]: {
+        ...existingGroupTeamState,
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: null,
+        ...action.team
+      }
+    }
+  };
+}
+
+function getGroupTeamFailureReducer(state: GroupState, action: GetGroupTeamFailureAction): GroupState {
+  const existingGroupTeamState = state.team[action.groupId] ?? {};
+
+  return {
+    ...state,
+    stats: {
+      ...state.stats,
+      [action.groupId]: {
+        ...existingGroupTeamState,
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError
+      }
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: GroupActionTypes): GroupState {
   switch (action.type) {
     case GET_GROUP_REQUEST:
@@ -360,6 +436,12 @@ export default function reducer(state = initialState, action: GroupActionTypes):
       return getGroupLeaderboardSuccessReducer(state, action);
     case GET_GROUP_LEADERBOARD_FAILURE:
       return getGroupLeaderboardFailureReducer(state, action);
+    case GET_GROUP_TEAM_REQUEST:
+      return getGroupTeamRequestReducer(state, action);
+    case GET_GROUP_TEAM_SUCCESS:
+      return getGroupTeamSuccessReducer(state, action);
+    case GET_GROUP_TEAM_FAILURE:
+      return getGroupTeamFailureReducer(state, action);
     default:
       return state;
   }
@@ -474,6 +556,29 @@ export function getGroupLeaderboardFailure(
   };
 }
 
+export function getGroupTeamRequest(groupId: number): GetGroupTeamRequestAction {
+  return {
+    type: GET_GROUP_TEAM_REQUEST,
+    groupId
+  };
+}
+
+export function getGroupTeamSuccess(team: Team, groupId: number): GetGroupTeamSuccessAction {
+  return {
+    type: GET_GROUP_TEAM_SUCCESS,
+    team,
+    groupId
+  };
+}
+
+export function getGroupTeamFailure(serverError: string, groupId: number): GetGroupTeamFailureAction {
+  return {
+    type: GET_GROUP_TEAM_FAILURE,
+    serverError,
+    groupId
+  };
+}
+
 export function getGroup(groupId: number) {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupRequest(groupId));
@@ -542,6 +647,24 @@ export function getGroupLeaderboard(groupId: number, interval: LeaderboardInterv
       const serverError = response?.data?.error ?? 'An unexpected error occurred while retrieving the leaderboard.';
 
       dispatch(getGroupLeaderboardFailure(serverError, groupId, interval));
+    }
+  };
+}
+
+export function getGroupTeam(groupId: number) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(getGroupTeamRequest(groupId));
+
+    try {
+      const response = await api.get(`groups/team/${groupId}`);
+      const { team } = response.data;
+
+      dispatch(getGroupTeamSuccess(team, groupId));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(getGroupTeamFailure(serverError, groupId));
     }
   };
 }

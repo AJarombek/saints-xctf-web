@@ -73,6 +73,7 @@ export type GroupState = {
   members: Record<string, MemberDetailsMeta>;
   stats: Record<string, StatsMeta>;
   leaderboards: Record<string, Leaderboards>;
+  team: Record<string, TeamMeta>;
 };
 
 export type TeamState = {
