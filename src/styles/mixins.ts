@@ -144,7 +144,7 @@ class Mixins {
 
   static inputTitle = (): object => ({
     ...FontMixins.robotoSlabBold(),
-    fontSize: '16px',
+    fontSize: 16,
     color: Colors.spotPaletteBrown
   });
 
@@ -277,6 +277,15 @@ class Mixins {
       margin: '0 20px'
     }
   });
+
+  static containerBackground = (): object => ({
+    backgroundColor: '#E3E3E3',
+    width: '100%',
+    maxWidth: '700px',
+    margin: '25px auto',
+    borderRadius: '6px',
+    padding: '20px'
+  })
 }
 
 class AJComponentMixins {

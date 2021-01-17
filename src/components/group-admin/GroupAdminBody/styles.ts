@@ -20,9 +20,16 @@ export default {
     marginTop: 30
   },
   subTitle: {
-    ...FontMixins.robotoBold()
+    ...FontMixins.robotoBold(),
+    marginTop: 15,
+    color: '#777'
   },
   text: {
-    marginLeft: 20
+    marginLeft: 15
+  },
+  '@media screen and (max-width: 1200px)': {
+    text: {
+      marginLeft: 10
+    }
   }
 };

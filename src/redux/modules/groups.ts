@@ -380,8 +380,8 @@ function getGroupTeamSuccessReducer(state: GroupState, action: GetGroupTeamSucce
 
   return {
     ...state,
-    stats: {
-      ...state.stats,
+    team: {
+      ...state.team,
       [action.groupId]: {
         ...existingGroupTeamState,
         isFetching: false,
@@ -398,8 +398,8 @@ function getGroupTeamFailureReducer(state: GroupState, action: GetGroupTeamFailu
 
   return {
     ...state,
-    stats: {
-      ...state.stats,
+    team: {
+      ...state.team,
       [action.groupId]: {
         ...existingGroupTeamState,
         isFetching: false,

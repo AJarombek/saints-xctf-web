@@ -7,10 +7,10 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMeta } from '../../../redux/types';
+import { GroupMeta, RootState, TeamMeta } from '../../../redux/types';
 import PageTabs from '../../shared/PageTabs';
-import { useDispatch } from 'react-redux';
-import { getGroup } from '../../../redux/modules/groups';
+import { useDispatch, useSelector } from 'react-redux';
+import { getGroup, getGroupTeam } from '../../../redux/modules/groups';
 import classNames from 'classnames';
 import ManageUsers from '../ManageUsers/ManageUsers';
 
@@ -32,6 +32,7 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const teamInfo: Record<string, TeamMeta> = useSelector((state: RootState) => state.groups.team ?? {});
 
   const [tab, setTab] = useState<GroupAdminTab>(GroupAdminTab.MANAGE_USERS);
 
@@ -40,6 +41,16 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
       dispatch(getGroup(+groupId));
     }
   }, [groupId, group, dispatch]);
+
+  useEffect(() => {
+    if (!teamInfo[groupId]) {
+      dispatch(getGroupTeam(groupId));
+    }
+  }, [dispatch, groupId, teamInfo]);
+
+  const teamTitle: string = useMemo(() => {
+    return teamInfo[groupId]?.title;
+  }, [groupId, teamInfo]);
 
   const tabs = useMemo(
     () => [
@@ -67,7 +78,7 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
     <div className={classes.groupAdminBody}>
       <aside>
         <h5 className={classNames(classes.title, classes.text)}>{group?.group_title}</h5>
-        <div className={classNames(classes.subTitle, classes.text)}>Team Name</div>
+        <div className={classNames(classes.subTitle, classes.text)}>{teamTitle}</div>
         <PageTabs currentTab={tab} tabs={tabs} />
       </aside>
       <section>
