@@ -11,7 +11,8 @@ import styles from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { MemberDetails, MemberDetailsMeta, RootState } from '../../../redux/types';
 import { getGroupMembers } from '../../../redux/modules/groups';
-import { AJButton } from 'jarombek-react-components';
+import CurrentMember from '../CurrentMember';
+import PendingMember from '../PendingMember';
 
 interface Props {
   groupId: number;
@@ -50,27 +51,11 @@ const ManageUsers: React.FunctionComponent<Props> = ({ groupId }) => {
       <div className={classes.container}>
         {!!pendingMembers.length && <h4 className={classes.category}>Pending Members</h4>}
         {pendingMembers.map((member) => (
-          <div key={member.username} className={classes.pendingUser}>
-            <p className={classes.name}>
-              {member.first} {member.last}
-            </p>
-            <div className={classes.pendingUserActions}>
-              <AJButton type="text" onClick={() => {}} disabled={false}>
-                Deny
-              </AJButton>
-              <AJButton type="contained" onClick={() => {}} disabled={false}>
-                Accept
-              </AJButton>
-            </div>
-          </div>
+          <PendingMember member={member} key={member.username} />
         ))}
         {!!currentMembers.length && <h4 className={classes.category}>Current Members</h4>}
         {currentMembers.map((member) => (
-          <div key={member.username}>
-            <p>
-              {member.first} {member.last}
-            </p>
-          </div>
+          <CurrentMember member={member} key={member.username} />
         ))}
       </div>
     </div>
