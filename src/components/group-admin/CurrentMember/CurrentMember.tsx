@@ -8,7 +8,7 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { MemberDetails } from '../../../redux/types';
-import { AJTag } from 'jarombek-react-components';
+import { AJButton, AJTag } from 'jarombek-react-components';
 
 interface Props {
   member: MemberDetails;
@@ -21,13 +21,18 @@ const CurrentMember: React.FunctionComponent<Props> = ({ member }) => {
 
   return (
     <div className={classes.currentMember}>
-      <p>
+      <p className={classes.name}>
         {member.first} {member.last}
       </p>
       <AJTag
-        content={<div className={classes.memberTypeContent}>{member.user}</div>}
+        content={
+          <div className={classes.memberTypeContent}>{member.user.charAt(0).toUpperCase() + member.user.slice(1)}</div>
+        }
         className={classes.memberTypeTag}
       />
+      <AJButton type="outlined" disabled={false} onClick={() => {}} className={classes.removeAction}>
+        {member.user === 'admin' ? 'Demote' : 'Remove'}
+      </AJButton>
     </div>
   );
 };

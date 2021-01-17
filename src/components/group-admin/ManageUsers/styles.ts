@@ -17,6 +17,7 @@ export default {
   },
   category: {
     ...Mixins.inputTitle(),
-    fontSize: 18
+    fontSize: 18,
+    marginBottom: 15
   }
 };
