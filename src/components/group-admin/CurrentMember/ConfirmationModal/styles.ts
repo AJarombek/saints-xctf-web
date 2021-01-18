@@ -1,36 +1,37 @@
 /**
- * JSS styles for the DeleteLogModal component.
+ * JSS styles for the ConfirmationModal component.
  * @author Andrew Jarombek
- * @since 12/15/2020
+ * @since 1/17/2020
  */
 
 import Mixins, { FontMixins } from '../../../../styles/mixins';
 
 export default {
-  deleteModal: {
+  modal: {
     display: 'flex',
     flexDirection: 'column',
     margin: '20px 40px',
 
     '& > p': {
       ...FontMixins.robotoSlab(),
+      fontSize: 18,
 
       '& b': {
         ...FontMixins.robotoSlabBold()
       }
     }
   },
-  deleteModalButtons: {
+  modalButtons: {
     ...Mixins.modalButtons(),
 
     '& > .aj-contained-button': {
       marginRight: 10
     }
   },
-  disabledDeleteButton: {
+  disabledButton: {
     ...Mixins.disabledButton()
   },
-  deleteLogSpinner: {
+  spinner: {
     ...Mixins.buttonSpinner()
   }
 };
