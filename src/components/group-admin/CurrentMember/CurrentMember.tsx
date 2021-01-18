@@ -26,14 +26,22 @@ const CurrentMember: React.FunctionComponent<Props> = ({ member }) => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
 
-  const onDemote = (): void => {
+  const onDemote = async (): Promise<void> => {
     setIsConfirming(true);
+
+    await dispatch(null);
+
     setIsConfirming(false);
+    setShowConfirmation(false);
   };
 
-  const onRemove = (): void => {
+  const onRemove = async (): Promise<void> => {
     setIsConfirming(true);
+
+    await dispatch(null);
+
     setIsConfirming(false);
+    setShowConfirmation(false);
   };
 
   return (

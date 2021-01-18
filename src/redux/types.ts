@@ -37,6 +37,8 @@ export type AuthState = {
 
 export type MembershipsState = {
   groups: GroupMembers;
+  updateMemberships: UpdateGroupMemberships;
+  deleteMemberships: DeleteGroupMemberships;
 };
 
 export type NotificationsState = {
@@ -332,6 +334,18 @@ export type GroupMembers = {
   serverError?: string;
   items: GroupMember[];
 };
+
+export type UpdateGroupMemberships = Record<string, Record<string, UpdateGroupMembership>>;
+
+export interface UpdateGroupMembership extends Meta {
+  updated?: boolean;
+}
+
+export type DeleteGroupMemberships = Record<string, Record<string, DeleteGroupMembership>>;
+
+export interface DeleteGroupMembership extends Meta {
+  deleted?: boolean;
+}
 
 export interface MemberDetailsMeta extends Meta {
   items?: MemberDetails[];
