@@ -14,14 +14,13 @@ import { GroupMeta, RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useSignInCheck } from '../../hooks/shared';
 import GroupAdminBody from '../../components/group-admin/GroupAdminBody/GroupAdminBody';
-import { useRouteMatch } from 'react-router-dom';
+import { useGroupId } from '../../hooks/admin';
 
 type Props = {};
 
 const useStyles = createUseStyles(styles);
 
 const GroupAdmin: React.FunctionComponent<Props> = () => {
-  const routeMatch = useRouteMatch();
   const classes = useStyles();
 
   const auth = useSelector((state: RootState) => state.auth.auth);
@@ -32,17 +31,10 @@ const GroupAdmin: React.FunctionComponent<Props> = () => {
 
   useSignInCheck();
 
-  const groupId = useMemo(() => {
-    const { id: groupId } = routeMatch.params as { id: string };
-    return +groupId;
-  }, [routeMatch.params]);
+  const groupId = useGroupId();
 
   const group: GroupMeta = useMemo(() => {
-    if (groups) {
-      return groups[groupId];
-    } else {
-      return null;
-    }
+    return groups ? groups[groupId] : null;
   }, [groups, groupId]);
 
   if (userAuthenticated(users, auth.signedInUser)) {

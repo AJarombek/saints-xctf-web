@@ -4,12 +4,13 @@
  * @since 1/17/2021
  */
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { AJButton, AJModal } from 'jarombek-react-components';
 import LoadingSpinner from '../../../shared/LoadingSpinner';
-import { MemberDetails } from '../../../../redux/types';
+import { GroupMeta, MemberDetails, RootState } from '../../../../redux/types';
+import { useSelector } from 'react-redux';
 
 interface Props {
   onClose: () => void;
@@ -18,6 +19,7 @@ interface Props {
   show: boolean;
   isConfirming: boolean;
   member: MemberDetails;
+  groupId: number;
 }
 
 const useStyles = createUseStyles(styles);
@@ -28,9 +30,16 @@ const ConfirmationModal: React.FunctionComponent<Props> = ({
   isConfirming,
   onRemove,
   onDemote,
-  member
+  member,
+  groupId
 }) => {
   const classes = useStyles();
+
+  const groups = useSelector((state: RootState) => state.groups?.group);
+
+  const group: GroupMeta = useMemo(() => {
+    return groups ? groups[groupId] : null;
+  }, [groups, groupId]);
 
   if (show) {
     return (
@@ -51,7 +60,7 @@ const ConfirmationModal: React.FunctionComponent<Props> = ({
               <b>
                 {member.first} {member.last}{' '}
               </b>
-              from <b>Group Name</b>?
+              from <b>{group.group_title}</b>?
             </p>
           )}
           <div className={classes.modalButtons}>

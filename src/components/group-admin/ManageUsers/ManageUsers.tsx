@@ -51,11 +51,11 @@ const ManageUsers: React.FunctionComponent<Props> = ({ groupId }) => {
       <div className={classes.container}>
         {!!pendingMembers.length && <h4 className={classes.category}>Pending Members</h4>}
         {pendingMembers.map((member) => (
-          <PendingMember member={member} key={member.username} />
+          <PendingMember member={member} key={member.username} groupId={groupId} />
         ))}
         {!!currentMembers.length && <h4 className={classes.category}>Current Members</h4>}
         {currentMembers.map((member) => (
-          <CurrentMember member={member} key={member.username} />
+          <CurrentMember member={member} key={member.username} groupId={groupId} />
         ))}
       </div>
     </div>

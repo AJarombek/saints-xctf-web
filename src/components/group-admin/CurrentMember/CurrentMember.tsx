@@ -11,37 +11,55 @@ import { MemberDetails } from '../../../redux/types';
 import { AJButton, AJTag } from 'jarombek-react-components';
 import { useDispatch } from 'react-redux';
 import ConfirmationModal from './ConfirmationModal';
+import { deleteGroupMembership, updateGroupMembership } from '../../../redux/modules/memberships';
+import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
+import { getGroupMembers } from '../../../redux/modules/groups';
 
 interface Props {
   member: MemberDetails;
+  groupId: number;
 }
 
 const useStyles = createUseStyles(styles);
 
-const CurrentMember: React.FunctionComponent<Props> = ({ member }) => {
+const CurrentMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
   const classes = useStyles({ user: member.user });
 
   const dispatch = useDispatch();
 
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [isConfirming, setIsConfirming] = useState(false);
+  const [errorUpdatingMembership, setErrorUpdatingMembership] = useState(false);
+  const [errorDeletingMembership, setErrorDeletingMembership] = useState(false);
 
   const onDemote = async (): Promise<void> => {
     setIsConfirming(true);
 
-    await dispatch(null);
+    const result = await dispatch(updateGroupMembership(groupId, member.username));
 
     setIsConfirming(false);
     setShowConfirmation(false);
+
+    if (!result) {
+      setErrorUpdatingMembership(true);
+    } else {
+      dispatch(getGroupMembers(groupId));
+    }
   };
 
   const onRemove = async (): Promise<void> => {
     setIsConfirming(true);
 
-    await dispatch(null);
+    const result = await dispatch(deleteGroupMembership(groupId, member.username));
 
     setIsConfirming(false);
     setShowConfirmation(false);
+
+    if (!result) {
+      setErrorDeletingMembership(true);
+    } else {
+      dispatch(getGroupMembers(groupId));
+    }
   };
 
   return (
@@ -74,7 +92,20 @@ const CurrentMember: React.FunctionComponent<Props> = ({ member }) => {
         show={showConfirmation}
         isConfirming={isConfirming}
         member={member}
+        groupId={groupId}
       />
+      {errorUpdatingMembership && (
+        <DefaultErrorPopup
+          message="An unexpected error occurred while updating a users membership."
+          onClose={(): void => setErrorUpdatingMembership(false)}
+        />
+      )}
+      {errorDeletingMembership && (
+        <DefaultErrorPopup
+          message="An unexpected error occurred while revoking a users membership."
+          onClose={(): void => setErrorDeletingMembership(false)}
+        />
+      )}
     </>
   );
 };

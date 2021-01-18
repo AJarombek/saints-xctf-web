@@ -1,3 +1,9 @@
+/**
+ * Custom React hooks which are used throughout the application.
+ * @author Andrew Jarombek
+ * @since 11/12/2020
+ */
+
 import { ExerciseFilters, GroupMember, RangeViewExerciseType, RootState } from '../redux/types';
 import { useEffect, useState } from 'react';
 import { setUserFromStorage } from '../redux/modules/auth';

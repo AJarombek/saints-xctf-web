@@ -393,33 +393,37 @@ export function getGroupMemberships(username: string) {
 }
 
 export function updateGroupMembership(groupId: number, username: string) {
-  return async function (dispatch: Dispatch): Promise<void> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putGroupMembershipRequest(groupId, username));
 
     try {
-      await api.get(`groups/members/${groupId}/${username}`);
+      await api.put(`groups/members/${groupId}/${username}`);
       dispatch(putGroupMembershipSuccess(groupId, username));
+      return true;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(putGroupMembershipFailure(groupId, username, serverError));
+      return false;
     }
   };
 }
 
 export function deleteGroupMembership(groupId: number, username: string) {
-  return async function (dispatch: Dispatch): Promise<void> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(deleteGroupMembershipRequest(groupId, username));
 
     try {
-      await api.get(`groups/team/${groupId}`);
+      await api.delete(`groups/members/${groupId}/${username}`);
       dispatch(deleteGroupMembershipSuccess(groupId, username));
+      return true;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(deleteGroupMembershipFailure(groupId, username, serverError));
+      return false;
     }
   };
 }

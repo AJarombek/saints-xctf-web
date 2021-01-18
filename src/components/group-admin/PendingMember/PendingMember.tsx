@@ -13,11 +13,12 @@ import { AJButton } from 'jarombek-react-components';
 
 interface Props {
   member: MemberDetails;
+  groupId: number;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PendingMember: React.FunctionComponent<Props> = ({ member }) => {
+const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
   const classes = useStyles();
 
   return (

@@ -1,3 +1,9 @@
+/**
+ * Custom React hooks which are used when dealing with user or group statistics.
+ * @author Andrew Jarombek
+ * @since 1/9/2021
+ */
+
 import { Stat } from '../components/shared/StatisticSection/StatisticSection';
 import moment from 'moment';
 import { useMemo } from 'react';
