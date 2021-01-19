@@ -1,7 +1,7 @@
 /**
- * JSS styles for the ConfirmationModal component.
+ * JSS styles for the AcceptDenyModal component.
  * @author Andrew Jarombek
- * @since 1/17/2020
+ * @since 1/18/2020
  */
 
 import Mixins from '../../../../styles/mixins';

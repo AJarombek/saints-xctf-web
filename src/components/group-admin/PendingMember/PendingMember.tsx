@@ -13,6 +13,7 @@ import { AJButton } from 'jarombek-react-components';
 import { useDispatch } from 'react-redux';
 import { getGroupMembers } from '../../../redux/modules/groups';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
+import AcceptDenyModal from './AcceptDenyModal';
 
 interface Props {
   member: MemberDetails;
@@ -26,20 +27,22 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
 
   const dispatch = useDispatch();
 
-  const [showDenyModal, setShowDenyModal] = useState(false);
-  const [showAcceptModal, setShowAcceptModal] = useState(false);
+  const [showAcceptDenyModal, setShowAcceptDenyModal] = useState(false);
   const [isDenying, setIsDenying] = useState(false);
   const [isAccepting, setIsAccepting] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
   const [errorAcceptingMembership, setErrorAcceptingMembership] = useState(false);
   const [errorDenyingMembership, setErrorDenyingMembership] = useState(false);
 
   const onDeny = async (): Promise<void> => {
     setIsDenying(true);
+    setInProgress(true);
 
     const result = dispatch(null);
 
-    setShowDenyModal(false);
+    setShowAcceptDenyModal(false);
     setIsDenying(false);
+    setInProgress(false);
 
     if (!result) {
       setErrorDenyingMembership(true);
@@ -50,11 +53,13 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
 
   const onAccept = async (): Promise<void> => {
     setIsAccepting(true);
+    setInProgress(true);
 
     const result = dispatch(null);
 
-    setShowAcceptModal(false);
+    setShowAcceptDenyModal(false);
     setIsAccepting(false);
+    setInProgress(false);
 
     if (!result) {
       setErrorAcceptingMembership(true);
@@ -78,6 +83,16 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
           </AJButton>
         </div>
       </div>
+      <AcceptDenyModal
+        action={isAccepting ? 'accept' : isDenying ? 'deny' : null}
+        onClose={(): void => setShowAcceptDenyModal(false)}
+        onAccept={onAccept}
+        onDeny={onDeny}
+        show={showAcceptDenyModal}
+        inProgress={inProgress}
+        member={member}
+        groupId={groupId}
+      />
       {errorAcceptingMembership && (
         <DefaultErrorPopup
           message="An unexpected error occurred while accepting a users membership request.  Please try again."

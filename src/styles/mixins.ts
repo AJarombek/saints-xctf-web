@@ -199,6 +199,21 @@ class Mixins {
     }
   });
 
+  static modal = (): object => ({
+    display: 'flex',
+    flexDirection: 'column',
+    margin: '20px 40px',
+
+    '& > p': {
+      ...FontMixins.robotoSlab(),
+      fontSize: 18,
+
+      '& b': {
+        ...FontMixins.robotoSlabBold()
+      }
+    }
+  });
+
   static modalButtons = (): object => ({
     display: 'flex',
     marginLeft: 'auto',
