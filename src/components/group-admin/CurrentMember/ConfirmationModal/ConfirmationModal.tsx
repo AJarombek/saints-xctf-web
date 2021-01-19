@@ -51,7 +51,7 @@ const ConfirmationModal: React.FunctionComponent<Props> = ({
               <b>
                 {member.first} {member.last}{' '}
               </b>
-              from their administrator position in <b>Group Name</b>?
+              from their administrator position in <b>{group.group_title}</b>?
             </p>
           )}
           {member.user !== 'admin' && (

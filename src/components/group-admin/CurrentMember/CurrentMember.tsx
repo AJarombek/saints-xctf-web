@@ -35,7 +35,8 @@ const CurrentMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
   const onDemote = async (): Promise<void> => {
     setIsConfirming(true);
 
-    const result = await dispatch(updateGroupMembership(groupId, member.username));
+    const newMemberDetails = { user: 'user', status: member.status };
+    const result = await dispatch(updateGroupMembership(newMemberDetails, groupId, member.username));
 
     setIsConfirming(false);
     setShowConfirmation(false);

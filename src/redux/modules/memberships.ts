@@ -8,7 +8,7 @@ import { api } from '../../datasources/apiRequest';
 import { Dispatch } from 'redux';
 import { GroupMember, GroupMembers, MembershipsState } from '../types';
 import moment from 'moment';
-import {getGroupTeamFailure, getGroupTeamRequest, getGroupTeamSuccess} from "./groups";
+import { getGroupTeamFailure, getGroupTeamRequest, getGroupTeamSuccess } from './groups';
 
 // Actions
 const GET_GROUP_MEMBERSHIPS_REQUEST = 'saints-xctf-web/memberships/GET_GROUP_MEMBERSHIPS_REQUEST';
@@ -392,12 +392,16 @@ export function getGroupMemberships(username: string) {
   };
 }
 
-export function updateGroupMembership(groupId: number, username: string) {
+export function updateGroupMembership(
+  groupMember: { user: string; status: string },
+  groupId: number,
+  username: string
+) {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putGroupMembershipRequest(groupId, username));
 
     try {
-      await api.put(`groups/members/${groupId}/${username}`);
+      await api.put(`groups/members/${groupId}/${username}`, groupMember);
       dispatch(putGroupMembershipSuccess(groupId, username));
       return true;
     } catch (error) {

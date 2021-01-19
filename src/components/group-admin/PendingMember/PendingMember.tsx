@@ -5,11 +5,14 @@
  * @since 1/16/2021
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { MemberDetails } from '../../../redux/types';
 import { AJButton } from 'jarombek-react-components';
+import { useDispatch } from 'react-redux';
+import { getGroupMembers } from '../../../redux/modules/groups';
+import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 
 interface Props {
   member: MemberDetails;
@@ -21,20 +24,73 @@ const useStyles = createUseStyles(styles);
 const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
+  const [showDenyModal, setShowDenyModal] = useState(false);
+  const [showAcceptModal, setShowAcceptModal] = useState(false);
+  const [isDenying, setIsDenying] = useState(false);
+  const [isAccepting, setIsAccepting] = useState(false);
+  const [errorAcceptingMembership, setErrorAcceptingMembership] = useState(false);
+  const [errorDenyingMembership, setErrorDenyingMembership] = useState(false);
+
+  const onDeny = async (): Promise<void> => {
+    setIsDenying(true);
+
+    const result = dispatch(null);
+
+    setShowDenyModal(false);
+    setIsDenying(false);
+
+    if (!result) {
+      setErrorDenyingMembership(true);
+    } else {
+      dispatch(getGroupMembers(groupId));
+    }
+  };
+
+  const onAccept = async (): Promise<void> => {
+    setIsAccepting(true);
+
+    const result = dispatch(null);
+
+    setShowAcceptModal(false);
+    setIsAccepting(false);
+
+    if (!result) {
+      setErrorAcceptingMembership(true);
+    } else {
+      dispatch(getGroupMembers(groupId));
+    }
+  };
+
   return (
-    <div key={member.username} className={classes.pendingMember}>
-      <p className={classes.name}>
-        {member.first} {member.last}
-      </p>
-      <div className={classes.pendingMemberActions}>
-        <AJButton type="text" onClick={() => {}} disabled={false}>
-          Deny
-        </AJButton>
-        <AJButton type="contained" onClick={() => {}} disabled={false}>
-          Accept
-        </AJButton>
+    <>
+      <div key={member.username} className={classes.pendingMember}>
+        <p className={classes.name}>
+          {member.first} {member.last}
+        </p>
+        <div className={classes.pendingMemberActions}>
+          <AJButton type="text" onClick={onDeny} disabled={false}>
+            Deny
+          </AJButton>
+          <AJButton type="contained" onClick={onAccept} disabled={false}>
+            Accept
+          </AJButton>
+        </div>
       </div>
-    </div>
+      {errorAcceptingMembership && (
+        <DefaultErrorPopup
+          message="An unexpected error occurred while accepting a users membership request.  Please try again."
+          onClose={(): void => setErrorAcceptingMembership(false)}
+        />
+      )}
+      {errorDenyingMembership && (
+        <DefaultErrorPopup
+          message="An unexpected error occurred while denying a users membership request.  Please try again."
+          onClose={(): void => setErrorDenyingMembership(false)}
+        />
+      )}
+    </>
   );
 };
 
