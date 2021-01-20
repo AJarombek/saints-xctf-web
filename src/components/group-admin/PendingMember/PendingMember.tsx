@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { getGroupMembers } from '../../../redux/modules/groups';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 import AcceptDenyModal from './AcceptDenyModal';
+import { deleteGroupMembership, updateGroupMembership } from '../../../redux/modules/memberships';
 
 interface Props {
   member: MemberDetails;
@@ -34,11 +35,15 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
   const [errorAcceptingMembership, setErrorAcceptingMembership] = useState(false);
   const [errorDenyingMembership, setErrorDenyingMembership] = useState(false);
 
-  const onDeny = async (): Promise<void> => {
+  const onDenyInit = (): void => {
     setIsDenying(true);
+    setShowAcceptDenyModal(true);
+  };
+
+  const onDenyConfirm = async (): Promise<void> => {
     setInProgress(true);
 
-    const result = dispatch(null);
+    const result = await dispatch(deleteGroupMembership(groupId, member.username));
 
     setShowAcceptDenyModal(false);
     setIsDenying(false);
@@ -51,11 +56,17 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
     }
   };
 
-  const onAccept = async (): Promise<void> => {
+  const onAcceptInit = (): void => {
+    setIsAccepting(true);
+    setShowAcceptDenyModal(true);
+  };
+
+  const onAcceptConfirm = async (): Promise<void> => {
     setIsAccepting(true);
     setInProgress(true);
 
-    const result = dispatch(null);
+    const newMemberDetails = { user: 'user', status: 'accepted' };
+    const result = await dispatch(updateGroupMembership(newMemberDetails, groupId, member.username));
 
     setShowAcceptDenyModal(false);
     setIsAccepting(false);
@@ -68,6 +79,12 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
     }
   };
 
+  const onCancel = (): void => {
+    setIsDenying(false);
+    setIsAccepting(false);
+    setShowAcceptDenyModal(false);
+  };
+
   return (
     <>
       <div key={member.username} className={classes.pendingMember}>
@@ -75,19 +92,19 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
           {member.first} {member.last}
         </p>
         <div className={classes.pendingMemberActions}>
-          <AJButton type="text" onClick={onDeny} disabled={false}>
+          <AJButton type="text" onClick={onDenyInit} disabled={false}>
             Deny
           </AJButton>
-          <AJButton type="contained" onClick={onAccept} disabled={false}>
+          <AJButton type="contained" onClick={onAcceptInit} disabled={false}>
             Accept
           </AJButton>
         </div>
       </div>
       <AcceptDenyModal
         action={isAccepting ? 'accept' : isDenying ? 'deny' : null}
-        onClose={(): void => setShowAcceptDenyModal(false)}
-        onAccept={onAccept}
-        onDeny={onDeny}
+        onClose={onCancel}
+        onAccept={onAcceptConfirm}
+        onDeny={onDenyConfirm}
         show={showAcceptDenyModal}
         inProgress={inProgress}
         member={member}
