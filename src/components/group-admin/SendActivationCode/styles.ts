@@ -4,6 +4,17 @@
  * @since 1/19/2021
  */
 
+import Mixins from '../../../styles/mixins';
+
 export default {
-  container: {}
+  sendActivationCode: {},
+  container: {
+    ...Mixins.containerBackground()
+  },
+  title: {
+    ...Mixins.formTitle()
+  },
+  inputTitle: {
+    ...Mixins.inputTitle()
+  }
 };

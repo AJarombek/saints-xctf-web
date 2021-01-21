@@ -4,18 +4,17 @@
  * @since 5/9/2020
  */
 
-import React, {useEffect, useRef, useState} from 'react';
-import {connect, useSelector} from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import RegisterBody from '../../components/register/RegisterBody/RegisterBody';
-import { signIn } from '../../redux/modules/auth';
-import {RootState} from '../../redux/types';
+import { RootState } from '../../redux/types';
 
-type Props = {}
+type Props = {};
 
 const Register: React.FunctionComponent<Props> = () => {
   const auth = useSelector((state: RootState) => state.auth.auth);
@@ -41,15 +40,12 @@ const Register: React.FunctionComponent<Props> = () => {
     if (userAuthenticated(users, auth.signedInUser)) {
       history.push('/dashboard');
     }
-  }, [users]);
+  }, [users, auth.signedInUser, history]);
 
   return (
     <div className="sxctf-register" ref={ref}>
-      <NavBar includeHeaders={['home', 'signIn', 'logo']} bodyRef={ref}/>
-      <RegisterBody
-        stage={stage}
-        registration={registration}
-      />
+      <NavBar includeHeaders={['home', 'signIn', 'logo']} bodyRef={ref} />
+      <RegisterBody stage={stage} registration={registration} />
     </div>
   );
 };

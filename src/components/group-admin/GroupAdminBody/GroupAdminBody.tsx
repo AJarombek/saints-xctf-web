@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getGroup, getGroupTeam } from '../../../redux/modules/groups';
 import classNames from 'classnames';
 import ManageUsers from '../ManageUsers/ManageUsers';
+import SendActivationCode from '../SendActivationCode';
 
 interface Props {
   group: GroupMeta;
@@ -83,7 +84,7 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
       </aside>
       <section>
         {tab === GroupAdminTab.MANAGE_USERS && <ManageUsers groupId={groupId} />}
-        {tab === GroupAdminTab.SEND_ACTIVATION_CODE && <></>}
+        {tab === GroupAdminTab.SEND_ACTIVATION_CODE && <SendActivationCode groupId={groupId} />}
         {tab === GroupAdminTab.SEND_NOTIFICATIONS && <></>}
         {tab === GroupAdminTab.EDIT_GROUP && <></>}
       </section>

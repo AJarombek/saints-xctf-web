@@ -10,12 +10,12 @@
 import { AJButton } from 'jarombek-react-components';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { registerPersonalInfo } from '../../../redux/modules/registration';
-import ImageInputSet, {ImageInputDirection} from '../../shared/ImageInputSet';
-import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
-import {RegistrationState} from '../../../redux/types';
+import ImageInputSet, { ImageInputDirection } from '../../shared/ImageInputSet';
+import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
+import { RegistrationState } from '../../../redux/types';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
@@ -25,9 +25,11 @@ interface Props {
   registration: RegistrationState;
 }
 
+const emailPattern = /^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$/;
+
 const RegisterPersonalInfo: React.FunctionComponent<Props> = ({ registration }) => {
   const history = useHistory();
-  
+
   const dispatch = useDispatch();
 
   const [firstName, setFirstName] = useState(registration.first || '');
@@ -40,27 +42,23 @@ const RegisterPersonalInfo: React.FunctionComponent<Props> = ({ registration }) 
   useEffect(() => {
     let message;
     switch (registration.status) {
-    case 'USER ALREADY EXISTS':
-      message = 'A user already exists with this email.';
-      setErrorStatus(message);
-      setEmailStatus(ImageInputStatus.FAILURE);
-      break;
-    case 'INTERNAL ERROR':
-      message =  'An unexpected error occurred.  ' +
-          'Contact andrew@jarombek.com if this error persists.';
-      setErrorStatus(message);
-      setEmailStatus(ImageInputStatus.NONE);
-      break;
-    default:
-      setErrorStatus(null);
-      setEmailStatus(ImageInputStatus.NONE);
+      case 'USER ALREADY EXISTS':
+        message = 'A user already exists with this email.';
+        setErrorStatus(message);
+        setEmailStatus(ImageInputStatus.FAILURE);
+        break;
+      case 'INTERNAL ERROR':
+        message = 'An unexpected error occurred.  ' + 'Contact andrew@jarombek.com if this error persists.';
+        setErrorStatus(message);
+        setEmailStatus(ImageInputStatus.NONE);
+        break;
+      default:
+        setErrorStatus(null);
+        setEmailStatus(ImageInputStatus.NONE);
     }
 
     setLoading(false);
-
   }, [registration.status]);
-
-  const emailPattern = /^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$/;
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const email = e.target.value;
@@ -115,20 +113,22 @@ const RegisterPersonalInfo: React.FunctionComponent<Props> = ({ registration }) 
           status={emailStatus}
         />
       </div>
-      { errorStatus && <p className="errorStatus">{errorStatus}</p> }
+      {errorStatus && <p className="errorStatus">{errorStatus}</p>}
       <div className="form-buttons">
         <AJButton
           type="contained"
           onClick={onClickContinue}
           disabled={
-            loading || firstName.length === 0 || lastName.length === 0 ||
-            email.length === 0 || !emailPattern.test(email)
-          }>
+            loading ||
+            firstName.length === 0 ||
+            lastName.length === 0 ||
+            email.length === 0 ||
+            !emailPattern.test(email)
+          }
+        >
           Continue
         </AJButton>
-        <AJButton
-          type="text"
-          onClick={(): void => history.push('/')}>
+        <AJButton type="text" onClick={(): void => history.push('/')}>
           Exit
         </AJButton>
       </div>

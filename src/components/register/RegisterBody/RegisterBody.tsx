@@ -7,7 +7,7 @@
 import React from 'react';
 import RegisterPersonalInfo from '../RegisterPersonalInfo/RegisterPersonalInfo';
 import RegisterCredentials from '../RegisterCredentials/RegisterCredentials';
-import {RegistrationState} from '../../../redux/types';
+import { RegistrationState } from '../../../redux/types';
 
 interface Props {
   stage: number;
@@ -15,23 +15,18 @@ interface Props {
 }
 
 const RegisterBody: React.FunctionComponent<Props> = ({ stage, registration }) => {
-
   function renderStage(): JSX.Element {
     switch (stage) {
-    case 0:
-      return <RegisterPersonalInfo registration={registration}/>;
-    case 1:
-      return <RegisterCredentials registration={registration}/>;
-    default:
-      return <RegisterPersonalInfo registration={registration}/>;
+      case 0:
+        return <RegisterPersonalInfo registration={registration} />;
+      case 1:
+        return <RegisterCredentials registration={registration} />;
+      default:
+        return <RegisterPersonalInfo registration={registration} />;
     }
   }
 
-  return (
-    <div className="sxctf-register-body">
-      { renderStage() }
-    </div>
-  );
+  return <div className="sxctf-register-body">{renderStage()}</div>;
 };
 
 export default RegisterBody;
