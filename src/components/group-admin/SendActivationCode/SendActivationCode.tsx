@@ -10,6 +10,7 @@ import styles from './styles';
 import { useDispatch } from 'react-redux';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';
+import CheckBox from '../../shared/CheckBox';
 
 interface Props {
   groupId: number;
@@ -26,6 +27,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
 
   const [email, setEmail] = useState('');
   const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
+  const [approval, setApproval] = useState(false);
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     const newEmail = event.target.value;
@@ -42,39 +44,45 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
     }
   };
 
+  const onReset = (): void => {};
+
+  const onSendActivationCode = (): void => {};
+
   return (
     <div className={classes.sendActivationCode}>
       <h3 className={classes.title}>Send Activation Code</h3>
       <div className={classes.container}>
         <p className={classes.inputTitle}>Enter an Email Address</p>
         <ImageInput
-          type="date"
-          name="date"
+          type="text"
+          name="email"
           placeholder=""
           useCustomValue={true}
           value={email}
           onChange={onChangeEmail}
           status={emailStatus}
+          className={classes.input}
         />
+        {emailStatus === ImageInputStatus.SUCCESS && (
+          <>
+            <div>
+              Sending an email to this address will give its recipient access to the {'TEAM'} team and {'GROUP'} group.
+            </div>
+            <div className={classes.approval}>
+              <CheckBox id="emailApproval" checked={false} onChange={(e) => {}} />
+              <p>I Approve</p>
+            </div>
+            <div>
+              <AJButton type="text" onClick={onReset} disabled={false}>
+                Reset
+              </AJButton>
+              <AJButton type="contained" onClick={onSendActivationCode} disabled={false}>
+                Send Activation Code
+              </AJButton>
+            </div>
+          </>
+        )}
       </div>
-      {emailStatus === ImageInputStatus.SUCCESS && (
-        <>
-          <div>
-            Sending an email to this address will give its recipient access to the {'TEAM'} team and {'GROUP'} group.
-          </div>
-          <div>
-            <p>I Approve</p>
-          </div>
-          <div>
-            <AJButton type="text" onClick={() => {}} disabled={false}>
-              Reset
-            </AJButton>
-            <AJButton type="contained" onClick={() => {}} disabled={false}>
-              Send Activation Code
-            </AJButton>
-          </div>
-        </>
-      )}
     </div>
   );
 };

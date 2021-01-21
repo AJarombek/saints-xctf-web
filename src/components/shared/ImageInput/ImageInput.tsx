@@ -5,7 +5,8 @@
  */
 
 import React, { ChangeEvent, KeyboardEvent, useRef } from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
+import { ClassValue } from 'classnames/types';
 
 enum ImageInputStatus {
   NONE,
@@ -26,6 +27,7 @@ interface Props {
   value?: string;
   icon?: any;
   status: ImageInputStatus;
+  className?: ClassValue;
 }
 
 const ImageInput: React.FunctionComponent<Props> = ({
@@ -39,7 +41,8 @@ const ImageInput: React.FunctionComponent<Props> = ({
   useCustomValue,
   value,
   icon,
-  status = ImageInputStatus.NONE
+  status = ImageInputStatus.NONE,
+  className
 }) => {
   const inputRef = useRef(null);
 
@@ -67,7 +70,7 @@ const ImageInput: React.FunctionComponent<Props> = ({
   }
 
   return (
-    <div className="sxctf-image-input">
+    <div className={classNames('sxctf-image-input', className)}>
       {icon ? <img src={icon} alt="" /> : <div className="no-icon"> </div>}
       <input
         name={name}
@@ -81,7 +84,7 @@ const ImageInput: React.FunctionComponent<Props> = ({
         ref={inputRef}
       />
       <div>
-        <div className={classnames('status', statusClass)}>
+        <div className={classNames('status', statusClass)}>
           <p>{statusIcon}</p>
         </div>
       </div>

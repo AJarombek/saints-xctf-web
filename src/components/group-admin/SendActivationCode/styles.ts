@@ -16,5 +16,13 @@ export default {
   },
   inputTitle: {
     ...Mixins.inputTitle()
+  },
+  input: {
+    width: '100%',
+    maxWidth: 400
+  },
+  approval: {
+    display: 'flex',
+    alignItems: 'center'
   }
 };
