@@ -4,13 +4,16 @@
  * @since 1/19/2021
  */
 
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';
 import CheckBox from '../../shared/CheckBox';
+import { GroupMeta, RootState, TeamMeta } from '../../../redux/types';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import classNames from 'classnames';
 
 interface Props {
   groupId: number;
@@ -24,10 +27,21 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
+  const groups = useSelector((state: RootState) => state.groups?.group);
+  const teamInfo: Record<string, TeamMeta> = useSelector((state: RootState) => state.groups.team ?? {});
 
   const [email, setEmail] = useState('');
   const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [approval, setApproval] = useState(false);
+  const [sending, setSending] = useState(false);
+
+  const group: GroupMeta = useMemo(() => {
+    return groups ? groups[groupId] : null;
+  }, [groups, groupId]);
+
+  const teamTitle: string = useMemo(() => {
+    return teamInfo[groupId]?.title;
+  }, [groupId, teamInfo]);
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>): void => {
     const newEmail = event.target.value;
@@ -44,9 +58,15 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
     }
   };
 
-  const onReset = (): void => {};
+  const onReset = (): void => {
+    setApproval(false);
+    setEmail('');
+    setEmailStatus(ImageInputStatus.NONE);
+  };
 
-  const onSendActivationCode = (): void => {};
+  const onSendActivationCode = (): void => {
+    setSending(true);
+  };
 
   return (
     <div className={classes.sendActivationCode}>
@@ -65,19 +85,26 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
         />
         {emailStatus === ImageInputStatus.SUCCESS && (
           <>
-            <div>
-              Sending an email to this address will give its recipient access to the {'TEAM'} team and {'GROUP'} group.
+            <div className={classes.approvalMessage}>
+              Sending an email to this address will give its recipient access to the <strong>{teamTitle}</strong> team
+              and <strong>{group.group_title}</strong> group.
             </div>
             <div className={classes.approval}>
-              <CheckBox id="emailApproval" checked={false} onChange={(e) => {}} />
+              <CheckBox id="emailApproval" checked={approval} onChange={(): void => setApproval(!approval)} />
               <p>I Approve</p>
             </div>
-            <div>
-              <AJButton type="text" onClick={onReset} disabled={false}>
+            <div className={classes.actions}>
+              <AJButton type="text" onClick={onReset} disabled={sending}>
                 Reset
               </AJButton>
-              <AJButton type="contained" onClick={onSendActivationCode} disabled={false}>
-                Send Activation Code
+              <AJButton
+                type="contained"
+                onClick={onSendActivationCode}
+                disabled={sending}
+                className={classNames(classes.button, sending && classes.disabledButton)}
+              >
+                <p>{sending ? 'Sending' : 'Send Activation Code'}</p>
+                {sending && <LoadingSpinner className={classes.spinner} />}
               </AJButton>
             </div>
           </>

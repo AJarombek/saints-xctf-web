@@ -5,14 +5,18 @@
  */
 
 export default {
-  checkBox: {},
+  checkBox: {
+    display: 'flex'
+  },
   input: {
     display: 'none',
 
     '& + span': {
-      border: '1px solid #BBB',
-      width: 12,
-      height: 12
+      display: 'inline-block',
+      border: '2px solid #999',
+      borderRadius: 2,
+      width: 16,
+      height: 16
     },
 
     '&:checked + span': {}
