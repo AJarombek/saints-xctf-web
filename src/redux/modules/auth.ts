@@ -10,6 +10,7 @@ import moment from 'moment';
 import { AuthState, User } from '../types';
 import { Dispatch } from 'redux';
 import { auth } from '../../datasources/authRequest';
+import {getGroupTeamFailure, getGroupTeamRequest, getGroupTeamSuccess} from "./groups";
 
 // Actions
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
@@ -23,6 +24,9 @@ const CHANGE_EMAIL_REQUEST = 'saints-xctf-web/auth/CHANGE_EMAIL_REQUEST';
 const CHANGE_EMAIL_FAILURE = 'saints-xctf-web/auth/CHANGE_EMAIL_FAILURE';
 const CHANGE_EMAIL_SUCCESS = 'saints-xctf-web/auth/CHANGE_EMAIL_SUCCESS';
 const SET_USER_FROM_STORAGE = 'saints-xctf-web/auth/SET_USER_FROM_STORAGE';
+const PUT_ACTIVATION_CODE_REQUEST = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_REQUEST';
+const PUT_ACTIVATION_CODE_FAILURE = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_FAILURE';
+const PUT_ACTIVATION_CODE_SUCCESS = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_SUCCESS';
 
 // Action Types
 
@@ -80,6 +84,22 @@ interface SetUserFromStorageAction {
   user: User;
 }
 
+interface PutActivationCodeRequestAction {
+  type: typeof PUT_ACTIVATION_CODE_REQUEST;
+  email: string;
+}
+
+interface PutActivationCodeSuccessAction {
+  type: typeof PUT_ACTIVATION_CODE_SUCCESS;
+  email: string;
+}
+
+interface PutActivationCodeFailureAction {
+  type: typeof PUT_ACTIVATION_CODE_FAILURE;
+  email: string;
+  serverError: string;
+}
+
 type AuthActionTypes =
   | SignInRequestAction
   | SignInSuccessAction
@@ -91,12 +111,16 @@ type AuthActionTypes =
   | ChangeEmailRequestAction
   | ChangeEmailSuccessAction
   | ChangeEmailFailureAction
-  | SetUserFromStorageAction;
+  | SetUserFromStorageAction
+  | PutActivationCodeRequestAction
+  | PutActivationCodeSuccessAction
+  | PutActivationCodeFailureAction;
 
 // Reducer
 const initialState: AuthState = {
   auth: {},
-  user: {}
+  user: {},
+  createActivationCode: {}
 };
 
 function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {
@@ -160,7 +184,7 @@ function signInFailureReducer(state: AuthState, action: SignInFailureAction): Au
   };
 }
 
-function signOutReducer(state: AuthState, action: SignOutAction): AuthState {
+function signOutReducer(state: AuthState): AuthState {
   return {
     ...state,
     auth: {
@@ -198,7 +222,49 @@ function setUserFromStorageReducer(state: AuthState, action: SetUserFromStorageA
   };
 }
 
-export default function reducer(state = initialState, action: AuthActionTypes) {
+function putActivationCodeRequestReducer(state: AuthState, action: PutActivationCodeRequestAction): AuthState {
+  return {
+    ...state,
+    createActivationCode: {
+      ...state.createActivationCode,
+      [action.email]: {
+        isFetching: true,
+        lastUpdated: moment().unix()
+      }
+    }
+  };
+}
+
+function putActivationCodeSuccessReducer(state: AuthState, action: PutActivationCodeSuccessAction): AuthState {
+  return {
+    ...state,
+    createActivationCode: {
+      ...state.createActivationCode,
+      [action.email]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        created: true
+      }
+    }
+  };
+}
+
+function putActivationCodeFailureReducer(state: AuthState, action: PutActivationCodeFailureAction): AuthState {
+  return {
+    ...state,
+    createActivationCode: {
+      ...state.createActivationCode,
+      [action.email]: {
+        isFetching: true,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError,
+        created: false
+      }
+    }
+  };
+}
+
+export default function reducer(state = initialState, action: AuthActionTypes): AuthState {
   switch (action.type) {
     case SIGNIN_REQUEST:
       return signInRequestReducer(state, action);
@@ -207,7 +273,7 @@ export default function reducer(state = initialState, action: AuthActionTypes) {
     case SIGNIN_FAILURE:
       return signInFailureReducer(state, action);
     case SIGNOUT:
-      return signOutReducer(state, action);
+      return signOutReducer(state);
     case FORGOT_PASSWORD_EMAIL_REQUEST:
       return {
         ...state
@@ -234,6 +300,12 @@ export default function reducer(state = initialState, action: AuthActionTypes) {
       };
     case SET_USER_FROM_STORAGE:
       return setUserFromStorageReducer(state, action);
+    case PUT_ACTIVATION_CODE_REQUEST:
+      return putActivationCodeRequestReducer(state, action);
+    case PUT_ACTIVATION_CODE_SUCCESS:
+      return putActivationCodeSuccessReducer(state, action);
+    case PUT_ACTIVATION_CODE_FAILURE:
+      return putActivationCodeFailureReducer(state, action);
     default:
       return state;
   }
@@ -300,6 +372,28 @@ export function setUserFromStorage(user: User): SetUserFromStorageAction {
   };
 }
 
+export function putActivationCodeRequest(email: string): PutActivationCodeRequestAction {
+  return {
+    type: PUT_ACTIVATION_CODE_REQUEST,
+    email
+  };
+}
+
+export function putActivationCodeSuccess(email: string): PutActivationCodeSuccessAction {
+  return {
+    type: PUT_ACTIVATION_CODE_SUCCESS,
+    email
+  };
+}
+
+export function putActivationCodeFailure(email: string, serverError: string): PutActivationCodeFailureAction {
+  return {
+    type: PUT_ACTIVATION_CODE_FAILURE,
+    email,
+    serverError
+  };
+}
+
 export function signIn(username: string, password: string) {
   return async function (dispatch: Dispatch) {
     dispatch(signInRequest(username, 'PENDING'));
@@ -350,6 +444,23 @@ export function forgotPasswordEmail(email: string) {
       } else {
         dispatch(forgotPasswordFailure('INTERNAL ERROR', serverError));
       }
+    }
+  };
+}
+
+export function createActivationCode(email: string, groupId: number) {
+  return async function (dispatch: Dispatch): Promise<void> {
+    dispatch(putActivationCodeRequest(email));
+
+    try {
+      await api.post('activation_code', { email, group_id: groupId });
+
+      dispatch(putActivationCodeSuccess(email));
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(putActivationCodeFailure(email, serverError));
     }
   };
 }

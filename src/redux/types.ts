@@ -33,6 +33,7 @@ export type LogsState = {
 export type AuthState = {
   auth: Auth;
   user: Users;
+  createActivationCode: CreateActivationCodes;
 };
 
 export type MembershipsState = {
@@ -96,6 +97,12 @@ export type Auth = {
   signedInUser?: string;
   status?: string;
 };
+
+export type CreateActivationCodes = Record<string, CreateActivationCode>;
+
+export interface CreateActivationCode extends Meta {
+  created?: boolean;
+}
 
 export type Users = {
   [key: string]: {
