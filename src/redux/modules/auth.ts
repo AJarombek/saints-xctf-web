@@ -10,7 +10,7 @@ import moment from 'moment';
 import { AuthState, User } from '../types';
 import { Dispatch } from 'redux';
 import { auth } from '../../datasources/authRequest';
-import {getGroupTeamFailure, getGroupTeamRequest, getGroupTeamSuccess} from "./groups";
+import { fn } from '../../datasources/fnRequest';
 
 // Actions
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
@@ -119,6 +119,7 @@ interface ActivationCodeEmailFailureAction {
   type: typeof ACTIVATION_CODE_EMAIL_FAILURE;
   email: string;
   code: string;
+  serverError: string;
 }
 
 type AuthActionTypes =
@@ -135,13 +136,17 @@ type AuthActionTypes =
   | SetUserFromStorageAction
   | PutActivationCodeRequestAction
   | PutActivationCodeSuccessAction
-  | PutActivationCodeFailureAction;
+  | PutActivationCodeFailureAction
+  | ActivationCodeEmailRequestAction
+  | ActivationCodeEmailSuccessAction
+  | ActivationCodeEmailFailureAction;
 
 // Reducer
 const initialState: AuthState = {
   auth: {},
   user: {},
-  createActivationCode: {}
+  createActivationCode: {},
+  emailActivationCode: {}
 };
 
 function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {
@@ -276,10 +281,55 @@ function putActivationCodeFailureReducer(state: AuthState, action: PutActivation
     createActivationCode: {
       ...state.createActivationCode,
       [action.email]: {
-        isFetching: true,
+        isFetching: false,
         lastUpdated: moment().unix(),
         serverError: action.serverError,
         created: false
+      }
+    }
+  };
+}
+
+function emailActivationCodeRequestReducer(state: AuthState, action: ActivationCodeEmailRequestAction): AuthState {
+  return {
+    ...state,
+    emailActivationCode: {
+      ...state.emailActivationCode,
+      [action.email]: {
+        isFetching: true,
+        code: action.code,
+        lastUpdated: moment().unix()
+      }
+    }
+  };
+}
+
+function emailActivationCodeSuccessReducer(state: AuthState, action: ActivationCodeEmailSuccessAction): AuthState {
+  return {
+    ...state,
+    emailActivationCode: {
+      ...state.emailActivationCode,
+      [action.email]: {
+        isFetching: false,
+        code: action.code,
+        lastUpdated: moment().unix(),
+        emailed: true
+      }
+    }
+  };
+}
+
+function emailActivationCodeFailureReducer(state: AuthState, action: ActivationCodeEmailFailureAction): AuthState {
+  return {
+    ...state,
+    emailActivationCode: {
+      ...state.emailActivationCode,
+      [action.email]: {
+        isFetching: false,
+        code: action.code,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError,
+        emailed: false
       }
     }
   };
@@ -327,6 +377,12 @@ export default function reducer(state = initialState, action: AuthActionTypes): 
       return putActivationCodeSuccessReducer(state, action);
     case PUT_ACTIVATION_CODE_FAILURE:
       return putActivationCodeFailureReducer(state, action);
+    case ACTIVATION_CODE_EMAIL_REQUEST:
+      return emailActivationCodeRequestReducer(state, action);
+    case ACTIVATION_CODE_EMAIL_SUCCESS:
+      return emailActivationCodeSuccessReducer(state, action);
+    case ACTIVATION_CODE_EMAIL_FAILURE:
+      return emailActivationCodeFailureReducer(state, action);
     default:
       return state;
   }
@@ -415,6 +471,35 @@ export function putActivationCodeFailure(email: string, serverError: string): Pu
   };
 }
 
+export function activationCodeEmailRequest(email: string, code: string): ActivationCodeEmailRequestAction {
+  return {
+    type: ACTIVATION_CODE_EMAIL_REQUEST,
+    email,
+    code
+  };
+}
+
+export function activationCodeEmailSuccess(email: string, code: string): ActivationCodeEmailSuccessAction {
+  return {
+    type: ACTIVATION_CODE_EMAIL_SUCCESS,
+    email,
+    code
+  };
+}
+
+export function activationCodeEmailFailure(
+  email: string,
+  code: string,
+  serverError: string
+): ActivationCodeEmailFailureAction {
+  return {
+    type: ACTIVATION_CODE_EMAIL_FAILURE,
+    email,
+    code,
+    serverError
+  };
+}
+
 export function signIn(username: string, password: string) {
   return async function (dispatch: Dispatch) {
     dispatch(signInRequest(username, 'PENDING'));
@@ -485,6 +570,25 @@ export function createActivationCode(email: string, groupId: number) {
 
       dispatch(putActivationCodeFailure(email, serverError));
       return null;
+    }
+  };
+}
+
+export function sendActivationCodeEmail(email: string, code: string) {
+  return async function (dispatch: Dispatch): Promise<boolean> {
+    dispatch(activationCodeEmailRequest(email, code));
+
+    try {
+      const response = await fn.post('/email/activation-code', { email, code });
+      const { result } = response.data;
+
+      dispatch(activationCodeEmailSuccess(email, code));
+      return result;
+    } catch (error) {
+      const serverError = 'An unexpected error occurred.';
+
+      dispatch(activationCodeEmailFailure(email, code, serverError));
+      return false;
     }
   };
 }
