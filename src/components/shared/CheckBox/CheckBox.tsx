@@ -4,7 +4,7 @@
  * @since 1/20/2021
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
@@ -25,7 +25,7 @@ const CheckBox: React.FunctionComponent<Props> = ({ id, checked, onChange, class
   return (
     <div className={classNames(classes.checkBox, className)} onClick={onChange}>
       <input type="checkbox" id={id} className={classes.input} checked={checked} />
-      <span />
+      <span>{checked && <p>&#x4e;</p>}</span>
     </div>
   );
 };

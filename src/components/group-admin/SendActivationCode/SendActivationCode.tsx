@@ -14,6 +14,7 @@ import CheckBox from '../../shared/CheckBox';
 import { GroupMeta, RootState, TeamMeta } from '../../../redux/types';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
+import { createActivationCode } from '../../../redux/modules/auth';
 
 interface Props {
   groupId: number;
@@ -34,6 +35,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
   const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [approval, setApproval] = useState(false);
   const [sending, setSending] = useState(false);
+  const [errorCreatingActivationCode, setErrorCreatingActivationCode] = useState(false);
 
   const group: GroupMeta = useMemo(() => {
     return groups ? groups[groupId] : null;
@@ -64,8 +66,17 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
     setEmailStatus(ImageInputStatus.NONE);
   };
 
-  const onSendActivationCode = (): void => {
+  const onSendActivationCode = async (): Promise<void> => {
     setSending(true);
+    const activationCode = await dispatch(createActivationCode(email, groupId));
+
+    if (activationCode) {
+      await dispatch(null);
+    } else {
+      setErrorCreatingActivationCode(true);
+    }
+
+    setSending(false);
   };
 
   return (
@@ -100,8 +111,8 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
               <AJButton
                 type="contained"
                 onClick={onSendActivationCode}
-                disabled={sending}
-                className={classNames(classes.button, sending && classes.disabledButton)}
+                disabled={sending || !approval}
+                className={classNames(classes.button, (sending || !approval) && classes.disabledButton)}
               >
                 <p>{sending ? 'Sending' : 'Send Activation Code'}</p>
                 {sending && <LoadingSpinner className={classes.spinner} />}

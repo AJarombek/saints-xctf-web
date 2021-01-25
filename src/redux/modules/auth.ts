@@ -27,6 +27,9 @@ const SET_USER_FROM_STORAGE = 'saints-xctf-web/auth/SET_USER_FROM_STORAGE';
 const PUT_ACTIVATION_CODE_REQUEST = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_REQUEST';
 const PUT_ACTIVATION_CODE_FAILURE = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_FAILURE';
 const PUT_ACTIVATION_CODE_SUCCESS = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_SUCCESS';
+const ACTIVATION_CODE_EMAIL_REQUEST = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_REQUEST';
+const ACTIVATION_CODE_EMAIL_FAILURE = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_FAILURE';
+const ACTIVATION_CODE_EMAIL_SUCCESS = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_SUCCESS';
 
 // Action Types
 
@@ -98,6 +101,24 @@ interface PutActivationCodeFailureAction {
   type: typeof PUT_ACTIVATION_CODE_FAILURE;
   email: string;
   serverError: string;
+}
+
+interface ActivationCodeEmailRequestAction {
+  type: typeof ACTIVATION_CODE_EMAIL_REQUEST;
+  email: string;
+  code: string;
+}
+
+interface ActivationCodeEmailSuccessAction {
+  type: typeof ACTIVATION_CODE_EMAIL_SUCCESS;
+  email: string;
+  code: string;
+}
+
+interface ActivationCodeEmailFailureAction {
+  type: typeof ACTIVATION_CODE_EMAIL_FAILURE;
+  email: string;
+  code: string;
 }
 
 type AuthActionTypes =
@@ -453,14 +474,17 @@ export function createActivationCode(email: string, groupId: number) {
     dispatch(putActivationCodeRequest(email));
 
     try {
-      await api.post('activation_code', { email, group_id: groupId });
+      const response = await api.post('activation_code', { email, group_id: groupId });
+      const { activation_code } = response.data.activation_code;
 
       dispatch(putActivationCodeSuccess(email));
+      return activation_code;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(putActivationCodeFailure(email, serverError));
+      return null;
     }
   };
 }
