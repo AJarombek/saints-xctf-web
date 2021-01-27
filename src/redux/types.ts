@@ -78,6 +78,7 @@ export type GroupState = {
   stats: Record<string, StatsMeta>;
   leaderboards: Record<string, Leaderboards>;
   team: Record<string, TeamMeta>;
+  uploadingGroupPicture: Record<string, UploadingGroupPicture>;
 };
 
 export type TeamState = {
@@ -151,6 +152,12 @@ export interface UpdateUser extends Meta {
 }
 
 export interface UploadingProfilePicture extends Meta {
+  uploaded?: boolean;
+  uploadedSize?: number;
+  totalSize?: number;
+}
+
+export interface UploadingGroupPicture extends Meta {
   uploaded?: boolean;
   uploadedSize?: number;
   totalSize?: number;

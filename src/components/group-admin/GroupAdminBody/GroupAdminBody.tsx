@@ -14,6 +14,7 @@ import { getGroup, getGroupTeam } from '../../../redux/modules/groups';
 import classNames from 'classnames';
 import ManageUsers from '../ManageUsers/ManageUsers';
 import SendActivationCode from '../SendActivationCode';
+import EditGroup from '../EditGroup';
 
 interface Props {
   group: GroupMeta;
@@ -23,7 +24,6 @@ interface Props {
 export enum GroupAdminTab {
   MANAGE_USERS,
   SEND_ACTIVATION_CODE,
-  SEND_NOTIFICATIONS,
   EDIT_GROUP
 }
 
@@ -65,11 +65,6 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
         onView: (): void => setTab(GroupAdminTab.SEND_ACTIVATION_CODE),
         content: 'Send Activation Code'
       },
-      {
-        tab: GroupAdminTab.SEND_NOTIFICATIONS,
-        onView: (): void => setTab(GroupAdminTab.SEND_NOTIFICATIONS),
-        content: 'Send Notifications'
-      },
       { tab: GroupAdminTab.EDIT_GROUP, onView: (): void => setTab(GroupAdminTab.EDIT_GROUP), content: 'Edit Group' }
     ],
     []
@@ -85,8 +80,7 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
       <section>
         {tab === GroupAdminTab.MANAGE_USERS && <ManageUsers groupId={groupId} />}
         {tab === GroupAdminTab.SEND_ACTIVATION_CODE && <SendActivationCode groupId={groupId} />}
-        {tab === GroupAdminTab.SEND_NOTIFICATIONS && <></>}
-        {tab === GroupAdminTab.EDIT_GROUP && <></>}
+        {tab === GroupAdminTab.EDIT_GROUP && <EditGroup groupId={groupId} />}
       </section>
     </div>
   );

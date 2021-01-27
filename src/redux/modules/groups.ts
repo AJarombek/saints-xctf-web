@@ -25,6 +25,10 @@ const GET_GROUP_LEADERBOARD_FAILURE = 'saints-xctf-web/groups/GET_GROUP_LEADERBO
 const GET_GROUP_TEAM_REQUEST = 'saints-xctf-web/groups/GET_GROUP_TEAM_REQUEST';
 const GET_GROUP_TEAM_SUCCESS = 'saints-xctf-web/groups/GET_GROUP_TEAM_SUCCESS';
 const GET_GROUP_TEAM_FAILURE = 'saints-xctf-web/groups/GET_GROUP_TEAM_FAILURE';
+const POST_GROUP_PICTURE_REQUEST = 'saints-xctf-web/groups/POST_GROUP_PICTURE_REQUEST';
+const POST_GROUP_PICTURE_PROGRESS = 'saints-xctf-web/groups/POST_GROUP_PICTURE_PROGRESS';
+const POST_GROUP_PICTURE_SUCCESS = 'saints-xctf-web/groups/POST_GROUP_PICTURE_SUCCESS';
+const POST_GROUP_PICTURE_FAILURE = 'saints-xctf-web/groups/POST_GROUP_PICTURE_FAILURE';
 
 // Action Types
 
@@ -117,6 +121,29 @@ interface GetGroupTeamFailureAction {
   groupId: number;
 }
 
+interface PostGroupPictureRequestAction {
+  type: typeof POST_GROUP_PICTURE_REQUEST;
+  groupId: number;
+}
+
+interface PostGroupPictureProgressAction {
+  type: typeof POST_GROUP_PICTURE_PROGRESS;
+  groupId: number;
+  totalSize: number;
+  uploadedSize: number;
+}
+
+interface PostGroupPictureSuccessAction {
+  type: typeof POST_GROUP_PICTURE_SUCCESS;
+  groupId: number;
+}
+
+interface PostGroupPictureFailureAction {
+  type: typeof POST_GROUP_PICTURE_FAILURE;
+  groupId: number;
+  serverError: string;
+}
+
 type GroupActionTypes =
   | GetGroupRequestAction
   | GetGroupSuccessAction
@@ -132,7 +159,11 @@ type GroupActionTypes =
   | GetGroupLeaderboardFailureAction
   | GetGroupTeamRequestAction
   | GetGroupTeamSuccessAction
-  | GetGroupTeamFailureAction;
+  | GetGroupTeamFailureAction
+  | PostGroupPictureRequestAction
+  | PostGroupPictureProgressAction
+  | PostGroupPictureSuccessAction
+  | PostGroupPictureFailureAction;
 
 // Reducer
 const initialState: GroupState = {
@@ -140,7 +171,8 @@ const initialState: GroupState = {
   members: {},
   stats: {},
   leaderboards: {},
-  team: {}
+  team: {},
+  uploadingGroupPicture: {}
 };
 
 function getGroupRequestReducer(state: GroupState, action: GetGroupRequestAction): GroupState {
@@ -410,6 +442,63 @@ function getGroupTeamFailureReducer(state: GroupState, action: GetGroupTeamFailu
   };
 }
 
+function postGroupPictureRequestReducer(state: GroupState, action: PostGroupPictureRequestAction): GroupState {
+  return {
+    ...state,
+    uploadingGroupPicture: {
+      ...state.uploadingGroupPicture,
+      [action.groupId]: {
+        isFetching: true,
+        lastUpdated: moment().unix()
+      }
+    }
+  };
+}
+
+function postGroupPictureProgressReducer(state: GroupState, action: PostGroupPictureProgressAction): GroupState {
+  return {
+    ...state,
+    uploadingGroupPicture: {
+      ...state.uploadingGroupPicture,
+      [action.groupId]: {
+        isFetching: true,
+        lastUpdated: moment().unix(),
+        uploadedSize: action.uploadedSize,
+        totalSize: action.totalSize
+      }
+    }
+  };
+}
+
+function postGroupPictureSuccessReducer(state: GroupState, action: PostGroupPictureSuccessAction): GroupState {
+  return {
+    ...state,
+    uploadingGroupPicture: {
+      ...state.uploadingGroupPicture,
+      [action.groupId]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        uploaded: true
+      }
+    }
+  };
+}
+
+function postGroupPictureFailureReducer(state: GroupState, action: PostGroupPictureFailureAction): GroupState {
+  return {
+    ...state,
+    uploadingGroupPicture: {
+      ...state.uploadingGroupPicture,
+      [action.groupId]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        uploaded: false,
+        serverError: action.serverError
+      }
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: GroupActionTypes): GroupState {
   switch (action.type) {
     case GET_GROUP_REQUEST:
@@ -442,6 +531,14 @@ export default function reducer(state = initialState, action: GroupActionTypes):
       return getGroupTeamSuccessReducer(state, action);
     case GET_GROUP_TEAM_FAILURE:
       return getGroupTeamFailureReducer(state, action);
+    case POST_GROUP_PICTURE_REQUEST:
+      return postGroupPictureRequestReducer(state, action);
+    case POST_GROUP_PICTURE_PROGRESS:
+      return postGroupPictureProgressReducer(state, action);
+    case POST_GROUP_PICTURE_SUCCESS:
+      return postGroupPictureSuccessReducer(state, action);
+    case POST_GROUP_PICTURE_FAILURE:
+      return postGroupPictureFailureReducer(state, action);
     default:
       return state;
   }
