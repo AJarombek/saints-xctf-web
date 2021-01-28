@@ -17,7 +17,9 @@ const useStyles = createUseStyles(styles);
 const EditGroup: React.FunctionComponent<Props> = ({ groupId }) => {
   const classes = useStyles();
 
-  return <div className={classes.editGroup}></div>;
+  return <div className={classes.editGroup}>
+
+  </div>;
 };
 
 export default EditGroup;

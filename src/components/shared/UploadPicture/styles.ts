@@ -1,5 +1,5 @@
 /**
- * JSS styles for the UploadProfilePicture component.
+ * JSS styles for the UploadPicture component.
  * @author Andrew Jarombek
  * @since 12/21/2020
  */

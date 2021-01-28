@@ -8,6 +8,7 @@ import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import { Group, GroupState, LeaderboardInterval, LeaderboardItem, MemberDetails, Stats, Team } from '../types';
 import { Dispatch } from 'redux';
+import { fn } from '../../datasources/fnRequest';
 
 // Actions
 const GET_GROUP_REQUEST = 'saints-xctf-web/groups/GET_GROUP_REQUEST';
@@ -676,6 +677,41 @@ export function getGroupTeamFailure(serverError: string, groupId: number): GetGr
   };
 }
 
+export function postGroupPictureRequest(groupId: number): PostGroupPictureRequestAction {
+  return {
+    type: POST_GROUP_PICTURE_REQUEST,
+    groupId
+  };
+}
+
+export function postGroupPictureProgress(
+  groupId: number,
+  totalSize: number,
+  uploadedSize: number
+): PostGroupPictureProgressAction {
+  return {
+    type: POST_GROUP_PICTURE_PROGRESS,
+    groupId,
+    totalSize,
+    uploadedSize
+  };
+}
+
+export function postGroupPictureSuccess(groupId: number): PostGroupPictureSuccessAction {
+  return {
+    type: POST_GROUP_PICTURE_SUCCESS,
+    groupId
+  };
+}
+
+export function postGroupPictureFailure(groupId: number, serverError: string): PostGroupPictureFailureAction {
+  return {
+    type: POST_GROUP_PICTURE_FAILURE,
+    groupId,
+    serverError
+  };
+}
+
 export function getGroup(groupId: number) {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupRequest(groupId));
@@ -762,6 +798,37 @@ export function getGroupTeam(groupId: number) {
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getGroupTeamFailure(serverError, groupId));
+    }
+  };
+}
+
+export function uploadGroupPicture(groupId: number, file: File) {
+  return async function (dispatch: Dispatch): Promise<boolean> {
+    dispatch(postGroupPictureRequest(groupId));
+
+    try {
+      const data = new FormData();
+      data.append('file', file);
+      data.append('fileName', file.name);
+      data.append('groupId', groupId.toFixed(0));
+
+      const options = {
+        onUploadProgress: (progressEvent: ProgressEvent): void => {
+          const { loaded: uploadedSize, total: totalSize } = progressEvent;
+          dispatch(postGroupPictureProgress(groupId, totalSize, uploadedSize));
+        }
+      };
+
+      const response = await fn.post('/uasset/group', data, options);
+      const { result } = response.data;
+
+      dispatch(postGroupPictureSuccess(groupId));
+      return result;
+    } catch (error) {
+      const serverError = 'An unexpected error occurred.';
+
+      dispatch(postGroupPictureFailure(groupId, serverError));
+      return false;
     }
   };
 }
