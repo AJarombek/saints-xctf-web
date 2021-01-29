@@ -6,7 +6,16 @@
 
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
-import {Group, GroupMeta, GroupState, LeaderboardInterval, LeaderboardItem, MemberDetails, Stats, Team} from '../types';
+import {
+  Group,
+  GroupMeta,
+  GroupState,
+  LeaderboardInterval,
+  LeaderboardItem,
+  MemberDetails,
+  Stats,
+  Team
+} from '../types';
 import { Dispatch } from 'redux';
 import { fn } from '../../datasources/fnRequest';
 
@@ -30,6 +39,9 @@ const POST_GROUP_PICTURE_REQUEST = 'saints-xctf-web/groups/POST_GROUP_PICTURE_RE
 const POST_GROUP_PICTURE_PROGRESS = 'saints-xctf-web/groups/POST_GROUP_PICTURE_PROGRESS';
 const POST_GROUP_PICTURE_SUCCESS = 'saints-xctf-web/groups/POST_GROUP_PICTURE_SUCCESS';
 const POST_GROUP_PICTURE_FAILURE = 'saints-xctf-web/groups/POST_GROUP_PICTURE_FAILURE';
+const PUT_GROUP_REQUEST = 'saints-xctf-web/groups/PUT_GROUP_REQUEST';
+const PUT_GROUP_SUCCESS = 'saints-xctf-web/groups/PUT_GROUP_SUCCESS';
+const PUT_GROUP_FAILURE = 'saints-xctf-web/groups/PUT_GROUP_FAILURE';
 
 // Action Types
 
@@ -145,6 +157,23 @@ interface PostGroupPictureFailureAction {
   serverError: string;
 }
 
+interface PutGroupRequestAction {
+  type: typeof PUT_GROUP_REQUEST;
+  groupId: number;
+}
+
+interface PutGroupSuccessAction {
+  type: typeof PUT_GROUP_SUCCESS;
+  groupId: number;
+  group: Group;
+}
+
+interface PutGroupFailureAction {
+  type: typeof PUT_GROUP_FAILURE;
+  serverError: string;
+  groupId: number;
+}
+
 type GroupActionTypes =
   | GetGroupRequestAction
   | GetGroupSuccessAction
@@ -164,7 +193,10 @@ type GroupActionTypes =
   | PostGroupPictureRequestAction
   | PostGroupPictureProgressAction
   | PostGroupPictureSuccessAction
-  | PostGroupPictureFailureAction;
+  | PostGroupPictureFailureAction
+  | PutGroupRequestAction
+  | PutGroupSuccessAction
+  | PutGroupFailureAction;
 
 // Reducer
 const initialState: GroupState = {
@@ -173,7 +205,8 @@ const initialState: GroupState = {
   stats: {},
   leaderboards: {},
   team: {},
-  uploadingGroupPicture: {}
+  uploadingGroupPicture: {},
+  updating: {}
 };
 
 function getGroupRequestReducer(state: GroupState, action: GetGroupRequestAction): GroupState {
@@ -500,6 +533,58 @@ function postGroupPictureFailureReducer(state: GroupState, action: PostGroupPict
   };
 }
 
+function putGroupRequestReducer(state: GroupState, action: PutGroupRequestAction): GroupState {
+  return {
+    ...state,
+    updating: {
+      ...state.updating,
+      [action.groupId]: {
+        isFetching: true,
+        lastUpdated: moment().unix(),
+        serverError: null
+      }
+    }
+  };
+}
+
+function putGroupSuccessReducer(state: GroupState, action: PutGroupSuccessAction): GroupState {
+  return {
+    ...state,
+    updating: {
+      ...state.updating,
+      [action.groupId]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: null,
+        updated: true
+      }
+    },
+    group: {
+      ...state.group,
+      [action.groupId]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        ...action.group
+      }
+    }
+  };
+}
+
+function putGroupFailureReducer(state: GroupState, action: PutGroupFailureAction): GroupState {
+  return {
+    ...state,
+    updating: {
+      ...state.updating,
+      [action.groupId]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError,
+        updated: false
+      }
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: GroupActionTypes): GroupState {
   switch (action.type) {
     case GET_GROUP_REQUEST:
@@ -540,6 +625,12 @@ export default function reducer(state = initialState, action: GroupActionTypes):
       return postGroupPictureSuccessReducer(state, action);
     case POST_GROUP_PICTURE_FAILURE:
       return postGroupPictureFailureReducer(state, action);
+    case PUT_GROUP_REQUEST:
+      return putGroupRequestReducer(state, action);
+    case PUT_GROUP_SUCCESS:
+      return putGroupSuccessReducer(state, action);
+    case PUT_GROUP_FAILURE:
+      return putGroupFailureReducer(state, action);
     default:
       return state;
   }
@@ -712,6 +803,29 @@ export function postGroupPictureFailure(groupId: number, serverError: string): P
   };
 }
 
+export function putGroupRequest(groupId: number): PutGroupRequestAction {
+  return {
+    type: PUT_GROUP_REQUEST,
+    groupId
+  };
+}
+
+export function putGroupSuccess(groupId: number, group: Group): PutGroupSuccessAction {
+  return {
+    type: PUT_GROUP_SUCCESS,
+    groupId,
+    group
+  };
+}
+
+export function putGroupFailure(groupId: number, serverError: string): PutGroupFailureAction {
+  return {
+    type: PUT_GROUP_FAILURE,
+    serverError,
+    groupId
+  };
+}
+
 export function getGroup(groupId: number) {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupRequest(groupId));
@@ -833,4 +947,22 @@ export function uploadGroupPicture(groupId: number, file: File) {
   };
 }
 
-export function putGroup(group: GroupMeta) {}
+export function putGroup(group: GroupMeta) {
+  return async function (dispatch: Dispatch): Promise<Group> {
+    dispatch(putGroupRequest(group.id));
+
+    try {
+      const response = await api.put(`groups/${group.id}`, group);
+      const { group: updatedGroup } = response.data;
+
+      dispatch(putGroupSuccess(group.id, updatedGroup));
+      return updatedGroup;
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(putGroupFailure(group.id, serverError));
+      return null;
+    }
+  };
+}

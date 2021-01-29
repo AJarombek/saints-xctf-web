@@ -79,6 +79,7 @@ export type GroupState = {
   leaderboards: Record<string, Leaderboards>;
   team: Record<string, TeamMeta>;
   uploadingGroupPicture: Record<string, UploadingGroupPicture>;
+  updating: Record<string, UpdateGroup>;
 };
 
 export type TeamState = {
@@ -148,6 +149,10 @@ export interface User {
 }
 
 export interface UpdateUser extends Meta {
+  updated?: boolean;
+}
+
+export interface UpdateGroup extends Meta {
   updated?: boolean;
 }
 
