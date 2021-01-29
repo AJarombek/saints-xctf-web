@@ -39,7 +39,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
     const result = await dispatch(uploadProfilePicture(user.username, file));
 
     if (result) {
-      await updateUser();
+      await dispatch(updateUser());
     } else {
       setErrorUploading(true);
     }

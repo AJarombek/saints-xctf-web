@@ -14,12 +14,9 @@ export default {
     fontSize: 20
   },
   form: {
+    ...Mixins.containerBackground(),
     backgroundColor: color('#E3E3E3').alpha(0.8).string(),
-    width: '100%',
-    maxWidth: '900px',
-    margin: '25px auto',
-    borderRadius: '6px',
-    padding: '20px'
+    maxWidth: '900px'
   },
   inputError: {
     ...Mixins.inputError()

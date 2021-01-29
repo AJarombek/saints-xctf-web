@@ -6,7 +6,7 @@
 
 import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
-import { Group, GroupState, LeaderboardInterval, LeaderboardItem, MemberDetails, Stats, Team } from '../types';
+import {Group, GroupMeta, GroupState, LeaderboardInterval, LeaderboardItem, MemberDetails, Stats, Team} from '../types';
 import { Dispatch } from 'redux';
 import { fn } from '../../datasources/fnRequest';
 
@@ -832,3 +832,5 @@ export function uploadGroupPicture(groupId: number, file: File) {
     }
   };
 }
+
+export function putGroup(group: GroupMeta) {}

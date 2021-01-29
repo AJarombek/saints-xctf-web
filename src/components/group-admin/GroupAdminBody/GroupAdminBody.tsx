@@ -80,7 +80,7 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
       <section>
         {tab === GroupAdminTab.MANAGE_USERS && <ManageUsers groupId={groupId} />}
         {tab === GroupAdminTab.SEND_ACTIVATION_CODE && <SendActivationCode groupId={groupId} />}
-        {tab === GroupAdminTab.EDIT_GROUP && <EditGroup groupId={groupId} />}
+        {tab === GroupAdminTab.EDIT_GROUP && <EditGroup group={group} />}
       </section>
     </div>
   );

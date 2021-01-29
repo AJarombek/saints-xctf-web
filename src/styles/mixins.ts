@@ -300,7 +300,7 @@ class Mixins {
     margin: '25px auto',
     borderRadius: '6px',
     padding: '20px'
-  })
+  });
 }
 
 class AJComponentMixins {
