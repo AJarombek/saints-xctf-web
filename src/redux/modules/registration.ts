@@ -9,6 +9,7 @@ import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import { RegistrationState } from '../types';
 import { Dispatch } from 'redux';
+import { AppThunk } from '../store';
 
 // Actions
 const REGISTER_PERSONAL_INFO_REQUEST = 'saints-xctf-web/registration/REGISTER_PERSONAL_INFO_REQUEST';
@@ -245,7 +246,11 @@ export function registerBack(): RegisterBackAction {
  * @param email Email address associated with the new user.
  * @return {function(...[*]=)} Function which dispatches action creators.
  */
-export function registerPersonalInfo(first: string, last: string, email: string) {
+export function registerPersonalInfo(
+  first: string,
+  last: string,
+  email: string
+): AppThunk<Promise<void>, RegistrationState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(registerPersonalInfoRequest());
 
@@ -311,7 +316,7 @@ export function registerCredentials(
   username: string,
   password: string,
   activationCode: string
-) {
+): AppThunk<Promise<void>, RegistrationState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(registerCredentialsRequest());
 

@@ -11,6 +11,7 @@ import { AuthState, User } from '../types';
 import { Dispatch } from 'redux';
 import { auth } from '../../datasources/authRequest';
 import { fn } from '../../datasources/fnRequest';
+import { AppThunk } from '../store';
 
 // Actions
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
@@ -500,8 +501,8 @@ export function activationCodeEmailFailure(
   };
 }
 
-export function signIn(username: string, password: string) {
-  return async function (dispatch: Dispatch) {
+export function signIn(username: string, password: string): AppThunk<Promise<void>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<void> {
     dispatch(signInRequest(username, 'PENDING'));
 
     try {
@@ -534,8 +535,8 @@ export function signIn(username: string, password: string) {
   };
 }
 
-export function forgotPasswordEmail(email: string) {
-  return async function (dispatch: Dispatch) {
+export function forgotPasswordEmail(email: string): AppThunk<Promise<void>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<void> {
     dispatch(forgotPasswordRequest());
 
     try {
@@ -554,12 +555,12 @@ export function forgotPasswordEmail(email: string) {
   };
 }
 
-export function createActivationCode(email: string, groupId: number) {
-  return async function (dispatch: Dispatch): Promise<void> {
+export function createActivationCode(email: string, groupId: number): AppThunk<Promise<string>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<string> {
     dispatch(putActivationCodeRequest(email));
 
     try {
-      const response = await api.post('activation_code', { email, group_id: groupId });
+      const response = await api.post('activation_code/', { email, group_id: groupId });
       const { activation_code } = response.data.activation_code;
 
       dispatch(putActivationCodeSuccess(email));
@@ -574,21 +575,21 @@ export function createActivationCode(email: string, groupId: number) {
   };
 }
 
-export function sendActivationCodeEmail(email: string, code: string) {
-  return async function (dispatch: Dispatch): Promise<boolean> {
-    dispatch(activationCodeEmailRequest(email, code));
+export const sendActivationCodeEmail = (email: string, code: string): AppThunk<Promise<boolean>, AuthState> => async (
+  dispatch: Dispatch
+): Promise<boolean> => {
+  dispatch(activationCodeEmailRequest(email, code));
 
-    try {
-      const response = await fn.post('/email/activation-code', { email, code });
-      const { result } = response.data;
+  try {
+    const response = await fn.post('/email/activation-code', { email, code });
+    const result: boolean = response.data.result;
 
-      dispatch(activationCodeEmailSuccess(email, code));
-      return result;
-    } catch (error) {
-      const serverError = 'An unexpected error occurred.';
+    dispatch(activationCodeEmailSuccess(email, code));
+    return result;
+  } catch (error) {
+    const serverError = 'An unexpected error occurred.';
 
-      dispatch(activationCodeEmailFailure(email, code, serverError));
-      return false;
-    }
-  };
-}
+    dispatch(activationCodeEmailFailure(email, code, serverError));
+    return false;
+  }
+};

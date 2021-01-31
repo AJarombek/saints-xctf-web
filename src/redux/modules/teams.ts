@@ -8,6 +8,7 @@ import { api } from '../../datasources/apiRequest';
 import moment from 'moment';
 import { Group, Team, TeamState } from '../types';
 import { Dispatch } from 'redux';
+import { AppThunk } from '../store';
 
 // Actions
 const GET_TEAM_REQUEST = 'saints-xctf-web/teams/GET_TEAM_REQUEST';
@@ -334,7 +335,7 @@ export function searchTeamsFailure(serverError: string, text: string): SearchTea
   };
 }
 
-export function getTeam(teamName: string) {
+export function getTeam(teamName: string): AppThunk<Promise<void>, TeamState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getTeamRequest(teamName));
 
@@ -352,7 +353,7 @@ export function getTeam(teamName: string) {
   };
 }
 
-export function getTeamGroups(teamName: string) {
+export function getTeamGroups(teamName: string): AppThunk<Promise<void>, TeamState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getTeamGroupsRequest(teamName));
 
@@ -370,7 +371,7 @@ export function getTeamGroups(teamName: string) {
   };
 }
 
-export function searchTeams(text: string) {
+export function searchTeams(text: string): AppThunk<Promise<void>, TeamState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(searchTeamsRequest(text));
 

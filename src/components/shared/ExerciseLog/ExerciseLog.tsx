@@ -7,7 +7,7 @@
 import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { DeletedLog, DeletedLogs, Log, RootState, User } from '../../../redux/types';
+import { DeletedLog, DeletedLogs, Log, LogsState, RootState, User } from '../../../redux/types';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import Comments from '../Comments/Comments';
@@ -16,7 +16,7 @@ import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteLog, logFeed } from '../../../redux/modules/logs';
 import DeleteLogModal from './DeleteLogModal';
-import { Dispatch } from 'redux';
+import { AppThunk } from '../../../redux/store';
 
 interface Props {
   log: Log;
@@ -163,7 +163,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
       </div>
       <DeleteLogModal
         onClose={(): void => setShowDeleteModal(false)}
-        onDelete={(): ((dispatch: Dispatch) => Promise<void>) => dispatch(deleteLog(log.log_id))}
+        onDelete={(): AppThunk<Promise<void>, LogsState> => dispatch(deleteLog(log.log_id))}
         show={showDeleteModal}
         log={log}
         isDeleting={isDeleting}

@@ -19,6 +19,7 @@ import {
 } from '../types';
 import { Dispatch } from 'redux';
 import moment from 'moment';
+import { AppThunk } from '../store';
 
 // Actions
 const GET_LOG_REQUEST = 'saints-xctf-web/logs/GET_LOG_REQUEST';
@@ -790,7 +791,7 @@ export function addComment(
   };
 }
 
-export function getLog(id: number) {
+export function getLog(id: number): AppThunk<Promise<void>, LogsState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getLogRequest(id));
 
@@ -807,7 +808,12 @@ export function getLog(id: number) {
   };
 }
 
-export function logFeed(filterBy: string, bucket: string, limit: number, offset: number) {
+export function logFeed(
+  filterBy: string,
+  bucket: string,
+  limit: number,
+  offset: number
+): AppThunk<Promise<void>, LogsState> {
   return async function (dispatch: Dispatch): Promise<void> {
     const page = offset / limit + 1;
     dispatch(logFeedRequest(page, filterBy, bucket));
@@ -838,7 +844,7 @@ export function postLog(
   time: string,
   feel: number,
   description: string
-) {
+): AppThunk<Promise<void>, LogsState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(postLogRequest());
 
@@ -878,7 +884,7 @@ export function putLog(
   time: string,
   feel: number,
   description: string
-) {
+): AppThunk<Promise<void>, LogsState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(putLogRequest(id));
 
@@ -905,7 +911,7 @@ export function putLog(
   };
 }
 
-export function deleteLog(id: number) {
+export function deleteLog(id: number): AppThunk<Promise<void>, LogsState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(deleteLogRequest(id));
 
@@ -921,7 +927,13 @@ export function deleteLog(id: number) {
   };
 }
 
-export function postComment(logId: number, username: string, first: string, last: string, content: string) {
+export function postComment(
+  logId: number,
+  username: string,
+  first: string,
+  last: string,
+  content: string
+): AppThunk<Promise<void>, LogsState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(postCommentRequest(logId));
 

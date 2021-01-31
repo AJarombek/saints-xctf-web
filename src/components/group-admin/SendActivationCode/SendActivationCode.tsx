@@ -14,7 +14,7 @@ import CheckBox from '../../shared/CheckBox';
 import { GroupMeta, RootState, TeamMeta } from '../../../redux/types';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
-import { createActivationCode } from '../../../redux/modules/auth';
+import { createActivationCode, sendActivationCodeEmail } from '../../../redux/modules/auth';
 
 interface Props {
   groupId: number;
@@ -36,6 +36,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
   const [approval, setApproval] = useState(false);
   const [sending, setSending] = useState(false);
   const [errorCreatingActivationCode, setErrorCreatingActivationCode] = useState(false);
+  const [errorSendingActivationCodeEmail, setErrorSendingActivationCodeEmail] = useState(false);
 
   const group: GroupMeta = useMemo(() => {
     return groups ? groups[groupId] : null;
@@ -71,7 +72,8 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
     const activationCode = await dispatch(createActivationCode(email, groupId));
 
     if (activationCode) {
-      await dispatch(null);
+      const emailSent = await dispatch(sendActivationCodeEmail(email, `${activationCode}`));
+      setErrorSendingActivationCodeEmail(!emailSent);
     } else {
       setErrorCreatingActivationCode(true);
     }

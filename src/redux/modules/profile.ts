@@ -9,6 +9,7 @@ import { fn } from '../../datasources/fnRequest';
 import moment from 'moment';
 import { Dispatch } from 'redux';
 import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, Stats } from '../types';
+import { AppThunk } from '../store';
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -850,7 +851,7 @@ export function putUserMembershipsFailure(username: string, serverError: string)
   };
 }
 
-export function getUser(username: string) {
+export function getUser(username: string): AppThunk<Promise<void>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getUserRequest(username));
 
@@ -868,7 +869,7 @@ export function getUser(username: string) {
   };
 }
 
-export function putUser(user: User) {
+export function putUser(user: User): AppThunk<Promise<User>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<User> {
     dispatch(putUserRequest(user.username));
 
@@ -888,7 +889,7 @@ export function putUser(user: User) {
   };
 }
 
-export function getUserFlair(username: string) {
+export function getUserFlair(username: string): AppThunk<Promise<void>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getUserFlairRequest(username));
 
@@ -906,7 +907,7 @@ export function getUserFlair(username: string) {
   };
 }
 
-export function getUserStats(username: string) {
+export function getUserStats(username: string): AppThunk<Promise<void>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getUserStatsRequest(username));
 
@@ -924,7 +925,7 @@ export function getUserStats(username: string) {
   };
 }
 
-export function uploadProfilePicture(username: string, file: File) {
+export function uploadProfilePicture(username: string, file: File): AppThunk<Promise<boolean>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(postProfilePictureRequest(username));
 
@@ -955,7 +956,7 @@ export function uploadProfilePicture(username: string, file: File) {
   };
 }
 
-export function getUserMemberships(username: string) {
+export function getUserMemberships(username: string): AppThunk<Promise<TeamMembership[]>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<TeamMembership[]> {
     dispatch(getUserMembershipsRequest(username));
 
@@ -981,7 +982,7 @@ export function updateUserMemberships(
   teamsLeft: string[],
   groupsJoined: TeamGroupMapping[],
   groupsLeft: TeamGroupMapping[]
-) {
+): AppThunk<Promise<boolean>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putUserMembershipsRequest(username));
 

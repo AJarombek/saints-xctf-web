@@ -8,7 +8,7 @@ import { api } from '../../datasources/apiRequest';
 import { Dispatch } from 'redux';
 import { GroupMember, GroupMembers, MembershipsState } from '../types';
 import moment from 'moment';
-import { getGroupTeamFailure, getGroupTeamRequest, getGroupTeamSuccess } from './groups';
+import { AppThunk } from '../store';
 
 // Actions
 const GET_GROUP_MEMBERSHIPS_REQUEST = 'saints-xctf-web/memberships/GET_GROUP_MEMBERSHIPS_REQUEST';
@@ -375,8 +375,8 @@ export function deleteGroupMembershipFailure(
   };
 }
 
-export function getGroupMemberships(username: string) {
-  return async function (dispatch: Dispatch) {
+export function getGroupMemberships(username: string): AppThunk<Promise<void>, MembershipsState> {
+  return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupMembershipsRequest());
 
     try {
@@ -396,7 +396,7 @@ export function updateGroupMembership(
   groupMember: { user: string; status: string },
   groupId: number,
   username: string
-) {
+): AppThunk<Promise<boolean>, MembershipsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putGroupMembershipRequest(groupId, username));
 
@@ -414,7 +414,7 @@ export function updateGroupMembership(
   };
 }
 
-export function deleteGroupMembership(groupId: number, username: string) {
+export function deleteGroupMembership(groupId: number, username: string): AppThunk<Promise<boolean>, MembershipsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(deleteGroupMembershipRequest(groupId, username));
 

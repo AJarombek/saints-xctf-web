@@ -6,11 +6,12 @@
  */
 
 import { createBrowserHistory } from 'history';
-import { createStore, applyMiddleware, Store } from 'redux';
+import { createStore, applyMiddleware, Store, Action } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
 import { createLogger } from 'redux-logger';
-import thunkMiddleware from 'redux-thunk';
+import thunkMiddleware, { ThunkAction } from 'redux-thunk';
 import reducer from './modules/reducers';
+import { RootState } from './types';
 
 export const history = createBrowserHistory();
 
@@ -27,3 +28,5 @@ export default function configureStore(): Store {
 
   return store;
 }
+
+export type AppThunk<ReturnType = void, State = RootState> = ThunkAction<ReturnType, State, unknown, Action<string>>;

@@ -8,6 +8,7 @@ import { api } from '../../datasources/apiRequest';
 import { Dispatch } from 'redux';
 import { Notification, NotificationsState } from '../types';
 import moment from 'moment';
+import { AppThunk } from '../store';
 
 // Actions
 const GET_USER_NOTIFICATIONS_REQUEST = 'saints-xctf-web/notifications/GET_USER_NOTIFICATIONS_REQUEST';
@@ -36,19 +37,6 @@ type NotificationsActionTypes =
 
 // Reducer
 const initialState: NotificationsState = {};
-
-export default function reducer(state: NotificationsState = initialState, action: NotificationsActionTypes) {
-  switch (action.type) {
-    case GET_USER_NOTIFICATIONS_REQUEST:
-      return getUserNotificationsRequestReducer(state, action);
-    case GET_USER_NOTIFICATIONS_SUCCESS:
-      return getUserNotificationsSuccessReducer(state, action);
-    case GET_USER_NOTIFICATIONS_FAILURE:
-      return getUserNotificationsFailureReducer(state, action);
-    default:
-      return state;
-  }
-}
 
 function getUserNotificationsRequestReducer(
   state: NotificationsState,
@@ -88,6 +76,22 @@ function getUserNotificationsFailureReducer(
   };
 }
 
+export default function reducer(
+  state: NotificationsState = initialState,
+  action: NotificationsActionTypes
+): NotificationsState {
+  switch (action.type) {
+    case GET_USER_NOTIFICATIONS_REQUEST:
+      return getUserNotificationsRequestReducer(state, action);
+    case GET_USER_NOTIFICATIONS_SUCCESS:
+      return getUserNotificationsSuccessReducer(state, action);
+    case GET_USER_NOTIFICATIONS_FAILURE:
+      return getUserNotificationsFailureReducer(state, action);
+    default:
+      return state;
+  }
+}
+
 // Action Creators
 export function getUserNotificationsRequest(): GetUserNotificationsRequestAction {
   return {
@@ -109,8 +113,8 @@ export function getUserNotificationsFailure(serverError: string): GetUserNotific
   };
 }
 
-export function getUserNotifications(username: string) {
-  return async function (dispatch: Dispatch) {
+export function getUserNotifications(username: string): AppThunk<Promise<void>, NotificationsState> {
+  return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getUserNotificationsRequest());
 
     try {

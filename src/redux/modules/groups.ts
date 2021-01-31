@@ -18,6 +18,7 @@ import {
 } from '../types';
 import { Dispatch } from 'redux';
 import { fn } from '../../datasources/fnRequest';
+import { AppThunk } from '../store';
 
 // Actions
 const GET_GROUP_REQUEST = 'saints-xctf-web/groups/GET_GROUP_REQUEST';
@@ -826,7 +827,7 @@ export function putGroupFailure(groupId: number, serverError: string): PutGroupF
   };
 }
 
-export function getGroup(groupId: number) {
+export function getGroup(groupId: number): AppThunk<Promise<void>, GroupState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupRequest(groupId));
 
@@ -844,7 +845,7 @@ export function getGroup(groupId: number) {
   };
 }
 
-export function getGroupMembers(groupId: number) {
+export function getGroupMembers(groupId: number): AppThunk<Promise<void>, GroupState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupMembersRequest(groupId));
 
@@ -862,7 +863,7 @@ export function getGroupMembers(groupId: number) {
   };
 }
 
-export function getGroupStats(groupId: number) {
+export function getGroupStats(groupId: number): AppThunk<Promise<void>, GroupState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupStatsRequest(groupId));
 
@@ -880,7 +881,10 @@ export function getGroupStats(groupId: number) {
   };
 }
 
-export function getGroupLeaderboard(groupId: number, interval: LeaderboardInterval = null) {
+export function getGroupLeaderboard(
+  groupId: number,
+  interval: LeaderboardInterval = null
+): AppThunk<Promise<void>, GroupState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupLeaderboardRequest(groupId, interval));
 
@@ -898,7 +902,7 @@ export function getGroupLeaderboard(groupId: number, interval: LeaderboardInterv
   };
 }
 
-export function getGroupTeam(groupId: number) {
+export function getGroupTeam(groupId: number): AppThunk<Promise<void>, GroupState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupTeamRequest(groupId));
 
@@ -916,7 +920,7 @@ export function getGroupTeam(groupId: number) {
   };
 }
 
-export function uploadGroupPicture(groupId: number, file: File) {
+export function uploadGroupPicture(groupId: number, file: File): AppThunk<Promise<boolean>, GroupState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(postGroupPictureRequest(groupId));
 
@@ -947,7 +951,7 @@ export function uploadGroupPicture(groupId: number, file: File) {
   };
 }
 
-export function putGroup(group: GroupMeta) {
+export function putGroup(group: GroupMeta): AppThunk<Promise<Group>, GroupState> {
   return async function (dispatch: Dispatch): Promise<Group> {
     dispatch(putGroupRequest(group.id));
 
