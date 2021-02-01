@@ -16,7 +16,6 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 import { createActivationCode, sendActivationCodeEmail } from '../../../redux/modules/auth';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
-import AlertPopup from '../../shared/AlertPopup';
 
 interface Props {
   groupId: number;
@@ -37,6 +36,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
   const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [approval, setApproval] = useState(false);
   const [sending, setSending] = useState(false);
+  const [activationCodeNotSent, setActivationCodeNotSent] = useState<string>(null);
   const [errorCreatingActivationCode, setErrorCreatingActivationCode] = useState(false);
   const [errorSendingActivationCodeEmail, setErrorSendingActivationCodeEmail] = useState(false);
 
@@ -83,6 +83,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
     if (activationCode) {
       await onSendActivationCodeEmail(email, `${activationCode}`);
     } else {
+      setActivationCodeNotSent(`${activationCode}`);
       setErrorCreatingActivationCode(true);
       setSending(false);
     }
@@ -143,7 +144,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
           message="An unexpected error occurred while sending the new activation code to the email address entered."
           onClose={(): void => setErrorSendingActivationCodeEmail(false)}
           retryable={true}
-          onRetry={onSendActivationCodeEmail}
+          onRetry={(): Promise<void> => onSendActivationCodeEmail(email, activationCodeNotSent)}
         />
       )}
     </>

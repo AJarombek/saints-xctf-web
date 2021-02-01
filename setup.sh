@@ -7,7 +7,7 @@
 npm init
 yarn
 
-nvm use v10.15.3
+nvm use v12.18.4
 yarn --force
 
 # Dependencies
@@ -51,9 +51,9 @@ yarn add file-loader --dev
 yarn add glob --dev
 
 # Start Locally
-nvm use v10.15.3
+nvm use v12.18.4
 yarn start
 
 # Build Locally
-nvm use v10.15.3
+nvm use v12.18.4
 yarn build:local

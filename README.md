@@ -15,15 +15,15 @@ front-end is written in React.js and styled with Sass.  API calls are routed thr
 ```bash
 git clone https://github.com/AJarombek/saints-xctf-web.git 
 cd saints-xctf-web
-nvm install v10.15.3
-nvm use v10.15.3
+nvm install v12.18.4
+nvm use v12.18.4
 yarn
 ```
 
 **Starting the server**
 
 ```bash
-nvm use v10.15.3
+nvm use v12.18.4
 yarn start
 ```
 
