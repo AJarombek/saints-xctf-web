@@ -13,11 +13,13 @@ import AlertPopup from '../AlertPopup/AlertPopup';
 interface Props {
   message: string;
   onClose: () => void;
+  retryable?: boolean;
+  onRetry?: () => void;
 }
 
 const useStyles = createUseStyles(styles);
 
-const DefaultErrorPopup: React.FunctionComponent<Props> = ({ message, onClose }) => {
+const DefaultErrorPopup: React.FunctionComponent<Props> = ({ message, onClose, onRetry, retryable = false }) => {
   const classes = useStyles();
 
   return (
@@ -29,6 +31,11 @@ const DefaultErrorPopup: React.FunctionComponent<Props> = ({ message, onClose })
             andrew@jarombek.com
           </a>
           .
+          {retryable && (
+            <p onClick={onRetry} className={classes.retry}>
+              Retry
+            </p>
+          )}
         </>
       }
       onClose={onClose}

@@ -581,7 +581,7 @@ export const sendActivationCodeEmail = (email: string, code: string): AppThunk<P
   dispatch(activationCodeEmailRequest(email, code));
 
   try {
-    const response = await fn.post('/email/activation-code', { email, code });
+    const response = await fn.post('email/activation-code', { email, code });
     const result: boolean = response.data.result;
 
     dispatch(activationCodeEmailSuccess(email, code));

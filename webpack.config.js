@@ -124,6 +124,7 @@ const localConfig = {
       '/fn/**': {
         target: 'https://dev.fn.saintsxctf.com/',
         secure: true,
+        changeOrigin: true,
         pathRewrite: { '^/fn': '' }
       },
       '/asset/**': {

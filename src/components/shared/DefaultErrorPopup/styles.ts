@@ -4,10 +4,21 @@
  * @since 9/7/2020
  */
 
-import Mixins from '../../../styles/mixins';
+import Mixins, { FontMixins } from '../../../styles/mixins';
+import Colors from '../../../styles/colors';
 
 export default {
   emailLink: {
     ...Mixins.saintsXCTFLink()
+  },
+  retry: {
+    ...FontMixins.robotoSlabBold(),
+    margin: '10px 0 0 5px',
+    color: Colors.spotPaletteBlue,
+    cursor: 'pointer',
+
+    '&:hover': {
+      textDecoration: 'underline'
+    }
   }
 };

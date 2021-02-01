@@ -15,6 +15,8 @@ import { GroupMeta, RootState, TeamMeta } from '../../../redux/types';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 import { createActivationCode, sendActivationCodeEmail } from '../../../redux/modules/auth';
+import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
+import AlertPopup from '../../shared/AlertPopup';
 
 interface Props {
   groupId: number;
@@ -67,63 +69,84 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
     setEmailStatus(ImageInputStatus.NONE);
   };
 
+  const onSendActivationCodeEmail = async (email: string, activationCode: string): Promise<void> => {
+    setSending(true);
+    const emailSent = await dispatch(sendActivationCodeEmail(email, `${activationCode}`));
+    setErrorSendingActivationCodeEmail(!emailSent);
+    setSending(false);
+  };
+
   const onSendActivationCode = async (): Promise<void> => {
     setSending(true);
     const activationCode = await dispatch(createActivationCode(email, groupId));
 
     if (activationCode) {
-      const emailSent = await dispatch(sendActivationCodeEmail(email, `${activationCode}`));
-      setErrorSendingActivationCodeEmail(!emailSent);
+      await onSendActivationCodeEmail(email, `${activationCode}`);
     } else {
       setErrorCreatingActivationCode(true);
+      setSending(false);
     }
-
-    setSending(false);
   };
 
   return (
-    <div className={classes.sendActivationCode}>
-      <h3 className={classes.title}>Send Activation Code</h3>
-      <div className={classes.container}>
-        <p className={classes.inputTitle}>Enter an Email Address</p>
-        <ImageInput
-          type="text"
-          name="email"
-          placeholder=""
-          useCustomValue={true}
-          value={email}
-          onChange={onChangeEmail}
-          status={emailStatus}
-          className={classes.input}
-        />
-        {emailStatus === ImageInputStatus.SUCCESS && (
-          <>
-            <div className={classes.approvalMessage}>
-              Sending an email to this address will give its recipient access to the <strong>{teamTitle}</strong> team
-              and <strong>{group.group_title}</strong> group.
-            </div>
-            <div className={classes.approval}>
-              <CheckBox id="emailApproval" checked={approval} onChange={(): void => setApproval(!approval)} />
-              <p>I Approve</p>
-            </div>
-            <div className={classes.actions}>
-              <AJButton type="text" onClick={onReset} disabled={sending}>
-                Reset
-              </AJButton>
-              <AJButton
-                type="contained"
-                onClick={onSendActivationCode}
-                disabled={sending || !approval}
-                className={classNames(classes.button, (sending || !approval) && classes.disabledButton)}
-              >
-                <p>{sending ? 'Sending' : 'Send Activation Code'}</p>
-                {sending && <LoadingSpinner className={classes.spinner} />}
-              </AJButton>
-            </div>
-          </>
-        )}
+    <>
+      <div className={classes.sendActivationCode}>
+        <h3 className={classes.title}>Send Activation Code</h3>
+        <div className={classes.container}>
+          <p className={classes.inputTitle}>Enter an Email Address</p>
+          <ImageInput
+            type="text"
+            name="email"
+            placeholder=""
+            useCustomValue={true}
+            value={email}
+            onChange={onChangeEmail}
+            status={emailStatus}
+            className={classes.input}
+          />
+          {emailStatus === ImageInputStatus.SUCCESS && (
+            <>
+              <div className={classes.approvalMessage}>
+                Sending an email to this address will give its recipient access to the <strong>{teamTitle}</strong> team
+                and <strong>{group.group_title}</strong> group.
+              </div>
+              <div className={classes.approval}>
+                <CheckBox id="emailApproval" checked={approval} onChange={(): void => setApproval(!approval)} />
+                <p>I Approve</p>
+              </div>
+              <div className={classes.actions}>
+                <AJButton type="text" onClick={onReset} disabled={sending}>
+                  Reset
+                </AJButton>
+                <AJButton
+                  type="contained"
+                  onClick={onSendActivationCode}
+                  disabled={sending || !approval}
+                  className={classNames(classes.button, (sending || !approval) && classes.disabledButton)}
+                >
+                  <p>{sending ? 'Sending' : 'Send Activation Code'}</p>
+                  {sending && <LoadingSpinner className={classes.spinner} />}
+                </AJButton>
+              </div>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+      {errorCreatingActivationCode && (
+        <DefaultErrorPopup
+          message="An unexpected error occurred while creating a new activation code."
+          onClose={(): void => setErrorCreatingActivationCode(false)}
+        />
+      )}
+      {errorSendingActivationCodeEmail && (
+        <DefaultErrorPopup
+          message="An unexpected error occurred while sending the new activation code to the email address entered."
+          onClose={(): void => setErrorSendingActivationCodeEmail(false)}
+          retryable={true}
+          onRetry={onSendActivationCodeEmail}
+        />
+      )}
+    </>
   );
 };
 
