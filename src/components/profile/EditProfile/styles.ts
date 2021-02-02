@@ -28,9 +28,7 @@ export default {
     display: 'flex'
   },
   textArea: {
-    border: 'none',
-    width: '100%',
-    padding: '6px 20px'
+    ...Mixins.textArea()
   },
   radioGroup: {
     display: 'flex'

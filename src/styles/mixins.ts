@@ -180,6 +180,12 @@ class Mixins {
     marginTop: 50
   });
 
+  static textArea = (): object => ({
+    border: 'none',
+    width: '100%',
+    padding: '6px 20px'
+  });
+
   static profilePicture = (): object => ({
     width: 150,
     height: 150,

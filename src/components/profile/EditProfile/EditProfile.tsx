@@ -7,14 +7,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { Memberships, RootState, UserMeta, Users } from '../../../redux/types';
+import {Memberships, RootState, User, UserMeta, Users} from '../../../redux/types';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
 import { AJButton } from 'jarombek-react-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserMemberships } from '../../../redux/modules/profile';
+import {getUserMemberships, putUser} from '../../../redux/modules/profile';
 import PickTeams from '../PickTeams';
 import UploadProfilePicture from '../UploadProfilePicture';
 
@@ -45,12 +45,29 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const [description, setDescription] = useState('');
   const [weekStart, setWeekStart] = useState('');
 
-  useEffect(() => {
-    dispatch(getUserMemberships(user.username));
-  }, [dispatch, user.username]);
+  const [updatingProfileDetails, setUpdatingProfileDetails] = useState(false);
+  const [errorUpdatingProfileDetails, setErrorUpdatingProfileDetails] = useState(false);
 
   useEffect(() => {
-    setMemberships(userProfiles[user.username].memberships);
+    if (userProfiles && user?.username && !userProfiles[user.username]?.memberships) {
+      dispatch(getUserMemberships(user.username));
+    }
+  }, [dispatch, user.username, userProfiles]);
+
+  useEffect(() => {
+    if (userProfiles[user.username]) {
+      const userProfile = userProfiles[user.username];
+
+      setMemberships(userProfile.memberships);
+      setFirstName(userProfile.user.first);
+      setLastName(userProfile.user.last);
+      setEmail(userProfile.user.email);
+      setClassYear(userProfile.user.class_year);
+      setLocation(userProfile.user.location);
+      setFavoriteEvent(userProfile.user.favorite_event);
+      setDescription(userProfile.user.description);
+      setWeekStart(userProfile.user.week_start);
+    }
   }, [userProfiles, user.username]);
 
   const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -59,7 +76,30 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
     }
   };
 
-  const onSubmitDetails = (): void => {};
+  const onSubmitDetails = async (): Promise<void> => {
+    setUpdatingProfileDetails(true);
+
+    const newUser: User = {
+      username: user.username,
+      first: firstName,
+      last: lastName,
+      profilepic_name: user.profilepic_name,
+      description,
+      class_year: classYear,
+      location,
+      favorite_event: favoriteEvent,
+      email,
+      week_start: weekStart
+    };
+
+    const updatedUser = await dispatch(putUser(newUser));
+
+    if (!updatedUser) {
+      setErrorUpdatingProfileDetails(true);
+    }
+
+    setUpdatingProfileDetails(false);
+  };
 
   const onCancelDetails = (): void => {
     setFirstName(user.first);
@@ -156,7 +196,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
           <div className={classes.favoriteEventInput}>
             <p className={classes.inputTitle}>Favorite Event</p>
             <ImageInput
-              type="number"
+              type="text"
               name="favoriteEvent"
               placeholder=""
               useCustomValue={true}

@@ -17,5 +17,17 @@ export default {
     ...Mixins.containerBackground(),
     backgroundColor: color('#E3E3E3').alpha(0.8).string(),
     maxWidth: '900px'
+  },
+  inputTitle: {
+    ...Mixins.inputTitle()
+  },
+  radioGroup: {
+    display: 'flex'
+  },
+  radio: {
+    margin: '0 20px'
+  },
+  textArea: {
+    ...Mixins.textArea()
   }
 };
