@@ -4,13 +4,17 @@
  * @since 1/26/2021
  */
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import UploadGroupPicture from '../UploadGroupPicture';
-import { GroupMeta } from '../../../redux/types';
+import { Group, GroupMeta } from '../../../redux/types';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
+import { AJButton } from 'jarombek-react-components';
+import { useDispatch } from 'react-redux';
+import { putGroup } from '../../../redux/modules/groups';
+import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 
 interface Props {
   group: GroupMeta;
@@ -21,15 +25,58 @@ const useStyles = createUseStyles(styles);
 const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
   const classes = useStyles();
 
+  const dispatch = useDispatch();
+
   const descriptionRef = useRef(null);
 
   const [description, setDescription] = useState('');
   const [weekStart, setWeekStart] = useState('');
 
+  const [updatingGroupDetails, setUpdatingGroupDetails] = useState(false);
+  const [errorUpdatingGroupDetails, setErrorUpdatingGroupDetails] = useState(false);
+
+  const resetDetails = (groupDetails: Group): void => {
+    setDescription(groupDetails.description);
+    setWeekStart(groupDetails.week_start);
+  };
+
+  useEffect(() => {
+    if (group) {
+      resetDetails(group);
+    }
+  }, [group]);
+
   const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.checked) {
       setWeekStart(e.target.value);
     }
+  };
+
+  const onSubmitDetails = async (): Promise<void> => {
+    setUpdatingGroupDetails(true);
+
+    const newGroup: Group = {
+      id: group.id,
+      group_name: group.group_name,
+      group_title: group.group_title,
+      grouppic_name: group.grouppic_name,
+      description,
+      week_start: weekStart
+    };
+
+    const updatedGroup = (await dispatch(putGroup(newGroup))) as Group;
+
+    if (updatedGroup) {
+      resetDetails(updatedGroup);
+    } else {
+      setErrorUpdatingGroupDetails(true);
+    }
+
+    setUpdatingGroupDetails(false);
+  };
+
+  const onCancelDetails = (): void => {
+    resetDetails(group);
   };
 
   return (
@@ -72,6 +119,14 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
             />
           </div>
         </div>
+        <div className={classes.actions}>
+          <AJButton type="contained" disabled={false} onClick={onSubmitDetails} className={classes.submitButton}>
+            Save Details
+          </AJButton>
+          <AJButton type="text" disabled={false} onClick={onCancelDetails} className={classes.cancelButton}>
+            Cancel
+          </AJButton>
+        </div>
       </div>
       <h3 className={classes.title}>Profile Picture</h3>
       <div className={classes.form}>
@@ -82,6 +137,14 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
           }
         />
       </div>
+      {errorUpdatingGroupDetails && (
+        <DefaultErrorPopup
+          message="Failed to update the group details."
+          onClose={(): void => setErrorUpdatingGroupDetails(false)}
+          retryable={true}
+          onRetry={onSubmitDetails}
+        />
+      )}
     </div>
   );
 };

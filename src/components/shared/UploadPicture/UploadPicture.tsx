@@ -4,7 +4,7 @@
  * @since 12/21/2020
  */
 
-import React, {Dispatch, SetStateAction, useMemo} from 'react';
+import React, { Dispatch, SetStateAction, useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import UploadFile from '../../shared/UploadFile/UploadFile';
@@ -12,6 +12,7 @@ import { AJButton } from 'jarombek-react-components';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 import AlertPopup from '../../shared/AlertPopup';
+import DefaultErrorPopup from "../DefaultErrorPopup";
 
 type UploadPictureType = 'user' | 'group';
 
@@ -77,23 +78,11 @@ const UploadPicture: React.FunctionComponent<Props> = ({
         </AJButton>
       </div>
       {errorUpdating && (
-        <AlertPopup
-          message={
-            <div className={classes.alertMessage}>
-              <p>
-                {errorUpdatingMessage} If this error persists, contact{' '}
-                <a className={classes.emailLink} href="mailto:andrew@jarombek.com">
-                  andrew@jarombek.com
-                </a>
-                .
-              </p>
-              <p onClick={onRetry} className={classes.retry}>
-                Retry
-              </p>
-            </div>
-          }
+        <DefaultErrorPopup
+          message={errorUpdatingMessage}
           onClose={onCloseErrorUpdatingModal}
-          type="error"
+          retryable={true}
+          onRetry={onRetry}
         />
       )}
     </>

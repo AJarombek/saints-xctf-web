@@ -29,5 +29,14 @@ export default {
   },
   textArea: {
     ...Mixins.textArea()
+  },
+  actions: {
+    ...Mixins.formActions()
+  },
+  submitButton: {
+    marginRight: 20
+  },
+  cancelButton: {
+    marginRight: 10
   }
 };

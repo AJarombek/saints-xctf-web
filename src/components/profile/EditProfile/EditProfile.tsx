@@ -7,16 +7,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {Memberships, RootState, User, UserMeta, Users} from '../../../redux/types';
+import { Memberships, RootState, User, UserMeta, Users } from '../../../redux/types';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
 import { AJButton } from 'jarombek-react-components';
 import { useDispatch, useSelector } from 'react-redux';
-import {getUserMemberships, putUser} from '../../../redux/modules/profile';
+import { getUserMemberships, putUser } from '../../../redux/modules/profile';
 import PickTeams from '../PickTeams';
 import UploadProfilePicture from '../UploadProfilePicture';
+import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 
 interface Props {
   user: UserMeta;
@@ -70,6 +71,17 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
     }
   }, [userProfiles, user.username]);
 
+  const resetDetails = (userDetails: User): void => {
+    setFirstName(userDetails.first);
+    setLastName(userDetails.last);
+    setEmail(userDetails.email);
+    setClassYear(userDetails.class_year);
+    setLocation(userDetails.location);
+    setFavoriteEvent(userDetails.favorite_event);
+    setDescription(userDetails.description);
+    setWeekStart(userDetails.week_start);
+  };
+
   const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.checked) {
       setWeekStart(e.target.value);
@@ -92,9 +104,11 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       week_start: weekStart
     };
 
-    const updatedUser = await dispatch(putUser(newUser));
+    const updatedUser = (await dispatch(putUser(newUser))) as User;
 
-    if (!updatedUser) {
+    if (updatedUser) {
+      resetDetails(updatedUser);
+    } else {
       setErrorUpdatingProfileDetails(true);
     }
 
@@ -102,14 +116,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   };
 
   const onCancelDetails = (): void => {
-    setFirstName(user.first);
-    setLastName(user.last);
-    setEmail(user.email);
-    setClassYear(user.class_year);
-    setLocation(user.location);
-    setFavoriteEvent(user.favorite_event);
-    setDescription(user.description);
-    setWeekStart(user.week_start);
+    resetDetails(user);
   };
 
   return (
@@ -264,6 +271,14 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       <div className={classes.form}>
         <PickTeams teams={memberships?.teams} username={user.username} />
       </div>
+      {errorUpdatingProfileDetails && (
+        <DefaultErrorPopup
+          message="Failed to update the user's profile details."
+          onClose={(): void => setErrorUpdatingProfileDetails(false)}
+          retryable={true}
+          onRetry={onSubmitDetails}
+        />
+      )}
     </div>
   );
 };
