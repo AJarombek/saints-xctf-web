@@ -18,6 +18,7 @@ import { getUserMemberships, putUser } from '../../../redux/modules/profile';
 import PickTeams from '../PickTeams';
 import UploadProfilePicture from '../UploadProfilePicture';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
+import LoadingSpinner from '../../shared/LoadingSpinner';
 
 interface Props {
   user: UserMeta;
@@ -250,8 +251,14 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
           </div>
         </div>
         <div className={classes.actions}>
-          <AJButton type="contained" disabled={false} onClick={onSubmitDetails} className={classes.submitButton}>
-            Save Details
+          <AJButton
+            type="contained"
+            disabled={false}
+            onClick={onSubmitDetails}
+            className={classNames(classes.submitButton, updatingProfileDetails && classes.disabledSubmitButton)}
+          >
+            <p>{updatingProfileDetails ? 'Saving Details...' : 'Save Details'}</p>
+            {updatingProfileDetails && <LoadingSpinner className={classes.buttonSpinner} />}
           </AJButton>
           <AJButton type="text" disabled={false} onClick={onCancelDetails} className={classes.cancelButton}>
             Cancel
@@ -273,7 +280,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       </div>
       {errorUpdatingProfileDetails && (
         <DefaultErrorPopup
-          message="Failed to update the user's profile details."
+          message="Failed to update the user's profile details"
           onClose={(): void => setErrorUpdatingProfileDetails(false)}
           retryable={true}
           onRetry={onSubmitDetails}

@@ -4,25 +4,26 @@
  * @since 12/21/2020
  */
 
-import React, { Dispatch, SetStateAction, useMemo } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import UploadFile from '../../shared/UploadFile/UploadFile';
 import { AJButton } from 'jarombek-react-components';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
-import AlertPopup from '../../shared/AlertPopup';
-import DefaultErrorPopup from "../DefaultErrorPopup";
-
-type UploadPictureType = 'user' | 'group';
+import DefaultErrorPopup from '../DefaultErrorPopup';
 
 interface Props {
-  pictureType: UploadPictureType;
   pictureUrl: string;
   onUpload: () => Promise<void>;
   errorUpdating?: boolean;
+  errorUpdatingMessage?: string;
   onCloseErrorUpdatingModal: () => void;
-  onRetry: () => void;
+  onRetryUpdate: () => void;
+  errorUploading?: boolean;
+  errorUploadingMessage?: string;
+  onCloseErrorUploadingModal: () => void;
+  onRetryUpload: () => void;
   setFile: Dispatch<SetStateAction<File>>;
   saving: boolean;
 }
@@ -30,26 +31,20 @@ interface Props {
 const useStyles = createUseStyles(styles);
 
 const UploadPicture: React.FunctionComponent<Props> = ({
-  pictureType,
   pictureUrl,
   onUpload,
   errorUpdating,
+  errorUpdatingMessage,
   onCloseErrorUpdatingModal,
-  onRetry,
+  onRetryUpdate,
+  errorUploading,
+  errorUploadingMessage,
+  onCloseErrorUploadingModal,
+  onRetryUpload,
   setFile,
   saving
 }) => {
   const classes = useStyles();
-
-  const errorUpdatingMessage = useMemo(() => {
-    if (pictureType === 'group') {
-      return 'Failed to update your user details with the new profile picture.';
-    } else if (pictureType === 'user') {
-      return 'Failed to update group details with the new group picture.';
-    } else {
-      return null;
-    }
-  }, [pictureType]);
 
   const onSubmitPicture = (): void => {};
 
@@ -77,12 +72,20 @@ const UploadPicture: React.FunctionComponent<Props> = ({
           Cancel
         </AJButton>
       </div>
+      {errorUploading && (
+        <DefaultErrorPopup
+          message={errorUploadingMessage}
+          onClose={onCloseErrorUploadingModal}
+          retryable={true}
+          onRetry={onRetryUpload}
+        />
+      )}
       {errorUpdating && (
         <DefaultErrorPopup
           message={errorUpdatingMessage}
           onClose={onCloseErrorUpdatingModal}
           retryable={true}
-          onRetry={onRetry}
+          onRetry={onRetryUpdate}
         />
       )}
     </>

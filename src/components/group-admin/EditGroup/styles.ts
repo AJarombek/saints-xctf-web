@@ -34,9 +34,16 @@ export default {
     ...Mixins.formActions()
   },
   submitButton: {
-    marginRight: 20
+    ...Mixins.submitButton()
   },
   cancelButton: {
     marginRight: 10
+  },
+  disabledSubmitButton: {
+    ...Mixins.disabledButton(),
+    backgroundColor: '#d6d6d6 !important'
+  },
+  buttonSpinner: {
+    ...Mixins.buttonSpinner()
   }
 };

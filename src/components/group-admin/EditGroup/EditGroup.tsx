@@ -15,6 +15,8 @@ import { AJButton } from 'jarombek-react-components';
 import { useDispatch } from 'react-redux';
 import { putGroup } from '../../../redux/modules/groups';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import classNames from 'classnames';
 
 interface Props {
   group: GroupMeta;
@@ -120,8 +122,14 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
           </div>
         </div>
         <div className={classes.actions}>
-          <AJButton type="contained" disabled={false} onClick={onSubmitDetails} className={classes.submitButton}>
-            Save Details
+          <AJButton
+            type="contained"
+            disabled={false}
+            onClick={onSubmitDetails}
+            className={classNames(classes.submitButton, updatingGroupDetails && classes.disabledSubmitButton)}
+          >
+            <p>{updatingGroupDetails ? 'Saving Details...' : 'Save Details'}</p>
+            {updatingGroupDetails && <LoadingSpinner className={classes.buttonSpinner} />}
           </AJButton>
           <AJButton type="text" disabled={false} onClick={onCancelDetails} className={classes.cancelButton}>
             Cancel
@@ -139,7 +147,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
       </div>
       {errorUpdatingGroupDetails && (
         <DefaultErrorPopup
-          message="Failed to update the group details."
+          message="Failed to update the group details"
           onClose={(): void => setErrorUpdatingGroupDetails(false)}
           retryable={true}
           onRetry={onSubmitDetails}

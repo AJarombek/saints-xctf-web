@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import UploadPicture from '../../shared/UploadPicture';
 import { useDispatch } from 'react-redux';
 import { GroupMeta } from '../../../redux/types';
-import {putGroup, uploadGroupPicture} from "../../../redux/modules/groups";
+import { putGroup, uploadGroupPicture } from '../../../redux/modules/groups';
 
 interface Props {
   group: GroupMeta;
@@ -49,12 +49,16 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
 
   return (
     <UploadPicture
-      pictureType="group"
       pictureUrl={groupPictureUrl}
       onUpload={onUpload}
       errorUpdating={errorUpdatingGroup}
+      errorUpdatingMessage="Failed to update group details with the new group picture"
       onCloseErrorUpdatingModal={(): void => setErrorUpdatingGroup(false)}
-      onRetry={updateGroup}
+      onRetryUpdate={onUpload}
+      errorUploading={errorUploading}
+      errorUploadingMessage="Failed to upload a new picture for the group"
+      onCloseErrorUploadingModal={(): void => setErrorUploading(false)}
+      onRetryUpload={updateGroup}
       setFile={setFile}
       saving={saving}
     />

@@ -97,13 +97,13 @@ const CurrentMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
       />
       {errorUpdatingMembership && (
         <DefaultErrorPopup
-          message="An unexpected error occurred while updating a users membership."
+          message="An unexpected error occurred while updating a users membership"
           onClose={(): void => setErrorUpdatingMembership(false)}
         />
       )}
       {errorDeletingMembership && (
         <DefaultErrorPopup
-          message="An unexpected error occurred while revoking a users membership."
+          message="An unexpected error occurred while revoking a users membership"
           onClose={(): void => setErrorDeletingMembership(false)}
         />
       )}

@@ -112,13 +112,13 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
       />
       {errorAcceptingMembership && (
         <DefaultErrorPopup
-          message="An unexpected error occurred while accepting a users membership request.  Please try again."
+          message="An unexpected error occurred while accepting a users membership request.  Please try again"
           onClose={(): void => setErrorAcceptingMembership(false)}
         />
       )}
       {errorDenyingMembership && (
         <DefaultErrorPopup
-          message="An unexpected error occurred while denying a users membership request.  Please try again."
+          message="An unexpected error occurred while denying a users membership request.  Please try again"
           onClose={(): void => setErrorDenyingMembership(false)}
         />
       )}

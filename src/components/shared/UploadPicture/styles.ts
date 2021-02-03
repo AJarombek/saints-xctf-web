@@ -20,7 +20,7 @@ export default {
     ...Mixins.formActions()
   },
   submitButton: {
-    marginRight: 20
+    ...Mixins.submitButton()
   },
   disabledSubmitButton: {
     ...Mixins.disabledButton(),

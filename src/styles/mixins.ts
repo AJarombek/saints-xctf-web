@@ -249,8 +249,21 @@ class Mixins {
     }
   });
 
+  static submitButton = (): object => ({
+    marginRight: 20,
+
+    '& p': {
+      margin: 0
+    }
+  });
+
   static disabledButton = (): object => ({
     backgroundColor: '#e6e6e6 !important',
+
+    '& > button': {
+      display: 'flex',
+      alignItems: 'center'
+    },
 
     '& p': {
       color: '#555'
