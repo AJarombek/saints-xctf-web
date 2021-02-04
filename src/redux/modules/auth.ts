@@ -535,13 +535,22 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
   };
 }
 
-export function forgotPasswordEmail(email: string): AppThunk<Promise<void>, AuthState> {
-  return async function (dispatch: Dispatch): Promise<void> {
+export type ForgotPasswordEmailData = {
+  forgotPasswordCode?: string;
+  error?: string;
+};
+
+export function forgotPasswordEmail(email: string): AppThunk<Promise<ForgotPasswordEmailData>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<ForgotPasswordEmailData> {
     dispatch(forgotPasswordRequest());
 
     try {
-      await api.post(`forgot_password/${email}`);
+      const response = await api.post(`forgot_password/${email}`);
       dispatch(forgotPasswordSuccess('SUCCESS'));
+      const { forgot_password_code: forgotPasswordCode } = response.data;
+      return {
+        forgotPasswordCode
+      };
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
@@ -551,6 +560,9 @@ export function forgotPasswordEmail(email: string): AppThunk<Promise<void>, Auth
       } else {
         dispatch(forgotPasswordFailure('INTERNAL ERROR', serverError));
       }
+      return {
+        error: serverError
+      };
     }
   };
 }

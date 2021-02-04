@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { FeatureFlag } from '../../shared/FeatureFlag';
 
 const HomeApps: React.FunctionComponent = () => {
   return (
@@ -16,16 +17,18 @@ const HomeApps: React.FunctionComponent = () => {
             <img src="/asset/app-store.png" alt="" />
           </figure>
         </a>
-        <a href="#">
-          <figure>
-            <img src="/asset/google-play-store.svg" alt="" />
-          </figure>
-        </a>
-        <a href="#">
-          <figure>
-            <img src="/asset/amazon-app-store.png" alt="" />
-          </figure>
-        </a>
+        <FeatureFlag flag="ANDROID_APPS">
+          <a href="#">
+            <figure>
+              <img src="/asset/google-play-store.svg" alt="" />
+            </figure>
+          </a>
+          <a href="#">
+            <figure>
+              <img src="/asset/amazon-app-store.png" alt="" />
+            </figure>
+          </a>
+        </FeatureFlag>
       </div>
     </div>
   );

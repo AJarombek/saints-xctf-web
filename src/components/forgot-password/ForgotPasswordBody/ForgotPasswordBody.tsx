@@ -5,22 +5,22 @@
  * @since 5/21/2020
  */
 
-import React, {ChangeEvent, useState} from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
-import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
+import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import emailLogo from '../../../../assets/email.png';
-import {forgotPasswordEmail} from '../../../redux/modules/auth';
-import {useDispatch} from 'react-redux';
+import {forgotPasswordEmail, ForgotPasswordEmailData} from '../../../redux/modules/auth';
+import { useDispatch } from 'react-redux';
 
-type Props = {}
+type Props = {};
 
 const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
   const dispatch = useDispatch();
-  
+
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
@@ -43,7 +43,15 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
 
   const onClickSend = async (): Promise<void> => {
     setLoading(true);
-    await dispatch(forgotPasswordEmail(email));
+    const forgotPasswordEmailData: ForgotPasswordEmailData = await (dispatch(forgotPasswordEmail(email)) as ForgotPasswordEmailData);
+
+    if (forgotPasswordEmailData.forgotPasswordCode) {
+
+    } else {
+      setErrorStatus(`Failed to create a forgot password code. ${forgotPasswordEmailData.error}`);
+    }
+
+    setLoading(false);
   };
 
   return (
@@ -61,12 +69,9 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
           maxLength={50}
           status={emailStatus}
         />
-        { errorStatus && <p className="errorStatus">{errorStatus}</p> }
+        {errorStatus && <p className="errorStatus">{errorStatus}</p>}
         <div className="form-buttons">
-          <AJButton
-            type="contained"
-            onClick={onClickSend}
-            disabled={!emailValid || loading}>
+          <AJButton type="contained" onClick={onClickSend} disabled={!emailValid || loading}>
             Send
           </AJButton>
         </div>
