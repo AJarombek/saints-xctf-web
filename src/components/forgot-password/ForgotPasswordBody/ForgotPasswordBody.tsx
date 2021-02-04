@@ -13,7 +13,7 @@ import { AJButton } from 'jarombek-react-components';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import emailLogo from '../../../../assets/email.png';
-import {forgotPasswordEmail, ForgotPasswordEmailData} from '../../../redux/modules/auth';
+import { createForgotPasswordCode, ForgotPasswordEmailData } from '../../../redux/modules/auth';
 import { useDispatch } from 'react-redux';
 
 type Props = {};
@@ -43,10 +43,11 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
 
   const onClickSend = async (): Promise<void> => {
     setLoading(true);
-    const forgotPasswordEmailData: ForgotPasswordEmailData = await (dispatch(forgotPasswordEmail(email)) as ForgotPasswordEmailData);
+    const forgotPasswordEmailData: ForgotPasswordEmailData = await (dispatch(
+      createForgotPasswordCode(email)
+    ) as ForgotPasswordEmailData);
 
     if (forgotPasswordEmailData.forgotPasswordCode) {
-
     } else {
       setErrorStatus(`Failed to create a forgot password code. ${forgotPasswordEmailData.error}`);
     }

@@ -18,16 +18,16 @@ const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
 const SIGNIN_FAILURE = 'saints-xctf-web/auth/SIGNIN_FAILURE';
 const SIGNIN_SUCCESS = 'saints-xctf-web/auth/SIGNIN_SUCCESS';
 export const SIGNOUT = 'saints-xctf-web/auth/SIGNOUT';
+const POST_FORGOT_PASSWORD_REQUEST = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_REQUEST';
+const POST_FORGOT_PASSWORD_FAILURE = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_FAILURE';
+const POST_FORGOT_PASSWORD_SUCCESS = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_SUCCESS';
 const FORGOT_PASSWORD_EMAIL_REQUEST = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_REQUEST';
 const FORGOT_PASSWORD_EMAIL_FAILURE = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_FAILURE';
 const FORGOT_PASSWORD_EMAIL_SUCCESS = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_SUCCESS';
-const CHANGE_EMAIL_REQUEST = 'saints-xctf-web/auth/CHANGE_EMAIL_REQUEST';
-const CHANGE_EMAIL_FAILURE = 'saints-xctf-web/auth/CHANGE_EMAIL_FAILURE';
-const CHANGE_EMAIL_SUCCESS = 'saints-xctf-web/auth/CHANGE_EMAIL_SUCCESS';
 const SET_USER_FROM_STORAGE = 'saints-xctf-web/auth/SET_USER_FROM_STORAGE';
-const PUT_ACTIVATION_CODE_REQUEST = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_REQUEST';
-const PUT_ACTIVATION_CODE_FAILURE = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_FAILURE';
-const PUT_ACTIVATION_CODE_SUCCESS = 'saints-xctf-web/auth/PUT_ACTIVATION_CODE_SUCCESS';
+const POST_ACTIVATION_CODE_REQUEST = 'saints-xctf-web/auth/POST_ACTIVATION_CODE_REQUEST';
+const POST_ACTIVATION_CODE_FAILURE = 'saints-xctf-web/auth/POST_ACTIVATION_CODE_FAILURE';
+const POST_ACTIVATION_CODE_SUCCESS = 'saints-xctf-web/auth/POST_ACTIVATION_CODE_SUCCESS';
 const ACTIVATION_CODE_EMAIL_REQUEST = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_REQUEST';
 const ACTIVATION_CODE_EMAIL_FAILURE = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_FAILURE';
 const ACTIVATION_CODE_EMAIL_SUCCESS = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_SUCCESS';
@@ -56,31 +56,39 @@ export interface SignOutAction {
   type: typeof SIGNOUT;
 }
 
-interface ForgotPasswordRequestAction {
-  type: typeof FORGOT_PASSWORD_EMAIL_REQUEST;
+interface PostForgotPasswordRequestAction {
+  type: typeof POST_FORGOT_PASSWORD_REQUEST;
+  email: string;
 }
 
-interface ForgotPasswordSuccessAction {
-  type: typeof FORGOT_PASSWORD_EMAIL_SUCCESS;
-  status: string;
+interface PostForgotPasswordSuccessAction {
+  type: typeof POST_FORGOT_PASSWORD_SUCCESS;
+  email: string;
 }
 
-interface ForgotPasswordFailureAction {
-  type: typeof FORGOT_PASSWORD_EMAIL_FAILURE;
-  status: string;
+interface PostForgotPasswordFailureAction {
+  type: typeof POST_FORGOT_PASSWORD_FAILURE;
+  email: string;
   serverError: string;
 }
 
-interface ChangeEmailRequestAction {
-  type: typeof CHANGE_EMAIL_REQUEST;
+interface ForgotPasswordEmailRequestAction {
+  type: typeof FORGOT_PASSWORD_EMAIL_REQUEST;
+  email: string;
+  code: string;
 }
 
-interface ChangeEmailSuccessAction {
-  type: typeof CHANGE_EMAIL_SUCCESS;
+interface ForgotPasswordEmailSuccessAction {
+  type: typeof FORGOT_PASSWORD_EMAIL_SUCCESS;
+  email: string;
+  code: string;
 }
 
-interface ChangeEmailFailureAction {
-  type: typeof CHANGE_EMAIL_FAILURE;
+interface ForgotPasswordEmailFailureAction {
+  type: typeof FORGOT_PASSWORD_EMAIL_FAILURE;
+  email: string;
+  code: string;
+  serverError: string;
 }
 
 interface SetUserFromStorageAction {
@@ -88,18 +96,18 @@ interface SetUserFromStorageAction {
   user: User;
 }
 
-interface PutActivationCodeRequestAction {
-  type: typeof PUT_ACTIVATION_CODE_REQUEST;
+interface PostActivationCodeRequestAction {
+  type: typeof POST_ACTIVATION_CODE_REQUEST;
   email: string;
 }
 
-interface PutActivationCodeSuccessAction {
-  type: typeof PUT_ACTIVATION_CODE_SUCCESS;
+interface PostActivationCodeSuccessAction {
+  type: typeof POST_ACTIVATION_CODE_SUCCESS;
   email: string;
 }
 
-interface PutActivationCodeFailureAction {
-  type: typeof PUT_ACTIVATION_CODE_FAILURE;
+interface PostActivationCodeFailureAction {
+  type: typeof POST_ACTIVATION_CODE_FAILURE;
   email: string;
   serverError: string;
 }
@@ -128,16 +136,16 @@ type AuthActionTypes =
   | SignInSuccessAction
   | SignInFailureAction
   | SignOutAction
-  | ForgotPasswordRequestAction
-  | ForgotPasswordSuccessAction
-  | ForgotPasswordFailureAction
-  | ChangeEmailRequestAction
-  | ChangeEmailSuccessAction
-  | ChangeEmailFailureAction
+  | PostForgotPasswordRequestAction
+  | PostForgotPasswordSuccessAction
+  | PostForgotPasswordFailureAction
+  | ForgotPasswordEmailRequestAction
+  | ForgotPasswordEmailSuccessAction
+  | ForgotPasswordEmailFailureAction
   | SetUserFromStorageAction
-  | PutActivationCodeRequestAction
-  | PutActivationCodeSuccessAction
-  | PutActivationCodeFailureAction
+  | PostActivationCodeRequestAction
+  | PostActivationCodeSuccessAction
+  | PostActivationCodeFailureAction
   | ActivationCodeEmailRequestAction
   | ActivationCodeEmailSuccessAction
   | ActivationCodeEmailFailureAction;
@@ -147,7 +155,9 @@ const initialState: AuthState = {
   auth: {},
   user: {},
   createActivationCode: {},
-  emailActivationCode: {}
+  emailActivationCode: {},
+  createForgotPasswordCode: {},
+  emailForgotPasswordCode: {}
 };
 
 function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {
@@ -211,6 +221,93 @@ function signInFailureReducer(state: AuthState, action: SignInFailureAction): Au
   };
 }
 
+function postForgotPasswordRequestReducer(state: AuthState, action: PostForgotPasswordRequestAction): AuthState {
+  return {
+    ...state,
+    createForgotPasswordCode: {
+      ...state.createForgotPasswordCode,
+      [action.email]: {
+        isFetching: true,
+        lastUpdated: moment().unix()
+      }
+    }
+  };
+}
+
+function postForgotPasswordSuccessReducer(state: AuthState, action: PostForgotPasswordSuccessAction): AuthState {
+  return {
+    ...state,
+    createForgotPasswordCode: {
+      ...state.createForgotPasswordCode,
+      [action.email]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        created: true
+      }
+    }
+  };
+}
+
+function postForgotPasswordFailureReducer(state: AuthState, action: PostForgotPasswordFailureAction): AuthState {
+  return {
+    ...state,
+    createForgotPasswordCode: {
+      ...state.createForgotPasswordCode,
+      [action.email]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError,
+        created: false
+      }
+    }
+  };
+}
+
+function emailForgotPasswordCodeRequestReducer(state: AuthState, action: ForgotPasswordEmailRequestAction): AuthState {
+  return {
+    ...state,
+    emailForgotPasswordCode: {
+      ...state.emailForgotPasswordCode,
+      [action.email]: {
+        isFetching: true,
+        code: action.code,
+        lastUpdated: moment().unix()
+      }
+    }
+  };
+}
+
+function emailForgotPasswordCodeSuccessReducer(state: AuthState, action: ForgotPasswordEmailSuccessAction): AuthState {
+  return {
+    ...state,
+    emailForgotPasswordCode: {
+      ...state.emailForgotPasswordCode,
+      [action.email]: {
+        isFetching: false,
+        code: action.code,
+        lastUpdated: moment().unix(),
+        emailed: true
+      }
+    }
+  };
+}
+
+function emailForgotPasswordCodeFailureReducer(state: AuthState, action: ForgotPasswordEmailFailureAction): AuthState {
+  return {
+    ...state,
+    emailForgotPasswordCode: {
+      ...state.emailForgotPasswordCode,
+      [action.email]: {
+        isFetching: false,
+        code: action.code,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError,
+        emailed: false
+      }
+    }
+  };
+}
+
 function signOutReducer(state: AuthState): AuthState {
   return {
     ...state,
@@ -249,7 +346,7 @@ function setUserFromStorageReducer(state: AuthState, action: SetUserFromStorageA
   };
 }
 
-function putActivationCodeRequestReducer(state: AuthState, action: PutActivationCodeRequestAction): AuthState {
+function postActivationCodeRequestReducer(state: AuthState, action: PostActivationCodeRequestAction): AuthState {
   return {
     ...state,
     createActivationCode: {
@@ -262,7 +359,7 @@ function putActivationCodeRequestReducer(state: AuthState, action: PutActivation
   };
 }
 
-function putActivationCodeSuccessReducer(state: AuthState, action: PutActivationCodeSuccessAction): AuthState {
+function postActivationCodeSuccessReducer(state: AuthState, action: PostActivationCodeSuccessAction): AuthState {
   return {
     ...state,
     createActivationCode: {
@@ -276,7 +373,7 @@ function putActivationCodeSuccessReducer(state: AuthState, action: PutActivation
   };
 }
 
-function putActivationCodeFailureReducer(state: AuthState, action: PutActivationCodeFailureAction): AuthState {
+function postActivationCodeFailureReducer(state: AuthState, action: PostActivationCodeFailureAction): AuthState {
   return {
     ...state,
     createActivationCode: {
@@ -346,38 +443,26 @@ export default function reducer(state = initialState, action: AuthActionTypes): 
       return signInFailureReducer(state, action);
     case SIGNOUT:
       return signOutReducer(state);
+    case POST_FORGOT_PASSWORD_REQUEST:
+      return postForgotPasswordRequestReducer(state, action);
+    case POST_FORGOT_PASSWORD_SUCCESS:
+      return postForgotPasswordSuccessReducer(state, action);
+    case POST_FORGOT_PASSWORD_FAILURE:
+      return postForgotPasswordFailureReducer(state, action);
     case FORGOT_PASSWORD_EMAIL_REQUEST:
-      return {
-        ...state
-      };
+      return emailForgotPasswordCodeRequestReducer(state, action);
     case FORGOT_PASSWORD_EMAIL_SUCCESS:
-      return {
-        ...state
-      };
+      return emailForgotPasswordCodeSuccessReducer(state, action);
     case FORGOT_PASSWORD_EMAIL_FAILURE:
-      return {
-        ...state
-      };
-    case CHANGE_EMAIL_REQUEST:
-      return {
-        ...state
-      };
-    case CHANGE_EMAIL_SUCCESS:
-      return {
-        ...state
-      };
-    case CHANGE_EMAIL_FAILURE:
-      return {
-        ...state
-      };
+      return emailForgotPasswordCodeFailureReducer(state, action);
     case SET_USER_FROM_STORAGE:
       return setUserFromStorageReducer(state, action);
-    case PUT_ACTIVATION_CODE_REQUEST:
-      return putActivationCodeRequestReducer(state, action);
-    case PUT_ACTIVATION_CODE_SUCCESS:
-      return putActivationCodeSuccessReducer(state, action);
-    case PUT_ACTIVATION_CODE_FAILURE:
-      return putActivationCodeFailureReducer(state, action);
+    case POST_ACTIVATION_CODE_REQUEST:
+      return postActivationCodeRequestReducer(state, action);
+    case POST_ACTIVATION_CODE_SUCCESS:
+      return postActivationCodeSuccessReducer(state, action);
+    case POST_ACTIVATION_CODE_FAILURE:
+      return postActivationCodeFailureReducer(state, action);
     case ACTIVATION_CODE_EMAIL_REQUEST:
       return emailActivationCodeRequestReducer(state, action);
     case ACTIVATION_CODE_EMAIL_SUCCESS:
@@ -422,23 +507,53 @@ export function signOut(): SignOutAction {
   };
 }
 
-export function forgotPasswordRequest(): ForgotPasswordRequestAction {
+export function postForgotPasswordRequest(email: string): PostForgotPasswordRequestAction {
   return {
-    type: FORGOT_PASSWORD_EMAIL_REQUEST
+    type: POST_FORGOT_PASSWORD_REQUEST,
+    email
   };
 }
 
-export function forgotPasswordSuccess(status: string): ForgotPasswordSuccessAction {
+export function postForgotPasswordSuccess(email: string): PostForgotPasswordSuccessAction {
+  return {
+    type: POST_FORGOT_PASSWORD_SUCCESS,
+    email
+  };
+}
+
+export function postForgotPasswordFailure(email: string, serverError: string): PostForgotPasswordFailureAction {
+  return {
+    type: POST_FORGOT_PASSWORD_FAILURE,
+    email,
+    serverError
+  };
+}
+
+export function forgotPasswordEmailRequest(email: string, code: string): ForgotPasswordEmailRequestAction {
+  return {
+    type: FORGOT_PASSWORD_EMAIL_REQUEST,
+    email,
+    code
+  };
+}
+
+export function forgotPasswordEmailSuccess(email: string, code: string): ForgotPasswordEmailSuccessAction {
   return {
     type: FORGOT_PASSWORD_EMAIL_SUCCESS,
-    status
+    email,
+    code
   };
 }
 
-export function forgotPasswordFailure(status: string, serverError: string): ForgotPasswordFailureAction {
+export function forgotPasswordEmailFailure(
+  email: string,
+  code: string,
+  serverError: string
+): ForgotPasswordEmailFailureAction {
   return {
     type: FORGOT_PASSWORD_EMAIL_FAILURE,
-    status,
+    email,
+    code,
     serverError
   };
 }
@@ -450,23 +565,23 @@ export function setUserFromStorage(user: User): SetUserFromStorageAction {
   };
 }
 
-export function putActivationCodeRequest(email: string): PutActivationCodeRequestAction {
+export function postActivationCodeRequest(email: string): PostActivationCodeRequestAction {
   return {
-    type: PUT_ACTIVATION_CODE_REQUEST,
+    type: POST_ACTIVATION_CODE_REQUEST,
     email
   };
 }
 
-export function putActivationCodeSuccess(email: string): PutActivationCodeSuccessAction {
+export function postActivationCodeSuccess(email: string): PostActivationCodeSuccessAction {
   return {
-    type: PUT_ACTIVATION_CODE_SUCCESS,
+    type: POST_ACTIVATION_CODE_SUCCESS,
     email
   };
 }
 
-export function putActivationCodeFailure(email: string, serverError: string): PutActivationCodeFailureAction {
+export function postActivationCodeFailure(email: string, serverError: string): PostActivationCodeFailureAction {
   return {
-    type: PUT_ACTIVATION_CODE_FAILURE,
+    type: POST_ACTIVATION_CODE_FAILURE,
     email,
     serverError
   };
@@ -537,29 +652,37 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
 
 export type ForgotPasswordEmailData = {
   forgotPasswordCode?: string;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
   error?: string;
 };
 
-export function forgotPasswordEmail(email: string): AppThunk<Promise<ForgotPasswordEmailData>, AuthState> {
+export function createForgotPasswordCode(email: string): AppThunk<Promise<ForgotPasswordEmailData>, AuthState> {
   return async function (dispatch: Dispatch): Promise<ForgotPasswordEmailData> {
-    dispatch(forgotPasswordRequest());
+    dispatch(postForgotPasswordRequest(email));
 
     try {
       const response = await api.post(`forgot_password/${email}`);
-      dispatch(forgotPasswordSuccess('SUCCESS'));
-      const { forgot_password_code: forgotPasswordCode } = response.data;
+      dispatch(postForgotPasswordSuccess(email));
+      const {
+        forgot_password_code: forgotPasswordCode,
+        username,
+        first_name: firstName,
+        last_name: lastName
+      } = response.data;
+
       return {
-        forgotPasswordCode
+        forgotPasswordCode,
+        username,
+        firstName,
+        lastName
       };
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status === 400) {
-        dispatch(forgotPasswordFailure('INVALID USERNAME/EMAIL', serverError));
-      } else {
-        dispatch(forgotPasswordFailure('INTERNAL ERROR', serverError));
-      }
+      dispatch(postForgotPasswordFailure(email, serverError));
       return {
         error: serverError
       };
@@ -567,21 +690,44 @@ export function forgotPasswordEmail(email: string): AppThunk<Promise<ForgotPassw
   };
 }
 
+export const sendForgotPasswordEmail = (
+  email: string,
+  username: string,
+  firstName: string,
+  lastName: string,
+  code: string
+): AppThunk<Promise<boolean>, AuthState> => async (dispatch: Dispatch): Promise<boolean> => {
+  dispatch(forgotPasswordEmailRequest(email, code));
+
+  try {
+    const response = await fn.post('email/forgot-password', { to: email, code, username, firstName, lastName });
+    const result: boolean = response.data.result;
+
+    dispatch(forgotPasswordEmailSuccess(email, code));
+    return result;
+  } catch (error) {
+    const serverError = 'An unexpected error occurred.';
+
+    dispatch(forgotPasswordEmailFailure(email, code, serverError));
+    return false;
+  }
+};
+
 export function createActivationCode(email: string, groupId: number): AppThunk<Promise<string>, AuthState> {
   return async function (dispatch: Dispatch): Promise<string> {
-    dispatch(putActivationCodeRequest(email));
+    dispatch(postActivationCodeRequest(email));
 
     try {
       const response = await api.post('activation_code/', { email, group_id: groupId });
       const { activation_code } = response.data.activation_code;
 
-      dispatch(putActivationCodeSuccess(email));
+      dispatch(postActivationCodeSuccess(email));
       return activation_code;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(putActivationCodeFailure(email, serverError));
+      dispatch(postActivationCodeFailure(email, serverError));
       return null;
     }
   };
