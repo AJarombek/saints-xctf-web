@@ -14,7 +14,7 @@ export default {
     display: 'flex',
     alignItems: 'center',
     padding: '10px 0',
-    borderRadius: '3px',
+    borderRadius: 3,
     backgroundColor: ({ type }: { type: AlertType }): string =>
       type === 'warning'
         ? color(Colors.statusWarning).lighten(0.65).hex()
@@ -24,20 +24,28 @@ export default {
   },
   alertIcon: {
     ...FontMixins.elegantIcons(),
-    fontSize: '28px',
-    margin: '10px',
+    fontSize: 28,
+    margin: '10px 25px',
     color: ({ type }: { type: AlertType }): string =>
       type === 'warning' ? Colors.statusWarning : type === 'info' ? Colors.spotPaletteBlue : Colors.statusFailure
   },
   message: {
     ...FontMixins.roboto(),
-    fontSize: '16px',
-    margin: 0
+    fontSize: 16,
+    margin: '5px 10px 5px 0'
   },
   closeIcon: {
     ...FontMixins.elegantIcons(),
-    fontSize: '24px',
+    fontSize: 24,
     margin: '0 10px 0 auto',
     cursor: 'pointer'
+  },
+  '@media screen and (max-width: 1000px)': {
+    alertIcon: {
+      margin: 10
+    },
+    message: {
+      margin: 0
+    }
   }
 };

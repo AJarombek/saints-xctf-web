@@ -33,9 +33,9 @@ const AdminBody: React.FunctionComponent<Props> = ({ user }) => {
     }
   }, [dispatch, user.username, userProfiles]);
 
-  const memberships: Memberships = useMemo(() => {
+  const memberships: TeamMembership[] = useMemo(() => {
     if (userProfiles && user.username) {
-      return userProfiles[user.username]?.memberships;
+      return userProfiles[user.username]?.memberships?.teams?.filter((membership) => membership?.groups?.length);
     } else {
       return null;
     }
@@ -45,7 +45,7 @@ const AdminBody: React.FunctionComponent<Props> = ({ user }) => {
     <div className={classes.adminBody}>
       <h3 className={classes.title}>Select a group to view its administrator dashboard.</h3>
       <div className={classes.container}>
-        {memberships?.teams?.map((membership: TeamMembership) => (
+        {memberships?.map((membership: TeamMembership) => (
           <div key={membership.team_name}>
             <h4 className={classes.teamTitle}>{membership.title}</h4>
             <div className={classes.groups}>

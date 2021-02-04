@@ -12,7 +12,7 @@ import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import { GroupMeta, RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useSignInCheck } from '../../hooks/shared';
 import GroupAdminBody from '../../components/group-admin/GroupAdminBody/GroupAdminBody';
 import { useGroupId } from '../../hooks/admin';
 
@@ -30,6 +30,7 @@ const GroupAdmin: React.FunctionComponent<Props> = () => {
   const ref = useRef(null);
 
   useSignInCheck();
+  const isAdmin = useAdminCheck();
 
   const groupId = useGroupId();
 
@@ -37,7 +38,7 @@ const GroupAdmin: React.FunctionComponent<Props> = () => {
     return groups ? groups[groupId] : null;
   }, [groups, groupId]);
 
-  if (userAuthenticated(users, auth.signedInUser)) {
+  if (userAuthenticated(users, auth.signedInUser) && isAdmin) {
     return (
       <div className={classes.groupAdmin} ref={ref}>
         <NavBar

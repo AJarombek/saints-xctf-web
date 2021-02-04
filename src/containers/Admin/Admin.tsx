@@ -12,8 +12,8 @@ import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import {useAdminCheck, useSignInCheck} from '../../hooks/shared';
-import AdminBody from "../../components/admin/AdminBody";
+import { useAdminCheck, useSignInCheck } from '../../hooks/shared';
+import AdminBody from '../../components/admin/AdminBody';
 
 type Props = {};
 
@@ -28,9 +28,9 @@ const Admin: React.FunctionComponent<Props> = () => {
   const ref = useRef(null);
 
   useSignInCheck();
-  useAdminCheck();
+  const isAdmin = useAdminCheck();
 
-  if (userAuthenticated(users, auth.signedInUser)) {
+  if (userAuthenticated(users, auth.signedInUser) && isAdmin) {
     return (
       <div className={classes.admin} ref={ref}>
         <NavBar

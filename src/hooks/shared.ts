@@ -50,12 +50,14 @@ export const useSignInCheck = (): void => {
   }, [users, auth.signedInUser, history, dispatch]);
 };
 
-export const useAdminCheck = (): void => {
+export const useAdminCheck = (): boolean => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const auth = useSelector((state: RootState) => state.auth.auth);
   const membershipInfo = useSelector((state: RootState) => state.memberships.groups);
+
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     if (auth.signedInUser) {
@@ -67,7 +69,12 @@ export const useAdminCheck = (): void => {
         dispatch(getGroupMemberships(auth.signedInUser));
       } else if (!adminCount || membershipInfo.serverError) {
         history.push('/');
+        setIsAdmin(false);
+      } else {
+        setIsAdmin(true);
       }
     }
   }, [auth.signedInUser, dispatch, history, membershipInfo]);
+
+  return isAdmin;
 };

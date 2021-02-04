@@ -5,7 +5,6 @@
  */
 
 describe('Sign In E2E Tests', () => {
-
   beforeEach(() => {
     cy.visit('/signin');
   });
