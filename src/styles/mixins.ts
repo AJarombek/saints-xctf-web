@@ -320,6 +320,17 @@ class Mixins {
     borderRadius: '6px',
     padding: '20px'
   });
+
+  static blueLink = (): object => ({
+    ...FontMixins.robotoBold(),
+    fontSize: 14,
+    textDecoration: 'none',
+    color: Colors.spotPaletteBlue,
+
+    '&:hover': {
+      textDecoration: 'underline'
+    }
+  });
 }
 
 class AJComponentMixins {

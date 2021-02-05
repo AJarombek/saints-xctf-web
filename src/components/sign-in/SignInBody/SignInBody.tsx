@@ -5,22 +5,23 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import {createUseStyles} from "react-jss";
+import { createUseStyles } from 'react-jss';
 import { Link, useHistory } from 'react-router-dom';
-import classNames from "classnames";
-
-import styles from "./styles";
+import classNames from 'classnames';
+import styles from './styles';
 import { AJButton } from 'jarombek-react-components';
-import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
+import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import ImageInputSet from '../../shared/ImageInputSet';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import usernameLogo from '../../../../assets/username.png';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import passwordLogo from '../../../../assets/password.png';
 
-interface IProps {
+interface Props {
   signIn: Function;
   isFetching?: boolean;
   status?: string;
@@ -28,32 +29,36 @@ interface IProps {
 
 const useStyles = createUseStyles(styles);
 
-const SignInBody: React.FunctionComponent<IProps> = ({ signIn, isFetching, status }) => {
+const SignInBody: React.FunctionComponent<Props> = ({ signIn, isFetching, status }) => {
   const classes = useStyles();
 
   const history = useHistory();
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [iconStatus, setIconStatus] = useState(ImageInputStatus.NONE);
+  const [iconStatus, setIconStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [errorStatus, setErrorStatus] = useState(null);
 
   useEffect(() => {
     let message;
     switch (status) {
-      case "INVALID PASSWORD":
-      case "INVALID USER":
-        message = "Invalid username and password combination.";
+      case 'INVALID PASSWORD':
+      case 'INVALID USER':
+        message = 'Invalid username and password combination.';
         setErrorStatus(message);
         setIconStatus(ImageInputStatus.FAILURE);
         break;
-      case "INTERNAL ERROR":
-        message =  <>
-          An unexpected error occurred.  Contact
-          <a className={classes.contactLink} href="mailto:andrew@jarombek.com">andrew@jarombek.com</a>
-          if this error persists.
-        </>;
+      case 'INTERNAL ERROR':
+        message = (
+          <>
+            An unexpected error occurred. Contact
+            <a className={classes.contactLink} href="mailto:andrew@jarombek.com">
+              andrew@jarombek.com
+            </a>
+            if this error persists.
+          </>
+        );
         setErrorStatus(message);
         setIconStatus(ImageInputStatus.FAILURE);
         break;
@@ -61,9 +66,9 @@ const SignInBody: React.FunctionComponent<IProps> = ({ signIn, isFetching, statu
         setErrorStatus(null);
         setIconStatus(ImageInputStatus.NONE);
     }
-  }, [status]);
+  }, [status, classes.contactLink]);
 
-  const onClickSignIn = async () => {
+  const onClickSignIn = async (): Promise<void> => {
     if (username.length !== 0 && password.length !== 0) {
       setLoading(true);
       await signIn(username, password);
@@ -78,7 +83,7 @@ const SignInBody: React.FunctionComponent<IProps> = ({ signIn, isFetching, statu
         <div>
           <ImageInputSet>
             <ImageInput
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e): void => setUsername(e.target.value)}
               icon={usernameLogo}
               placeholder="Username or Email"
               name="username"
@@ -87,7 +92,7 @@ const SignInBody: React.FunctionComponent<IProps> = ({ signIn, isFetching, statu
               status={iconStatus}
             />
             <ImageInput
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e): void => setPassword(e.target.value)}
               icon={passwordLogo}
               placeholder="Password"
               name="password"
@@ -97,18 +102,13 @@ const SignInBody: React.FunctionComponent<IProps> = ({ signIn, isFetching, statu
             />
           </ImageInputSet>
         </div>
-        { errorStatus && <p className={classNames(classes.errorStatus, "errorStatus")}>{errorStatus}</p> }
+        {errorStatus && <p className={classNames(classes.errorStatus, 'errorStatus')}>{errorStatus}</p>}
         <Link to="/forgotpassword">Forgot Password?</Link>
         <div className="form-buttons">
-          <AJButton
-            type="contained"
-            onClick={onClickSignIn}
-            disabled={isFetching || loading}>
+          <AJButton type="contained" onClick={onClickSignIn} disabled={isFetching || loading}>
             Sign In
           </AJButton>
-          <AJButton
-            type="text"
-            onClick={() => history.push('/register')}>
+          <AJButton type="text" onClick={(): void => history.push('/register')}>
             Create Account
           </AJButton>
         </div>

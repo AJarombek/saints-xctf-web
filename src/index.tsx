@@ -28,6 +28,7 @@ import Teams from './containers/Teams';
 import Group from './containers/Group';
 import Admin from './containers/Admin';
 import GroupAdmin from './containers/GroupAdmin';
+import ForgotPasswordReset from './containers/ForgotPasswordReset';
 
 dotenv.config();
 const store = configureStore();
@@ -44,8 +45,7 @@ const RoutedApp = (): JSX.Element => (
             <Route exact path="/admin/group/:id" component={GroupAdmin} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/forgotpassword/email" component={ForgotPassword} />
-            <Route exact path="/forgotpassword/reset" component={ForgotPassword} />
+            <Route exact path="/forgotpassword/reset" component={ForgotPasswordReset} />
             <Route exact path="/group/:id" component={Group} />
             <Route exact path="/log/new" component={NewLog} />
             <Route exact path="/log/edit/:id" component={EditLog} />

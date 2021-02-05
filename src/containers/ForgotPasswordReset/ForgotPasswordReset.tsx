@@ -7,16 +7,16 @@
  * @since 5/18/2020
  */
 
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import ForgotPasswordResetBody from '../../components/forgot-password/ForgotPasswordResetBody';
-import {useSelector} from 'react-redux';
-import {RootState} from '../../redux/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/types';
 
-type Props = {}
+type Props = {};
 
 const ForgotPasswordReset: React.FunctionComponent<Props> = () => {
   const history = useHistory();
@@ -30,12 +30,12 @@ const ForgotPasswordReset: React.FunctionComponent<Props> = () => {
     if (userAuthenticated(users, auth.signedInUser)) {
       history.push('/dashboard');
     }
-  }, [users]);
+  }, [users, auth.signedInUser, history]);
 
   return (
     <div className="sxctf-forgot-password-reset" ref={ref}>
-      <NavBar includeHeaders={['home', 'register', 'signIn', 'logo']} bodyRef={ref}/>
-      <ForgotPasswordResetBody/>
+      <NavBar includeHeaders={['home', 'register', 'signIn', 'logo']} bodyRef={ref} />
+      <ForgotPasswordResetBody />
     </div>
   );
 };
