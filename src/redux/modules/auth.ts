@@ -67,6 +67,7 @@ interface GetForgotPasswordCodeValidationRequestAction {
 interface GetForgotPasswordCodeValidationSuccessAction {
   type: typeof GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS;
   code: string;
+  isValid: boolean;
 }
 
 interface GetForgotPasswordCodeValidationFailureAction {
@@ -271,7 +272,7 @@ function getForgotPasswordCodeValidationSuccessReducer(
       [action.code]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        isValid: true
+        isValid: action.isValid
       }
     }
   };
@@ -594,10 +595,14 @@ export function getForgotPasswordCodeValidationRequest(code: string): GetForgotP
   };
 }
 
-export function getForgotPasswordCodeValidationSuccess(code: string): GetForgotPasswordCodeValidationSuccessAction {
+export function getForgotPasswordCodeValidationSuccess(
+  code: string,
+  isValid: boolean
+): GetForgotPasswordCodeValidationSuccessAction {
   return {
     type: GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS,
-    code
+    code,
+    isValid
   };
 }
 
@@ -823,10 +828,12 @@ export function validateForgotPasswordCode(code: string): AppThunk<Promise<boole
     dispatch(getForgotPasswordCodeValidationRequest(code));
 
     try {
-      await api.get(`forgot_password/validate/${code}`);
-      dispatch(getForgotPasswordCodeValidationSuccess(code));
+      const response = await api.get(`forgot_password/validate/${code}`);
+      const { is_valid: isValid } = response.data;
 
-      return true;
+      dispatch(getForgotPasswordCodeValidationSuccess(code, isValid));
+
+      return isValid;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
