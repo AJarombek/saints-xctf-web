@@ -244,6 +244,57 @@ function signInFailureReducer(state: AuthState, action: SignInFailureAction): Au
   };
 }
 
+function getForgotPasswordCodeValidationRequestReducer(
+  state: AuthState,
+  action: GetForgotPasswordCodeValidationRequestAction
+): AuthState {
+  return {
+    ...state,
+    validateForgotPasswordCode: {
+      ...state.validateForgotPasswordCode,
+      [action.code]: {
+        isFetching: true,
+        lastUpdated: moment().unix()
+      }
+    }
+  };
+}
+
+function getForgotPasswordCodeValidationSuccessReducer(
+  state: AuthState,
+  action: GetForgotPasswordCodeValidationSuccessAction
+): AuthState {
+  return {
+    ...state,
+    validateForgotPasswordCode: {
+      ...state.validateForgotPasswordCode,
+      [action.code]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        isValid: true
+      }
+    }
+  };
+}
+
+function getForgotPasswordCodeValidationFailureReducer(
+  state: AuthState,
+  action: GetForgotPasswordCodeValidationFailureAction
+): AuthState {
+  return {
+    ...state,
+    validateForgotPasswordCode: {
+      ...state.validateForgotPasswordCode,
+      [action.code]: {
+        isFetching: false,
+        lastUpdated: moment().unix(),
+        serverError: action.serverError,
+        isValid: false
+      }
+    }
+  };
+}
+
 function postForgotPasswordRequestReducer(state: AuthState, action: PostForgotPasswordRequestAction): AuthState {
   return {
     ...state,
@@ -466,6 +517,12 @@ export default function reducer(state = initialState, action: AuthActionTypes): 
       return signInFailureReducer(state, action);
     case SIGNOUT:
       return signOutReducer(state);
+    case GET_FORGOT_PASSWORD_CODE_VALIDATION_REQUEST:
+      return getForgotPasswordCodeValidationRequestReducer(state, action);
+    case GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS:
+      return getForgotPasswordCodeValidationSuccessReducer(state, action);
+    case GET_FORGOT_PASSWORD_CODE_VALIDATION_FAILURE:
+      return getForgotPasswordCodeValidationFailureReducer(state, action);
     case POST_FORGOT_PASSWORD_REQUEST:
       return postForgotPasswordRequestReducer(state, action);
     case POST_FORGOT_PASSWORD_SUCCESS:
@@ -527,6 +584,31 @@ export function signOut(): SignOutAction {
 
   return {
     type: SIGNOUT
+  };
+}
+
+export function getForgotPasswordCodeValidationRequest(code: string): GetForgotPasswordCodeValidationRequestAction {
+  return {
+    type: GET_FORGOT_PASSWORD_CODE_VALIDATION_REQUEST,
+    code
+  };
+}
+
+export function getForgotPasswordCodeValidationSuccess(code: string): GetForgotPasswordCodeValidationSuccessAction {
+  return {
+    type: GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS,
+    code
+  };
+}
+
+export function getForgotPasswordCodeValidationFailure(
+  code: string,
+  serverError: string
+): GetForgotPasswordCodeValidationFailureAction {
+  return {
+    type: GET_FORGOT_PASSWORD_CODE_VALIDATION_FAILURE,
+    code,
+    serverError
   };
 }
 
@@ -735,6 +817,25 @@ export const sendForgotPasswordEmail = (
     return false;
   }
 };
+
+export function validateForgotPasswordCode(code: string): AppThunk<Promise<boolean>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
+    dispatch(getForgotPasswordCodeValidationRequest(code));
+
+    try {
+      await api.get(`forgot_password/validate/${code}`);
+      dispatch(getForgotPasswordCodeValidationSuccess(code));
+
+      return true;
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(getForgotPasswordCodeValidationFailure(code, serverError));
+      return false;
+    }
+  };
+}
 
 export function createActivationCode(email: string, groupId: number): AppThunk<Promise<string>, AuthState> {
   return async function (dispatch: Dispatch): Promise<string> {
