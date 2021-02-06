@@ -326,6 +326,7 @@ class Mixins {
     fontSize: 14,
     textDecoration: 'none',
     color: Colors.spotPaletteBlue,
+    cursor: 'pointer',
 
     '&:hover': {
       textDecoration: 'underline'

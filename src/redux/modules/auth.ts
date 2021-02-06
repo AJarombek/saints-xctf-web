@@ -18,6 +18,9 @@ const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
 const SIGNIN_FAILURE = 'saints-xctf-web/auth/SIGNIN_FAILURE';
 const SIGNIN_SUCCESS = 'saints-xctf-web/auth/SIGNIN_SUCCESS';
 export const SIGNOUT = 'saints-xctf-web/auth/SIGNOUT';
+const GET_FORGOT_PASSWORD_CODE_VALIDATION_REQUEST = 'saints-xctf-web/auth/GET_FORGOT_PASSWORD_CODE_VALIDATION_REQUEST';
+const GET_FORGOT_PASSWORD_CODE_VALIDATION_FAILURE = 'saints-xctf-web/auth/GET_FORGOT_PASSWORD_CODE_VALIDATION_FAILURE';
+const GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS = 'saints-xctf-web/auth/GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS';
 const POST_FORGOT_PASSWORD_REQUEST = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_REQUEST';
 const POST_FORGOT_PASSWORD_FAILURE = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_FAILURE';
 const POST_FORGOT_PASSWORD_SUCCESS = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_SUCCESS';
@@ -54,6 +57,22 @@ interface SignInFailureAction {
 
 export interface SignOutAction {
   type: typeof SIGNOUT;
+}
+
+interface GetForgotPasswordCodeValidationRequestAction {
+  type: typeof GET_FORGOT_PASSWORD_CODE_VALIDATION_REQUEST;
+  code: string;
+}
+
+interface GetForgotPasswordCodeValidationSuccessAction {
+  type: typeof GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS;
+  code: string;
+}
+
+interface GetForgotPasswordCodeValidationFailureAction {
+  type: typeof GET_FORGOT_PASSWORD_CODE_VALIDATION_FAILURE;
+  code: string;
+  serverError: string;
 }
 
 interface PostForgotPasswordRequestAction {
@@ -136,6 +155,9 @@ type AuthActionTypes =
   | SignInSuccessAction
   | SignInFailureAction
   | SignOutAction
+  | GetForgotPasswordCodeValidationRequestAction
+  | GetForgotPasswordCodeValidationSuccessAction
+  | GetForgotPasswordCodeValidationFailureAction
   | PostForgotPasswordRequestAction
   | PostForgotPasswordSuccessAction
   | PostForgotPasswordFailureAction
@@ -157,7 +179,8 @@ const initialState: AuthState = {
   createActivationCode: {},
   emailActivationCode: {},
   createForgotPasswordCode: {},
-  emailForgotPasswordCode: {}
+  emailForgotPasswordCode: {},
+  validateForgotPasswordCode: {}
 };
 
 function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {

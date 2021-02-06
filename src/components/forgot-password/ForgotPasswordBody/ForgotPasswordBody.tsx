@@ -87,9 +87,9 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
   return (
     <div className="sxctf-forgot-password-body">
       <div>
-        <h2>Forgot Password</h2>
         {!emailSent && (
           <>
+            <h2>Forgot Password</h2>
             <h5>Enter your Email Address or Username to receive a reset code:</h5>
             <ImageInput
               onChange={onChangeEmail}
@@ -114,7 +114,9 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
             <div className={classes.checkedIcon}>
               <p>&#x4e;</p>
             </div>
-            <h5>An email was sent to your email address with a forgot password code.</h5>
+            <h5 className={classes.successDescription}>
+              An email was sent to your email address with a forgot password code.
+            </h5>
             <p className={classes.enterCode} onClick={(): void => history.push('/forgotpassword/reset')}>
               Enter Code
             </p>
