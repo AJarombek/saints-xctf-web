@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import Home from '../../src/containers/Home/Home';
+import Home from '../../../src/containers/Home/Home';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';

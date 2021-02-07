@@ -5,8 +5,8 @@
  */
 
 import React from 'react';
-import {mount} from 'enzyme';
-import Home from '../../src/containers/Home/Home';
+import { mount } from 'enzyme';
+import Home from '../../../src/containers/Home/Home';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
@@ -39,7 +39,7 @@ describe('Home Unit Tests', () => {
     const wrapper = mount(
       <MemoryRouter>
         <Provider store={store}>
-          <Home/>
+          <Home />
         </Provider>
       </MemoryRouter>
     );
@@ -51,7 +51,7 @@ describe('Home Unit Tests', () => {
     const wrapper = mount(
       <MemoryRouter>
         <Provider store={store}>
-          <Home/>
+          <Home />
         </Provider>
       </MemoryRouter>
     );
@@ -65,7 +65,7 @@ describe('Home Unit Tests', () => {
     const wrapper = mount(
       <MemoryRouter>
         <Provider store={store}>
-          <Home/>
+          <Home />
         </Provider>
       </MemoryRouter>
     );

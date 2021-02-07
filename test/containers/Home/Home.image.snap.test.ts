@@ -13,7 +13,7 @@ import {
   mobileMedium,
   mobileSmall,
   tablet
-} from '../test-utils/pageSizes';
+} from '../../test-utils/pageSizes';
 
 describe('Snapshot Image tests for the home page.', () => {
   let browser: puppeteer.Browser;
