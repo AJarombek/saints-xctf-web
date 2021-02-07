@@ -101,7 +101,11 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
               maxLength={50}
               status={emailStatus}
             />
-            {errorStatus && <p className="errorStatus">{errorStatus}</p>}
+            {errorStatus && (
+              <p className="errorStatus" data-puppeteer="errorStatus">
+                {errorStatus}
+              </p>
+            )}
             <div className="form-buttons">
               <AJButton type="contained" onClick={onClickSend} disabled={!emailValid || loading}>
                 Send
@@ -111,7 +115,7 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
         )}
         {emailSent && (
           <>
-            <div className={classes.checkedIcon}>
+            <div className={classes.checkedIcon} data-puppeteer="checkedIcon">
               <p>&#x4e;</p>
             </div>
             <h5 className={classes.successDescription}>
