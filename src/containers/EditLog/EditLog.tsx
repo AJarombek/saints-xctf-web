@@ -65,7 +65,11 @@ const EditLog: React.FunctionComponent<Props> = () => {
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
-        {errorNotFound ? <NotFound /> : <LogBody user={users[auth.signedInUser]?.user} existingLog={log} />}
+        {errorNotFound ? (
+          <NotFound fullPage={true} />
+        ) : (
+          <LogBody user={users[auth.signedInUser]?.user} existingLog={log} />
+        )}
         <HomeFooter showContactUs={false} />
       </div>
     );

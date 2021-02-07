@@ -6,12 +6,12 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
-import ImageInputSet, {ImageInputDirection} from '../../shared/ImageInputSet';
+import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
+import ImageInputSet, { ImageInputDirection } from '../../shared/ImageInputSet';
 import { AJButton } from 'jarombek-react-components';
-import {useDispatch} from 'react-redux';
-import {registerBack, registerCredentials} from '../../../redux/modules/registration';
-import {RegistrationState} from '../../../redux/types';
+import { useDispatch } from 'react-redux';
+import { registerBack, registerCredentials } from '../../../redux/modules/registration';
+import { RegistrationState } from '../../../redux/types';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
@@ -29,7 +29,7 @@ interface Props {
 
 const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) => {
   const dispatch = useDispatch();
-  
+
   const [username, setUsername] = useState(registration.username || '');
   const [password, setPassword] = useState(registration.password || '');
   const [confirmPassword, setConfirmPassword] = useState(registration.password || '');
@@ -51,48 +51,45 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
     let message;
     if (registration.status)
       switch (registration.status) {
-      case 'USERNAME ALREADY IN USE':
-        message = 'A user already exists with this username.';
-        setErrorStatus(message);
+        case 'USERNAME ALREADY IN USE':
+          message = 'A user already exists with this username.';
+          setErrorStatus(message);
 
-        setUsernameStatus(ImageInputStatus.FAILURE);
-        setActivationCodeStatus(ImageInputStatus.NONE);
-        setPasswordStatus(ImageInputStatus.NONE);
-        break;
-      case 'VALIDATION ERROR':
-        setErrorStatus(registration.serverError);
+          setUsernameStatus(ImageInputStatus.FAILURE);
+          setActivationCodeStatus(ImageInputStatus.NONE);
+          setPasswordStatus(ImageInputStatus.NONE);
+          break;
+        case 'VALIDATION ERROR':
+          setErrorStatus(registration.serverError);
 
-        const activationCodeError =
-          registration.serverError === 'The activation code is invalid or expired.';
-        const activationCodeStatus = activationCodeError ? ImageInputStatus.FAILURE : ImageInputStatus.NONE;
+          const activationCodeError = registration.serverError === 'The activation code is invalid or expired.';
+          const activationCodeStatus = activationCodeError ? ImageInputStatus.FAILURE : ImageInputStatus.NONE;
 
-        const passwordError =
-          registration.serverError === 'Password must contain at least 8 characters.';
-        const passwordStatus = passwordError ? ImageInputStatus.FAILURE : ImageInputStatus.NONE;
+          const passwordError = registration.serverError === 'Password must contain at least 8 characters.';
+          const passwordStatus = passwordError ? ImageInputStatus.FAILURE : ImageInputStatus.NONE;
 
-        setUsernameStatus(ImageInputStatus.NONE);
-        setActivationCodeStatus(activationCodeStatus);
-        setPasswordStatus(passwordStatus);
-        break;
-      case 'INTERNAL ERROR':
-        message =  'An unexpected error occurred.  Contact andrew@jarombek.com if this error persists.';
-        setErrorStatus(message);
+          setUsernameStatus(ImageInputStatus.NONE);
+          setActivationCodeStatus(activationCodeStatus);
+          setPasswordStatus(passwordStatus);
+          break;
+        case 'INTERNAL ERROR':
+          message = 'An unexpected error occurred.  Contact andrew@jarombek.com if this error persists.';
+          setErrorStatus(message);
 
-        setUsernameStatus(ImageInputStatus.NONE);
-        setActivationCodeStatus(ImageInputStatus.NONE);
-        setPasswordStatus(ImageInputStatus.NONE);
-        break;
-      default:
-        setErrorStatus(null);
+          setUsernameStatus(ImageInputStatus.NONE);
+          setActivationCodeStatus(ImageInputStatus.NONE);
+          setPasswordStatus(ImageInputStatus.NONE);
+          break;
+        default:
+          setErrorStatus(null);
 
-        setUsernameStatus(ImageInputStatus.NONE);
-        setActivationCodeStatus(ImageInputStatus.NONE);
-        setPasswordStatus(ImageInputStatus.NONE);
+          setUsernameStatus(ImageInputStatus.NONE);
+          setActivationCodeStatus(ImageInputStatus.NONE);
+          setPasswordStatus(ImageInputStatus.NONE);
       }
 
     setLoading(false);
-
-  }, [registration.status]);
+  }, [registration.status, registration.serverError]);
 
   const usernamePattern = /^[a-zA-Z0-9]+$/;
 
@@ -169,14 +166,9 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
    */
   const onClickRegister = async (): Promise<void> => {
     setLoading(true);
-    await dispatch(registerCredentials(
-      registration.first,
-      registration.last,
-      registration.email,
-      username,
-      password,
-      activationCode
-    ));
+    await dispatch(
+      registerCredentials(registration.first, registration.last, registration.email, username, password, activationCode)
+    );
   };
 
   /**
@@ -236,18 +228,16 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
           status={activationCodeStatus}
         />
       </div>
-      { errorStatus && <p className="errorStatus">{errorStatus}</p> }
+      {errorStatus && <p className="errorStatus">{errorStatus}</p>}
       <div className="form-buttons">
         <AJButton
           type="contained"
           onClick={onClickRegister}
-          disabled={loading || !usernameValid || !passwordValid ||
-            !confirmPasswordValid || !activationCodeValid}>
+          disabled={loading || !usernameValid || !passwordValid || !confirmPasswordValid || !activationCodeValid}
+        >
           Register
         </AJButton>
-        <AJButton
-          type="text"
-          onClick={onClickBack}>
+        <AJButton type="text" onClick={onClickBack}>
           Back
         </AJButton>
       </div>
