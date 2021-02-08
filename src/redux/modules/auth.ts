@@ -34,6 +34,9 @@ const POST_ACTIVATION_CODE_SUCCESS = 'saints-xctf-web/auth/POST_ACTIVATION_CODE_
 const ACTIVATION_CODE_EMAIL_REQUEST = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_REQUEST';
 const ACTIVATION_CODE_EMAIL_FAILURE = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_FAILURE';
 const ACTIVATION_CODE_EMAIL_SUCCESS = 'saints-xctf-web/auth/ACTIVATION_CODE_EMAIL_SUCCESS';
+const CHANGE_USER_PASSWORD_REQUEST = 'saints-xctf-web/auth/CHANGE_USER_PASSWORD_REQUEST';
+const CHANGE_USER_PASSWORD_FAILURE = 'saints-xctf-web/auth/CHANGE_USER_PASSWORD_FAILURE';
+const CHANGE_USER_PASSWORD_SUCCESS = 'saints-xctf-web/auth/CHANGE_USER_PASSWORD_SUCCESS';
 
 // Action Types
 
@@ -151,6 +154,22 @@ interface ActivationCodeEmailFailureAction {
   serverError: string;
 }
 
+interface ChangeUserPasswordRequestAction {
+  type: typeof CHANGE_USER_PASSWORD_REQUEST;
+  username: string;
+}
+
+interface ChangeUserPasswordSuccessAction {
+  type: typeof CHANGE_USER_PASSWORD_SUCCESS;
+  username: string;
+}
+
+interface ChangeUserPasswordFailureAction {
+  type: typeof CHANGE_USER_PASSWORD_FAILURE;
+  username: string;
+  serverError: string;
+}
+
 type AuthActionTypes =
   | SignInRequestAction
   | SignInSuccessAction
@@ -171,7 +190,10 @@ type AuthActionTypes =
   | PostActivationCodeFailureAction
   | ActivationCodeEmailRequestAction
   | ActivationCodeEmailSuccessAction
-  | ActivationCodeEmailFailureAction;
+  | ActivationCodeEmailFailureAction
+  | ChangeUserPasswordRequestAction
+  | ChangeUserPasswordSuccessAction
+  | ChangeUserPasswordFailureAction;
 
 // Reducer
 const initialState: AuthState = {
@@ -181,7 +203,8 @@ const initialState: AuthState = {
   emailActivationCode: {},
   createForgotPasswordCode: {},
   emailForgotPasswordCode: {},
-  validateForgotPasswordCode: {}
+  validateForgotPasswordCode: {},
+  changePassword: {}
 };
 
 function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {
@@ -508,6 +531,42 @@ function emailActivationCodeFailureReducer(state: AuthState, action: ActivationC
   };
 }
 
+function changeUserPasswordRequestReducer(state: AuthState, action: ChangeUserPasswordRequestAction): AuthState {
+  return {
+    ...state,
+    changePassword: {
+      isFetching: true,
+      lastUpdated: moment().unix(),
+      username: action.username
+    }
+  };
+}
+
+function changeUserPasswordSuccessReducer(state: AuthState, action: ChangeUserPasswordSuccessAction): AuthState {
+  return {
+    ...state,
+    changePassword: {
+      isFetching: false,
+      lastUpdated: moment().unix(),
+      changed: true,
+      username: action.username
+    }
+  };
+}
+
+function changeUserPasswordFailureReducer(state: AuthState, action: ChangeUserPasswordFailureAction): AuthState {
+  return {
+    ...state,
+    changePassword: {
+      isFetching: false,
+      lastUpdated: moment().unix(),
+      changed: false,
+      username: action.username,
+      serverError: action.serverError
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: AuthActionTypes): AuthState {
   switch (action.type) {
     case SIGNIN_REQUEST:
@@ -550,6 +609,12 @@ export default function reducer(state = initialState, action: AuthActionTypes): 
       return emailActivationCodeSuccessReducer(state, action);
     case ACTIVATION_CODE_EMAIL_FAILURE:
       return emailActivationCodeFailureReducer(state, action);
+    case CHANGE_USER_PASSWORD_REQUEST:
+      return changeUserPasswordRequestReducer(state, action);
+    case CHANGE_USER_PASSWORD_SUCCESS:
+      return changeUserPasswordSuccessReducer(state, action);
+    case CHANGE_USER_PASSWORD_FAILURE:
+      return changeUserPasswordFailureReducer(state, action);
     default:
       return state;
   }
@@ -726,6 +791,28 @@ export function activationCodeEmailFailure(
   };
 }
 
+export function changeUserPasswordRequest(username: string): ChangeUserPasswordRequestAction {
+  return {
+    type: CHANGE_USER_PASSWORD_REQUEST,
+    username
+  };
+}
+
+export function changeUserPasswordSuccess(username: string): ChangeUserPasswordSuccessAction {
+  return {
+    type: CHANGE_USER_PASSWORD_SUCCESS,
+    username
+  };
+}
+
+export function changeUserPasswordFailure(username: string, serverError: string): ChangeUserPasswordFailureAction {
+  return {
+    type: CHANGE_USER_PASSWORD_FAILURE,
+    username,
+    serverError
+  };
+}
+
 export function signIn(username: string, password: string): AppThunk<Promise<void>, AuthState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(signInRequest(username, 'PENDING'));
@@ -882,3 +969,30 @@ export const sendActivationCodeEmail = (email: string, code: string): AppThunk<P
     return false;
   }
 };
+
+export function changeUserPassword(
+  username: string,
+  forgotPasswordCode: string,
+  newPassword: string
+): AppThunk<Promise<boolean>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
+    dispatch(changeUserPasswordRequest(username));
+
+    try {
+      const response = await api.post(`users/${username}/change_password`, {
+        forgot_password_code: forgotPasswordCode,
+        new_password: newPassword
+      });
+      const { password_updated } = response.data;
+
+      dispatch(changeUserPasswordSuccess(username));
+      return password_updated;
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+
+      dispatch(changeUserPasswordFailure(username, serverError));
+      return null;
+    }
+  };
+}

@@ -38,6 +38,7 @@ export type AuthState = {
   createForgotPasswordCode: CreateForgotPasswordCodes;
   emailForgotPasswordCode: EmailForgotPasswordCodes;
   validateForgotPasswordCode: ValidateForgotPasswordCodes;
+  changePassword: ChangePassword;
 };
 
 export type MembershipsState = {
@@ -134,6 +135,11 @@ export type ValidateForgotPasswordCodes = Record<string, ValidateForgotPasswordC
 
 export interface ValidateForgotPasswordCode extends Meta {
   isValid?: boolean;
+}
+
+export interface ChangePassword extends Meta {
+  username?: string;
+  changed?: boolean;
 }
 
 export type Users = {
