@@ -1,5 +1,6 @@
 /**
  * Image snapshot test for the register page.
+ * What challenges do you face now.  I wish I knew
  * @author Andrew Jarombek
  * @since 2/6/2021
  */

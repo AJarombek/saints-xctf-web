@@ -67,7 +67,7 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
           email,
           forgotPasswordEmailData.username,
           forgotPasswordEmailData.firstName,
-          forgotPasswordEmailData.firstName,
+          forgotPasswordEmailData.lastName,
           forgotPasswordEmailData.forgotPasswordCode
         )
       ) as ForgotPasswordEmailData);
