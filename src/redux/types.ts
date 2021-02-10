@@ -135,6 +135,7 @@ export type ValidateForgotPasswordCodes = Record<string, ValidateForgotPasswordC
 
 export interface ValidateForgotPasswordCode extends Meta {
   isValid?: boolean;
+  username?: string;
 }
 
 export interface ChangePassword extends Meta {

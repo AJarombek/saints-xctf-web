@@ -5,7 +5,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import qs, { ParsedQuery } from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, ValidateForgotPasswordCode } from '../../../redux/types';
-import { validateForgotPasswordCode } from '../../../redux/modules/auth';
+import { changeUserPassword, validateForgotPasswordCode } from '../../../redux/modules/auth';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';
 import NotFound from '../../shared/NotFound';
@@ -36,6 +36,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
   const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
   const [newPasswordStatus, setNewPasswordStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [newPasswordConfirmStatus, setNewPasswordConfirmStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
+  const [submittingNewPassword, setSubmittingNewPassword] = useState(false);
 
   const urlForgotPasswordCode: string = useMemo(() => {
     const queryStrings: ParsedQuery = qs.parse(location.search);
@@ -86,6 +87,12 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
     setNewPasswordConfirm(e.target.value);
   };
 
+  const onSubmitNewPassword = async (): Promise<void> => {
+    setSubmittingNewPassword(true);
+    await dispatch(changeUserPassword());
+    setSubmittingNewPassword(false);
+  };
+
   return (
     <div className="sxctf-forgot-password-reset-body">
       <div>
@@ -130,6 +137,8 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
                 autoComplete="new-password"
                 maxLength={80}
                 status={newPasswordStatus}
+                useCustomValue={true}
+                value={newPassword}
               />
               <ImageInput
                 onChange={onChangeConfirmPassword}
@@ -140,9 +149,19 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
                 autoComplete="new-password"
                 maxLength={80}
                 status={newPasswordConfirmStatus}
+                useCustomValue={true}
+                value={newPasswordConfirm}
               />
             </ImageInputSet>
             <p className={classes.inputTip}>Password must be 8 or more characters long.</p>
+            <div className="form-buttons">
+              <AJButton type="text" onClick={(): void => history.push('/')}>
+                Cancel
+              </AJButton>
+              <AJButton type="contained" onClick={onSubmitNewPassword} disabled={submittingNewPassword}>
+                Change Password
+              </AJButton>
+            </div>
           </>
         )}
       </div>

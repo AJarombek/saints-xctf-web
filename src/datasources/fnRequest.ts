@@ -8,6 +8,6 @@ import axios from 'axios';
 
 export const fn = axios.create({
   baseURL: '/fn/',
-  timeout: 5000,
+  timeout: 15000,
   responseType: 'json'
 });

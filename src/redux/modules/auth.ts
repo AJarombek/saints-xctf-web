@@ -71,6 +71,7 @@ interface GetForgotPasswordCodeValidationSuccessAction {
   type: typeof GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS;
   code: string;
   isValid: boolean;
+  username: string;
 }
 
 interface GetForgotPasswordCodeValidationFailureAction {
@@ -295,7 +296,8 @@ function getForgotPasswordCodeValidationSuccessReducer(
       [action.code]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        isValid: action.isValid
+        isValid: action.isValid,
+        username: action.username
       }
     }
   };
@@ -313,7 +315,7 @@ function getForgotPasswordCodeValidationFailureReducer(
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: action.serverError,
-        isValid: false
+        isValid: false,
       }
     }
   };
@@ -662,12 +664,14 @@ export function getForgotPasswordCodeValidationRequest(code: string): GetForgotP
 
 export function getForgotPasswordCodeValidationSuccess(
   code: string,
-  isValid: boolean
+  isValid: boolean,
+  username: string
 ): GetForgotPasswordCodeValidationSuccessAction {
   return {
     type: GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS,
     code,
-    isValid
+    isValid,
+    username
   };
 }
 
@@ -916,9 +920,9 @@ export function validateForgotPasswordCode(code: string): AppThunk<Promise<boole
 
     try {
       const response = await api.get(`forgot_password/validate/${code}`);
-      const { is_valid: isValid } = response.data;
+      const { is_valid: isValid, username } = response.data;
 
-      dispatch(getForgotPasswordCodeValidationSuccess(code, isValid));
+      dispatch(getForgotPasswordCodeValidationSuccess(code, isValid, username));
 
       return isValid;
     } catch (error) {

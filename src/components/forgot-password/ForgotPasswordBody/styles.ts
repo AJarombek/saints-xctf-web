@@ -34,5 +34,20 @@ export default {
   },
   enterCode: {
     ...Mixins.blueLink()
+  },
+  button: {
+    '& p': {
+      margin: '2px 0'
+    }
+  },
+  buttonSpinner: {
+    ...Mixins.buttonSpinner()
+  },
+  disabledButton: {
+    ...Mixins.disabledButton(),
+
+    '& p': {
+      color: '#eee'
+    }
   }
 };

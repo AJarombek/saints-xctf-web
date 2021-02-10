@@ -22,6 +22,8 @@ import { useDispatch } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { useHistory } from 'react-router-dom';
+import LoadingSpinner from '../../shared/LoadingSpinner';
+import classNames from 'classnames';
 
 type Props = {};
 
@@ -107,8 +109,14 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
               </p>
             )}
             <div className="form-buttons">
-              <AJButton type="contained" onClick={onClickSend} disabled={!emailValid || loading}>
-                Send
+              <AJButton
+                type="contained"
+                onClick={onClickSend}
+                disabled={!emailValid || loading}
+                className={classNames(classes.button, loading && classes.disabledButton)}
+              >
+                <p>{loading ? 'Sending...' : 'Send'}</p>
+                {loading && <LoadingSpinner className={classes.buttonSpinner} />}
               </AJButton>
             </div>
           </>
