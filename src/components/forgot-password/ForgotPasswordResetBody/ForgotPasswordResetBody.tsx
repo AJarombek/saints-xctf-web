@@ -37,6 +37,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
   const [newPasswordStatus, setNewPasswordStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [newPasswordConfirmStatus, setNewPasswordConfirmStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [submittingNewPassword, setSubmittingNewPassword] = useState(false);
+  const [passwordChanged, setPasswordChanged] = useState(false);
 
   const urlForgotPasswordCode: string = useMemo(() => {
     const queryStrings: ParsedQuery = qs.parse(location.search);
@@ -69,28 +70,69 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
     return codeValidation[forgotPasswordCode]?.isValid;
   }, [codeValidation, forgotPasswordCode]);
 
+  const forgotPasswordCodeUsername: string = useMemo(() => {
+    return codeValidation[forgotPasswordCode]?.username;
+  }, [codeValidation, forgotPasswordCode]);
+
   const onChangeVerificationCode = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEnteredCode(e.target.value);
+    const newCode = e.target.value;
+    setEnteredCode(newCode);
+
+    if (!newCode.length) {
+      setEnteredCodeStatus(ImageInputStatus.WARNING);
+    } else {
+      setEnteredCodeStatus(ImageInputStatus.NONE);
+    }
   };
 
   const onVerify = async (): Promise<void> => {
     setValidatingCode(true);
-    await dispatch(validateForgotPasswordCode(enteredCode));
+    const isValid = await dispatch(validateForgotPasswordCode(enteredCode));
     setValidatingCode(false);
+
+    if (!isValid) {
+      setEnteredCodeStatus(ImageInputStatus.FAILURE);
+    }
   };
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setNewPassword(e.target.value);
+    const newChangedPassword = e.target.value;
+    setNewPassword(newChangedPassword);
+
+    if (!newChangedPassword.length) {
+      setNewPasswordStatus(ImageInputStatus.WARNING);
+    } else {
+      setNewPasswordStatus(ImageInputStatus.NONE);
+    }
   };
 
   const onChangeConfirmPassword = (e: ChangeEvent<HTMLInputElement>): void => {
-    setNewPasswordConfirm(e.target.value);
+    const newChangedConfirmPassword = e.target.value;
+    setNewPasswordConfirm(newChangedConfirmPassword);
+
+    if (!newChangedConfirmPassword.length) {
+      setNewPasswordConfirmStatus(ImageInputStatus.WARNING);
+    } else {
+      setNewPasswordConfirmStatus(ImageInputStatus.NONE);
+    }
   };
 
   const onSubmitNewPassword = async (): Promise<void> => {
-    setSubmittingNewPassword(true);
-    await dispatch(changeUserPassword());
-    setSubmittingNewPassword(false);
+    if (newPassword !== newPasswordConfirm) {
+      setNewPasswordStatus(ImageInputStatus.FAILURE);
+      setNewPasswordConfirmStatus(ImageInputStatus.FAILURE);
+    } else {
+      setSubmittingNewPassword(true);
+      const passwordChanged = await dispatch(
+        changeUserPassword(forgotPasswordCodeUsername, forgotPasswordCode, newPassword)
+      );
+
+      if (passwordChanged) {
+        setPasswordChanged(true);
+      }
+
+      setSubmittingNewPassword(false);
+    }
   };
 
   return (
@@ -123,7 +165,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
           </>
         )}
         {!forgotPasswordCodeValid && !!urlForgotPasswordCode && <NotFound fullPage={false} />}
-        {forgotPasswordCodeValid && (
+        {forgotPasswordCodeValid && !passwordChanged && (
           <>
             <h2>Reset Password</h2>
             <h5>Enter a new password for your SaintsXCTF account.</h5>
@@ -162,6 +204,17 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
                 Change Password
               </AJButton>
             </div>
+          </>
+        )}
+        {forgotPasswordCodeValid && passwordChanged && (
+          <>
+            <div className={classes.checkedIcon} data-puppeteer="checkedIcon">
+              <p>&#x4e;</p>
+            </div>
+            <h5 className={classes.successDescription}>Your password was successfully changed.</h5>
+            <p className={classes.signIn} onClick={(): void => history.push('/signin')}>
+              Sign In
+            </p>
           </>
         )}
       </div>

@@ -983,7 +983,7 @@ export function changeUserPassword(
     dispatch(changeUserPasswordRequest(username));
 
     try {
-      const response = await api.post(`users/${username}/change_password`, {
+      const response = await api.put(`users/${username}/change_password`, {
         forgot_password_code: forgotPasswordCode,
         new_password: newPassword
       });

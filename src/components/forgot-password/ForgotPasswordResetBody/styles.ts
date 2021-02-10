@@ -19,6 +19,15 @@ export default {
     fontSize: 12,
     margin: '10px 5px 20px 5px'
   },
+  checkedIcon: {
+    ...Mixins.checkedIcon()
+  },
+  successDescription: {
+    ...Mixins.successDescription()
+  },
+  signIn: {
+    ...Mixins.blueLink()
+  },
   '@media screen and (max-width: 1000px)': {
     inputTip: {
       width: 250,
