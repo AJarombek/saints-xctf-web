@@ -12,6 +12,7 @@ import { AJButton } from 'jarombek-react-components';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 import DefaultErrorPopup from '../DefaultErrorPopup';
+import UploadedFile from '../UploadedFile';
 
 interface Props {
   pictureUrl: string;
@@ -24,6 +25,7 @@ interface Props {
   errorUploadingMessage?: string;
   onCloseErrorUploadingModal: () => void;
   onRetryUpload: () => void;
+  file: File;
   setFile: Dispatch<SetStateAction<File>>;
   saving: boolean;
 }
@@ -41,6 +43,7 @@ const UploadPicture: React.FunctionComponent<Props> = ({
   errorUploadingMessage,
   onCloseErrorUploadingModal,
   onRetryUpload,
+  file,
   setFile,
   saving
 }) => {
@@ -56,7 +59,8 @@ const UploadPicture: React.FunctionComponent<Props> = ({
         <figure className={classes.picture}>
           <img src={pictureUrl} alt="" />
         </figure>
-        <UploadFile onUpload={onUpload} setFile={setFile} />
+        {!file && <UploadFile onUpload={onUpload} setFile={setFile} />}
+        {!!file && <UploadedFile setFile={setFile} />}
       </div>
       <div className={classes.actions}>
         <AJButton

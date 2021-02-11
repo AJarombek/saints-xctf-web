@@ -105,7 +105,7 @@ describe('Snapshot Image tests for the forgot password page.', () => {
 
     await page.type('input[name=email]', 'andrew@jarombek.com');
     await page.click('.form-buttons button');
-    //await page.waitForSelector('[data-puppeteer="checkedIcon"]');
+    await page.waitForSelector('[data-puppeteer="checkedIcon"]');
 
     const image = await page.screenshot();
 

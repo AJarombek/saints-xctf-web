@@ -59,6 +59,7 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
       errorUploadingMessage="Failed to upload a new picture for the group"
       onCloseErrorUploadingModal={(): void => setErrorUploading(false)}
       onRetryUpload={updateGroup}
+      file={file}
       setFile={setFile}
       saving={saving}
     />

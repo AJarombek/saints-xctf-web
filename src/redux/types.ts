@@ -36,7 +36,6 @@ export type AuthState = {
   createActivationCode: CreateActivationCodes;
   emailActivationCode: EmailActivationCodes;
   createForgotPasswordCode: CreateForgotPasswordCodes;
-  emailForgotPasswordCode: EmailForgotPasswordCodes;
   validateForgotPasswordCode: ValidateForgotPasswordCodes;
   changePassword: ChangePassword;
 };
@@ -122,13 +121,6 @@ export type CreateForgotPasswordCodes = Record<string, CreateForgotPasswordCode>
 
 export interface CreateForgotPasswordCode extends Meta {
   created?: boolean;
-}
-
-export type EmailForgotPasswordCodes = Record<string, EmailForgotPasswordCode>;
-
-export interface EmailForgotPasswordCode extends Meta {
-  emailed?: boolean;
-  code: string;
 }
 
 export type ValidateForgotPasswordCodes = Record<string, ValidateForgotPasswordCode>;

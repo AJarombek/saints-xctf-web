@@ -59,6 +59,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
       errorUploadingMessage="Failed to upload your new profile picture"
       onCloseErrorUploadingModal={(): void => setErrorUploading(false)}
       onRetryUpload={updateUser}
+      file={file}
       setFile={setFile}
       saving={saving}
     />

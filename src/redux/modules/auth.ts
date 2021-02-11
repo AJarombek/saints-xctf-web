@@ -24,9 +24,6 @@ const GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS = 'saints-xctf-web/auth/GET_FO
 const POST_FORGOT_PASSWORD_REQUEST = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_REQUEST';
 const POST_FORGOT_PASSWORD_FAILURE = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_FAILURE';
 const POST_FORGOT_PASSWORD_SUCCESS = 'saints-xctf-web/auth/POST_FORGOT_PASSWORD_SUCCESS';
-const FORGOT_PASSWORD_EMAIL_REQUEST = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_REQUEST';
-const FORGOT_PASSWORD_EMAIL_FAILURE = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_FAILURE';
-const FORGOT_PASSWORD_EMAIL_SUCCESS = 'saints-xctf-web/auth/FORGOT_PASSWORD_EMAIL_SUCCESS';
 const SET_USER_FROM_STORAGE = 'saints-xctf-web/auth/SET_USER_FROM_STORAGE';
 const POST_ACTIVATION_CODE_REQUEST = 'saints-xctf-web/auth/POST_ACTIVATION_CODE_REQUEST';
 const POST_ACTIVATION_CODE_FAILURE = 'saints-xctf-web/auth/POST_ACTIVATION_CODE_FAILURE';
@@ -93,25 +90,6 @@ interface PostForgotPasswordSuccessAction {
 interface PostForgotPasswordFailureAction {
   type: typeof POST_FORGOT_PASSWORD_FAILURE;
   email: string;
-  serverError: string;
-}
-
-interface ForgotPasswordEmailRequestAction {
-  type: typeof FORGOT_PASSWORD_EMAIL_REQUEST;
-  email: string;
-  code: string;
-}
-
-interface ForgotPasswordEmailSuccessAction {
-  type: typeof FORGOT_PASSWORD_EMAIL_SUCCESS;
-  email: string;
-  code: string;
-}
-
-interface ForgotPasswordEmailFailureAction {
-  type: typeof FORGOT_PASSWORD_EMAIL_FAILURE;
-  email: string;
-  code: string;
   serverError: string;
 }
 
@@ -182,9 +160,6 @@ type AuthActionTypes =
   | PostForgotPasswordRequestAction
   | PostForgotPasswordSuccessAction
   | PostForgotPasswordFailureAction
-  | ForgotPasswordEmailRequestAction
-  | ForgotPasswordEmailSuccessAction
-  | ForgotPasswordEmailFailureAction
   | SetUserFromStorageAction
   | PostActivationCodeRequestAction
   | PostActivationCodeSuccessAction
@@ -203,7 +178,6 @@ const initialState: AuthState = {
   createActivationCode: {},
   emailActivationCode: {},
   createForgotPasswordCode: {},
-  emailForgotPasswordCode: {},
   validateForgotPasswordCode: {},
   changePassword: {}
 };
@@ -315,7 +289,7 @@ function getForgotPasswordCodeValidationFailureReducer(
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: action.serverError,
-        isValid: false,
+        isValid: false
       }
     }
   };
@@ -358,51 +332,6 @@ function postForgotPasswordFailureReducer(state: AuthState, action: PostForgotPa
         lastUpdated: moment().unix(),
         serverError: action.serverError,
         created: false
-      }
-    }
-  };
-}
-
-function emailForgotPasswordCodeRequestReducer(state: AuthState, action: ForgotPasswordEmailRequestAction): AuthState {
-  return {
-    ...state,
-    emailForgotPasswordCode: {
-      ...state.emailForgotPasswordCode,
-      [action.email]: {
-        isFetching: true,
-        code: action.code,
-        lastUpdated: moment().unix()
-      }
-    }
-  };
-}
-
-function emailForgotPasswordCodeSuccessReducer(state: AuthState, action: ForgotPasswordEmailSuccessAction): AuthState {
-  return {
-    ...state,
-    emailForgotPasswordCode: {
-      ...state.emailForgotPasswordCode,
-      [action.email]: {
-        isFetching: false,
-        code: action.code,
-        lastUpdated: moment().unix(),
-        emailed: true
-      }
-    }
-  };
-}
-
-function emailForgotPasswordCodeFailureReducer(state: AuthState, action: ForgotPasswordEmailFailureAction): AuthState {
-  return {
-    ...state,
-    emailForgotPasswordCode: {
-      ...state.emailForgotPasswordCode,
-      [action.email]: {
-        isFetching: false,
-        code: action.code,
-        lastUpdated: moment().unix(),
-        serverError: action.serverError,
-        emailed: false
       }
     }
   };
@@ -591,12 +520,6 @@ export default function reducer(state = initialState, action: AuthActionTypes): 
       return postForgotPasswordSuccessReducer(state, action);
     case POST_FORGOT_PASSWORD_FAILURE:
       return postForgotPasswordFailureReducer(state, action);
-    case FORGOT_PASSWORD_EMAIL_REQUEST:
-      return emailForgotPasswordCodeRequestReducer(state, action);
-    case FORGOT_PASSWORD_EMAIL_SUCCESS:
-      return emailForgotPasswordCodeSuccessReducer(state, action);
-    case FORGOT_PASSWORD_EMAIL_FAILURE:
-      return emailForgotPasswordCodeFailureReducer(state, action);
     case SET_USER_FROM_STORAGE:
       return setUserFromStorageReducer(state, action);
     case POST_ACTIVATION_CODE_REQUEST:
@@ -704,35 +627,6 @@ export function postForgotPasswordFailure(email: string, serverError: string): P
   return {
     type: POST_FORGOT_PASSWORD_FAILURE,
     email,
-    serverError
-  };
-}
-
-export function forgotPasswordEmailRequest(email: string, code: string): ForgotPasswordEmailRequestAction {
-  return {
-    type: FORGOT_PASSWORD_EMAIL_REQUEST,
-    email,
-    code
-  };
-}
-
-export function forgotPasswordEmailSuccess(email: string, code: string): ForgotPasswordEmailSuccessAction {
-  return {
-    type: FORGOT_PASSWORD_EMAIL_SUCCESS,
-    email,
-    code
-  };
-}
-
-export function forgotPasswordEmailFailure(
-  email: string,
-  code: string,
-  serverError: string
-): ForgotPasswordEmailFailureAction {
-  return {
-    type: FORGOT_PASSWORD_EMAIL_FAILURE,
-    email,
-    code,
     serverError
   };
 }
@@ -851,68 +745,24 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
   };
 }
 
-export type ForgotPasswordEmailData = {
-  forgotPasswordCode?: string;
-  username?: string;
-  firstName?: string;
-  lastName?: string;
-  error?: string;
-};
-
-export function createForgotPasswordCode(email: string): AppThunk<Promise<ForgotPasswordEmailData>, AuthState> {
-  return async function (dispatch: Dispatch): Promise<ForgotPasswordEmailData> {
+export function createForgotPasswordCode(email: string): AppThunk<Promise<boolean>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(postForgotPasswordRequest(email));
 
     try {
       const response = await api.post(`forgot_password/${email}`);
       dispatch(postForgotPasswordSuccess(email));
-      const {
-        forgot_password_code: forgotPasswordCode,
-        username,
-        first_name: firstName,
-        last_name: lastName
-      } = response.data;
 
-      return {
-        forgotPasswordCode,
-        username,
-        firstName,
-        lastName
-      };
+      return response.data.created;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(postForgotPasswordFailure(email, serverError));
-      return {
-        error: serverError
-      };
+      return false;
     }
   };
 }
-
-export const sendForgotPasswordEmail = (
-  email: string,
-  username: string,
-  firstName: string,
-  lastName: string,
-  code: string
-): AppThunk<Promise<boolean>, AuthState> => async (dispatch: Dispatch): Promise<boolean> => {
-  dispatch(forgotPasswordEmailRequest(email, code));
-
-  try {
-    const response = await fn.post('email/forgot-password', { to: email, code, username, firstName, lastName });
-    const result: boolean = response.data.result;
-
-    dispatch(forgotPasswordEmailSuccess(email, code));
-    return result;
-  } catch (error) {
-    const serverError = 'An unexpected error occurred.';
-
-    dispatch(forgotPasswordEmailFailure(email, code, serverError));
-    return false;
-  }
-};
 
 export function validateForgotPasswordCode(code: string): AppThunk<Promise<boolean>, AuthState> {
   return async function (dispatch: Dispatch): Promise<boolean> {

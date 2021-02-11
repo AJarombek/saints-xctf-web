@@ -13,11 +13,7 @@ import { AJButton } from 'jarombek-react-components';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import emailLogo from '../../../../assets/email.png';
-import {
-  createForgotPasswordCode,
-  ForgotPasswordEmailData,
-  sendForgotPasswordEmail
-} from '../../../redux/modules/auth';
+import { createForgotPasswordCode } from '../../../redux/modules/auth';
 import { useDispatch } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
@@ -59,28 +55,14 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
 
   const onClickSend = async (): Promise<void> => {
     setLoading(true);
-    const forgotPasswordEmailData: ForgotPasswordEmailData = await (dispatch(
-      createForgotPasswordCode(email)
-    ) as ForgotPasswordEmailData);
+    setErrorStatus(null);
+    const forgotPasswordCreated = await dispatch(createForgotPasswordCode(email));
 
-    if (forgotPasswordEmailData.forgotPasswordCode) {
-      const response = await (dispatch(
-        sendForgotPasswordEmail(
-          email,
-          forgotPasswordEmailData.username,
-          forgotPasswordEmailData.firstName,
-          forgotPasswordEmailData.lastName,
-          forgotPasswordEmailData.forgotPasswordCode
-        )
-      ) as ForgotPasswordEmailData);
-
-      if (response) {
-        setEmailSent(true);
-      } else {
-        setErrorStatus('Failed to send the forgot password code to your email address.');
-      }
+    if (forgotPasswordCreated) {
+      setEmailSent(true);
     } else {
-      setErrorStatus(`Failed to create a forgot password code. ${forgotPasswordEmailData.error}`);
+      setErrorStatus('Failed to create a forgot password code.');
+      setEmailSent(false);
     }
 
     setLoading(false);
