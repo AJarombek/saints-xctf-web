@@ -13,9 +13,11 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 import DefaultErrorPopup from '../DefaultErrorPopup';
 import UploadedFile from '../UploadedFile';
+import { Meta, UploadingPicture } from '../../../redux/types';
 
 interface Props {
   pictureUrl: string;
+  uploadingPicture: UploadingPicture & Meta;
   onUpload: () => Promise<void>;
   errorUpdating?: boolean;
   errorUpdatingMessage?: string;
@@ -34,6 +36,7 @@ const useStyles = createUseStyles(styles);
 
 const UploadPicture: React.FunctionComponent<Props> = ({
   pictureUrl,
+  uploadingPicture,
   onUpload,
   errorUpdating,
   errorUpdatingMessage,
@@ -60,7 +63,7 @@ const UploadPicture: React.FunctionComponent<Props> = ({
           <img src={pictureUrl} alt="" />
         </figure>
         {!file && <UploadFile onUpload={onUpload} setFile={setFile} />}
-        {!!file && <UploadedFile setFile={setFile} />}
+        {!!file && <UploadedFile setFile={setFile} file={file} uploadingPicture={uploadingPicture} />}
       </div>
       <div className={classes.actions}>
         <AJButton

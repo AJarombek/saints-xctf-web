@@ -4,11 +4,11 @@
  * @since 1/27/2021
  */
 
-import React, { useState } from 'react';
-import { UserMeta } from '../../../redux/types';
+import React, { useMemo, useState } from 'react';
+import {RootState, UploadingProfilePicture, UserMeta} from '../../../redux/types';
 import UploadPicture from '../../shared/UploadPicture';
 import { putUser, uploadProfilePicture } from '../../../redux/modules/profile';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 interface Props {
   user: UserMeta;
@@ -17,6 +17,15 @@ interface Props {
 
 const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePictureUrl }) => {
   const dispatch = useDispatch();
+  const users = useSelector((state: RootState) => state.profile.users);
+
+  const uploadingProfilePicture: UploadingProfilePicture = useMemo(() => {
+    if (user.username) {
+      return users[user.username].uploadingProfilePicture;
+    } else {
+      return null;
+    }
+  }, [user.username, users]);
 
   const [file, setFile] = useState<File>(null);
   const [saving, setSaving] = useState(false);
@@ -50,6 +59,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
   return (
     <UploadPicture
       pictureUrl={profilePictureUrl}
+      uploadingPicture={uploadingProfilePicture}
       onUpload={onUpload}
       errorUpdating={errorUpdatingUser}
       errorUpdatingMessage="Failed to update your user details with the new profile picture"

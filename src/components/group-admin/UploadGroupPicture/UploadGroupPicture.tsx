@@ -4,10 +4,10 @@
  * @since 1/28/2021
  */
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import UploadPicture from '../../shared/UploadPicture';
-import { useDispatch } from 'react-redux';
-import { GroupMeta } from '../../../redux/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { GroupMeta, RootState, UploadingGroupPicture } from '../../../redux/types';
 import { putGroup, uploadGroupPicture } from '../../../redux/modules/groups';
 
 interface Props {
@@ -17,6 +17,17 @@ interface Props {
 
 const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictureUrl }) => {
   const dispatch = useDispatch();
+  const uploadingGroupPictures: Record<string, UploadingGroupPicture> = useSelector(
+    (state: RootState) => state.groups.uploadingGroupPicture
+  );
+
+  const uploadingGroupPicture: UploadingGroupPicture = useMemo(() => {
+    if (group.id) {
+      return uploadingGroupPictures[group.id];
+    } else {
+      return null;
+    }
+  }, [group.id, uploadingGroupPictures]);
 
   const [file, setFile] = useState<File>(null);
   const [saving, setSaving] = useState(false);
@@ -50,6 +61,7 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
   return (
     <UploadPicture
       pictureUrl={groupPictureUrl}
+      uploadingPicture={uploadingGroupPicture}
       onUpload={onUpload}
       errorUpdating={errorUpdatingGroup}
       errorUpdatingMessage="Failed to update group details with the new group picture"

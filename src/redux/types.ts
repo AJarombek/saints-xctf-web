@@ -177,13 +177,11 @@ export interface UpdateGroup extends Meta {
   updated?: boolean;
 }
 
-export interface UploadingProfilePicture extends Meta {
-  uploaded?: boolean;
-  uploadedSize?: number;
-  totalSize?: number;
-}
+export interface UploadingProfilePicture extends Meta, UploadingPicture {}
 
-export interface UploadingGroupPicture extends Meta {
+export interface UploadingGroupPicture extends Meta, UploadingPicture {}
+
+export interface UploadingPicture {
   uploaded?: boolean;
   uploadedSize?: number;
   totalSize?: number;
