@@ -10,6 +10,7 @@ import styles from './styles';
 import classNames from 'classnames';
 import { ClassValue } from 'classnames/types';
 import { Meta, UploadingPicture } from '../../../redux/types';
+import ProgressBar from '../ProgressBar';
 
 interface Props {
   file: File;
@@ -23,15 +24,15 @@ const useStyles = createUseStyles(styles);
 const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploadingPicture, className }) => {
   const classes = useStyles();
 
-  const percentUploaded = useMemo(
-    () => `${((uploadingPicture.uploadedSize / uploadingPicture.totalSize) * 100).toFixed(2)}%`,
-    [uploadingPicture]
-  );
+  const percentUploaded = useMemo(() => {
+    return uploadingPicture ? (uploadingPicture.uploadedSize / uploadingPicture.totalSize) * 100 : 0;
+  }, [uploadingPicture]);
 
   return (
     <div className={classNames(classes.uploadedFile, className)}>
       <p>{file.name}</p>
       <div>
+        <ProgressBar progress={percentUploaded} inProgress={uploadingPicture.isFetching} />
         <p className={classes.removeIcon} onClick={(): void => setFile(null)}>
           &#xe019;
         </p>
@@ -39,7 +40,7 @@ const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploading
       <div className={classes.uploadStatus}>
         {uploadingPicture.isFetching && (
           <p className={classes.uploadPercentage}>
-            {percentUploaded} {uploadingPicture.uploadedSize} of {uploadingPicture.totalSize}
+            {`${percentUploaded.toFixed(2)}%`} {uploadingPicture.uploadedSize} of {uploadingPicture.totalSize}
           </p>
         )}
         {!uploadingPicture.isFetching && uploadingPicture.serverError && (
