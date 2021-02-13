@@ -31,19 +31,23 @@ const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploading
   return (
     <div className={classNames(classes.uploadedFile, className)}>
       <p>{file.name}</p>
-      <div>
-        <ProgressBar progress={percentUploaded} inProgress={uploadingPicture.isFetching} />
+      <div className={classes.progressSection}>
+        <ProgressBar
+          progress={percentUploaded}
+          inProgress={uploadingPicture?.isFetching}
+          className={classes.progressBar}
+        />
         <p className={classes.removeIcon} onClick={(): void => setFile(null)}>
           &#xe019;
         </p>
       </div>
       <div className={classes.uploadStatus}>
-        {uploadingPicture.isFetching && (
+        {!!uploadingPicture?.isFetching && (
           <p className={classes.uploadPercentage}>
             {`${percentUploaded.toFixed(2)}%`} {uploadingPicture.uploadedSize} of {uploadingPicture.totalSize}
           </p>
         )}
-        {!uploadingPicture.isFetching && uploadingPicture.serverError && (
+        {!uploadingPicture?.isFetching && !!uploadingPicture?.serverError && (
           <p className={classes.uploadFailed}>Picture Upload Failed!</p>
         )}
       </div>

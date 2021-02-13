@@ -12,13 +12,12 @@ import { ClassValue } from 'classnames/types';
 
 interface Props {
   setFile: Dispatch<SetStateAction<File>>;
-  onUpload: () => Promise<void>;
   className?: ClassValue;
 }
 
 const useStyles = createUseStyles(styles);
 
-const UploadFile: React.FunctionComponent<Props> = ({ setFile, onUpload, className }) => {
+const UploadFile: React.FunctionComponent<Props> = ({ setFile, className }) => {
   const classes = useStyles();
 
   const fileInputRef = useRef(null);

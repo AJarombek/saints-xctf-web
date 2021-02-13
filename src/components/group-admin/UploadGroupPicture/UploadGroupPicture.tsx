@@ -35,14 +35,17 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
   const [errorUpdatingGroup, setErrorUpdatingGroup] = useState(false);
 
   const updateGroup = async (): Promise<void> => {
-    const updatedGroup = await dispatch(putGroup(group));
+    const newGroup = { ...group };
+    newGroup.grouppic_name = file.name;
+
+    const updatedGroup = await dispatch(putGroup(newGroup));
 
     if (!updatedGroup) {
       setErrorUpdatingGroup(true);
     }
   };
 
-  const onUpload = async (): Promise<void> => {
+  const onSubmitPicture = async (): Promise<void> => {
     setSaving(true);
     setErrorUploading(false);
     setErrorUpdatingGroup(false);
@@ -58,15 +61,18 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
     setSaving(false);
   };
 
+  const onCancelPicture = (): void => {
+    setFile(null);
+  };
+
   return (
     <UploadPicture
       pictureUrl={groupPictureUrl}
       uploadingPicture={uploadingGroupPicture}
-      onUpload={onUpload}
       errorUpdating={errorUpdatingGroup}
       errorUpdatingMessage="Failed to update group details with the new group picture"
       onCloseErrorUpdatingModal={(): void => setErrorUpdatingGroup(false)}
-      onRetryUpdate={onUpload}
+      onRetryUpdate={onSubmitPicture}
       errorUploading={errorUploading}
       errorUploadingMessage="Failed to upload a new picture for the group"
       onCloseErrorUploadingModal={(): void => setErrorUploading(false)}
@@ -74,6 +80,8 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
       file={file}
       setFile={setFile}
       saving={saving}
+      onSubmitPicture={onSubmitPicture}
+      onCancelPicture={onCancelPicture}
     />
   );
 };

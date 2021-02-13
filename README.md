@@ -1,12 +1,16 @@
 # saints-xctf-web
 
+![Maintained Label](https://img.shields.io/badge/Maintained-Yes-brightgreen?style=for-the-badge)
+
 ### Overview
 
 Front-end for the SaintsXCTF web application.  This is the second version of the SaintsXCTF web application.  The 
 front-end is written in React.js and styled with Sass.  API calls are routed through a Nginx proxy to the 
 [SaintsXCTF API](https://github.com/AJarombek/saints-xctf-api).
 
-### Start the Application Locally
+### Commands
+
+#### Start the Application Locally
 
 **First time setup**
 
@@ -54,6 +58,11 @@ docker-compose -f docker-compose.yml up --build
 cd ~/repos/saints-xctf-web
 docker-compose up --build
 ```
+
+### Integrations
+
+[![Jenkins](https://img.shields.io/badge/Jenkins-%20saints--xctf--web--test-blue?style=for-the-badge)](https://jenkins.jarombek.io/job/saints-xctf/job/web/job/saints-xctf-web-test/)
+> Jenins job runs daily, running Jest unit/snapshot tests.
 
 ### Files
 

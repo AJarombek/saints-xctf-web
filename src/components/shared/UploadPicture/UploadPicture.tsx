@@ -18,7 +18,6 @@ import { Meta, UploadingPicture } from '../../../redux/types';
 interface Props {
   pictureUrl: string;
   uploadingPicture: UploadingPicture & Meta;
-  onUpload: () => Promise<void>;
   errorUpdating?: boolean;
   errorUpdatingMessage?: string;
   onCloseErrorUpdatingModal: () => void;
@@ -30,6 +29,8 @@ interface Props {
   file: File;
   setFile: Dispatch<SetStateAction<File>>;
   saving: boolean;
+  onSubmitPicture: () => void;
+  onCancelPicture: () => void;
 }
 
 const useStyles = createUseStyles(styles);
@@ -37,7 +38,6 @@ const useStyles = createUseStyles(styles);
 const UploadPicture: React.FunctionComponent<Props> = ({
   pictureUrl,
   uploadingPicture,
-  onUpload,
   errorUpdating,
   errorUpdatingMessage,
   onCloseErrorUpdatingModal,
@@ -48,13 +48,11 @@ const UploadPicture: React.FunctionComponent<Props> = ({
   onRetryUpload,
   file,
   setFile,
-  saving
+  saving,
+  onSubmitPicture,
+  onCancelPicture
 }) => {
   const classes = useStyles();
-
-  const onSubmitPicture = (): void => {};
-
-  const onCancelPicture = (): void => {};
 
   return (
     <>
@@ -62,13 +60,13 @@ const UploadPicture: React.FunctionComponent<Props> = ({
         <figure className={classes.picture}>
           <img src={pictureUrl} alt="" />
         </figure>
-        {!file && <UploadFile onUpload={onUpload} setFile={setFile} />}
+        {!file && <UploadFile setFile={setFile} />}
         {!!file && <UploadedFile setFile={setFile} file={file} uploadingPicture={uploadingPicture} />}
       </div>
       <div className={classes.actions}>
         <AJButton
           type="contained"
-          disabled={false}
+          disabled={!file || saving}
           onClick={onSubmitPicture}
           className={classNames(classes.submitButton, saving && classes.disabledSubmitButton)}
         >

@@ -5,7 +5,7 @@
  */
 
 import React, { useMemo, useState } from 'react';
-import {RootState, UploadingProfilePicture, UserMeta} from '../../../redux/types';
+import { RootState, UploadingProfilePicture, UserMeta } from '../../../redux/types';
 import UploadPicture from '../../shared/UploadPicture';
 import { putUser, uploadProfilePicture } from '../../../redux/modules/profile';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,14 +33,17 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
   const [errorUpdatingUser, setErrorUpdatingUser] = useState(false);
 
   const updateUser = async (): Promise<void> => {
-    const updatedUser = await dispatch(putUser(user));
+    const newUser = { ...user };
+    newUser.profilepic_name = file.name;
+
+    const updatedUser = await dispatch(putUser(newUser));
 
     if (!updatedUser) {
       setErrorUpdatingUser(true);
     }
   };
 
-  const onUpload = async (): Promise<void> => {
+  const onSubmitPicture = async (): Promise<void> => {
     setSaving(true);
     setErrorUploading(false);
     setErrorUpdatingUser(false);
@@ -56,15 +59,18 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
     setSaving(false);
   };
 
+  const onCancelPicture = (): void => {
+    setFile(null);
+  };
+
   return (
     <UploadPicture
       pictureUrl={profilePictureUrl}
       uploadingPicture={uploadingProfilePicture}
-      onUpload={onUpload}
       errorUpdating={errorUpdatingUser}
       errorUpdatingMessage="Failed to update your user details with the new profile picture"
       onCloseErrorUpdatingModal={(): void => setErrorUpdatingUser(false)}
-      onRetryUpdate={onUpload}
+      onRetryUpdate={onSubmitPicture}
       errorUploading={errorUploading}
       errorUploadingMessage="Failed to upload your new profile picture"
       onCloseErrorUploadingModal={(): void => setErrorUploading(false)}
@@ -72,6 +78,8 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
       file={file}
       setFile={setFile}
       saving={saving}
+      onSubmitPicture={onSubmitPicture}
+      onCancelPicture={onCancelPicture}
     />
   );
 };

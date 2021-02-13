@@ -5,6 +5,7 @@
  */
 
 import Colors from '../../../styles/colors';
+import color from 'color';
 
 type StyleProps = {
   progress: number;
@@ -21,7 +22,7 @@ export default {
     margin: '4px 0'
   },
   barFull: {
-    backgroundColor: Colors.lightBackground,
+    backgroundColor: color(Colors.lightBackground).darken(0.05).hex(),
     width: '100%'
   },
   barProgress: {
