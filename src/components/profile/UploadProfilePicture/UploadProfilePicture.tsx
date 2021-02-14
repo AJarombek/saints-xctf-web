@@ -31,6 +31,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
   const [saving, setSaving] = useState(false);
   const [errorUploading, setErrorUploading] = useState(false);
   const [errorUpdatingUser, setErrorUpdatingUser] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const updateUser = async (): Promise<void> => {
     const newUser = { ...user };
@@ -40,6 +41,11 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
 
     if (!updatedUser) {
       setErrorUpdatingUser(true);
+      setSaving(false);
+    } else {
+      setFile(null);
+      setSaving(false);
+      setUploadSuccess(true);
     }
   };
 
@@ -54,9 +60,8 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
       await dispatch(updateUser());
     } else {
       setErrorUploading(true);
+      setSaving(false);
     }
-
-    setSaving(false);
   };
 
   const onCancelPicture = (): void => {
@@ -78,6 +83,8 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
       file={file}
       setFile={setFile}
       saving={saving}
+      uploadSuccess={uploadSuccess}
+      setUploadSuccess={setUploadSuccess}
       onSubmitPicture={onSubmitPicture}
       onCancelPicture={onCancelPicture}
     />

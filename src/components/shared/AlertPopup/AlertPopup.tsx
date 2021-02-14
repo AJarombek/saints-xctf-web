@@ -13,16 +13,17 @@ interface Props {
   message: ReactNode;
   onClose: () => void;
   type: AlertType;
+  closeable?: boolean;
 }
 
 const useStyles = createUseStyles(styles);
 
-const AlertPopup: React.FunctionComponent<Props> = ({ message, onClose, type }) => {
+const AlertPopup: React.FunctionComponent<Props> = ({ message, onClose, type, closeable = false }) => {
   const classes = useStyles({ type });
 
   return (
     <div className={classes.alertContainer}>
-      <Alert type={type} message={message} onClose={onClose} closeable={false} />
+      <Alert type={type} message={message} onClose={onClose} closeable={closeable} />
     </div>
   );
 };

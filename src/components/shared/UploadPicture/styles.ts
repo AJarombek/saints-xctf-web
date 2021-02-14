@@ -4,10 +4,10 @@
  * @since 12/21/2020
  */
 
-import Mixins from '../../../styles/mixins';
+import Mixins, { FontMixins } from '../../../styles/mixins';
 
 export default {
-  profilePictureContainer: {
+  pictureContainer: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
@@ -31,5 +31,14 @@ export default {
   },
   cancelButton: {
     marginRight: 10
+  },
+  note: {
+    marginTop: 10,
+
+    '& > p': {
+      ...FontMixins.robotoSlabThin(),
+      fontSize: 14,
+      paddingLeft: 20
+    }
   }
 };

@@ -14,6 +14,7 @@ import classNames from 'classnames';
 import DefaultErrorPopup from '../DefaultErrorPopup';
 import UploadedFile from '../UploadedFile';
 import { Meta, UploadingPicture } from '../../../redux/types';
+import AlertPopup from '../AlertPopup';
 
 interface Props {
   pictureUrl: string;
@@ -29,6 +30,8 @@ interface Props {
   file: File;
   setFile: Dispatch<SetStateAction<File>>;
   saving: boolean;
+  uploadSuccess: boolean;
+  setUploadSuccess: Dispatch<SetStateAction<boolean>>;
   onSubmitPicture: () => void;
   onCancelPicture: () => void;
 }
@@ -49,6 +52,8 @@ const UploadPicture: React.FunctionComponent<Props> = ({
   file,
   setFile,
   saving,
+  uploadSuccess,
+  setUploadSuccess,
   onSubmitPicture,
   onCancelPicture
 }) => {
@@ -56,19 +61,22 @@ const UploadPicture: React.FunctionComponent<Props> = ({
 
   return (
     <>
-      <div className={classes.profilePictureContainer}>
+      <div className={classes.pictureContainer}>
         <figure className={classes.picture}>
           <img src={pictureUrl} alt="" />
         </figure>
         {!file && <UploadFile setFile={setFile} />}
         {!!file && <UploadedFile setFile={setFile} file={file} uploadingPicture={uploadingPicture} />}
       </div>
+      <div className={classes.note}>
+        <p>NOTE: Crop your image into a square for the best results.</p>
+      </div>
       <div className={classes.actions}>
         <AJButton
           type="contained"
           disabled={!file || saving}
           onClick={onSubmitPicture}
-          className={classNames(classes.submitButton, saving && classes.disabledSubmitButton)}
+          className={classNames(classes.submitButton, (!file || saving) && classes.disabledSubmitButton)}
         >
           <p>{saving ? 'Saving Picture...' : 'Save Picture'}</p>
           {saving && <LoadingSpinner className={classes.buttonSpinner} />}
@@ -91,6 +99,14 @@ const UploadPicture: React.FunctionComponent<Props> = ({
           onClose={onCloseErrorUpdatingModal}
           retryable={true}
           onRetry={onRetryUpdate}
+        />
+      )}
+      {uploadSuccess && (
+        <AlertPopup
+          message="Picture uploaded successfully."
+          onClose={(): void => setUploadSuccess(false)}
+          type="success"
+          closeable={true}
         />
       )}
     </>

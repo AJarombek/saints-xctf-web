@@ -32,6 +32,7 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     margin: '8px 0',
+    paddingTop: 5,
     flexDirection: 'row'
   },
   progressBar: {

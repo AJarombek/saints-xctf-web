@@ -114,6 +114,7 @@ interface GetUserStatsFailureAction {
 interface PostProfilePictureRequestAction {
   type: typeof POST_PROFILE_PICTURE_REQUEST;
   username: string;
+  totalSize: number;
 }
 
 interface PostProfilePictureProgressAction {
@@ -126,6 +127,7 @@ interface PostProfilePictureProgressAction {
 interface PostProfilePictureSuccessAction {
   type: typeof POST_PROFILE_PICTURE_SUCCESS;
   username: string;
+  totalSize: number;
 }
 
 interface PostProfilePictureFailureAction {
@@ -442,7 +444,9 @@ function postProfilePictureRequestReducer(state: ProfileState, action: PostProfi
         ...user,
         uploadingProfilePicture: {
           isFetching: true,
-          lastUpdated: moment().unix()
+          lastUpdated: moment().unix(),
+          uploadedSize: 0,
+          totalSize: action.totalSize
         }
       }
     }
@@ -482,7 +486,9 @@ function postProfilePictureSuccessReducer(state: ProfileState, action: PostProfi
         uploadingProfilePicture: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          uploaded: true
+          uploaded: true,
+          uploadedSize: action.totalSize,
+          totalSize: action.totalSize
         }
       }
     }
@@ -768,10 +774,11 @@ export function getUserStatsFailure(username: string, serverError: string): GetU
   };
 }
 
-export function postProfilePictureRequest(username: string): PostProfilePictureRequestAction {
+export function postProfilePictureRequest(username: string, totalSize: number): PostProfilePictureRequestAction {
   return {
     type: POST_PROFILE_PICTURE_REQUEST,
-    username
+    username,
+    totalSize
   };
 }
 
@@ -788,10 +795,11 @@ export function postProfilePictureProgress(
   };
 }
 
-export function postProfilePictureSuccess(username: string): PostProfilePictureSuccessAction {
+export function postProfilePictureSuccess(username: string, totalSize: number): PostProfilePictureSuccessAction {
   return {
     type: POST_PROFILE_PICTURE_SUCCESS,
-    username
+    username,
+    totalSize
   };
 }
 
@@ -878,6 +886,16 @@ export function putUser(user: User): AppThunk<Promise<User>, ProfileState> {
       const { user: updatedUser } = response.data;
 
       dispatch(putUserSuccess(user.username, updatedUser));
+
+      localStorage.setItem(
+        'user',
+        JSON.stringify({
+          ...updatedUser,
+          password: null,
+          salt: null
+        })
+      );
+
       return updatedUser;
     } catch (error) {
       const { response } = error;
@@ -935,7 +953,7 @@ const toBase64 = (file: File): Promise<string | ArrayBuffer> =>
 
 export function uploadProfilePicture(username: string, file: File): AppThunk<Promise<boolean>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
-    dispatch(postProfilePictureRequest(username));
+    dispatch(postProfilePictureRequest(username, file.size));
 
     try {
       const data = {
@@ -947,7 +965,7 @@ export function uploadProfilePicture(username: string, file: File): AppThunk<Pro
       const response = await fn.post('/uasset/user', data);
       const { result } = response.data;
 
-      dispatch(postProfilePictureSuccess(username));
+      dispatch(postProfilePictureSuccess(username, file.size));
       return result;
     } catch (error) {
       const serverError = 'An unexpected error occurred.';

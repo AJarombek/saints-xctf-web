@@ -33,6 +33,7 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
   const [saving, setSaving] = useState(false);
   const [errorUploading, setErrorUploading] = useState(false);
   const [errorUpdatingGroup, setErrorUpdatingGroup] = useState(false);
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const updateGroup = async (): Promise<void> => {
     const newGroup = { ...group };
@@ -42,11 +43,17 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
 
     if (!updatedGroup) {
       setErrorUpdatingGroup(true);
+      setSaving(false);
+    } else {
+      setFile(null);
+      setSaving(false);
+      setUploadSuccess(true);
     }
   };
 
   const onSubmitPicture = async (): Promise<void> => {
     setSaving(true);
+    setUploadSuccess(false);
     setErrorUploading(false);
     setErrorUpdatingGroup(false);
 
@@ -56,9 +63,8 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
       await updateGroup();
     } else {
       setErrorUploading(true);
+      setSaving(false);
     }
-
-    setSaving(false);
   };
 
   const onCancelPicture = (): void => {
@@ -80,6 +86,8 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
       file={file}
       setFile={setFile}
       saving={saving}
+      uploadSuccess={uploadSuccess}
+      setUploadSuccess={setUploadSuccess}
       onSubmitPicture={onSubmitPicture}
       onCancelPicture={onCancelPicture}
     />

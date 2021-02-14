@@ -20,6 +20,8 @@ export default {
         ? color(Colors.statusWarning).lighten(0.65).hex()
         : type === 'info'
         ? color(Colors.spotPaletteBlue).lighten(0.65).hex()
+        : type === 'success'
+        ? color(Colors.statusSuccess).lighten(0.65).hex()
         : color(Colors.statusFailure).lighten(0.65).hex()
   },
   alertIcon: {
@@ -27,7 +29,13 @@ export default {
     fontSize: 28,
     margin: '10px 25px',
     color: ({ type }: { type: AlertType }): string =>
-      type === 'warning' ? Colors.statusWarning : type === 'info' ? Colors.spotPaletteBlue : Colors.statusFailure
+      type === 'warning'
+        ? Colors.statusWarning
+        : type === 'info'
+        ? Colors.spotPaletteBlue
+        : type === 'success'
+        ? Colors.statusSuccess
+        : Colors.statusFailure
   },
   message: {
     ...FontMixins.roboto(),

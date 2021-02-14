@@ -8,7 +8,7 @@ import React, { ReactNode } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 
-export type AlertType = 'error' | 'warning' | 'info';
+export type AlertType = 'error' | 'warning' | 'info' | 'success';
 
 interface Props {
   message: ReactNode;
@@ -32,6 +32,9 @@ const Alert: React.FunctionComponent<Props> = ({ message, type, closeable, onClo
       break;
     case 'warning':
       alertIcon = '\ue063';
+      break;
+    case 'success':
+      alertIcon = '\ue052';
       break;
     default:
       alertIcon = '\ue062';
