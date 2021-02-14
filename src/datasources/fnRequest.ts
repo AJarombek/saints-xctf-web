@@ -4,10 +4,23 @@
  * @since 12/22/2020
  */
 
-import axios from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 export const fn = axios.create({
   baseURL: '/fn/',
   timeout: 15000,
   responseType: 'json'
 });
+
+fn.interceptors.request.use(
+  (req: AxiosRequestConfig) => {
+    const token = localStorage.getItem('token') ?? '';
+
+    req.headers = {
+      Authorization: token
+    };
+
+    return req;
+  },
+  (error: AxiosError) => error
+);

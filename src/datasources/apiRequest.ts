@@ -32,6 +32,7 @@ export const interceptor = (store: Store): void => {
     (res: AxiosResponse) => res,
     (error: AxiosError) => {
       if (error.response.status === 403) {
+        localStorage.removeItem('token');
         store.dispatch({
           type: SIGNOUT
         });

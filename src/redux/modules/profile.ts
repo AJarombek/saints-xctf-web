@@ -925,24 +925,26 @@ export function getUserStats(username: string): AppThunk<Promise<void>, ProfileS
   };
 }
 
+const toBase64 = (file: File): Promise<string | ArrayBuffer> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (): void => resolve(reader.result);
+    reader.onerror = (error): void => reject(error);
+  });
+
 export function uploadProfilePicture(username: string, file: File): AppThunk<Promise<boolean>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(postProfilePictureRequest(username));
 
     try {
-      const data = new FormData();
-      data.append('file', file);
-      data.append('fileName', file.name);
-      data.append('username', username);
-
-      const options = {
-        onUploadProgress: (progressEvent: ProgressEvent): void => {
-          const { loaded: uploadedSize, total: totalSize } = progressEvent;
-          dispatch(postProfilePictureProgress(username, totalSize, uploadedSize));
-        }
+      const data = {
+        base64Image: await toBase64(file),
+        fileName: file.name,
+        username
       };
 
-      const response = await fn.post('/uasset/user', data, options);
+      const response = await fn.post('/uasset/user', data);
       const { result } = response.data;
 
       dispatch(postProfilePictureSuccess(username));

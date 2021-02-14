@@ -934,6 +934,9 @@ export function uploadGroupPicture(groupId: number, file: File): AppThunk<Promis
         onUploadProgress: (progressEvent: ProgressEvent): void => {
           const { loaded: uploadedSize, total: totalSize } = progressEvent;
           dispatch(postGroupPictureProgress(groupId, totalSize, uploadedSize));
+        },
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
       };
 
