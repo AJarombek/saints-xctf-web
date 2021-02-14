@@ -27,7 +27,7 @@ export default {
   },
   barProgress: {
     backgroundColor: (props: StyleProps): string => (props.progress >= 100 ? Colors.sxctfRed : Colors.spotPaletteBrown),
-    width: (props: StyleProps): string => `${Math.min(props.progress, 100)}`,
+    width: (props: StyleProps): string => `${Math.min(props.progress, 100)}%`,
     backgroundImage: (props: StyleProps): string =>
       props.inProgress
         ? `
@@ -40,6 +40,7 @@ export default {
         )
     `
         : 'none',
-    backgroundSize: '2rem'
+    backgroundSize: '2rem',
+    transition: 'width 0.5s ease'
   }
 };

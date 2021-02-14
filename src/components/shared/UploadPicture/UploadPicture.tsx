@@ -88,6 +88,7 @@ const UploadPicture: React.FunctionComponent<Props> = ({
       {errorUploading && (
         <DefaultErrorPopup
           message={errorUploadingMessage}
+          closeable={true}
           onClose={onCloseErrorUploadingModal}
           retryable={true}
           onRetry={onRetryUpload}
@@ -96,6 +97,7 @@ const UploadPicture: React.FunctionComponent<Props> = ({
       {errorUpdating && (
         <DefaultErrorPopup
           message={errorUpdatingMessage}
+          closeable={true}
           onClose={onCloseErrorUpdatingModal}
           retryable={true}
           onRetry={onRetryUpdate}

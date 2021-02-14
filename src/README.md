@@ -1,27 +1,25 @@
 ### Overview
 
-Client-side code for the SaintsXCTF web application.  The Client is made up of React.js and Sass code.
+Client-side code for the SaintsXCTF web application.  The Client uses React.js and JSS.  There is some legacy Sass code 
+which is slowly phased out as development continues.
 
 ### Files
 
-| Filename              | Description                                                                               |
-|-----------------------|-------------------------------------------------------------------------------------------|
-| `admin`               | React components and Sass stylesheets related to the admin page.                          |
-| `create-log`          | React components and Sass stylesheets related to the create exercise workflow.            |
-| `forgot-password`     | React components and Sass stylesheets related to the forgot password feature.             |
-| `group`               | React components and Sass stylesheets related to the group pages.                         |
-| `home`                | React components and Sass stylesheets related to the home page (when signed out).         |
-| `log-in`              | React components and Sass stylesheets related to the user log in page.                    |
-| `main`                | React components and Sass stylesheets related to the main dashboard page when signed in.  |
-| `profile`             | React components and Sass stylesheets related to user profile pages.                      |
-| `shared`              | React components and Sass stylesheets shared throughout the entire application.           |
-| `sign-up`             | React components and Sass stylesheets related to the sign up workflow.                    |
-| `fonts.scss`          | Mixins for fonts used throughout the application.                                         |
-| `index.html`          | HTML entry point for the application.                                                     |
-| `index.js`            | React and React Router bootstrapping.                                                     |
-| `index.scss`          | Global styles for the entire application.                                                 |
-| `mixins.scss`         | Global Sass mixins for the entire application.                                            |
-| `vars.scss`           | Variables uses in Sass stylesheets throughout the application.                            |
+| Filename              | Description                                                                                 |
+|-----------------------|---------------------------------------------------------------------------------------------|
+| `components`          | React components used on specific pages or shared amongst the entire application.           |
+| `containers`          | React components which are parents for a page in the website.                               |
+| `datasources`         | Access to sources of data (APIs) for the application.  Uses `axios` to connect to the APIs. |
+| `hooks`               | Custom React hooks which help reduce duplicate code.                                        |
+| `redux`               | Redux store configuration along with actions & reducers.                                    |
+| `styles`              | JSS style modules, mixins, colors and more.                                                 |
+| `utils`               | Utility functions used throughout the application.                                          |
+| `fonts.scss`          | *DEPRECATED* Mixins for fonts used throughout the application.                              |
+| `index.html`          | *DEPRECATED* HTML entry point for the application.                                          |
+| `index.js`            | *DEPRECATED* React and React Router bootstrapping.                                          |
+| `index.scss`          | *DEPRECATED* Global styles for the entire application.                                      |
+| `mixins.scss`         | *DEPRECATED* Global Sass mixins for the entire application.                                 |
+| `vars.scss`           | *DEPRECATED* Variables uses in Sass stylesheets throughout the application.                 |
 
 ### Resources
 

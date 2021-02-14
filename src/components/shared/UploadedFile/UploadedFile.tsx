@@ -4,7 +4,7 @@
  * @since 2/10/2021
  */
 
-import React, { Dispatch, SetStateAction, useMemo } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
@@ -28,6 +28,20 @@ const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploading
     return uploadingPicture ? (uploadingPicture.uploadedSize / uploadingPicture.totalSize) * 100 : 0;
   }, [uploadingPicture]);
 
+  const generateFileSize = useCallback((size) => {
+    if (size) {
+      if (size < 1_000) {
+        return `${Math.round(size)}B`;
+      } else if (size < 1_000_000) {
+        return `${Math.round(size / 1_000)}KB`;
+      } else {
+        return `${Math.round(size / 1_000_000)}MB`;
+      }
+    } else {
+      return null;
+    }
+  }, []);
+
   return (
     <div className={classNames(classes.uploadedFile, className)}>
       <p>{file.name}</p>
@@ -44,7 +58,8 @@ const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploading
       <div className={classes.uploadStatus}>
         {!!uploadingPicture?.isFetching && (
           <p className={classes.uploadPercentage}>
-            {`${percentUploaded.toFixed(2)}%`} {uploadingPicture.uploadedSize} of {uploadingPicture.totalSize}
+            {`${percentUploaded.toFixed(2)}%`} - {generateFileSize(uploadingPicture.uploadedSize)} of{' '}
+            {generateFileSize(uploadingPicture.totalSize)}
           </p>
         )}
         {!uploadingPicture?.isFetching && !!uploadingPicture?.serverError && (

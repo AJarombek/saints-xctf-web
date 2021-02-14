@@ -14,12 +14,19 @@ interface Props {
   message: string;
   onClose: () => void;
   retryable?: boolean;
+  closeable?: boolean;
   onRetry?: () => void;
 }
 
 const useStyles = createUseStyles(styles);
 
-const DefaultErrorPopup: React.FunctionComponent<Props> = ({ message, onClose, onRetry, retryable = false }) => {
+const DefaultErrorPopup: React.FunctionComponent<Props> = ({
+  message,
+  onClose,
+  onRetry,
+  retryable = false,
+  closeable = false
+}) => {
   const classes = useStyles();
 
   return (
@@ -38,6 +45,7 @@ const DefaultErrorPopup: React.FunctionComponent<Props> = ({ message, onClose, o
           )}
         </>
       }
+      closeable={closeable}
       onClose={onClose}
       type="error"
     />
