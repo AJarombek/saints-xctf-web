@@ -9,6 +9,7 @@ import { RootState, UploadingProfilePicture, UserMeta } from '../../../redux/typ
 import UploadPicture from '../../shared/UploadPicture';
 import { putUser, uploadProfilePicture } from '../../../redux/modules/profile';
 import { useDispatch, useSelector } from 'react-redux';
+import { timeout } from '../../../utils/timeout';
 
 interface Props {
   user: UserMeta;
@@ -43,6 +44,8 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
       setErrorUpdatingUser(true);
       setSaving(false);
     } else {
+      await timeout(250);
+
       setFile(null);
       setSaving(false);
       setUploadSuccess(true);

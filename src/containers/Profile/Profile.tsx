@@ -16,10 +16,13 @@ import NavBar from '../../components/shared/NavBar';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import ProfileBody from '../../components/profile/ProfileBody/ProfileBody';
 import { getUser, setUser } from '../../redux/modules/profile';
+import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
 
 type Props = {};
 
 const useStyles = createUseStyles(styles);
+
+const defaultHeaders = ['teams', 'dashboard', 'signOut', 'logo'];
 
 const Profile: React.FunctionComponent<Props> = () => {
   const routeMatch = useRouteMatch();
@@ -33,6 +36,10 @@ const Profile: React.FunctionComponent<Props> = () => {
   const rangeViews = useSelector((state: RootState) => state.rangeView.users);
 
   const ref = useRef(null);
+
+  useSignInCheck();
+  const isAdmin = useAdminCheck(false);
+  const headers = useHeaders(defaultHeaders, isAdmin);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -63,13 +70,10 @@ const Profile: React.FunctionComponent<Props> = () => {
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
       <div className={classes.profile} ref={ref}>
-        <NavBar
-          includeHeaders={['teams', 'admin', 'signOut', 'logo']}
-          user={users[auth.signedInUser]?.user}
-          bodyRef={ref}
-        />
+        <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
         <ProfileBody
           user={users[username]?.user}
+          signedInUser={users[auth.signedInUser]?.user}
           flair={users[username]?.flair}
           stats={users[username]?.stats}
           rangeViews={rangeViews[username]}

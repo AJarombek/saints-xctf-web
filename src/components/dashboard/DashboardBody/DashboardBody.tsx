@@ -37,7 +37,7 @@ const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
 
   useEffect(() => {
     dispatch(logFeed(filterBy, bucket, 10, 10 * (page - 1)));
-  }, [filterBy, bucket, page]);
+  }, [filterBy, bucket, page, dispatch]);
 
   useEffect(() => {
     if (user) {
@@ -49,7 +49,7 @@ const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
         dispatch(getUserNotifications(user.username));
       }
     }
-  }, [user, groupMembershipInfo, notificationInfo]);
+  }, [user, groupMembershipInfo, notificationInfo, dispatch]);
 
   const totalPages: number = useMemo(() => {
     return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0;

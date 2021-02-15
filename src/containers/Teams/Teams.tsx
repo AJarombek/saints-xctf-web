@@ -12,12 +12,14 @@ import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
 import TeamsBody from '../../components/teams/TeamsBody/TeamsBody';
 
 type Props = {};
 
 const useStyles = createUseStyles(styles);
+
+const defaultHeaders = ['dashboard', 'profile', 'teams', 'signOut', 'logo'];
 
 const Teams: React.FunctionComponent<Props> = () => {
   const classes = useStyles();
@@ -28,15 +30,13 @@ const Teams: React.FunctionComponent<Props> = () => {
   const ref = useRef(null);
 
   useSignInCheck();
+  const isAdmin = useAdminCheck(false);
+  const headers = useHeaders(defaultHeaders, isAdmin);
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
       <div className={classes.teams} ref={ref}>
-        <NavBar
-          includeHeaders={['dashboard', 'profile', 'teams', 'admin', 'signOut', 'logo']}
-          user={users[auth.signedInUser]?.user}
-          bodyRef={ref}
-        />
+        <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
         <TeamsBody user={users[auth.signedInUser]?.user} />
         <HomeFooter showContactUs={false} />
       </div>

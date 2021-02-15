@@ -50,7 +50,7 @@ export const useSignInCheck = (): void => {
   }, [users, auth.signedInUser, history, dispatch]);
 };
 
-export const useAdminCheck = (): boolean => {
+export const useAdminCheck = (redirect = true): boolean => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -68,13 +68,33 @@ export const useAdminCheck = (): boolean => {
       if (!membershipInfo.isFetching && !membershipInfo.serverError && !membershipInfo.items) {
         dispatch(getGroupMemberships(auth.signedInUser));
       } else if (!adminCount || membershipInfo.serverError) {
-        history.push('/');
+        if (redirect) {
+          history.push('/');
+        }
         setIsAdmin(false);
       } else {
         setIsAdmin(true);
       }
     }
-  }, [auth.signedInUser, dispatch, history, membershipInfo]);
+  }, [auth.signedInUser, dispatch, history, membershipInfo, redirect]);
 
   return isAdmin;
+};
+
+export const useHeaders = (defaultHeaders: string[], isAdmin: boolean): string[] => {
+  const [headers, setHeaders] = useState<string[]>([]);
+
+  useEffect(() => {
+    const newHeaders = [...defaultHeaders];
+
+    if (isAdmin) {
+      newHeaders.push('admin');
+    }
+
+    if (headers.length !== newHeaders.length) {
+      setHeaders(newHeaders);
+    }
+  }, [defaultHeaders, headers.length, isAdmin]);
+
+  return headers;
 };

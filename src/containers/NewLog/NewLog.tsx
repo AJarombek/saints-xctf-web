@@ -13,11 +13,13 @@ import styles from './styles';
 import NavBar from '../../components/shared/NavBar';
 import LogBody from '../../components/new-edit-log/LogBody';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
 
 type Props = {};
 
 const useStyles = createUseStyles(styles);
+
+const defaultHeaders = ['profile', 'teams', 'signOut', 'logo'];
 
 const NewLog: React.FunctionComponent<Props> = () => {
   const classes = useStyles();
@@ -28,15 +30,13 @@ const NewLog: React.FunctionComponent<Props> = () => {
   const ref = useRef(null);
 
   useSignInCheck();
+  const isAdmin = useAdminCheck(false);
+  const headers = useHeaders(defaultHeaders, isAdmin);
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
       <div className={classes.newLog} ref={ref}>
-        <NavBar
-          includeHeaders={['profile', 'teams', 'admin', 'signOut', 'logo']}
-          user={users[auth.signedInUser]?.user}
-          bodyRef={ref}
-        />
+        <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
         <LogBody user={users[auth.signedInUser]?.user} />
         <HomeFooter showContactUs={false} />
       </div>

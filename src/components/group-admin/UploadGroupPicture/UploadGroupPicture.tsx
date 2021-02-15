@@ -9,6 +9,7 @@ import UploadPicture from '../../shared/UploadPicture';
 import { useDispatch, useSelector } from 'react-redux';
 import { GroupMeta, RootState, UploadingGroupPicture } from '../../../redux/types';
 import { putGroup, uploadGroupPicture } from '../../../redux/modules/groups';
+import { timeout } from '../../../utils/timeout';
 
 interface Props {
   group: GroupMeta;
@@ -45,6 +46,8 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
       setErrorUpdatingGroup(true);
       setSaving(false);
     } else {
+      await timeout(250);
+
       setFile(null);
       setSaving(false);
       setUploadSuccess(true);

@@ -32,6 +32,7 @@ import EditProfile from '../EditProfile';
 
 interface Props {
   user: UserMeta;
+  signedInUser: UserMeta;
   flair: FlairMeta;
   stats: StatsMeta;
   rangeViews: RangeViewExerciseTypeFilters;
@@ -47,7 +48,7 @@ export enum ProfileTab {
 
 const useStyles = createUseStyles(styles);
 
-const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, rangeViews }) => {
+const ProfileBody: React.FunctionComponent<Props> = ({ user, signedInUser, flair, stats, rangeViews }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -84,8 +85,8 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
     return logFeeds[`user-${bucket}`]?.pages[page]?.pages ?? 0;
   }, [logFeeds, page, bucket]);
 
-  const tabs = useMemo(
-    () => [
+  const tabs = useMemo(() => {
+    const defaultTabs = [
       { tab: ProfileTab.LOGS, onView: (): void => setTab(ProfileTab.LOGS), content: 'Exercise Logs' },
       {
         tab: ProfileTab.CALENDAR,
@@ -93,11 +94,15 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
         content: 'Monthly Calendar'
       },
       { tab: ProfileTab.CHART, onView: (): void => setTab(ProfileTab.CHART), content: 'Weekly Chart' },
-      { tab: ProfileTab.DETAILS, onView: (): void => setTab(ProfileTab.DETAILS), content: 'Details' },
-      { tab: ProfileTab.EDIT, onView: (): void => setTab(ProfileTab.EDIT), content: 'Edit Profile' }
-    ],
-    []
-  );
+      { tab: ProfileTab.DETAILS, onView: (): void => setTab(ProfileTab.DETAILS), content: 'Details' }
+    ];
+
+    if (signedInUser && user?.username === signedInUser.username) {
+      defaultTabs.push({ tab: ProfileTab.EDIT, onView: (): void => setTab(ProfileTab.EDIT), content: 'Edit Profile' });
+    }
+
+    return defaultTabs;
+  }, [user, signedInUser]);
 
   if (user) {
     return (
@@ -119,7 +124,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
         <section>
           {tab === ProfileTab.LOGS && (
             <>
-              <LogFeed logFeeds={logFeeds} page={page} user={user} filterBy="user" bucket={bucket} />
+              <LogFeed logFeeds={logFeeds} page={page} user={signedInUser} filterBy="user" bucket={bucket} />
               <PaginationBar
                 page={page}
                 totalPages={totalPages}
@@ -133,7 +138,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, flair, stats, range
           {tab === ProfileTab.CALENDAR && <MonthlyCalendar rangeViews={rangeViews} user={user} />}
           {tab === ProfileTab.CHART && <WeeklyChart rangeViews={rangeViews} user={user} />}
           {tab === ProfileTab.DETAILS && <ProfileDetails user={user} stats={stats} />}
-          {tab === ProfileTab.EDIT && <EditProfile user={user} />}
+          {tab === ProfileTab.EDIT && user?.username === signedInUser?.username && <EditProfile user={user} />}
         </section>
       </div>
     );

@@ -7,7 +7,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { signIn } from '../../redux/modules/auth';
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import SignInBody from '../../components/sign-in/SignInBody';
@@ -41,7 +40,7 @@ const SignIn: React.FunctionComponent<Props> = () => {
   return (
     <div className="sxctf-sign-in" ref={ref}>
       <NavBar includeHeaders={['home', 'register', 'logo']} bodyRef={ref} />
-      <SignInBody signIn={signIn} isFetching={auth.isFetching} status={auth.status} />
+      <SignInBody isFetching={auth.isFetching} status={auth.status} />
     </div>
   );
 };

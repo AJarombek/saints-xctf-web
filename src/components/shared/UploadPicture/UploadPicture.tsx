@@ -109,6 +109,7 @@ const UploadPicture: React.FunctionComponent<Props> = ({
           onClose={(): void => setUploadSuccess(false)}
           type="success"
           closeable={true}
+          autoCloseInterval={15000}
         />
       )}
     </>

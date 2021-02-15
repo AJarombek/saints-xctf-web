@@ -13,12 +13,14 @@ import NavBar from '../../components/shared/NavBar';
 import { GroupMeta, RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import GroupBody from '../../components/group/GroupBody';
-import { useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
 import { useRouteMatch } from 'react-router-dom';
 
 type Props = {};
 
 const useStyles = createUseStyles(styles);
+
+const defaultHeaders = ['dashboard', 'profile', 'teams', 'signOut', 'logo'];
 
 const Group: React.FunctionComponent<Props> = () => {
   const routeMatch = useRouteMatch();
@@ -31,6 +33,8 @@ const Group: React.FunctionComponent<Props> = () => {
   const ref = useRef(null);
 
   useSignInCheck();
+  const isAdmin = useAdminCheck(false);
+  const headers = useHeaders(defaultHeaders, isAdmin);
 
   const group: GroupMeta = useMemo(() => {
     if (groups) {
@@ -44,11 +48,7 @@ const Group: React.FunctionComponent<Props> = () => {
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
       <div className={classes.group} ref={ref}>
-        <NavBar
-          includeHeaders={['dashboard', 'profile', 'teams', 'admin', 'signOut', 'logo']}
-          user={users[auth.signedInUser]?.user}
-          bodyRef={ref}
-        />
+        <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
         <GroupBody user={users[auth.signedInUser]?.user} group={group} />
         <HomeFooter showContactUs={false} />
       </div>

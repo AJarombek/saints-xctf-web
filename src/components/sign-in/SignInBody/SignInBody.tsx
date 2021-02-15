@@ -12,6 +12,8 @@ import styles from './styles';
 import { AJButton } from 'jarombek-react-components';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import ImageInputSet from '../../shared/ImageInputSet';
+import { signIn } from '../../../redux/modules/auth';
+import { useDispatch } from 'react-redux';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
@@ -22,17 +24,18 @@ import usernameLogo from '../../../../assets/username.png';
 import passwordLogo from '../../../../assets/password.png';
 
 interface Props {
-  signIn: Function;
   isFetching?: boolean;
   status?: string;
 }
 
 const useStyles = createUseStyles(styles);
 
-const SignInBody: React.FunctionComponent<Props> = ({ signIn, isFetching, status }) => {
+const SignInBody: React.FunctionComponent<Props> = ({ isFetching, status }) => {
   const classes = useStyles();
 
   const history = useHistory();
+
+  const dispatch = useDispatch();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -71,7 +74,7 @@ const SignInBody: React.FunctionComponent<Props> = ({ signIn, isFetching, status
   const onClickSignIn = async (): Promise<void> => {
     if (username.length !== 0 && password.length !== 0) {
       setLoading(true);
-      await signIn(username, password);
+      await dispatch(signIn(username, password));
       setLoading(false);
     }
   };

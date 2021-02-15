@@ -16,11 +16,13 @@ import LogBody from '../../components/new-edit-log/LogBody';
 import { getLog } from '../../redux/modules/logs';
 import NotFound from '../../components/shared/NotFound/NotFound';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
 
 type Props = {};
 
 const useStyles = createUseStyles(styles);
+
+const defaultHeaders = ['profile', 'teams', 'signOut', 'logo'];
 
 const EditLog: React.FunctionComponent<Props> = () => {
   const routeMatch = useRouteMatch();
@@ -52,6 +54,8 @@ const EditLog: React.FunctionComponent<Props> = () => {
   }, [dispatch, logId]);
 
   useSignInCheck();
+  const isAdmin = useAdminCheck(false);
+  const headers = useHeaders(defaultHeaders, isAdmin);
 
   const log = useMemo(() => {
     return logs[logId];
@@ -60,11 +64,7 @@ const EditLog: React.FunctionComponent<Props> = () => {
   if (userAuthenticated(users, auth.signedInUser) && logValidated) {
     return (
       <div className={classes.editLog} ref={ref}>
-        <NavBar
-          includeHeaders={['profile', 'teams', 'admin', 'signOut', 'logo']}
-          user={users[auth.signedInUser]?.user}
-          bodyRef={ref}
-        />
+        <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
         {errorNotFound ? (
           <NotFound fullPage={true} />
         ) : (

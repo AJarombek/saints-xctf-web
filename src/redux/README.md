@@ -8,7 +8,7 @@ Configure Redux as the state management system for the application.
 |--------------------------|----------------------------------------------------------------------------|
 | `modules`                | Redux modules containing Reducers, Actions, and Action Creators.           |
 | `appState.js`            | Sample application state maintained by Redux.                              |
-| `store.js`               | Configuration and creation of the Redux store.                             |
+| `store.ts`               | Configuration and creation of the Redux store.                             |
 | `types.ts`               | Typescript types used throughout the application.                          |
 
 ### Resources
