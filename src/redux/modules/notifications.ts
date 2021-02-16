@@ -14,12 +14,13 @@ import { AppThunk } from '../store';
 const GET_USER_NOTIFICATIONS_REQUEST = 'saints-xctf-web/notifications/GET_USER_NOTIFICATIONS_REQUEST';
 const GET_USER_NOTIFICATIONS_SUCCESS = 'saints-xctf-web/notifications/GET_USER_NOTIFICATIONS_SUCCESS';
 const GET_USER_NOTIFICATIONS_FAILURE = 'saints-xctf-web/notifications/GET_USER_NOTIFICATIONS_FAILURE';
-const POST_USER_NOTIFICATIONS_REQUEST = 'saints-xctf-web/notifications/POST_USER_NOTIFICATIONS_REQUEST';
-const POST_USER_NOTIFICATIONS_SUCCESS = 'saints-xctf-web/notifications/POST_USER_NOTIFICATIONS_SUCCESS';
-const POST_USER_NOTIFICATIONS_FAILURE = 'saints-xctf-web/notifications/POST_USER_NOTIFICATIONS_FAILURE';
-const PUT_USER_NOTIFICATIONS_REQUEST = 'saints-xctf-web/notifications/PUT_USER_NOTIFICATIONS_REQUEST';
-const PUT_USER_NOTIFICATIONS_SUCCESS = 'saints-xctf-web/notifications/PUT_USER_NOTIFICATIONS_SUCCESS';
-const PUT_USER_NOTIFICATIONS_FAILURE = 'saints-xctf-web/notifications/PUT_USER_NOTIFICATIONS_FAILURE';
+const POST_NOTIFICATION_REQUEST = 'saints-xctf-web/notifications/POST_NOTIFICATION_REQUEST';
+const POST_NOTIFICATION_SUCCESS = 'saints-xctf-web/notifications/POST_NOTIFICATION_SUCCESS';
+const POST_NOTIFICATION_FAILURE = 'saints-xctf-web/notifications/POST_NOTIFICATION_FAILURE';
+const PUT_NOTIFICATION_REQUEST = 'saints-xctf-web/notifications/PUT_NOTIFICATION_REQUEST';
+const PUT_NOTIFICATION_SUCCESS = 'saints-xctf-web/notifications/PUT_NOTIFICATION_SUCCESS';
+const PUT_NOTIFICATION_FAILURE = 'saints-xctf-web/notifications/PUT_NOTIFICATION_FAILURE';
+const VIEW_NOTIFICATION = 'saints-xctf-web/notifications/VIEW_NOTIFICATION';
 
 // Action Types
 interface GetUserNotificationsRequestAction {
@@ -36,45 +37,53 @@ interface GetUserNotificationsFailureAction {
   serverError: string;
 }
 
-interface PostUserNotificationsRequestAction {
-  type: typeof POST_USER_NOTIFICATIONS_REQUEST;
+interface PostNotificationRequestAction {
+  type: typeof POST_NOTIFICATION_REQUEST;
 }
 
-interface PostUserNotificationsSuccessAction {
-  type: typeof POST_USER_NOTIFICATIONS_SUCCESS;
+interface PostNotificationSuccessAction {
+  type: typeof POST_NOTIFICATION_SUCCESS;
+  created: boolean;
 }
 
-interface PostUserNotificationsFailureAction {
-  type: typeof POST_USER_NOTIFICATIONS_FAILURE;
+interface PostNotificationFailureAction {
+  type: typeof POST_NOTIFICATION_FAILURE;
   serverError: string;
 }
 
-interface PutUserNotificationsRequestAction {
-  type: typeof PUT_USER_NOTIFICATIONS_REQUEST;
+interface PutNotificationRequestAction {
+  type: typeof PUT_NOTIFICATION_REQUEST;
   id: number;
 }
 
-interface PutUserNotificationsSuccessAction {
-  type: typeof PUT_USER_NOTIFICATIONS_SUCCESS;
+interface PutNotificationSuccessAction {
+  type: typeof PUT_NOTIFICATION_SUCCESS;
   id: number;
+  updated: boolean;
 }
 
-interface PutUserNotificationsFailureAction {
-  type: typeof PUT_USER_NOTIFICATIONS_FAILURE;
+interface PutNotificationFailureAction {
+  type: typeof PUT_NOTIFICATION_FAILURE;
   id: number;
   serverError: string;
+}
+
+interface ViewNotificationAction {
+  type: typeof VIEW_NOTIFICATION;
+  id: number;
 }
 
 type NotificationsActionTypes =
   | GetUserNotificationsRequestAction
   | GetUserNotificationsSuccessAction
   | GetUserNotificationsFailureAction
-  | PostUserNotificationsRequestAction
-  | PostUserNotificationsSuccessAction
-  | PostUserNotificationsFailureAction
-  | PutUserNotificationsRequestAction
-  | PutUserNotificationsSuccessAction
-  | PutUserNotificationsFailureAction;
+  | PostNotificationRequestAction
+  | PostNotificationSuccessAction
+  | PostNotificationFailureAction
+  | PutNotificationRequestAction
+  | PutNotificationSuccessAction
+  | PutNotificationFailureAction
+  | ViewNotificationAction;
 
 // Reducer
 const initialState: NotificationsState = {
@@ -117,7 +126,7 @@ function getUserNotificationsFailureReducer(
   };
 }
 
-function postUserNotificationsRequestReducer(state: NotificationsState): NotificationsState {
+function postNotificationRequestReducer(state: NotificationsState): NotificationsState {
   return {
     ...state,
     newNotification: {
@@ -127,20 +136,23 @@ function postUserNotificationsRequestReducer(state: NotificationsState): Notific
   };
 }
 
-function postUserNotificationsSuccessReducer(state: NotificationsState): NotificationsState {
+function postNotificationSuccessReducer(
+  state: NotificationsState,
+  action: PostNotificationSuccessAction
+): NotificationsState {
   return {
     ...state,
     newNotification: {
       isFetching: false,
       lastUpdated: moment().unix(),
-      created: true
+      created: action.created
     }
   };
 }
 
-function postUserNotificationsFailureReducer(
+function postNotificationFailureReducer(
   state: NotificationsState,
-  action: PostUserNotificationsFailureAction
+  action: PostNotificationFailureAction
 ): NotificationsState {
   return {
     ...state,
@@ -155,7 +167,7 @@ function postUserNotificationsFailureReducer(
 
 function putUserNotificationsRequestReducer(
   state: NotificationsState,
-  action: PutUserNotificationsRequestAction
+  action: PutNotificationRequestAction
 ): NotificationsState {
   return {
     ...state,
@@ -171,7 +183,7 @@ function putUserNotificationsRequestReducer(
 
 function putUserNotificationsSuccessReducer(
   state: NotificationsState,
-  action: PutUserNotificationsSuccessAction
+  action: PutNotificationSuccessAction
 ): NotificationsState {
   return {
     ...state,
@@ -188,7 +200,7 @@ function putUserNotificationsSuccessReducer(
 
 function putUserNotificationsFailureReducer(
   state: NotificationsState,
-  action: PutUserNotificationsFailureAction
+  action: PutNotificationFailureAction
 ): NotificationsState {
   return {
     ...state,
@@ -204,6 +216,15 @@ function putUserNotificationsFailureReducer(
   };
 }
 
+function viewNotificationReducer(state: NotificationsState, action: ViewNotificationAction): NotificationsState {
+  return {
+    ...state,
+    items: state.items?.map((item: Notification) =>
+      action.id === item.notification_id ? { ...item, viewed: 'Y' } : item
+    )
+  };
+}
+
 export default function reducer(
   state: NotificationsState = initialState,
   action: NotificationsActionTypes
@@ -215,18 +236,20 @@ export default function reducer(
       return getUserNotificationsSuccessReducer(state, action);
     case GET_USER_NOTIFICATIONS_FAILURE:
       return getUserNotificationsFailureReducer(state, action);
-    case POST_USER_NOTIFICATIONS_REQUEST:
-      return postUserNotificationsRequestReducer(state);
-    case POST_USER_NOTIFICATIONS_SUCCESS:
-      return postUserNotificationsSuccessReducer(state);
-    case POST_USER_NOTIFICATIONS_FAILURE:
-      return postUserNotificationsFailureReducer(state, action);
-    case PUT_USER_NOTIFICATIONS_REQUEST:
+    case POST_NOTIFICATION_REQUEST:
+      return postNotificationRequestReducer(state);
+    case POST_NOTIFICATION_SUCCESS:
+      return postNotificationSuccessReducer(state, action);
+    case POST_NOTIFICATION_FAILURE:
+      return postNotificationFailureReducer(state, action);
+    case PUT_NOTIFICATION_REQUEST:
       return putUserNotificationsRequestReducer(state, action);
-    case PUT_USER_NOTIFICATIONS_SUCCESS:
+    case PUT_NOTIFICATION_SUCCESS:
       return putUserNotificationsSuccessReducer(state, action);
-    case PUT_USER_NOTIFICATIONS_FAILURE:
+    case PUT_NOTIFICATION_FAILURE:
       return putUserNotificationsFailureReducer(state, action);
+    case VIEW_NOTIFICATION:
+      return viewNotificationReducer(state, action);
     default:
       return state;
   }
@@ -253,44 +276,53 @@ export function getUserNotificationsFailure(serverError: string): GetUserNotific
   };
 }
 
-export function postUserNotificationsRequest(): PostUserNotificationsRequestAction {
+export function postNotificationRequest(): PostNotificationRequestAction {
   return {
-    type: POST_USER_NOTIFICATIONS_REQUEST
+    type: POST_NOTIFICATION_REQUEST
   };
 }
 
-export function postUserNotificationsSuccess(): PostUserNotificationsSuccessAction {
+export function postNotificationSuccess(created: boolean): PostNotificationSuccessAction {
   return {
-    type: POST_USER_NOTIFICATIONS_SUCCESS
+    type: POST_NOTIFICATION_SUCCESS,
+    created
   };
 }
 
-export function postUserNotificationsFailure(serverError: string): PostUserNotificationsFailureAction {
+export function postNotificationFailure(serverError: string): PostNotificationFailureAction {
   return {
-    type: POST_USER_NOTIFICATIONS_FAILURE,
+    type: POST_NOTIFICATION_FAILURE,
     serverError
   };
 }
 
-export function putUserNotificationsRequest(id: number): PutUserNotificationsRequestAction {
+export function putNotificationRequest(id: number): PutNotificationRequestAction {
   return {
-    type: PUT_USER_NOTIFICATIONS_REQUEST,
+    type: PUT_NOTIFICATION_REQUEST,
     id
   };
 }
 
-export function putUserNotificationsSuccess(id: number): PutUserNotificationsSuccessAction {
+export function putNotificationSuccess(id: number, updated: boolean): PutNotificationSuccessAction {
   return {
-    type: PUT_USER_NOTIFICATIONS_SUCCESS,
-    id
+    type: PUT_NOTIFICATION_SUCCESS,
+    id,
+    updated
   };
 }
 
-export function putUserNotificationsFailure(id: number, serverError: string): PutUserNotificationsFailureAction {
+export function putNotificationFailure(id: number, serverError: string): PutNotificationFailureAction {
   return {
-    type: PUT_USER_NOTIFICATIONS_FAILURE,
+    type: PUT_NOTIFICATION_FAILURE,
     id,
     serverError
+  };
+}
+
+export function viewNotification(id: number): ViewNotificationAction {
+  return {
+    type: VIEW_NOTIFICATION,
+    id
   };
 }
 
@@ -307,6 +339,48 @@ export function getUserNotifications(username: string): AppThunk<Promise<void>, 
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
       dispatch(getUserNotificationsFailure(serverError));
+    }
+  };
+}
+
+export function postNotification(
+  username: string,
+  description: string,
+  link: string
+): AppThunk<Promise<boolean>, NotificationsState> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
+    dispatch(postNotificationRequest());
+
+    try {
+      const response = await api.post('notifications', { username, description, link });
+      const { added } = response.data;
+
+      dispatch(postNotificationSuccess(added));
+      return added;
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+      dispatch(postNotificationFailure(serverError));
+      return false;
+    }
+  };
+}
+
+export function putNotification(notification: Notification): AppThunk<Promise<boolean>, NotificationsState> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
+    dispatch(putNotificationRequest(notification.notification_id));
+
+    try {
+      const response = await api.put(`notifications/${notification.notification_id}`, notification);
+      const { updated } = response.data;
+
+      dispatch(putNotificationSuccess(notification.notification_id, updated));
+      return updated;
+    } catch (error) {
+      const { response } = error;
+      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+      dispatch(putNotificationFailure(notification.notification_id, serverError));
+      return false;
     }
   };
 }

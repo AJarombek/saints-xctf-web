@@ -9,10 +9,12 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import Accordion from '../../shared/Accordion/Accordion';
 import { useHistory } from 'react-router-dom';
-import { User, NotificationsState, TeamMembership } from '../../../redux/types';
+import { User, NotificationsState, TeamMembership, Notification } from '../../../redux/types';
 import { AJButton, AJNotificationCircle } from 'jarombek-react-components';
 import classNames from 'classnames';
 import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import {putNotification, viewNotification} from '../../../redux/modules/notifications';
 
 interface Props {
   user: User;
@@ -26,9 +28,20 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMembersh
   const classes = useStyles();
   const history = useHistory();
 
+  const dispatch = useDispatch();
+
   const notificationCount = useMemo(() => {
-    return notificationInfo?.items?.length ?? 0;
+    return notificationInfo?.items?.filter((notification: Notification) => notification.viewed !== 'Y').length ?? 0;
   }, [notificationInfo]);
+
+  const onClickNotification = (notification: Notification): void => {
+    if (notification.viewed !== 'Y') {
+      dispatch(putNotification({ ...notification, viewed: 'Y' }));
+      dispatch(viewNotification(notification.notification_id));
+    }
+
+    history.push(notification.link);
+  };
 
   return (
     <div id="dashboardSidePanel" className={classes.dashboardSidePanel}>
@@ -111,8 +124,10 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMembersh
               >
                 <p>{moment(notification.time).format('MMMM Do h:mm A')}</p>
                 <p
-                  className={notification.viewed ? classes.viewedNotificationText : classes.notViewedNotificationText}
-                  onClick={(): void => history.push(notification.link)}
+                  className={
+                    notification.viewed === 'Y' ? classes.viewedNotificationText : classes.notViewedNotificationText
+                  }
+                  onClick={(): void => onClickNotification(notification)}
                 >
                   {notification.description}
                 </p>

@@ -115,15 +115,21 @@ export default {
     },
 
     '& > p:nth-child(2)': {
-      ...FontMixins.robotoSlabThin(),
       cursor: 'pointer',
       alignSelf: 'start',
+      paddingTop: 5,
 
       '&:hover': {
         textDecoration: 'underline'
       }
     }
   },
-  viewedNotificationText: {},
-  notViewedNotificationText: {}
+  viewedNotificationText: {
+    ...FontMixins.robotoSlabThin(),
+    color: Colors.spotPaletteBrown
+  },
+  notViewedNotificationText: {
+    ...FontMixins.robotoSlab(),
+    color: Colors.sxctfRed
+  }
 };
