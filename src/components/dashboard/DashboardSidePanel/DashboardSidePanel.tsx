@@ -9,19 +9,20 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import Accordion from '../../shared/Accordion/Accordion';
 import { useHistory } from 'react-router-dom';
-import { User, GroupMember, NotificationsState } from '../../../redux/types';
+import { User, NotificationsState, TeamMembership } from '../../../redux/types';
 import { AJButton, AJNotificationCircle } from 'jarombek-react-components';
 import classNames from 'classnames';
+import moment from 'moment';
 
-interface IProps {
+interface Props {
   user: User;
-  groupMemberships: GroupMember[];
+  teamMemberships: TeamMembership[];
   notificationInfo: NotificationsState;
 }
 
 const useStyles = createUseStyles(styles);
 
-const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMemberships, notificationInfo }) => {
+const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMemberships, notificationInfo }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -43,26 +44,38 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMember
         expandable={false}
         onClick={(): void => history.push('/log/new')}
       />
-      <Accordion id="groupsAccordion" iconNode={<p>&#xe026;</p>} title="Groups" expandable={true} defaultState={true}>
+      <Accordion
+        id="groupsAccordion"
+        iconNode={<p>&#xe026;</p>}
+        title="Teams & Groups"
+        expandable={true}
+        defaultState={true}
+      >
         <>
-          {groupMemberships &&
-            groupMemberships.map((group, index) => (
-              <div
-                className={classNames(
-                  classes.groupMembership,
-                  index % 2 ? classes.oddMember : classes.evenMember,
-                  'groupMember'
-                )}
-                key={index}
-              >
-                <a href={`/group/${group.group_name}`}>{group.group_title}</a>
+          {teamMemberships
+            ?.filter((teamMembership) => teamMembership.groups.length)
+            .map((teamMembership) => (
+              <div className={classes.teamMembership}>
+                <p>{teamMembership.title}</p>
+                {teamMembership.groups.map((group, index) => (
+                  <div
+                    className={classNames(
+                      classes.groupMembership,
+                      index % 2 ? classes.oddMember : classes.evenMember,
+                      'groupMember'
+                    )}
+                    key={index}
+                  >
+                    <a href={`/group/${group.group_id}`}>{group.group_title}</a>
+                  </div>
+                ))}
               </div>
             ))}
-          {!groupMemberships?.length && (
+          {!teamMemberships?.filter((teamMembership) => teamMembership.groups.length)?.length && (
             <div className={classes.noMemberships}>
-              <p>You have no group memberships.</p>
-              <AJButton type="contained" onClick={() => history.push(`/profile/${user.username}/edit`)}>
-                Join Groups
+              <p>You have no team or group memberships.</p>
+              <AJButton type="contained" onClick={(): void => history.push(`/profile/${user.username}/edit`)}>
+                Join Teams & Groups
               </AJButton>
             </div>
           )}
@@ -90,7 +103,21 @@ const DashboardSidePanel: React.FunctionComponent<IProps> = ({ user, groupMember
             </div>
           )}
           {notificationInfo.isFetching && <div>Loading...</div>}
-          {!!notificationCount && notificationInfo.items.map((notification, index) => <div></div>)}
+          {!!notificationCount &&
+            notificationInfo.items.map((notification, index) => (
+              <div
+                key={index}
+                className={classNames(classes.notification, index % 2 ? classes.oddMember : classes.evenMember)}
+              >
+                <p>{moment(notification.time).format('MMMM Do h:mm A')}</p>
+                <p
+                  className={notification.viewed ? classes.viewedNotificationText : classes.notViewedNotificationText}
+                  onClick={(): void => history.push(notification.link)}
+                >
+                  {notification.description}
+                </p>
+              </div>
+            ))}
           {!notificationCount && (
             <div className={classes.noNotificationsText}>
               <p>You have no notifications from the past 14 days.</p>

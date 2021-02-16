@@ -10,11 +10,12 @@ import styles from './styles';
 import DashboardSidePanel from '../DashboardSidePanel/DashboardSidePanel';
 import LogFeed from '../../shared/LogFeed/LogFeed';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
-import { LogFeeds, RootState, User } from '../../../redux/types';
+import { LogFeeds, Memberships, RootState, TeamMembership, User, Users } from '../../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { logFeed } from '../../../redux/modules/logs';
-import { getGroupMemberships } from '../../../redux/modules/memberships';
 import { getUserNotifications } from '../../../redux/modules/notifications';
+import { getUserMemberships } from '../../../redux/modules/profile';
+import { getTeamGroups } from '../../../redux/modules/teams';
 
 interface Props {
   user: User;
@@ -27,10 +28,11 @@ const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
 
   const dispatch = useDispatch();
   const logFeeds: LogFeeds = useSelector((state: RootState) => state.logs.feeds);
-  const groupMembershipInfo = useSelector((state: RootState) => state.memberships.groups);
   const notificationInfo = useSelector((state: RootState) => state.notifications);
+  const userProfiles: Users = useSelector((state: RootState) => state.profile.users);
 
   const [page, setPage] = useState(1);
+  const [memberships, setMemberships] = useState<Memberships>(null);
 
   const filterBy = 'all';
   const bucket = 'all';
@@ -41,15 +43,31 @@ const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
 
   useEffect(() => {
     if (user) {
-      if (!groupMembershipInfo.items) {
-        dispatch(getGroupMemberships(user.username));
-      }
-
       if (!notificationInfo.items) {
         dispatch(getUserNotifications(user.username));
       }
     }
-  }, [user, groupMembershipInfo, notificationInfo, dispatch]);
+  }, [user, notificationInfo, dispatch]);
+
+  useEffect(() => {
+    if (userProfiles && user?.username && !userProfiles[user.username]?.memberships) {
+      dispatch(getUserMemberships(user.username));
+    }
+  }, [dispatch, user.username, userProfiles]);
+
+  useEffect(() => {
+    if (userProfiles && user.username) {
+      setMemberships(userProfiles[user.username]?.memberships);
+    }
+  }, [userProfiles, user.username]);
+
+  useEffect(() => {
+    if (memberships?.teams) {
+      memberships.teams.forEach((membership: TeamMembership) => {
+        dispatch(getTeamGroups(membership.team_name));
+      });
+    }
+  }, [memberships, dispatch]);
 
   const totalPages: number = useMemo(() => {
     return logFeeds[`${filterBy}-${bucket}`]?.pages[page]?.pages ?? 0;
@@ -58,11 +76,7 @@ const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
   return (
     <div className={classes.dashboardBody}>
       <div className={classes.sidePanel}>
-        <DashboardSidePanel
-          user={user}
-          groupMemberships={groupMembershipInfo.items}
-          notificationInfo={notificationInfo}
-        />
+        <DashboardSidePanel user={user} teamMemberships={memberships?.teams} notificationInfo={notificationInfo} />
       </div>
       <div className={classes.mainPanel}>
         <LogFeed logFeeds={logFeeds} page={page} user={user} filterBy={filterBy} bucket={bucket} />
