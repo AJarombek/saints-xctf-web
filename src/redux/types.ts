@@ -51,6 +51,8 @@ export type NotificationsState = {
   lastUpdated?: number;
   serverError?: string;
   items?: Notification[];
+  newNotification: NewNotification;
+  updateNotifications: UpdateNotifications;
 };
 
 export type ProfileState = {
@@ -414,6 +416,18 @@ export type Notification = {
   viewed: string;
   description?: string;
 };
+
+export interface NewNotification extends Meta {
+  created?: boolean;
+}
+
+export type UpdateNotifications = {
+  [key: string]: UpdateNotification;
+};
+
+export interface UpdateNotification extends Meta {
+  updated?: boolean;
+}
 
 export interface FlairMeta extends Flairs, Meta {}
 
