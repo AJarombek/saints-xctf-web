@@ -4,8 +4,8 @@
  * @since 8/16/2020
  */
 
-import Colors, { FeelColors } from '../../../styles/colors';
-import Mixins, {AJComponentMixins, FontMixins} from '../../../styles/mixins';
+import { FeelColors } from '../../../styles/colors';
+import Mixins, { AJComponentMixins, FontMixins } from '../../../styles/mixins';
 import color from 'color';
 
 export default {

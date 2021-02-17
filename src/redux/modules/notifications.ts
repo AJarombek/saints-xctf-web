@@ -352,7 +352,7 @@ export function postNotification(
     dispatch(postNotificationRequest());
 
     try {
-      const response = await api.post('notifications', { username, description, link });
+      const response = await api.post('notifications/', { username, description, link });
       const { added } = response.data;
 
       dispatch(postNotificationSuccess(added));

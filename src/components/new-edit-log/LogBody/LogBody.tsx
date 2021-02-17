@@ -19,6 +19,7 @@ import { Log, RootState, User } from '../../../redux/types';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup/DefaultErrorPopup';
 import { useDispatch, useSelector } from 'react-redux';
 import { invalidateLogUpdated, invalidateLogCreated, postLog, putLog } from '../../../redux/modules/logs';
+import { postNotification } from '../../../redux/modules/notifications';
 
 interface Props {
   user: User;
@@ -88,7 +89,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
       dispatch(invalidateLogCreated());
       dispatch(invalidateLogUpdated(existingLog?.log_id ?? 0));
     };
-  }, []);
+  }, [dispatch, existingLog?.log_id]);
 
   useEffect(() => {
     if (existingLog && existingLog.log_id) {
@@ -118,7 +119,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         setErrorCreatingLog(true);
       }
     }
-  }, [newLog]);
+  }, [newLog, history]);
 
   useEffect(() => {
     if (updateLogs && Object.keys(updateLogs).length) {
@@ -132,7 +133,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         }
       }
     }
-  }, [updateLogs, existingLog]);
+  }, [updateLogs, existingLog, history]);
 
   const onChangeTime = (value: string): void => {
     if (!value) {
@@ -162,8 +163,8 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     }
   };
 
-  const onCreate = (): void => {
-    dispatch(
+  const onCreate = async (): Promise<void> => {
+    const logId = await dispatch(
       postLog(
         user.username,
         user.first,
@@ -179,6 +180,22 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         description
       )
     );
+
+    if (logId) {
+      const tagRegex = /@([a-zA-Z0-9])+/g;
+      let matches = [];
+
+      while ((matches = tagRegex.exec(description)) !== null) {
+        const username = matches[1];
+        dispatch(
+          postNotification(
+            username,
+            `${user.first} ${user.last} mentioned you in an exercise log.`,
+            `/log/view/${logId}`
+          )
+        );
+      }
+    }
   };
 
   const onEdit = (): void => {

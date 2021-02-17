@@ -844,12 +844,12 @@ export function postLog(
   time: string,
   feel: number,
   description: string
-): AppThunk<Promise<void>, LogsState> {
-  return async function (dispatch: Dispatch): Promise<void> {
+): AppThunk<Promise<number>, LogsState> {
+  return async function (dispatch: Dispatch): Promise<number> {
     dispatch(postLogRequest());
 
     try {
-      await api.post('logs/', {
+      const response = await api.post('logs/', {
         username,
         first,
         last,
@@ -865,10 +865,14 @@ export function postLog(
       });
 
       dispatch(postLogSuccess());
+
+      const { log_id: logId } = response.data.log;
+      return logId;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
       dispatch(postLogFailure(serverError));
+      return null;
     }
   };
 }
