@@ -36,7 +36,15 @@ const LogFeed: React.FunctionComponent<Props> = ({ logFeeds, page, user, filterB
     <div id="logFeed" className={classes.logFeed}>
       {logs.map((log, index) => (
         <React.Fragment key={log.log_id}>
-          <ExerciseLog log={log} user={user} page={page} filterBy={filterBy} bucket={bucket} index={index} />
+          <ExerciseLog
+            log={log}
+            user={user}
+            inFeed={true}
+            page={page}
+            filterBy={filterBy}
+            bucket={bucket}
+            index={index}
+          />
         </React.Fragment>
       ))}
       {loading && (

@@ -4,27 +4,28 @@
  * @since 8/5/2020
  */
 
-import React, {useEffect, useRef, useState} from 'react';
-import {createUseStyles} from 'react-jss';
+import React, { useEffect, useRef, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {Comment, NewComments, RootState, User} from '../../../redux/types';
+import { Comment, NewComments, RootState, User } from '../../../redux/types';
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import moment from 'moment';
-import {parseTagsInText} from '../../../utils/logs';
+import { parseTagsInText } from '../../../utils/logs';
 import DefaultErrorPopup from '../DefaultErrorPopup/DefaultErrorPopup';
-import {useDispatch, useSelector} from 'react-redux';
-import {addComment, postComment} from '../../../redux/modules/logs';
+import { useDispatch, useSelector } from 'react-redux';
+import { addComment, postComment } from '../../../redux/modules/logs';
 
 interface Props {
-    comments: Comment[];
-    feel: number;
-    logId: number;
-    user: User;
-    page: number;
-    filterBy: string;
-    bucket: string;
-    index: number;
+  comments: Comment[];
+  feel: number;
+  logId: number;
+  user: User;
+  inFeed: boolean;
+  page: number;
+  filterBy: string;
+  bucket: string;
+  index: number;
 }
 
 const useStyles = createUseStyles(styles);
@@ -34,6 +35,7 @@ const Comments: React.FunctionComponent<Props> = ({
   feel,
   logId,
   user,
+  inFeed,
   page,
   filterBy,
   bucket,
@@ -65,12 +67,29 @@ const Comments: React.FunctionComponent<Props> = ({
           setIsCreating(false);
 
           const content = textAreaRef.current.value;
-          dispatch(addComment(logId, content, user.username, user.first, user.last, filterBy, bucket, page, index));
+
+          if (inFeed) {
+            dispatch(addComment(logId, content, user.username, user.first, user.last, filterBy, bucket, page, index));
+          }
+
           textAreaRef.current.value = '';
         }
       }
     }
-  }, [newComments]);
+  }, [
+    bucket,
+    dispatch,
+    filterBy,
+    inFeed,
+    index,
+    logId,
+    newComments,
+    page,
+    prevErrorTime,
+    user.first,
+    user.last,
+    user.username
+  ]);
 
   const onTextAreaKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
     e.currentTarget.style.height = '25px';
@@ -108,7 +127,8 @@ const Comments: React.FunctionComponent<Props> = ({
           <button
             className={classNames('addIcon', classes.addIcon, isCreating && classes.addIconDisabled)}
             onClick={(): void => onCreateComment(content, user)}
-            disabled={isCreating}>
+            disabled={isCreating}
+          >
             <p>&#x4c;</p>
           </button>
         )}
@@ -121,13 +141,9 @@ const Comments: React.FunctionComponent<Props> = ({
                 <Link to={`/profile/${comment.username}`} className={classes.titleLink}>
                   {comment.first} {comment.last}
                 </Link>
-                <p className={classes.date}>
-                  {moment(comment.time).format('MMM. Do, YYYY h:mm:ss A')}
-                </p>
+                <p className={classes.date}>{moment(comment.time).format('MMM. Do, YYYY h:mm:ss A')}</p>
               </div>
-              <div className={classes.commentBody}>
-                {parseTagsInText(comment.content)}
-              </div>
+              <div className={classes.commentBody}>{parseTagsInText(comment.content)}</div>
             </div>
           ))}
         </div>

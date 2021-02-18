@@ -7,7 +7,7 @@
 import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { DeletedLog, DeletedLogs, Log, LogsState, RootState, User } from '../../../redux/types';
+import { DeletedLog, DeletedLogs, Log, RootState, User } from '../../../redux/types';
 import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 import Comments from '../Comments/Comments';
@@ -16,15 +16,16 @@ import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteLog, logFeed } from '../../../redux/modules/logs';
 import DeleteLogModal from './DeleteLogModal';
-import { AppThunk } from '../../../redux/store';
+import DefaultErrorPopup from '../DefaultErrorPopup';
 
 interface Props {
   log: Log;
   user: User;
-  page: number;
-  filterBy: string;
-  bucket: string;
-  index: number;
+  inFeed: boolean;
+  page?: number;
+  filterBy?: string;
+  bucket?: string;
+  index?: number;
   linkProfile?: number;
 }
 
@@ -33,6 +34,7 @@ const useStyles = createUseStyles(styles);
 const ExerciseLog: React.FunctionComponent<Props> = ({
   log,
   user,
+  inFeed,
   page,
   filterBy,
   bucket,
@@ -61,17 +63,26 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
   useEffect(() => {
     const deletedInfo = deletedLogs[log.log_id] ?? ({} as DeletedLog);
     if (deletedInfo.deleted && !deletedInfo.didInvalidate) {
-      dispatch(logFeed(filterBy, bucket, 10, 10 * (page - 1)));
-      setIsDeleting(false);
-      setShowDeleteModal(false);
+      if (inFeed) {
+        dispatch(logFeed(filterBy, bucket, 10, 10 * (page - 1)));
+        setIsDeleting(false);
+        setShowDeleteModal(false);
+      } else {
+        history.push('/');
+      }
     }
 
-    if (!deletedInfo.deleted && !deletedInfo.serverError && !deletedInfo.didInvalidate) {
+    if (!deletedInfo.deleted && deletedInfo.serverError && !deletedInfo.didInvalidate) {
       setIsDeleting(false);
       setShowDeleteModal(false);
       setErrorDeleting(true);
     }
-  }, [deletedLogs, log, bucket, filterBy, page, dispatch]);
+  }, [deletedLogs, log, bucket, filterBy, page, dispatch, inFeed, history]);
+
+  const onDeleteLog = (): void => {
+    setIsDeleting(true);
+    dispatch(deleteLog(log.log_id));
+  };
 
   return (
     <div
@@ -155,6 +166,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
           feel={log.feel}
           logId={log.log_id}
           user={user}
+          inFeed={inFeed}
           page={page}
           filterBy={filterBy}
           bucket={bucket}
@@ -163,11 +175,20 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
       </div>
       <DeleteLogModal
         onClose={(): void => setShowDeleteModal(false)}
-        onDelete={(): AppThunk<Promise<void>, LogsState> => dispatch(deleteLog(log.log_id))}
+        onDelete={onDeleteLog}
         show={showDeleteModal}
         log={log}
         isDeleting={isDeleting}
       />
+      {errorDeleting && (
+        <DefaultErrorPopup
+          message="Failed to delete this exercise log"
+          closeable={true}
+          onClose={(): void => setErrorDeleting(false)}
+          retryable={true}
+          onRetry={onDeleteLog}
+        />
+      )}
     </div>
   );
 };
