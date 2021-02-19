@@ -888,12 +888,12 @@ export function putLog(
   time: string,
   feel: number,
   description: string
-): AppThunk<Promise<void>, LogsState> {
-  return async function (dispatch: Dispatch): Promise<void> {
+): AppThunk<Promise<boolean>, LogsState> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putLogRequest(id));
 
     try {
-      await api.put(`logs/${id}`, {
+      const response = await api.put(`logs/${id}`, {
         log_id: id,
         name,
         location,
@@ -907,10 +907,13 @@ export function putLog(
       });
 
       dispatch(putLogSuccess(id));
+      const { updated } = response.data;
+      return updated;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
       dispatch(putLogFailure(id, serverError));
+      return false;
     }
   };
 }
@@ -937,12 +940,12 @@ export function postComment(
   first: string,
   last: string,
   content: string
-): AppThunk<Promise<void>, LogsState> {
-  return async function (dispatch: Dispatch): Promise<void> {
+): AppThunk<Promise<boolean>, LogsState> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(postCommentRequest(logId));
 
     try {
-      await api.post('comments/', {
+      const response = await api.post('comments/', {
         username,
         first,
         last,
@@ -952,10 +955,13 @@ export function postComment(
       });
 
       dispatch(postCommentSuccess(logId));
+      const { added } = response.data;
+      return added;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
       dispatch(postCommentFailure(logId, serverError));
+      return false;
     }
   };
 }

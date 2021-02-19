@@ -4,18 +4,11 @@
  * @since 7/25/2020
  */
 
-import Colors from "../../../styles/colors";
+import Mixins from '../../../styles/mixins';
 
 export default {
-    logFeed: {},
-    loading: {
-        width: 125,
-        margin: '0 auto',
-
-        '& .aj-loading-circle': {
-            width: 30,
-            height: 30,
-            backgroundColor: Colors.sxctfRed
-        }
-    }
+  logFeed: {},
+  loading: {
+    ...Mixins.loadingContainer()
+  }
 };

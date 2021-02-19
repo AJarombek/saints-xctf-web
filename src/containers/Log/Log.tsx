@@ -17,6 +17,7 @@ import { useRouteMatch } from 'react-router-dom';
 import ExerciseLog from '../../components/shared/ExerciseLog';
 import { getLog } from '../../redux/modules/logs';
 import NotFound from '../../components/shared/NotFound';
+import { AJLoadingDots } from 'jarombek-react-components';
 
 type Props = {};
 
@@ -63,10 +64,12 @@ const Log: React.FunctionComponent<Props> = () => {
     return (
       <div className={classes.log} ref={ref}>
         <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
-        {errorNotFound ? (
-          <NotFound fullPage={true} />
-        ) : (
-          <ExerciseLog log={log} user={users[auth.signedInUser]?.user} inFeed={false} />
+        {errorNotFound && <NotFound fullPage={true} />}
+        {!!log?.log_id && <ExerciseLog log={log} user={users[auth.signedInUser]?.user} inFeed={false} />}
+        {!errorNotFound && !log && (
+          <div className={classes.loading}>
+            <AJLoadingDots />
+          </div>
         )}
         <HomeFooter showContactUs={false} />
       </div>

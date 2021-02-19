@@ -1,17 +1,13 @@
-import Colors from '../../styles/colors';
-
 /**
  * JSS styles for the EditLog component.
  * @author Andrew Jarombek
  * @since 9/5/2020
  */
 
+import Mixins from '../../styles/mixins';
+
 export default {
   editLog: {
-    backgroundColor: Colors.lightBackground,
-
-    '& .sxctf-home-footer': {
-      backgroundColor: Colors.lightBackground
-    }
+    ...Mixins.defaultPage()
   }
 };

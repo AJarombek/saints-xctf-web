@@ -4,6 +4,13 @@
  * @since 2/17/2021
  */
 
+import Mixins from '../../styles/mixins';
+
 export default {
-  log: {}
+  log: {
+    ...Mixins.defaultPage()
+  },
+  loading: {
+    ...Mixins.loadingContainer()
+  }
 };

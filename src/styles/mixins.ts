@@ -357,7 +357,18 @@ class Mixins {
     fontSize: '18px !important',
     textAlign: 'center',
     maxWidth: 400
-  })
+  });
+
+  static loadingContainer = (): object => ({
+    width: 125,
+    margin: '0 auto',
+
+    '& .aj-loading-circle': {
+      width: 30,
+      height: 30,
+      backgroundColor: Colors.sxctfRed
+    }
+  });
 }
 
 class AJComponentMixins {

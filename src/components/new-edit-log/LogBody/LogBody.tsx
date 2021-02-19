@@ -198,8 +198,8 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     }
   };
 
-  const onEdit = (): void => {
-    dispatch(
+  const onEdit = async (): Promise<void> => {
+    const logUpdated = await dispatch(
       putLog(
         existingLog.log_id,
         name,
@@ -213,6 +213,33 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         description
       )
     );
+
+    if (logUpdated) {
+      const tagRegex = /@(?<username>[a-zA-Z0-9])+/g;
+      const existingTagMatches = new Set();
+      const updatedTagMatches = [];
+      let matches = [];
+
+      while ((matches = tagRegex.exec(existingLog.description)) !== null) {
+        existingTagMatches.add(matches.groups.username);
+      }
+
+      while ((matches = tagRegex.exec(description)) !== null) {
+        updatedTagMatches.push(matches.groups.username);
+      }
+
+      for (const updatedLogTag in updatedTagMatches) {
+        if (!existingTagMatches.has(updatedLogTag)) {
+          dispatch(
+            postNotification(
+              updatedLogTag,
+              `${user.first} ${user.last} mentioned you in an edited exercise log.`,
+              `/log/view/${existingLog.log_id}`
+            )
+          );
+        }
+      }
+    }
   };
 
   const onSubmit = (): void => {

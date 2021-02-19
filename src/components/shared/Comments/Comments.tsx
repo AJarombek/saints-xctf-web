@@ -15,6 +15,7 @@ import { parseTagsInText } from '../../../utils/logs';
 import DefaultErrorPopup from '../DefaultErrorPopup/DefaultErrorPopup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addComment, postComment } from '../../../redux/modules/logs';
+import { postNotification } from '../../../redux/modules/notifications';
 
 interface Props {
   comments: Comment[];
@@ -100,10 +101,26 @@ const Comments: React.FunctionComponent<Props> = ({
     setContent(e.target.value);
   };
 
-  const onCreateComment = (content: string, user: User): void => {
+  const onCreateComment = async (content: string, user: User): Promise<void> => {
     if (content) {
       setIsCreating(true);
-      dispatch(postComment(logId, user.username, user.first, user.last, content));
+      const added = await dispatch(postComment(logId, user.username, user.first, user.last, content));
+
+      if (added) {
+        const tagRegex = /@(?<username>[a-zA-Z0-9])+/g;
+        let matches = [];
+
+        while ((matches = tagRegex.exec(content)) !== null) {
+          const username = matches[1];
+          dispatch(
+            postNotification(
+              username,
+              `${user.first} ${user.last} mentioned you in an exercise log.`,
+              `/log/view/${logId}`
+            )
+          );
+        }
+      }
     }
   };
 
@@ -126,7 +143,7 @@ const Comments: React.FunctionComponent<Props> = ({
         {!!content && (
           <button
             className={classNames('addIcon', classes.addIcon, isCreating && classes.addIconDisabled)}
-            onClick={(): void => onCreateComment(content, user)}
+            onClick={(): Promise<void> => onCreateComment(content, user)}
             disabled={isCreating}
           >
             <p>&#x4c;</p>
