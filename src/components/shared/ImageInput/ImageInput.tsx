@@ -19,6 +19,7 @@ interface Props {
   type: string;
   name: string;
   placeholder: string;
+  minValue?: number;
   autoComplete?: string;
   maxLength?: number;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => any;
@@ -34,6 +35,7 @@ const ImageInput: React.FunctionComponent<Props> = ({
   type,
   name,
   placeholder,
+  minValue,
   autoComplete = '',
   maxLength,
   onChange,
@@ -76,6 +78,7 @@ const ImageInput: React.FunctionComponent<Props> = ({
         name={name}
         type={type}
         placeholder={placeholder}
+        min={minValue}
         value={useCustomValue ? value : inputRef.current?.value}
         autoComplete={autoComplete}
         maxLength={maxLength}

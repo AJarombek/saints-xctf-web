@@ -27,6 +27,7 @@ import { logFeed } from '../../../redux/modules/logs';
 import GroupDetails from '../GroupDetails/GroupDetails';
 import GroupMembers from '../GroupMembers';
 import Leaderboard from '../Leaderboard';
+import { AJTag } from 'jarombek-react-components';
 
 interface Props {
   user: User;
@@ -44,7 +45,6 @@ const useStyles = createUseStyles(styles);
 
 const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
   const routeMatch = useRouteMatch();
-  const classes = useStyles();
 
   const dispatch = useDispatch();
   const logFeeds: LogFeeds = useSelector((state: RootState) => state.logs.feeds);
@@ -60,9 +60,39 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
     return groupId;
   }, [routeMatch.params]);
 
-  const members = useMemo(() => {
-    return membersInfo[groupId]?.items?.filter((member: MemberDetails) => member.status === 'accepted') ?? [];
+  const allMembers = useMemo(() => {
+    return membersInfo[groupId]?.items ?? [];
   }, [membersInfo, groupId]);
+
+  const acceptedMembers = useMemo(() => {
+    return allMembers.filter((member: MemberDetails) => member.status === 'accepted') ?? [];
+  }, [allMembers]);
+
+  const userMembership: { user?: string; status?: string } = useMemo(() => {
+    const matchingMemberships = allMembers
+      .filter((member) => member.username === user?.username)
+      .map((member) => ({ user: member.user, status: member.status }));
+
+    if (matchingMemberships.length) {
+      return matchingMemberships[0];
+    } else {
+      return {};
+    }
+  }, [allMembers, user?.username]);
+
+  const membershipTagText = useMemo(() => {
+    if (userMembership.status === 'pending') {
+      return 'Membership Pending';
+    } else if (userMembership.status === 'accepted' && userMembership.user === 'user') {
+      return 'Member';
+    } else if (userMembership.status === 'accepted' && userMembership.user === 'admin') {
+      return 'Administrator';
+    } else {
+      return 'Non-Member';
+    }
+  }, [userMembership.status, userMembership.user]);
+
+  const classes = useStyles({ membershipTagText });
 
   useEffect(() => {
     if (!group) {
@@ -109,8 +139,11 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
               : '/asset/saintsxctf.png'
           }
           title={group?.group_title}
-          subTitle={`Members: ${members.length}`}
+          subTitle={`Members: ${acceptedMembers.length}`}
         />
+        <div className={classes.membershipTagContainer}>
+          <AJTag content={membershipTagText} className={classes.membershipTag} />
+        </div>
         <PageTabs currentTab={tab} tabs={tabs} />
       </aside>
       <section>
@@ -127,7 +160,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
             />
           </>
         )}
-        {tab === GroupTab.MEMBERS && <GroupMembers members={members} />}
+        {tab === GroupTab.MEMBERS && <GroupMembers members={acceptedMembers} />}
         {tab === GroupTab.LEADERBOARD && <Leaderboard group={group} />}
         {tab === GroupTab.DETAILS && <GroupDetails group={group} stats={allStats[groupId]} />}
       </section>

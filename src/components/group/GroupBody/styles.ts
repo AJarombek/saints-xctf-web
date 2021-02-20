@@ -7,10 +7,32 @@
  * @since 1/6/2021
  */
 
-import Mixins from '../../../styles/mixins';
+import Mixins, {FontMixins} from '../../../styles/mixins';
+import Colors from '../../../styles/colors';
 
 export default {
   groupBody: {
     ...Mixins.profileAndGroupBody()
+  },
+  membershipTagContainer: {
+    display: 'flex',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  membershipTag: {
+    ...FontMixins.robotoSlabThin(),
+    fontSize: 14,
+    margin: '20px 0 10px 0',
+    cursor: 'auto !important',
+    padding: '2px 10px !important',
+    backgroundColor: ({ membershipTagText }: { membershipTagText: string }): string =>
+      membershipTagText in ['Administrator', 'Member']
+        ? Colors.sxctfRed
+        : membershipTagText === 'Membership Pending'
+        ? Colors.spotPaletteBrown
+        : Colors.lightestBackground,
+    color: ({ membershipTagText }: { membershipTagText: string }): string =>
+      membershipTagText === 'Non-Member' ? '#000' : '#FFF'
   }
 };

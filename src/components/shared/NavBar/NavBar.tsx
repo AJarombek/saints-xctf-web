@@ -17,6 +17,7 @@ import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
 import { UserMeta } from '../../../redux/types';
 import { useDispatch } from 'react-redux';
 import { signOut, SignOutAction } from '../../../redux/modules/auth';
+import { useSignInCheck } from '../../../hooks/shared';
 
 interface Props {
   includeHeaders?: Array<string>;
@@ -61,6 +62,8 @@ const NavBar: React.FunctionComponent<Props> = ({
   const [stickyHeader, setStickyHeader] = useState<boolean>(false);
 
   const mobileHamburgerRef: React.RefObject<HTMLInputElement> = createRef();
+
+  const signedIn = useSignInCheck();
 
   useEffect(() => {
     const scrollEventListener = (): void => handleScroll(bodyRef, setStickyHeader);
@@ -206,7 +209,7 @@ const NavBar: React.FunctionComponent<Props> = ({
     {
       name: 'logo',
       content: <img className="mobile-dropdown-logo" src={saintsXCTFLogo} alt="" />,
-      onClick: (): void => navigateMobile('#')
+      onClick: (): void => navigateMobile(signedIn ? '/dashboard' : '/')
     }
   ];
 
@@ -214,9 +217,9 @@ const NavBar: React.FunctionComponent<Props> = ({
     <>
       <div className={navBarClass}>
         <figure className="sxctf-logo">
-          <img src={saintsXCTFLogo} onClick={(): void => history.push('/#')} alt="" />
+          <img src={saintsXCTFLogo} onClick={(): void => history.push(signedIn ? '/dashboard' : '/')} alt="" />
         </figure>
-        <h1 onClick={(): void => history.push('/#')}>SaintsXCTF</h1>
+        <h1 onClick={(): void => history.push(signedIn ? '/dashboard' : '/')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
           {includeHeaders.includes('home') && (
             <AJButton type="text" className="homeButton" onClick={(): void => history.push('/')}>

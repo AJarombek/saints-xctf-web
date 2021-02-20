@@ -32,12 +32,14 @@ export const useExerciseFilter = (selectedFilters: ExerciseFilters): RangeViewEx
 /**
  * Perform a check to see if there is a user signed in.
  */
-export const useSignInCheck = (): void => {
+export const useSignInCheck = (redirect = true): boolean => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const auth = useSelector((state: RootState) => state.auth.auth);
   const users = useSelector((state: RootState) => state.auth.user);
+
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -45,9 +47,16 @@ export const useSignInCheck = (): void => {
     if (!Object.keys(users).length && storedUser) {
       dispatch(setUserFromStorage(storedUser));
     } else if (!userAuthenticated(users, auth.signedInUser) && !storedUser) {
-      history.push('/');
+      if (redirect) {
+        history.push('/');
+      }
+      setIsSignedIn(false);
+    } else {
+      setIsSignedIn(true);
     }
-  }, [users, auth.signedInUser, history, dispatch]);
+  }, [users, auth.signedInUser, history, dispatch, redirect]);
+
+  return isSignedIn;
 };
 
 export const useAdminCheck = (redirect = true): boolean => {

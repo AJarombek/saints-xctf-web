@@ -71,7 +71,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   const [date, setDate] = useState('');
   const [dateStatus, setDateStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [type, setType] = useState(exerciseTypes[0].toLowerCase());
-  const [distance, setDistance] = useState(0);
+  const [distance, setDistance] = useState('');
   const [distanceStatus, setDistanceStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [metric, setMetric] = useState(metricTypes[0].toLowerCase());
   const [time, setTime] = useState('');
@@ -97,7 +97,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
       setLocation(existingLog.location);
       setDate(existingLog.date);
       setType(existingLog.type);
-      setDistance(existingLog.distance);
+      setDistance(existingLog.distance.toFixed(2));
       setMetric(existingLog.metric);
       setFormattedTime(existingLog.time);
       setFeel(+existingLog.feel - 1);
@@ -112,7 +112,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   }, [existingLog]);
 
   useEffect(() => {
-    if (newLog && Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
+    if (!existingLog && newLog && Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
       if (newLog?.created) {
         history.push('/dashboard');
       } else {
@@ -122,7 +122,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   }, [newLog, history]);
 
   useEffect(() => {
-    if (updateLogs && Object.keys(updateLogs).length) {
+    if (existingLog && updateLogs && Object.keys(updateLogs).length) {
       const updateInfo = updateLogs[existingLog?.log_id];
 
       if (!updateInfo?.isFetching && !updateInfo?.didInvalidate) {
@@ -173,7 +173,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         location,
         date,
         type,
-        distance,
+        +(+distance).toFixed(2),
         metric,
         '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
         feel + 1,
@@ -206,7 +206,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         location,
         date,
         type,
-        distance,
+        +(+distance).toFixed(2),
         metric,
         '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
         feel + 1,
@@ -330,9 +330,10 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
                 type="number"
                 name="distance"
                 placeholder=""
+                minValue={0}
                 useCustomValue={true}
                 value={`${distance}`}
-                onChange={(e): void => setDistance(+e.target.value)}
+                onChange={(e): void => setDistance(e.target.value)}
                 status={distanceStatus}
               />
               <AJSelect
