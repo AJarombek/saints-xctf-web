@@ -22,9 +22,9 @@ interface Props {
 }
 
 export enum GroupAdminTab {
-  MANAGE_USERS,
-  SEND_ACTIVATION_CODE,
-  EDIT_GROUP
+  MANAGE_USERS = 'manage-users',
+  SEND_ACTIVATION_CODE = 'send-activation-code',
+  EDIT_GROUP = 'edit-group'
 }
 
 const useStyles = createUseStyles(styles);

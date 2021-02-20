@@ -314,7 +314,8 @@ function getLogSuccessReducer(state: LogsState, action: GetLogSuccessAction): Lo
       [action.id]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        ...action.log
+        ...action.log,
+        comments: action.comments
       }
     }
   };

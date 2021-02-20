@@ -7,16 +7,17 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { RootState } from '../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useRouteMatch } from 'react-router-dom';
+import { useHistory, useRouteMatch, useLocation } from 'react-router-dom';
 import { userAuthenticated } from '../../utils/auth';
 import { setUserFromStorage } from '../../redux/modules/auth';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import NavBar from '../../components/shared/NavBar';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import ProfileBody from '../../components/profile/ProfileBody/ProfileBody';
+import ProfileBody, { ProfileTab } from '../../components/profile/ProfileBody/ProfileBody';
 import { getUser, setUser } from '../../redux/modules/profile';
 import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
+import NotFound from '../../components/shared/NotFound';
 
 type Props = {};
 
@@ -27,6 +28,8 @@ const defaultHeaders = ['teams', 'dashboard', 'signOut', 'logo'];
 const Profile: React.FunctionComponent<Props> = () => {
   const routeMatch = useRouteMatch();
   const history = useHistory();
+  const location = useLocation();
+
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -57,27 +60,56 @@ const Profile: React.FunctionComponent<Props> = () => {
     return urlPaths[urlPaths.length - 1];
   }, [routeMatch.url]);
 
+  const defaultTab: ProfileTab = useMemo(() => {
+    if (location.hash) {
+      return location.hash.slice(1) as ProfileTab;
+    } else {
+      return ProfileTab.LOGS;
+    }
+  }, [location.hash]);
+
+  const profileUser = useMemo(() => {
+    return users[username] ?? {};
+  }, [username, users]);
+
   useEffect(() => {
-    if (auth.signedInUser && !users[username]?.user?.isFetching && !users[username]?.user?.username) {
+    if (
+      auth.signedInUser &&
+      !profileUser.user?.isFetching &&
+      !profileUser.user?.username &&
+      !profileUser.user?.serverError
+    ) {
       if (auth.signedInUser === username && authUsers[username]) {
         dispatch(setUser(authUsers[username]?.user));
       } else if (username) {
         dispatch(getUser(username));
       }
     }
-  }, [auth.signedInUser, authUsers, username, users, dispatch]);
+  }, [
+    auth.signedInUser,
+    authUsers,
+    dispatch,
+    profileUser.user?.isFetching,
+    profileUser.user?.serverError,
+    profileUser.user?.username,
+    username
+  ]);
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
       <div className={classes.profile} ref={ref}>
         <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
-        <ProfileBody
-          user={users[username]?.user}
-          signedInUser={users[auth.signedInUser]?.user}
-          flair={users[username]?.flair}
-          stats={users[username]?.stats}
-          rangeViews={rangeViews[username]}
-        />
+        {profileUser.user?.username && (
+          <ProfileBody
+            user={profileUser.user}
+            signedInUser={users[auth.signedInUser]?.user}
+            flair={profileUser.flair}
+            stats={profileUser.stats}
+            rangeViews={rangeViews[username]}
+            defaultTab={defaultTab}
+          />
+        )}
+        {profileUser.user?.serverError && <NotFound fullPage={true} />}
         <HomeFooter showContactUs={false} />
       </div>
     );

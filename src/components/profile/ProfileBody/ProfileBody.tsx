@@ -36,19 +36,20 @@ interface Props {
   flair: FlairMeta;
   stats: StatsMeta;
   rangeViews: RangeViewExerciseTypeFilters;
+  defaultTab: ProfileTab;
 }
 
 export enum ProfileTab {
-  LOGS,
-  CALENDAR,
-  CHART,
-  DETAILS,
-  EDIT
+  LOGS = 'logs',
+  CALENDAR = 'calendar',
+  CHART = 'chart',
+  DETAILS = 'details',
+  EDIT = 'edit'
 }
 
 const useStyles = createUseStyles(styles);
 
-const ProfileBody: React.FunctionComponent<Props> = ({ user, signedInUser, flair, stats, rangeViews }) => {
+const ProfileBody: React.FunctionComponent<Props> = ({ user, signedInUser, flair, stats, rangeViews, defaultTab }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -80,6 +81,12 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, signedInUser, flair
       }
     }
   }, [user, userProfiles, flair, bucket, dispatch]);
+
+  useEffect(() => {
+    if (Object.values(ProfileTab).includes(defaultTab)) {
+      setTab(defaultTab);
+    }
+  }, [defaultTab]);
 
   const totalPages: number = useMemo(() => {
     return logFeeds[`user-${bucket}`]?.pages[page]?.pages ?? 0;

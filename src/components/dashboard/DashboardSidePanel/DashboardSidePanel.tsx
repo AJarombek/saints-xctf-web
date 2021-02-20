@@ -14,7 +14,7 @@ import { AJButton, AJNotificationCircle } from 'jarombek-react-components';
 import classNames from 'classnames';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import {putNotification, viewNotification} from '../../../redux/modules/notifications';
+import { putNotification, viewNotification } from '../../../redux/modules/notifications';
 
 interface Props {
   user: User;
@@ -87,7 +87,7 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMembersh
           {!teamMemberships?.filter((teamMembership) => teamMembership.groups.length)?.length && (
             <div className={classes.noMemberships}>
               <p>You have no team or group memberships.</p>
-              <AJButton type="contained" onClick={(): void => history.push(`/profile/${user.username}/edit`)}>
+              <AJButton type="contained" onClick={(): void => history.push(`/profile/${user.username}#edit`)}>
                 Join Teams & Groups
               </AJButton>
             </div>

@@ -7,17 +7,16 @@
 import React, { ReactNode } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { ProfileTab } from '../../profile/ProfileBody/ProfileBody';
 import classNames from 'classnames';
 
 type Tab = {
-  tab: number;
+  tab: string;
   onView: () => void;
   content: ReactNode;
 };
 
 interface Props {
-  currentTab: number;
+  currentTab: string;
   tabs: Tab[];
 }
 

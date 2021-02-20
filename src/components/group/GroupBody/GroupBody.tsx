@@ -34,10 +34,10 @@ interface Props {
 }
 
 export enum GroupTab {
-  LOGS,
-  MEMBERS,
-  LEADERBOARD,
-  DETAILS
+  LOGS = 'logs',
+  MEMBERS = 'members',
+  LEADERBOARD = 'leaderboard',
+  DETAILS = 'details'
 }
 
 const useStyles = createUseStyles(styles);
