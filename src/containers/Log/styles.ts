@@ -10,6 +10,9 @@ export default {
   log: {
     ...Mixins.defaultPage()
   },
+  logBody: {
+    ...Mixins.defaultBody()
+  },
   loading: {
     ...Mixins.loadingContainer()
   }

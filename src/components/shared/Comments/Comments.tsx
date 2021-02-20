@@ -14,7 +14,7 @@ import moment from 'moment';
 import { parseTagsInText } from '../../../utils/logs';
 import DefaultErrorPopup from '../DefaultErrorPopup/DefaultErrorPopup';
 import { useDispatch, useSelector } from 'react-redux';
-import { addComment, postComment } from '../../../redux/modules/logs';
+import { addComment, addCommentToFeed, postComment } from '../../../redux/modules/logs';
 import { postNotification } from '../../../redux/modules/notifications';
 
 interface Props {
@@ -70,7 +70,11 @@ const Comments: React.FunctionComponent<Props> = ({
           const content = textAreaRef.current.value;
 
           if (inFeed) {
-            dispatch(addComment(logId, content, user.username, user.first, user.last, filterBy, bucket, page, index));
+            dispatch(
+              addCommentToFeed(logId, content, user.username, user.first, user.last, filterBy, bucket, page, index)
+            );
+          } else {
+            dispatch(addComment(logId, content, user.username, user.first, user.last));
           }
 
           textAreaRef.current.value = '';
@@ -107,17 +111,13 @@ const Comments: React.FunctionComponent<Props> = ({
       const added = await dispatch(postComment(logId, user.username, user.first, user.last, content));
 
       if (added) {
-        const tagRegex = /@(?<username>[a-zA-Z0-9])+/g;
+        const tagRegex = /@(?<username>[a-zA-Z0-9]+)/g;
         let matches = [];
 
         while ((matches = tagRegex.exec(content)) !== null) {
-          const username = matches[1];
+          const username = matches.groups.username;
           dispatch(
-            postNotification(
-              username,
-              `${user.first} ${user.last} mentioned you in an exercise log.`,
-              `/log/view/${logId}`
-            )
+            postNotification(username, `${user.first} ${user.last} mentioned you in a comment.`, `/log/view/${logId}`)
           );
         }
       }

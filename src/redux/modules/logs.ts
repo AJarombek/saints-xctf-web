@@ -42,6 +42,7 @@ const DELETE_LOG_FAILURE = 'saints-xctf-web/logs/DELETE_LOG_FAILURE';
 const POST_COMMENT_REQUEST = 'saints-xctf-web/logs/POST_COMMENT_REQUEST';
 const POST_COMMENT_SUCCESS = 'saints-xctf-web/logs/POST_COMMENT_SUCCESS';
 const POST_COMMENT_FAILURE = 'saints-xctf-web/logs/POST_COMMENT_FAILURE';
+const ADD_COMMENT_TO_FEED = 'saints-xctf-web/logs/ADD_COMMENT_TO_FEED';
 const ADD_COMMENT = 'saints-xctf-web/logs/ADD_COMMENT';
 
 // Action Types
@@ -166,6 +167,15 @@ interface AddCommentAction {
   username: string;
   first: string;
   last: string;
+}
+
+interface AddCommentToFeedAction {
+  type: typeof ADD_COMMENT_TO_FEED;
+  logId: number;
+  content: string;
+  username: string;
+  first: string;
+  last: string;
   filterBy: string;
   bucket: string;
   page: number;
@@ -193,7 +203,8 @@ type LogsActionTypes =
   | PostCommentRequestAction
   | PostCommentSuccessAction
   | PostCommentFailureAction
-  | AddCommentAction;
+  | AddCommentAction
+  | AddCommentToFeedAction;
 
 // Reducer
 const initialState: LogsState = {
@@ -512,7 +523,7 @@ function postCommentFailureReducer(state: LogsState, action: PostCommentFailureA
   };
 }
 
-function addCommentReducer(state: LogsState, action: AddCommentAction): LogsState {
+function addCommentToFeedReducer(state: LogsState, action: AddCommentToFeedAction): LogsState {
   const feedName = `${action.filterBy}-${action.bucket}`;
   const existingPages = state.feeds[feedName]?.pages ?? {};
   const existingPage = existingPages[action.page] ?? ({} as LogFeedPage);
@@ -546,6 +557,31 @@ function addCommentReducer(state: LogsState, action: AddCommentAction): LogsStat
             items: newItems
           }
         }
+      }
+    }
+  };
+}
+
+function addCommentReducer(state: LogsState, action: AddCommentAction): LogsState {
+  const newComments = [
+    {
+      comment_id: -1,
+      username: action.username,
+      first: action.first,
+      last: action.last,
+      log_id: action.logId,
+      time: moment().format('YYYY-MM-DD HH:mm:ss'),
+      content: action.content
+    },
+    ...(state.items[action.logId].comments ?? [])
+  ];
+
+  return {
+    ...state,
+    items: {
+      [action.logId]: {
+        ...state.items[action.logId],
+        comments: newComments
       }
     }
   };
@@ -661,6 +697,8 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
       return postCommentSuccessReducer(state, action);
     case POST_COMMENT_FAILURE:
       return postCommentFailureReducer(state, action);
+    case ADD_COMMENT_TO_FEED:
+      return addCommentToFeedReducer(state, action);
     case ADD_COMMENT:
       return addCommentReducer(state, action);
     default:
@@ -766,7 +804,7 @@ export function postCommentFailure(logId: number, serverError: string): PostComm
   };
 }
 
-export function addComment(
+export function addCommentToFeed(
   logId: number,
   content: string,
   username: string,
@@ -776,9 +814,9 @@ export function addComment(
   bucket: string,
   page: number,
   index: number
-): AddCommentAction {
+): AddCommentToFeedAction {
   return {
-    type: ADD_COMMENT,
+    type: ADD_COMMENT_TO_FEED,
     logId,
     content,
     username,
@@ -788,6 +826,23 @@ export function addComment(
     bucket,
     page,
     index
+  };
+}
+
+export function addComment(
+  logId: number,
+  content: string,
+  username: string,
+  first: string,
+  last: string
+): AddCommentAction {
+  return {
+    type: ADD_COMMENT,
+    logId,
+    content,
+    username,
+    first,
+    last
   };
 }
 

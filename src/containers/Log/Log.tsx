@@ -37,8 +37,6 @@ const Log: React.FunctionComponent<Props> = () => {
 
   const ref = useRef(null);
 
-  const [errorNotFound, setErrorNotFound] = useState(false);
-
   useSignInCheck();
   const isAdmin = useAdminCheck(false);
   const headers = useHeaders(defaultHeaders, isAdmin);
@@ -51,8 +49,6 @@ const Log: React.FunctionComponent<Props> = () => {
   useEffect(() => {
     if (logId) {
       dispatch(getLog(logId));
-    } else {
-      setErrorNotFound(true);
     }
   }, [dispatch, logId]);
 
@@ -60,15 +56,23 @@ const Log: React.FunctionComponent<Props> = () => {
     return logs[logId];
   }, [logs, logId]);
 
+  const errorNotFound = useMemo(() => {
+    return !logId || log?.serverError;
+  }, [log?.serverError, logId]);
+
   if (userAuthenticated(users, auth.signedInUser)) {
     return (
       <div className={classes.log} ref={ref}>
         <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
         {errorNotFound && <NotFound fullPage={true} />}
-        {!!log?.log_id && <ExerciseLog log={log} user={users[auth.signedInUser]?.user} inFeed={false} />}
-        {!errorNotFound && !log && (
-          <div className={classes.loading}>
-            <AJLoadingDots />
+        {!errorNotFound && (
+          <div className={classes.logBody}>
+            {!!log?.log_id && <ExerciseLog log={log} user={users[auth.signedInUser]?.user} inFeed={false} />}
+            {!log && (
+              <div className={classes.loading}>
+                <AJLoadingDots />
+              </div>
+            )}
           </div>
         )}
         <HomeFooter showContactUs={false} />

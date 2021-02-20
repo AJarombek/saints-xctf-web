@@ -182,7 +182,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     );
 
     if (logId) {
-      const tagRegex = /@([a-zA-Z0-9])+/g;
+      const tagRegex = /@([a-zA-Z0-9]+)/g;
       let matches = [];
 
       while ((matches = tagRegex.exec(description)) !== null) {
@@ -215,7 +215,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     );
 
     if (logUpdated) {
-      const tagRegex = /@(?<username>[a-zA-Z0-9])+/g;
+      const tagRegex = /@(?<username>[a-zA-Z0-9]+)/g;
       const existingTagMatches = new Set();
       const updatedTagMatches = [];
       let matches = [];
