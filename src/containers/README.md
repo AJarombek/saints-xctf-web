@@ -1,16 +1,26 @@
 ### Overview
 
-Containers for pages in the React application.  Each container is connected to the Redux store, providing state to the 
-component hierarchy it defines.
+Containers for pages in the React application.  Each container represents a distinct URL (React Router route) in the 
+webpage.
 
-### Files
+### Directories
 
-| Filename              | Description                                                               |
+| Directory Name        | Description                                                               |
 |-----------------------|---------------------------------------------------------------------------|
-| `Home.js`             | Home page (when signed-out) for the application.                          |
-| `Home.scss`           | Stylesheet for the `Home` container.                                      |
-| `SignIn.js`           | Page for users to sign in to the application.                             |
-| `SignIn.scss`         | Stylesheet for the `SignIn` container.                                    |
+| `Admin`               | `/admin` - Landing page for administrators.                               |
+| `Dashboard`           | `/dashboard` - Dashboard page for signed in users.                        |
+| `EditLog`             | `/log/edit/:id` - Page for users to edit existing logs.                   |
+| `ForgotPassword`      | `/forgotpassword` - Page to request a forgot password code.               |
+| `ForgotPasswordReset` | `/forgotpassword/reset` - Page to reset a password with a valid code.     |
+| `Group`               | `/group/:id` - Page for a group.                                          |
+| `GroupAdmin`          | `/admin/group/:id` - Admin page for a group.                              |
+| `Home`                | `/` - Home page for non-signed in users.                                  |
+| `Log`                 | `/log/view/:id` - Page to view a log and its comments.                    |
+| `NewLog`              | `/log/new` - Page to create a new log.                                    |
+| `Profile`             | `/profile/:username` - Profile page for a user.                           |
+| `Register`            | `/register` - Registration page for new users.                            |
+| `SignIn`              | `/signin` - Page for users to sign in.                                    |
+| `Teams`               | `/teams` - Page for a list of teams and their corresponding groups.       |
 
 ### Resources
 

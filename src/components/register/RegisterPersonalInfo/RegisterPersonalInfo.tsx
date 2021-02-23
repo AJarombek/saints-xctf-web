@@ -63,6 +63,7 @@ const RegisterPersonalInfo: React.FunctionComponent<Props> = ({ registration }) 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const email = e.target.value;
     setEmail(email);
+    setErrorStatus(null);
 
     if (emailPattern.test(email)) {
       setEmailStatus(ImageInputStatus.NONE);
@@ -74,6 +75,7 @@ const RegisterPersonalInfo: React.FunctionComponent<Props> = ({ registration }) 
   const onClickContinue = async (): Promise<void> => {
     setLoading(true);
     await dispatch(registerPersonalInfo(firstName, lastName, email));
+    setLoading(false);
   };
 
   return (

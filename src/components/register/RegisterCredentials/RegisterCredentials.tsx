@@ -87,8 +87,6 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
           setActivationCodeStatus(ImageInputStatus.NONE);
           setPasswordStatus(ImageInputStatus.NONE);
       }
-
-    setLoading(false);
   }, [registration.status, registration.serverError]);
 
   const usernamePattern = /^[a-zA-Z0-9]+$/;
@@ -169,14 +167,16 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
     await dispatch(
       registerCredentials(registration.first, registration.last, registration.email, username, password, activationCode)
     );
+    setLoading(false);
   };
 
   /**
    * When users click the 'Back' button, move the registration process back to the first stage.
    */
-  const onClickBack = (): void => {
+  const onClickBack = async (): Promise<void> => {
     setLoading(true);
-    dispatch(registerBack());
+    await dispatch(registerBack());
+    setLoading(false);
   };
 
   return (

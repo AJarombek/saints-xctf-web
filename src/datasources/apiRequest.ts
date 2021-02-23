@@ -37,7 +37,7 @@ export const interceptor = (store: Store): void => {
           type: SIGNOUT
         });
       } else {
-        return error;
+        return Promise.reject(error);
       }
     }
   );

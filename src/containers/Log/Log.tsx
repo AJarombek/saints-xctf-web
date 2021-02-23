@@ -4,7 +4,7 @@
  * @since 2/17/2021
  */
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { RootState } from '../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { userAuthenticated } from '../../utils/auth';

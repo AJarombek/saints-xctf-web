@@ -6,7 +6,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 
 import { userAuthenticated } from '../../utils/auth';
@@ -17,6 +17,9 @@ import { RootState } from '../../redux/types';
 type Props = {};
 
 const Register: React.FunctionComponent<Props> = () => {
+  const history = useHistory();
+  const location = useLocation();
+
   const auth = useSelector((state: RootState) => state.auth.auth);
   const users = useSelector((state: RootState) => state.auth.user);
   const registration = useSelector((state: RootState) => state.registration);
@@ -34,13 +37,15 @@ const Register: React.FunctionComponent<Props> = () => {
     }
   }
 
-  const history = useHistory();
-
   useEffect(() => {
     if (userAuthenticated(users, auth.signedInUser)) {
       history.push('/dashboard');
     }
   }, [users, auth.signedInUser, history]);
+
+  useEffect(() => {
+    setStage(registration.stage);
+  }, [registration.stage]);
 
   return (
     <div className="sxctf-register" ref={ref}>

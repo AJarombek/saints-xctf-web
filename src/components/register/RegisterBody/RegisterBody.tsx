@@ -21,6 +21,8 @@ const RegisterBody: React.FunctionComponent<Props> = ({ stage, registration }) =
         return <RegisterPersonalInfo registration={registration} />;
       case 1:
         return <RegisterCredentials registration={registration} />;
+      case 2:
+        return <></>;
       default:
         return <RegisterPersonalInfo registration={registration} />;
     }

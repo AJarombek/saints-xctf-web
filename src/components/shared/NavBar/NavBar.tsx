@@ -63,7 +63,7 @@ const NavBar: React.FunctionComponent<Props> = ({
 
   const mobileHamburgerRef: React.RefObject<HTMLInputElement> = createRef();
 
-  const signedIn = useSignInCheck();
+  const signedIn = useSignInCheck(false);
 
   useEffect(() => {
     const scrollEventListener = (): void => handleScroll(bodyRef, setStickyHeader);

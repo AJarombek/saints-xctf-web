@@ -4,7 +4,7 @@
  * @since 5/9/2020
  */
 
-import {Users} from '../redux/types';
+import { Users } from '../redux/types';
 
 /**
  * Determine if is a user is signed in and properly authenticated.
@@ -22,7 +22,7 @@ export function userAuthenticated(user: Users, signedInUser: string): boolean {
         [storedUser.username]: {
           ...storedUser
         }
-      }
+      };
     }
   }
 
