@@ -4,39 +4,39 @@
  * @since 10/19/2020
  */
 
-import {FontMixins} from "../../../styles/mixins";
+import { FontMixins } from '../../../styles/mixins';
 
 export default {
-    calendar: {},
-    monthNavigation: {
-        display: 'flex',
-        alignItems: 'center',
+  calendar: {},
+  monthNavigation: {
+    display: 'flex',
+    alignItems: 'center',
 
-        '& > p': {
-            ...FontMixins.elegantIcons(),
-            fontSize: '42px',
-            textAlign: 'center',
-            width: '5%',
-            cursor: 'pointer',
-            margin: '20px 0'
-        },
-
-        '& > h2': {
-            ...FontMixins.robotoSlab(),
-            textAlign: 'center',
-            width: '90%',
-        }
+    '& > p': {
+      ...FontMixins.elegantIcons(),
+      fontSize: '42px',
+      textAlign: 'center',
+      width: '5%',
+      cursor: 'pointer',
+      margin: '20px 0'
     },
-    weekdays: {
-        display: 'flex',
 
-        '& > p': {
-            width: `${(1 / 8) * 100}%`,
-            ...FontMixins.robotoBold(),
-            textAlign: 'center',
-            fontSize: 12,
-            margin: 0,
-            paddingBottom: 4
-        }
-    },
+    '& > h2': {
+      ...FontMixins.robotoSlab(),
+      textAlign: 'center',
+      width: '90%'
+    }
+  },
+  weekdays: {
+    display: 'flex',
+
+    '& > p': {
+      width: `${(1 / 8) * 100}%`,
+      ...FontMixins.robotoBold(),
+      textAlign: 'center',
+      fontSize: 12,
+      margin: 0,
+      paddingBottom: 4
+    }
+  }
 };

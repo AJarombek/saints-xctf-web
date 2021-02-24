@@ -8,6 +8,7 @@ import React from 'react';
 import RegisterPersonalInfo from '../RegisterPersonalInfo/RegisterPersonalInfo';
 import RegisterCredentials from '../RegisterCredentials/RegisterCredentials';
 import { RegistrationState } from '../../../redux/types';
+import RegisterComplete from '../RegisterComplete';
 
 interface Props {
   stage: number;
@@ -22,7 +23,7 @@ const RegisterBody: React.FunctionComponent<Props> = ({ stage, registration }) =
       case 1:
         return <RegisterCredentials registration={registration} />;
       case 2:
-        return <></>;
+        return <RegisterComplete registration={registration} />;
       default:
         return <RegisterPersonalInfo registration={registration} />;
     }
