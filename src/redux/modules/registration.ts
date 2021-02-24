@@ -6,6 +6,7 @@
  */
 
 import { api } from '../../datasources/apiRequest';
+import { fn } from '../../datasources/fnRequest';
 import moment from 'moment';
 import { RegistrationState } from '../types';
 import { Dispatch } from 'redux';
@@ -19,6 +20,9 @@ const REGISTER_CREDENTIALS_REQUEST = 'saints-xctf-web/registration/REGISTER_CRED
 const REGISTER_CREDENTIALS_FAILURE = 'saints-xctf-web/registration/REGISTER_CREDENTIALS_FAILURE';
 const REGISTER_CREDENTIALS_SUCCESS = 'saints-xctf-web/registration/REGISTER_CREDENTIALS_SUCCESS';
 const REGISTER_BACK = 'saints-xctf-web/registration/REGISTER_BACK';
+const WELCOME_EMAIL_REQUEST = 'saints-xctf-web/registration/WELCOME_EMAIL_REQUEST';
+const WELCOME_EMAIL_SUCCESS = 'saints-xctf-web/registration/WELCOME_EMAIL_SUCCESS';
+const WELCOME_EMAIL_FAILURE = 'saints-xctf-web/registration/WELCOME_EMAIL_FAILURE';
 
 // Action Types
 
@@ -58,6 +62,19 @@ interface RegisterBackAction {
   type: typeof REGISTER_BACK;
 }
 
+interface WelcomeEmailRequestAction {
+  type: typeof WELCOME_EMAIL_REQUEST;
+}
+
+interface WelcomeEmailSuccessAction {
+  type: typeof WELCOME_EMAIL_SUCCESS;
+}
+
+interface WelcomeEmailFailureAction {
+  type: typeof WELCOME_EMAIL_FAILURE;
+  serverError: string;
+}
+
 type RegistrationActionTypes =
   | RegisterPersonalInfoRequestAction
   | RegisterPersonalInfoSuccessAction
@@ -65,7 +82,10 @@ type RegistrationActionTypes =
   | RegisterCredentialsRequestAction
   | RegisterCredentialsSuccessAction
   | RegisterCredentialsFailureAction
-  | RegisterBackAction;
+  | RegisterBackAction
+  | WelcomeEmailRequestAction
+  | WelcomeEmailSuccessAction
+  | WelcomeEmailFailureAction;
 
 // Reducer
 const initialState: RegistrationState = {};
@@ -161,6 +181,39 @@ function registerBackReducer(state: RegistrationState): RegistrationState {
   };
 }
 
+function welcomeEmailRequestReducer(state: RegistrationState): RegistrationState {
+  return {
+    ...state,
+    welcomeEmail: {
+      isFetching: true,
+      lastUpdated: moment().unix()
+    }
+  };
+}
+
+function welcomeEmailSuccessReducer(state: RegistrationState): RegistrationState {
+  return {
+    ...state,
+    welcomeEmail: {
+      isFetching: false,
+      lastUpdated: moment().unix(),
+      emailed: true
+    }
+  };
+}
+
+function welcomeEmailFailureReducer(state: RegistrationState, action: WelcomeEmailFailureAction): RegistrationState {
+  return {
+    ...state,
+    welcomeEmail: {
+      isFetching: false,
+      lastUpdated: moment().unix(),
+      emailed: false,
+      serverError: action.serverError
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: RegistrationActionTypes): RegistrationState {
   switch (action.type) {
     case REGISTER_PERSONAL_INFO_REQUEST:
@@ -177,6 +230,12 @@ export default function reducer(state = initialState, action: RegistrationAction
       return registerCredentialsFailureReducer(state, action);
     case REGISTER_BACK:
       return registerBackReducer(state);
+    case WELCOME_EMAIL_REQUEST:
+      return welcomeEmailRequestReducer(state);
+    case WELCOME_EMAIL_SUCCESS:
+      return welcomeEmailSuccessReducer(state);
+    case WELCOME_EMAIL_FAILURE:
+      return welcomeEmailFailureReducer(state, action);
     default:
       return state;
   }
@@ -234,6 +293,25 @@ export function registerCredentialsFailure(status: string, serverError: string):
 export function registerBack(): RegisterBackAction {
   return {
     type: REGISTER_BACK
+  };
+}
+
+export function welcomeEmailRequest(): WelcomeEmailRequestAction {
+  return {
+    type: WELCOME_EMAIL_REQUEST
+  };
+}
+
+export function welcomeEmailSuccess(): WelcomeEmailSuccessAction {
+  return {
+    type: WELCOME_EMAIL_SUCCESS
+  };
+}
+
+export function welcomeEmailFailure(serverError: string): WelcomeEmailFailureAction {
+  return {
+    type: WELCOME_EMAIL_FAILURE,
+    serverError
   };
 }
 
@@ -347,3 +425,25 @@ export function registerCredentials(
     }
   };
 }
+
+export const sendWelcomeEmail = (
+  email: string,
+  first: string,
+  last: string,
+  username: string
+): AppThunk<Promise<boolean>, RegistrationState> => async (dispatch: Dispatch): Promise<boolean> => {
+  dispatch(welcomeEmailRequest());
+
+  try {
+    const response = await fn.post('email/welcome', { to: email, firstName: first, lastName: last, username });
+    const result: boolean = response.data.result;
+
+    dispatch(welcomeEmailSuccess());
+    return result;
+  } catch (error) {
+    const serverError = 'An unexpected error occurred.';
+
+    dispatch(welcomeEmailFailure(serverError));
+    return false;
+  }
+};

@@ -72,7 +72,7 @@ export type RegistrationState = {
   username?: string;
   password?: string;
   activation_code?: string;
-  teams?: TeamRegistration;
+  welcomeEmail?: WelcomeEmail;
 };
 
 export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
@@ -135,6 +135,10 @@ export interface ValidateForgotPasswordCode extends Meta {
 export interface ChangePassword extends Meta {
   username?: string;
   changed?: boolean;
+}
+
+export interface WelcomeEmail extends Meta {
+  emailed?: boolean;
 }
 
 export type Users = {
@@ -525,19 +529,6 @@ export type RangeViewItemMoment = {
   date: moment.Moment;
   feel: number;
   miles: number;
-};
-
-export type TeamRegistration = {
-  [key: string]: {
-    status: string;
-    groups: GroupRegistration;
-  };
-};
-
-export type GroupRegistration = {
-  [key: string]: {
-    status: string;
-  };
 };
 
 export type ExerciseFilters = {

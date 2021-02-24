@@ -10,6 +10,7 @@ import styles from './styles';
 import { useDispatch } from 'react-redux';
 import { RegistrationState } from '../../../redux/types';
 import { useHistory } from 'react-router-dom';
+import { sendWelcomeEmail } from '../../../redux/modules/registration';
 
 interface Props {
   registration: RegistrationState;
@@ -25,8 +26,17 @@ const RegisterComplete: React.FunctionComponent<Props> = ({ registration }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(null);
-  }, [dispatch]);
+    if (!registration.welcomeEmail?.emailed) {
+      dispatch(sendWelcomeEmail(registration.email, registration.first, registration.last, registration.username));
+    }
+  }, [
+    dispatch,
+    registration.email,
+    registration.first,
+    registration.last,
+    registration.username,
+    registration.welcomeEmail?.emailed
+  ]);
 
   return (
     <div className={classes.registerComplete}>
