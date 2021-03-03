@@ -18,7 +18,7 @@ exports[`renders correctly 1`] = `
         <img
           alt=""
           loading="lazy"
-          src="https://asset.saintsxctf.com/thomas-c.jpg"
+          src="/asset/thomas-c.jpg"
         />
       </figure>
     </div>
@@ -42,7 +42,7 @@ exports[`renders correctly 1`] = `
         <img
           alt=""
           loading="lazy"
-          src="https://asset.saintsxctf.com/lisa-g.jpg"
+          src="/asset/lisa-g.jpg"
         />
       </figure>
     </div>
@@ -66,7 +66,7 @@ exports[`renders correctly 1`] = `
         <img
           alt=""
           loading="lazy"
-          src="https://asset.saintsxctf.com/evan-g.jpg"
+          src="/asset/evan-g.jpg"
         />
       </figure>
     </div>
@@ -82,54 +82,6 @@ exports[`renders correctly 1`] = `
   >
     <p>
       "
-      I refuse to use this website as it was created in or around NYC.
-      "
-    </p>
-    <div>
-      <figure>
-        <img
-          alt=""
-          loading="lazy"
-          src="https://asset.saintsxctf.com/joe-s.jpg"
-        />
-      </figure>
-    </div>
-    <p>
-      Joe Smith
-    </p>
-    <p>
-      10th Place at 2015 Cross Country Nationals and #1 Red Sox Fan
-    </p>
-  </div>
-  <div
-    className="sxctf-testimonial"
-  >
-    <p>
-      "
-      I don't surf the web too often but I sure do love planting carrots.
-      "
-    </p>
-    <div>
-      <figure>
-        <img
-          alt=""
-          loading="lazy"
-          src="https://asset.saintsxctf.com/ben-f.jpg"
-        />
-      </figure>
-    </div>
-    <p>
-      Ben Fishbein
-    </p>
-    <p>
-      Farmer
-    </p>
-  </div>
-  <div
-    className="sxctf-testimonial"
-  >
-    <p>
-      "
       Yeeeeeeeeehawwwwwwww
       "
     </p>
@@ -138,7 +90,7 @@ exports[`renders correctly 1`] = `
         <img
           alt=""
           loading="lazy"
-          src="https://asset.saintsxctf.com/trevor-b.jpg"
+          src="/asset/trevor-b.jpg"
         />
       </figure>
     </div>

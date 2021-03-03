@@ -7,7 +7,6 @@
 module.exports = {
   displayName: 'client',
   testEnvironment: 'jsdom',
-  testMatch: ['**/test/**/*.test.js', '**/test/**/*.test.ts'],
   globals: {
     'ts-jest': {
       babelConfig: true,

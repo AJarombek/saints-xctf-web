@@ -26,7 +26,7 @@ interface Props {
   filterBy?: string;
   bucket?: string;
   index?: number;
-  linkProfile?: number;
+  linkProfile?: boolean;
 }
 
 const useStyles = createUseStyles(styles);

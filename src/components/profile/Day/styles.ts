@@ -8,6 +8,9 @@ import { FontMixins } from '../../../styles/mixins';
 import Colors, { FeelColors } from '../../../styles/colors';
 import color from 'color';
 
+// A long trek, but in case you are interested.  I run at 8am.
+// https://www.nyrr.org/Races/NYRRWashingtonHeightsMile
+
 export default {
   day: {
     position: 'relative',

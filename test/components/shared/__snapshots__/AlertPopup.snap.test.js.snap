@@ -17,12 +17,6 @@ exports[`renders correctly 1`] = `
     >
       An error occurred.
     </div>
-    <p
-      className="closeIcon-0-1-5"
-      onClick={[Function]}
-    >
-      M
-    </p>
   </div>
 </div>
 `;

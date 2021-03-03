@@ -23,7 +23,7 @@ jest.mock('react-router-dom', () => {
   return {
     ...jest.requireActual('react-router-dom'),
     useHistory: () => historyObj
-  }
+  };
 });
 
 jest.mock('moment', () => {
@@ -44,13 +44,15 @@ describe('Home Snapshot Tests', () => {
   });
 
   it('renders correctly', () => {
-    const tree = renderer.create(
-      <MemoryRouter>
-        <Provider store={store}>
-          <Home />
-        </Provider>
-      </MemoryRouter>
-    ).toJSON();
+    const tree = renderer
+      .create(
+        <MemoryRouter>
+          <Provider store={store}>
+            <Home />
+          </Provider>
+        </MemoryRouter>
+      )
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 });

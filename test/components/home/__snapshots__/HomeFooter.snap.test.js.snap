@@ -18,6 +18,7 @@ exports[`renders correctly 1`] = `
       className="sxctf-logo"
     >
       <img
+        alt=""
         src="test-file-stub"
       />
     </figure>
