@@ -1,5 +1,5 @@
 /**
- * Snapshot test for the {@link ../../src/client/home/Home} component.
+ * Snapshot test for the {@link ../../src/container/Home/Home} component.
  * @author Andrew Jarombek
  * @since 2/16/2020
  */
@@ -11,6 +11,8 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import { emptyStore } from '../../test-utils/storeMocks';
+import { Store } from 'redux';
 
 const mockStore = configureStore([thunk]);
 
@@ -35,12 +37,10 @@ jest.mock('moment', () => {
 });
 
 describe('Home Snapshot Tests', () => {
-  let store;
+  let store: Store;
 
   beforeEach(() => {
-    store = mockStore({
-      auth: {}
-    });
+    store = mockStore(emptyStore);
   });
 
   it('renders correctly', () => {

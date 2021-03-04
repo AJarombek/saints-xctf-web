@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import { Store } from 'redux';
 
 const mockStore = configureStore([thunk]);
 
@@ -27,7 +28,7 @@ jest.mock('react-router-dom', () => {
 });
 
 it('renders correctly', () => {
-  let store = null;
+  let store: Store = null;
 
   beforeEach(() => {
     store = mockStore({});
@@ -37,7 +38,9 @@ it('renders correctly', () => {
     .create(
       <MemoryRouter>
         <Provider store={store}>
-          <NavBar />
+          <div>
+            <NavBar includeHeaders={['home', 'register', 'logo']} bodyRef={null} />
+          </div>
         </Provider>
       </MemoryRouter>
     )

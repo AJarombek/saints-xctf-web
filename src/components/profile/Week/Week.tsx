@@ -12,7 +12,7 @@ import Day from '../Day';
 import WeekTotal from '../WeekTotal';
 import { RangeViewItem } from '../../../redux/types';
 
-interface IProps {
+interface Props {
   start: moment.Moment;
   monthStart: moment.Moment;
   monthEnd: moment.Moment;
@@ -21,7 +21,7 @@ interface IProps {
 
 const useStyles = createUseStyles(styles);
 
-const Week: React.FunctionComponent<IProps> = ({ start, monthStart, monthEnd, rangeViewItems }) => {
+const Week: React.FunctionComponent<Props> = ({ start, monthStart, monthEnd, rangeViewItems }) => {
   const classes = useStyles();
 
   const items = [...rangeViewItems];

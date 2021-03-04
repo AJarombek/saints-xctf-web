@@ -193,13 +193,14 @@ export interface UploadingPicture {
   totalSize?: number;
 }
 
-enum LogType {
+export enum LogType {
   RUN = 'run',
   BIKE = 'bike',
   SWIM = 'swim',
   OTHER = 'other'
 }
-enum Metric {
+
+export enum Metric {
   MILES = 'miles',
   KILOMETERS = 'kilometers',
   METERS = 'meters'
