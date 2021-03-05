@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashboardSidePanel Snapshot Tests renders correctly 1`] = `
+<div
+  className="dashboardSidePanel-0-1-1"
+  id="dashboardSidePanel"
+>
+  <div
+    className="accordion-0-1-14 accordion"
+    onClick={[Function]}
+  >
+    <div
+      className="header-0-1-15"
+      onClick={[Function]}
+    >
+      <p
+        className="icon-0-1-16"
+      >
+        <p>
+          
+        </p>
+      </p>
+      <div
+        className="title-0-1-17"
+      >
+        Profile
+      </div>
+      <p
+        className="arrow-0-1-18 expandIcon"
+      >
+        E
+      </p>
+    </div>
+  </div>
+  <div
+    className="accordion-0-1-14 accordion"
+    onClick={[Function]}
+  >
+    <div
+      className="header-0-1-15"
+      onClick={[Function]}
+    >
+      <p
+        className="icon-0-1-16"
+      >
+        <p>
+          P
+        </p>
+      </p>
+      <div
+        className="title-0-1-17"
+      >
+        Create New Log
+      </div>
+      <p
+        className="arrow-0-1-18 expandIcon"
+      >
+        E
+      </p>
+    </div>
+  </div>
+  <div
+    className="accordion-0-1-14 accordion"
+    id="groupsAccordion"
+  >
+    <div
+      className="header-0-1-15"
+      onClick={[Function]}
+    >
+      <p
+        className="icon-0-1-16"
+      >
+        <p>
+          
+        </p>
+      </p>
+      <div
+        className="title-0-1-17"
+      >
+        Teams & Groups
+      </div>
+      <p
+        className="arrow-0-1-18 expandIcon"
+      >
+        B
+      </p>
+    </div>
+    <div
+      className="body-0-1-19"
+    >
+      <div
+        className="noMemberships-0-1-6"
+      >
+        <p>
+          You have no team or group memberships.
+        </p>
+        <div
+          className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonEnabled-2-2-2"
+          onClick={[Function]}
+        >
+          <button
+            disabled={false}
+            type="button"
+          >
+            Join Teams & Groups
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="accordion-0-1-14 accordion"
+  >
+    <div
+      className="header-0-1-15"
+      onClick={[Function]}
+    >
+      <p
+        className="icon-0-1-16"
+      >
+        <div
+          className="notificationCount-0-1-7 noNotifications-0-1-9"
+        >
+          <div
+            className="aj-notification-circle container-2-2-7"
+          >
+            <p
+              className="count-2-2-8"
+            >
+              0
+            </p>
+          </div>
+        </div>
+      </p>
+      <div
+        className="title-0-1-17"
+      >
+        Notifications
+      </div>
+      <p
+        className="arrow-0-1-18 expandIcon"
+      >
+        C
+      </p>
+    </div>
+  </div>
+</div>
+`;

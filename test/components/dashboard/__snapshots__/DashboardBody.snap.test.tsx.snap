@@ -1,0 +1,192 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DashboardBody Snapshot Tests renders correctly 1`] = `
+<div
+  className="dashboardBody-0-1-1"
+>
+  <div
+    className="sidePanel-0-1-2"
+  >
+    <div
+      className="dashboardSidePanel-0-1-4"
+      id="dashboardSidePanel"
+    >
+      <div
+        className="accordion-0-1-17 accordion"
+        onClick={[Function]}
+      >
+        <div
+          className="header-0-1-18"
+          onClick={[Function]}
+        >
+          <p
+            className="icon-0-1-19"
+          >
+            <p>
+              
+            </p>
+          </p>
+          <div
+            className="title-0-1-20"
+          >
+            Profile
+          </div>
+          <p
+            className="arrow-0-1-21 expandIcon"
+          >
+            E
+          </p>
+        </div>
+      </div>
+      <div
+        className="accordion-0-1-17 accordion"
+        onClick={[Function]}
+      >
+        <div
+          className="header-0-1-18"
+          onClick={[Function]}
+        >
+          <p
+            className="icon-0-1-19"
+          >
+            <p>
+              P
+            </p>
+          </p>
+          <div
+            className="title-0-1-20"
+          >
+            Create New Log
+          </div>
+          <p
+            className="arrow-0-1-21 expandIcon"
+          >
+            E
+          </p>
+        </div>
+      </div>
+      <div
+        className="accordion-0-1-17 accordion"
+        id="groupsAccordion"
+      >
+        <div
+          className="header-0-1-18"
+          onClick={[Function]}
+        >
+          <p
+            className="icon-0-1-19"
+          >
+            <p>
+              
+            </p>
+          </p>
+          <div
+            className="title-0-1-20"
+          >
+            Teams & Groups
+          </div>
+          <p
+            className="arrow-0-1-21 expandIcon"
+          >
+            B
+          </p>
+        </div>
+        <div
+          className="body-0-1-22"
+        >
+          <div
+            className="noMemberships-0-1-9"
+          >
+            <p>
+              You have no team or group memberships.
+            </p>
+            <div
+              className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonEnabled-2-2-2"
+              onClick={[Function]}
+            >
+              <button
+                disabled={false}
+                type="button"
+              >
+                Join Teams & Groups
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="accordion-0-1-17 accordion"
+      >
+        <div
+          className="header-0-1-18"
+          onClick={[Function]}
+        >
+          <p
+            className="icon-0-1-19"
+          >
+            <div
+              className="notificationCount-0-1-10 noNotifications-0-1-12"
+            >
+              <div
+                className="aj-notification-circle container-2-2-7"
+              >
+                <p
+                  className="count-2-2-8"
+                >
+                  0
+                </p>
+              </div>
+            </div>
+          </p>
+          <div
+            className="title-0-1-20"
+          >
+            Notifications
+          </div>
+          <p
+            className="arrow-0-1-21 expandIcon"
+          >
+            C
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="mainPanel-0-1-3"
+  >
+    <div
+      className="logFeed-0-1-23"
+      id="logFeed"
+    >
+      <div
+        className="loading-0-1-24"
+      >
+        <div
+          className="aj-loading-dots container-2-2-9"
+        >
+          <div
+            className="aj-loading-circle circle-2-2-10 first-2-2-11"
+          />
+          <div
+            className="aj-loading-circle circle-2-2-10 second-2-2-12"
+          />
+          <div
+            className="aj-loading-circle circle-2-2-10 third-2-2-13"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="paginationBar-0-1-25"
+      id="paginationBar"
+    >
+      <div
+        className="page-0-1-26 currentPage-0-1-28"
+      >
+        1
+      </div>
+    </div>
+  </div>
+</div>
+`;

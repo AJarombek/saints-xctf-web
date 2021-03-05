@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupDetails Snapshot Tests renders correctly 1`] = `
+<div
+  className="groupDetails-0-1-1"
+>
+  <div
+    className="description-0-1-2"
+  >
+    <p>
+      SaintsXCTF Alumni
+    </p>
+  </div>
+  <div
+    className="statisticSections-0-1-3"
+  >
+    <div
+      className="stats-0-1-4"
+    >
+      <h3>
+        Exercise Statistics
+      </h3>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          All Time
+        </p>
+        <p>
+          50.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          2021
+        </p>
+        <p>
+          40.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          March 2021
+        </p>
+        <p>
+          30.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          This Week
+        </p>
+        <p>
+          20.00 mi.
+        </p>
+      </div>
+    </div>
+    <div
+      className="stats-0-1-4"
+    >
+      <h3>
+        Running Statistics
+      </h3>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          All Time
+        </p>
+        <p>
+          40.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          2021
+        </p>
+        <p>
+          30.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          March 2021
+        </p>
+        <p>
+          20.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          This Week
+        </p>
+        <p>
+          10.00 mi.
+        </p>
+      </div>
+    </div>
+    <div
+      className="stats-0-1-4"
+    >
+      <h3>
+        Feel Statistics
+      </h3>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          All Time
+        </p>
+        <p>
+          6.50
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          2021
+        </p>
+        <p>
+          6.60
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          March 2021
+        </p>
+        <p>
+          7.10
+        </p>
+      </div>
+      <div
+        className="section-0-1-5"
+      >
+        <p>
+          This Week
+        </p>
+        <p>
+          7.20
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

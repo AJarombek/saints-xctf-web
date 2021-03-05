@@ -110,6 +110,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "scripts": {
+    "test": "jest",
     "test:unit": "jest \"/test/.+/[A-Za-z]+\\.test\\.(ts|js)\"",
     "test:snapshot": "jest \"/test/.+/[A-Za-z]+\\.snap\\.test\\.(ts|js)\"",
     "test:image-snapshot": "jest \"/test/.+/[A-Za-z]+\\.image\\.snap\\.test\\.(ts|js)\"",

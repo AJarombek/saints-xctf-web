@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupMembers Snapshot Tests renders correctly 1`] = `
+<div
+  className="container-0-1-1"
+>
+  <div
+    className="member-0-1-2"
+    onClick={[Function]}
+  >
+    <p>
+      Andy
+       
+      Jarombek
+    </p>
+    <p>
+      Member Since: 
+      Dec 23rd, 2016
+    </p>
+  </div>
+</div>
+`;

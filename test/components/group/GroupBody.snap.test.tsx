@@ -1,7 +1,7 @@
 /**
- * Snapshot test for the AdminBody component.
+ * Snapshot test for the GroupBody component.
  * @author Andrew Jarombek
- * @since 3/3/2021
+ * @since 3/4/2021
  */
 
 import React from 'react';
@@ -10,14 +10,15 @@ import { Store } from 'redux';
 import { emptyStore } from '../../test-utils/storeMocks';
 import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import AdminBody from '../../../src/components/admin/AdminBody';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { andy } from '../../test-utils/userMocks';
+import GroupBody from '../../../src/components/group/GroupBody';
+import { alumni } from '../../test-utils/groupMocks';
 
 const mockStore = configureStore([thunk]);
 
-describe('AdminBody Snapshot Tests', () => {
+describe('GroupBody Snapshot Tests', () => {
   let store: Store;
 
   beforeEach(() => {
@@ -29,7 +30,7 @@ describe('AdminBody Snapshot Tests', () => {
       .create(
         <MemoryRouter>
           <Provider store={store}>
-            <AdminBody user={andy} />
+            <GroupBody user={andy} group={alumni} />
           </Provider>
         </MemoryRouter>
       )

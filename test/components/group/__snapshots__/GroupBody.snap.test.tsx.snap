@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupBody Snapshot Tests renders correctly 1`] = `
+<div
+  className="groupBody-0-1-1"
+>
+  <aside>
+    <div
+      className="container-0-1-5"
+    >
+      <figure
+        className="picture-0-1-6"
+      >
+        <img
+          alt=""
+          src="/uasset/group/alumni/picture.png"
+        />
+      </figure>
+      <h5
+        className="title-0-1-7"
+      >
+        Alumni
+      </h5>
+      <div
+        className="subTitle-0-1-8"
+      >
+        Members: 0
+      </div>
+    </div>
+    <div
+      className="membershipTagContainer-0-1-2"
+    >
+      <div
+        className="ajTag-2-2-1 ajTag-d0-2-2-2 aj-tag membershipTag-0-1-3 membershipTag-d0-0-1-4"
+      >
+        Non-Member
+      </div>
+    </div>
+    <div
+      className="tabs-0-1-9 tabs"
+    >
+      <p
+        className="tab-0-1-10 currentTab-0-1-11"
+        onClick={[Function]}
+      >
+        Exercise Logs
+      </p>
+      <p
+        className="tab-0-1-10"
+        onClick={[Function]}
+      >
+        Members
+      </p>
+      <p
+        className="tab-0-1-10"
+        onClick={[Function]}
+      >
+        Leaderboard
+      </p>
+      <p
+        className="tab-0-1-10"
+        onClick={[Function]}
+      >
+        Details
+      </p>
+    </div>
+  </aside>
+  <section>
+    <div
+      className="logFeed-0-1-12"
+      id="logFeed"
+    >
+      <div
+        className="loading-0-1-13"
+      >
+        <div
+          className="aj-loading-dots container-2-2-3"
+        >
+          <div
+            className="aj-loading-circle circle-2-2-4 first-2-2-5"
+          />
+          <div
+            className="aj-loading-circle circle-2-2-4 second-2-2-6"
+          />
+          <div
+            className="aj-loading-circle circle-2-2-4 third-2-2-7"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="paginationBar-0-1-14"
+      id="paginationBar"
+    >
+      <div
+        className="page-0-1-15 currentPage-0-1-17"
+      >
+        1
+      </div>
+    </div>
+  </section>
+</div>
+`;
