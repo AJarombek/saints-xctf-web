@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`Comments Snapshot Tests renders correctly 1`] = `
 <div
   className="comments-0-1-1 comments"
 >

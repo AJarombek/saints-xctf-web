@@ -23,10 +23,10 @@ interface Props {
   logId: number;
   user: User;
   inFeed: boolean;
-  page: number;
-  filterBy: string;
-  bucket: string;
-  index: number;
+  page?: number;
+  filterBy?: string;
+  bucket?: string;
+  index?: number;
 }
 
 const useStyles = createUseStyles(styles);

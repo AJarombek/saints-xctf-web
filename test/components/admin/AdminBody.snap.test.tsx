@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import AdminBody from '../../../src/components/admin/AdminBody';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import { andy } from '../../test-utils/userMocks';
 
 const mockStore = configureStore([thunk]);
 
@@ -28,7 +29,7 @@ describe('Home Snapshot Tests', () => {
       .create(
         <MemoryRouter>
           <Provider store={store}>
-            <AdminBody user={} />
+            <AdminBody user={andy} />
           </Provider>
         </MemoryRouter>
       )

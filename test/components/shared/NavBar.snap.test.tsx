@@ -12,6 +12,7 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { Store } from 'redux';
+import { emptyStore } from '../../test-utils/storeMocks';
 
 const mockStore = configureStore([thunk]);
 
@@ -27,23 +28,25 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-it('renders correctly', () => {
+describe('NavBar Snapshot Tests', () => {
   let store: Store = null;
 
   beforeEach(() => {
-    store = mockStore({});
+    store = mockStore(emptyStore);
   });
 
-  const tree = renderer
-    .create(
-      <MemoryRouter>
-        <Provider store={store}>
-          <div>
-            <NavBar includeHeaders={['home', 'register', 'logo']} bodyRef={null} />
-          </div>
-        </Provider>
-      </MemoryRouter>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  it('renders correctly', () => {
+    const tree = renderer
+      .create(
+        <MemoryRouter>
+          <Provider store={store}>
+            <div>
+              <NavBar includeHeaders={['home', 'register', 'logo']} bodyRef={null} />
+            </div>
+          </Provider>
+        </MemoryRouter>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 });

@@ -158,7 +158,7 @@ export interface UserMeta extends User, Meta {}
 export interface User {
   activation_code?: string;
   class_year?: number;
-  deleted?: string;
+  deleted?: boolean;
   description?: string;
   email?: string;
   profilepic_name?: string;
