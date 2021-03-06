@@ -1,0 +1,569 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogBody Snapshot Tests renders correctly 1`] = `
+<div
+  className="newLogBody-0-1-1"
+>
+  <h3
+    className="title-0-1-2"
+  >
+    Create a new exercise log.
+  </h3>
+  <div
+    className="logForm-0-1-3 logForm-d0-0-1-20"
+  >
+    <p
+      className="feel-0-1-4"
+    >
+      Average
+    </p>
+    <div
+      className="nameBody-0-1-6"
+    >
+      <p
+        className="inputTitle-0-1-5"
+      >
+        Exercise Name*
+      </p>
+      <div
+        className="sxctf-image-input"
+      >
+        <div
+          className="no-icon"
+        >
+           
+        </div>
+        <input
+          autoComplete=""
+          name="name"
+          onChange={[Function]}
+          placeholder=""
+          type="text"
+          value=""
+        />
+        <div>
+          <div
+            className="status none"
+          >
+            <p />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="twoInputs-0-1-7"
+    >
+      <div
+        className="locationInput-0-1-8"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Location
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="location"
+            onChange={[Function]}
+            placeholder=""
+            type="text"
+            value=""
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="dateInput-0-1-9"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Date*
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="date"
+            onChange={[Function]}
+            placeholder=""
+            type="date"
+            value=""
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p
+        className="inputTitle-0-1-5"
+      >
+        Exercise Type
+      </p>
+      <div
+        className="aj-select ajSelect-2-2-1 aj-select-closed select-0-1-12"
+      >
+        <div
+          className="ajSelectLabel-2-2-3"
+          onClick={[Function]}
+        >
+          <div />
+          <div
+            className="ajSelectArrow-2-2-2"
+          >
+            C
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="twoInputs-0-1-7"
+    >
+      <div
+        className="distanceInput-0-1-10"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Distance
+        </p>
+        <div>
+          <div
+            className="sxctf-image-input"
+          >
+            <div
+              className="no-icon"
+            >
+               
+            </div>
+            <input
+              autoComplete=""
+              min={0}
+              name="distance"
+              onChange={[Function]}
+              placeholder=""
+              type="number"
+              value=""
+            />
+            <div>
+              <div
+                className="status none"
+              >
+                <p />
+              </div>
+            </div>
+          </div>
+          <div
+            className="aj-select ajSelect-2-2-1 aj-select-closed select-0-1-12"
+          >
+            <div
+              className="ajSelectLabel-2-2-3"
+              onClick={[Function]}
+            >
+              <div />
+              <div
+                className="ajSelectArrow-2-2-2"
+              >
+                C
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="timeInput-0-1-11"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Time
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="time"
+            onChange={[Function]}
+            placeholder=""
+            type="text"
+            value=""
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p
+        className="inputTitle-0-1-5"
+      >
+        Feel
+      </p>
+      <div
+        className="stepSlider-0-1-21 stepSlider"
+        onMouseDown={[Function]}
+        onTouchStart={[Function]}
+      >
+        <div
+          className="mainEdge-0-1-24 mainEdge-d1-0-1-32"
+        >
+          <div
+            className="filledEdge-0-1-28 filledEdge-d2-0-1-33"
+            style={
+              Object {
+                "backgroundColor": "#AAAAAA",
+              }
+            }
+          />
+          <div
+            className="currentVertex-0-1-29 currentVertex-d3-0-1-34"
+          >
+            <div
+              className="currentInnerVertex-0-1-30"
+              style={
+                Object {
+                  "backgroundColor": "#E3E3E3",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="firstStep-0-1-23"
+        >
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#AAAAAA",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#AAAAAA",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#AAAAAA",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#AAAAAA",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#AAAAAA",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#BBB",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "#E3E3E3",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#BBB",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "#C7F599",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#BBB",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "#99D699",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#BBB",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "#99C199",
+                }
+              }
+            />
+          </div>
+        </div>
+        <div
+          className="step-0-1-22 step-d0-0-1-31"
+        >
+          <div
+            className="edge-0-1-25"
+          >
+             
+          </div>
+          <div
+            className="vertex-0-1-26"
+            style={
+              Object {
+                "backgroundColor": "#BBB",
+              }
+            }
+          >
+            <div
+              className="innerVertex-0-1-27"
+              style={
+                Object {
+                  "backgroundColor": "#A3A3FF",
+                }
+              }
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p
+        className="inputTitle-0-1-5"
+      >
+        Description
+      </p>
+      <textarea
+        className="textArea-0-1-35 textArea-0-1-13"
+        disabled={false}
+        maxLength={1000}
+        onChange={[Function]}
+        onKeyUp={[Function]}
+        placeholder="..."
+        value=""
+      />
+    </div>
+    <div
+      className="actions-0-1-14"
+    >
+      <div
+        className="ajBaseButton-2-2-9 ajBaseButtonEnabled-2-2-10 aj-contained-button ajContainedButton-2-2-6 ajContainedButtonEnabled-2-2-7 submitButton-0-1-15 createButton-0-1-17"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Create
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-2-2-9 ajBaseButtonEnabled-2-2-10 aj-text-button ajTextButton-2-2-12 ajTextButtonEnabled-2-2-13 cancelButton-0-1-18"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

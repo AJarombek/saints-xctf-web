@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AcceptDenyModal Snapshot Tests renders correctly 1`] = `
+<div
+  className="ajModalBackdrop-2-2-2 ajModalColorBackdrop-2-2-3 aj-modal-backdrop"
+  onClick={[Function]}
+>
+  <div
+    className="ajModal-2-2-1"
+    onClick={[Function]}
+  >
+    <div
+      className="modal-0-1-1"
+    >
+      <p>
+        Are you sure you want to accept
+         
+        <b>
+          Andy
+           
+          Jarombek
+           
+        </b>
+        as a member in 
+        <b>
+          Alumni
+        </b>
+        ?
+      </p>
+      <div
+        className="modalButtons-0-1-2"
+      >
+        <div
+          className="ajBaseButton-2-2-7 ajBaseButtonEnabled-2-2-8 aj-contained-button ajContainedButton-2-2-4 ajContainedButtonEnabled-2-2-5"
+          onClick={[Function]}
+        >
+          <button
+            disabled={false}
+            type="button"
+          >
+            <p>
+              ACCEPT MEMBERSHIP
+            </p>
+          </button>
+        </div>
+        <div
+          className="ajBaseButton-2-2-7 ajBaseButtonEnabled-2-2-8 aj-outlined-button ajOutlinedButton-2-2-10 ajOutlinedButtonEnabled-2-2-11"
+          onClick={[Function]}
+        >
+          <button
+            disabled={false}
+            type="button"
+          >
+            <p>
+              CANCEL
+            </p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -508,7 +508,7 @@ export type RangeViewExerciseType =
   | 'rbso';
 
 export type RangeViewBuckets = Record<string, RangeViewExerciseTypeFilters>;
-export type RangeViewExerciseTypeFilters = Record<RangeViewExerciseType, RangeViews>;
+export type RangeViewExerciseTypeFilters = Partial<Record<RangeViewExerciseType, RangeViews>>;
 
 export type RangeViews = {
   [key: string]: RangeViewItemsMeta;

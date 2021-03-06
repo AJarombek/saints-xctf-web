@@ -5,24 +5,26 @@
  */
 
 import React from 'react';
-import {createUseStyles} from "react-jss";
-import styles from "./styles";
-import {FlairMeta} from "../../../redux/types";
+import { createUseStyles } from 'react-jss';
+import styles from './styles';
+import { FlairMeta } from '../../../redux/types';
 
-interface IProps {
-    flair?: FlairMeta;
+interface Props {
+  flair?: FlairMeta;
 }
 
 const useStyles = createUseStyles(styles);
 
-const Flair: React.FunctionComponent<IProps> = ({ flair = {} }) => {
-    const classes = useStyles();
+const Flair: React.FunctionComponent<Props> = ({ flair = {} }) => {
+  const classes = useStyles();
 
-    return (
-        <div className={classes.flair}>
-            {flair.items?.slice(0, 2).map((item) => (<p>{item.flair}</p>))}
-        </div>
-    );
+  return (
+    <div className={classes.flair}>
+      {flair.items?.slice(0, 2).map((item) => (
+        <p key={item.flair_id}>{item.flair}</p>
+      ))}
+    </div>
+  );
 };
 
 export default Flair;

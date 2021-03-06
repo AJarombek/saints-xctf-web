@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import ConfirmationModal from '../../../../src/components/group-admin/CurrentMember/ConfirmationModal';
+import { alumni } from '../../../test-utils/groupMocks';
 
 const mockStore = configureStore([thunk]);
 
@@ -19,7 +20,20 @@ describe('ConfirmationModal Snapshot Tests', () => {
   let store: Store;
 
   beforeEach(() => {
-    store = mockStore(emptyStore);
+    store = mockStore({
+      ...emptyStore,
+      groups: {
+        group: {
+          1: alumni
+        },
+        members: {},
+        stats: {},
+        leaderboards: {},
+        team: {},
+        uploadingGroupPicture: {},
+        updating: {}
+      }
+    });
   });
 
   it('renders correctly', () => {

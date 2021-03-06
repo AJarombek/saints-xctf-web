@@ -1,7 +1,7 @@
 /**
- * Snapshot test for the GroupDetails component.
+ * Snapshot test for the LogBody component.
  * @author Andrew Jarombek
- * @since 3/4/2021
+ * @since 3/6/2021
  */
 
 import React from 'react';
@@ -12,13 +12,12 @@ import { MemoryRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import { alumni } from '../../test-utils/groupMocks';
-import GroupDetails from '../../../src/components/group/GroupDetails';
-import { basicStats } from '../../test-utils/statsMocks';
+import LogBody from '../../../src/components/new-edit-log/LogBody';
+import { andy } from '../../test-utils/userMocks';
 
 const mockStore = configureStore([thunk]);
 
-describe('GroupDetails Snapshot Tests', () => {
+describe('LogBody Snapshot Tests', () => {
   let store: Store;
 
   beforeEach(() => {
@@ -30,7 +29,7 @@ describe('GroupDetails Snapshot Tests', () => {
       .create(
         <MemoryRouter>
           <Provider store={store}>
-            <GroupDetails group={alumni} stats={basicStats} />
+            <LogBody user={andy} />
           </Provider>
         </MemoryRouter>
       )
