@@ -1,5 +1,5 @@
 /**
- * Snapshot test for the Flair component.
+ * Snapshot test for the GroupMembershipModal component.
  * @author Andrew Jarombek
  * @since 3/6/2021
  */
@@ -8,7 +8,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import GroupMembershipModal from '../../../src/components/profile/GroupMembershipModal/GroupMembershipModal';
 
-describe('Flair Snapshot Tests', () => {
+describe('GroupMembershipModal Snapshot Tests', () => {
   it('renders correctly when joining group', () => {
     const tree = renderer
       .create(
