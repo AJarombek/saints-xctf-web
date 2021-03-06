@@ -4,7 +4,7 @@
  * @since 10/19/2020
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import moment from 'moment';
@@ -49,4 +49,4 @@ const Week: React.FunctionComponent<Props> = ({ start, monthStart, monthEnd, ran
   );
 };
 
-export default Week;
+export default memo<Props>(Week);

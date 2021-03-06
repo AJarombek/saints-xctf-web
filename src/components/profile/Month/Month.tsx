@@ -4,7 +4,7 @@
  * @since 10/19/2020
  */
 
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import Week from '../Week';
@@ -64,4 +64,4 @@ const Month: React.FunctionComponent<Props> = ({ rangeView, start, monthStart, m
   );
 };
 
-export default Month;
+export default memo<Props>(Month);

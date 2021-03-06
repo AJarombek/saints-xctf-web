@@ -16,6 +16,7 @@ import { andy } from '../../test-utils/userMocks';
 import ProfileBody from '../../../src/components/profile/ProfileBody';
 import { ProfileTab } from '../../../src/components/profile/ProfileBody/ProfileBody';
 import { basicStats } from '../../test-utils/statsMocks';
+import { oneRun } from '../../test-utils/rangeViewMocks';
 
 const mockStore = configureStore([thunk]);
 
@@ -44,19 +45,7 @@ describe('ProfileBody Snapshot Tests', () => {
                 ]
               }}
               stats={basicStats}
-              rangeViews={{
-                r: {
-                  '2021-03-01:2021-03-07': {
-                    items: [
-                      {
-                        date: 'Sat, 06 Mar 2021 00:00:00 GMT',
-                        feel: 7,
-                        miles: 6.01
-                      }
-                    ]
-                  }
-                }
-              }}
+              rangeViews={oneRun}
               defaultTab={ProfileTab.LOGS}
             />
           </Provider>
