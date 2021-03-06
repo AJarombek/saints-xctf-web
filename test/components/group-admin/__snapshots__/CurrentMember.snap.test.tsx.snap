@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CurrentMember Snapshot Tests renders correctly 1`] = `
+<div
+  className="currentMember-0-1-1"
+>
+  <p
+    className="name-0-1-4"
+  >
+    Andy
+     
+    Jarombek
+  </p>
+  <div
+    className="ajTag-2-2-1 ajTag-d0-2-2-2 aj-tag memberTypeTag-0-1-2 memberTypeTag-d0-0-1-6"
+  >
+    <div
+      className="memberTypeContent-0-1-3"
+    >
+      Admin
+    </div>
+  </div>
+  <div
+    className="ajBaseButton-2-2-6 ajBaseButtonEnabled-2-2-7 aj-outlined-button ajOutlinedButton-2-2-3 ajOutlinedButtonEnabled-2-2-4 removeAction-0-1-5"
+    onClick={[Function]}
+  >
+    <button
+      disabled={false}
+      type="button"
+    >
+      Demote
+    </button>
+  </div>
+</div>
+`;

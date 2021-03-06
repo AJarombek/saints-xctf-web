@@ -4,7 +4,7 @@
  * @since 1/13/2021
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { CurrentLeaderboardItem } from '../Leaderboard';
@@ -38,4 +38,4 @@ const LeaderboardItem: React.FunctionComponent<Props> = ({ item, leaderMiles }) 
   );
 };
 
-export default LeaderboardItem;
+export default memo(LeaderboardItem);

@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PendingMember Snapshot Tests renders correctly 1`] = `
+<div
+  className="pendingMember-0-1-1"
+>
+  <p
+    className="name-0-1-3"
+  >
+    Andy
+     
+    Jarombek
+  </p>
+  <div
+    className="pendingMemberActions-0-1-2"
+  >
+    <div
+      className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-1 ajTextButtonEnabled-2-2-2"
+      onClick={[Function]}
+    >
+      <button
+        disabled={false}
+        type="button"
+      >
+        Deny
+      </button>
+    </div>
+    <div
+      className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-7 ajContainedButtonEnabled-2-2-8"
+      onClick={[Function]}
+    >
+      <button
+        disabled={false}
+        type="button"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SendActivationCode Snapshot Tests renders correctly 1`] = `
+<div
+  className="sendActivationCode-0-1-1"
+>
+  <h3
+    className="title-0-1-3"
+  >
+    Send Activation Code
+  </h3>
+  <div
+    className="container-0-1-2"
+  >
+    <p
+      className="inputTitle-0-1-4"
+    >
+      Enter an Email Address
+    </p>
+    <div
+      className="sxctf-image-input input-0-1-5"
+    >
+      <div
+        className="no-icon"
+      >
+         
+      </div>
+      <input
+        autoComplete=""
+        name="email"
+        onChange={[Function]}
+        placeholder=""
+        type="text"
+        value=""
+      />
+      <div>
+        <div
+          className="status none"
+        >
+          <p />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

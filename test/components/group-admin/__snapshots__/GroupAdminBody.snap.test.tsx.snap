@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupAdminBody Snapshot Tests renders correctly 1`] = `
+<div
+  className="groupAdminBody-0-1-1"
+>
+  <aside>
+    <h5
+      className="title-0-1-2 text-0-1-4"
+    >
+      Alumni
+    </h5>
+    <div
+      className="subTitle-0-1-3 text-0-1-4"
+    />
+    <div
+      className="tabs-0-1-5 tabs"
+    >
+      <p
+        className="tab-0-1-6 currentTab-0-1-7"
+        onClick={[Function]}
+      >
+        Manage Users
+      </p>
+      <p
+        className="tab-0-1-6"
+        onClick={[Function]}
+      >
+        Send Activation Code
+      </p>
+      <p
+        className="tab-0-1-6"
+        onClick={[Function]}
+      >
+        Edit Group
+      </p>
+    </div>
+  </aside>
+  <section>
+    <div
+      className="manageUsers-0-1-8"
+    >
+      <h3
+        className="title-0-1-9"
+      >
+        Manage Users
+      </h3>
+      <div
+        className="container-0-1-10"
+      />
+    </div>
+  </section>
+</div>
+`;
