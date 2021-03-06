@@ -1,0 +1,484 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditProfile Snapshot Tests renders correctly 1`] = `
+<div
+  className="editProfile-0-1-1"
+>
+  <h3
+    className="title-0-1-2"
+  >
+    Profile Details
+  </h3>
+  <div
+    className="form-0-1-3"
+  >
+    <div
+      className="twoInputs-0-1-6"
+    >
+      <div
+        className="firstNameInput-0-1-10"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          First Name*
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="first"
+            onChange={[Function]}
+            placeholder=""
+            type="text"
+            value="Andy"
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="lastNameInput-0-1-11"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Last Name*
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="last"
+            onChange={[Function]}
+            placeholder=""
+            type="text"
+            value="Jarombek"
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="twoInputs-0-1-6"
+    >
+      <div
+        className="emailInput-0-1-12"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Email*
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="email"
+            onChange={[Function]}
+            placeholder=""
+            type="email"
+            value="andrew@jarombek.com"
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="classYearInput-0-1-13"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Class Year
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="classYear"
+            onChange={[Function]}
+            placeholder=""
+            type="number"
+            value="2017"
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="twoInputs-0-1-6"
+    >
+      <div
+        className="locationInput-0-1-14"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Location
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="location"
+            onChange={[Function]}
+            placeholder=""
+            type="text"
+            value="Riverside, CT"
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="favoriteEventInput-0-1-15"
+      >
+        <p
+          className="inputTitle-0-1-5"
+        >
+          Favorite Event
+        </p>
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="favoriteEvent"
+            onChange={[Function]}
+            placeholder=""
+            type="text"
+            value="5000m, 8K"
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p
+        className="inputTitle-0-1-5"
+      >
+        Description
+      </p>
+      <textarea
+        className="textArea-0-1-21 textArea-0-1-7"
+        disabled={false}
+        maxLength={1000}
+        onChange={[Function]}
+        onKeyUp={[Function]}
+        placeholder="..."
+        value="I sometimes like to run."
+      />
+    </div>
+    <div>
+      <p
+        className="inputTitle-0-1-5"
+      >
+        Week Start
+      </p>
+      <div
+        className="radioGroup-0-1-8"
+      >
+        <div
+          className="radio-0-1-22 radio-0-1-9"
+        >
+          <label>
+            <div
+              className="inputWrapper-0-1-23"
+            >
+              <input
+                className="input-0-1-24"
+                defaultChecked={false}
+                id="sunday"
+                name="weekStart"
+                onChange={[Function]}
+                type="radio"
+                value="sunday"
+              />
+              <div
+                className="customRadio-0-1-25"
+              />
+            </div>
+            <div
+              className="customLabel-0-1-26"
+            >
+              Sunday
+            </div>
+          </label>
+        </div>
+        <div
+          className="radio-0-1-22 radio-0-1-9"
+        >
+          <label>
+            <div
+              className="inputWrapper-0-1-23"
+            >
+              <input
+                className="input-0-1-24"
+                defaultChecked={true}
+                id="monday"
+                name="weekStart"
+                onChange={[Function]}
+                type="radio"
+                value="monday"
+              />
+              <div
+                className="customRadio-0-1-25"
+              />
+            </div>
+            <div
+              className="customLabel-0-1-26"
+            >
+              Monday
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div
+      className="actions-0-1-16"
+    >
+      <div
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonEnabled-2-2-2 submitButton-0-1-17"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          <p>
+            Save Details
+          </p>
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-18"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  <h3
+    className="title-0-1-2"
+  >
+    Profile Picture
+  </h3>
+  <div
+    className="form-0-1-3"
+  >
+    <div
+      className="pictureContainer-0-1-27"
+    >
+      <figure
+        className="picture-0-1-28"
+      >
+        <img
+          alt=""
+          src="/asset/saintsxctf.png"
+        />
+      </figure>
+      <div
+        className="uploadFile-0-1-35 uploadFileBoxEmpty-0-1-37"
+        onClick={[Function]}
+        onDragEnter={[Function]}
+        onDragLeave={[Function]}
+        onDragOver={[Function]}
+        onDrop={[Function]}
+      >
+        <input
+          accept="image/*"
+          className="hiddenInput-0-1-38"
+          onChange={[Function]}
+          type="file"
+        />
+        <p
+          className="uploadText-0-1-39 uploadTextEmpty-0-1-41"
+        >
+          Click here or drag and drop a file.
+        </p>
+      </div>
+    </div>
+    <div
+      className="note-0-1-34"
+    >
+      <p>
+        NOTE: Crop your image into a square for the best results.
+      </p>
+    </div>
+    <div
+      className="actions-0-1-29"
+    >
+      <div
+        className="ajBaseButton-2-2-4 ajBaseButtonDisabled-2-2-6 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonDisabled-2-2-3 submitButton-0-1-30 disabledSubmitButton-0-1-31"
+        onClick={null}
+      >
+        <button
+          disabled={true}
+          type="button"
+        >
+          <p>
+            Save Picture
+          </p>
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-33"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+  <h3
+    className="title-0-1-2"
+  >
+    Teams and Groups
+  </h3>
+  <div
+    className="form-0-1-3"
+  >
+    <div
+      className="pickTeams-0-1-42"
+    >
+      <div
+        className="search-0-1-43"
+      >
+        <div
+          className="sxctf-image-input"
+        >
+          <div
+            className="no-icon"
+          >
+             
+          </div>
+          <input
+            autoComplete=""
+            name="team"
+            onChange={[Function]}
+            placeholder="Search Teams"
+            type="text"
+          />
+          <div>
+            <div
+              className="status none"
+            >
+              <p />
+            </div>
+          </div>
+        </div>
+        <div
+          className="searchedTeams-0-1-45"
+        />
+      </div>
+      <div />
+    </div>
+    <div
+      className="actions-0-1-47"
+    >
+      <div
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonEnabled-2-2-2 submitButton-0-1-48"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          <p>
+            Save Teams & Groups
+          </p>
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-51"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

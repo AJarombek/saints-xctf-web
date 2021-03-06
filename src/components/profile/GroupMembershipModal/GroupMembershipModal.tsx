@@ -7,7 +7,7 @@
 import { GroupMember } from '../../../redux/types';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { AJButton, AJModal } from 'jarombek-react-components';
 
 interface Props {
@@ -82,4 +82,4 @@ const GroupMembershipsModal: React.FunctionComponent<Props> = ({
   }
 };
 
-export default GroupMembershipsModal;
+export default memo<Props>(GroupMembershipsModal);

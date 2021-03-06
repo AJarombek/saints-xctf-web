@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Flair Snapshot Tests renders correctly when joining group 1`] = `
+<div
+  className="ajModalBackdrop-2-2-2 ajModalColorBackdrop-2-2-3 aj-modal-backdrop"
+  onClick={[Function]}
+>
+  <div
+    className="ajModal-2-2-1"
+    onClick={[Function]}
+  >
+    <div
+      className="body-0-1-1"
+    >
+      <div
+        className="title-0-1-2"
+      >
+        <p>
+          Are you sure you want to leave the group 
+          <b>
+            Alumni
+          </b>
+          ?
+        </p>
+      </div>
+      <div
+        className="buttons-0-1-3"
+      >
+        <div
+          className="ajBaseButton-2-2-7 ajBaseButtonEnabled-2-2-8 aj-text-button ajTextButton-2-2-4 ajTextButtonEnabled-2-2-5"
+          onClick={[Function]}
+        >
+          <button
+            disabled={false}
+            type="button"
+          >
+            <p>
+              CANCEL
+            </p>
+          </button>
+        </div>
+        <div
+          className="ajBaseButton-2-2-7 ajBaseButtonEnabled-2-2-8 aj-contained-button ajContainedButton-2-2-10 ajContainedButtonEnabled-2-2-11"
+          onClick={[Function]}
+        >
+          <button
+            disabled={false}
+            type="button"
+          >
+            <p>
+              LEAVE
+            </p>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Flair Snapshot Tests renders correctly when leaving group 1`] = `null`;

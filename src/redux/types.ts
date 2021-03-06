@@ -19,9 +19,9 @@ export type RootState = {
 };
 
 export type LogsState = {
-  isFetching: boolean;
-  didInvalidate: boolean;
-  lastUpdated: number;
+  isFetching?: boolean;
+  didInvalidate?: boolean;
+  lastUpdated?: number;
   items: Logs;
   feeds: LogFeeds;
   newLog: NewLog;

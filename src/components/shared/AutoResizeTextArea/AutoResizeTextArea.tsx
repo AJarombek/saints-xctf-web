@@ -4,7 +4,7 @@
  * @since 8/30/2020
  */
 
-import React, { forwardRef, RefObject, useEffect } from 'react';
+import React, { forwardRef, RefObject, useCallback, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
@@ -24,20 +24,23 @@ type TRef = HTMLTextAreaElement;
 
 const useStyles = createUseStyles(styles);
 
+// eslint-disable-next-line react/display-name
 const AutoResizeTextArea = forwardRef<TRef, Props>(
   ({ maxLength, placeholder, onChange, useCustomValue, value, disabled, className }, ref: RefObject<any>) => {
     const classes = useStyles();
+
+    const onKeyUp = useCallback((): void => {
+      if (ref?.current) {
+        ref.current.style.height = '25px';
+        ref.current.style.height = `${ref.current.scrollHeight + 4}px`;
+      }
+    }, [ref]);
 
     useEffect(() => {
       if (ref) {
         onKeyUp();
       }
-    }, [ref]);
-
-    const onKeyUp = (): void => {
-      ref.current.style.height = '25px';
-      ref.current.style.height = `${ref.current.scrollHeight + 4}px`;
-    };
+    }, [ref, onKeyUp]);
 
     return (
       <textarea

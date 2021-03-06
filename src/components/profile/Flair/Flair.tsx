@@ -4,7 +4,7 @@
  * @since 9/8/2020
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { FlairMeta } from '../../../redux/types';
@@ -27,4 +27,4 @@ const Flair: React.FunctionComponent<Props> = ({ flair = {} }) => {
   );
 };
 
-export default Flair;
+export default memo<Props>(Flair);

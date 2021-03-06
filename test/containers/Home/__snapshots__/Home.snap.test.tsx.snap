@@ -202,10 +202,10 @@ exports[`Home Snapshot Tests renders correctly 1`] = `
       className="description"
     >
       <p>
-        SaintsXCTF was created during my time running Cross Country & Track at St. Lawrence University.  The team needed a training log where coaches and athletes could view and comment on each others workouts.  We knew a shared logging platform would be especially useful during summer training when the team was apart.
+        SaintsXCTF was created during my time running Cross Country & Track at St. Lawrence University. The team needed a training log where coaches and athletes could view and comment on each others workouts. A shared logging platform was especially useful during summer training when the team was apart.
       </p>
       <p>
-        What started as a spare time project during my Senior year of college has transformed into a sophisticated exercise logging platform both on the web and mobile devices.  I hope you find SaintsXCTF to be a helpful and fun tool.
+        SaintsXCTF has become a sophisticated exercise logging platform, accessible from the web and mobile devices. I hope SaintsXCTF is a useful and fun tool for your teams needs.
       </p>
     </div>
     <p

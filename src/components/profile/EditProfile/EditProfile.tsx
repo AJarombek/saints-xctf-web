@@ -61,14 +61,17 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       const userProfile = userProfiles[user.username];
 
       setMemberships(userProfile.memberships);
-      setFirstName(userProfile.user.first);
-      setLastName(userProfile.user.last);
-      setEmail(userProfile.user.email);
-      setClassYear(userProfile.user.class_year);
-      setLocation(userProfile.user.location);
-      setFavoriteEvent(userProfile.user.favorite_event);
-      setDescription(userProfile.user.description);
-      setWeekStart(userProfile.user.week_start);
+
+      if (userProfile.user) {
+        setFirstName(userProfile.user.first);
+        setLastName(userProfile.user.last);
+        setEmail(userProfile.user.email);
+        setClassYear(userProfile.user.class_year);
+        setLocation(userProfile.user.location);
+        setFavoriteEvent(userProfile.user.favorite_event);
+        setDescription(userProfile.user.description);
+        setWeekStart(userProfile.user.week_start);
+      }
     }
   }, [userProfiles, user.username]);
 
