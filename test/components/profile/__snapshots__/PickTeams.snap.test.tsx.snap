@@ -115,3 +115,119 @@ Array [
   </div>,
 ]
 `;
+
+exports[`PickTeams Snapshot Tests renders correctly 1`] = `
+Array [
+  <div
+    className="pickTeams-0-1-1"
+  >
+    <div
+      className="search-0-1-2"
+    >
+      <div
+        className="sxctf-image-input"
+      >
+        <div
+          className="no-icon"
+        >
+           
+        </div>
+        <input
+          autoComplete=""
+          name="team"
+          onChange={[Function]}
+          placeholder="Search Teams"
+          type="text"
+        />
+        <div>
+          <div
+            className="status none"
+          >
+            <p />
+          </div>
+        </div>
+      </div>
+      <div
+        className="searchedTeams-0-1-4"
+      />
+    </div>
+    <div>
+      <div
+        className="team-0-1-14"
+      >
+        <div
+          className="teamTitleHeader-0-1-15"
+        >
+          <p
+            className="title-0-1-16"
+          >
+            SaintsXCTF Cross Country and Track & Field
+          </p>
+          <div
+            className="ajTag-2-2-1 ajTag-d0-2-2-2 aj-tag memberTag-0-1-17 memberTag-d0-0-1-19"
+          >
+            <div
+              className="memberTagContent-0-1-18"
+              onClick={[Function]}
+            >
+              <p>
+                Member - User
+              </p>
+              <p>
+                O
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="pickGroups-0-1-20"
+          />
+          <div
+            className="showMore-0-1-21"
+          >
+            <div
+              onClick={[Function]}
+            >
+              <p>
+                C
+              </p>
+              <p>
+                Load More
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="actions-0-1-6"
+  >
+    <div
+      className="ajBaseButton-2-2-6 ajBaseButtonEnabled-2-2-7 aj-contained-button ajContainedButton-2-2-3 ajContainedButtonEnabled-2-2-4 submitButton-0-1-7"
+      onClick={[Function]}
+    >
+      <button
+        disabled={false}
+        type="button"
+      >
+        <p>
+          Save Teams & Groups
+        </p>
+      </button>
+    </div>
+    <div
+      className="ajBaseButton-2-2-6 ajBaseButtonEnabled-2-2-7 aj-text-button ajTextButton-2-2-9 ajTextButtonEnabled-2-2-10 cancelButton-0-1-10"
+      onClick={[Function]}
+    >
+      <button
+        disabled={false}
+        type="button"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>,
+]
+`;

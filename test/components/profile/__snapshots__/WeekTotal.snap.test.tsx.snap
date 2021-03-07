@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeekTotal Snapshot Tests renders correctly 1`] = `
+<div
+  className="weekTotal-0-1-1"
+>
+  <div
+    className="miles-0-1-2"
+  >
+    <p>
+      36.21
+    </p>
+    <p>
+      Miles
+    </p>
+  </div>
+</div>
+`;

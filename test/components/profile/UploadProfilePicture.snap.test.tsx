@@ -1,5 +1,5 @@
 /**
- * Snapshot test for the PickTeams component.
+ * Snapshot test for the UploadProfilePicture component.
  * @author Andrew Jarombek
  * @since 3/7/2021
  */
@@ -11,12 +11,12 @@ import { Store } from 'redux';
 import { emptyStore } from '../../test-utils/storeMocks';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import PickTeams from '../../../src/components/profile/PickTeams';
-import { saintsXCTFTeamMember } from '../../test-utils/teamMocks';
+import UploadProfilePicture from '../../../src/components/profile/UploadProfilePicture';
+import { andy } from '../../test-utils/userMocks';
 
 const mockStore = configureStore([thunk]);
 
-describe('PickTeams Snapshot Tests', () => {
+describe('UploadProfilePicture Snapshot Tests', () => {
   let store: Store;
 
   beforeEach(() => {
@@ -27,7 +27,7 @@ describe('PickTeams Snapshot Tests', () => {
     const tree = renderer
       .create(
         <Provider store={store}>
-          <PickTeams teams={[saintsXCTFTeamMember]} username="andy" />
+          <UploadProfilePicture user={andy} profilePictureUrl="picture.png" />
         </Provider>
       )
       .toJSON();

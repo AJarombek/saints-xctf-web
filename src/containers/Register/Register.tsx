@@ -50,7 +50,7 @@ const Register: React.FunctionComponent<Props> = () => {
   return (
     <div className="sxctf-register" ref={ref}>
       <NavBar includeHeaders={['home', 'signIn', 'logo']} bodyRef={ref} />
-      <RegisterBody stage={stage} registration={registration} />
+      <RegisterBody stage={stage} />
     </div>
   );
 };

@@ -21,7 +21,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
   const users = useSelector((state: RootState) => state.profile.users);
 
   const uploadingProfilePicture: UploadingProfilePicture = useMemo(() => {
-    if (user.username) {
+    if (user.username && users[user.username]) {
       return users[user.username].uploadingProfilePicture;
     } else {
       return null;

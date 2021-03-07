@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileDetails Snapshot Tests renders correctly 1`] = `
+<div
+  className="profileDetails-0-1-1"
+>
+  <div
+    className="profileDetail-0-1-3 defaultText-0-1-4"
+  >
+    <p>
+      Member Since:
+    </p>
+    <p>
+      Dec 23rd, 2016
+    </p>
+  </div>
+  <div
+    className="profileDetail-0-1-3"
+  >
+    <p
+      className="normal-0-1-6"
+    >
+      Class of
+    </p>
+    <p
+      className="strong-0-1-7"
+    >
+      2017
+    </p>
+  </div>
+  <div
+    className="profileDetail-0-1-3 defaultText-0-1-4"
+  >
+    <p>
+      Favorite Event:
+    </p>
+    <p>
+      5000m, 8K
+    </p>
+  </div>
+  <div
+    className="profileDetail-0-1-3 description-0-1-8"
+  >
+    <p
+      className="thin-0-1-5"
+    >
+      I sometimes like to run.
+    </p>
+  </div>
+  <div
+    className="statisticSections-0-1-2"
+  >
+    <div
+      className="stats-0-1-9"
+    >
+      <h3>
+        Exercise Statistics
+      </h3>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          All Time
+        </p>
+        <p>
+          50.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          2021
+        </p>
+        <p>
+          40.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          March 2021
+        </p>
+        <p>
+          30.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          This Week
+        </p>
+        <p>
+          20.00 mi.
+        </p>
+      </div>
+    </div>
+    <div
+      className="stats-0-1-9"
+    >
+      <h3>
+        Running Statistics
+      </h3>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          All Time
+        </p>
+        <p>
+          40.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          2021
+        </p>
+        <p>
+          30.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          March 2021
+        </p>
+        <p>
+          20.00 mi.
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          This Week
+        </p>
+        <p>
+          10.00 mi.
+        </p>
+      </div>
+    </div>
+    <div
+      className="stats-0-1-9"
+    >
+      <h3>
+        Feel Statistics
+      </h3>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          All Time
+        </p>
+        <p>
+          6.50
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          2021
+        </p>
+        <p>
+          6.60
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          March 2021
+        </p>
+        <p>
+          7.10
+        </p>
+      </div>
+      <div
+        className="section-0-1-10"
+      >
+        <p>
+          This Week
+        </p>
+        <p>
+          7.20
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

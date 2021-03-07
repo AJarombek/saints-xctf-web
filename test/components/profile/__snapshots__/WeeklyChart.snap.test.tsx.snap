@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeeklyChart Snapshot Tests renders correctly 1`] = `
+<div
+  className="weeklyChart-0-1-1"
+>
+  <div
+    className="filters-0-1-2"
+  >
+    <p
+      className="filterTitle-0-1-3"
+    >
+      Chart Filters:
+    </p>
+    <div
+      className="buttonGroup-2-2-1 filterButtons-0-1-5"
+    >
+      <div
+        className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-contained-button ajContainedButton-2-2-2 ajContainedButtonEnabled-2-2-3"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Run
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-outlined-button ajOutlinedButton-2-2-8 ajOutlinedButtonEnabled-2-2-9"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Bike
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-outlined-button ajOutlinedButton-2-2-8 ajOutlinedButtonEnabled-2-2-9"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Swim
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-outlined-button ajOutlinedButton-2-2-8 ajOutlinedButtonEnabled-2-2-9"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Other
+        </button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div
+      className="recharts-responsive-container"
+      style={
+        Object {
+          "height": 500,
+          "maxHeight": undefined,
+          "minHeight": undefined,
+          "minWidth": undefined,
+          "width": "100%",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "display": "none",
+            "height": 0,
+            "position": "absolute",
+            "visibility": "hidden",
+            "width": 0,
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;

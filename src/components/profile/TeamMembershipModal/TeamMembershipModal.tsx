@@ -8,7 +8,7 @@ import React, { useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { AJButton, AJModal } from 'jarombek-react-components';
-import { GroupMember, GroupMeta, RootState, TeamMembership } from '../../../redux/types';
+import { RootState, TeamMembership } from '../../../redux/types';
 import { useSelector } from 'react-redux';
 
 interface Props {

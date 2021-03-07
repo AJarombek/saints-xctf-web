@@ -7,15 +7,17 @@
 import React from 'react';
 import RegisterPersonalInfo from '../RegisterPersonalInfo/RegisterPersonalInfo';
 import RegisterCredentials from '../RegisterCredentials/RegisterCredentials';
-import { RegistrationState } from '../../../redux/types';
+import { RootState } from '../../../redux/types';
 import RegisterComplete from '../RegisterComplete';
+import { useSelector } from 'react-redux';
 
 interface Props {
   stage: number;
-  registration: RegistrationState;
 }
 
-const RegisterBody: React.FunctionComponent<Props> = ({ stage, registration }) => {
+const RegisterBody: React.FunctionComponent<Props> = ({ stage }) => {
+  const registration = useSelector((state: RootState) => state.registration);
+
   function renderStage(): JSX.Element {
     switch (stage) {
       case 0:

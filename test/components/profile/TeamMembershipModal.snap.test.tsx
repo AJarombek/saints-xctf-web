@@ -1,5 +1,5 @@
 /**
- * Snapshot test for the PickTeams component.
+ * Snapshot test for the TeamMembershipsModal component.
  * @author Andrew Jarombek
  * @since 3/7/2021
  */
@@ -11,12 +11,12 @@ import { Store } from 'redux';
 import { emptyStore } from '../../test-utils/storeMocks';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import PickTeams from '../../../src/components/profile/PickTeams';
+import TeamMembershipsModal from '../../../src/components/profile/TeamMembershipModal';
 import { saintsXCTFTeamMember } from '../../test-utils/teamMocks';
 
 const mockStore = configureStore([thunk]);
 
-describe('PickTeams Snapshot Tests', () => {
+describe('TeamMembershipsModal Snapshot Tests', () => {
   let store: Store;
 
   beforeEach(() => {
@@ -27,7 +27,17 @@ describe('PickTeams Snapshot Tests', () => {
     const tree = renderer
       .create(
         <Provider store={store}>
-          <PickTeams teams={[saintsXCTFTeamMember]} username="andy" />
+          <TeamMembershipsModal
+            team={saintsXCTFTeamMember}
+            groupsJoined={new Set<string>()}
+            groupsLeft={new Set<string>()}
+            onClose={(): void => null}
+            onJoin={(): void => null}
+            onLeave={(): void => null}
+            show={true}
+            joinedTeam={true}
+            leftTeam={false}
+          />
         </Provider>
       )
       .toJSON();

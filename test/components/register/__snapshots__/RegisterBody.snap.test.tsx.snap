@@ -1,0 +1,303 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegisterBody Snapshot Tests renders correctly - completed stage 1`] = `
+<div
+  className="sxctf-register-body"
+>
+  <div
+    className="registerComplete-1-1-1"
+  >
+    <div
+      className="checkedIcon-1-1-2"
+    >
+      <p>
+        N
+      </p>
+    </div>
+    <h5
+      className="successDescription-1-1-3"
+    >
+      You are registered! A welcome email was sent to your email address.
+    </h5>
+    <p
+      className="enterCode-1-1-4"
+      onClick={[Function]}
+    >
+      Sign In
+    </p>
+  </div>
+</div>
+`;
+
+exports[`RegisterBody Snapshot Tests renders correctly - credentials stage 1`] = `
+<div
+  className="sxctf-register-body"
+>
+  <div
+    className="sxctf-register-credentials"
+  >
+    <h2>
+      Register
+    </h2>
+    <div
+      className="form-inputs"
+    >
+      <div
+        className="sxctf-image-input"
+      >
+        <img
+          alt=""
+          src="test-file-stub"
+        />
+        <input
+          autoComplete="username"
+          maxLength={20}
+          name="username"
+          onChange={[Function]}
+          placeholder="Username"
+          type="text"
+        />
+        <div>
+          <div
+            className="status none"
+          >
+            <p />
+          </div>
+        </div>
+      </div>
+      <p
+        className="input-tip"
+      >
+        Username can only contain Roman characters and numbers.
+      </p>
+      <div
+        className="sxctf-image-input-set row"
+      >
+        <form>
+          <div
+            className="sxctf-image-input"
+          >
+            <img
+              alt=""
+              src="test-file-stub"
+            />
+            <input
+              autoComplete="new-password"
+              maxLength={80}
+              name="password"
+              onChange={[Function]}
+              placeholder="Password"
+              type="password"
+            />
+            <div>
+              <div
+                className="status none"
+              >
+                <p />
+              </div>
+            </div>
+          </div>
+          <div
+            className="sxctf-image-input"
+          >
+            <img
+              alt=""
+              src="test-file-stub"
+            />
+            <input
+              autoComplete="new-password"
+              maxLength={80}
+              name="confirm-password"
+              onChange={[Function]}
+              placeholder="Confirm Password"
+              type="password"
+            />
+            <div>
+              <div
+                className="status none"
+              >
+                <p />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <p
+        className="input-tip"
+      >
+        Password must be 8 or more characters long.
+      </p>
+      <div
+        className="sxctf-image-input"
+      >
+        <img
+          alt=""
+          src="test-file-stub"
+        />
+        <input
+          autoComplete=""
+          maxLength={8}
+          name="activation-code"
+          onChange={[Function]}
+          placeholder="Activation Code"
+          type="text"
+        />
+        <div>
+          <div
+            className="status none"
+          >
+            <p />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <div
+        className="ajBaseButton-0-2-4 ajBaseButtonDisabled-0-2-6 aj-contained-button ajContainedButton-0-2-1 ajContainedButtonDisabled-0-2-3"
+        onClick={null}
+      >
+        <button
+          disabled={true}
+          type="button"
+        >
+          Register
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-0-2-4 ajBaseButtonEnabled-0-2-5 aj-text-button ajTextButton-0-2-7 ajTextButtonEnabled-0-2-8"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`RegisterBody Snapshot Tests renders correctly - personal info stage 1`] = `
+<div
+  className="sxctf-register-body"
+>
+  <div
+    className="sxctf-register-personal-info"
+  >
+    <h2>
+      Register
+    </h2>
+    <div
+      className="form-inputs"
+    >
+      <div
+        className="sxctf-image-input-set column"
+      >
+        <form>
+          <div
+            className="sxctf-image-input"
+          >
+            <div
+              className="no-icon"
+            >
+               
+            </div>
+            <input
+              autoComplete="firstName"
+              maxLength={30}
+              name="firstName"
+              onChange={[Function]}
+              placeholder="First Name"
+              type="text"
+            />
+            <div>
+              <div
+                className="status none"
+              >
+                <p />
+              </div>
+            </div>
+          </div>
+          <div
+            className="sxctf-image-input"
+          >
+            <div
+              className="no-icon"
+            >
+               
+            </div>
+            <input
+              autoComplete=""
+              maxLength={30}
+              name="lastName"
+              onChange={[Function]}
+              placeholder="Last Name"
+              type="text"
+            />
+            <div>
+              <div
+                className="status none"
+              >
+                <p />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div
+        className="sxctf-image-input"
+      >
+        <img
+          alt=""
+          src="test-file-stub"
+        />
+        <input
+          autoComplete=""
+          maxLength={50}
+          name="email"
+          onChange={[Function]}
+          placeholder="Email"
+          type="text"
+        />
+        <div>
+          <div
+            className="status none"
+          >
+            <p />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      className="form-buttons"
+    >
+      <div
+        className="ajBaseButton-0-2-4 ajBaseButtonDisabled-0-2-6 aj-contained-button ajContainedButton-0-2-1 ajContainedButtonDisabled-0-2-3"
+        onClick={null}
+      >
+        <button
+          disabled={true}
+          type="button"
+        >
+          Continue
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-0-2-4 ajBaseButtonEnabled-0-2-5 aj-text-button ajTextButton-0-2-7 ajTextButtonEnabled-0-2-8"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Exit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
