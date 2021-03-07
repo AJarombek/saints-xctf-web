@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PickGroup Snapshot Tests renders correctly when group joined 1`] = `
+<div
+  className="group-0-1-1 group-d0-0-1-4"
+>
+  <p
+    className="groupTitle-0-1-2"
+  >
+    Alumni
+  </p>
+  <div
+    className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-1 ajTextButtonEnabled-2-2-2 groupActionIcon-0-1-3 groupActionIcon-d1-0-1-5"
+    onClick={[Function]}
+  >
+    <button
+      disabled={false}
+      type="button"
+    >
+      <p>
+        Q
+      </p>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`PickGroup Snapshot Tests renders correctly when group left 1`] = `
+<div
+  className="group-0-1-1 group-d2-0-1-6"
+>
+  <p
+    className="groupTitle-0-1-2"
+  >
+    Alumni
+  </p>
+  <div
+    className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-1 ajTextButtonEnabled-2-2-2 groupActionIcon-0-1-3 groupActionIcon-d3-0-1-7"
+    onClick={[Function]}
+  >
+    <button
+      disabled={false}
+      type="button"
+    >
+      <p>
+        P
+      </p>
+    </button>
+  </div>
+</div>
+`;
