@@ -13,3 +13,11 @@ export const alumni = {
   id: 1,
   week_start: 'sunday'
 };
+
+export const alumniMember = {
+  group_name: 'alumni',
+  group_title: 'Alumni',
+  group_id: 1,
+  status: 'accepted',
+  user: 'user'
+};
