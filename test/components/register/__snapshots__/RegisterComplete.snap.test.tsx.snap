@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegisterComplete Snapshot Tests renders correctly 1`] = `
+<div
+  className="registerComplete-0-1-1"
+>
+  <div
+    className="checkedIcon-0-1-2"
+  >
+    <p>
+      N
+    </p>
+  </div>
+  <h5
+    className="successDescription-0-1-3"
+  >
+    You are registered! A welcome email was sent to your email address.
+  </h5>
+  <p
+    className="enterCode-0-1-4"
+    onClick={[Function]}
+  >
+    Sign In
+  </p>
+</div>
+`;

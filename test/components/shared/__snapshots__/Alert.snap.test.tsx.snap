@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Alert Snapshot Tests renders correctly 1`] = `
+<div
+  className="alert-0-1-1 alert-d0-0-1-5"
+>
+  <p
+    className="alertIcon-0-1-2 alertIcon-d1-0-1-6"
+  >
+    
+  </p>
+  <div
+    className="message-0-1-3"
+  >
+    An error occurred.
+  </div>
+  <p
+    className="closeIcon-0-1-4"
+    onClick={[Function]}
+  >
+    M
+  </p>
+</div>
+`;
