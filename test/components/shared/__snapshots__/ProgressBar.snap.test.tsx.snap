@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaginationBar Snapshot Tests renders correctly 1`] = `
+<div
+  className="progressBar-0-1-1"
+>
+  <div
+    className="bar-0-1-2 barFull-0-1-3"
+  />
+  <div
+    className="bar-0-1-2 barProgress-0-1-4 barProgress-d0-0-1-5"
+  />
+</div>
+`;

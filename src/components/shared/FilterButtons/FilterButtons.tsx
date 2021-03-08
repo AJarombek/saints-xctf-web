@@ -5,14 +5,14 @@
  */
 
 import React from 'react';
-import {createUseStyles} from 'react-jss';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {AJButton, AJButtonGroup} from 'jarombek-react-components';
-import {ExerciseFilters} from '../../../redux/types';
+import { AJButton, AJButtonGroup } from 'jarombek-react-components';
+import { ExerciseFilters } from '../../../redux/types';
 
 interface Props {
-    selectedFilters?: ExerciseFilters;
-    setSelectedFilters?: (filter: ExerciseFilters) => void;
+  selectedFilters?: ExerciseFilters;
+  setSelectedFilters?: (filter: ExerciseFilters) => void;
 }
 
 const useStyles = createUseStyles(styles);
@@ -26,25 +26,25 @@ const FilterButtons: React.FunctionComponent<Props> = ({ selectedFilters, setSel
         type={selectedFilters.run ? 'contained' : 'outlined'}
         onClick={(): void => setSelectedFilters({ ...selectedFilters, run: !selectedFilters.run })}
       >
-                Run
+        Run
       </AJButton>
       <AJButton
         type={selectedFilters.bike ? 'contained' : 'outlined'}
         onClick={(): void => setSelectedFilters({ ...selectedFilters, bike: !selectedFilters.bike })}
       >
-                Bike
+        Bike
       </AJButton>
       <AJButton
         type={selectedFilters.swim ? 'contained' : 'outlined'}
         onClick={(): void => setSelectedFilters({ ...selectedFilters, swim: !selectedFilters.swim })}
       >
-                Swim
+        Swim
       </AJButton>
       <AJButton
         type={selectedFilters.other ? 'contained' : 'outlined'}
         onClick={(): void => setSelectedFilters({ ...selectedFilters, other: !selectedFilters.other })}
       >
-                Other
+        Other
       </AJButton>
     </AJButtonGroup>
   );

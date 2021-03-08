@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckBox Snapshot Tests renders correctly 1`] = `
+<div
+  className="checkBox-0-1-1"
+  onClick={[Function]}
+>
+  <input
+    checked={true}
+    className="input-0-1-2"
+    type="checkbox"
+  />
+  <span>
+    <p>
+      N
+    </p>
+  </span>
+</div>
+`;

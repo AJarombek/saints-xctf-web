@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingSpinner Snapshot Tests renders correctly 1`] = `
+<div
+  className="spinner-0-1-2 customClass"
+>
+   
+</div>
+`;

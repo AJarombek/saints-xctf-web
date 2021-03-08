@@ -7,6 +7,7 @@ Utility functions and objects used throughout the testing suite.
 | Filename              | Description                                                                                 |
 |-----------------------|---------------------------------------------------------------------------------------------|
 | `groupMocks.ts`       | Mock objects representing groups in the application.                                        |
+| `logMocks.ts`         | Mock objects representing logs in the application.                                          |
 | `pageSizes.ts`        | Functions to handle different page sizes for image snapshot tests.                          |
 | `rangeViewMocks.ts`   | Mock objects representing exercise range views.                                             |
 | `statsMocks.ts`       | Mock objects representing user or group statistics.                                         |

@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LogFeed Snapshot Tests renders correctly 1`] = `
+<div
+  className="logFeed-0-1-1"
+  id="logFeed"
+>
+  <div
+    className="exerciseLog-0-1-3 exerciseLog-d0-0-1-20 exerciseLog"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+  >
+    <div
+      className="headerSection-0-1-4"
+    >
+      <div
+        className="titles-0-1-5"
+      >
+        <a
+          className="titleLink-0-1-6"
+          href="/profile/andy"
+          onClick={[Function]}
+        >
+          Andy
+           
+          Jarombek
+        </a>
+        <h6
+          className="title-0-1-7"
+        >
+          Central Park Trails + Strides
+        </h6>
+      </div>
+      <div
+        className="metadata-0-1-8"
+      >
+        <p
+          className="date-0-1-9"
+        >
+          Mar. 6th, 2021
+        </p>
+        <p
+          className="type-0-1-10"
+        >
+          RUN
+        </p>
+      </div>
+    </div>
+    <div
+      className="bodySection-0-1-11"
+    >
+      <div
+        className="dataFields-0-1-12"
+      >
+        <p>
+          Location: 
+          New York, NY
+        </p>
+        <p>
+          6.01
+           
+          miles
+        </p>
+        <p>
+          39:56
+           
+          (6:38/mi)
+        </p>
+      </div>
+      <div
+        className="description-0-1-13"
+      />
+    </div>
+    <div
+      className="commentSection-0-1-14"
+    >
+      <div
+        className="comments-0-1-21 comments"
+      >
+        <div
+          className="newCommentForm-0-1-22"
+        >
+          <textarea
+            className="newComment-0-1-23 newComment-d0-0-1-35 blurNewComment-0-1-25"
+            disabled={false}
+            maxLength={1000}
+            onChange={[Function]}
+            onKeyUp={[Function]}
+            placeholder="Comment"
+          />
+        </div>
+        <div
+          className="commentList commentList-0-1-29"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="loading-0-1-2"
+  >
+    <div
+      className="aj-loading-dots container-2-2-1"
+    >
+      <div
+        className="aj-loading-circle circle-2-2-2 first-2-2-3"
+      />
+      <div
+        className="aj-loading-circle circle-2-2-2 second-2-2-4"
+      />
+      <div
+        className="aj-loading-circle circle-2-2-2 third-2-2-5"
+      />
+    </div>
+  </div>
+</div>
+`;

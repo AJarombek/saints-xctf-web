@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageTabs Snapshot Tests renders correctly 1`] = `
+<div
+  className="tabs-0-1-1 tabs"
+>
+  <p
+    className="tab-0-1-2 currentTab-0-1-3"
+    onClick={[Function]}
+  >
+    Exercise Logs
+  </p>
+  <p
+    className="tab-0-1-2"
+    onClick={[Function]}
+  >
+    Monthly Calendar
+  </p>
+  <p
+    className="tab-0-1-2"
+    onClick={[Function]}
+  >
+    Weekly Chart
+  </p>
+  <p
+    className="tab-0-1-2"
+    onClick={[Function]}
+  >
+    Details
+  </p>
+</div>
+`;

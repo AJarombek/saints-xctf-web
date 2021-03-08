@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterButtons Snapshot Tests renders correctly 1`] = `
+<div
+  className="buttonGroup-2-2-1 filterButtons-0-1-1"
+>
+  <div
+    className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-contained-button ajContainedButton-2-2-2 ajContainedButtonEnabled-2-2-3"
+    onClick={[Function]}
+  >
+    <button
+      disabled={false}
+      type="button"
+    >
+      Run
+    </button>
+  </div>
+  <div
+    className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-outlined-button ajOutlinedButton-2-2-8 ajOutlinedButtonEnabled-2-2-9"
+    onClick={[Function]}
+  >
+    <button
+      disabled={false}
+      type="button"
+    >
+      Bike
+    </button>
+  </div>
+  <div
+    className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-outlined-button ajOutlinedButton-2-2-8 ajOutlinedButtonEnabled-2-2-9"
+    onClick={[Function]}
+  >
+    <button
+      disabled={false}
+      type="button"
+    >
+      Swim
+    </button>
+  </div>
+  <div
+    className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-contained-button ajContainedButton-2-2-2 ajContainedButtonEnabled-2-2-3"
+    onClick={[Function]}
+  >
+    <button
+      disabled={false}
+      type="button"
+    >
+      Other
+    </button>
+  </div>
+</div>
+`;

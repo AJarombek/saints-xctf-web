@@ -245,11 +245,11 @@ export type LogFeedPages = {
 };
 
 export type LogFeedPage = {
-  isFetching: boolean;
-  lastUpdated: number;
+  isFetching?: boolean;
+  lastUpdated?: number;
   items: Log[];
   pages: number;
-  serverError: string;
+  serverError?: string;
 };
 
 export type Comment = {
