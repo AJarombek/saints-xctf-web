@@ -44,7 +44,7 @@ const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploading
 
   return (
     <div className={classNames(classes.uploadedFile, className)}>
-      <p>{file.name}</p>
+      <p>{file?.name}</p>
       <div className={classes.progressSection}>
         <ProgressBar
           progress={percentUploaded}

@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatisticSection Snapshot Tests renders correctly 1`] = `
+<div
+  className="stats-0-1-1"
+>
+  <h3>
+    Statistic Section Snapshot
+  </h3>
+  <div
+    className="section-0-1-2"
+  >
+    <p>
+      Miles All Time
+    </p>
+    <p>
+      50
+    </p>
+  </div>
+  <div
+    className="section-0-1-2"
+  >
+    <p>
+      Miles Past Year
+    </p>
+    <p>
+      40
+    </p>
+  </div>
+  <div
+    className="section-0-1-2"
+  >
+    <p>
+      Miles Past Month
+    </p>
+    <p>
+      30
+    </p>
+  </div>
+  <div
+    className="section-0-1-2"
+  >
+    <p>
+      Miles Past Week
+    </p>
+    <p>
+      20
+    </p>
+  </div>
+</div>
+`;

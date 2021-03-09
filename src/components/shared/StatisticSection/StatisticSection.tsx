@@ -4,7 +4,7 @@
  * @since 11/14/2020
  */
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, memo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 
@@ -36,4 +36,4 @@ const StatisticSection: React.FunctionComponent<Props> = ({ title, stats }) => {
   );
 };
 
-export default StatisticSection;
+export default memo<Props>(StatisticSection);

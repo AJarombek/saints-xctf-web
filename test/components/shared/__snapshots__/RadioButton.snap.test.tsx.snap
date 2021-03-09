@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RadioButton Snapshot Tests renders correctly 1`] = `
+Array [
+  <div
+    className="radio-0-1-1 customClass1"
+  >
+    <label>
+      <div
+        className="inputWrapper-0-1-2"
+      >
+        <input
+          className="input-0-1-3"
+          defaultChecked={true}
+          id="sunday"
+          name="weekStart"
+          onChange={[Function]}
+          type="radio"
+          value="sunday"
+        />
+        <div
+          className="customRadio-0-1-4"
+        />
+      </div>
+      <div
+        className="customLabel-0-1-5"
+      >
+        Sunday
+      </div>
+    </label>
+  </div>,
+  <div
+    className="radio-0-1-1 customClass2"
+  >
+    <label>
+      <div
+        className="inputWrapper-0-1-2"
+      >
+        <input
+          className="input-0-1-3"
+          defaultChecked={false}
+          id="monday"
+          name="weekStart"
+          onChange={[Function]}
+          type="radio"
+          value="monday"
+        />
+        <div
+          className="customRadio-0-1-4"
+        />
+      </div>
+      <div
+        className="customLabel-0-1-5"
+      >
+        Monday
+      </div>
+    </label>
+  </div>,
+]
+`;

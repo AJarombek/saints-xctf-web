@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UploadedFile Snapshot Tests renders correctly 1`] = `
+<div
+  className="uploadedFile-0-1-1 customClass"
+>
+  <p />
+  <div
+    className="progressSection-0-1-2"
+  >
+    <div
+      className="progressBar-0-1-8 progressBar-0-1-3"
+    >
+      <div
+        className="bar-0-1-9 barFull-0-1-10"
+      />
+      <div
+        className="bar-0-1-9 barProgress-0-1-11 barProgress-d0-0-1-12"
+      />
+    </div>
+    <p
+      className="removeIcon-0-1-4"
+      onClick={[Function]}
+    >
+      
+    </p>
+  </div>
+  <div
+    className="uploadStatus-0-1-5"
+  />
+</div>
+`;

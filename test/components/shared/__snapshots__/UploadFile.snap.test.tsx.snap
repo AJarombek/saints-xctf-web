@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UploadFile Snapshot Tests renders correctly 1`] = `
+<div
+  className="uploadFile-0-1-1 uploadFileBoxEmpty-0-1-3 customClass"
+  onClick={[Function]}
+  onDragEnter={[Function]}
+  onDragLeave={[Function]}
+  onDragOver={[Function]}
+  onDrop={[Function]}
+>
+  <input
+    accept="image/*"
+    className="hiddenInput-0-1-4"
+    onChange={[Function]}
+    type="file"
+  />
+  <p
+    className="uploadText-0-1-5 uploadTextEmpty-0-1-7"
+  >
+    Click here or drag and drop a file.
+  </p>
+</div>
+`;

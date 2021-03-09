@@ -4,7 +4,7 @@
  * @since 11/19/2020
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
@@ -54,4 +54,4 @@ const RadioButton: React.FunctionComponent<Props> = ({
   );
 };
 
-export default RadioButton;
+export default memo<Props>(RadioButton);
