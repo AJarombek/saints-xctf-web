@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignIn Snapshot Tests renders correctly 1`] = `
+<div
+  className="sxctf-sign-in"
+>
+  <div
+    className="sxctf-nav-bar sxctf-nav-bar-dropdown-hidden dry-0-1-10 lightTheme-0-1-1 lightDropdownHeaderTheme-0-1-6"
+  >
+    <figure
+      className="sxctf-logo"
+    >
+      <img
+        alt=""
+        onClick={[Function]}
+        src="test-file-stub"
+      />
+    </figure>
+    <h1
+      onClick={[Function]}
+    >
+      SaintsXCTF
+    </h1>
+    <div
+      className="sxctf-nav-buttons"
+    >
+      <div
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-1 ajTextButtonEnabled-2-2-2 homeButton"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Home
+        </button>
+      </div>
+      <div
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-outlined-button ajOutlinedButton-2-2-7 ajOutlinedButtonEnabled-2-2-8 registerButton"
+        onClick={[Function]}
+      >
+        <button
+          disabled={false}
+          type="button"
+        >
+          Register
+        </button>
+      </div>
+    </div>
+    <div
+      className="sxctf-nav-hamburger"
+    >
+      <div
+        className="aj-mobile-hamburger ajMobileHamburger-2-2-10"
+        onClick={[Function]}
+      >
+        <button
+          type="button"
+        >
+          <span
+            className="aj-mobile-hamburger-inactive ajMobileHamburgerInactive-2-2-12"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="sxctf-nav-dropdown sxctf-nav-dropdown-hidden dryDropdown-0-1-12 lightDropdownTheme-0-1-4"
+  >
+    <div
+      className="ajNavList-2-2-13 aj-nav-list"
+    >
+      <div
+        className="ajNavListItem-2-2-14 aj-nav-list-item"
+      >
+        <div
+          onClick={[Function]}
+        >
+          <div>
+            Home
+          </div>
+        </div>
+      </div>
+      <div
+        className="ajNavListItem-2-2-14 aj-nav-list-item"
+      >
+        <div
+          onClick={[Function]}
+        >
+          <div>
+            Register
+          </div>
+        </div>
+      </div>
+      <div
+        className="ajNavListItem-2-2-14 aj-nav-list-item ajNavListLastItem-2-2-15 aj-nav-list-last-item"
+      >
+        <div
+          onClick={[Function]}
+        >
+          <div>
+            <img
+              alt=""
+              className="mobile-dropdown-logo"
+              src="test-file-stub"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="sxctf-sign-in-body"
+  >
+    <div>
+      <h2>
+        Sign In
+      </h2>
+      <div>
+        <div
+          className="sxctf-image-input-set row"
+        >
+          <form>
+            <div
+              className="sxctf-image-input"
+            >
+              <img
+                alt=""
+                src="test-file-stub"
+              />
+              <input
+                autoComplete="username"
+                name="username"
+                onChange={[Function]}
+                placeholder="Username or Email"
+                type="text"
+              />
+              <div>
+                <div
+                  className="status none"
+                >
+                  <p />
+                </div>
+              </div>
+            </div>
+            <div
+              className="sxctf-image-input"
+            >
+              <img
+                alt=""
+                src="test-file-stub"
+              />
+              <input
+                autoComplete="current-password"
+                name="password"
+                onChange={[Function]}
+                placeholder="Password"
+                type="password"
+              />
+              <div>
+                <div
+                  className="status none"
+                >
+                  <p />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <a
+        href="/forgotpassword"
+        onClick={[Function]}
+      >
+        Forgot Password?
+      </a>
+      <div
+        className="form-buttons"
+      >
+        <div
+          className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-16 ajContainedButtonEnabled-2-2-17"
+          onClick={[Function]}
+        >
+          <button
+            disabled={false}
+            type="button"
+          >
+            Sign In
+          </button>
+        </div>
+        <div
+          className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-1 ajTextButtonEnabled-2-2-2"
+          onClick={[Function]}
+        >
+          <button
+            disabled={false}
+            type="button"
+          >
+            Create Account
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
