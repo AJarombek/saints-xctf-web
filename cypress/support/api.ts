@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../support/api.d.ts" />
+
 /**
  * Custom commands for the API to use in Cypress tests.
  * @author Andrew Jarombek

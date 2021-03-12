@@ -9,11 +9,30 @@ describe('Register E2E Tests', () => {
     cy.visit('/register');
   });
 
-  it.skip("'Home' header button navigates to the home page", () => {});
+  it("'Home' header button navigates to the home page", () => {
+    cy.url().should('include', '/register');
+    cy.get('.homeButton').click();
+    cy.url().should('include', '/');
+    cy.url().should('not.include', '/register');
+  });
 
-  it.skip("'Sign In' header button navigates to the sign in page", () => {});
+  it("'Sign In' header button navigates to the sign in page", () => {
+    cy.url().should('include', '/register');
+    cy.get('.signInButton').click();
+    cy.url().should('include', '/signin');
+  });
 
-  it.skip('header title navigates to the home page', () => {});
+  it('header title navigates to the home page', () => {
+    cy.url().should('include', '/register');
+    cy.get('h1').contains('SaintsXCTF').click();
+    cy.url().should('include', '/');
+    cy.url().should('not.include', '/register');
+  });
 
-  it.skip('header icon navigates to the home page', () => {});
+  it('header icon navigates to the home page', () => {
+    cy.url().should('include', '/register');
+    cy.get('.sxctf-logo').click();
+    cy.url().should('include', '/');
+    cy.url().should('not.include', '/register');
+  });
 });

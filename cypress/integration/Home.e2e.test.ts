@@ -31,7 +31,7 @@ describe('Home E2E Tests', () => {
   });
 
   it("'signin' header button navigates to the sign in page", () => {
-    cy.get('.registerButton').click();
+    cy.get('.signInButton').click();
     cy.url().should('include', '/signin');
   });
 

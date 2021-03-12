@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../support/commands.d.ts" />
+
 /**
  * E2E tests written with Cypress for a users profile page.
  * @author Andrew Jarombek
