@@ -40,6 +40,13 @@ yarn test
 yarn test-update
 ```
 
+**Running end to end Cypress tests**
+
+```bash
+# Run the Cypress tests in Chrome
+yarn cy:open
+```
+
 **Starting the server using Docker Compose**
 
 Starting the server locally with Docker Compose is useful for simulating the production Kubernetes environment locally.
