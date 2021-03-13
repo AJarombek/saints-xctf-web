@@ -333,7 +333,7 @@ export function registerPersonalInfo(
     dispatch(registerPersonalInfoRequest());
 
     try {
-      await api.get(`users/${email}`);
+      await api.get(`users/lookup/${email}`);
 
       // If a user already exists with this email, registration should fail.
       dispatch(registerPersonalInfoFailure('USER ALREADY EXISTS', null));

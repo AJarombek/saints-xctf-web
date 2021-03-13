@@ -92,4 +92,36 @@ describe('Register E2E Tests', () => {
     cy.get('.aj-contained-button > button').contains('Continue').should('not.have.attr', 'disabled');
     cy.getDataCy('image-input-email').find('.status.warning').should('not.exist');
   });
+
+  it('continues to the credentials step of the registration process with valid inputs', () => {
+    // The registration process starts by showing the personal information screen.
+    cy.get('.sxctf-register-personal-info').should('exist');
+    cy.get('.sxctf-register-credentials').should('not.exist');
+
+    // First, try to use an email that already has an account associated with it.
+    cy.get('.sxctf-image-input input[name="firstName"]').type('Andy');
+    cy.get('.sxctf-image-input input[name="lastName"]').type('Jarombek');
+    cy.get('.sxctf-image-input input[name="email"]').type('andrew@jarombek.com');
+    cy.get('.aj-contained-button > button').contains('Continue').click();
+
+    // Prove that an error message is displayed.
+    cy.get('p.errorStatus').should('contain.text', 'A user already exists with this email.');
+    cy.getDataCy('image-input-email').find('.status.failure').should('exist');
+
+    // Second, change the email to one that has no account associated with it.
+    cy.get('.sxctf-image-input input[name="email"]').clear().type('saintsxctf@jarombek.com');
+    cy.get('.aj-contained-button > button').contains('Continue').click();
+
+    // The registration process should continue on to the credentials screen.
+    cy.get('.sxctf-register-personal-info').should('not.exist');
+    cy.get('.sxctf-register-credentials').should('exist');
+  });
+
+  it.skip('the credentials step has validation on the username field', () => {});
+
+  it.skip('the credentials step has validation on the password and confirm password fields', () => {});
+
+  it.skip("the credentials step doesn't allow registration to continue if there are validation issues", () => {});
+
+  it.skip("in the credentials step, clicking 'Back' returns to the personal information step", () => {});
 });

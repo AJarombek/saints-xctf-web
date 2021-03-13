@@ -193,7 +193,7 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
           maxLength={20}
           status={usernameStatus}
         />
-        <p className="input-tip">Username can only contain Roman characters and numbers.</p>
+        <p className="input-tip">Username can only contain numbers and Roman characters.</p>
         <ImageInputSet direction={ImageInputDirection.ROW}>
           <ImageInput
             onChange={onChangePassword}

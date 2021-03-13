@@ -14,6 +14,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.server();
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
+  cy.mockUserLookupAPI();
 });
 
 Cypress.Commands.add('mockLogAPI', () => {
@@ -35,6 +36,18 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
   });
 
   logFeedAllPageOneRoute.as('logFeedAllPageOneRoute');
+});
+
+Cypress.Commands.add('mockUserLookupAPI', () => {
+  cy.fixture('users/lookup/get/andyEmail.json').as('userLookupAndyEmail');
+
+  const userLookupAndyEmailRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/lookup/andrew@jarombek.com',
+    response: '@userLookupAndyEmail'
+  });
+
+  userLookupAndyEmailRoute.as('userLookupAndyEmailRoute');
 });
 
 /**
