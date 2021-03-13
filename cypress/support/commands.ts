@@ -34,3 +34,11 @@ Cypress.Commands.add('setUserInLocalStorage', () => {
 Cypress.Commands.add('setTokenInLocalStorage', () => {
   localStorage.setItem('token', 'j.w.t');
 });
+
+Cypress.Commands.add('getDataCy', (value) => {
+  return cy.get(`[data-cypress=${value}]`);
+});
+
+Cypress.Commands.add('findDataCy', { prevSubject: true }, (subject, value) => {
+  return cy.wrap(subject).find(`[data-cypress=${value}]`);
+});

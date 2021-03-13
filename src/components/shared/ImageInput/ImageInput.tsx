@@ -72,7 +72,7 @@ const ImageInput: React.FunctionComponent<Props> = ({
   }
 
   return (
-    <div className={classNames('sxctf-image-input', className)}>
+    <div className={classNames('sxctf-image-input', className)} data-cypress={`image-input-${name}`}>
       {icon ? <img src={icon} alt="" /> : <div className="no-icon"> </div>}
       <input
         name={name}
