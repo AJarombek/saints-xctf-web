@@ -1,4 +1,6 @@
 /// <reference types="cypress" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="./types.d.ts" />
 
 /**
  * Type definition for the Cypress commands.  This is needed to use custom commands in TypeScript code.
@@ -19,6 +21,12 @@ declare namespace Cypress {
          * @example setTokenInLocalStorage()
          */
         setTokenInLocalStorage(): void;
+
+        /**
+         * Custom command to check for validation icons on an image input component.
+         * @example imageInputValidationCheck('password', 'warning')
+         */
+        imageInputValidationCheck(inputName: string, status: ImageInputStatusClass): void;
 
         /**
          * Chainable function for getting elements with a data-cypress attribute.

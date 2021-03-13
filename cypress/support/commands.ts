@@ -1,8 +1,13 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="./commands.d.ts" />
+
 /**
  * Custom commands to use in Cypress tests.  https://on.cypress.io/custom-commands
  * @author Andrew Jarombek
  * @since 7/18/2020
  */
+
+import ImageInputStatusClass = Cypress.ImageInputStatusClass;
 
 Cypress.Commands.add('setUserInLocalStorage', () => {
   localStorage.setItem(
@@ -33,6 +38,21 @@ Cypress.Commands.add('setUserInLocalStorage', () => {
 
 Cypress.Commands.add('setTokenInLocalStorage', () => {
   localStorage.setItem('token', 'j.w.t');
+});
+
+Cypress.Commands.add('imageInputValidationCheck', (inputName: string, status: ImageInputStatusClass) => {
+  cy.getDataCy(`image-input-${inputName}`)
+    .find('.status.none')
+    .should(status === 'none' ? 'exist' : 'not.exist');
+  cy.getDataCy(`image-input-${inputName}`)
+    .find('.status.warning')
+    .should(status === 'warning' ? 'exist' : 'not.exist');
+  cy.getDataCy(`image-input-${inputName}`)
+    .find('.status.failure')
+    .should(status === 'failure' ? 'exist' : 'not.exist');
+  cy.getDataCy(`image-input-${inputName}`)
+    .find('.status.success')
+    .should(status === 'success' ? 'exist' : 'not.exist');
 });
 
 Cypress.Commands.add('getDataCy', (value) => {

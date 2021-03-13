@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../support/commands.d.ts" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../support/register.d.ts" />
 
 /**
  * E2E tests written with Cypress for the registration page.
@@ -117,11 +119,62 @@ describe('Register E2E Tests', () => {
     cy.get('.sxctf-register-credentials').should('exist');
   });
 
-  it.skip('the credentials step has validation on the username field', () => {});
+  it('the credentials step has validation on the username field', () => {
+    cy.proceedToCredentialsStage();
+    cy.getDataCy('image-input-username').find('.status.none').should('exist');
+    cy.getDataCy('image-input-username').find('.status.warning').should('not.exist');
 
-  it.skip('the credentials step has validation on the password and confirm password fields', () => {});
+    cy.get('.sxctf-image-input input[name="username"]').type('Andy95');
+    cy.getDataCy('image-input-username').find('.status.none').should('exist');
+    cy.getDataCy('image-input-username').find('.status.warning').should('not.exist');
 
-  it.skip("the credentials step doesn't allow registration to continue if there are validation issues", () => {});
+    cy.get('.sxctf-image-input input[name="username"]').type('!');
+    cy.getDataCy('image-input-username').find('.status.none').should('not.exist');
+    cy.getDataCy('image-input-username').find('.status.warning').should('exist');
 
-  it.skip("in the credentials step, clicking 'Back' returns to the personal information step", () => {});
+    cy.get('.sxctf-image-input input[name="username"]').type('{backspace}');
+    cy.getDataCy('image-input-username').find('.status.none').should('exist');
+    cy.getDataCy('image-input-username').find('.status.warning').should('not.exist');
+
+    cy.get('.sxctf-image-input input[name="username"]').clear();
+    cy.getDataCy('image-input-username').find('.status.none').should('not.exist');
+    cy.getDataCy('image-input-username').find('.status.warning').should('exist');
+  });
+
+  it.only('the credentials step has validation on the password and confirm password fields', () => {
+    cy.proceedToCredentialsStage();
+
+    // By default, no validation warnings are shown on the password fields.
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'none');
+
+    // If a password shorter than the required length is entered, validation warnings are shown.
+    cy.get('.sxctf-image-input input[name="password"]').type('passwor');
+    cy.imageInputValidationCheck('password', 'warning');
+    cy.imageInputValidationCheck('confirm-password', 'warning');
+
+    // If a password of the required length is entered, validation warnings disappear (but are still shown on the empty
+    // confirm password input field).
+    cy.get('.sxctf-image-input input[name="password"]').type('d');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'warning');
+
+    // Entering the same password into confirm password removes all warnings.
+    cy.get('.sxctf-image-input input[name="confirm-password"]').type('password');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'none');
+
+    // If the confirm password is different than the password, a validation warning is shown.
+    cy.get('.sxctf-image-input input[name="confirm-password"]').clear().type('passw0rd');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'warning');
+  });
+
+  it("the credentials step doesn't allow registration to continue if there are validation issues", () => {
+    cy.proceedToCredentialsStage();
+  });
+
+  it("in the credentials step, clicking 'Back' returns to the personal information step", () => {
+    cy.proceedToCredentialsStage();
+  });
 });

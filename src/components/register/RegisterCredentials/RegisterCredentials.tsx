@@ -115,7 +115,7 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
     const value = e.target.value;
     setPassword(value);
 
-    const lengthValid = value.length >= 6;
+    const lengthValid = value.length >= 8;
     const valueValid = value === confirmPassword;
 
     const status = lengthValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
