@@ -141,7 +141,7 @@ describe('Register E2E Tests', () => {
     cy.getDataCy('image-input-username').find('.status.warning').should('exist');
   });
 
-  it.only('the credentials step has validation on the password and confirm password fields', () => {
+  it('the credentials step has validation on the password and confirm password fields', () => {
     cy.proceedToCredentialsStage();
 
     // By default, no validation warnings are shown on the password fields.
@@ -168,13 +168,100 @@ describe('Register E2E Tests', () => {
     cy.get('.sxctf-image-input input[name="confirm-password"]').clear().type('passw0rd');
     cy.imageInputValidationCheck('password', 'none');
     cy.imageInputValidationCheck('confirm-password', 'warning');
+
+    // If password is changes to be different than confirm password, the validation error goes on confirm password.
+    cy.get('.sxctf-image-input input[name="confirm-password"]').clear().type('password');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'none');
+
+    cy.get('.sxctf-image-input input[name="password"]').type('!');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'warning');
+
+    // When clearing the fields, a warning is shown on the password field, but not the confirm password field.
+    cy.get('.sxctf-image-input input[name="password"]').clear();
+    cy.get('.sxctf-image-input input[name="confirm-password"]').clear();
+    cy.imageInputValidationCheck('password', 'warning');
+    cy.imageInputValidationCheck('confirm-password', 'none');
   });
 
   it("the credentials step doesn't allow registration to continue if there are validation issues", () => {
     cy.proceedToCredentialsStage();
+
+    // By default, the register button is disabled.
+    cy.get('.sxctf-register-credentials', { timeout: 1000 }).should('be.visible');
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+
+    // Filling in all the fields will enable the register button.
+    cy.get('.sxctf-image-input input[name="username"]').type('andy');
+    cy.get('.sxctf-image-input input[name="password"]').type('password');
+    cy.get('.sxctf-image-input input[name="confirm-password"]').type('password');
+    cy.get('.sxctf-image-input input[name="activation-code"]').type('abcd1234');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
+
+    // Register button is disabled when the username is invalid.
+    cy.get('.sxctf-image-input input[name="username"]').type('!');
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+    cy.get('.sxctf-image-input input[name="username"]').type('{backspace}');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
+
+    // Register button is disabled when the username field is empty.
+    cy.get('.sxctf-image-input input[name="username"]').clear();
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+    cy.get('.sxctf-image-input input[name="username"]').type('andy');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
+
+    // Register button is disabled when the password is invalid.
+    cy.get('.sxctf-image-input input[name="password"]').type('{backspace}{backspace}{backspace}{backspace}');
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+    cy.get('.sxctf-image-input input[name="password"]').type('word');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
+
+    // Register button is disabled when the password field is empty.
+    cy.get('.sxctf-image-input input[name="password"]').clear();
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+    cy.get('.sxctf-image-input input[name="password"]').type('password');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
+
+    // Register button is disabled when the confirm password is invalid.
+    cy.get('.sxctf-image-input input[name="confirm-password"]').type('{backspace}{backspace}{backspace}{backspace}');
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+    cy.get('.sxctf-image-input input[name="confirm-password"]').type('word');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
+
+    // Register button is disabled when the confirm password field is empty.
+    cy.get('.sxctf-image-input input[name="confirm-password"]').clear();
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+    cy.get('.sxctf-image-input input[name="confirm-password"]').type('password');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
+
+    // Register button is disabled when the activation code is invalid.
+    cy.get('.sxctf-image-input input[name="activation-code"]').type('{backspace}{backspace}{backspace}{backspace}');
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+    cy.get('.sxctf-image-input input[name="activation-code"]').type('1234');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
+
+    // Register button is disabled when the activation code field is empty.
+    cy.get('.sxctf-image-input input[name="activation-code"]').clear();
+    cy.get('.aj-contained-button > button').contains('Register').should('have.attr', 'disabled');
+    cy.get('.sxctf-image-input input[name="activation-code"]').type('abcd1234');
+    cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
   });
 
-  it("in the credentials step, clicking 'Back' returns to the personal information step", () => {
+  it.only("in the credentials step, clicking 'Back' returns to the personal information step", () => {
     cy.proceedToCredentialsStage();
+
+    cy.get('.sxctf-register-credentials', { timeout: 1000 }).should('be.visible');
+    cy.get('.sxctf-image-input input[name="firstName"]').should('not.exist');
+    cy.get('.sxctf-image-input input[name="lastName"]').should('not.exist');
+    cy.get('.sxctf-image-input input[name="email"]').should('not.exist');
+
+    cy.url().should('include', '/register');
+    cy.get('.aj-text-button > button').contains('Back').click();
+    cy.url().should('include', '/register');
+
+    cy.get('.sxctf-image-input input[name="firstName"]').should('exist');
+    cy.get('.sxctf-image-input input[name="lastName"]').should('exist');
+    cy.get('.sxctf-image-input input[name="email"]').should('exist');
   });
 });
