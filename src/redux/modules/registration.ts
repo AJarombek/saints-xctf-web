@@ -360,20 +360,20 @@ export function registerPersonalInfo(
  */
 async function validateUsername(dispatch: Dispatch, username: string): Promise<boolean> {
   try {
-    await api.get(`users/${username}`);
+    await api.get(`users/lookup/${username}`);
     dispatch(registerCredentialsFailure('USERNAME ALREADY IN USE', null));
+    return false;
   } catch (error) {
     const { response } = error;
     const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
     if (response.status !== 400) {
       dispatch(registerCredentialsFailure('INTERNAL ERROR', serverError));
-    } else {
       return false;
+    } else {
+      return true;
     }
   }
-
-  return true;
 }
 
 /**

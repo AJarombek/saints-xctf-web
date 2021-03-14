@@ -248,7 +248,7 @@ describe('Register E2E Tests', () => {
     cy.get('.aj-contained-button > button').contains('Register').should('not.have.attr', 'disabled');
   });
 
-  it.only("in the credentials step, clicking 'Back' returns to the personal information step", () => {
+  it("in the credentials step, clicking 'Back' returns to the personal information step", () => {
     cy.proceedToCredentialsStage();
 
     cy.get('.sxctf-register-credentials', { timeout: 1000 }).should('be.visible');

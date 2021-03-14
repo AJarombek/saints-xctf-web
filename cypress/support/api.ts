@@ -48,6 +48,27 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
   });
 
   userLookupAndyEmailRoute.as('userLookupAndyEmailRoute');
+
+  cy.fixture('users/lookup/get/andyUser.json').as('userLookupAndyUser');
+
+  const userLookupAndyUserRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/lookup/andy',
+    response: '@userLookupAndyUser'
+  });
+
+  userLookupAndyUserRoute.as('userLookupAndyUserRoute');
+
+  cy.fixture('users/lookup/get/unusedEmail.json').as('userLookupUnusedEmail');
+
+  const userLookupUnusedEmailRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/lookup/saintsxctf@jarombek.com',
+    response: '@userLookupUnusedEmail',
+    status: 400
+  });
+
+  userLookupUnusedEmailRoute.as('userLookupUnusedEmailRoute');
 });
 
 /**
