@@ -1,0 +1,5 @@
+{
+  "exists": false,
+  "self": "/v2/users/lookup/unusedUsername",
+  "error": "There is no user with this username or email."
+}

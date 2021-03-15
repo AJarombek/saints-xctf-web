@@ -1,0 +1,24 @@
+{
+  "added": true,
+  "self": "/v2/users",
+  "user": {
+    "activation_code": "efgh5678",
+    "class_year": null,
+    "deleted": false,
+    "description": null,
+    "email": "saintsxctf@jarombek.com",
+    "favorite_event": null,
+    "first": "Andy",
+    "last": "Jarombek",
+    "last_signin": null,
+    "location": null,
+    "member_since": "2021-03-14",
+    "password": null,
+    "profilepic_name": null,
+    "salt": null,
+    "subscribed": null,
+    "username": "unusedUsername",
+    "week_start": null
+  },
+  "new_user": "/v2/users/unusedUser"
+}

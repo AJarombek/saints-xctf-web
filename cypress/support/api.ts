@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../support/api.d.ts" />
+/// <reference path="./api.d.ts" />
 
 /**
  * Custom commands for the API to use in Cypress tests.
@@ -15,6 +15,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
   cy.mockUserLookupAPI();
+  cy.mockUserAPI();
 });
 
 Cypress.Commands.add('mockLogAPI', () => {
@@ -36,6 +37,19 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
   });
 
   logFeedAllPageOneRoute.as('logFeedAllPageOneRoute');
+});
+
+Cypress.Commands.add('mockUserAPI', () => {
+  cy.fixture('users/post/invalidActivationCode.json').as('userPostInvalidActivationCode');
+
+  const userPostInvalidActivationCodeRoute = cy.route({
+    method: 'POST',
+    url: '**/api/v2/users/',
+    response: '@userPostInvalidActivationCode',
+    status: 400
+  });
+
+  userPostInvalidActivationCodeRoute.as('userPostInvalidActivationCodeRoute');
 });
 
 Cypress.Commands.add('mockUserLookupAPI', () => {
@@ -69,6 +83,17 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
   });
 
   userLookupUnusedEmailRoute.as('userLookupUnusedEmailRoute');
+
+  cy.fixture('users/lookup/get/unusedUser.json').as('userLookupUnusedUser');
+
+  const userLookupUnusedUserRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/lookup/unusedUsername',
+    response: '@userLookupUnusedUser',
+    status: 400
+  });
+
+  userLookupUnusedUserRoute.as('userLookupUnusedUserRoute');
 });
 
 /**

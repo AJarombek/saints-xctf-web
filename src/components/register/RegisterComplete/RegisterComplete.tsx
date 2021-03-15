@@ -26,7 +26,11 @@ const RegisterComplete: React.FunctionComponent<Props> = ({ registration }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!registration.welcomeEmail?.emailed) {
+    if (
+      !registration.welcomeEmail?.emailed &&
+      !registration.welcomeEmail?.isFetching &&
+      !registration.welcomeEmail?.serverError
+    ) {
       dispatch(sendWelcomeEmail(registration.email, registration.first, registration.last, registration.username));
     }
   }, [
@@ -35,7 +39,9 @@ const RegisterComplete: React.FunctionComponent<Props> = ({ registration }) => {
     registration.first,
     registration.last,
     registration.username,
-    registration.welcomeEmail?.emailed
+    registration.welcomeEmail?.emailed,
+    registration.welcomeEmail?.isFetching,
+    registration.welcomeEmail?.serverError
   ]);
 
   return (

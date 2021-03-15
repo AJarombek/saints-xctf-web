@@ -36,5 +36,34 @@ describe('Register Mock E2E Tests', () => {
     cy.wait('@userLookupAndyUserRoute');
     cy.get('p.errorStatus').should('contain.text', 'A user already exists with this username.');
     cy.getDataCy('image-input-username').find('.status.failure').should('exist');
+
+    cy.get('.sxctf-image-input input[name="username"]').clear().type('unusedUsername');
+    cy.get('p.errorStatus').should('not.exist');
+    cy.getDataCy('image-input-username').find('.status.failure').should('not.exist');
+
+    cy.get('.aj-contained-button > button').contains('Register').click();
+
+    cy.wait('@userLookupUnusedUserRoute');
+    cy.wait('@userPostInvalidActivationCodeRoute');
+    cy.get('p.errorStatus').should('contain.text', 'The activation code is invalid or expired.');
+    cy.getDataCy('image-input-activation-code').find('.status.failure').should('exist');
+
+    cy.get('.sxctf-image-input input[name="activation-code"]').clear().type('efgh5678');
+    cy.get('p.errorStatus').should('not.exist');
+    cy.getDataCy('image-input-activation-code').find('.status.failure').should('not.exist');
+
+    cy.fixture('users/post/unusedUserSuccess.json').as('userPostSuccess');
+
+    const userPostSuccessRoute = cy.route({
+      method: 'POST',
+      url: '**/api/v2/users/',
+      response: '@userPostSuccess',
+      status: 201
+    });
+
+    userPostSuccessRoute.as('userPostSuccessRoute');
+
+    cy.get('.aj-contained-button > button').contains('Register').click();
+    cy.wait('@userPostSuccessRoute');
   });
 });

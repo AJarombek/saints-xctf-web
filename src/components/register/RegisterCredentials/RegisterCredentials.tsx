@@ -5,13 +5,13 @@
  * @since 5/12/2020
  */
 
-import React, { useState, useEffect } from 'react';
-import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
-import ImageInputSet, { ImageInputDirection } from '../../shared/ImageInputSet';
-import { AJButton } from 'jarombek-react-components';
-import { useDispatch } from 'react-redux';
-import { registerBack, registerCredentials } from '../../../redux/modules/registration';
-import { RegistrationState } from '../../../redux/types';
+import React, {useEffect, useState} from 'react';
+import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
+import ImageInputSet, {ImageInputDirection} from '../../shared/ImageInputSet';
+import {AJButton} from 'jarombek-react-components';
+import {useDispatch} from 'react-redux';
+import {registerBack, registerCredentials} from '../../../redux/modules/registration';
+import {RegistrationState} from '../../../redux/types';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
@@ -104,6 +104,10 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
 
     setUsernameStatus(status);
     setUsernameValid(isValid);
+
+    if (errorStatus === 'A user already exists with this username.') {
+      setErrorStatus(null);
+    }
   };
 
   /**
@@ -126,6 +130,10 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
 
     setConfirmPasswordStatus(confirmStatus);
     setConfirmPasswordValid(valueValid);
+
+    if (errorStatus === 'Password must contain at least 8 characters.') {
+      setErrorStatus(null);
+    }
   };
 
   /**
@@ -156,6 +164,10 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
 
     setActivationCodeStatus(status);
     setActivationCodeValid(isValid);
+
+    if (errorStatus === 'The activation code is invalid or expired.') {
+      setErrorStatus(null);
+    }
   };
 
   /**
