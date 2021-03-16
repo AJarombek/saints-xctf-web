@@ -45,14 +45,14 @@ const RegisterComplete: React.FunctionComponent<Props> = ({ registration }) => {
   ]);
 
   return (
-    <div className={classes.registerComplete}>
+    <div className={classes.registerComplete} data-cypress="registerComplete">
       <div className={classes.checkedIcon}>
         <p>&#x4e;</p>
       </div>
       <h5 className={classes.successDescription}>
         You are registered! A welcome email was sent to your email address.
       </h5>
-      <p className={classes.enterCode} onClick={(): void => history.push('/signin')}>
+      <p className={classes.signInLink} data-cypress="signInLink" onClick={(): void => history.push('/signin')}>
         Sign In
       </p>
     </div>

@@ -1,10 +1,10 @@
-import Mixins from "../../../styles/mixins";
-
 /**
  * JSS styles for the RegisterComplete component.
  * @author Andrew Jarombek
  * @since 2/23/2021
  */
+
+import Mixins, { FontMixins } from '../../../styles/mixins';
 
 export default {
   registerComplete: {},
@@ -12,9 +12,10 @@ export default {
     ...Mixins.checkedIcon()
   },
   successDescription: {
-    ...Mixins.successDescription()
+    ...Mixins.successDescription(),
+    ...FontMixins.robotoSlab()
   },
-  enterCode: {
+  signInLink: {
     ...Mixins.blueLink()
   }
 };

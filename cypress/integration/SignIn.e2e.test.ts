@@ -9,7 +9,40 @@ describe('Sign In E2E Tests', () => {
     cy.visit('/signin');
   });
 
-  it.skip('should sign in a user that supplies proper credentials', () => {
+  it("'Home' header button navigates to the home page", () => {
+    cy.url().should('include', '/signin');
+    cy.get('.homeButton').click();
+    cy.url().should('include', '/');
+    cy.url().should('not.include', '/signin');
+  });
+
+  it("'Register' header button navigates to the registration page", () => {
+    cy.url().should('include', '/signin');
+    cy.get('.registerButton').click();
+    cy.url().should('include', '/register');
+  });
+
+  it('header title navigates to the home page', () => {
+    cy.url().should('include', '/signin');
+    cy.get('h1').contains('SaintsXCTF').click();
+    cy.url().should('include', '/');
+    cy.url().should('not.include', '/signin');
+  });
+
+  it('header icon navigates to the home page', () => {
+    cy.url().should('include', '/signin');
+    cy.get('.sxctf-logo').click();
+    cy.url().should('include', '/');
+    cy.url().should('not.include', '/signin');
+  });
+
+  it("clicking 'Create Account' navigates to the register page", () => {
+    cy.url().should('include', '/signin');
+    cy.get('button').contains('Create Account').click();
+    cy.url().should('include', '/register');
+  });
+
+  it('should sign in a user that supplies proper credentials', () => {
     cy.get('.sxctf-image-input input[name="username"]').type('andy');
     cy.get('.sxctf-image-input input[name="password"]').type('password');
     cy.get('.aj-contained-button').contains('Sign In').click();

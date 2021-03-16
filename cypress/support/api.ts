@@ -28,7 +28,7 @@ Cypress.Commands.add('mockLogAPI', () => {
 });
 
 Cypress.Commands.add('mockLogFeedAPI', () => {
-  cy.fixture('logFeed/get/allPageOne.json').as('logFeedAllPageOne');
+  cy.fixture('api/logFeed/get/allPageOne.json').as('logFeedAllPageOne');
 
   const logFeedAllPageOneRoute = cy.route({
     method: 'GET',
@@ -40,7 +40,7 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
 });
 
 Cypress.Commands.add('mockUserAPI', () => {
-  cy.fixture('users/post/invalidActivationCode.json').as('userPostInvalidActivationCode');
+  cy.fixture('api/users/post/invalidActivationCode.json').as('userPostInvalidActivationCode');
 
   const userPostInvalidActivationCodeRoute = cy.route({
     method: 'POST',
@@ -53,7 +53,7 @@ Cypress.Commands.add('mockUserAPI', () => {
 });
 
 Cypress.Commands.add('mockUserLookupAPI', () => {
-  cy.fixture('users/lookup/get/andyEmail.json').as('userLookupAndyEmail');
+  cy.fixture('api/users/lookup/get/andyEmail.json').as('userLookupAndyEmail');
 
   const userLookupAndyEmailRoute = cy.route({
     method: 'GET',
@@ -63,7 +63,7 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
 
   userLookupAndyEmailRoute.as('userLookupAndyEmailRoute');
 
-  cy.fixture('users/lookup/get/andyUser.json').as('userLookupAndyUser');
+  cy.fixture('api/users/lookup/get/andyUser.json').as('userLookupAndyUser');
 
   const userLookupAndyUserRoute = cy.route({
     method: 'GET',
@@ -73,7 +73,7 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
 
   userLookupAndyUserRoute.as('userLookupAndyUserRoute');
 
-  cy.fixture('users/lookup/get/unusedEmail.json').as('userLookupUnusedEmail');
+  cy.fixture('api/users/lookup/get/unusedEmail.json').as('userLookupUnusedEmail');
 
   const userLookupUnusedEmailRoute = cy.route({
     method: 'GET',
@@ -84,7 +84,7 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
 
   userLookupUnusedEmailRoute.as('userLookupUnusedEmailRoute');
 
-  cy.fixture('users/lookup/get/unusedUser.json').as('userLookupUnusedUser');
+  cy.fixture('api/users/lookup/get/unusedUser.json').as('userLookupUnusedUser');
 
   const userLookupUnusedUserRoute = cy.route({
     method: 'GET',
@@ -99,6 +99,27 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
 /**
  * Mock the auth.saintsxctf.com calls made from the UI.
  */
-Cypress.Commands.add('mockAuth', () => {
+Cypress.Commands.add('mockAuthAPI', () => {
   cy.server();
+});
+
+/**
+ * Mock the fn.saintsxctf.com calls made from the UI.
+ */
+Cypress.Commands.add('mockFnAPI', () => {
+  cy.server();
+  cy.mockWelcomeEmailFnAPI();
+});
+
+Cypress.Commands.add('mockWelcomeEmailFnAPI', () => {
+  cy.fixture('fn/email/welcome/success.json').as('welcomeEmailSuccessFn');
+
+  const welcomeEmailSuccessFnRoute = cy.route({
+    method: 'POST',
+    url: '**/fn/email/welcome',
+    response: '@welcomeEmailSuccessFn',
+    status: 200
+  });
+
+  welcomeEmailSuccessFnRoute.as('welcomeEmailSuccessFnRoute');
 });

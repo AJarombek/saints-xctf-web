@@ -7,10 +7,10 @@
 describe('Register Mock E2E Tests', () => {
   beforeEach(() => {
     cy.visit('/register');
+    cy.clearLocalStorage(/user|token/);
     cy.mockAPI();
-    cy.mockAuth();
-    cy.setUserInLocalStorage();
-    cy.setTokenInLocalStorage();
+    cy.mockAuthAPI();
+    cy.mockFnAPI();
   });
 
   it('can register a new user', () => {
@@ -52,7 +52,7 @@ describe('Register Mock E2E Tests', () => {
     cy.get('p.errorStatus').should('not.exist');
     cy.getDataCy('image-input-activation-code').find('.status.failure').should('not.exist');
 
-    cy.fixture('users/post/unusedUserSuccess.json').as('userPostSuccess');
+    cy.fixture('api/users/post/unusedUserSuccess.json').as('userPostSuccess');
 
     const userPostSuccessRoute = cy.route({
       method: 'POST',
@@ -65,5 +65,14 @@ describe('Register Mock E2E Tests', () => {
 
     cy.get('.aj-contained-button > button').contains('Register').click();
     cy.wait('@userPostSuccessRoute');
+    cy.wait('@welcomeEmailSuccessFnRoute');
+
+    cy.getDataCy('registerComplete').should('exist');
+    cy.getDataCy('registerComplete')
+      .get('h5')
+      .should('contain.text', 'You are registered! A welcome email was sent to your email address.');
+
+    cy.getDataCy('registerComplete').findDataCy('signInLink').click();
+    cy.url().should('include', '/signin');
   });
 });

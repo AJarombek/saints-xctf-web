@@ -37,10 +37,9 @@ declare namespace Cypress {
 
         /**
          * Child chainable function for finding elements with a data-cypress attribute.
-         * @param subject The subejct (HTML element) that is serached from for child elements.
          * @param value The value of the data attribute on an HTML element.
          * @example findDataCy('button')
          */
-        findDataCy(subject: any, value: string): Chainable<Element>;
+        findDataCy(value: string): Chainable<Element>;
     }
 }

@@ -8,7 +8,7 @@
 describe('Dashboard Mock E2E Tests', () => {
   beforeEach(() => {
     cy.mockAPI();
-    cy.mockAuth();
+    cy.mockAuthAPI();
     cy.setUserInLocalStorage();
     cy.setTokenInLocalStorage();
   });
@@ -20,13 +20,15 @@ describe('Dashboard Mock E2E Tests', () => {
     cy.get('.deleteLogModal').should('not.exist');
     cy.get('#logFeed .exerciseLog').should('have.length', 2);
 
-    cy.get('#logFeed .exerciseLog').eq(0).trigger('mouseover')
+    cy.get('#logFeed .exerciseLog').eq(0).trigger('mouseover');
     cy.get('#logFeed .exerciseLog').eq(0).find('.options').click();
     cy.get('#logFeed .exerciseLog').eq(0).find('.delete').click();
 
     cy.get('.deleteLogModal').should('exist');
-    cy.get('.deleteLogModal')
-      .should('contain.text', 'Are you sure you want to delete your Oct. 18th exercise log "Central Park"?');
+    cy.get('.deleteLogModal').should(
+      'contain.text',
+      'Are you sure you want to delete your Oct. 18th exercise log "Central Park"?'
+    );
 
     cy.get('.deleteLogModal button').contains('CANCEL').click();
 

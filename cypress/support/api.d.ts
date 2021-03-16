@@ -47,8 +47,22 @@ declare namespace Cypress {
         /**
          * Instead of calling the SaintsXCTF Authentication API, return static JSON files defined in the fixtures
          * directory when an API call is made.
-         * @example mockAuth()
+         * @example mockAuthAPI()
          */
-        mockAuth(): void;
+        mockAuthAPI(): void;
+
+        /**
+         * Instead of calling the SaintsXCTF Function API, return static JSON files defined in the fixtures
+         * directory when an API call is made.
+         * @example mockFnAPI()
+         */
+        mockFnAPI(): void;
+
+        /**
+         * Return static JSON files defined in the fixtures directory when a Function API call is made to a
+         * '/email/welcome' endpoint.
+         * @example mockWelcomeEmailFnAPI()
+         */
+        mockWelcomeEmailFnAPI(): void;
     }
 }
