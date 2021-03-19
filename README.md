@@ -44,6 +44,7 @@ yarn test-update
 
 ```bash
 # Run the Cypress tests in Chrome
+export CYPRESS_SXCTF_PASSWORD=xxxx
 yarn cy:open
 ```
 

@@ -101,6 +101,19 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
  */
 Cypress.Commands.add('mockAuthAPI', () => {
   cy.server();
+  cy.mockAuthTokenAPI();
+});
+
+Cypress.Commands.add('mockAuthTokenAPI', () => {
+  cy.fixture('auth/token/andy.json').as('andyAuthToken');
+
+  const andyAuthTokenRoute = cy.route({
+    method: 'POST',
+    url: '**/auth/token',
+    response: '@andyAuthToken'
+  });
+
+  andyAuthTokenRoute.as('andyAuthTokenRoute');
 });
 
 /**

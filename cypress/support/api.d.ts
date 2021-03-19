@@ -52,6 +52,13 @@ declare namespace Cypress {
         mockAuthAPI(): void;
 
         /**
+         * Return static JSON files defined in the fixtures directory when a Authentication API call is made to a
+         * '/token' endpoint.
+         * @example mockAuthTokenAPI()
+         */
+        mockAuthTokenAPI(): void;
+
+        /**
          * Instead of calling the SaintsXCTF Function API, return static JSON files defined in the fixtures
          * directory when an API call is made.
          * @example mockFnAPI()
