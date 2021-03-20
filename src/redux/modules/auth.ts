@@ -722,6 +722,12 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
       });
 
       const { result: token } = authResponse.data;
+
+      if (!token) {
+        dispatch(signInFailure('INVALID USER'));
+        return;
+      }
+
       localStorage.setItem('token', token);
 
       const response = await api.get(`users/${username}`);

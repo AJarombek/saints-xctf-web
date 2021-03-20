@@ -40,6 +40,16 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
 });
 
 Cypress.Commands.add('mockUserAPI', () => {
+  cy.fixture('api/users/get/andy.json').as('userAndy');
+
+  const userAndyRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/andy',
+    response: '@userAndy'
+  });
+
+  userAndyRoute.as('userAndyRoute');
+
   cy.fixture('api/users/post/invalidActivationCode.json').as('userPostInvalidActivationCode');
 
   const userPostInvalidActivationCodeRoute = cy.route({
