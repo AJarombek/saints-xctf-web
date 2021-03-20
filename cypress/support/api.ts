@@ -14,7 +14,10 @@ Cypress.Commands.add('mockAPI', () => {
   cy.server();
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
+  cy.mockUserGroupsAPI();
   cy.mockUserLookupAPI();
+  cy.mockUserMembershipsAPI();
+  cy.mockUserNotificationsAPI();
   cy.mockUserAPI();
 });
 
@@ -62,6 +65,18 @@ Cypress.Commands.add('mockUserAPI', () => {
   userPostInvalidActivationCodeRoute.as('userPostInvalidActivationCodeRoute');
 });
 
+Cypress.Commands.add('mockUserGroupsAPI', () => {
+  cy.fixture('api/users/groups/get/andy.json').as('userGroupsAndy');
+
+  const userGroupsAndyRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/groups/andy',
+    response: '@userGroupsAndy'
+  });
+
+  userGroupsAndyRoute.as('userGroupsAndyRoute');
+});
+
 Cypress.Commands.add('mockUserLookupAPI', () => {
   cy.fixture('api/users/lookup/get/andyEmail.json').as('userLookupAndyEmail');
 
@@ -104,6 +119,30 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
   });
 
   userLookupUnusedUserRoute.as('userLookupUnusedUserRoute');
+});
+
+Cypress.Commands.add('mockUserMembershipsAPI', () => {
+  cy.fixture('api/users/memberships/get/andy.json').as('userMembershipsAndy');
+
+  const userMembershipsAndyRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/memberships/andy',
+    response: '@userMembershipsAndy'
+  });
+
+  userMembershipsAndyRoute.as('userMembershipsAndyRoute');
+});
+
+Cypress.Commands.add('mockUserNotificationsAPI', () => {
+  cy.fixture('api/users/notifications/get/andy.json').as('userNotificationsAndy');
+
+  const userNotificationsAndyRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/notifications/andy',
+    response: '@userNotificationsAndy'
+  });
+
+  userNotificationsAndyRoute.as('userNotificationsAndyRoute');
 });
 
 /**

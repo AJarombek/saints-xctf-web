@@ -39,10 +39,31 @@ declare namespace Cypress {
 
         /**
          * Return static JSON files defined in the fixtures directory when an API call is made to a
+         * '/v2/users/groups/*' endpoint.
+         * @example mockUserGroupsAPI()
+         */
+        mockUserGroupsAPI(): void;
+
+        /**
+         * Return static JSON files defined in the fixtures directory when an API call is made to a
          * '/v2/users/lookup/*' endpoint.
          * @example mockUserLookupAPI()
          */
         mockUserLookupAPI(): void;
+
+        /**
+         * Return static JSON files defined in the fixtures directory when an API call is made to a
+         * '/v2/users/memberships/*' endpoint.
+         * @example mockUserMembershipsAPI()
+         */
+        mockUserMembershipsAPI(): void;
+
+        /**
+         * Return static JSON files defined in the fixtures directory when an API call is made to a
+         * '/v2/users/notifications/*' endpoint.
+         * @example mockUserNotificationsAPI()
+         */
+        mockUserNotificationsAPI(): void;
 
         /**
          * Instead of calling the SaintsXCTF Authentication API, return static JSON files defined in the fixtures

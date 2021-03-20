@@ -59,5 +59,10 @@ describe('Sign In Mock E2E Tests', () => {
     cy.get('.aj-contained-button').contains('Sign In').click();
     cy.wait('@andyAuthTokenRoute');
     cy.wait('@userAndyRoute');
+
+    cy.url().should('include', '/dashboard');
+    cy.wait('@userNotificationsAndyRoute');
+    cy.wait('@userMembershipsAndyRoute');
+    cy.wait('@userGroupsAndyRoute');
   });
 });

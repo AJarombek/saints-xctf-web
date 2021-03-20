@@ -1,0 +1,27 @@
+{
+  "memberships": [
+    {
+      "groups": [
+        {
+          "group_id": 1,
+          "group_name": "alumni",
+          "group_title": "Alumni",
+          "status": "accepted",
+          "user": "admin"
+        }
+      ],
+      "status": "accepted",
+      "team_name": "saintsxctf",
+      "title": "St. Lawrence Cross Country and Track & Field",
+      "user": "user"
+    },
+    {
+      "groups": [],
+      "status": "pending",
+      "team_name": "saintsxctf_alumni",
+      "title": "SaintsXCTF Alumni",
+      "user": "user"
+    }
+  ],
+  "self": "/v2/users/memberships/andy"
+}

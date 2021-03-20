@@ -1,0 +1,21 @@
+{
+  "notifications": [
+    {
+      "description": "Valid Notification",
+      "link": null,
+      "notification_id": 2925,
+      "time": "Sun, 14 Mar 2021 00:21:19 GMT",
+      "username": "andy",
+      "viewed": "N"
+    },
+    {
+      "description": "Joseph Smith commented on your exercise log.",
+      "link": "https://www.saintsxctf.com/",
+      "notification_id": 2914,
+      "time": "Sun, 14 Mar 2021 00:21:16 GMT",
+      "username": "andy",
+      "viewed": "Y"
+    }
+  ],
+  "self": "/v2/users/notifications/andy"
+}

@@ -572,6 +572,7 @@ export function signInFailure(status: string): SignInFailureAction {
 
 export function signOut(): SignOutAction {
   localStorage.removeItem('user');
+  localStorage.removeItem('token');
 
   return {
     type: SIGNOUT

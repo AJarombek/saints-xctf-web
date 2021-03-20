@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "group_name": "alumni",
+      "group_title": "Alumni",
+      "status": "pending",
+      "user": "user"
+    }
+  ],
+  "self": "/v2/users/groups/andy"
+}
