@@ -17,6 +17,13 @@ declare namespace Cypress {
         mockAPI(): void;
 
         /**
+         * Return static JSON files defined in the fixtures directory when an API call is made to a
+         * '/v2/forgot_password/*' endpoint.
+         * @example mockForgotPasswordAPI()
+         */
+        mockForgotPasswordAPI(): void;
+
+        /**
          * Return static JSON files defined in the fixtures directory when an API call is made to a '/v2/logs/*'
          * endpoint.
          * @example mockLogAPI()

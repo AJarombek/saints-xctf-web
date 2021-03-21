@@ -43,4 +43,14 @@ describe('Forgot Password E2E Tests', () => {
     cy.url().should('include', '/');
     cy.url().should('not.include', '/forgotpassword');
   });
+
+  it('entering an invalid username or email results in an error', () => {
+    cy.get('.sxctf-image-input input[name="email"]').type('invalid_user');
+    cy.get('.aj-contained-button').contains('Send').click();
+    cy.get('p.errorStatus').should('contain.text', 'There is no user associated with this username/email.');
+
+    cy.get('.sxctf-image-input input[name="email"]').clear().type('saintsxctf@jarombek.com');
+    cy.get('.aj-contained-button').contains('Send').click();
+    cy.get('p.errorStatus').should('contain.text', 'There is no user associated with this username/email.');
+  });
 });

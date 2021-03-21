@@ -13,7 +13,7 @@ import { AJButton } from 'jarombek-react-components';
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import emailLogo from '../../../../assets/email.png';
-import { createForgotPasswordCode } from '../../../redux/modules/auth';
+import { createForgotPasswordCode, ForgotPasswordCreationResult } from '../../../redux/modules/auth';
 import { useDispatch } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
@@ -56,12 +56,12 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
   const onClickSend = async (): Promise<void> => {
     setLoading(true);
     setErrorStatus(null);
-    const forgotPasswordCreated = await dispatch(createForgotPasswordCode(email));
+    const forgotPasswordCreated = (await dispatch(createForgotPasswordCode(email))) as ForgotPasswordCreationResult;
 
-    if (forgotPasswordCreated) {
+    if (forgotPasswordCreated.created) {
       setEmailSent(true);
     } else {
-      setErrorStatus('Failed to create a forgot password code.');
+      setErrorStatus(forgotPasswordCreated.error ?? 'Failed to create a forgot password code.');
       setEmailSent(false);
     }
 
@@ -108,7 +108,7 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
             <div className={classes.checkedIcon} data-puppeteer="checkedIcon">
               <p>&#x4e;</p>
             </div>
-            <h5 className={classes.successDescription}>
+            <h5 className={classes.successDescription} data-cypress="forgotPasswordEmailSent">
               An email was sent to your email address with a forgot password code.
             </h5>
             <p className={classes.enterCode} onClick={(): void => history.push('/forgotpassword/reset')}>

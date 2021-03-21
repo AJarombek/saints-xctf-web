@@ -752,21 +752,30 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
   };
 }
 
-export function createForgotPasswordCode(email: string): AppThunk<Promise<boolean>, AuthState> {
-  return async function (dispatch: Dispatch): Promise<boolean> {
+export type ForgotPasswordCreationResult = {
+  created?: boolean;
+  error?: string;
+};
+
+export function createForgotPasswordCode(email: string): AppThunk<Promise<ForgotPasswordCreationResult>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<ForgotPasswordCreationResult> {
     dispatch(postForgotPasswordRequest(email));
 
     try {
       const response = await api.post(`forgot_password/${email}`);
       dispatch(postForgotPasswordSuccess(email));
 
-      return response.data.created;
+      return {
+        created: response.data.created
+      };
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(postForgotPasswordFailure(email, serverError));
-      return false;
+      return {
+        error: serverError
+      };
     }
   };
 }

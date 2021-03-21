@@ -12,6 +12,7 @@
  */
 Cypress.Commands.add('mockAPI', () => {
   cy.server();
+  cy.mockForgotPasswordAPI();
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
   cy.mockTeamGroupsAPI();
@@ -20,6 +21,18 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockUserMembershipsAPI();
   cy.mockUserNotificationsAPI();
   cy.mockUserAPI();
+});
+
+Cypress.Commands.add('mockForgotPasswordAPI', () => {
+  cy.fixture('api/forgotPassword/post/andy.json').as('forgotPasswordPostAndy');
+
+  const forgotPasswordPostAndyRoute = cy.route({
+    method: 'POST',
+    url: '**/api/v2/forgot_password/andrew@jarombek.com',
+    response: '@forgotPasswordPostAndy'
+  });
+
+  forgotPasswordPostAndyRoute.as('forgotPasswordPostAndyRoute');
 });
 
 Cypress.Commands.add('mockLogAPI', () => {
