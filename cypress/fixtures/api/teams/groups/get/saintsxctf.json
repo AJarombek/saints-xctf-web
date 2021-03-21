@@ -1,0 +1,51 @@
+{
+  "group": "/v2/teams/saintsxctf",
+  "self": "/v2/teams/groups/saintsxctf",
+  "team_groups": [
+    {
+      "deleted": 0,
+      "description": "",
+      "group_name": "alumni",
+      "group_title": "Alumni",
+      "grouppic_name": "picture.png",
+      "id": 1,
+      "week_start": "sunday"
+    },
+    {
+      "deleted": 0,
+      "description": "Go Saints!",
+      "group_name": "menstf",
+      "group_title": "Men's Track & Field",
+      "grouppic_name": null,
+      "id": 4,
+      "week_start": "sunday"
+    },
+    {
+      "deleted": 0,
+      "description": "Joust!",
+      "group_name": "mensxc",
+      "group_title": "Men's Cross Country",
+      "grouppic_name": null,
+      "id": 5,
+      "week_start": "sunday"
+    },
+    {
+      "deleted": 0,
+      "description": "Go Saints!",
+      "group_name": "wmenstf",
+      "group_title": "Women's Track & Field",
+      "grouppic_name": null,
+      "id": 6,
+      "week_start": "sunday"
+    },
+    {
+      "deleted": 0,
+      "description": "Gung Ho!",
+      "group_name": "wmensxc",
+      "group_title": "Women's Cross Country",
+      "grouppic_name": null,
+      "id": 7,
+      "week_start": "sunday"
+    }
+  ]
+}

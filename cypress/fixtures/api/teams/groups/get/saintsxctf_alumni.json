@@ -1,0 +1,15 @@
+{
+  "group": "/v2/teams/saintsxctf_alumni",
+  "self": "/v2/teams/groups/saintsxctf_alumni",
+  "team_groups": [
+    {
+      "deleted": 0,
+      "description": null,
+      "group_name": "xc_alumni",
+      "group_title": "Cross Country Alumni",
+      "grouppic_name": null,
+      "id": 8,
+      "week_start": "sunday"
+    }
+  ]
+}

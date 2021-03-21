@@ -61,8 +61,11 @@ describe('Sign In Mock E2E Tests', () => {
     cy.wait('@userAndyRoute');
 
     cy.url().should('include', '/dashboard');
+    cy.wait('@logFeedAllPageOneRoute');
     cy.wait('@userNotificationsAndyRoute');
     cy.wait('@userMembershipsAndyRoute');
     cy.wait('@userGroupsAndyRoute');
+    cy.wait('@teamGroupsSaintsXCTFRoute');
+    cy.wait('@teamGroupsSaintsXCTFAlumniRoute');
   });
 });

@@ -14,6 +14,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.server();
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
+  cy.mockTeamGroupsAPI();
   cy.mockUserGroupsAPI();
   cy.mockUserLookupAPI();
   cy.mockUserMembershipsAPI();
@@ -40,6 +41,28 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
   });
 
   logFeedAllPageOneRoute.as('logFeedAllPageOneRoute');
+});
+
+Cypress.Commands.add('mockTeamGroupsAPI', () => {
+  cy.fixture('api/teams/groups/get/saintsxctf.json').as('teamGroupsSaintsXCTF');
+
+  const teamGroupsSaintsXCTFRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/teams/groups/saintsxctf',
+    response: '@teamGroupsSaintsXCTF'
+  });
+
+  teamGroupsSaintsXCTFRoute.as('teamGroupsSaintsXCTFRoute');
+
+  cy.fixture('api/teams/groups/get/saintsxctf_alumni.json').as('teamGroupsSaintsXCTFAlumni');
+
+  const teamGroupsSaintsXCTFAlumniRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/teams/groups/saintsxctf_alumni',
+    response: '@teamGroupsSaintsXCTFAlumni'
+  });
+
+  teamGroupsSaintsXCTFAlumniRoute.as('teamGroupsSaintsXCTFAlumniRoute');
 });
 
 Cypress.Commands.add('mockUserAPI', () => {
