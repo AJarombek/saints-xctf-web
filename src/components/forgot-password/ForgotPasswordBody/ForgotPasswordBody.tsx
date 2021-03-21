@@ -111,7 +111,11 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
             <h5 className={classes.successDescription} data-cypress="forgotPasswordEmailSent">
               An email was sent to your email address with a forgot password code.
             </h5>
-            <p className={classes.enterCode} onClick={(): void => history.push('/forgotpassword/reset')}>
+            <p
+              className={classes.enterCode}
+              data-cypress="forgotPasswordEnterCode"
+              onClick={(): void => history.push('/forgotpassword/reset')}
+            >
               Enter Code
             </p>
           </>

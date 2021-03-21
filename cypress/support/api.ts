@@ -13,6 +13,7 @@
 Cypress.Commands.add('mockAPI', () => {
   cy.server();
   cy.mockForgotPasswordAPI();
+  cy.mockForgotPasswordValidateAPI();
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
   cy.mockTeamGroupsAPI();
@@ -33,6 +34,18 @@ Cypress.Commands.add('mockForgotPasswordAPI', () => {
   });
 
   forgotPasswordPostAndyRoute.as('forgotPasswordPostAndyRoute');
+});
+
+Cypress.Commands.add('mockForgotPasswordValidateAPI', () => {
+  cy.fixture('api/forgotPassword/validate/get/80un02.json').as('forgotPasswordValidate80un02');
+
+  const forgotPasswordValidate80un02Route = cy.route({
+    method: 'GET',
+    url: '**/api/v2/forgot_password/validate/80un02',
+    response: '@forgotPasswordValidate80un02'
+  });
+
+  forgotPasswordValidate80un02Route.as('forgotPasswordValidate80un02Route');
 });
 
 Cypress.Commands.add('mockLogAPI', () => {

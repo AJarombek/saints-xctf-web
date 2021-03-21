@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../support/forgotPassword.d.ts" />
+
 /**
  * E2E tests written with Cypress for the forgot password pages.  These E2E tests used mocked API calls.
  * @author Andrew Jarombek
@@ -14,13 +17,14 @@ describe('Forgot Password Mock E2E Tests', () => {
   });
 
   it('sends a forgot password code if a valid username is entered', () => {
-    cy.get('.sxctf-image-input input[name="email"]').type('andrew@jarombek.com');
-    cy.get('.aj-contained-button').contains('Send').click();
-    cy.wait('@forgotPasswordPostAndyRoute');
+    cy.sendForgotPasswordCode();
+  });
 
-    cy.getDataCy('forgotPasswordEmailSent').should(
-      'contain.text',
-      'An email was sent to your email address with a forgot password code.'
-    );
+  it.only('allows users to enter their forgot password code after its been created', () => {
+    cy.sendForgotPasswordCode();
+    cy.getDataCy('forgotPasswordEnterCode').click();
+    cy.get('.sxctf-image-input input[name="code"]').clear().type('80un02');
+    cy.get('.aj-contained-button').contains('Submit').click();
+    cy.wait('@forgotPasswordValidate80un02Route');
   });
 });
