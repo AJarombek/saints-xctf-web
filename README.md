@@ -64,6 +64,10 @@ docker-compose -f docker-compose.yml up --build
 
 # Third and finally, start the web application.
 cd ~/repos/saints-xctf-web
+
+# If building the dev or production docker images, sign in to ECR.
+eval $(aws ecr get-login --no-include-email | sed 's|https://||')
+
 docker-compose up --build
 ```
 

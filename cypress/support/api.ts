@@ -46,6 +46,17 @@ Cypress.Commands.add('mockForgotPasswordValidateAPI', () => {
   });
 
   forgotPasswordValidate80un02Route.as('forgotPasswordValidate80un02Route');
+
+  cy.fixture('api/forgotPassword/validate/get/invalid.json').as('forgotPasswordValidateInvalid');
+
+  const forgotPasswordValidateInvalidRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/forgot_password/validate/invalid',
+    response: '@forgotPasswordValidateInvalid',
+    status: 400
+  });
+
+  forgotPasswordValidateInvalidRoute.as('forgotPasswordValidateInvalidRoute');
 });
 
 Cypress.Commands.add('mockLogAPI', () => {

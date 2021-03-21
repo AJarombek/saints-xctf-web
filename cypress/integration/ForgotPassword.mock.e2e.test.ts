@@ -20,11 +20,65 @@ describe('Forgot Password Mock E2E Tests', () => {
     cy.sendForgotPasswordCode();
   });
 
-  it.only('allows users to enter their forgot password code after its been created', () => {
+  it('allows users to enter their forgot password code after its been created', () => {
     cy.sendForgotPasswordCode();
     cy.getDataCy('forgotPasswordEnterCode').click();
     cy.get('.sxctf-image-input input[name="code"]').clear().type('80un02');
     cy.get('.aj-contained-button').contains('Submit').click();
     cy.wait('@forgotPasswordValidate80un02Route');
+  });
+
+  it('shows a warning if an invalid forgot password code is entered', () => {
+    cy.sendForgotPasswordCode();
+    cy.getDataCy('forgotPasswordEnterCode').click();
+    cy.get('.sxctf-image-input input[name="code"]').clear().type('invalid');
+    cy.get('.aj-contained-button').contains('Submit').click();
+    cy.wait('@forgotPasswordValidateInvalidRoute');
+    cy.imageInputValidationCheck('code', 'failure');
+  });
+
+  it('able to request another code', () => {
+    cy.sendForgotPasswordCode();
+    cy.getDataCy('forgotPasswordEnterCode').click();
+    cy.url().should('include', '/forgotpassword/reset');
+    cy.getDataCy('requestCode').click();
+    cy.url().should('include', '/forgotpassword');
+    cy.sendForgotPasswordCode();
+    cy.getDataCy('forgotPasswordEnterCode').click();
+    cy.url().should('include', '/forgotpassword/reset');
+  });
+
+  it('able to cancel forgot password code validation', () => {
+    cy.sendForgotPasswordCode();
+    cy.getDataCy('forgotPasswordEnterCode').click();
+    cy.url().should('include', '/forgotpassword/reset');
+    cy.get('.aj-text-button').contains('Cancel').click();
+    cy.url().should('not.include', '/forgotpassword/reset');
+    cy.url().should('include', '/');
+  });
+
+  it('able to cancel password reset', () => {
+    cy.sendForgotPasswordCode();
+    cy.getDataCy('forgotPasswordEnterCode').click();
+    cy.url().should('include', '/forgotpassword/reset');
+    cy.get('.sxctf-image-input input[name="code"]').clear().type('80un02');
+    cy.get('.aj-contained-button').contains('Submit').click();
+    cy.wait('@forgotPasswordValidate80un02Route');
+    cy.get('.aj-text-button').contains('Cancel').click();
+    cy.url().should('not.include', '/forgotpassword/reset');
+    cy.url().should('include', '/');
+  });
+
+  it.only('able to change a users password with the forgot password code', () => {
+    cy.sendForgotPasswordCode();
+    cy.getDataCy('forgotPasswordEnterCode').click();
+    cy.url().should('include', '/forgotpassword/reset');
+    cy.get('.sxctf-image-input input[name="code"]').clear().type('80un02');
+    cy.get('.aj-contained-button').contains('Submit').click();
+    cy.wait('@forgotPasswordValidate80un02Route');
+
+    cy.get('.sxctf-image-input input[name="password"]').type('new_password');
+    cy.get('.sxctf-image-input input[name="confirm-password"]').type('new_password');
+    cy.get('.aj-contained-button').contains('Change Password').click();
   });
 });

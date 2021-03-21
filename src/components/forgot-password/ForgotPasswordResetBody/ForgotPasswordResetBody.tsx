@@ -151,7 +151,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
               maxLength={10}
               status={enteredCodeStatus}
             />
-            <Link to="/forgotpassword" className={classes.link}>
+            <Link to="/forgotpassword" className={classes.link} data-cypress="requestCode">
               Request Another Code
             </Link>
             <div className="form-buttons">
