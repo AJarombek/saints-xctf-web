@@ -211,8 +211,14 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
             <div className={classes.checkedIcon} data-puppeteer="checkedIcon">
               <p>&#x4e;</p>
             </div>
-            <h5 className={classes.successDescription}>Your password was successfully changed.</h5>
-            <p className={classes.signIn} onClick={(): void => history.push('/signin')}>
+            <h5 className={classes.successDescription} data-cypress="passwordResetSuccessMessage">
+              Your password was successfully changed.
+            </h5>
+            <p
+              className={classes.signIn}
+              data-cypress="passwordRestSignIn"
+              onClick={(): void => history.push('/signin')}
+            >
               Sign In
             </p>
           </>

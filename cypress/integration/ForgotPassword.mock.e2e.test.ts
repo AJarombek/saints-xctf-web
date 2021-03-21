@@ -69,7 +69,7 @@ describe('Forgot Password Mock E2E Tests', () => {
     cy.url().should('include', '/');
   });
 
-  it.only('able to change a users password with the forgot password code', () => {
+  it('able to change a users password with the forgot password code', () => {
     cy.sendForgotPasswordCode();
     cy.getDataCy('forgotPasswordEnterCode').click();
     cy.url().should('include', '/forgotpassword/reset');
@@ -80,5 +80,10 @@ describe('Forgot Password Mock E2E Tests', () => {
     cy.get('.sxctf-image-input input[name="password"]').type('new_password');
     cy.get('.sxctf-image-input input[name="confirm-password"]').type('new_password');
     cy.get('.aj-contained-button').contains('Change Password').click();
+    cy.wait('@userChangePasswordAndyRoute');
+
+    cy.getDataCy('passwordResetSuccessMessage').should('contain.text', 'Your password was successfully changed.');
+    cy.getDataCy('passwordRestSignIn').click();
+    cy.url().should('include', '/signin');
   });
 });

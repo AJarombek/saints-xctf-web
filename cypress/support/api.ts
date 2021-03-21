@@ -17,6 +17,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
   cy.mockTeamGroupsAPI();
+  cy.mockUserChangePasswordAPI();
   cy.mockUserGroupsAPI();
   cy.mockUserLookupAPI();
   cy.mockUserMembershipsAPI();
@@ -123,6 +124,18 @@ Cypress.Commands.add('mockUserAPI', () => {
   });
 
   userPostInvalidActivationCodeRoute.as('userPostInvalidActivationCodeRoute');
+});
+
+Cypress.Commands.add('mockUserChangePasswordAPI', () => {
+  cy.fixture('api/users/changePassword/get/andy.json').as('userChangePasswordAndy');
+
+  const userChangePasswordAndyRoute = cy.route({
+    method: 'PUT',
+    url: '**/api/v2/users/andy/change_password',
+    response: '@userChangePasswordAndy'
+  });
+
+  userChangePasswordAndyRoute.as('userChangePasswordAndyRoute');
 });
 
 Cypress.Commands.add('mockUserGroupsAPI', () => {

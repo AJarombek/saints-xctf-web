@@ -1,0 +1,5 @@
+{
+  "self": "/v2/users/andy/change_password",
+  "password_updated": true,
+  "forgot_password_code_deleted": true
+}

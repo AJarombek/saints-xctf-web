@@ -60,6 +60,13 @@ declare namespace Cypress {
 
         /**
          * Return static JSON files defined in the fixtures directory when an API call is made to a
+         * '/v2/users/<username>/change_password' endpoint.
+         * @example mockUserChangePasswordAPI()
+         */
+        mockUserChangePasswordAPI(): void;
+
+        /**
+         * Return static JSON files defined in the fixtures directory when an API call is made to a
          * '/v2/users/groups/*' endpoint.
          * @example mockUserGroupsAPI()
          */
