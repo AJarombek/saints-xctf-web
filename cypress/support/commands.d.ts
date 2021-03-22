@@ -23,6 +23,12 @@ declare namespace Cypress {
         setTokenInLocalStorage(): void;
 
         /**
+         * Custom command to put the a fake JWT token without any user information in the browser's localStorage.
+         * @example setTokenInLocalStorage()
+         */
+        setMockTokenInLocalStorage(): void;
+
+        /**
          * Custom command to check for validation icons on an image input component.
          * @example imageInputValidationCheck('password', 'warning')
          */

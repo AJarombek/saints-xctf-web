@@ -18,7 +18,45 @@ describe('Forgot Password Reset Mock E2E Tests', () => {
     cy.get('.aj-contained-button').contains('Submit').click();
     cy.wait('@forgotPasswordValidate80un02Route');
 
-    cy.get('.sxctf-image-input input[name="password"]').type('new_password');
+    // By default, there is no validation warnings and the 'Change Password' button is disabled.
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'none');
+    cy.get('.aj-contained-button > button').contains('Change Password').should('have.attr', 'disabled');
+
+    // Password too short and no confirm password.
+    cy.get('.sxctf-image-input input[name="password"]').type('new');
+    cy.imageInputValidationCheck('password', 'warning');
+    cy.imageInputValidationCheck('confirm-password', 'warning');
+    cy.get('.aj-contained-button > button').contains('Change Password').should('have.attr', 'disabled');
+
+    // Valid password and no confirm password.
+    cy.get('.sxctf-image-input input[name="password"]').type('_password');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'warning');
+    cy.get('.aj-contained-button > button').contains('Change Password').should('have.attr', 'disabled');
+
+    // Valid password, mismatching confirm password.
     cy.get('.sxctf-image-input input[name="confirm-password"]').type('password');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'warning');
+    cy.get('.aj-contained-button > button').contains('Change Password').should('have.attr', 'disabled');
+
+    // Valid password and confirm password.
+    cy.get('.sxctf-image-input input[name="confirm-password"]').clear().type('new_password');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'none');
+    cy.get('.aj-contained-button > button').contains('Change Password').should('not.have.attr', 'disabled');
+
+    // No password, populated confirm password.
+    cy.get('.sxctf-image-input input[name="password"]').clear();
+    cy.imageInputValidationCheck('password', 'warning');
+    cy.imageInputValidationCheck('confirm-password', 'warning');
+    cy.get('.aj-contained-button > button').contains('Change Password').should('have.attr', 'disabled');
+
+    // Valid password and confirm password.
+    cy.get('.sxctf-image-input input[name="password"]').type('new_password');
+    cy.imageInputValidationCheck('password', 'none');
+    cy.imageInputValidationCheck('confirm-password', 'none');
+    cy.get('.aj-contained-button > button').contains('Change Password').should('not.have.attr', 'disabled');
   });
 });

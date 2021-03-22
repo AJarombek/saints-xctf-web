@@ -10,7 +10,7 @@ describe('Dashboard Mock E2E Tests', () => {
     cy.mockAPI();
     cy.mockAuthAPI();
     cy.setUserInLocalStorage();
-    cy.setTokenInLocalStorage();
+    cy.setMockTokenInLocalStorage();
   });
 
   it('can delete a log', () => {
@@ -38,7 +38,7 @@ describe('Dashboard Mock E2E Tests', () => {
     cy.get('#logFeed .exerciseLog').eq(0).find('.delete').click();
     cy.get('.deleteLogModal').should('exist');
 
-    cy.fixture('logFeed/get/allPageOneAfterDelete.json').as('logFeedAfterDelete');
+    cy.fixture('api/logFeed/get/allPageOneAfterDelete.json').as('logFeedAfterDelete');
 
     const logFeedAfterDeleteRoute = cy.route({
       method: 'GET',
@@ -49,7 +49,7 @@ describe('Dashboard Mock E2E Tests', () => {
     logFeedAfterDeleteRoute.as('logFeedAfterDeleteRoute');
 
     cy.get('.deleteLogModal button').contains('DELETE').click();
-    cy.wait('@logDeleteRoute');
+    cy.wait('@logDeleteSuccessRoute');
     cy.wait('@logFeedAfterDeleteRoute');
 
     cy.get('#logFeed .exerciseLog').should('have.length', 1);

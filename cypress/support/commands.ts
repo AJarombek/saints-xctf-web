@@ -7,6 +7,7 @@
  * @since 7/18/2020
  */
 
+import axios from 'axios';
 import ImageInputStatusClass = Cypress.ImageInputStatusClass;
 
 Cypress.Commands.add('setUserInLocalStorage', () => {
@@ -37,6 +38,24 @@ Cypress.Commands.add('setUserInLocalStorage', () => {
 });
 
 Cypress.Commands.add('setTokenInLocalStorage', () => {
+    console.info('setTokenInLocalStorage')
+  const instance = axios.create({
+    baseURL: Cypress.env('authUrl'),
+    timeout: 5000
+  });
+
+  instance
+    .post('/token', {
+      clientId: 'andy',
+      clientSecret: Cypress.env('SXCTF_PASSWORD')
+    })
+    .then((res) => {
+        console.info(res.data.result);
+      localStorage.setItem('token', res.data.result);
+    });
+});
+
+Cypress.Commands.add('setMockTokenInLocalStorage', () => {
   localStorage.setItem('token', 'j.w.t');
 });
 

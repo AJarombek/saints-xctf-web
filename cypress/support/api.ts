@@ -61,12 +61,15 @@ Cypress.Commands.add('mockForgotPasswordValidateAPI', () => {
 });
 
 Cypress.Commands.add('mockLogAPI', () => {
-  const logDeleteRoute = cy.route({
+  cy.fixture('api/logs/delete/success.json').as('logDeleteSuccess');
+
+  const logDeleteSuccessRoute = cy.route({
     method: 'DELETE',
-    url: '**/api/v2/logs/*'
+    url: '**/api/v2/logs/*',
+    response: '@logDeleteSuccess'
   });
 
-  logDeleteRoute.as('logDeleteRoute');
+  logDeleteSuccessRoute.as('logDeleteSuccessRoute');
 });
 
 Cypress.Commands.add('mockLogFeedAPI', () => {

@@ -6,6 +6,11 @@
  */
 
 describe('Dashboard E2E Tests', () => {
+  before(() => {
+    cy.setUserInLocalStorage();
+    cy.setTokenInLocalStorage();
+  });
+
   beforeEach(() => {
     cy.server();
     cy.setUserInLocalStorage();
