@@ -780,8 +780,13 @@ export function createForgotPasswordCode(email: string): AppThunk<Promise<Forgot
   };
 }
 
-export function validateForgotPasswordCode(code: string): AppThunk<Promise<boolean>, AuthState> {
-  return async function (dispatch: Dispatch): Promise<boolean> {
+export type ValidateForgotPasswordResult = {
+  isValid?: boolean;
+  error?: string;
+};
+
+export function validateForgotPasswordCode(code: string): AppThunk<Promise<ValidateForgotPasswordResult>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<ValidateForgotPasswordResult> {
     dispatch(getForgotPasswordCodeValidationRequest(code));
 
     try {
@@ -790,13 +795,17 @@ export function validateForgotPasswordCode(code: string): AppThunk<Promise<boole
 
       dispatch(getForgotPasswordCodeValidationSuccess(code, isValid, username));
 
-      return isValid;
+      return {
+        isValid: true
+      };
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(getForgotPasswordCodeValidationFailure(code, serverError));
-      return false;
+      return {
+        error: serverError
+      };
     }
   };
 }
@@ -840,12 +849,17 @@ export const sendActivationCodeEmail = (email: string, code: string): AppThunk<P
   }
 };
 
+export type ChangePasswordResult = {
+  passwordUpdated?: boolean;
+  error?: string;
+};
+
 export function changeUserPassword(
   username: string,
   forgotPasswordCode: string,
   newPassword: string
-): AppThunk<Promise<boolean>, AuthState> {
-  return async function (dispatch: Dispatch): Promise<boolean> {
+): AppThunk<Promise<ChangePasswordResult>, AuthState> {
+  return async function (dispatch: Dispatch): Promise<ChangePasswordResult> {
     dispatch(changeUserPasswordRequest(username));
 
     try {
@@ -856,13 +870,17 @@ export function changeUserPassword(
       const { password_updated } = response.data;
 
       dispatch(changeUserPasswordSuccess(username));
-      return password_updated;
+      return {
+        passwordUpdated: password_updated
+      };
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       dispatch(changeUserPasswordFailure(username, serverError));
-      return null;
+      return {
+        error: serverError
+      };
     }
   };
 }

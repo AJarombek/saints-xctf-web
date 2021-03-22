@@ -5,7 +5,12 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import qs, { ParsedQuery } from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, ValidateForgotPasswordCode } from '../../../redux/types';
-import { changeUserPassword, validateForgotPasswordCode } from '../../../redux/modules/auth';
+import {
+  ChangePasswordResult,
+  changeUserPassword,
+  validateForgotPasswordCode,
+  ValidateForgotPasswordResult
+} from '../../../redux/modules/auth';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';
 import NotFound from '../../shared/NotFound';
@@ -31,13 +36,17 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
   const [enteredCode, setEnteredCode] = useState('');
   const [enteredCodeStatus, setEnteredCodeStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [validatingCode, setValidatingCode] = useState(false);
+  const [errorStatus, setErrorStatus] = useState(null);
 
-  const [newPassword, setNewPassword] = useState('');
-  const [newPasswordConfirm, setNewPasswordConfirm] = useState('');
-  const [newPasswordStatus, setNewPasswordStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
-  const [newPasswordConfirmStatus, setNewPasswordConfirmStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [passwordStatus, setPasswordStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
+  const [passwordConfirmStatus, setPasswordConfirmStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [submittingNewPassword, setSubmittingNewPassword] = useState(false);
   const [passwordChanged, setPasswordChanged] = useState(false);
+
+  const [passwordValid, setPasswordValid] = useState(false);
+  const [confirmPasswordValid, setConfirmPasswordValid] = useState(false);
 
   const urlForgotPasswordCode: string = useMemo(() => {
     const queryStrings: ParsedQuery = qs.parse(location.search);
@@ -83,55 +92,79 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
     } else {
       setEnteredCodeStatus(ImageInputStatus.NONE);
     }
+
+    if (errorStatus) {
+      setErrorStatus(null);
+    }
   };
 
   const onVerify = async (): Promise<void> => {
     setValidatingCode(true);
-    const isValid = await dispatch(validateForgotPasswordCode(enteredCode));
+    const { isValid, error } = (await dispatch(
+      validateForgotPasswordCode(enteredCode)
+    )) as ValidateForgotPasswordResult;
     setValidatingCode(false);
 
     if (!isValid) {
       setEnteredCodeStatus(ImageInputStatus.FAILURE);
+      setErrorStatus(error);
     }
   };
 
   const onChangePassword = (e: ChangeEvent<HTMLInputElement>): void => {
     const newChangedPassword = e.target.value;
-    setNewPassword(newChangedPassword);
+    setPassword(newChangedPassword);
 
-    if (!newChangedPassword.length) {
-      setNewPasswordStatus(ImageInputStatus.WARNING);
-    } else {
-      setNewPasswordStatus(ImageInputStatus.NONE);
+    const lengthValid = newChangedPassword.length >= 8;
+    const valueValid = newChangedPassword === passwordConfirm;
+
+    const status = lengthValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
+    const confirmStatus = valueValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
+
+    setPasswordStatus(status);
+    setPasswordValid(lengthValid);
+
+    setPasswordConfirmStatus(confirmStatus);
+    setConfirmPasswordValid(valueValid);
+
+    if (errorStatus) {
+      setErrorStatus(null);
     }
   };
 
   const onChangeConfirmPassword = (e: ChangeEvent<HTMLInputElement>): void => {
     const newChangedConfirmPassword = e.target.value;
-    setNewPasswordConfirm(newChangedConfirmPassword);
+    setPasswordConfirm(newChangedConfirmPassword);
 
-    if (!newChangedConfirmPassword.length) {
-      setNewPasswordConfirmStatus(ImageInputStatus.WARNING);
-    } else {
-      setNewPasswordConfirmStatus(ImageInputStatus.NONE);
+    const isValid = newChangedConfirmPassword === password;
+    const status = isValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
+
+    setPasswordConfirmStatus(status);
+    setConfirmPasswordValid(isValid);
+
+    if (errorStatus) {
+      setErrorStatus(null);
     }
   };
 
   const onSubmitNewPassword = async (): Promise<void> => {
-    if (newPassword !== newPasswordConfirm) {
-      setNewPasswordStatus(ImageInputStatus.FAILURE);
-      setNewPasswordConfirmStatus(ImageInputStatus.FAILURE);
+    if (password !== passwordConfirm) {
+      setPasswordStatus(ImageInputStatus.FAILURE);
+      setPasswordConfirmStatus(ImageInputStatus.FAILURE);
     } else {
+      setPasswordStatus(ImageInputStatus.NONE);
+      setPasswordConfirmStatus(ImageInputStatus.NONE);
       setSubmittingNewPassword(true);
-      const passwordChanged = await dispatch(
-        changeUserPassword(forgotPasswordCodeUsername, forgotPasswordCode, newPassword)
-      );
+      const { passwordUpdated, error } = (await dispatch(
+        changeUserPassword(forgotPasswordCodeUsername, forgotPasswordCode, password)
+      )) as ChangePasswordResult;
 
-      if (passwordChanged) {
+      if (passwordUpdated) {
         setPasswordChanged(true);
+      } else {
+        setSubmittingNewPassword(false);
+        setErrorStatus(error);
       }
-
-      setSubmittingNewPassword(false);
     }
   };
 
@@ -178,9 +211,9 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
                 type="password"
                 autoComplete="new-password"
                 maxLength={80}
-                status={newPasswordStatus}
+                status={passwordStatus}
                 useCustomValue={true}
-                value={newPassword}
+                value={password}
               />
               <ImageInput
                 onChange={onChangeConfirmPassword}
@@ -190,17 +223,22 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
                 type="password"
                 autoComplete="new-password"
                 maxLength={80}
-                status={newPasswordConfirmStatus}
+                status={passwordConfirmStatus}
                 useCustomValue={true}
-                value={newPasswordConfirm}
+                value={passwordConfirm}
               />
             </ImageInputSet>
             <p className={classes.inputTip}>Password must be 8 or more characters long.</p>
+            {errorStatus && <p className="errorStatus">{errorStatus}</p>}
             <div className="form-buttons">
               <AJButton type="text" onClick={(): void => history.push('/')}>
                 Cancel
               </AJButton>
-              <AJButton type="contained" onClick={onSubmitNewPassword} disabled={submittingNewPassword}>
+              <AJButton
+                type="contained"
+                onClick={onSubmitNewPassword}
+                disabled={submittingNewPassword || !passwordValid || !confirmPasswordValid}
+              >
                 Change Password
               </AJButton>
             </div>

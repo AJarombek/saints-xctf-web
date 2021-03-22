@@ -5,13 +5,13 @@
  * @since 5/12/2020
  */
 
-import React, {useEffect, useState} from 'react';
-import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
-import ImageInputSet, {ImageInputDirection} from '../../shared/ImageInputSet';
-import {AJButton} from 'jarombek-react-components';
-import {useDispatch} from 'react-redux';
-import {registerBack, registerCredentials} from '../../../redux/modules/registration';
-import {RegistrationState} from '../../../redux/types';
+import React, { useEffect, useState } from 'react';
+import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
+import ImageInputSet, { ImageInputDirection } from '../../shared/ImageInputSet';
+import { AJButton } from 'jarombek-react-components';
+import { useDispatch } from 'react-redux';
+import { registerBack, registerCredentials } from '../../../redux/modules/registration';
+import { RegistrationState } from '../../../redux/types';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
