@@ -5,3 +5,4 @@ import './commands';
 import './api';
 import './register';
 import './forgotPassword';
+import './dashboard';

@@ -38,7 +38,6 @@ Cypress.Commands.add('setUserInLocalStorage', () => {
 });
 
 Cypress.Commands.add('setTokenInLocalStorage', () => {
-    console.info('setTokenInLocalStorage')
   const instance = axios.create({
     baseURL: Cypress.env('authUrl'),
     timeout: 5000
@@ -50,7 +49,6 @@ Cypress.Commands.add('setTokenInLocalStorage', () => {
       clientSecret: Cypress.env('SXCTF_PASSWORD')
     })
     .then((res) => {
-        console.info(res.data.result);
       localStorage.setItem('token', res.data.result);
     });
 });
