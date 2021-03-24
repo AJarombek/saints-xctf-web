@@ -7,7 +7,10 @@
 import { FontMixins } from '../../../styles/mixins';
 
 export default {
-  calendar: {},
+  calendar: {
+    maxWidth: 850,
+    margin: '0 auto'
+  },
   monthNavigation: {
     display: 'flex',
     alignItems: 'center',

@@ -9,15 +9,45 @@
  */
 
 describe('Dashboard E2E Tests', () => {
-  before(() => {
-    cy.setUserInLocalStorage();
-    cy.setTokenInLocalStorage();
-  });
-
   beforeEach(() => {
     cy.server();
     cy.setUserInLocalStorage();
     cy.setTokenInLocalStorage();
+  });
+
+  it("'Profile' header button navigates to the signed in user's profile page", () => {
+    cy.visit('/dashboard');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+    cy.get('.profileButton').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+  });
+
+  it("'Teams' header button navigates to the teams list page", () => {
+    cy.visit('/dashboard');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+    cy.get('.teamsButton').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/teams`);
+  });
+
+  it("'Sign Out' header button signs out the user and navigates to the home page", () => {
+    cy.visit('/dashboard');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+    cy.get('.signOutButton').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/`);
+  });
+
+  it('header title navigates to the dashboard page (again)', () => {
+    cy.visit('/dashboard');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+    cy.get('h1').contains('SaintsXCTF').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
+
+  it('header icon navigates to the dashboard page (again)', () => {
+    cy.visit('/dashboard');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+    cy.get('.sxctf-nav-bar .sxctf-logo').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 
   it('has a side panel with expandable accordions', () => {
@@ -155,5 +185,17 @@ describe('Dashboard E2E Tests', () => {
           .children()
           .should('have.length', commentCount + 1);
       });
+  });
+
+  it.only('can navigate to the edit log page for the current users log', () => {
+    cy.dashboardRouteAliases();
+    cy.visit('/dashboard');
+    cy.andyDashboardAPICalls();
+  });
+
+  it.only("can't navigate to the edit log page for another users log", () => {
+    cy.dashboardRouteAliases();
+    cy.visit('/dashboard');
+    cy.andyDashboardAPICalls();
   });
 });

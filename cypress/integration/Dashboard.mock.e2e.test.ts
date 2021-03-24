@@ -16,6 +16,11 @@ describe('Dashboard Mock E2E Tests', () => {
   it('can delete a log', () => {
     cy.visit('/dashboard');
     cy.wait('@logFeedAllPageOneRoute');
+    cy.wait('@userNotificationsAndyRoute');
+    cy.wait('@userMembershipsAndyRoute');
+    cy.wait('@userGroupsAndyRoute');
+    cy.wait('@teamGroupsSaintsXCTFRoute');
+    cy.wait('@teamGroupsSaintsXCTFAlumniRoute');
 
     cy.get('.deleteLogModal').should('not.exist');
     cy.get('#logFeed .exerciseLog').should('have.length', 2);

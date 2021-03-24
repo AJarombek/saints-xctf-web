@@ -7,7 +7,7 @@
  * @since 1/6/2021
  */
 
-import Mixins, {FontMixins} from '../../../styles/mixins';
+import Mixins, { FontMixins } from '../../../styles/mixins';
 import Colors from '../../../styles/colors';
 
 export default {
@@ -27,7 +27,7 @@ export default {
     cursor: 'auto !important',
     padding: '2px 10px !important',
     backgroundColor: ({ membershipTagText }: { membershipTagText: string }): string =>
-      membershipTagText in ['Administrator', 'Member']
+      membershipTagText === 'Administrator' || membershipTagText === 'Member'
         ? Colors.sxctfRed
         : membershipTagText === 'Membership Pending'
         ? Colors.spotPaletteBrown
