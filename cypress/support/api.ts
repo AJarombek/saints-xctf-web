@@ -61,6 +61,16 @@ Cypress.Commands.add('mockForgotPasswordValidateAPI', () => {
 });
 
 Cypress.Commands.add('mockLogAPI', () => {
+  cy.fixture('api/logs/get/log3.json').as('logGet3');
+
+  const logGet3Route = cy.route({
+    method: 'GET',
+    url: '**/api/v2/logs/3',
+    response: '@logGet3'
+  });
+
+  logGet3Route.as('logGet3Route');
+
   cy.fixture('api/logs/delete/success.json').as('logDeleteSuccess');
 
   const logDeleteSuccessRoute = cy.route({

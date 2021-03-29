@@ -1,0 +1,23 @@
+{
+  "comments": [],
+  "log": {
+    "date": "2021-03-28",
+    "deleted": false,
+    "description": "Twisted my ankle a bit Saturday so did an easy run, hopefully will get the 5K TT in next Saturday.",
+    "distance": 7.02,
+    "feel": 6,
+    "first": "Andrew",
+    "last": "Jarombek",
+    "location": "New York, NY",
+    "log_id": 3,
+    "metric": "miles",
+    "miles": 5.02,
+    "name": "Central Park Trails",
+    "pace": "0:07:36",
+    "time": "0:53:27",
+    "time_created": "Sat, 29 Mar 2021 12:48:21 GMT",
+    "type": "run",
+    "username": "andy"
+  },
+  "self": "/v2/logs/3"
+}

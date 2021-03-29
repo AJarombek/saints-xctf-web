@@ -23,3 +23,12 @@ Cypress.Commands.add('andyDashboardAPICalls', () => {
   cy.wait('@teamGroupsSaintsXCTF');
   cy.wait('@teamGroupsAlumni');
 });
+
+Cypress.Commands.add('andyDashboardMockAPICalls', () => {
+  cy.wait('@logFeedAllPageOneRoute');
+  cy.wait('@userNotificationsAndyRoute');
+  cy.wait('@userMembershipsAndyRoute');
+  cy.wait('@userGroupsAndyRoute');
+  cy.wait('@teamGroupsSaintsXCTFRoute');
+  cy.wait('@teamGroupsSaintsXCTFAlumniRoute');
+});

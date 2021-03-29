@@ -21,5 +21,12 @@ declare namespace Cypress {
          * @example andyDashboardAPICalls()
          */
         andyDashboardAPICalls(): void;
+
+        /**
+         * Custom command waiting for Mocked API calls to complete.  These are the default API calls made on the
+         * dashboard page for user 'andy'.
+         * @example andyDashboardMockAPICalls()
+         */
+        andyDashboardMockAPICalls(): void;
     }
 }

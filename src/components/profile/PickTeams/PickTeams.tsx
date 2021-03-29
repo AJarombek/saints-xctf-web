@@ -209,7 +209,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
           <ImageInput
             type="text"
             name="team"
-            placeholder="Search Teams"
+            placeholder="Search Teams (ex. SaintsXCTF Alumni)"
             status={ImageInputStatus.NONE}
             onChange={onChangeTeamSearch}
           />

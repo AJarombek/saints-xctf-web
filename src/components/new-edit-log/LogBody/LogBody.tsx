@@ -119,13 +119,13 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         setErrorCreatingLog(true);
       }
     }
-  }, [newLog, history]);
+  }, [newLog, history, existingLog]);
 
   useEffect(() => {
     if (existingLog && updateLogs && Object.keys(updateLogs).length) {
       const updateInfo = updateLogs[existingLog?.log_id];
 
-      if (!updateInfo?.isFetching && !updateInfo?.didInvalidate) {
+      if (updateInfo && !updateInfo?.isFetching && !updateInfo?.didInvalidate) {
         if (updateInfo?.updated) {
           history.push('/dashboard');
         } else {

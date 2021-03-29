@@ -15,19 +15,14 @@ describe('Dashboard Mock E2E Tests', () => {
 
   it('can delete a log', () => {
     cy.visit('/dashboard');
-    cy.wait('@logFeedAllPageOneRoute');
-    cy.wait('@userNotificationsAndyRoute');
-    cy.wait('@userMembershipsAndyRoute');
-    cy.wait('@userGroupsAndyRoute');
-    cy.wait('@teamGroupsSaintsXCTFRoute');
-    cy.wait('@teamGroupsSaintsXCTFAlumniRoute');
+    cy.andyDashboardMockAPICalls();
 
     cy.get('.deleteLogModal').should('not.exist');
-    cy.get('#logFeed .exerciseLog').should('have.length', 2);
+    cy.get('#logFeed .exerciseLog').should('have.length', 4);
 
-    cy.get('#logFeed .exerciseLog').eq(0).trigger('mouseover');
-    cy.get('#logFeed .exerciseLog').eq(0).find('.options').click();
-    cy.get('#logFeed .exerciseLog').eq(0).find('.delete').click();
+    cy.get('#logFeed .exerciseLog').eq(2).trigger('mouseover');
+    cy.get('#logFeed .exerciseLog').eq(2).find('.options').click();
+    cy.get('#logFeed .exerciseLog').eq(2).find('.delete').click();
 
     cy.get('.deleteLogModal').should('exist');
     cy.get('.deleteLogModal').should(
@@ -38,9 +33,9 @@ describe('Dashboard Mock E2E Tests', () => {
     cy.get('.deleteLogModal button').contains('CANCEL').click();
 
     cy.get('.deleteLogModal').should('not.exist');
-    cy.get('#logFeed .exerciseLog').should('have.length', 2);
+    cy.get('#logFeed .exerciseLog').should('have.length', 4);
 
-    cy.get('#logFeed .exerciseLog').eq(0).find('.delete').click();
+    cy.get('#logFeed .exerciseLog').eq(2).find('.delete').click();
     cy.get('.deleteLogModal').should('exist');
 
     cy.fixture('api/logFeed/get/allPageOneAfterDelete.json').as('logFeedAfterDelete');
@@ -57,6 +52,28 @@ describe('Dashboard Mock E2E Tests', () => {
     cy.wait('@logDeleteSuccessRoute');
     cy.wait('@logFeedAfterDeleteRoute');
 
-    cy.get('#logFeed .exerciseLog').should('have.length', 1);
+    cy.get('#logFeed .exerciseLog').should('have.length', 3);
+  });
+
+  it('can navigate to the edit log page for the current users log', () => {
+    cy.visit('/dashboard');
+    cy.andyDashboardMockAPICalls();
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 4);
+    cy.get('#logFeed .exerciseLog').eq(1).trigger('mouseover');
+    cy.get('#logFeed .exerciseLog').eq(1).find('.options').click();
+    cy.get('#logFeed .exerciseLog').eq(1).find('.edit').click();
+
+    cy.wait('@logGet3Route');
+    cy.url().should('include', `${Cypress.config('baseUrl')}/log/edit/`);
+  });
+
+  it("can't navigate to the edit log page for another users log", () => {
+    cy.visit('/dashboard');
+    cy.andyDashboardMockAPICalls();
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 4);
+    cy.get('#logFeed .exerciseLog').eq(0).trigger('mouseover');
+    cy.get('#logFeed .exerciseLog').eq(0).find('.options').should('not.exist');
   });
 });

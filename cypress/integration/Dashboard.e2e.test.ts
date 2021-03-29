@@ -186,16 +186,4 @@ describe('Dashboard E2E Tests', () => {
           .should('have.length', commentCount + 1);
       });
   });
-
-  it.only('can navigate to the edit log page for the current users log', () => {
-    cy.dashboardRouteAliases();
-    cy.visit('/dashboard');
-    cy.andyDashboardAPICalls();
-  });
-
-  it.only("can't navigate to the edit log page for another users log", () => {
-    cy.dashboardRouteAliases();
-    cy.visit('/dashboard');
-    cy.andyDashboardAPICalls();
-  });
 });
