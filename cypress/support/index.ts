@@ -6,3 +6,4 @@ import './api';
 import './register';
 import './forgotPassword';
 import './dashboard';
+import './group';

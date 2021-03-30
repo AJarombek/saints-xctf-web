@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../support/dashboard.d.ts" />
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../support/group.d.ts" />
 
 /**
  * E2E tests written with Cypress for the dashboard page once a user is signed in.
@@ -114,6 +116,23 @@ describe('Dashboard E2E Tests', () => {
 
     cy.get('#dashboardSidePanel .accordion .expandIcon').eq(0).click();
     cy.url().should('include', '/profile/andy');
+  });
+
+  it('has a side panel link to view a group page', () => {
+    cy.dashboardRouteAliases();
+    cy.groupRouteAliases();
+    cy.visit('/dashboard');
+    cy.andyDashboardAPICalls();
+
+    cy.get('#groupsAccordion .groupMember').should('have.length', 1);
+    cy.get('#groupsAccordion .groupMember').eq(0).should('contain.text', 'Alumni');
+    cy.get('#groupsAccordion .groupMember').eq(0).find('a').click();
+
+    cy.wait('@alumniGroup');
+    cy.wait('@alumniGroupMembers');
+    cy.wait('@userGroups');
+    cy.wait('@alumniLogFeedPageOne');
+    cy.url().should('include', `${Cypress.config('baseUrl')}/group/`);
   });
 
   it('has a paginated log feed', () => {
