@@ -96,19 +96,25 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
       <div className={classes.headerSection}>
         <div className={classes.titles}>
           {linkProfile ? (
-            <Link to={`/profile/${log?.username}`} className={classes.titleLink}>
+            <Link to={`/profile/${log?.username}`} className={classes.titleLink} data-cypress="exerciseLogUser">
               {log.first} {log.last}
             </Link>
           ) : (
-            <h5 className={classes.titleLink}>
+            <h5 className={classes.titleLink} data-cypress="exerciseLogUser">
               {log.first} {log.last}
             </h5>
           )}
-          <h6 className={classes.title}>{log.name}</h6>
+          <h6 className={classes.title} data-cypress="exerciseLogTitle">
+            {log.name}
+          </h6>
         </div>
         <div className={classes.metadata}>
-          <p className={classes.date}>{moment(log.date).format('MMM. Do, YYYY')}</p>
-          <p className={classes.type}>{log.type.toUpperCase()}</p>
+          <p className={classes.date} data-cypress="exerciseLogDate">
+            {moment(log.date).format('MMM. Do, YYYY')}
+          </p>
+          <p className={classes.type} data-cypress="exerciseLogType">
+            {log.type.toUpperCase()}
+          </p>
         </div>
       </div>
       {hovering && isUsersLog && (
@@ -146,19 +152,21 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
       )}
       <div className={classes.bodySection}>
         <div className={classes.dataFields}>
-          {!!log.location && <p>Location: {log.location}</p>}
+          {!!log.location && <p data-cypress="exerciseLogLocation">Location: {log.location}</p>}
           {!!log.distance && (
-            <p>
+            <p data-cypress="exerciseLogDistance">
               {log.distance} {log.metric}
             </p>
           )}
           {!!log.time && log.time !== '0:00:00' && (
-            <p>
+            <p data-cypress="exerciseLogTimePace">
               {shortenTime(log.time)} {log.pace && `(${shortenTime(log.pace)}/mi)`}
             </p>
           )}
         </div>
-        <div className={classes.description}>{!!log.description && parseTagsInText(log.description)}</div>
+        <div className={classes.description} data-cypress="exerciseLogDescription">
+          {!!log.description && parseTagsInText(log.description)}
+        </div>
       </div>
       <div className={classes.commentSection}>
         <Comments
