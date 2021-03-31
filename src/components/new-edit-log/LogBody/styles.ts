@@ -107,6 +107,9 @@ export default {
   inputError: {
     ...Mixins.inputError()
   },
+  inputWarning: {
+    ...Mixins.inputWarning()
+  },
   '@media screen and (max-width: 720px)': {
     title: {
       width: 'auto'

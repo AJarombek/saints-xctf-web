@@ -4,22 +4,22 @@
  * @since 8/16/2020
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import ImageInput from '../../shared/ImageInput';
+import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton, AJSelect } from 'jarombek-react-components';
 import StepSlider from '../../shared/StepSlider';
 import { FeelColors } from '../../../styles/colors';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea/AutoResizeTextArea';
 import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
-import { ImageInputStatus } from '../../shared/ImageInput';
 import { Log, RootState, User } from '../../../redux/types';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup/DefaultErrorPopup';
 import { useDispatch, useSelector } from 'react-redux';
-import { invalidateLogUpdated, invalidateLogCreated, postLog, putLog } from '../../../redux/modules/logs';
+import { invalidateLogCreated, invalidateLogUpdated, postLog, putLog } from '../../../redux/modules/logs';
 import { postNotification } from '../../../redux/modules/notifications';
+import moment from 'moment';
 
 interface Props {
   user: User;
@@ -135,6 +135,17 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     }
   }, [updateLogs, existingLog, history]);
 
+  const onChangeDate = (e: ChangeEvent<HTMLInputElement>): void => {
+    const newDate = e.target.value;
+    setDate(newDate);
+
+    if (moment(newDate, 'YYYY-MM-DD') > moment()) {
+      setDateStatus(ImageInputStatus.WARNING);
+    } else {
+      setDateStatus(ImageInputStatus.NONE);
+    }
+  };
+
   const onChangeTime = (value: string): void => {
     if (!value) {
       setTime('');
@@ -248,7 +259,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
       return;
     }
 
-    if (!date) {
+    if (!date || moment(date, 'YYYY-MM-DD') > moment()) {
       setDateStatus(ImageInputStatus.FAILURE);
       return;
     }
@@ -302,7 +313,13 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
               status={ImageInputStatus.NONE}
             />
           </div>
-          <div className={classNames(classes.dateInput, dateStatus === ImageInputStatus.FAILURE && classes.inputError)}>
+          <div
+            className={classNames(
+              classes.dateInput,
+              dateStatus === ImageInputStatus.FAILURE && classes.inputError,
+              dateStatus === ImageInputStatus.WARNING && classes.inputWarning
+            )}
+          >
             <p className={classes.inputTitle}>Date*</p>
             <ImageInput
               type="date"
@@ -310,7 +327,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
               placeholder=""
               useCustomValue={true}
               value={date}
-              onChange={(e): void => setDate(e.target.value)}
+              onChange={onChangeDate}
               status={dateStatus}
             />
           </div>

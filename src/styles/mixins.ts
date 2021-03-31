@@ -136,6 +136,12 @@ class Mixins {
     }
   });
 
+  static inputWarning = (): object => ({
+    '& .sxctf-image-input': {
+      border: `2px solid ${Colors.statusWarning}`
+    }
+  });
+
   static inputError = (): object => ({
     '& .sxctf-image-input': {
       border: `2px solid ${Colors.statusFailure}`

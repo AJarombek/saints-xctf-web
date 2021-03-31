@@ -172,7 +172,7 @@ describe('New Log E2E Tests', () => {
       .should('contain.text', 'Swimming Log Generated from E2E Tests');
   });
 
-  it.only("able to create a new 'other' exercise log", () => {
+  it("able to create a new 'other' exercise log", () => {
     const formattedDate = moment().format('YYYY-MM-DD');
     const finalFormattedDate = moment().format('MMM. Do, YYYY');
 
@@ -205,7 +205,40 @@ describe('New Log E2E Tests', () => {
       .should('contain.text', 'Walking Log Generated from E2E Tests');
   });
 
-  it.skip('unable to create an exercise log with a future date', () => {});
+  it.only('unable to create an exercise log with a future date', () => {
+    const currentFormattedDate = moment().format('YYYY-MM-DD');
+    const futureFormattedDate = moment().add(1, 'day').format('YYYY-MM-DD');
+
+    cy.visit('/log/new');
+    cy.get('.sxctf-image-input input[name="name"]').type('Test Run');
+    cy.get('.sxctf-image-input input[name="location"]').type('New York, NY');
+    cy.get('.sxctf-image-input input[name="date"]').type(futureFormattedDate);
+    cy.get('.sxctf-image-input input[name="distance"]').type('5');
+    cy.get('.sxctf-image-input input[name="time"]').type('3625');
+    cy.get('textarea').type('Invalid Running Log Generated from E2E Tests');
+
+    cy.imageInputValidationCheck('name', 'none');
+    cy.imageInputValidationCheck('location', 'none');
+    cy.imageInputValidationCheck('date', 'warning');
+    cy.imageInputValidationCheck('distance', 'none');
+    cy.imageInputValidationCheck('time', 'none');
+
+    cy.get('button').contains('Create').click();
+
+    cy.imageInputValidationCheck('name', 'none');
+    cy.imageInputValidationCheck('location', 'none');
+    cy.imageInputValidationCheck('date', 'failure');
+    cy.imageInputValidationCheck('distance', 'none');
+    cy.imageInputValidationCheck('time', 'none');
+
+    cy.get('.sxctf-image-input input[name="date"]').clear().type(currentFormattedDate);
+
+    cy.imageInputValidationCheck('name', 'none');
+    cy.imageInputValidationCheck('location', 'none');
+    cy.imageInputValidationCheck('date', 'none');
+    cy.imageInputValidationCheck('distance', 'none');
+    cy.imageInputValidationCheck('time', 'none');
+  });
 
   it.skip('required fields must be entered', () => {});
 
