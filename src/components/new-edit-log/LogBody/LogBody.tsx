@@ -274,7 +274,9 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     <div className={classes.newLogBody}>
       <h3 className={classes.title}>Create a new exercise log.</h3>
       <div className={classes.logForm}>
-        <p className={classes.feel}>{feelList[feel]}</p>
+        <p className={classes.feel} data-cypress="logFeel">
+          {feelList[feel]}
+        </p>
         <div className={classNames(classes.nameBody, nameStatus === ImageInputStatus.FAILURE && classes.inputError)}>
           <p className={classes.inputTitle}>Exercise Name*</p>
           <ImageInput
@@ -318,7 +320,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
           <AJSelect
             options={exerciseTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
             defaultOption={type ? exerciseTypes.indexOf(type.charAt(0).toUpperCase() + type.slice(1)) + 1 : 1}
-            className={classes.select}
+            className={classNames(classes.select, 'exerciseTypeSelect')}
             onClickListOption={(item: { content: string; value: string }): void => setType(item.value)}
           />
         </div>
@@ -339,7 +341,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
               <AJSelect
                 options={metricTypes?.map((type) => ({ content: type, value: type.toLowerCase() })) ?? []}
                 defaultOption={1}
-                className={classes.select}
+                className={classNames(classes.select, 'exerciseMetricSelect')}
                 onClickListOption={(item: { content: string; value: string }): void => setMetric(item.value)}
               />
             </div>

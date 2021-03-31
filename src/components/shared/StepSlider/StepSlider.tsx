@@ -76,6 +76,7 @@ const StepSlider: React.FunctionComponent<Props> = ({ steps, value, onValueChang
   return (
     <div
       className={classNames(classes.stepSlider, 'stepSlider')}
+      data-cypress="stepSlider"
       onMouseDown={onMouseDown}
       onTouchStart={onTouchStart}
       ref={sliderRef}

@@ -18,6 +18,19 @@ import { deleteLog, logFeed } from '../../../redux/modules/logs';
 import DeleteLogModal from './DeleteLogModal';
 import DefaultErrorPopup from '../DefaultErrorPopup';
 
+export const feelClassList = [
+  'terrible',
+  'veryBad',
+  'bad',
+  'prettyBad',
+  'mediocre',
+  'average',
+  'fairlyGood',
+  'good',
+  'great',
+  'fantastic'
+];
+
 interface Props {
   log: Log;
   user: User;
@@ -86,7 +99,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
 
   return (
     <div
-      className={classNames(classes.exerciseLog, 'exerciseLog')}
+      className={classNames(classes.exerciseLog, 'exerciseLog', feelClassList[(log?.feel ?? 6) - 1])}
       onMouseOver={(): void => setHovering(true)}
       onMouseLeave={(): void => {
         setHovering(false);
