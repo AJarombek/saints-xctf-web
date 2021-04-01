@@ -135,6 +135,17 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     }
   }, [updateLogs, existingLog, history]);
 
+  const onChangeName = (e: ChangeEvent<HTMLInputElement>): void => {
+    const newName = e.target.value;
+    setName(newName);
+
+    if (newName.length) {
+      setNameStatus(ImageInputStatus.NONE);
+    } else {
+      setNameStatus(ImageInputStatus.WARNING);
+    }
+  };
+
   const onChangeDate = (e: ChangeEvent<HTMLInputElement>): void => {
     const newDate = e.target.value;
     setDate(newDate);
@@ -254,21 +265,25 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   };
 
   const onSubmit = (): void => {
+    let failedValidation = false;
+
     if (!name) {
       setNameStatus(ImageInputStatus.FAILURE);
-      return;
+      failedValidation = true;
     }
 
     if (!date || moment(date, 'YYYY-MM-DD') > moment()) {
       setDateStatus(ImageInputStatus.FAILURE);
-      return;
+      failedValidation = true;
     }
 
     if (!distance && !time) {
       setDistanceStatus(ImageInputStatus.WARNING);
       setTimeStatus(ImageInputStatus.WARNING);
-      return;
+      failedValidation = true;
     }
+
+    if (failedValidation) return;
 
     if (existingLog) {
       onEdit();
@@ -288,7 +303,13 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         <p className={classes.feel} data-cypress="logFeel">
           {feelList[feel]}
         </p>
-        <div className={classNames(classes.nameBody, nameStatus === ImageInputStatus.FAILURE && classes.inputError)}>
+        <div
+          className={classNames(
+            classes.nameBody,
+            nameStatus === ImageInputStatus.FAILURE && classes.inputError,
+            nameStatus === ImageInputStatus.WARNING && classes.inputWarning
+          )}
+        >
           <p className={classes.inputTitle}>Exercise Name*</p>
           <ImageInput
             type="text"
@@ -296,7 +317,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
             placeholder=""
             useCustomValue={true}
             value={name}
-            onChange={(e): void => setName(e.target.value)}
+            onChange={onChangeName}
             status={nameStatus}
           />
         </div>
@@ -342,7 +363,12 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
           />
         </div>
         <div className={classes.twoInputs}>
-          <div className={classes.distanceInput}>
+          <div
+            className={classNames(
+              classes.distanceInput,
+              distanceStatus === ImageInputStatus.WARNING && classes.inputWarning
+            )}
+          >
             <p className={classes.inputTitle}>Distance</p>
             <div>
               <ImageInput
@@ -363,7 +389,9 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
               />
             </div>
           </div>
-          <div className={classes.timeInput}>
+          <div
+            className={classNames(classes.timeInput, timeStatus === ImageInputStatus.WARNING && classes.inputWarning)}
+          >
             <p className={classes.inputTitle}>Time</p>
             <ImageInput
               type="text"
