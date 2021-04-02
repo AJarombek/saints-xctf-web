@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../support/newLog.d.ts" />
+
 /**
  * E2E tests written with Cypress for the create new exercise log page.
  * @author Andrew Jarombek
@@ -276,19 +279,33 @@ describe('New Log E2E Tests', () => {
   it.only('required fields must be entered', () => {
     cy.visit('/log/new');
 
-    cy.imageInputValidationCheck('name', 'none');
-    cy.imageInputValidationCheck('location', 'none');
-    cy.imageInputValidationCheck('date', 'none');
-    cy.imageInputValidationCheck('distance', 'none');
-    cy.imageInputValidationCheck('time', 'none');
+    cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'none');
 
     cy.get('button').contains('Create').click();
+    cy.newLogInputValidationCheck('failure', 'none', 'failure', 'warning', 'warning');
 
-    cy.imageInputValidationCheck('name', 'failure');
-    cy.imageInputValidationCheck('location', 'none');
-    cy.imageInputValidationCheck('date', 'failure');
-    cy.imageInputValidationCheck('distance', 'warning');
-    cy.imageInputValidationCheck('time', 'warning');
+    cy.get('.sxctf-image-input input[name="name"]').type('Test Run');
+    cy.newLogInputValidationCheck('none', 'none', 'failure', 'warning', 'warning');
+
+    cy.get('button').contains('Create').click();
+    cy.newLogInputValidationCheck('none', 'none', 'failure', 'warning', 'warning');
+
+    const futureFormattedDate = moment().add(1, 'day').format('YYYY-MM-DD');
+    cy.get('.sxctf-image-input input[name="date"]').type(futureFormattedDate);
+    cy.newLogInputValidationCheck('none', 'none', 'warning', 'warning', 'warning');
+
+    cy.get('button').contains('Create').click();
+    cy.newLogInputValidationCheck('none', 'none', 'failure', 'warning', 'warning');
+
+    const currentFormattedDate = moment().format('YYYY-MM-DD');
+    cy.get('.sxctf-image-input input[name="date"]').clear().type(currentFormattedDate);
+    cy.newLogInputValidationCheck('none', 'none', 'none', 'warning', 'warning');
+
+    cy.get('button').contains('Create').click();
+    cy.newLogInputValidationCheck('none', 'none', 'none', 'warning', 'warning');
+
+    cy.get('.sxctf-image-input input[name="distance"]').type('5');
+    cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'warning');
   });
 
   it.skip('only valid distances can be entered', () => {});
