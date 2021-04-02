@@ -4,21 +4,21 @@
  * @since 8/16/2020
  */
 
-import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { createUseStyles } from 'react-jss';
+import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from 'react';
+import {createUseStyles} from 'react-jss';
 import styles from './styles';
-import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
-import { AJButton, AJSelect } from 'jarombek-react-components';
+import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
+import {AJButton, AJSelect} from 'jarombek-react-components';
 import StepSlider from '../../shared/StepSlider';
-import { FeelColors } from '../../../styles/colors';
+import {FeelColors} from '../../../styles/colors';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea/AutoResizeTextArea';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 import classNames from 'classnames';
-import { Log, RootState, User } from '../../../redux/types';
+import {Log, RootState, User} from '../../../redux/types';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup/DefaultErrorPopup';
-import { useDispatch, useSelector } from 'react-redux';
-import { invalidateLogCreated, invalidateLogUpdated, postLog, putLog } from '../../../redux/modules/logs';
-import { postNotification } from '../../../redux/modules/notifications';
+import {useDispatch, useSelector} from 'react-redux';
+import {invalidateLogCreated, invalidateLogUpdated, postLog, putLog} from '../../../redux/modules/logs';
+import {postNotification} from '../../../redux/modules/notifications';
 import moment from 'moment';
 
 interface Props {
@@ -157,10 +157,27 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     }
   };
 
-  const onChangeTime = (value: string): void => {
+  const onChangeDistance = (e: ChangeEvent<HTMLInputElement>): void => {
+    const newDistance = e.target.value;
+    setDistance(newDistance);
+
+    if (newDistance) {
+      setDistanceStatus(ImageInputStatus.NONE);
+      setTimeStatus(ImageInputStatus.NONE);
+    } else if (!time) {
+      setDistanceStatus(ImageInputStatus.WARNING);
+      setTimeStatus(ImageInputStatus.WARNING);
+    }
+  };
+
+  const onChangeTime = (e: ChangeEvent<HTMLInputElement>): void => {
+    const value = e.target.value;
     if (!value) {
       setTime('');
       setFormattedTime('');
+
+      setDistanceStatus(ImageInputStatus.WARNING);
+      setTimeStatus(ImageInputStatus.WARNING);
     } else {
       const isNumber = /\d/;
 
@@ -182,6 +199,9 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         setTime(newTime);
         setFormattedTime(newFormattedTime);
       }
+
+      setDistanceStatus(ImageInputStatus.NONE);
+      setTimeStatus(ImageInputStatus.NONE);
     }
   };
 
@@ -378,7 +398,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
                 minValue={0}
                 useCustomValue={true}
                 value={`${distance}`}
-                onChange={(e): void => setDistance(e.target.value)}
+                onChange={onChangeDistance}
                 status={distanceStatus}
               />
               <AJSelect
@@ -399,7 +419,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
               placeholder=""
               useCustomValue={true}
               value={formattedTime}
-              onChange={(e): void => onChangeTime(e.target.value)}
+              onChange={onChangeTime}
               status={timeStatus}
             />
           </div>

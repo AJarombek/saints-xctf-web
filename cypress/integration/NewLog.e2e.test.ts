@@ -276,7 +276,9 @@ describe('New Log E2E Tests', () => {
       .should('contain.text', 'Running Log Generated from E2E Tests');
   });
 
-  it.only('required fields must be entered', () => {
+  it('required fields must be entered', () => {
+    cy.route('POST', '/api/v2/logs/').as('createLog');
+
     cy.visit('/log/new');
 
     cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'none');
@@ -305,14 +307,103 @@ describe('New Log E2E Tests', () => {
     cy.newLogInputValidationCheck('none', 'none', 'none', 'warning', 'warning');
 
     cy.get('.sxctf-image-input input[name="distance"]').type('5');
-    cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'warning');
+    cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'none');
+
+    cy.get('.sxctf-image-input input[name="distance"]').clear();
+    cy.newLogInputValidationCheck('none', 'none', 'none', 'warning', 'warning');
+
+    cy.get('.sxctf-image-input input[name="time"]').type('3625');
+    cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'none');
+
+    cy.get('button').contains('Create').click();
+    cy.wait('@createLog');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 10);
+    const finalFormattedDate = moment().format('MMM. Do, YYYY');
+    cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogUser').should('contain.text', 'Andy Jarombek');
+    cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogTitle').should('contain.text', 'Test Run');
+    cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogDate').should('contain.text', finalFormattedDate);
+    cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogType').should('contain.text', 'RUN');
+    cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogLocation').should('not.exist');
+    cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogDistance').should('not.exist');
+    cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogTimePace').should('contain.text', '36:25');
+    cy.get('#logFeed .exerciseLog').eq(0).should('have.class', 'average');
+    cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogDescription').should('not.exist');
   });
 
-  it.skip('only valid distances can be entered', () => {});
+  it('only valid distances can be entered', () => {
+    cy.visit('/log/new');
+    cy.get('.sxctf-image-input input[name="distance"]').invoke('val').should('equal', '');
 
-  it.skip('only valid time can be entered', () => {});
+    cy.get('.sxctf-image-input input[name="distance"]').type('andy');
+    cy.get('.sxctf-image-input input[name="distance"]').invoke('val').should('equal', '');
 
-  it.skip('feeling slider works as expected', () => {});
+    cy.get('.sxctf-image-input input[name="distance"]').type('.');
+    cy.get('.sxctf-image-input input[name="distance"]').invoke('val').should('equal', '');
 
-  it.skip("clicking 'Cancel' returns to the dashboard", () => {});
+    cy.get('.sxctf-image-input input[name="distance"]').type('$5.014');
+    cy.get('.sxctf-image-input input[name="distance"]').invoke('val').should('equal', '5.014');
+
+    cy.get('.sxctf-image-input input[name="distance"]').clear().type('#1');
+    cy.get('.sxctf-image-input input[name="distance"]').invoke('val').should('equal', '1');
+
+    cy.get('.sxctf-image-input input[name="distance"]').clear().type('1😶2');
+    cy.get('.sxctf-image-input input[name="distance"]').invoke('val').should('equal', '12');
+  });
+
+  it('only valid time can be entered', () => {
+    cy.visit('/log/new');
+    cy.get('.sxctf-image-input input[name="time"]').invoke('val').should('equal', '');
+
+    cy.get('.sxctf-image-input input[name="time"]').type('andy');
+    cy.get('.sxctf-image-input input[name="time"]').invoke('val').should('equal', '');
+
+    cy.get('.sxctf-image-input input[name="time"]').type('1234abcd');
+    cy.get('.sxctf-image-input input[name="time"]').invoke('val').should('equal', '12:34');
+
+    cy.get('.sxctf-image-input input[name="time"]').clear().type('!@#$302510');
+    cy.get('.sxctf-image-input input[name="time"]').invoke('val').should('equal', '30:25:10');
+  });
+
+  it('feeling slider works as expected', () => {
+    cy.visit('/log/new');
+    cy.getDataCy('logFeel').should('contain.text', 'Average');
+
+    cy.getDataCy('stepSlider').click(0, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Terrible');
+
+    cy.getDataCy('stepSlider').click(90, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Very Bad');
+
+    cy.getDataCy('stepSlider').click(155, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Bad');
+
+    cy.getDataCy('stepSlider').click(220, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Pretty Bad');
+
+    cy.getDataCy('stepSlider').click(285, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Mediocre');
+
+    cy.getDataCy('stepSlider').click(350, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Average');
+
+    cy.getDataCy('stepSlider').click(415, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Fairly Good');
+
+    cy.getDataCy('stepSlider').click(480, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Good');
+
+    cy.getDataCy('stepSlider').click(545, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Great');
+
+    cy.getDataCy('stepSlider').click(610, 10);
+    cy.getDataCy('logFeel').should('contain.text', 'Fantastic');
+  });
+
+  it("clicking 'Cancel' returns to the dashboard", () => {
+    cy.visit('/log/new');
+    cy.get('button').contains('Cancel').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
 });

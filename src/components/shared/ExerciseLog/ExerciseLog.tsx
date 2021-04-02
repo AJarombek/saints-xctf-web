@@ -177,9 +177,11 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
             </p>
           )}
         </div>
-        <div className={classes.description} data-cypress="exerciseLogDescription">
-          {!!log.description && parseTagsInText(log.description)}
-        </div>
+        {!!log.description && (
+          <div className={classes.description} data-cypress="exerciseLogDescription">
+            {parseTagsInText(log.description)}
+          </div>
+        )}
       </div>
       <div className={classes.commentSection}>
         <Comments
