@@ -1,5 +1,5 @@
 /**
- * E2E tests written with Cypress for the register page.  These E2E tests used mocked API calls.
+ * E2E tests written with Cypress for the register page.  These E2E tests use mocked API calls.
  * @author Andrew Jarombek
  * @since 3/14/2021
  */

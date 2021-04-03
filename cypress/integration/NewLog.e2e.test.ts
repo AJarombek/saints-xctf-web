@@ -282,38 +282,49 @@ describe('New Log E2E Tests', () => {
     cy.visit('/log/new');
 
     cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'none');
+    cy.newLogInputErrorTipCheck(false, false, false, false);
 
     cy.get('button').contains('Create').click();
     cy.newLogInputValidationCheck('failure', 'none', 'failure', 'warning', 'warning');
+    cy.newLogInputErrorTipCheck(true, true, true, true);
 
     cy.get('.sxctf-image-input input[name="name"]').type('Test Run');
     cy.newLogInputValidationCheck('none', 'none', 'failure', 'warning', 'warning');
+    cy.newLogInputErrorTipCheck(false, true, true, true);
 
     cy.get('button').contains('Create').click();
     cy.newLogInputValidationCheck('none', 'none', 'failure', 'warning', 'warning');
+    cy.newLogInputErrorTipCheck(false, true, true, true);
 
     const futureFormattedDate = moment().add(1, 'day').format('YYYY-MM-DD');
     cy.get('.sxctf-image-input input[name="date"]').type(futureFormattedDate);
     cy.newLogInputValidationCheck('none', 'none', 'warning', 'warning', 'warning');
+    cy.newLogInputErrorTipCheck(false, true, true, true);
 
     cy.get('button').contains('Create').click();
     cy.newLogInputValidationCheck('none', 'none', 'failure', 'warning', 'warning');
+    cy.newLogInputErrorTipCheck(false, true, true, true);
 
     const currentFormattedDate = moment().format('YYYY-MM-DD');
     cy.get('.sxctf-image-input input[name="date"]').clear().type(currentFormattedDate);
     cy.newLogInputValidationCheck('none', 'none', 'none', 'warning', 'warning');
+    cy.newLogInputErrorTipCheck(false, false, true, true);
 
     cy.get('button').contains('Create').click();
     cy.newLogInputValidationCheck('none', 'none', 'none', 'warning', 'warning');
+    cy.newLogInputErrorTipCheck(false, false, true, true);
 
     cy.get('.sxctf-image-input input[name="distance"]').type('5');
     cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'none');
+    cy.newLogInputErrorTipCheck(false, false, false, false);
 
     cy.get('.sxctf-image-input input[name="distance"]').clear();
     cy.newLogInputValidationCheck('none', 'none', 'none', 'warning', 'warning');
+    cy.newLogInputErrorTipCheck(false, false, true, true);
 
     cy.get('.sxctf-image-input input[name="time"]').type('3625');
     cy.newLogInputValidationCheck('none', 'none', 'none', 'none', 'none');
+    cy.newLogInputErrorTipCheck(false, false, false, false);
 
     cy.get('button').contains('Create').click();
     cy.wait('@createLog');

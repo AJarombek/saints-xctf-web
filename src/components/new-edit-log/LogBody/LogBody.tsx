@@ -4,21 +4,21 @@
  * @since 8/16/2020
  */
 
-import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from 'react';
-import {createUseStyles} from 'react-jss';
+import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
-import {AJButton, AJSelect} from 'jarombek-react-components';
+import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
+import { AJButton, AJSelect } from 'jarombek-react-components';
 import StepSlider from '../../shared/StepSlider';
-import {FeelColors} from '../../../styles/colors';
+import { FeelColors } from '../../../styles/colors';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea/AutoResizeTextArea';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import classNames from 'classnames';
-import {Log, RootState, User} from '../../../redux/types';
+import { Log, RootState, User } from '../../../redux/types';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup/DefaultErrorPopup';
-import {useDispatch, useSelector} from 'react-redux';
-import {invalidateLogCreated, invalidateLogUpdated, postLog, putLog} from '../../../redux/modules/logs';
-import {postNotification} from '../../../redux/modules/notifications';
+import { useDispatch, useSelector } from 'react-redux';
+import { invalidateLogCreated, invalidateLogUpdated, postLog, putLog } from '../../../redux/modules/logs';
+import { postNotification } from '../../../redux/modules/notifications';
 import moment from 'moment';
 
 interface Props {
@@ -139,7 +139,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     const newName = e.target.value;
     setName(newName);
 
-    if (newName.length) {
+    if (newName.trim().length) {
       setNameStatus(ImageInputStatus.NONE);
     } else {
       setNameStatus(ImageInputStatus.WARNING);
@@ -211,15 +211,15 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         user.username,
         user.first,
         user.last,
-        name,
-        location,
+        name.trim(),
+        location.trim(),
         date,
         type,
         +(+distance).toFixed(2),
         metric,
         '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
         feel + 1,
-        description
+        description.trim()
       )
     );
 
@@ -340,6 +340,9 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
             onChange={onChangeName}
             status={nameStatus}
           />
+          <p className={classes.inputTip} hidden={nameStatus === ImageInputStatus.NONE} data-cypress="nameInputTip">
+            Exercise logs must have a name.
+          </p>
         </div>
         <div className={classes.twoInputs}>
           <div className={classes.locationInput}>
@@ -371,6 +374,9 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
               onChange={onChangeDate}
               status={dateStatus}
             />
+            <p className={classes.inputTip} hidden={dateStatus === ImageInputStatus.NONE} data-cypress="dateInputTip">
+              A date is required and may not be in the future.
+            </p>
           </div>
         </div>
         <div>
@@ -408,6 +414,13 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
                 onClickListOption={(item: { content: string; value: string }): void => setMetric(item.value)}
               />
             </div>
+            <p
+              className={classes.inputTip}
+              hidden={distanceStatus === ImageInputStatus.NONE}
+              data-cypress="distanceInputTip"
+            >
+              A distance is required if no time is entered.
+            </p>
           </div>
           <div
             className={classNames(classes.timeInput, timeStatus === ImageInputStatus.WARNING && classes.inputWarning)}
@@ -422,6 +435,9 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
               onChange={onChangeTime}
               status={timeStatus}
             />
+            <p className={classes.inputTip} hidden={timeStatus === ImageInputStatus.NONE} data-cypress="timeInputTip">
+              A time is required if no distance is entered.
+            </p>
           </div>
         </div>
         <div>

@@ -21,5 +21,17 @@ declare namespace Cypress {
             distanceStatus: ImageInputStatusClass,
             timeStatus: ImageInputStatusClass
         ): void;
+
+        /**
+         * Custom command to check the log creation form for input error tips.  These are pieces of text which help
+         * describe to the user what was inputted incorrectly.
+         * @example newLogInputErrorTipCheck(false, true, false, false)
+         */
+        newLogInputErrorTipCheck(
+            nameVisible: boolean,
+            dateVisible: boolean,
+            distanceVisible: boolean,
+            timeVisible: boolean
+        ): void;
     }
 }

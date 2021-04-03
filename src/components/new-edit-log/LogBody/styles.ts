@@ -4,7 +4,7 @@
  * @since 8/16/2020
  */
 
-import { FeelColors } from '../../../styles/colors';
+import Colors, { FeelColors } from '../../../styles/colors';
 import Mixins, { AJComponentMixins, FontMixins } from '../../../styles/mixins';
 import color from 'color';
 
@@ -109,6 +109,13 @@ export default {
   },
   inputWarning: {
     ...Mixins.inputWarning()
+  },
+  inputTip: {
+    ...FontMixins.robotoSlabThin(),
+    color: Colors.sxctfRed,
+    fontSize: 13,
+    maxWidth: 325,
+    margin: '8px 0'
   },
   '@media screen and (max-width: 720px)': {
     title: {

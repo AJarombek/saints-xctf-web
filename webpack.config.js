@@ -148,8 +148,8 @@ module.exports = (env) => {
     case 'local':
       return merge(config(JSON.stringify(env), 'http://localhost:8090/'), localConfig);
     case 'development':
-      return merge(config(JSON.stringify(env), '/'), devConfig);
+      return merge(config(JSON.stringify(env), 'https://dev.saintsxctf.com/'), devConfig);
     default:
-      return merge(config(JSON.stringify(env), '/'), prodConfig);
+      return merge(config(JSON.stringify(env), 'https://saintsxctf.com/'), prodConfig);
   }
 };

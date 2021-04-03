@@ -22,3 +22,13 @@ Cypress.Commands.add(
     cy.imageInputValidationCheck('time', timeStatus);
   }
 );
+
+Cypress.Commands.add(
+  'newLogInputErrorTipCheck',
+  (nameVisible: boolean, dateVisible: boolean, distanceVisible: boolean, timeVisible: boolean) => {
+    cy.getDataCy('nameInputTip').should(nameVisible ? 'be.visible' : 'not.be.visible');
+    cy.getDataCy('dateInputTip').should(dateVisible ? 'be.visible' : 'not.be.visible');
+    cy.getDataCy('distanceInputTip').should(distanceVisible ? 'be.visible' : 'not.be.visible');
+    cy.getDataCy('timeInputTip').should(timeVisible ? 'be.visible' : 'not.be.visible');
+  }
+);
