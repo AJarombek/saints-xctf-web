@@ -41,7 +41,7 @@ const Alert: React.FunctionComponent<Props> = ({ message, type, closeable, onClo
   }
 
   return (
-    <div className={classes.alert}>
+    <div className={classes.alert} data-cypress="alert">
       <p className={classes.alertIcon}>{alertIcon}</p>
       <div className={classes.message}>{message}</div>
       {closeable && (

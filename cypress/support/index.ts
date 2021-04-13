@@ -8,3 +8,4 @@ import './forgotPassword';
 import './dashboard';
 import './group';
 import './newLog';
+import './profile';

@@ -1,8 +1,7 @@
 /**
- * Setup Enzyme with the React adapter.  This file is identified as Jest test framework
- * config in jest.client-config.js and jest.server-config.js.
+ * Setup Enzyme with the React adapter.  This file is identified as Jest test framework config in jest.config.js.
  * @author Andrew Jarombek
- * @since 3/21/2018
+ * @since 1/8/2020
  */
 
 import { configure } from 'enzyme';
