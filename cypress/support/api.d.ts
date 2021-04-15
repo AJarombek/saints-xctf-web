@@ -67,6 +67,13 @@ declare namespace Cypress {
 
         /**
          * Return static JSON files defined in the fixtures directory when an API call is made to a
+         * '/v2/users/flair/<username>' endpoint.
+         * @example mockUserFlairAPI()
+         */
+        mockUserFlairAPI(): void;
+
+        /**
+         * Return static JSON files defined in the fixtures directory when an API call is made to a
          * '/v2/users/groups/*' endpoint.
          * @example mockUserGroupsAPI()
          */

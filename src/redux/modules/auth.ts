@@ -337,16 +337,20 @@ function postForgotPasswordFailureReducer(state: AuthState, action: PostForgotPa
   };
 }
 
-function signOutReducer(state: AuthState): AuthState {
+function signOutReducer(): AuthState {
   return {
-    ...state,
     auth: {
       isFetching: false,
       lastUpdated: moment().unix(),
       signedInUser: null,
       status: 'SIGNED OUT'
     },
-    user: {}
+    user: {},
+    changePassword: {},
+    createActivationCode: {},
+    createForgotPasswordCode: {},
+    emailActivationCode: {},
+    validateForgotPasswordCode: {}
   };
 }
 
@@ -507,7 +511,7 @@ export default function reducer(state = initialState, action: AuthActionTypes): 
     case SIGNIN_FAILURE:
       return signInFailureReducer(state, action);
     case SIGNOUT:
-      return signOutReducer(state);
+      return signOutReducer();
     case GET_FORGOT_PASSWORD_CODE_VALIDATION_REQUEST:
       return getForgotPasswordCodeValidationRequestReducer(state, action);
     case GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS:

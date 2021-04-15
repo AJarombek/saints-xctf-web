@@ -18,6 +18,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockLogFeedAPI();
   cy.mockTeamGroupsAPI();
   cy.mockUserChangePasswordAPI();
+  cy.mockUserFlairAPI();
   cy.mockUserGroupsAPI();
   cy.mockUserLookupAPI();
   cy.mockUserMembershipsAPI();
@@ -92,6 +93,16 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
   });
 
   logFeedAllPageOneRoute.as('logFeedAllPageOneRoute');
+
+  cy.fixture('api/logFeed/get/userAndyPageOne.json').as('logFeedUserAndyPageOne');
+
+  const logFeedUserAndyPageOneRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/log_feed/user/andy/10/0',
+    response: '@logFeedUserAndyPageOne'
+  });
+
+  logFeedUserAndyPageOneRoute.as('logFeedUserAndyPageOneRoute');
 });
 
 Cypress.Commands.add('mockTeamGroupsAPI', () => {
@@ -149,6 +160,18 @@ Cypress.Commands.add('mockUserChangePasswordAPI', () => {
   });
 
   userChangePasswordAndyRoute.as('userChangePasswordAndyRoute');
+});
+
+Cypress.Commands.add('mockUserFlairAPI', () => {
+  cy.fixture('api/users/flair/get/andy.json').as('userFlairAndy');
+
+  const userFlairAndyRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/flair/andy',
+    response: '@userFlairAndy'
+  });
+
+  userFlairAndyRoute.as('userFlairAndyRoute');
 });
 
 Cypress.Commands.add('mockUserGroupsAPI', () => {

@@ -20,9 +20,11 @@ const Memberships: React.FunctionComponent<Props> = ({ teamMemberships }) => {
 
   return (
     <div className={classes.memberships}>
-      {teamMemberships?.teams?.map((membership: TeamMembership) => (
-        <p key={membership.team_name}>{membership.title}</p>
-      ))}
+      {teamMemberships?.teams
+        ?.filter((membership: TeamMembership) => membership.status === 'accepted')
+        ?.map((membership: TeamMembership) => (
+          <p key={membership.team_name}>{membership.title}</p>
+        ))}
     </div>
   );
 };

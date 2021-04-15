@@ -1,0 +1,17 @@
+{
+  "flair": [
+    {
+      "deleted": false,
+      "flair": "Site Creator",
+      "flair_id": 1,
+      "username": "andy"
+    },
+    {
+      "deleted": false,
+      "flair": "Alumnus and Programming Extraordinaire",
+      "flair_id": 16,
+      "username": "andy"
+    }
+  ],
+  "self": "/v2/users/flair/andy"
+}

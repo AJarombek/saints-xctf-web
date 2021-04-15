@@ -9,3 +9,4 @@ import './dashboard';
 import './group';
 import './newLog';
 import './profile';
+import './shared';
