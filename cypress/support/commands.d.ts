@@ -42,6 +42,14 @@ declare namespace Cypress {
         getDataCy(value: string): Chainable<Element>;
 
         /**
+         * Chainable function for getting elements with a data-cypress attribute and containing a text value.
+         * @param value The value of the data attribute on an HTML element.
+         * @param contains The text that the HTML element contains.
+         * @example getDataCyContains('element', 'Andy Jarombek')
+         */
+        getDataCyContains(value: string, contains: string): Chainable<Element>;
+
+        /**
          * Child chainable function for finding elements with a data-cypress attribute.
          * @param value The value of the data attribute on an HTML element.
          * @example findDataCy('button')

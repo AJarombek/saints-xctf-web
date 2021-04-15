@@ -21,6 +21,7 @@ describe('Profile E2E Tests', () => {
   it('has multiple tabs that can be navigated between', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
+    cy.profileMockAPICalls();
 
     // The default tab is the exercise logs tab.
     cy.get('section #logFeed').should('exist');
@@ -59,5 +60,28 @@ describe('Profile E2E Tests', () => {
     cy.get('.tabs p').contains('Exercise Logs').click();
     cy.get('section #logFeed').should('exist');
     cy.get('section #monthlyCalendar').should('not.exist');
+  });
+
+  it('has a default tab of paginated exercise logs', () => {
+    cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileMockAPICalls();
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 10);
+    cy.getDataCyContains('exerciseLogUser', 'Andy Jarombek').should('have.length', 10);
+
+    cy.route('GET', '/api/v2/log_feed/user/andy/10/10').as('logFeedPageTwoAndy');
+    cy.get('#paginationBar').contains(2).click();
+    cy.wait('@logFeedPageTwoAndy');
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 10);
+    cy.getDataCyContains('exerciseLogUser', 'Andy Jarombek').should('have.length', 10);
+
+    cy.route('GET', '/api/v2/log_feed/user/andy/10/20').as('logFeedPageTwoAndy');
+    cy.get('#paginationBar').contains(3).click();
+    cy.wait('@logFeedPageTwoAndy');
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 10);
+    cy.getDataCyContains('exerciseLogUser', 'Andy Jarombek').should('have.length', 10);
   });
 });

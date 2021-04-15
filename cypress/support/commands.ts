@@ -76,6 +76,10 @@ Cypress.Commands.add('getDataCy', (value) => {
   return cy.get(`[data-cypress=${value}]`);
 });
 
+Cypress.Commands.add('getDataCyContains', (value, contains) => {
+  return cy.get(`[data-cypress=${value}]:contains("${contains}")`);
+});
+
 Cypress.Commands.add('findDataCy', { prevSubject: true }, (subject, value) => {
   return cy.wrap(subject).find(`[data-cypress=${value}]`);
 });
