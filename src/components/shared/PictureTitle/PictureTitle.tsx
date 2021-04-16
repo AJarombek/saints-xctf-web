@@ -26,8 +26,12 @@ const PictureTitle: React.FunctionComponent<Props> = ({ imageUrl, title, subTitl
       <figure className={classes.picture}>
         <img src={imageUrl} alt="" />
       </figure>
-      <h5 className={classes.title}>{title}</h5>
-      <div className={classes.subTitle}>{subTitle}</div>
+      <h5 className={classes.title} data-cypress="pictureTitle">
+        {title}
+      </h5>
+      <div className={classes.subTitle} data-cypress="pictureSubTitle">
+        {subTitle}
+      </div>
     </div>
   );
 };

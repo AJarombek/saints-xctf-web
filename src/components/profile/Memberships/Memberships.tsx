@@ -23,7 +23,9 @@ const Memberships: React.FunctionComponent<Props> = ({ teamMemberships }) => {
       {teamMemberships?.teams
         ?.filter((membership: TeamMembership) => membership.status === 'accepted')
         ?.map((membership: TeamMembership) => (
-          <p key={membership.team_name}>{membership.title}</p>
+          <p key={membership.team_name} data-cypress="teamMembership">
+            {membership.title}
+          </p>
         ))}
     </div>
   );

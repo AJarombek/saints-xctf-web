@@ -13,5 +13,17 @@ declare namespace Cypress {
          * @example paginationBarPageOne()
          */
         paginationBarPageOne(): void;
+
+        /**
+         * Custom command which tests that a pagination bar exists and that it is on the third page.
+         * @example paginationBarPageThree()
+         */
+        paginationBarPageThree(): void;
+
+        /**
+         * Custom command which tests that a pagination bar exists and that it is on the fifth page.
+         * @example paginationBarPageFive()
+         */
+        paginationBarPageFive(): void;
     }
 }

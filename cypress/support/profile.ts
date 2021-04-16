@@ -11,9 +11,16 @@ Cypress.Commands.add('profileRouteAliases', () => {
   cy.route('GET', '/api/v2/log_feed/user/andy/10/0').as('logFeedPageOneAndy');
 });
 
-Cypress.Commands.add('profileMockAPICalls', () => {
+Cypress.Commands.add('profileAPICalls', () => {
   cy.wait('@userMembershipsAndy');
   cy.wait('@userFlairAndy');
   cy.wait('@userGroupsAndy');
   cy.wait('@logFeedPageOneAndy');
+});
+
+Cypress.Commands.add('profileMockAPICalls', () => {
+  cy.wait('@userMembershipsAndyRoute');
+  cy.wait('@userFlairAndyRoute');
+  cy.wait('@userGroupsAndyRoute');
+  cy.wait('@logFeedUserAndyPageOneRoute');
 });

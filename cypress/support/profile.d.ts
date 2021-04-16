@@ -16,6 +16,12 @@ declare namespace Cypress {
         profileRouteAliases(): void;
 
         /**
+         * Custom command that waits for API calls to the profile page for user Andy.
+         * @example profileMockAPICalls()
+         */
+        profileAPICalls(): void;
+
+        /**
          * Custom command that waits for mocked API calls to the profile page for user Andy.
          * @example profileMockAPICalls()
          */

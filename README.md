@@ -74,7 +74,7 @@ docker-compose up --build
 ### Integrations
 
 [![Jenkins](https://img.shields.io/badge/Jenkins-%20saints--xctf--web--test-blue?style=for-the-badge)](https://jenkins.jarombek.io/job/saints-xctf/job/web/job/saints-xctf-web-test/)
-> Jenins job runs daily, running Jest unit/snapshot tests.
+> Jenkins job runs daily, running Jest unit/snapshot tests.
 
 ### Files
 

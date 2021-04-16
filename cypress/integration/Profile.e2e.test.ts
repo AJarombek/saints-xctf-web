@@ -21,7 +21,7 @@ describe('Profile E2E Tests', () => {
   it('has multiple tabs that can be navigated between', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
-    cy.profileMockAPICalls();
+    cy.profileAPICalls();
 
     // The default tab is the exercise logs tab.
     cy.get('section #logFeed').should('exist');
@@ -65,7 +65,7 @@ describe('Profile E2E Tests', () => {
   it('has a default tab of paginated exercise logs', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
-    cy.profileMockAPICalls();
+    cy.profileAPICalls();
 
     cy.get('#logFeed .exerciseLog').should('have.length', 10);
     cy.getDataCyContains('exerciseLogUser', 'Andy Jarombek').should('have.length', 10);

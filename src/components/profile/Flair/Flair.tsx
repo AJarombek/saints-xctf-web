@@ -21,7 +21,9 @@ const Flair: React.FunctionComponent<Props> = ({ flair = {} }) => {
   return (
     <div className={classes.flair}>
       {flair.items?.slice(0, 2).map((item) => (
-        <p key={item.flair_id}>{item.flair}</p>
+        <p key={item.flair_id} data-cypress="flair">
+          {item.flair}
+        </p>
       ))}
     </div>
   );

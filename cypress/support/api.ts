@@ -103,6 +103,26 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
   });
 
   logFeedUserAndyPageOneRoute.as('logFeedUserAndyPageOneRoute');
+
+  cy.fixture('api/logFeed/get/userAndyPageThree.json').as('logFeedUserAndyPageThree');
+
+  const logFeedUserAndyPageThreeRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/log_feed/user/andy/10/20',
+    response: '@logFeedUserAndyPageThree'
+  });
+
+  logFeedUserAndyPageThreeRoute.as('logFeedUserAndyPageThreeRoute');
+
+  cy.fixture('api/logFeed/get/userAndyPageFive.json').as('logFeedUserAndyPageFive');
+
+  const logFeedUserAndyPageFiveRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/log_feed/user/andy/10/40',
+    response: '@logFeedUserAndyPageFive'
+  });
+
+  logFeedUserAndyPageFiveRoute.as('logFeedUserAndyPageFiveRoute');
 });
 
 Cypress.Commands.add('mockTeamGroupsAPI', () => {
