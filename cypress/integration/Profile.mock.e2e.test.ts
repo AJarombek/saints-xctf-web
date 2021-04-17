@@ -53,5 +53,13 @@ describe('Profile Mock E2E Tests', () => {
   it.only('has a tab with a calendar of monthly exercise logs', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
+
+    const rangeItems = [
+      {feel: 5, miles: 4}
+    ];
+
+    cy.createRangeViewRoute('rangeViewCurrentMonthRoute', rangeItems, 0, 'month', true);
+    cy.get('.tabs p').contains('Monthly Calendar').click();
+    cy.wait('@rangeViewCurrentMonthRoute');
   });
 });
