@@ -45,5 +45,14 @@ declare namespace Cypress {
             unit: moment.DurationInputArg2,
             subtracting?: boolean
         ): void;
+
+        /**
+         * Custom command which tests that a week in a monthly calendar contains the expected mileage values.
+         * @param week The week in the month, starting at 0 and going up to 5.
+         * @param miles Mileage for each day of the week.  Use 0 or null to indicate a day with no mileage.
+         * @param totalMiles The total number of miles for the week.
+         * @example calendarWeekCheck(0, [1, 2.5, 3, 4.5, 5, 6.5, 7], 29.5)
+         */
+        calendarWeekCheck(week: number, miles: number[], totalMiles: number): void;
     }
 }

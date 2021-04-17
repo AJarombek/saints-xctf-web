@@ -69,9 +69,13 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) 
   return (
     <div className={classes.calendar}>
       <div className={classes.monthNavigation}>
-        <p onClick={(): void => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))}>&#x34;</p>
-        <h2>{currentMonth.format('MMMM YYYY')}</h2>
-        <p onClick={(): void => setCurrentMonth(currentMonth.clone().add(1, 'month'))}>&#x35;</p>
+        <p data-cypress="prevMonth" onClick={(): void => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))}>
+          &#x34;
+        </p>
+        <h2 data-cypress="currentMonth">{currentMonth.format('MMMM YYYY')}</h2>
+        <p data-cypress="nextMonth" onClick={(): void => setCurrentMonth(currentMonth.clone().add(1, 'month'))}>
+          &#x35;
+        </p>
       </div>
       <div className={classes.weekdays}>
         {Array(7)

@@ -79,3 +79,42 @@ Cypress.Commands.add(
     }).as(routeName);
   }
 );
+
+Cypress.Commands.add('calendarWeekCheck', (week: number, miles: string[], totalMiles: number) => {
+  cy.getDataCy('week')
+    .eq(week)
+    .findDataCy('day')
+    .eq(0)
+    .should(miles[0] ? 'contain.text' : 'not.contain.text', miles[0] ? `${miles[0]}Miles` : 'Miles');
+  cy.getDataCy('week')
+    .eq(week)
+    .findDataCy('day')
+    .eq(1)
+    .should(miles[1] ? 'contain.text' : 'not.contain.text', miles[1] ? `${miles[1]}Miles` : 'Miles');
+  cy.getDataCy('week')
+    .eq(week)
+    .findDataCy('day')
+    .eq(2)
+    .should(miles[2] ? 'contain.text' : 'not.contain.text', miles[2] ? `${miles[2]}Miles` : 'Miles');
+  cy.getDataCy('week')
+    .eq(week)
+    .findDataCy('day')
+    .eq(3)
+    .should(miles[3] ? 'contain.text' : 'not.contain.text', miles[3] ? `${miles[3]}Miles` : 'Miles');
+  cy.getDataCy('week')
+    .eq(week)
+    .findDataCy('day')
+    .eq(4)
+    .should(miles[4] ? 'contain.text' : 'not.contain.text', miles[4] ? `${miles[4]}Miles` : 'Miles');
+  cy.getDataCy('week')
+    .eq(week)
+    .findDataCy('day')
+    .eq(5)
+    .should(miles[5] ? 'contain.text' : 'not.contain.text', miles[5] ? `${miles[5]}Miles` : 'Miles');
+  cy.getDataCy('week')
+    .eq(week)
+    .findDataCy('day')
+    .eq(6)
+    .should(miles[6] ? 'contain.text' : 'not.contain.text', miles[6] ? `${miles[6]}Miles` : 'Miles');
+  cy.getDataCy('week').eq(week).findDataCy('weekTotal').should('contain.text', `${totalMiles}Miles`);
+});

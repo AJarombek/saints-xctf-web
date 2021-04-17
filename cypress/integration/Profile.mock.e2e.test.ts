@@ -7,6 +7,8 @@
  * @since 4/14/2021
  */
 
+import * as moment from 'moment';
+
 describe('Profile Mock E2E Tests', () => {
   beforeEach(() => {
     cy.mockAPI();
@@ -73,65 +75,93 @@ describe('Profile Mock E2E Tests', () => {
       { feel: 5, miles: 4.55 },
       { feel: 7, miles: 6.28 },
       { feel: 7, miles: 6.52 },
-      { feel: 7, miles: 6.58 }
+      { feel: 7, miles: 6.58 },
+      { feel: 8, miles: 12 }
     ];
 
     cy.createRangeViewRoute('rangeViewCurrentMonthRoute', rangeItems, 0, 'month', true);
     cy.get('.tabs p').contains('Monthly Calendar').click();
     cy.wait('@rangeViewCurrentMonthRoute');
 
-    cy.getDataCy('week').eq(0).findDataCy('day').eq(0).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(0).findDataCy('day').eq(1).should('contain.text', '5.39Miles');
-    cy.getDataCy('week').eq(0).findDataCy('day').eq(2).should('contain.text', '5.83Miles');
-    cy.getDataCy('week').eq(0).findDataCy('day').eq(3).should('contain.text', '8.64Miles');
-    cy.getDataCy('week').eq(0).findDataCy('day').eq(4).should('contain.text', '5.96Miles');
-    cy.getDataCy('week').eq(0).findDataCy('day').eq(5).should('contain.text', '8.75Miles');
-    cy.getDataCy('week').eq(0).findDataCy('day').eq(6).should('contain.text', '9.12Miles');
-    cy.getDataCy('week').eq(0).findDataCy('weekTotal').should('contain.text', '43.69Miles');
+    const calendarMonth = moment().format('MMMM YYYY');
 
-    cy.getDataCy('week').eq(1).findDataCy('day').eq(0).should('contain.text', '2.89Miles');
-    cy.getDataCy('week').eq(1).findDataCy('day').eq(1).should('contain.text', '5.89Miles');
-    cy.getDataCy('week').eq(1).findDataCy('day').eq(2).should('contain.text', '5.94Miles');
-    cy.getDataCy('week').eq(1).findDataCy('day').eq(3).should('contain.text', '11.96Miles');
-    cy.getDataCy('week').eq(1).findDataCy('day').eq(4).should('contain.text', '5.97Miles');
-    cy.getDataCy('week').eq(1).findDataCy('day').eq(5).should('contain.text', '8.80Miles');
-    cy.getDataCy('week').eq(1).findDataCy('day').eq(6).should('contain.text', '14.01Miles');
-    cy.getDataCy('week').eq(1).findDataCy('weekTotal').should('contain.text', '55.46Miles');
+    cy.getDataCy('currentMonth').should('contain.text', calendarMonth);
+    cy.calendarWeekCheck(0, [null, 5.39, 5.83, 8.64, 5.96, 8.75, 9.12], 43.69);
+    cy.calendarWeekCheck(1, [2.89, 5.89, 5.94, 11.96, 5.97, '8.80', 14.01], 55.46);
+    cy.calendarWeekCheck(2, [2.94, 4.55, 6.28, 6.52, 6.58, '12.00', null], 38.87);
+    cy.calendarWeekCheck(3, [null, null, null, null, null, null, null], '0.00');
+    cy.calendarWeekCheck(4, [null, null, null, null, null, null, null], '0.00');
+    cy.calendarWeekCheck(5, [null, null, null, null, null, null, null], '0.00');
 
-    cy.getDataCy('week').eq(2).findDataCy('day').eq(0).should('contain.text', '2.94Miles');
-    cy.getDataCy('week').eq(2).findDataCy('day').eq(1).should('contain.text', '4.55Miles');
-    cy.getDataCy('week').eq(2).findDataCy('day').eq(2).should('contain.text', '6.28Miles');
-    cy.getDataCy('week').eq(2).findDataCy('day').eq(3).should('contain.text', '6.52Miles');
-    cy.getDataCy('week').eq(2).findDataCy('day').eq(4).should('contain.text', '6.58Miles');
-    cy.getDataCy('week').eq(2).findDataCy('day').eq(5).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(2).findDataCy('day').eq(6).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(2).findDataCy('weekTotal').should('contain.text', '26.87Miles');
+    const prevMonthRangeItems = [
+      {},
+      { feel: 6, miles: 5.42 },
+      { feel: 6, miles: 5.36 },
+      { feel: 7, miles: 5.4 },
+      { feel: 8, miles: 6.51 },
+      { feel: 6, miles: 6.01 },
+      { feel: 5, miles: 12.23 },
+      { feel: 6, miles: 2.82 },
+      { feel: 6, miles: 5.42 },
+      { feel: 6, miles: 5.38 },
+      { feel: 6, miles: 5.4 },
+      { feel: 8, miles: 7.11 },
+      { feel: 6, miles: 6 },
+      { feel: 9, miles: 13.27 },
+      { feel: 6, miles: 2.86 },
+      { feel: 7, miles: 5.44 },
+      { feel: 7, miles: 5.43 },
+      { feel: 7, miles: 5.4 },
+      { feel: 7, miles: 5.43 },
+      { feel: 8, miles: 11.27 },
+      { feel: 8, miles: 13.21 },
+      { feel: 7, miles: 5.38 },
+      { feel: 6, miles: 2.83 },
+      { feel: 6, miles: 5.36 },
+      { feel: 6, miles: 5.4 },
+      { feel: 7, miles: 6.49 },
+      { feel: 7, miles: 6.02 },
+      { feel: 7, miles: 7.02 },
+      {},
+      { feel: 6, miles: 5.39 },
+      { feel: 6, miles: 5.83 },
+      { feel: 8, miles: 8.64 },
+      { feel: 7, miles: 5.96 },
+      { feel: 6, miles: 8.75 },
+      { feel: 5, miles: 9.12 },
+      { feel: 6, miles: 2.89 },
+      { feel: 6, miles: 5.89 },
+      { feel: 6, miles: 5.94 },
+      { feel: 8, miles: 11.96 },
+      { feel: 8, miles: 5.97 },
+      { feel: 8, miles: 8.8 },
+      { feel: 8, miles: 14.01 }
+    ];
 
-    cy.getDataCy('week').eq(3).findDataCy('day').eq(0).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(3).findDataCy('day').eq(1).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(3).findDataCy('day').eq(2).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(3).findDataCy('day').eq(3).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(3).findDataCy('day').eq(4).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(3).findDataCy('day').eq(5).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(3).findDataCy('day').eq(6).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(3).findDataCy('weekTotal').should('contain.text', '0.00Miles');
+    // Go to the previous month.
+    cy.createRangeViewRoute('rangeViewPreviousMonthRoute', prevMonthRangeItems, 1, 'month', true);
+    cy.getDataCy('prevMonth').click();
+    cy.wait('@rangeViewPreviousMonthRoute');
 
-    cy.getDataCy('week').eq(4).findDataCy('day').eq(0).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(4).findDataCy('day').eq(1).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(4).findDataCy('day').eq(2).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(4).findDataCy('day').eq(3).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(4).findDataCy('day').eq(4).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(4).findDataCy('day').eq(5).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(4).findDataCy('day').eq(6).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(4).findDataCy('weekTotal').should('contain.text', '0.00Miles');
+    const prevCalendarMonth = moment().subtract(1, 'month').format('MMMM YYYY');
 
-    cy.getDataCy('week').eq(5).findDataCy('day').eq(0).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(5).findDataCy('day').eq(1).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(5).findDataCy('day').eq(2).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(5).findDataCy('day').eq(3).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(5).findDataCy('day').eq(4).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(5).findDataCy('day').eq(5).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(5).findDataCy('day').eq(6).should('not.contain.text', 'Miles');
-    cy.getDataCy('week').eq(5).findDataCy('weekTotal').should('contain.text', '0.00Miles');
+    cy.getDataCy('currentMonth').should('contain.text', prevCalendarMonth);
+    cy.calendarWeekCheck(0, [null, 5.42, 5.36, '5.40', 6.51, 6.01, 12.23], 40.93);
+    cy.calendarWeekCheck(1, [2.82, 5.42, 5.38, '5.40', 7.11, '6.00', 13.27], '45.40');
+    cy.calendarWeekCheck(2, [2.86, 5.44, 5.43, '5.40', 5.43, 11.27, 13.21], 49.04);
+    cy.calendarWeekCheck(3, [5.38, 2.83, 5.36, '5.40', 6.49, 6.02, 7.02], '38.50');
+    cy.calendarWeekCheck(4, [null, 5.39, 5.83, 8.64, 5.96, 8.75, 9.12], 43.69);
+    cy.calendarWeekCheck(5, [2.89, 5.89, 5.94, 11.96, 5.97, '8.80', 14.01], 55.46);
+
+    // Return to the current month.
+    cy.getDataCy('nextMonth').click();
+
+    cy.getDataCy('currentMonth').should('contain.text', calendarMonth);
+    cy.calendarWeekCheck(0, [null, 5.39, 5.83, 8.64, 5.96, 8.75, 9.12], 43.69);
+    cy.calendarWeekCheck(1, [2.89, 5.89, 5.94, 11.96, 5.97, '8.80', 14.01], 55.46);
+    cy.calendarWeekCheck(2, [2.94, 4.55, 6.28, 6.52, 6.58, '12.00', null], 38.87);
+    cy.calendarWeekCheck(3, [null, null, null, null, null, null, null], '0.00');
+    cy.calendarWeekCheck(4, [null, null, null, null, null, null, null], '0.00');
+    cy.calendarWeekCheck(5, [null, null, null, null, null, null, null], '0.00');
   });
 });
