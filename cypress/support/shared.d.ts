@@ -40,7 +40,23 @@ declare namespace Cypress {
          */
         createRangeViewRoute(
             routeName: string,
-            rangeItems: { feel: number; miles: number }[],
+            rangeItems: { feel?: number; miles?: number }[],
+            amount: moment.DurationInputArg1,
+            unit: moment.DurationInputArg2,
+            subtracting?: boolean
+        ): void;
+
+        /**
+         * Custom command to generate a range view route for a given time period that results in an error.
+         * @param routeName Name of the route that is created by this function.
+         * @param amount Number of units to offset the date of the range view (from today).
+         * @param unit The unit to offset by (eg. day, week, month).
+         * @param subtracting Whether the offset is subtracted from today.  If true, it is subtracted.
+         * If false, it is added.
+         * @example createRangeViewErrorRoute('sampleRoute', 1, 'month', true)
+         */
+        createRangeViewErrorRoute(
+            routeName: string,
             amount: moment.DurationInputArg1,
             unit: moment.DurationInputArg2,
             subtracting?: boolean
@@ -53,6 +69,6 @@ declare namespace Cypress {
          * @param totalMiles The total number of miles for the week.
          * @example calendarWeekCheck(0, [1, 2.5, 3, 4.5, 5, 6.5, 7], 29.5)
          */
-        calendarWeekCheck(week: number, miles: number[], totalMiles: number): void;
+        calendarWeekCheck(week: number, miles: (number | string | null)[], totalMiles: number | string): void;
     }
 }

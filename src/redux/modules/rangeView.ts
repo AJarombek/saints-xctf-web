@@ -210,8 +210,8 @@ export function getRangeView(
   exerciseTypes: string,
   start: string,
   end: string
-): AppThunk<Promise<void>, RangeViewState> {
-  return async function (dispatch: Dispatch): Promise<void> {
+): AppThunk<Promise<boolean>, RangeViewState> {
+  return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(getRangeViewRequest(filterBy, bucket, exerciseTypes, start, end));
 
     try {
@@ -219,6 +219,7 @@ export function getRangeView(
       const { range_view: rangeView } = response.data;
 
       dispatch(getRangeViewSuccess(filterBy, bucket, exerciseTypes, start, end, rangeView));
+      return true;
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
@@ -226,6 +227,8 @@ export function getRangeView(
       if (response.status !== 403) {
         dispatch(getRangeViewFailure(filterBy, bucket, exerciseTypes, start, end, serverError));
       }
+
+      return false;
     }
   };
 }

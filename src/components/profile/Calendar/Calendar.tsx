@@ -4,7 +4,7 @@
  * @since 10/19/2020
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import Month from '../Month';
@@ -17,6 +17,7 @@ import {
   RangeViewItemsMeta,
   UserMeta
 } from '../../../redux/types';
+import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 
 interface Props {
   rangeViews: RangeViewExerciseTypeFilters;
@@ -32,6 +33,7 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) 
   const dispatch = useDispatch();
 
   const [currentMonth, setCurrentMonth] = useState(moment().startOf('month'));
+  const [error, setError] = useState(false);
 
   const start = useMemo(() => {
     const startOfRange = currentMonth.clone().startOf('week');
@@ -60,38 +62,58 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) 
     }
   }, [rangeViews, filter, start, end]);
 
-  useEffect(() => {
-    if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching) {
-      dispatch(getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')));
+  const retrieveRangeView = useCallback(async (): Promise<void> => {
+    if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching && !currentRangeView?.serverError) {
+      const result = await dispatch(
+        getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
+      );
+
+      setError(!result);
     }
-  }, [filter, currentRangeView, user, start, end, dispatch]);
+  }, [
+    currentRangeView?.isFetching,
+    currentRangeView?.items,
+    currentRangeView?.serverError,
+    dispatch,
+    end,
+    filter,
+    start,
+    user.username
+  ]);
+
+  useEffect(() => {
+    retrieveRangeView();
+  }, [retrieveRangeView]);
 
   return (
-    <div className={classes.calendar}>
-      <div className={classes.monthNavigation}>
-        <p data-cypress="prevMonth" onClick={(): void => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))}>
-          &#x34;
-        </p>
-        <h2 data-cypress="currentMonth">{currentMonth.format('MMMM YYYY')}</h2>
-        <p data-cypress="nextMonth" onClick={(): void => setCurrentMonth(currentMonth.clone().add(1, 'month'))}>
-          &#x35;
-        </p>
+    <>
+      <div className={classes.calendar}>
+        <div className={classes.monthNavigation}>
+          <p data-cypress="prevMonth" onClick={(): void => setCurrentMonth(currentMonth.clone().subtract(1, 'month'))}>
+            &#x34;
+          </p>
+          <h2 data-cypress="currentMonth">{currentMonth.format('MMMM YYYY')}</h2>
+          <p data-cypress="nextMonth" onClick={(): void => setCurrentMonth(currentMonth.clone().add(1, 'month'))}>
+            &#x35;
+          </p>
+        </div>
+        <div className={classes.weekdays}>
+          {Array(7)
+            .fill(0)
+            .map((_, i) => (
+              <p key={i}>{start.clone().add(i, 'days').format('dddd')}</p>
+            ))}
+          <p>Total</p>
+        </div>
+        <Month
+          rangeView={currentRangeView}
+          start={start}
+          monthStart={currentMonth}
+          monthEnd={currentMonth.clone().endOf('month')}
+        />
       </div>
-      <div className={classes.weekdays}>
-        {Array(7)
-          .fill(0)
-          .map((_, i) => (
-            <p key={i}>{start.clone().add(i, 'days').format('dddd')}</p>
-          ))}
-        <p>Total</p>
-      </div>
-      <Month
-        rangeView={currentRangeView}
-        start={start}
-        monthStart={currentMonth}
-        monthEnd={currentMonth.clone().endOf('month')}
-      />
-    </div>
+      {error && <DefaultErrorPopup message="Failed to retrieve calendar data" onClose={(): void => setError(false)} />}
+    </>
   );
 };
 

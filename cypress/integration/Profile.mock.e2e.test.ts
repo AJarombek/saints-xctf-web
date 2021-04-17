@@ -168,5 +168,17 @@ describe('Profile Mock E2E Tests', () => {
   it.only('displays an error message if the monthly exercise logs fail to load', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
+
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.createRangeViewErrorRoute('rangeViewErrorRoute', 0, 'month', true);
+    cy.get('.tabs p').contains('Monthly Calendar').click();
+    cy.wait('@rangeViewErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'Failed to retrieve calendar data. Try reloading the page. If this error persists, contact andrew@jarombek.com.'
+    );
   });
 });

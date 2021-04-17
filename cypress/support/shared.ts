@@ -40,7 +40,7 @@ Cypress.Commands.add(
   'createRangeViewRoute',
   (
     routeName: string,
-    rangeItems: { feel: number; miles: number }[],
+    rangeItems: { feel?: number; miles?: number }[],
     amount: moment.DurationInputArg1,
     unit: moment.DurationInputArg2,
     subtracting = true
@@ -80,41 +80,76 @@ Cypress.Commands.add(
   }
 );
 
-Cypress.Commands.add('calendarWeekCheck', (week: number, miles: string[], totalMiles: number) => {
-  cy.getDataCy('week')
-    .eq(week)
-    .findDataCy('day')
-    .eq(0)
-    .should(miles[0] ? 'contain.text' : 'not.contain.text', miles[0] ? `${miles[0]}Miles` : 'Miles');
-  cy.getDataCy('week')
-    .eq(week)
-    .findDataCy('day')
-    .eq(1)
-    .should(miles[1] ? 'contain.text' : 'not.contain.text', miles[1] ? `${miles[1]}Miles` : 'Miles');
-  cy.getDataCy('week')
-    .eq(week)
-    .findDataCy('day')
-    .eq(2)
-    .should(miles[2] ? 'contain.text' : 'not.contain.text', miles[2] ? `${miles[2]}Miles` : 'Miles');
-  cy.getDataCy('week')
-    .eq(week)
-    .findDataCy('day')
-    .eq(3)
-    .should(miles[3] ? 'contain.text' : 'not.contain.text', miles[3] ? `${miles[3]}Miles` : 'Miles');
-  cy.getDataCy('week')
-    .eq(week)
-    .findDataCy('day')
-    .eq(4)
-    .should(miles[4] ? 'contain.text' : 'not.contain.text', miles[4] ? `${miles[4]}Miles` : 'Miles');
-  cy.getDataCy('week')
-    .eq(week)
-    .findDataCy('day')
-    .eq(5)
-    .should(miles[5] ? 'contain.text' : 'not.contain.text', miles[5] ? `${miles[5]}Miles` : 'Miles');
-  cy.getDataCy('week')
-    .eq(week)
-    .findDataCy('day')
-    .eq(6)
-    .should(miles[6] ? 'contain.text' : 'not.contain.text', miles[6] ? `${miles[6]}Miles` : 'Miles');
-  cy.getDataCy('week').eq(week).findDataCy('weekTotal').should('contain.text', `${totalMiles}Miles`);
-});
+Cypress.Commands.add(
+  'createRangeViewErrorRoute',
+  (routeName: string, amount: moment.DurationInputArg1, unit: moment.DurationInputArg2, subtracting = true) => {
+    let start: moment.Moment;
+
+    if (subtracting) {
+      start = moment().subtract(amount, unit).startOf('month').startOf('week');
+    } else {
+      start = moment().add(amount, unit).startOf('month').startOf('week');
+    }
+
+    if (start.date() !== 1) {
+      start.add(1, 'day');
+    } else {
+      start.subtract(6, 'day');
+    }
+
+    const end = start.clone().add(6, 'weeks').subtract(1, 'day');
+    const url = `/api/v2/range_view/users/andy/r/${start.format('YYYY-MM-DD')}/${end.format('YYYY-MM-DD')}`;
+
+    cy.route({
+      method: 'GET',
+      url,
+      response: {
+        range_view: [],
+        self: url
+      },
+      status: 400
+    }).as(routeName);
+  }
+);
+
+Cypress.Commands.add(
+  'calendarWeekCheck',
+  (week: number, miles: (number | string | null)[], totalMiles: number | string) => {
+    cy.getDataCy('week')
+      .eq(week)
+      .findDataCy('day')
+      .eq(0)
+      .should(miles[0] ? 'contain.text' : 'not.contain.text', miles[0] ? `${miles[0]}Miles` : 'Miles');
+    cy.getDataCy('week')
+      .eq(week)
+      .findDataCy('day')
+      .eq(1)
+      .should(miles[1] ? 'contain.text' : 'not.contain.text', miles[1] ? `${miles[1]}Miles` : 'Miles');
+    cy.getDataCy('week')
+      .eq(week)
+      .findDataCy('day')
+      .eq(2)
+      .should(miles[2] ? 'contain.text' : 'not.contain.text', miles[2] ? `${miles[2]}Miles` : 'Miles');
+    cy.getDataCy('week')
+      .eq(week)
+      .findDataCy('day')
+      .eq(3)
+      .should(miles[3] ? 'contain.text' : 'not.contain.text', miles[3] ? `${miles[3]}Miles` : 'Miles');
+    cy.getDataCy('week')
+      .eq(week)
+      .findDataCy('day')
+      .eq(4)
+      .should(miles[4] ? 'contain.text' : 'not.contain.text', miles[4] ? `${miles[4]}Miles` : 'Miles');
+    cy.getDataCy('week')
+      .eq(week)
+      .findDataCy('day')
+      .eq(5)
+      .should(miles[5] ? 'contain.text' : 'not.contain.text', miles[5] ? `${miles[5]}Miles` : 'Miles');
+    cy.getDataCy('week')
+      .eq(week)
+      .findDataCy('day')
+      .eq(6)
+      .should(miles[6] ? 'contain.text' : 'not.contain.text', miles[6] ? `${miles[6]}Miles` : 'Miles');
+    cy.getDataCy('week').eq(week).findDataCy('weekTotal').should('contain.text', `${totalMiles}Miles`);
+  }
+);
