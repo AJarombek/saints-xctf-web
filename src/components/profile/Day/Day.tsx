@@ -30,6 +30,7 @@ const Day: React.FunctionComponent<Props> = ({ date, monthStart, monthEnd, miles
         date >= monthStart && date <= monthEnd && classes.currentMonth,
         feel && classes.feel
       )}
+      data-cypress="day"
     >
       <div>
         <p className={classes.dayOfMonth}>{date.date()}</p>

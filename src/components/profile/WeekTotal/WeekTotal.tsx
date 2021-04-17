@@ -19,7 +19,7 @@ const WeekTotal: React.FunctionComponent<Props> = ({ rangeViewItems = [] }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.weekTotal}>
+    <div className={classes.weekTotal} data-cypress="weekTotal">
       <div className={classes.miles}>
         <p>{rangeViewItems.reduce((acc, item) => acc + item.miles, 0).toFixed(2)}</p>
         <p>Miles</p>

@@ -65,7 +65,7 @@ Cypress.Commands.add(
     const rangeView = rangeItems
       .map((item, index) => ({
         ...item,
-        date: start.clone().add(index, 'day').format('ddd, DD MMM YYYY hh:mm:ss')
+        date: start.clone().add(index, 'day').format('ddd, DD MMM YYYY') + ' 00:00:00 GMT'
       }))
       .filter((item) => item.miles);
 

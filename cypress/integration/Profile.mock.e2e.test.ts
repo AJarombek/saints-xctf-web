@@ -55,11 +55,83 @@ describe('Profile Mock E2E Tests', () => {
     cy.profileMockAPICalls();
 
     const rangeItems = [
-      {feel: 5, miles: 4}
+      {},
+      { feel: 6, miles: 5.39 },
+      { feel: 6, miles: 5.83 },
+      { feel: 8, miles: 8.64 },
+      { feel: 7, miles: 5.96 },
+      { feel: 6, miles: 8.75 },
+      { feel: 5, miles: 9.12 },
+      { feel: 6, miles: 2.89 },
+      { feel: 6, miles: 5.89 },
+      { feel: 6, miles: 5.94 },
+      { feel: 8, miles: 11.96 },
+      { feel: 8, miles: 5.97 },
+      { feel: 8, miles: 8.8 },
+      { feel: 8, miles: 14.01 },
+      { feel: 6, miles: 2.94 },
+      { feel: 5, miles: 4.55 },
+      { feel: 7, miles: 6.28 },
+      { feel: 7, miles: 6.52 },
+      { feel: 7, miles: 6.58 }
     ];
 
     cy.createRangeViewRoute('rangeViewCurrentMonthRoute', rangeItems, 0, 'month', true);
     cy.get('.tabs p').contains('Monthly Calendar').click();
     cy.wait('@rangeViewCurrentMonthRoute');
+
+    cy.getDataCy('week').eq(0).findDataCy('day').eq(0).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(0).findDataCy('day').eq(1).should('contain.text', '5.39Miles');
+    cy.getDataCy('week').eq(0).findDataCy('day').eq(2).should('contain.text', '5.83Miles');
+    cy.getDataCy('week').eq(0).findDataCy('day').eq(3).should('contain.text', '8.64Miles');
+    cy.getDataCy('week').eq(0).findDataCy('day').eq(4).should('contain.text', '5.96Miles');
+    cy.getDataCy('week').eq(0).findDataCy('day').eq(5).should('contain.text', '8.75Miles');
+    cy.getDataCy('week').eq(0).findDataCy('day').eq(6).should('contain.text', '9.12Miles');
+    cy.getDataCy('week').eq(0).findDataCy('weekTotal').should('contain.text', '43.69Miles');
+
+    cy.getDataCy('week').eq(1).findDataCy('day').eq(0).should('contain.text', '2.89Miles');
+    cy.getDataCy('week').eq(1).findDataCy('day').eq(1).should('contain.text', '5.89Miles');
+    cy.getDataCy('week').eq(1).findDataCy('day').eq(2).should('contain.text', '5.94Miles');
+    cy.getDataCy('week').eq(1).findDataCy('day').eq(3).should('contain.text', '11.96Miles');
+    cy.getDataCy('week').eq(1).findDataCy('day').eq(4).should('contain.text', '5.97Miles');
+    cy.getDataCy('week').eq(1).findDataCy('day').eq(5).should('contain.text', '8.80Miles');
+    cy.getDataCy('week').eq(1).findDataCy('day').eq(6).should('contain.text', '14.01Miles');
+    cy.getDataCy('week').eq(1).findDataCy('weekTotal').should('contain.text', '55.46Miles');
+
+    cy.getDataCy('week').eq(2).findDataCy('day').eq(0).should('contain.text', '2.94Miles');
+    cy.getDataCy('week').eq(2).findDataCy('day').eq(1).should('contain.text', '4.55Miles');
+    cy.getDataCy('week').eq(2).findDataCy('day').eq(2).should('contain.text', '6.28Miles');
+    cy.getDataCy('week').eq(2).findDataCy('day').eq(3).should('contain.text', '6.52Miles');
+    cy.getDataCy('week').eq(2).findDataCy('day').eq(4).should('contain.text', '6.58Miles');
+    cy.getDataCy('week').eq(2).findDataCy('day').eq(5).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(2).findDataCy('day').eq(6).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(2).findDataCy('weekTotal').should('contain.text', '26.87Miles');
+
+    cy.getDataCy('week').eq(3).findDataCy('day').eq(0).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(3).findDataCy('day').eq(1).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(3).findDataCy('day').eq(2).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(3).findDataCy('day').eq(3).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(3).findDataCy('day').eq(4).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(3).findDataCy('day').eq(5).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(3).findDataCy('day').eq(6).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(3).findDataCy('weekTotal').should('contain.text', '0.00Miles');
+
+    cy.getDataCy('week').eq(4).findDataCy('day').eq(0).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(4).findDataCy('day').eq(1).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(4).findDataCy('day').eq(2).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(4).findDataCy('day').eq(3).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(4).findDataCy('day').eq(4).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(4).findDataCy('day').eq(5).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(4).findDataCy('day').eq(6).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(4).findDataCy('weekTotal').should('contain.text', '0.00Miles');
+
+    cy.getDataCy('week').eq(5).findDataCy('day').eq(0).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(5).findDataCy('day').eq(1).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(5).findDataCy('day').eq(2).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(5).findDataCy('day').eq(3).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(5).findDataCy('day').eq(4).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(5).findDataCy('day').eq(5).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(5).findDataCy('day').eq(6).should('not.contain.text', 'Miles');
+    cy.getDataCy('week').eq(5).findDataCy('weekTotal').should('contain.text', '0.00Miles');
   });
 });

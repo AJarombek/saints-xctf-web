@@ -27,7 +27,7 @@ const Week: React.FunctionComponent<Props> = ({ start, monthStart, monthEnd, ran
   const items = [...rangeViewItems];
 
   return (
-    <div className={classes.week}>
+    <div className={classes.week} data-cypress="week">
       {Array(7)
         .fill(0)
         .map((_, i) => {
