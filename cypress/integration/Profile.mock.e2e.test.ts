@@ -52,7 +52,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.paginationBarPageFive();
   });
 
-  it.only('has a tab with a calendar of monthly exercise logs', () => {
+  it('has a tab with a calendar of monthly exercise logs', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -163,5 +163,10 @@ describe('Profile Mock E2E Tests', () => {
     cy.calendarWeekCheck(3, [null, null, null, null, null, null, null], '0.00');
     cy.calendarWeekCheck(4, [null, null, null, null, null, null, null], '0.00');
     cy.calendarWeekCheck(5, [null, null, null, null, null, null, null], '0.00');
+  });
+
+  it.only('displays an error message if the monthly exercise logs fail to load', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
   });
 });

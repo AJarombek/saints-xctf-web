@@ -749,7 +749,7 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
       const { response } = error;
       if (response?.status === 400) {
         dispatch(signInFailure('INVALID USER'));
-      } else {
+      } else if (response.status !== 403) {
         dispatch(signInFailure('INTERNAL ERROR'));
       }
     }
@@ -776,7 +776,10 @@ export function createForgotPasswordCode(email: string): AppThunk<Promise<Forgot
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(postForgotPasswordFailure(email, serverError));
+      if (response.status !== 403) {
+        dispatch(postForgotPasswordFailure(email, serverError));
+      }
+
       return {
         error: serverError
       };
@@ -806,7 +809,10 @@ export function validateForgotPasswordCode(code: string): AppThunk<Promise<Valid
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getForgotPasswordCodeValidationFailure(code, serverError));
+      if (response.status !== 403) {
+        dispatch(getForgotPasswordCodeValidationFailure(code, serverError));
+      }
+
       return {
         error: serverError
       };
@@ -828,7 +834,10 @@ export function createActivationCode(email: string, groupId: number): AppThunk<P
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(postActivationCodeFailure(email, serverError));
+      if (response.status !== 403) {
+        dispatch(postActivationCodeFailure(email, serverError));
+      }
+
       return null;
     }
   };
@@ -881,7 +890,10 @@ export function changeUserPassword(
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(changeUserPasswordFailure(username, serverError));
+      if (response.status !== 403) {
+        dispatch(changeUserPasswordFailure(username, serverError));
+      }
+
       return {
         error: serverError
       };

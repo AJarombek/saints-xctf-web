@@ -348,7 +348,9 @@ export function getTeam(teamName: string): AppThunk<Promise<void>, TeamState> {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getTeamFailure(serverError, teamName));
+      if (response.status !== 403) {
+        dispatch(getTeamFailure(serverError, teamName));
+      }
     }
   };
 }
@@ -366,7 +368,9 @@ export function getTeamGroups(teamName: string): AppThunk<Promise<void>, TeamSta
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getTeamGroupsFailure(serverError, teamName));
+      if (response.status !== 403) {
+        dispatch(getTeamGroupsFailure(serverError, teamName));
+      }
     }
   };
 }
@@ -384,7 +388,9 @@ export function searchTeams(text: string): AppThunk<Promise<void>, TeamState> {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getTeamGroupsFailure(serverError, text));
+      if (response.status !== 403) {
+        dispatch(getTeamGroupsFailure(serverError, text));
+      }
     }
   };
 }

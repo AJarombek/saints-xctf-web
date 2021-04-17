@@ -344,7 +344,7 @@ export function registerPersonalInfo(
       if (response.status === 400) {
         // If a user does not exist with this email, registration should continue to the next stage.
         dispatch(registerPersonalInfoSuccess(email, last, first));
-      } else {
+      } else if (response.status !== 403) {
         // If another error occurs, something unexpected happened on the server (no user error).
         dispatch(registerPersonalInfoFailure('INTERNAL ERROR', serverError));
       }
@@ -367,7 +367,7 @@ async function validateUsername(dispatch: Dispatch, username: string): Promise<b
     const { response } = error;
     const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-    if (response.status !== 400) {
+    if (response.status !== 400 && response.status !== 403) {
       dispatch(registerCredentialsFailure('INTERNAL ERROR', serverError));
       return false;
     } else {
@@ -418,7 +418,7 @@ export function registerCredentials(
 
         if (response.status === 400) {
           dispatch(registerCredentialsFailure('VALIDATION ERROR', serverError));
-        } else {
+        } else if (response.status !== 403) {
           dispatch(registerCredentialsFailure('INTERNAL ERROR', serverError));
         }
       }

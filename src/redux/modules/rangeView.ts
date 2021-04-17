@@ -223,7 +223,9 @@ export function getRangeView(
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getRangeViewFailure(filterBy, bucket, exerciseTypes, start, end, serverError));
+      if (response.status !== 403) {
+        dispatch(getRangeViewFailure(filterBy, bucket, exerciseTypes, start, end, serverError));
+      }
     }
   };
 }

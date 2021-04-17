@@ -840,7 +840,9 @@ export function getGroup(groupId: number): AppThunk<Promise<void>, GroupState> {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getGroupFailure(serverError, groupId));
+      if (response.status !== 403) {
+        dispatch(getGroupFailure(serverError, groupId));
+      }
     }
   };
 }
@@ -858,7 +860,9 @@ export function getGroupMembers(groupId: number): AppThunk<Promise<void>, GroupS
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getGroupMembersFailure(serverError, groupId));
+      if (response.status !== 403) {
+        dispatch(getGroupMembersFailure(serverError, groupId));
+      }
     }
   };
 }
@@ -876,7 +880,9 @@ export function getGroupStats(groupId: number): AppThunk<Promise<void>, GroupSta
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getGroupStatsFailure(serverError, groupId));
+      if (response.status !== 403) {
+        dispatch(getGroupStatsFailure(serverError, groupId));
+      }
     }
   };
 }
@@ -897,7 +903,9 @@ export function getGroupLeaderboard(
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred while retrieving the leaderboard.';
 
-      dispatch(getGroupLeaderboardFailure(serverError, groupId, interval));
+      if (response.status !== 403) {
+        dispatch(getGroupLeaderboardFailure(serverError, groupId, interval));
+      }
     }
   };
 }
@@ -915,7 +923,9 @@ export function getGroupTeam(groupId: number): AppThunk<Promise<void>, GroupStat
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getGroupTeamFailure(serverError, groupId));
+      if (response.status !== 403) {
+        dispatch(getGroupTeamFailure(serverError, groupId));
+      }
     }
   };
 }
@@ -968,7 +978,10 @@ export function putGroup(group: GroupMeta): AppThunk<Promise<Group>, GroupState>
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(putGroupFailure(group.id, serverError));
+      if (response.status !== 403) {
+        dispatch(putGroupFailure(group.id, serverError));
+      }
+
       return null;
     }
   };

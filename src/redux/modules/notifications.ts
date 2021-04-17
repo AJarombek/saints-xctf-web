@@ -338,7 +338,10 @@ export function getUserNotifications(username: string): AppThunk<Promise<void>, 
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(getUserNotificationsFailure(serverError));
+
+      if (response.status !== 403) {
+        dispatch(getUserNotificationsFailure(serverError));
+      }
     }
   };
 }
@@ -360,7 +363,11 @@ export function postNotification(
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(postNotificationFailure(serverError));
+
+      if (response.status !== 403) {
+        dispatch(postNotificationFailure(serverError));
+      }
+
       return false;
     }
   };
@@ -379,7 +386,11 @@ export function putNotification(notification: Notification): AppThunk<Promise<bo
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(putNotificationFailure(notification.notification_id, serverError));
+
+      if (response.status !== 403) {
+        dispatch(putNotificationFailure(notification.notification_id, serverError));
+      }
+
       return false;
     }
   };

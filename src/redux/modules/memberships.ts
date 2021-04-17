@@ -387,7 +387,10 @@ export function getGroupMemberships(username: string): AppThunk<Promise<void>, M
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(getGroupMembershipsFailure(serverError));
+
+      if (response.status !== 403) {
+        dispatch(getGroupMembershipsFailure(serverError));
+      }
     }
   };
 }
@@ -408,7 +411,10 @@ export function updateGroupMembership(
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(putGroupMembershipFailure(groupId, username, serverError));
+      if (response.status !== 403) {
+        dispatch(putGroupMembershipFailure(groupId, username, serverError));
+      }
+
       return false;
     }
   };
@@ -426,7 +432,10 @@ export function deleteGroupMembership(groupId: number, username: string): AppThu
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(deleteGroupMembershipFailure(groupId, username, serverError));
+      if (response.status !== 403) {
+        dispatch(deleteGroupMembershipFailure(groupId, username, serverError));
+      }
+
       return false;
     }
   };

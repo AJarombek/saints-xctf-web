@@ -859,7 +859,10 @@ export function getLog(id: number): AppThunk<Promise<void>, LogsState> {
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(getLogFailure(id, serverError));
+
+      if (response.status !== 403) {
+        dispatch(getLogFailure(id, serverError));
+      }
     }
   };
 }
@@ -882,7 +885,10 @@ export function logFeed(
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(logFeedFailure(page, filterBy, bucket, serverError));
+
+      if (response.status !== 403) {
+        dispatch(logFeedFailure(page, filterBy, bucket, serverError));
+      }
     }
   };
 }
@@ -927,7 +933,11 @@ export function postLog(
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(postLogFailure(serverError));
+
+      if (response.status !== 403) {
+        dispatch(postLogFailure(serverError));
+      }
+
       return null;
     }
   };
@@ -968,7 +978,11 @@ export function putLog(
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(putLogFailure(id, serverError));
+
+      if (response.status !== 403) {
+        dispatch(putLogFailure(id, serverError));
+      }
+
       return false;
     }
   };
@@ -985,7 +999,10 @@ export function deleteLog(id: number): AppThunk<Promise<void>, LogsState> {
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(deleteLogFailure(id, serverError));
+
+      if (response.status !== 403) {
+        dispatch(deleteLogFailure(id, serverError));
+      }
     }
   };
 }
@@ -1016,7 +1033,11 @@ export function postComment(
     } catch (error) {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
-      dispatch(postCommentFailure(logId, serverError));
+
+      if (response.status !== 403) {
+        dispatch(postCommentFailure(logId, serverError));
+      }
+
       return false;
     }
   };

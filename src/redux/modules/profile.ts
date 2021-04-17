@@ -872,7 +872,9 @@ export function getUser(username: string): AppThunk<Promise<void>, ProfileState>
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getUserFailure(username, serverError));
+      if (response.status !== 403) {
+        dispatch(getUserFailure(username, serverError));
+      }
     }
   };
 }
@@ -901,7 +903,10 @@ export function putUser(user: User): AppThunk<Promise<User>, ProfileState> {
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(putUserFailure(user.username, serverError));
+      if (response.status !== 403) {
+        dispatch(putUserFailure(user.username, serverError));
+      }
+
       return null;
     }
   };
@@ -920,7 +925,9 @@ export function getUserFlair(username: string): AppThunk<Promise<void>, ProfileS
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getUserFlairFailure(username, serverError));
+      if (response.status !== 403) {
+        dispatch(getUserFlairFailure(username, serverError));
+      }
     }
   };
 }
@@ -938,7 +945,9 @@ export function getUserStats(username: string): AppThunk<Promise<void>, ProfileS
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getUserStatsFailure(username, serverError));
+      if (response.status !== 403) {
+        dispatch(getUserStatsFailure(username, serverError));
+      }
     }
   };
 }
@@ -990,7 +999,10 @@ export function getUserMemberships(username: string): AppThunk<Promise<TeamMembe
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(getUserMembershipsFailure(username, serverError));
+      if (response.status !== 403) {
+        dispatch(getUserMembershipsFailure(username, serverError));
+      }
+
       return null;
     }
   };
@@ -1020,7 +1032,9 @@ export function updateUserMemberships(
       const { response } = error;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      dispatch(putUserMembershipsFailure(username, serverError));
+      if (response.status !== 403) {
+        dispatch(putUserMembershipsFailure(username, serverError));
+      }
       return false;
     }
   };
