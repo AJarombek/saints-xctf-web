@@ -28,3 +28,5 @@ which is slowly phased out as development continues.
 3) [Elegant Font Icons](https://www.elegantthemes.com/blog/resources/elegant-icon-font)
 4) [CSS Attribute Selector](https://stackoverflow.com/a/38764939)
 5) [Autocomplete Styles](https://css-tricks.com/snippets/css/change-autocomplete-styles-webkit-browsers/)
+6) [Preload Fonts HTML](https://stackoverflow.com/a/52763507)
+7) [Preloading Content](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content)
