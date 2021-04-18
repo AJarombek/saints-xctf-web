@@ -28,7 +28,7 @@ const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
   const userProfiles: Users = useSelector((state: RootState) => state.profile.users);
   const teams = useSelector((state: RootState) => state.teams.team);
 
-  const [memberships, setMemberships] = useState<Memberships>(null);
+  const [memberships, setMemberships] = useState<TeamMembership[]>(null);
 
   useEffect(() => {
     if (userProfiles && user?.username && !userProfiles[user.username]?.memberships) {
@@ -38,13 +38,13 @@ const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
 
   useEffect(() => {
     if (userProfiles && user.username) {
-      setMemberships(userProfiles[user.username]?.memberships);
+      setMemberships(userProfiles[user.username]?.memberships?.teams?.filter((team) => team.status === 'accepted'));
     }
   }, [userProfiles, user.username]);
 
   useEffect(() => {
-    if (memberships?.teams) {
-      memberships.teams.forEach((membership: TeamMembership) => {
+    if (memberships) {
+      memberships.forEach((membership: TeamMembership) => {
         dispatch(getTeamGroups(membership.team_name));
       });
     }
@@ -54,7 +54,7 @@ const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
     <div className={classes.teamsBody}>
       <h3 className={classes.title}>Select a group.</h3>
       <div className={classes.container}>
-        {memberships?.teams?.map((membership) => (
+        {memberships?.map((membership) => (
           <div key={membership.team_name}>
             <h4 className={classes.teamTitle}>{membership.title}</h4>
             <div className={classes.groups}>

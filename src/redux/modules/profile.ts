@@ -943,7 +943,7 @@ export function getUserStats(username: string): AppThunk<Promise<void>, ProfileS
       dispatch(getUserStatsSuccess(username, stats));
     } catch (error) {
       const { response } = error;
-      const serverError = response?.data?.error ?? 'An unexpected error occurred.';
+      const serverError = response?.data?.error ?? 'An unexpected error occurred retrieving user statistics.';
 
       if (response.status !== 403) {
         dispatch(getUserStatsFailure(username, serverError));

@@ -14,6 +14,7 @@ import StatisticSection from '../../shared/StatisticSection/StatisticSection';
 import moment from 'moment';
 import classNames from 'classnames';
 import { useStatsExercises, useStatsFeeling, useStatsRunning } from '../../../hooks/stats';
+import Alert from '../../shared/Alert';
 
 interface Props {
   user: UserMeta;
@@ -62,13 +63,22 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
               <p className={classes.thin}>{user.description}</p>
             </div>
           )}
-          <div className={classes.statisticSections}>
+        </>
+      )}
+      <div className={classes.statisticSections}>
+        {!stats?.isFetching && !stats?.serverError && stats?.miles_all_time && (
+          <>
             <StatisticSection title="Exercise Statistics" stats={exerciseStats} />
             <StatisticSection title="Running Statistics" stats={runningStats} />
             <StatisticSection title="Feel Statistics" stats={feelStats} />
+          </>
+        )}
+        {stats?.serverError && (
+          <div className={classes.alertMessage}>
+            <Alert message={stats.serverError} type="error" closeable={false} />
           </div>
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 };

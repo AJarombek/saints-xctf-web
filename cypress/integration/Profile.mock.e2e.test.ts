@@ -343,7 +343,7 @@ describe('Profile Mock E2E Tests', () => {
     // Pfizer #1 ✅
   });
 
-  it.only('displays exercise details and statistics', () => {
+  it('displays exercise details and statistics', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -376,4 +376,37 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('statisticSection').eq(2).find('div').eq(2).should('contain.text', `${yearMonth} 6.40`);
     cy.getDataCy('statisticSection').eq(2).find('div').eq(3).should('contain.text', 'This Week 7.00');
   });
+
+  it('displays an error message if statistics fail to load', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    const userStatisticsAndyErrorRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/users/statistics/andy',
+      response: {
+        self: '/v2/users/statistics/andy',
+        stats: null
+      },
+      status: 500
+    });
+
+    userStatisticsAndyErrorRoute.as('userStatisticsAndyErrorRoute');
+
+    cy.get('.tabs p').contains('Details').click();
+    cy.wait('@userStatisticsAndyErrorRoute');
+
+    cy.getDataCy('memberSince').should('contain.text', 'Member Since: Dec 23rd, 2016');
+    cy.getDataCy('classYear').should('contain.text', 'Class of 2017');
+    cy.getDataCy('favoriteEvent').should('contain.text', 'Favorite Event: Shakeout');
+    cy.getDataCy('description').should('contain.text', 'I sometimes like to run.');
+
+    cy.getDataCy('statisticSection').should('not.exist');
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'An unexpected error occurred retrieving user statistics.');
+  });
+
+  it.only('edit profile page has profile details filled in properly', () => {});
+
+  it.only('edit profile page has the proper teams and groups selected', () => {});
 });

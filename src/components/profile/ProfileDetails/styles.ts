@@ -49,5 +49,13 @@ export default {
   description: {
     marginTop: 15,
     marginBottom: 20
+  },
+  alertMessage: {
+    marginTop: 25,
+    width: '80%',
+
+    '& > div': {
+      padding: '4px 0'
+    }
   }
 };
