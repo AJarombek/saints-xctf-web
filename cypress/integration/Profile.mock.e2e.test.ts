@@ -305,7 +305,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 38.87');
   });
 
-  it.only('displays an error if weekly chart data retrieval fails', () => {
+  it('displays an error if weekly chart data retrieval fails', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -323,7 +323,57 @@ describe('Profile Mock E2E Tests', () => {
       status: 400
     }).as('weeklyChartRangeViewErrorRoute');
 
+    cy.getDataCy('alert').should('not.exist');
+
     cy.get('.tabs p').contains('Weekly Chart').click();
     cy.wait('@weeklyChartRangeViewErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'Failed to retrieve chart data. Try reloading the page. If this error persists, contact andrew@jarombek.com.'
+    );
+
+    // The error message should go away after changing tabs.
+    cy.createRangeViewRoute('rangeViewCurrentMonthRoute', [], 0, 'month', true);
+    cy.get('.tabs p').contains('Monthly Calendar').click();
+    cy.wait('@rangeViewCurrentMonthRoute');
+
+    cy.getDataCy('alert').should('not.exist');
+    // Pfizer #1 ✅
+  });
+
+  it.only('displays exercise details and statistics', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    cy.get('.tabs p').contains('Details').click();
+    cy.wait('@userStatisticsAndyRoute');
+
+    cy.getDataCy('memberSince').should('contain.text', 'Member Since: Dec 23rd, 2016');
+    cy.getDataCy('classYear').should('contain.text', 'Class of 2017');
+    cy.getDataCy('favoriteEvent').should('contain.text', 'Favorite Event: Shakeout');
+    cy.getDataCy('description').should('contain.text', 'I sometimes like to run.');
+
+    const year = moment().format('YYYY');
+    const yearMonth = moment().format('MMMM YYYY');
+
+    cy.getDataCy('statisticSection').eq(0).find('h3').should('contain.text', 'Exercise Statistics');
+    cy.getDataCy('statisticSection').eq(0).find('div').eq(0).should('contain.text', 'All Time 2650.17 mi.');
+    cy.getDataCy('statisticSection').eq(0).find('div').eq(1).should('contain.text', `${year} 549.91 mi.`);
+    cy.getDataCy('statisticSection').eq(0).find('div').eq(2).should('contain.text', `${yearMonth} 139.94 mi.`);
+    cy.getDataCy('statisticSection').eq(0).find('div').eq(3).should('contain.text', 'This Week 52.01 mi.');
+
+    cy.getDataCy('statisticSection').eq(1).find('h3').should('contain.text', 'Running Statistics');
+    cy.getDataCy('statisticSection').eq(1).find('div').eq(0).should('contain.text', 'All Time 2647.17 mi.');
+    cy.getDataCy('statisticSection').eq(1).find('div').eq(1).should('contain.text', `${year} 549.91 mi.`);
+    cy.getDataCy('statisticSection').eq(1).find('div').eq(2).should('contain.text', `${yearMonth} 139.94 mi.`);
+    cy.getDataCy('statisticSection').eq(1).find('div').eq(3).should('contain.text', 'This Week 52.01 mi.');
+
+    cy.getDataCy('statisticSection').eq(2).find('h3').should('contain.text', 'Feel Statistics');
+    cy.getDataCy('statisticSection').eq(2).find('div').eq(0).should('contain.text', 'All Time 6.40');
+    cy.getDataCy('statisticSection').eq(2).find('div').eq(1).should('contain.text', `${year} 7.00`);
+    cy.getDataCy('statisticSection').eq(2).find('div').eq(2).should('contain.text', `${yearMonth} 6.40`);
+    cy.getDataCy('statisticSection').eq(2).find('div').eq(3).should('contain.text', 'This Week 7.00');
   });
 });

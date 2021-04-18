@@ -41,24 +41,24 @@ const ProfileDetails: React.FunctionComponent<Props> = ({ user, stats }) => {
     <div className={classes.profileDetails} id="profileDetails">
       {user.username && (
         <>
-          <div className={classNames(classes.profileDetail, classes.defaultText)}>
-            <p>Member Since:</p>
+          <div className={classNames(classes.profileDetail, classes.defaultText)} data-cypress="memberSince">
+            <p>Member Since: </p>
             <p>{moment(user.member_since).format('MMM Do, YYYY')}</p>
           </div>
           {!!user.class_year && (
-            <div className={classes.profileDetail}>
-              <p className={classes.normal}>Class of</p>
+            <div className={classes.profileDetail} data-cypress="classYear">
+              <p className={classes.normal}>Class of </p>
               <p className={classes.strong}>{user.class_year}</p>
             </div>
           )}
           {!!user.favorite_event && (
-            <div className={classNames(classes.profileDetail, classes.defaultText)}>
-              <p>Favorite Event:</p>
+            <div className={classNames(classes.profileDetail, classes.defaultText)} data-cypress="favoriteEvent">
+              <p>Favorite Event: </p>
               <p>{user.favorite_event}</p>
             </div>
           )}
           {!!user.description && (
-            <div className={classNames(classes.profileDetail, classes.description)}>
+            <div className={classNames(classes.profileDetail, classes.description)} data-cypress="description">
               <p className={classes.thin}>{user.description}</p>
             </div>
           )}

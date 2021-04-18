@@ -4,7 +4,7 @@
  * @since 10/18/2020
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import {
@@ -22,6 +22,7 @@ import { useExerciseFilter } from '../../../hooks/shared';
 import moment from 'moment';
 import { getRangeView } from '../../../redux/modules/rangeView';
 import { useDispatch } from 'react-redux';
+import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 
 interface Props {
   rangeViews: RangeViewExerciseTypeFilters;
@@ -48,6 +49,8 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
     other: false
   });
 
+  const [error, setError] = useState(false);
+
   const filter: RangeViewExerciseType = useExerciseFilter(selectedFilters);
 
   const end = useMemo(() => {
@@ -73,11 +76,28 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
     }
   }, [rangeViews, filter, start, end]);
 
-  useEffect(() => {
+  const fetchRangeView = useCallback(async () => {
     if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching && !currentRangeView?.serverError) {
-      dispatch(getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')));
+      const result = await dispatch(
+        getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
+      );
+
+      setError(!result);
     }
-  }, [filter, currentRangeView, user, start, end, dispatch]);
+  }, [
+    currentRangeView?.isFetching,
+    currentRangeView?.items,
+    currentRangeView?.serverError,
+    dispatch,
+    end,
+    filter,
+    start,
+    user.username
+  ]);
+
+  useEffect(() => {
+    fetchRangeView();
+  }, [fetchRangeView]);
 
   const weeklyData = useMemo(() => {
     const startDate = start.clone();
@@ -110,32 +130,35 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
   }, [currentRangeView, start]);
 
   return (
-    <div className={classes.weeklyChart} id="weeklyChart">
-      <div className={classes.filters}>
-        <p className={classes.filterTitle}>Chart Filters:</p>
-        <FilterButtons selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
+    <>
+      <div className={classes.weeklyChart} id="weeklyChart">
+        <div className={classes.filters}>
+          <p className={classes.filterTitle}>Chart Filters:</p>
+          <FilterButtons selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
+        </div>
+        <div>
+          <ResponsiveContainer height={500} width="100%">
+            <BarChart data={weeklyData} className={classes.chart}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip
+                labelFormatter={(label: string): string => `Week of ${label}`}
+                formatter={(value: string): Array<string> => [(+value).toFixed(2), 'Miles']}
+                separator=": "
+                cursor={false}
+              />
+              <Bar dataKey="miles">
+                {weeklyData.map((entry, index) => (
+                  <Cell key={index} fill={FeelColors[entry.feel - 1]} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
-      <div>
-        <ResponsiveContainer height={500} width="100%">
-          <BarChart data={weeklyData} className={classes.chart}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip
-              labelFormatter={(label: string): string => `Week of ${label}`}
-              formatter={(value: string): Array<string> => [(+value).toFixed(2), 'Miles']}
-              separator=": "
-              cursor={false}
-            />
-            <Bar dataKey="miles">
-              {weeklyData.map((entry, index) => (
-                <Cell key={index} fill={FeelColors[entry.feel - 1]} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
+      {error && <DefaultErrorPopup message="Failed to retrieve chart data" onClose={(): void => setError(false)} />}
+    </>
   );
 };
 

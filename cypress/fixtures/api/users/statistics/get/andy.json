@@ -1,0 +1,17 @@
+{
+  "self":"/v2/users/statistics/andy",
+  "stats":{
+    "feel_all_time": 6.4,
+    "feel_past_month": 6.4,
+    "feel_past_week": 7,
+    "feel_past_year": 7,
+    "miles_all_time": 2650.17,
+    "miles_past_month": 139.94,
+    "miles_past_week": 52.01,
+    "miles_past_year": 549.91,
+    "run_miles_all_time": 2647.17,
+    "run_miles_past_month": 139.94,
+    "run_miles_past_week": 52.01,
+    "run_miles_past_year": 549.91
+  }
+}

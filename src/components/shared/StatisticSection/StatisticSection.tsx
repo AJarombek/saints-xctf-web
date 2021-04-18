@@ -24,11 +24,11 @@ const StatisticSection: React.FunctionComponent<Props> = ({ title, stats }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.stats}>
+    <div className={classes.stats} data-cypress="statisticSection">
       <h3>{title}</h3>
       {stats.map((stat: Stat, i: number) => (
         <div key={i} className={classes.section}>
-          <p>{stat.name}</p>
+          <p>{stat.name} </p>
           <p>{stat.value}</p>
         </div>
       ))}

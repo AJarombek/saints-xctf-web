@@ -23,6 +23,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockUserLookupAPI();
   cy.mockUserMembershipsAPI();
   cy.mockUserNotificationsAPI();
+  cy.mockUserStatisticsAPI();
   cy.mockUserAPI();
 });
 
@@ -272,6 +273,18 @@ Cypress.Commands.add('mockUserNotificationsAPI', () => {
   });
 
   userNotificationsAndyRoute.as('userNotificationsAndyRoute');
+});
+
+Cypress.Commands.add('mockUserStatisticsAPI', () => {
+  cy.fixture('api/users/statistics/get/andy.json').as('userStatisticsAndy');
+
+  const userStatisticsAndyRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/users/statistics/andy',
+    response: '@userStatisticsAndy'
+  });
+
+  userStatisticsAndyRoute.as('userStatisticsAndyRoute');
 });
 
 /**
