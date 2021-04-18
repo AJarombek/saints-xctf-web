@@ -124,7 +124,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   };
 
   return (
-    <div className={classes.editProfile}>
+    <div className={classes.editProfile} id="editProfile">
       <h3 className={classes.title}>Profile Details</h3>
       <div className={classes.form}>
         <div className={classes.twoInputs}>

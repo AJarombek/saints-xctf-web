@@ -26,6 +26,9 @@ describe('Profile E2E Tests', () => {
     // The default tab is the exercise logs tab.
     cy.get('section #logFeed').should('exist');
     cy.get('section #monthlyCalendar').should('not.exist');
+    cy.get('section #weeklyChart').should('not.exist');
+    cy.get('section #profileDetails').should('not.exist');
+    cy.get('section #editProfile').should('not.exist');
 
     const start = moment().startOf('month').startOf('week');
 
@@ -44,22 +47,37 @@ describe('Profile E2E Tests', () => {
     cy.get('.tabs p').contains('Monthly Calendar').click();
     cy.get('section #logFeed').should('not.exist');
     cy.get('section #monthlyCalendar').should('exist');
+    cy.get('section #weeklyChart').should('not.exist');
+    cy.get('section #profileDetails').should('not.exist');
+    cy.get('section #editProfile').should('not.exist');
 
     cy.get('.tabs p').contains('Weekly Chart').click();
     cy.get('section #logFeed').should('not.exist');
     cy.get('section #monthlyCalendar').should('not.exist');
+    cy.get('section #weeklyChart').should('exist');
+    cy.get('section #profileDetails').should('not.exist');
+    cy.get('section #editProfile').should('not.exist');
 
     cy.get('.tabs p').contains('Details').click();
     cy.get('section #logFeed').should('not.exist');
     cy.get('section #monthlyCalendar').should('not.exist');
+    cy.get('section #weeklyChart').should('not.exist');
+    cy.get('section #profileDetails').should('exist');
+    cy.get('section #editProfile').should('not.exist');
 
     cy.get('.tabs p').contains('Edit Profile').click();
     cy.get('section #logFeed').should('not.exist');
     cy.get('section #monthlyCalendar').should('not.exist');
+    cy.get('section #weeklyChart').should('not.exist');
+    cy.get('section #profileDetails').should('not.exist');
+    cy.get('section #editProfile').should('exist');
 
     cy.get('.tabs p').contains('Exercise Logs').click();
     cy.get('section #logFeed').should('exist');
     cy.get('section #monthlyCalendar').should('not.exist');
+    cy.get('section #weeklyChart').should('not.exist');
+    cy.get('section #profileDetails').should('not.exist');
+    cy.get('section #editProfile').should('not.exist');
   });
 
   it('has a default tab of paginated exercise logs', () => {

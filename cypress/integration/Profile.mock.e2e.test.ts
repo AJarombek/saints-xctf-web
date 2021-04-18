@@ -9,6 +9,112 @@
 
 import * as moment from 'moment';
 
+const currentMonthRangeItems = [
+  {},
+  { feel: 6, miles: 5.39 },
+  { feel: 6, miles: 5.83 },
+  { feel: 8, miles: 8.64 },
+  { feel: 7, miles: 5.96 },
+  { feel: 6, miles: 8.75 },
+  { feel: 5, miles: 9.12 },
+  { feel: 6, miles: 2.89 },
+  { feel: 6, miles: 5.89 },
+  { feel: 6, miles: 5.94 },
+  { feel: 8, miles: 11.96 },
+  { feel: 8, miles: 5.97 },
+  { feel: 8, miles: 8.8 },
+  { feel: 8, miles: 14.01 },
+  { feel: 6, miles: 2.94 },
+  { feel: 5, miles: 4.55 },
+  { feel: 7, miles: 6.28 },
+  { feel: 7, miles: 6.52 },
+  { feel: 7, miles: 6.58 },
+  { feel: 8, miles: 12 }
+];
+
+const prevMonthRangeItems = [
+  {},
+  { feel: 6, miles: 5.42 },
+  { feel: 6, miles: 5.36 },
+  { feel: 7, miles: 5.4 },
+  { feel: 8, miles: 6.51 },
+  { feel: 6, miles: 6.01 },
+  { feel: 5, miles: 12.23 },
+  { feel: 6, miles: 2.82 },
+  { feel: 6, miles: 5.42 },
+  { feel: 6, miles: 5.38 },
+  { feel: 6, miles: 5.4 },
+  { feel: 8, miles: 7.11 },
+  { feel: 6, miles: 6 },
+  { feel: 9, miles: 13.27 },
+  { feel: 6, miles: 2.86 },
+  { feel: 7, miles: 5.44 },
+  { feel: 7, miles: 5.43 },
+  { feel: 7, miles: 5.4 },
+  { feel: 7, miles: 5.43 },
+  { feel: 8, miles: 11.27 },
+  { feel: 8, miles: 13.21 },
+  { feel: 7, miles: 5.38 },
+  { feel: 6, miles: 2.83 },
+  { feel: 6, miles: 5.36 },
+  { feel: 6, miles: 5.4 },
+  { feel: 7, miles: 6.49 },
+  { feel: 7, miles: 6.02 },
+  { feel: 7, miles: 7.02 },
+  {},
+  { feel: 6, miles: 5.39 },
+  { feel: 6, miles: 5.83 },
+  { feel: 8, miles: 8.64 },
+  { feel: 7, miles: 5.96 },
+  { feel: 6, miles: 8.75 },
+  { feel: 5, miles: 9.12 },
+  { feel: 6, miles: 2.89 },
+  { feel: 6, miles: 5.89 },
+  { feel: 6, miles: 5.94 },
+  { feel: 8, miles: 11.96 },
+  { feel: 8, miles: 5.97 },
+  { feel: 8, miles: 8.8 },
+  { feel: 8, miles: 14.01 }
+];
+
+const twoMonthsAgoRangeItems = [
+  { feel: 6, miles: 6.59 },
+  { feel: 6, miles: 3.74 },
+  { feel: 6, miles: 4.2 },
+  { feel: 6, miles: 3.76 },
+  { feel: 6, miles: 1.06 },
+  { feel: 6, miles: 5.56 },
+  { feel: 6, miles: 10.6 },
+  { feel: 6, miles: 2.87 },
+  { feel: 6, miles: 6.86 },
+  { feel: 6, miles: 6.53 },
+  { feel: 6, miles: 4.42 },
+  { feel: 6, miles: 6.71 },
+  { feel: 6, miles: 9.68 },
+  { feel: 6, miles: 11.73 },
+  { feel: 6, miles: 2.98 },
+  { feel: 6, miles: 5.04 },
+  { feel: 6, miles: 3.3 },
+  { feel: 6, miles: 6.65 },
+  { feel: 6, miles: 3.55 },
+  {},
+  { feel: 6, miles: 8.45 },
+  { feel: 6, miles: 6.68 },
+  { feel: 6, miles: 3.85 },
+  { feel: 6, miles: 4.43 },
+  {},
+  {},
+  {},
+  { feel: 6, miles: 5.05 },
+  {},
+  { feel: 6, miles: 5.42 },
+  { feel: 6, miles: 5.36 },
+  { feel: 7, miles: 5.4 },
+  { feel: 8, miles: 6.51 },
+  { feel: 6, miles: 6.01 },
+  { feel: 5, miles: 12.23 }
+];
+
 describe('Profile Mock E2E Tests', () => {
   beforeEach(() => {
     cy.mockAPI();
@@ -56,30 +162,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
-    const rangeItems = [
-      {},
-      { feel: 6, miles: 5.39 },
-      { feel: 6, miles: 5.83 },
-      { feel: 8, miles: 8.64 },
-      { feel: 7, miles: 5.96 },
-      { feel: 6, miles: 8.75 },
-      { feel: 5, miles: 9.12 },
-      { feel: 6, miles: 2.89 },
-      { feel: 6, miles: 5.89 },
-      { feel: 6, miles: 5.94 },
-      { feel: 8, miles: 11.96 },
-      { feel: 8, miles: 5.97 },
-      { feel: 8, miles: 8.8 },
-      { feel: 8, miles: 14.01 },
-      { feel: 6, miles: 2.94 },
-      { feel: 5, miles: 4.55 },
-      { feel: 7, miles: 6.28 },
-      { feel: 7, miles: 6.52 },
-      { feel: 7, miles: 6.58 },
-      { feel: 8, miles: 12 }
-    ];
-
-    cy.createRangeViewRoute('rangeViewCurrentMonthRoute', rangeItems, 0, 'month', true);
+    cy.createRangeViewRoute('rangeViewCurrentMonthRoute', currentMonthRangeItems, 0, 'month', true);
     cy.get('.tabs p').contains('Monthly Calendar').click();
     cy.wait('@rangeViewCurrentMonthRoute');
 
@@ -92,51 +175,6 @@ describe('Profile Mock E2E Tests', () => {
     cy.calendarWeekCheck(3, [null, null, null, null, null, null, null], '0.00');
     cy.calendarWeekCheck(4, [null, null, null, null, null, null, null], '0.00');
     cy.calendarWeekCheck(5, [null, null, null, null, null, null, null], '0.00');
-
-    const prevMonthRangeItems = [
-      {},
-      { feel: 6, miles: 5.42 },
-      { feel: 6, miles: 5.36 },
-      { feel: 7, miles: 5.4 },
-      { feel: 8, miles: 6.51 },
-      { feel: 6, miles: 6.01 },
-      { feel: 5, miles: 12.23 },
-      { feel: 6, miles: 2.82 },
-      { feel: 6, miles: 5.42 },
-      { feel: 6, miles: 5.38 },
-      { feel: 6, miles: 5.4 },
-      { feel: 8, miles: 7.11 },
-      { feel: 6, miles: 6 },
-      { feel: 9, miles: 13.27 },
-      { feel: 6, miles: 2.86 },
-      { feel: 7, miles: 5.44 },
-      { feel: 7, miles: 5.43 },
-      { feel: 7, miles: 5.4 },
-      { feel: 7, miles: 5.43 },
-      { feel: 8, miles: 11.27 },
-      { feel: 8, miles: 13.21 },
-      { feel: 7, miles: 5.38 },
-      { feel: 6, miles: 2.83 },
-      { feel: 6, miles: 5.36 },
-      { feel: 6, miles: 5.4 },
-      { feel: 7, miles: 6.49 },
-      { feel: 7, miles: 6.02 },
-      { feel: 7, miles: 7.02 },
-      {},
-      { feel: 6, miles: 5.39 },
-      { feel: 6, miles: 5.83 },
-      { feel: 8, miles: 8.64 },
-      { feel: 7, miles: 5.96 },
-      { feel: 6, miles: 8.75 },
-      { feel: 5, miles: 9.12 },
-      { feel: 6, miles: 2.89 },
-      { feel: 6, miles: 5.89 },
-      { feel: 6, miles: 5.94 },
-      { feel: 8, miles: 11.96 },
-      { feel: 8, miles: 5.97 },
-      { feel: 8, miles: 8.8 },
-      { feel: 8, miles: 14.01 }
-    ];
 
     // Go to the previous month.
     cy.createRangeViewRoute('rangeViewPreviousMonthRoute', prevMonthRangeItems, 1, 'month', true);
@@ -165,7 +203,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.calendarWeekCheck(5, [null, null, null, null, null, null, null], '0.00');
   });
 
-  it.only('displays an error message if the monthly exercise logs fail to load', () => {
+  it('displays an error message if the monthly exercise logs fail to load', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -180,5 +218,49 @@ describe('Profile Mock E2E Tests', () => {
       'contain.text',
       'Failed to retrieve calendar data. Try reloading the page. If this error persists, contact andrew@jarombek.com.'
     );
+
+    // Go to the previous month without error.
+    cy.createRangeViewRoute('rangeViewPreviousMonthRoute', prevMonthRangeItems, 1, 'month', true);
+    cy.getDataCy('prevMonth').click();
+    cy.wait('@rangeViewPreviousMonthRoute');
+
+    cy.calendarWeekCheck(0, [null, 5.42, 5.36, '5.40', 6.51, 6.01, 12.23], 40.93);
+
+    // The error message should disappear.
+    cy.getDataCy('alert').should('not.exist');
+  });
+
+  it.only('displays and populates a weekly chart of exercise data', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    const end = moment().endOf('week').add(1, 'day');
+    const start = end.clone().subtract(8, 'weeks').add(1, 'day');
+    const url = `/api/v2/range_view/users/andy/r/${start.format('YYYY-MM-DD')}/${end.format('YYYY-MM-DD')}`;
+
+    const rangeItems = [
+      ...twoMonthsAgoRangeItems.slice(21, 28),
+      ...prevMonthRangeItems,
+      ...currentMonthRangeItems.slice(14, 21)
+    ];
+
+    const rangeView = rangeItems
+      .map((item, index) => ({
+        ...item,
+        date: start.clone().add(index, 'day').format('ddd, DD MMM YYYY') + ' 00:00:00 GMT'
+      }))
+      .filter((item) => item.miles);
+
+    cy.route({
+      method: 'GET',
+      url,
+      response: {
+        range_view: rangeView,
+        self: url
+      }
+    }).as('weeklyChartRangeViewRoute');
+
+    cy.get('.tabs p').contains('Weekly Chart').click();
+    cy.wait('@weeklyChartRangeViewRoute');
   });
 });

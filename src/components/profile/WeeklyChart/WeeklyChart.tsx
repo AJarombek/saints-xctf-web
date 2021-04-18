@@ -51,17 +51,17 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
   const filter: RangeViewExerciseType = useExerciseFilter(selectedFilters);
 
   const end = useMemo(() => {
-    const startOfRange = moment().endOf('week');
+    const endOfRange = moment().endOf('week');
 
     if (user.week_start === 'monday') {
-      startOfRange.add(1, 'day');
+      endOfRange.add(1, 'day');
     }
 
-    return startOfRange;
+    return endOfRange;
   }, [user.week_start]);
 
   const start = useMemo(() => {
-    return end.clone().subtract(8, 'weeks');
+    return end.clone().subtract(8, 'weeks').add(1, 'day');
   }, [end]);
 
   const currentRangeView: RangeViewItemsMeta = useMemo(() => {
@@ -81,9 +81,9 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
 
   const weeklyData = useMemo(() => {
     const startDate = start.clone();
-    const endDate = start.clone().add(1, 'week');
+    const endDate = start.clone().add(1, 'week').startOf('day');
     const rangeViewItems: RangeViewItemMoment[] = currentRangeView?.items
-      ? currentRangeView.items.map((item) => ({ ...item, date: moment(item.date) }))
+      ? currentRangeView.items.map((item) => ({ ...item, date: moment(item.date).add(1, 'day') }))
       : [];
 
     const weeklyDataList = [] as WeeklyChartData[];
@@ -102,15 +102,15 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
       data.feel = Math.round(totalFeel / exerciseCount);
 
       weeklyDataList.push(data);
-      startDate.add(1, 'week');
-      endDate.add(1, 'week');
+      startDate.add(7, 'days');
+      endDate.add(7, 'days');
     }
 
     return weeklyDataList;
   }, [currentRangeView, start]);
 
   return (
-    <div className={classes.weeklyChart}>
+    <div className={classes.weeklyChart} id="weeklyChart">
       <div className={classes.filters}>
         <p className={classes.filterTitle}>Chart Filters:</p>
         <FilterButtons selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />
@@ -129,7 +129,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
             />
             <Bar dataKey="miles">
               {weeklyData.map((entry, index) => (
-                <Cell key={index} fill={FeelColors[entry.feel]} />
+                <Cell key={index} fill={FeelColors[entry.feel - 1]} />
               ))}
             </Bar>
           </BarChart>
