@@ -11,6 +11,7 @@ import moment from 'moment';
 import { RegistrationState } from '../types';
 import { Dispatch } from 'redux';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const REGISTER_PERSONAL_INFO_REQUEST = 'saints-xctf-web/registration/REGISTER_PERSONAL_INFO_REQUEST';
@@ -338,13 +339,13 @@ export function registerPersonalInfo(
       // If a user already exists with this email, registration should fail.
       dispatch(registerPersonalInfoFailure('USER ALREADY EXISTS', null));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
       if (response.status === 400) {
         // If a user does not exist with this email, registration should continue to the next stage.
         dispatch(registerPersonalInfoSuccess(email, last, first));
-      } else if (response.status !== 403) {
+      } else if (response?.status !== 403) {
         // If another error occurs, something unexpected happened on the server (no user error).
         dispatch(registerPersonalInfoFailure('INTERNAL ERROR', serverError));
       }
@@ -364,7 +365,7 @@ async function validateUsername(dispatch: Dispatch, username: string): Promise<b
     dispatch(registerCredentialsFailure('USERNAME ALREADY IN USE', null));
     return false;
   } catch (error) {
-    const { response } = error;
+    const { response } = error as AxiosError;
     const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
     if (response.status !== 400 && response.status !== 403) {
@@ -413,12 +414,12 @@ export function registerCredentials(
 
         dispatch(registerCredentialsSuccess(username));
       } catch (error) {
-        const { response } = error;
+        const { response } = error as AxiosError;
         const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
         if (response.status === 400) {
           dispatch(registerCredentialsFailure('VALIDATION ERROR', serverError));
-        } else if (response.status !== 403) {
+        } else if (response?.status !== 403) {
           dispatch(registerCredentialsFailure('INTERNAL ERROR', serverError));
         }
       }

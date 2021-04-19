@@ -9,6 +9,7 @@ import { Dispatch } from 'redux';
 import { Notification, NotificationsState } from '../types';
 import moment from 'moment';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const GET_USER_NOTIFICATIONS_REQUEST = 'saints-xctf-web/notifications/GET_USER_NOTIFICATIONS_REQUEST';
@@ -336,10 +337,10 @@ export function getUserNotifications(username: string): AppThunk<Promise<void>, 
 
       dispatch(getUserNotificationsSuccess(notifications));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getUserNotificationsFailure(serverError));
       }
     }
@@ -361,10 +362,10 @@ export function postNotification(
       dispatch(postNotificationSuccess(added));
       return added;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(postNotificationFailure(serverError));
       }
 
@@ -384,10 +385,10 @@ export function putNotification(notification: Notification): AppThunk<Promise<bo
       dispatch(putNotificationSuccess(notification.notification_id, updated));
       return updated;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(putNotificationFailure(notification.notification_id, serverError));
       }
 

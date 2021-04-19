@@ -19,6 +19,7 @@ import {
 import { Dispatch } from 'redux';
 import { fn } from '../../datasources/fnRequest';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const GET_GROUP_REQUEST = 'saints-xctf-web/groups/GET_GROUP_REQUEST';
@@ -837,10 +838,10 @@ export function getGroup(groupId: number): AppThunk<Promise<void>, GroupState> {
 
       dispatch(getGroupSuccess(group, groupId));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getGroupFailure(serverError, groupId));
       }
     }
@@ -857,10 +858,10 @@ export function getGroupMembers(groupId: number): AppThunk<Promise<void>, GroupS
 
       dispatch(getGroupMembersSuccess(group_members, groupId));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getGroupMembersFailure(serverError, groupId));
       }
     }
@@ -877,10 +878,10 @@ export function getGroupStats(groupId: number): AppThunk<Promise<void>, GroupSta
 
       dispatch(getGroupStatsSuccess(stats, groupId));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getGroupStatsFailure(serverError, groupId));
       }
     }
@@ -900,10 +901,10 @@ export function getGroupLeaderboard(
 
       dispatch(getGroupLeaderboardSuccess(leaderboardItems, groupId, interval, serverWarning));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred while retrieving the leaderboard.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getGroupLeaderboardFailure(serverError, groupId, interval));
       }
     }
@@ -920,10 +921,10 @@ export function getGroupTeam(groupId: number): AppThunk<Promise<void>, GroupStat
 
       dispatch(getGroupTeamSuccess(team, groupId));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getGroupTeamFailure(serverError, groupId));
       }
     }
@@ -975,10 +976,10 @@ export function putGroup(group: GroupMeta): AppThunk<Promise<Group>, GroupState>
       dispatch(putGroupSuccess(group.id, updatedGroup));
       return updatedGroup;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(putGroupFailure(group.id, serverError));
       }
 

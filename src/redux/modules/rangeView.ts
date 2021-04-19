@@ -17,6 +17,7 @@ import {
   RangeViewState
 } from '../types';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const GET_RANGE_VIEW_REQUEST = 'saints-xctf-web/rangeView/GET_RANGE_VIEW_REQUEST';
@@ -221,10 +222,10 @@ export function getRangeView(
       dispatch(getRangeViewSuccess(filterBy, bucket, exerciseTypes, start, end, rangeView));
       return true;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getRangeViewFailure(filterBy, bucket, exerciseTypes, start, end, serverError));
       }
 

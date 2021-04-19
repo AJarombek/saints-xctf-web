@@ -4,17 +4,17 @@
  * @since 10/18/2020
  */
 
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { createUseStyles } from 'react-jss';
+import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
+import {createUseStyles} from 'react-jss';
 import styles from './styles';
-import { Memberships, RootState, User, UserMeta, Users } from '../../../redux/types';
-import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
+import {Memberships, RootState, User, UserMeta, Users} from '../../../redux/types';
+import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
-import { AJButton } from 'jarombek-react-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { getUserMemberships, putUser } from '../../../redux/modules/profile';
+import {AJButton} from 'jarombek-react-components';
+import {useDispatch, useSelector} from 'react-redux';
+import {getUserMemberships, putUser} from '../../../redux/modules/profile';
 import PickTeams from '../PickTeams';
 import UploadProfilePicture from '../UploadProfilePicture';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
@@ -25,6 +25,8 @@ interface Props {
 }
 
 const useStyles = createUseStyles(styles);
+
+const emailPattern = /^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$/;
 
 const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const classes = useStyles();
@@ -77,18 +79,39 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   }, [userProfiles, user.username]);
 
   const onFirstNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFirstName(e.target.value);
+    const first = e.target.value;
+    setFirstName(first);
     if (!formDirty) setFormDirty(true);
+
+    if (first.length) {
+      setFirstNameStatus(ImageInputStatus.NONE);
+    } else {
+      setFirstNameStatus(ImageInputStatus.WARNING);
+    }
   };
 
   const onLastNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setLastName(e.target.value);
+    const last = e.target.value;
+    setLastName(last);
     if (!formDirty) setFormDirty(true);
+
+    if (last.length) {
+      setLastNameStatus(ImageInputStatus.NONE);
+    } else {
+      setLastNameStatus(ImageInputStatus.WARNING);
+    }
   };
 
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setEmail(e.target.value);
+    const newEmail = e.target.value;
+    setEmail(newEmail);
     if (!formDirty) setFormDirty(true);
+
+    if (emailPattern.test(newEmail)) {
+      setEmailStatus(ImageInputStatus.NONE);
+    } else {
+      setEmailStatus(ImageInputStatus.WARNING);
+    }
   };
 
   const onClassYearChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -132,6 +155,24 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
 
   const onSubmitDetails = async (): Promise<void> => {
     setUpdatingProfileDetails(true);
+
+    let error = false;
+    if (!firstName) {
+      setFirstNameStatus(ImageInputStatus.FAILURE);
+      error = true;
+    }
+
+    if (!lastName) {
+      setLastNameStatus(ImageInputStatus.FAILURE);
+      error = true;
+    }
+
+    if (!email) {
+      setEmailStatus(ImageInputStatus.FAILURE);
+      error = true;
+    }
+
+    if (error) return;
 
     const newUser: User = {
       username: user.username,
@@ -179,6 +220,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={firstName}
+              maxLength={30}
               onChange={onFirstNameChange}
               status={firstNameStatus}
             />
@@ -196,6 +238,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={lastName}
+              maxLength={30}
               onChange={onLastNameChange}
               status={lastNameStatus}
             />
@@ -212,6 +255,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={email}
+              maxLength={50}
               onChange={onEmailChange}
               status={emailStatus}
             />
@@ -224,6 +268,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={`${classYear}`}
+              maxLength={4}
               onChange={onClassYearChange}
               status={ImageInputStatus.NONE}
             />
@@ -238,6 +283,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={location}
+              maxLength={50}
               onChange={onLocationChange}
               status={ImageInputStatus.NONE}
             />
@@ -250,6 +296,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={favoriteEvent}
+              maxLength={20}
               onChange={onFavoriteEventChange}
               status={ImageInputStatus.NONE}
             />
@@ -258,7 +305,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         <div>
           <p className={classes.inputTitle}>Description</p>
           <AutoResizeTextArea
-            maxLength={1000}
+            maxLength={255}
             placeholder="..."
             onChange={onDescriptionChange}
             useCustomValue={true}
@@ -296,7 +343,10 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
             type="contained"
             disabled={!formDirty}
             onClick={onSubmitDetails}
-            className={classNames(classes.submitButton, updatingProfileDetails && classes.disabledSubmitButton)}
+            className={classNames(
+              classes.submitButton,
+              (updatingProfileDetails || !formDirty) && classes.disabledSubmitButton
+            )}
           >
             <p>{updatingProfileDetails ? 'Saving Details...' : 'Save Details'}</p>
             {updatingProfileDetails && <LoadingSpinner className={classes.buttonSpinner} />}

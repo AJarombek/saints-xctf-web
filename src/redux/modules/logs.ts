@@ -20,6 +20,7 @@ import {
 import { Dispatch } from 'redux';
 import moment from 'moment';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const GET_LOG_REQUEST = 'saints-xctf-web/logs/GET_LOG_REQUEST';
@@ -857,10 +858,10 @@ export function getLog(id: number): AppThunk<Promise<void>, LogsState> {
 
       dispatch(getLogSuccess(id, log, comments));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getLogFailure(id, serverError));
       }
     }
@@ -883,10 +884,10 @@ export function logFeed(
 
       dispatch(logFeedSuccess(page, filterBy, bucket, logs, next, pages));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(logFeedFailure(page, filterBy, bucket, serverError));
       }
     }
@@ -931,10 +932,10 @@ export function postLog(
       const { log_id: logId } = response.data.log;
       return logId;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(postLogFailure(serverError));
       }
 
@@ -976,10 +977,10 @@ export function putLog(
       const { updated } = response.data;
       return updated;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(putLogFailure(id, serverError));
       }
 
@@ -997,10 +998,10 @@ export function deleteLog(id: number): AppThunk<Promise<void>, LogsState> {
 
       dispatch(deleteLogSuccess(id));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(deleteLogFailure(id, serverError));
       }
     }
@@ -1031,10 +1032,10 @@ export function postComment(
       const { added } = response.data;
       return added;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(postCommentFailure(logId, serverError));
       }
 

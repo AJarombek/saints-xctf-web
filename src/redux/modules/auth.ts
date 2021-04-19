@@ -12,6 +12,7 @@ import { Dispatch } from 'redux';
 import { auth } from '../../datasources/authRequest';
 import { fn } from '../../datasources/fnRequest';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const SIGNIN_REQUEST = 'saints-xctf-web/auth/SIGNIN_REQUEST';
@@ -746,10 +747,10 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
         dispatch(signInFailure('INVALID PASSWORD'));
       }
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       if (response?.status === 400) {
         dispatch(signInFailure('INVALID USER'));
-      } else if (response.status !== 403) {
+      } else if (response?.status !== 403) {
         dispatch(signInFailure('INTERNAL ERROR'));
       }
     }
@@ -773,10 +774,10 @@ export function createForgotPasswordCode(email: string): AppThunk<Promise<Forgot
         created: response.data.created
       };
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(postForgotPasswordFailure(email, serverError));
       }
 
@@ -806,10 +807,10 @@ export function validateForgotPasswordCode(code: string): AppThunk<Promise<Valid
         isValid: true
       };
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getForgotPasswordCodeValidationFailure(code, serverError));
       }
 
@@ -831,10 +832,10 @@ export function createActivationCode(email: string, groupId: number): AppThunk<P
       dispatch(postActivationCodeSuccess(email));
       return activation_code;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(postActivationCodeFailure(email, serverError));
       }
 
@@ -887,10 +888,10 @@ export function changeUserPassword(
         passwordUpdated: password_updated
       };
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(changeUserPasswordFailure(username, serverError));
       }
 

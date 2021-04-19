@@ -9,6 +9,7 @@ import moment from 'moment';
 import { Group, Team, TeamState } from '../types';
 import { Dispatch } from 'redux';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const GET_TEAM_REQUEST = 'saints-xctf-web/teams/GET_TEAM_REQUEST';
@@ -345,10 +346,10 @@ export function getTeam(teamName: string): AppThunk<Promise<void>, TeamState> {
 
       dispatch(getTeamSuccess(team, teamName));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getTeamFailure(serverError, teamName));
       }
     }
@@ -365,10 +366,10 @@ export function getTeamGroups(teamName: string): AppThunk<Promise<void>, TeamSta
 
       dispatch(getTeamGroupsSuccess(team_groups, teamName));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getTeamGroupsFailure(serverError, teamName));
       }
     }
@@ -385,10 +386,10 @@ export function searchTeams(text: string): AppThunk<Promise<void>, TeamState> {
 
       dispatch(searchTeamsSuccess(teams, text));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getTeamGroupsFailure(serverError, text));
       }
     }

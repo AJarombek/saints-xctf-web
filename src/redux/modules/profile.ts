@@ -10,6 +10,7 @@ import moment from 'moment';
 import { Dispatch } from 'redux';
 import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, Stats } from '../types';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -869,10 +870,10 @@ export function getUser(username: string): AppThunk<Promise<void>, ProfileState>
 
       dispatch(getUserSuccess(username, user));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getUserFailure(username, serverError));
       }
     }
@@ -900,10 +901,10 @@ export function putUser(user: User): AppThunk<Promise<User>, ProfileState> {
 
       return updatedUser;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(putUserFailure(user.username, serverError));
       }
 
@@ -922,10 +923,10 @@ export function getUserFlair(username: string): AppThunk<Promise<void>, ProfileS
 
       dispatch(getUserFlairSuccess(username, flair));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getUserFlairFailure(username, serverError));
       }
     }
@@ -942,10 +943,10 @@ export function getUserStats(username: string): AppThunk<Promise<void>, ProfileS
 
       dispatch(getUserStatsSuccess(username, stats));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred retrieving user statistics.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getUserStatsFailure(username, serverError));
       }
     }
@@ -996,10 +997,10 @@ export function getUserMemberships(username: string): AppThunk<Promise<TeamMembe
       dispatch(getUserMembershipsSuccess(username, memberships));
       return memberships;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getUserMembershipsFailure(username, serverError));
       }
 
@@ -1029,10 +1030,10 @@ export function updateUserMemberships(
       dispatch(putUserMembershipsSuccess(username));
       return response.data.updated;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(putUserMembershipsFailure(username, serverError));
       }
       return false;

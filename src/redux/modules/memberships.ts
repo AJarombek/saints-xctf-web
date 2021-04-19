@@ -9,6 +9,7 @@ import { Dispatch } from 'redux';
 import { GroupMember, GroupMembers, MembershipsState } from '../types';
 import moment from 'moment';
 import { AppThunk } from '../store';
+import { AxiosError } from 'axios';
 
 // Actions
 const GET_GROUP_MEMBERSHIPS_REQUEST = 'saints-xctf-web/memberships/GET_GROUP_MEMBERSHIPS_REQUEST';
@@ -385,10 +386,10 @@ export function getGroupMemberships(username: string): AppThunk<Promise<void>, M
 
       dispatch(getGroupMembershipsSuccess(groups));
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(getGroupMembershipsFailure(serverError));
       }
     }
@@ -408,10 +409,10 @@ export function updateGroupMembership(
       dispatch(putGroupMembershipSuccess(groupId, username));
       return true;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(putGroupMembershipFailure(groupId, username, serverError));
       }
 
@@ -429,10 +430,10 @@ export function deleteGroupMembership(groupId: number, username: string): AppThu
       dispatch(deleteGroupMembershipSuccess(groupId, username));
       return true;
     } catch (error) {
-      const { response } = error;
+      const { response } = error as AxiosError;
       const serverError = response?.data?.error ?? 'An unexpected error occurred.';
 
-      if (response.status !== 403) {
+      if (response?.status !== 403) {
         dispatch(deleteGroupMembershipFailure(groupId, username, serverError));
       }
 
