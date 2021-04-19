@@ -4,21 +4,22 @@
  * @since 10/18/2020
  */
 
-import React, {ChangeEvent, useEffect, useRef, useState} from 'react';
-import {createUseStyles} from 'react-jss';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import {Memberships, RootState, User, UserMeta, Users} from '../../../redux/types';
-import ImageInput, {ImageInputStatus} from '../../shared/ImageInput';
+import { Memberships, RootState, User, UserMeta, Users } from '../../../redux/types';
+import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
 import RadioButton from '../../shared/RadioButton';
-import {AJButton} from 'jarombek-react-components';
-import {useDispatch, useSelector} from 'react-redux';
-import {getUserMemberships, putUser} from '../../../redux/modules/profile';
+import { AJButton } from 'jarombek-react-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserMemberships, putUser } from '../../../redux/modules/profile';
 import PickTeams from '../PickTeams';
 import UploadProfilePicture from '../UploadProfilePicture';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 import LoadingSpinner from '../../shared/LoadingSpinner';
+import AlertPopup from '../../shared/AlertPopup';
 
 interface Props {
   user: UserMeta;
@@ -52,6 +53,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
 
   const [updatingProfileDetails, setUpdatingProfileDetails] = useState(false);
   const [errorUpdatingProfileDetails, setErrorUpdatingProfileDetails] = useState(false);
+  const [profileDetailsUpdateSuccess, setProfileDetailsUpdateSuccess] = useState(false);
 
   useEffect(() => {
     if (userProfiles && user?.username && !userProfiles[user.username]?.memberships) {
@@ -191,6 +193,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
 
     if (updatedUser) {
       resetDetails(updatedUser);
+      setProfileDetailsUpdateSuccess(true);
     } else {
       setErrorUpdatingProfileDetails(true);
     }
@@ -224,6 +227,13 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               onChange={onFirstNameChange}
               status={firstNameStatus}
             />
+            <p
+              className={classes.inputTip}
+              hidden={firstNameStatus === ImageInputStatus.NONE}
+              data-cypress="firstNameInputTip"
+            >
+              First name is a required field.
+            </p>
           </div>
           <div
             className={classNames(
@@ -242,6 +252,13 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               onChange={onLastNameChange}
               status={lastNameStatus}
             />
+            <p
+              className={classes.inputTip}
+              hidden={lastNameStatus === ImageInputStatus.NONE}
+              data-cypress="lastNameInputTip"
+            >
+              Last name is a required field.
+            </p>
           </div>
         </div>
         <div className={classes.twoInputs}>
@@ -259,6 +276,9 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               onChange={onEmailChange}
               status={emailStatus}
             />
+            <p className={classes.inputTip} hidden={emailStatus === ImageInputStatus.NONE} data-cypress="emailInputTip">
+              Email is a required field.
+            </p>
           </div>
           <div className={classes.classYearInput}>
             <p className={classes.inputTitle}>Class Year</p>
@@ -375,6 +395,14 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
           onClose={(): void => setErrorUpdatingProfileDetails(false)}
           retryable={true}
           onRetry={onSubmitDetails}
+        />
+      )}
+      {profileDetailsUpdateSuccess && (
+        <AlertPopup
+          message="Profile Details Updated!"
+          onClose={(): void => setProfileDetailsUpdateSuccess(false)}
+          type="success"
+          autoCloseInterval={3000}
         />
       )}
     </div>

@@ -111,11 +111,7 @@ export default {
     ...Mixins.inputWarning()
   },
   inputTip: {
-    ...FontMixins.robotoSlabThin(),
-    color: Colors.sxctfRed,
-    fontSize: 13,
-    maxWidth: 325,
-    margin: '8px 0'
+    ...Mixins.inputTip()
   },
   '@media screen and (max-width: 720px)': {
     title: {

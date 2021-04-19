@@ -17,7 +17,7 @@ Cypress.Commands.add('setUserInLocalStorage', () => {
       isFetching: false,
       didInvalidate: false,
       lastUpdated: 1596919187,
-      activation_code: 'BbXuat',
+      activation_code: 'abc123',
       class_year: 2017,
       deleted: null,
       description: 'I sometimes like to run.',

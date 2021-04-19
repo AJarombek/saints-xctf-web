@@ -102,4 +102,16 @@ describe('Profile E2E Tests', () => {
     cy.get('#logFeed .exerciseLog').should('have.length', 10);
     cy.getDataCyContains('exerciseLogUser', 'Andy Jarombek').should('have.length', 10);
   });
+
+  /*
+   * https://www.youtube.com/watch?v=vUHDR6Rg3Y4 ✨
+   */
+
+  it.only('edit profile details has proper validation on required fields', () => {
+    cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+  });
 });

@@ -74,6 +74,9 @@ export default {
   buttonSpinner: {
     ...Mixins.buttonSpinner()
   },
+  inputTip: {
+    ...Mixins.inputTip()
+  },
   '@media screen and (max-width: 720px)': {
     title: {
       width: 'auto'

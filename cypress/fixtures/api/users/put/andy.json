@@ -1,5 +1,6 @@
 {
   "self": "/v2/users/andy",
+  "updated": true,
   "user": {
     "activation_code": "abc123",
     "class_year": 2017,
@@ -10,13 +11,13 @@
     "first": "Andy",
     "last": "Jarombek",
     "last_signin": "Wed, 14 Apr 2021 23:10:23 GMT",
-    "location": "Riverside, CT",
+    "location": "New York, NY",
     "member_since": "2016-12-23",
     "password": "$2b$12$hfRUC3eFjx7nwnfh1d.pnuQnVvvRFeFRIO59/TDqCIAJE.cJNTYV.",
     "profilepic_name": null,
     "salt": null,
     "subscribed": null,
     "username": "andy",
-    "week_start": "monday"
+    "week_start": "sunday"
   }
 }

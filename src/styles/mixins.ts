@@ -172,6 +172,14 @@ class Mixins {
     }
   });
 
+  static inputTip = (): object => ({
+    ...FontMixins.robotoSlabThin(),
+    color: Colors.sxctfRed,
+    fontSize: 13,
+    maxWidth: 325,
+    margin: '8px 0'
+  });
+
   static formTitle = (): object => ({
     ...FontMixins.robotoSlabBold(),
     width: 700,

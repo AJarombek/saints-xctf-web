@@ -169,6 +169,16 @@ Cypress.Commands.add('mockUserAPI', () => {
   });
 
   userPostInvalidActivationCodeRoute.as('userPostInvalidActivationCodeRoute');
+
+  cy.fixture('api/users/put/andy.json').as('updateUserAndy');
+
+  const updateUserAndyRoute = cy.route({
+    method: 'PUT',
+    url: '**/api/v2/users/andy',
+    response: '@updateUserAndy'
+  });
+
+  updateUserAndyRoute.as('updateUserAndyRoute');
 });
 
 Cypress.Commands.add('mockUserChangePasswordAPI', () => {

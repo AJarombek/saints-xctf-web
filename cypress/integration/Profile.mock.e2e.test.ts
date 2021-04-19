@@ -422,9 +422,11 @@ describe('Profile Mock E2E Tests', () => {
       'I sometimes like to run.',
       'monday'
     );
+
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
   });
 
-  it.only('able to edit profile details on the edit profile tab', () => {
+  it('able to edit profile details on the edit profile tab', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -441,6 +443,8 @@ describe('Profile Mock E2E Tests', () => {
       'monday'
     );
 
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+
     cy.getImageInput('location').clear().type('New York, NY');
     cy.getDataCy('radioButton').eq(0).findDataCy('customRadio').click();
 
@@ -454,9 +458,24 @@ describe('Profile Mock E2E Tests', () => {
       'I sometimes like to run.',
       'sunday'
     );
+
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('not.have.attr', 'disabled');
+    cy.get('.aj-contained-button > button').contains('Save Details').click();
+    cy.wait('@updateUserAndyRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Profile Details Updated!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
   });
 
-  it('edit profile page has the proper teams and groups selected', () => {
+  it.only('edit profile page has the proper teams and groups selected', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
