@@ -4,7 +4,7 @@
  * @since 10/18/2020
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { Memberships, RootState, User, UserMeta, Users } from '../../../redux/types';
@@ -46,6 +46,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const [favoriteEvent, setFavoriteEvent] = useState('');
   const [description, setDescription] = useState('');
   const [weekStart, setWeekStart] = useState('');
+  const [formDirty, setFormDirty] = useState(false);
 
   const [updatingProfileDetails, setUpdatingProfileDetails] = useState(false);
   const [errorUpdatingProfileDetails, setErrorUpdatingProfileDetails] = useState(false);
@@ -75,6 +76,48 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
     }
   }, [userProfiles, user.username]);
 
+  const onFirstNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFirstName(e.target.value);
+    if (!formDirty) setFormDirty(true);
+  };
+
+  const onLastNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setLastName(e.target.value);
+    if (!formDirty) setFormDirty(true);
+  };
+
+  const onEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setEmail(e.target.value);
+    if (!formDirty) setFormDirty(true);
+  };
+
+  const onClassYearChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setClassYear(+e.target.value);
+    if (!formDirty) setFormDirty(true);
+  };
+
+  const onLocationChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setLocation(e.target.value);
+    if (!formDirty) setFormDirty(true);
+  };
+
+  const onFavoriteEventChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    setFavoriteEvent(e.target.value);
+    if (!formDirty) setFormDirty(true);
+  };
+
+  const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setDescription(e.target.value);
+    if (!formDirty) setFormDirty(true);
+  };
+
+  const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.target.checked) {
+      setWeekStart(e.target.value);
+      if (!formDirty) setFormDirty(true);
+    }
+  };
+
   const resetDetails = (userDetails: User): void => {
     setFirstName(userDetails.first);
     setLastName(userDetails.last);
@@ -84,12 +127,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
     setFavoriteEvent(userDetails.favorite_event);
     setDescription(userDetails.description);
     setWeekStart(userDetails.week_start);
-  };
-
-  const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    if (e.target.checked) {
-      setWeekStart(e.target.value);
-    }
+    setFormDirty(false);
   };
 
   const onSubmitDetails = async (): Promise<void> => {
@@ -141,7 +179,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={firstName}
-              onChange={(e): void => setFirstName(e.target.value)}
+              onChange={onFirstNameChange}
               status={firstNameStatus}
             />
           </div>
@@ -158,7 +196,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={lastName}
-              onChange={(e): void => setLastName(e.target.value)}
+              onChange={onLastNameChange}
               status={lastNameStatus}
             />
           </div>
@@ -174,7 +212,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={email}
-              onChange={(e): void => setEmail(e.target.value)}
+              onChange={onEmailChange}
               status={emailStatus}
             />
           </div>
@@ -186,7 +224,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={`${classYear}`}
-              onChange={(e): void => setClassYear(+e.target.value)}
+              onChange={onClassYearChange}
               status={ImageInputStatus.NONE}
             />
           </div>
@@ -200,7 +238,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={location}
-              onChange={(e): void => setLocation(e.target.value)}
+              onChange={onLocationChange}
               status={ImageInputStatus.NONE}
             />
           </div>
@@ -212,7 +250,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               placeholder=""
               useCustomValue={true}
               value={favoriteEvent}
-              onChange={(e): void => setFavoriteEvent(e.target.value)}
+              onChange={onFavoriteEventChange}
               status={ImageInputStatus.NONE}
             />
           </div>
@@ -222,7 +260,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
           <AutoResizeTextArea
             maxLength={1000}
             placeholder="..."
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setDescription(e.target.value)}
+            onChange={onDescriptionChange}
             useCustomValue={true}
             value={description}
             disabled={false}
@@ -256,7 +294,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         <div className={classes.actions}>
           <AJButton
             type="contained"
-            disabled={false}
+            disabled={!formDirty}
             onClick={onSubmitDetails}
             className={classNames(classes.submitButton, updatingProfileDetails && classes.disabledSubmitButton)}
           >

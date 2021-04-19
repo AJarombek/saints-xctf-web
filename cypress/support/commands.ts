@@ -83,3 +83,7 @@ Cypress.Commands.add('getDataCyContains', (value, contains) => {
 Cypress.Commands.add('findDataCy', { prevSubject: true }, (subject, value) => {
   return cy.wrap(subject).find(`[data-cypress=${value}]`);
 });
+
+Cypress.Commands.add('getImageInput', (value) => {
+  return cy.get(`.sxctf-image-input input[name="${value}"]`);
+});

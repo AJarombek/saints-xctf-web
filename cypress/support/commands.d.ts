@@ -55,5 +55,12 @@ declare namespace Cypress {
          * @example findDataCy('button')
          */
         findDataCy(value: string): Chainable<Element>;
+
+        /**
+         * Chainable function for getting image input elements.
+         * @param value The value of the name attribute on an image input's HTML input element.
+         * @example getImageInput('name')
+         */
+        getImageInput(value: string): Chainable<Element>;
     }
 }

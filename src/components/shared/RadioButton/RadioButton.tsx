@@ -34,7 +34,7 @@ const RadioButton: React.FunctionComponent<Props> = ({
   const classes = useStyles();
 
   return (
-    <div className={classNames(classes.radio, className)}>
+    <div className={classNames(classes.radio, className)} data-cypress="radioButton">
       <label>
         <div className={classes.inputWrapper}>
           <input
@@ -46,7 +46,7 @@ const RadioButton: React.FunctionComponent<Props> = ({
             defaultChecked={defaultChecked}
             onChange={onChange}
           />
-          <div className={classes.customRadio} />
+          <div className={classes.customRadio} data-cypress="customRadio" />
         </div>
         <div className={classes.customLabel}>{label}</div>
       </label>

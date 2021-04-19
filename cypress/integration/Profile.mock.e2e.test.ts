@@ -406,7 +406,60 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('alert').should('contain.text', 'An unexpected error occurred retrieving user statistics.');
   });
 
-  it.only('edit profile page has profile details filled in properly', () => {});
+  it('edit profile page has profile details filled in properly', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
 
-  it.only('edit profile page has the proper teams and groups selected', () => {});
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.profileDetailsFormValues(
+      'Andy',
+      'Jarombek',
+      'andrew@jarombek.com',
+      '2017',
+      'Riverside, CT',
+      'Shakeout',
+      'I sometimes like to run.',
+      'monday'
+    );
+  });
+
+  it.only('able to edit profile details on the edit profile tab', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.profileDetailsFormValues(
+      'Andy',
+      'Jarombek',
+      'andrew@jarombek.com',
+      '2017',
+      'Riverside, CT',
+      'Shakeout',
+      'I sometimes like to run.',
+      'monday'
+    );
+
+    cy.getImageInput('location').clear().type('New York, NY');
+    cy.getDataCy('radioButton').eq(0).findDataCy('customRadio').click();
+
+    cy.profileDetailsFormValues(
+      'Andy',
+      'Jarombek',
+      'andrew@jarombek.com',
+      '2017',
+      'New York, NY',
+      'Shakeout',
+      'I sometimes like to run.',
+      'sunday'
+    );
+  });
+
+  it('edit profile page has the proper teams and groups selected', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+  });
 });
