@@ -8,7 +8,7 @@ import React, { useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import Accordion from '../../shared/Accordion/Accordion';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { User, NotificationsState, TeamMembership, Notification } from '../../../redux/types';
 import { AJButton, AJNotificationCircle } from 'jarombek-react-components';
 import classNames from 'classnames';
@@ -26,7 +26,7 @@ const useStyles = createUseStyles(styles);
 
 const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMemberships, notificationInfo }) => {
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -40,7 +40,7 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMembersh
       dispatch(viewNotification(notification.notification_id));
     }
 
-    history.push(notification.link);
+    navigate(notification.link);
   };
 
   return (
@@ -49,13 +49,13 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMembersh
         iconNode={<p>&#xe107;</p>}
         title="Profile"
         expandable={false}
-        onClick={(): void => history.push(`/profile/${user.username}`)}
+        onClick={(): void => navigate(`/profile/${user.username}`)}
       />
       <Accordion
         iconNode={<p>&#x0050;</p>}
         title="Create New Log"
         expandable={false}
-        onClick={(): void => history.push('/log/new')}
+        onClick={(): void => navigate('/log/new')}
       />
       <Accordion
         id="groupsAccordion"
@@ -87,7 +87,7 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMembersh
           {!teamMemberships?.filter((teamMembership) => teamMembership.groups.length)?.length && (
             <div className={classes.noMemberships}>
               <p>You have no team or group memberships.</p>
-              <AJButton type="contained" onClick={(): void => history.push(`/profile/${user.username}#edit`)}>
+              <AJButton type="contained" onClick={(): void => navigate(`/profile/${user.username}#edit`)}>
                 Join Teams & Groups
               </AJButton>
             </div>

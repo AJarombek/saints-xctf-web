@@ -6,7 +6,7 @@
 
 import React, { useState, createRef, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import classnames from 'classnames';
 import styles from './styles';
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
@@ -57,7 +57,7 @@ const NavBar: React.FunctionComponent<Props> = ({
 
   const dispatch = useDispatch();
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
   const [stickyHeader, setStickyHeader] = useState<boolean>(false);
 
@@ -142,7 +142,7 @@ const NavBar: React.FunctionComponent<Props> = ({
    */
   const navigateMobile = (path: string): void => {
     setShowDropdown(!showDropdown);
-    history.push(path);
+    navigate(path);
 
     if (path.includes('#')) {
       hashRoute();
@@ -217,12 +217,12 @@ const NavBar: React.FunctionComponent<Props> = ({
     <>
       <div className={navBarClass}>
         <figure className="sxctf-logo">
-          <img src={saintsXCTFLogo} onClick={(): void => history.push(signedIn ? '/dashboard' : '/')} alt="" />
+          <img src={saintsXCTFLogo} onClick={(): void => navigate(signedIn ? '/dashboard' : '/')} alt="" />
         </figure>
-        <h1 onClick={(): void => history.push(signedIn ? '/dashboard' : '/')}>SaintsXCTF</h1>
+        <h1 onClick={(): void => navigate(signedIn ? '/dashboard' : '/')}>SaintsXCTF</h1>
         <div className="sxctf-nav-buttons">
           {includeHeaders.includes('home') && (
-            <AJButton type="text" className="homeButton" onClick={(): void => history.push('/')}>
+            <AJButton type="text" className="homeButton" onClick={(): void => navigate('/')}>
               Home
             </AJButton>
           )}
@@ -231,7 +231,7 @@ const NavBar: React.FunctionComponent<Props> = ({
               type="text"
               className="aboutButton"
               onClick={(): void => {
-                history.push('/#about');
+                navigate('/#about');
                 hashRoute();
               }}
             >
@@ -243,7 +243,7 @@ const NavBar: React.FunctionComponent<Props> = ({
               type="text"
               className="testimonialsButton"
               onClick={(): void => {
-                history.push('/#testimonials');
+                navigate('/#testimonials');
                 hashRoute();
               }}
             >
@@ -251,17 +251,17 @@ const NavBar: React.FunctionComponent<Props> = ({
             </AJButton>
           )}
           {includeHeaders.includes('register') && (
-            <AJButton type="outlined" className="registerButton" onClick={(): void => history.push('/register')}>
+            <AJButton type="outlined" className="registerButton" onClick={(): void => navigate('/register')}>
               Register
             </AJButton>
           )}
           {includeHeaders.includes('signIn') && (
-            <AJButton type="contained" className="signInButton" onClick={(): void => history.push('/signin')}>
+            <AJButton type="contained" className="signInButton" onClick={(): void => navigate('/signin')}>
               Sign In
             </AJButton>
           )}
           {includeHeaders.includes('dashboard') && (
-            <AJButton type="text" className="dashboardButton" onClick={(): void => history.push('/dashboard')}>
+            <AJButton type="text" className="dashboardButton" onClick={(): void => navigate('/dashboard')}>
               Dashboard
             </AJButton>
           )}
@@ -269,18 +269,18 @@ const NavBar: React.FunctionComponent<Props> = ({
             <AJButton
               type="text"
               className="profileButton"
-              onClick={(): void => history.push(`/profile/${user?.username}`)}
+              onClick={(): void => navigate(`/profile/${user?.username}`)}
             >
               Profile
             </AJButton>
           )}
           {includeHeaders.includes('teams') && (
-            <AJButton type="text" className="teamsButton" onClick={(): void => history.push('/teams')}>
+            <AJButton type="text" className="teamsButton" onClick={(): void => navigate('/teams')}>
               Teams
             </AJButton>
           )}
           {includeHeaders.includes('admin') && (
-            <AJButton type="outlined" className="adminButton" onClick={(): void => history.push('/admin')}>
+            <AJButton type="outlined" className="adminButton" onClick={(): void => navigate('/admin')}>
               Admin
             </AJButton>
           )}

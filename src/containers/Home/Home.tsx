@@ -7,7 +7,7 @@
 import React, { useEffect, useRef } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
@@ -25,7 +25,7 @@ import { RootState } from '../../redux/types';
 type Props = {};
 
 const Home: React.FunctionComponent<Props> = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const auth = useSelector((state: RootState) => state.auth.auth);
   const user = useSelector((state: RootState) => state.auth.user);
 
@@ -33,9 +33,9 @@ const Home: React.FunctionComponent<Props> = () => {
 
   useEffect(() => {
     if (userAuthenticated(user, auth.signedInUser)) {
-      history.push('/dashboard');
+      navigate('/dashboard');
     }
-  }, [user, history, auth]);
+  }, [user, navigate, auth]);
 
   const day = moment().dayOfYear();
   const mobileBackgroundPicture = day % 2 === 0 ? '/asset/mens-background.jpg' : '/asset/womens-background.jpg';

@@ -49,5 +49,26 @@ declare namespace Cypress {
             description: string,
             weekStart: 'sunday' | 'monday'
         ): void;
+
+        /**
+         * Custom command that checks for validation and warning messages on the profile details form.
+         * @param firstStatus Image input status of the user's first name
+         * @param firstVisible Whether an error tip is displayed for the first name input
+         * @param lastStatus Image input status of the user's last name
+         * @param lastVisible Whether an error tip is displayed for the last name input
+         * @param emailStatus Image input status of the user's email
+         * @param emailVisible Whether an error tip is displayed for the email input
+         * @param saveButtonEnabled Whether the button to save profile detail changes is enabled (clickable)
+         * @example profileDetailsFormValidation('none', false, 'warning', true, 'none', false, false)
+         */
+        profileDetailsFormValidation(
+            firstStatus: ImageInputStatusClass,
+            firstVisible: boolean,
+            lastStatus: ImageInputStatusClass,
+            lastVisible: boolean,
+            emailStatus: ImageInputStatusClass,
+            emailVisible: boolean,
+            saveButtonEnabled: boolean
+        ): void;
     }
 }

@@ -13,7 +13,7 @@ import styles from './styles';
 import NavBar from '../../components/shared/NavBar';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import ExerciseLog from '../../components/shared/ExerciseLog';
 import { getLog } from '../../redux/modules/logs';
 import NotFound from '../../components/shared/NotFound';
@@ -28,7 +28,7 @@ const defaultHeaders = ['dashboard', 'profile', 'teams', 'signOut', 'logo'];
 const Log: React.FunctionComponent<Props> = () => {
   const classes = useStyles();
 
-  const routeMatch = useRouteMatch();
+  const { id: logId } = useParams();
 
   const dispatch = useDispatch();
   const auth = useSelector((state: RootState) => state.auth.auth);
@@ -41,14 +41,9 @@ const Log: React.FunctionComponent<Props> = () => {
   const isAdmin = useAdminCheck(false);
   const headers = useHeaders(defaultHeaders, isAdmin);
 
-  const logId = useMemo(() => {
-    const { id: groupId } = routeMatch.params as { id: string };
-    return +groupId;
-  }, [routeMatch.params]);
-
   useEffect(() => {
     if (logId) {
-      dispatch(getLog(logId));
+      dispatch(getLog(+logId));
     }
   }, [dispatch, logId]);
 

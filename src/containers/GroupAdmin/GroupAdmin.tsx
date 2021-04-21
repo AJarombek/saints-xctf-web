@@ -14,7 +14,7 @@ import { GroupMeta, RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useAdminCheck, useSignInCheck } from '../../hooks/shared';
 import GroupAdminBody from '../../components/group-admin/GroupAdminBody/GroupAdminBody';
-import { useGroupId } from '../../hooks/admin';
+import { useParams } from 'react-router-dom';
 
 type Props = {};
 
@@ -32,7 +32,7 @@ const GroupAdmin: React.FunctionComponent<Props> = () => {
   useSignInCheck();
   const isAdmin = useAdminCheck();
 
-  const groupId = useGroupId();
+  const { id: groupId } = useParams();
 
   const group: GroupMeta = useMemo(() => {
     return groups ? groups[groupId] : null;
@@ -46,7 +46,7 @@ const GroupAdmin: React.FunctionComponent<Props> = () => {
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />
-        <GroupAdminBody group={group} groupId={groupId} />
+        <GroupAdminBody group={group} groupId={+groupId} />
         <HomeFooter showContactUs={false} />
       </div>
     );

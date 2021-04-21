@@ -8,7 +8,7 @@
  */
 
 import React, { useEffect, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
@@ -19,7 +19,7 @@ import { RootState } from '../../redux/types';
 type Props = {};
 
 const ForgotPasswordReset: React.FunctionComponent<Props> = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const auth = useSelector((state: RootState) => state.auth.auth);
   const users = useSelector((state: RootState) => state.auth.user);
@@ -28,9 +28,9 @@ const ForgotPasswordReset: React.FunctionComponent<Props> = () => {
 
   useEffect(() => {
     if (userAuthenticated(users, auth.signedInUser)) {
-      history.push('/dashboard');
+      navigate('/dashboard');
     }
-  }, [users, auth.signedInUser, history]);
+  }, [users, auth.signedInUser, navigate]);
 
   return (
     <div className="sxctf-forgot-password-reset" ref={ref}>

@@ -480,5 +480,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.profileMockAPICalls();
 
     cy.get('.tabs p').contains('Edit Profile').click();
+    cy.getDataCy('pickTeam').should('exist');
+    cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().should('have.attr', 'disabled');
   });
 });

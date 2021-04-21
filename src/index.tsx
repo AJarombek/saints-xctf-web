@@ -7,9 +7,8 @@
 import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import { render } from 'react-dom';
-import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
-import configureStore, { history } from './redux/store';
+import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import configureStore from './redux/store';
 import { Provider } from 'react-redux';
 import dotenv from 'dotenv';
 import { interceptor } from './datasources/apiRequest';
@@ -38,27 +37,25 @@ interceptor(store);
 const RoutedApp = (): JSX.Element => (
   <Provider store={store}>
     <FeatureFlagProvider values={getFeatureFlags()}>
-      <ConnectedRouter history={history}>
-        <>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/admin" component={Admin} />
-            <Route exact path="/admin/group/:id" component={GroupAdmin} />
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/forgotpassword/reset" component={ForgotPasswordReset} />
-            <Route exact path="/group/:id" component={Group} />
-            <Route exact path="/log/view/:id" component={Log} />
-            <Route exact path="/log/new" component={NewLog} />
-            <Route exact path="/log/edit/:id" component={EditLog} />
-            <Route exact path="/profile/:username" component={Profile} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/signin" component={SignIn} />
-            <Route exact path="/teams" component={Teams} />
-            <Route component={Home} />
-          </Switch>
-        </>
-      </ConnectedRouter>
+      <Router>
+        <Routes>
+          <Route path="" element={<Home />} />
+          <Route path="admin" element={<Admin />} />
+          <Route path="admin/group/:id" element={<GroupAdmin />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="forgotpassword/reset" element={<ForgotPasswordReset />} />
+          <Route path="group/:id" element={<Group />} />
+          <Route path="log/view/:id" element={<Log />} />
+          <Route path="log/new" element={<NewLog />} />
+          <Route path="log/edit/:id" element={<EditLog />} />
+          <Route path="profile/:username" element={<Profile />} />
+          <Route path="register" element={<Register />} />
+          <Route path="signin" element={<SignIn />} />
+          <Route path="teams" element={<Teams />} />
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </Router>
     </FeatureFlagProvider>
   </Provider>
 );

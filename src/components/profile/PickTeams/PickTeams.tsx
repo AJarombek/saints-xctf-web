@@ -13,6 +13,7 @@ import { GroupMember, RootState, TeamGroupMapping, TeamInfo, TeamMembership } fr
 import PickTeam from '../PickTeam';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { useDispatch, useSelector } from 'react-redux';
+import { usePrompt } from 'react-router-dom';
 import { searchTeams } from '../../../redux/modules/teams';
 import classNames from 'classnames';
 import TeamMembershipsModal from '../TeamMembershipModal';
@@ -41,6 +42,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   const [showMembershipModificationModal, setShowMembershipModificationModal] = useState(false);
   const [membershipModificationTeam, setMembershipModificationTeam] = useState<TeamMembership>(null);
 
+  const [changesMade, setChangesMade] = useState(false);
   const [teamJoinRequests, setTeamJoinRequests] = useState(new Set<string>());
   const [teamLeaveRequests, setTeamLeaveRequests] = useState(new Set<string>());
   const [groupJoinRequests, setGroupJoinRequests] = useState<Record<string, Set<string>>>({});
@@ -49,6 +51,8 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   const [saving, setSaving] = useState(false);
   const [errorUpdatingMemberships, setErrorUpdatingMemberships] = useState(false);
   const [errorGetMemberships, setErrorGetMemberships] = useState(false);
+
+  usePrompt('You have unsaved changes to your profile.  Are you sure you want to navigate away?', changesMade);
 
   const displayedTeams = useMemo(() => {
     if (teams) {
@@ -105,6 +109,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   };
 
   const onJoinTeam = (teamName: string): void => {
+    setChangesMade(true);
     setTeamJoinRequests((joinSet) => {
       const newJoinSet = new Set<string>(joinSet);
       newJoinSet.add(teamName);
@@ -115,6 +120,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   };
 
   const onLeaveTeam = (teamName: string): void => {
+    setChangesMade(true);
     setTeamLeaveRequests((leaveSet) => {
       const newLeaveSet = new Set<string>(leaveSet);
       newLeaveSet.add(teamName);
@@ -188,6 +194,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
     if (result) {
       setErrorUpdatingMemberships(false);
       await getUpdatedMemberships();
+      setChangesMade(false);
     } else {
       setErrorUpdatingMemberships(true);
     }
@@ -200,6 +207,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
     setTeamLeaveRequests(new Set<string>());
     setGroupJoinRequests({});
     setGroupLeaveRequests({});
+    setChangesMade(false);
   };
 
   return (
@@ -209,7 +217,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
           <ImageInput
             type="text"
             name="team"
-            placeholder="Search Teams (ex. SaintsXCTF Alumni)"
+            placeholder="Search Teams (eg. SaintsXCTF Alumni)"
             status={ImageInputStatus.NONE}
             onChange={onChangeTeamSearch}
           />
@@ -234,6 +242,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
               groupLeaveRequests={groupLeaveRequests[team.team_name] ?? new Set<string>()}
               setGroupJoinRequests={setGroupJoinRequests}
               setGroupLeaveRequests={setGroupLeaveRequests}
+              setChangesMade={setChangesMade}
             />
           ))}
         </div>
@@ -252,9 +261,9 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
       <div className={classes.actions}>
         <AJButton
           type="contained"
-          disabled={false}
+          disabled={saving || !changesMade}
           onClick={onSaveMemberships}
-          className={classNames(classes.submitButton, saving && classes.disabledSubmitButton)}
+          className={classNames(classes.submitButton, (saving || !changesMade) && classes.disabledSubmitButton)}
         >
           <p>{saving ? 'Saving Teams & Groups...' : 'Save Teams & Groups'}</p>
           {saving && <LoadingSpinner className={classes.buttonSpinner} />}

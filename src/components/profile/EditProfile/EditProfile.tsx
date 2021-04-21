@@ -349,7 +349,9 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         <div className={classes.actions}>
           <AJButton
             type="contained"
-            disabled={updatingProfileDetails || !formDirty || !firstName || !lastName || !email}
+            disabled={
+              updatingProfileDetails || !formDirty || !firstName || !lastName || emailStatus !== ImageInputStatus.NONE
+            }
             onClick={onSubmitDetails}
             className={classNames(
               classes.submitButton,

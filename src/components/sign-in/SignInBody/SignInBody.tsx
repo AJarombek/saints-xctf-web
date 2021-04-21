@@ -6,7 +6,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import styles from './styles';
 import { AJButton } from 'jarombek-react-components';
@@ -33,7 +33,7 @@ const useStyles = createUseStyles(styles);
 const SignInBody: React.FunctionComponent<Props> = ({ isFetching, status }) => {
   const classes = useStyles();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -111,7 +111,7 @@ const SignInBody: React.FunctionComponent<Props> = ({ isFetching, status }) => {
           <AJButton type="contained" onClick={onClickSignIn} disabled={isFetching || loading}>
             Sign In
           </AJButton>
-          <AJButton type="text" onClick={(): void => history.push('/register')}>
+          <AJButton type="text" onClick={(): void => navigate('/register')}>
             Create Account
           </AJButton>
         </div>

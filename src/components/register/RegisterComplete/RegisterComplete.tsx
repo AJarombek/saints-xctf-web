@@ -9,7 +9,7 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { useDispatch } from 'react-redux';
 import { RegistrationState } from '../../../redux/types';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { sendWelcomeEmail } from '../../../redux/modules/registration';
 
 interface Props {
@@ -21,7 +21,7 @@ const useStyles = createUseStyles(styles);
 const RegisterComplete: React.FunctionComponent<Props> = ({ registration }) => {
   const classes = useStyles();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -52,7 +52,7 @@ const RegisterComplete: React.FunctionComponent<Props> = ({ registration }) => {
       <h5 className={classes.successDescription}>
         You are registered! A welcome email was sent to your email address.
       </h5>
-      <p className={classes.signInLink} data-cypress="signInLink" onClick={(): void => history.push('/signin')}>
+      <p className={classes.signInLink} data-cypress="signInLink" onClick={(): void => navigate('/signin')}>
         Sign In
       </p>
     </div>

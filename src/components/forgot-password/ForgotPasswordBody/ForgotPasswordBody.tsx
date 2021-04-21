@@ -17,7 +17,7 @@ import { createForgotPasswordCode, ForgotPasswordCreationResult } from '../../..
 import { useDispatch } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 
@@ -28,7 +28,7 @@ const useStyles = createUseStyles(styles);
 const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
   const classes = useStyles();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -114,7 +114,7 @@ const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
             <p
               className={classes.enterCode}
               data-cypress="forgotPasswordEnterCode"
-              onClick={(): void => history.push('/forgotpassword/reset')}
+              onClick={(): void => navigate('/forgotpassword/reset')}
             >
               Enter Code
             </p>

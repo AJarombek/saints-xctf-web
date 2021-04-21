@@ -9,7 +9,7 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { MemberDetails } from '../../../redux/types';
 import moment from 'moment';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = createUseStyles(styles);
 
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const GroupMembers: React.FunctionComponent<Props> = ({ members }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const classes = useStyles();
 
   return (
@@ -27,7 +27,7 @@ const GroupMembers: React.FunctionComponent<Props> = ({ members }) => {
         <div
           key={member.username}
           className={classes.member}
-          onClick={(): void => history.push(`/profile/${member.username}`)}
+          onClick={(): void => navigate(`/profile/${member.username}`)}
         >
           <p>
             {member.first} {member.last}

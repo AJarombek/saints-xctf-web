@@ -9,7 +9,7 @@
 
 import { AJButton } from 'jarombek-react-components';
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { registerPersonalInfo } from '../../../redux/modules/registration';
@@ -28,7 +28,7 @@ interface Props {
 const emailPattern = /^(([a-zA-Z0-9_.-])+@([a-zA-Z0-9_.-])+\.([a-zA-Z])+([a-zA-Z])+)?$/;
 
 const RegisterPersonalInfo: React.FunctionComponent<Props> = ({ registration }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -130,7 +130,7 @@ const RegisterPersonalInfo: React.FunctionComponent<Props> = ({ registration }) 
         >
           Continue
         </AJButton>
-        <AJButton type="text" onClick={(): void => history.push('/')}>
+        <AJButton type="text" onClick={(): void => navigate('/')}>
           Exit
         </AJButton>
       </div>

@@ -113,53 +113,42 @@ describe('Profile E2E Tests', () => {
     cy.profileAPICalls();
 
     cy.get('.tabs p').contains('Edit Profile').click();
-
-    cy.imageInputValidationCheck('first', 'none');
-    cy.getDataCy('firstNameInputTip').should('have.attr', 'hidden');
-    cy.imageInputValidationCheck('last', 'none');
-    cy.getDataCy('lastNameInputTip').should('have.attr', 'hidden');
-    cy.imageInputValidationCheck('email', 'none');
-    cy.getDataCy('emailInputTip').should('have.attr', 'hidden');
-    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+    cy.profileDetailsFormValidation('none', false, 'none', false, 'none', false, false);
 
     cy.getImageInput('first').clear();
-
-    cy.imageInputValidationCheck('first', 'warning');
-    cy.getDataCy('firstNameInputTip').should('not.have.attr', 'hidden');
-    cy.imageInputValidationCheck('last', 'none');
-    cy.getDataCy('lastNameInputTip').should('have.attr', 'hidden');
-    cy.imageInputValidationCheck('email', 'none');
-    cy.getDataCy('emailInputTip').should('have.attr', 'hidden');
-    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+    cy.profileDetailsFormValidation('warning', true, 'none', false, 'none', false, false);
 
     cy.getImageInput('last').clear();
-
-    cy.imageInputValidationCheck('first', 'warning');
-    cy.getDataCy('firstNameInputTip').should('not.have.attr', 'hidden');
-    cy.imageInputValidationCheck('last', 'warning');
-    cy.getDataCy('lastNameInputTip').should('not.have.attr', 'hidden');
-    cy.imageInputValidationCheck('email', 'none');
-    cy.getDataCy('emailInputTip').should('have.attr', 'hidden');
-    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+    cy.profileDetailsFormValidation('warning', true, 'warning', true, 'none', false, false);
 
     cy.getImageInput('email').clear();
-
-    cy.imageInputValidationCheck('first', 'warning');
-    cy.getDataCy('firstNameInputTip').should('not.have.attr', 'hidden');
-    cy.imageInputValidationCheck('last', 'warning');
-    cy.getDataCy('lastNameInputTip').should('not.have.attr', 'hidden');
-    cy.imageInputValidationCheck('email', 'warning');
-    cy.getDataCy('emailInputTip').should('not.have.attr', 'hidden');
-    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+    cy.profileDetailsFormValidation('warning', true, 'warning', true, 'warning', true, false);
 
     cy.getImageInput('first').type('Andy');
+    cy.profileDetailsFormValidation('none', false, 'warning', true, 'warning', true, false);
 
-    cy.imageInputValidationCheck('first', 'none');
-    cy.getDataCy('firstNameInputTip').should('have.attr', 'hidden');
-    cy.imageInputValidationCheck('last', 'warning');
-    cy.getDataCy('lastNameInputTip').should('not.have.attr', 'hidden');
-    cy.imageInputValidationCheck('email', 'warning');
-    cy.getDataCy('emailInputTip').should('not.have.attr', 'hidden');
-    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+    cy.getImageInput('last').type('Jarombek');
+    cy.profileDetailsFormValidation('none', false, 'none', false, 'warning', true, false);
+
+    cy.getImageInput('email').type('andrew');
+    cy.profileDetailsFormValidation('none', false, 'none', false, 'warning', true, false);
+
+    cy.getImageInput('email').type('@');
+    cy.profileDetailsFormValidation('none', false, 'none', false, 'warning', true, false);
+
+    cy.getImageInput('email').type('jarombek');
+    cy.profileDetailsFormValidation('none', false, 'none', false, 'warning', true, false);
+
+    cy.getImageInput('email').type('.c');
+    cy.profileDetailsFormValidation('none', false, 'none', false, 'warning', true, false);
+
+    cy.getImageInput('email').type('om');
+    cy.profileDetailsFormValidation('none', false, 'none', false, 'none', false, true);
+  });
+
+  it.only('able to search for teams', () => {
+    cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
   });
 });

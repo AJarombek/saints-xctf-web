@@ -6,7 +6,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 
 import { userAuthenticated } from '../../utils/auth';
@@ -17,7 +17,7 @@ import { RootState } from '../../redux/types';
 type Props = {};
 
 const Register: React.FunctionComponent<Props> = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const auth = useSelector((state: RootState) => state.auth.auth);
@@ -39,9 +39,9 @@ const Register: React.FunctionComponent<Props> = () => {
 
   useEffect(() => {
     if (userAuthenticated(users, auth.signedInUser)) {
-      history.push('/dashboard');
+      navigate('/dashboard');
     }
-  }, [users, auth.signedInUser, history]);
+  }, [users, auth.signedInUser, navigate]);
 
   useEffect(() => {
     setStage(registration.stage);

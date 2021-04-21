@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { DeletedLog, DeletedLogs, Log, RootState, User } from '../../../redux/types';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import Comments from '../Comments/Comments';
 import { parseTagsInText, shortenTime } from '../../../utils/logs';
@@ -54,7 +54,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
   index,
   linkProfile = true
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const classes = useStyles({ feel: log?.feel });
 
   const dispatch = useDispatch();
@@ -81,7 +81,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
         setIsDeleting(false);
         setShowDeleteModal(false);
       } else {
-        history.push('/');
+        navigate('/');
       }
     }
 
@@ -90,7 +90,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
       setShowDeleteModal(false);
       setErrorDeleting(true);
     }
-  }, [deletedLogs, log, bucket, filterBy, page, dispatch, inFeed, history]);
+  }, [deletedLogs, log, bucket, filterBy, page, dispatch, inFeed, navigate]);
 
   const onDeleteLog = (): void => {
     setIsDeleting(true);
@@ -148,7 +148,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
           <div className={classes.optionsButtons}>
             <button
               className={classNames(classes.optionsButton, classes.optionsIcon, 'edit')}
-              onClick={(): void => history.push(`/log/edit/${log.log_id}`)}
+              onClick={(): void => navigate(`/log/edit/${log.log_id}`)}
               disabled={false}
             >
               <p>&#x6a;</p>

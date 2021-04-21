@@ -66,11 +66,11 @@ Cypress.Commands.add(
     saveButtonEnabled: boolean
   ) => {
     cy.imageInputValidationCheck('first', firstStatus);
-    cy.getDataCy('firstNameInputTip').should(firstVisible ? 'have.attr' : 'not.have.attr', 'hidden');
+    cy.getDataCy('firstNameInputTip').should(firstVisible ? 'not.have.attr' : 'have.attr', 'hidden');
     cy.imageInputValidationCheck('last', lastStatus);
-    cy.getDataCy('lastNameInputTip').should(lastVisible ? 'have.attr' : 'not.have.attr', 'hidden');
+    cy.getDataCy('lastNameInputTip').should(lastVisible ? 'not.have.attr' : 'have.attr', 'hidden');
     cy.imageInputValidationCheck('email', emailStatus);
-    cy.getDataCy('emailInputTip').should(emailVisible ? 'have.attr' : 'not.have.attr', 'hidden');
+    cy.getDataCy('emailInputTip').should(emailVisible ? 'not.have.attr' : 'have.attr', 'hidden');
     cy.get('.aj-contained-button > button')
       .contains('Save Details')
       .parent()

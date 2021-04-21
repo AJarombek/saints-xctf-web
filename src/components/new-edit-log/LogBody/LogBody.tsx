@@ -12,7 +12,7 @@ import { AJButton, AJSelect } from 'jarombek-react-components';
 import StepSlider from '../../shared/StepSlider';
 import { FeelColors } from '../../../styles/colors';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea/AutoResizeTextArea';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
 import { Log, RootState, User } from '../../../redux/types';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup/DefaultErrorPopup';
@@ -57,7 +57,7 @@ const feelSteps = [
 ];
 
 const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const updateLogs = useSelector((state: RootState) => state.logs.updateLogs);
@@ -114,12 +114,12 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   useEffect(() => {
     if (!existingLog && newLog && Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
       if (newLog?.created) {
-        history.push('/dashboard');
+        navigate('/dashboard');
       } else {
         setErrorCreatingLog(true);
       }
     }
-  }, [newLog, history, existingLog]);
+  }, [newLog, navigate, existingLog]);
 
   useEffect(() => {
     if (existingLog && updateLogs && Object.keys(updateLogs).length) {
@@ -127,13 +127,13 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
 
       if (updateInfo && !updateInfo?.isFetching && !updateInfo?.didInvalidate) {
         if (updateInfo?.updated) {
-          history.push('/dashboard');
+          navigate('/dashboard');
         } else {
           setErrorUpdatingLog(true);
         }
       }
     }
-  }, [updateLogs, existingLog, history]);
+  }, [updateLogs, existingLog, navigate]);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>): void => {
     const newName = e.target.value;
@@ -313,8 +313,8 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   };
 
   const onCancel = useCallback(() => {
-    history.push('/dashboard');
-  }, [history]);
+    navigate('/dashboard');
+  }, [navigate]);
 
   return (
     <div className={classes.newLogBody}>

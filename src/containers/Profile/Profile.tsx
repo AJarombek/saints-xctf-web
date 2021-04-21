@@ -7,7 +7,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { RootState } from '../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useRouteMatch, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import { userAuthenticated } from '../../utils/auth';
 import { setUserFromStorage } from '../../redux/modules/auth';
 import { createUseStyles } from 'react-jss';
@@ -26,9 +26,10 @@ const useStyles = createUseStyles(styles);
 const defaultHeaders = ['teams', 'dashboard', 'signOut', 'logo'];
 
 const Profile: React.FunctionComponent<Props> = () => {
-  const routeMatch = useRouteMatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const { username } = useParams();
 
   const classes = useStyles();
 
@@ -51,14 +52,9 @@ const Profile: React.FunctionComponent<Props> = () => {
       dispatch(setUserFromStorage(storedUser));
       dispatch(setUser(storedUser));
     } else if (!userAuthenticated(authUsers, auth.signedInUser) && !storedUser) {
-      history.push('/');
+      navigate('/');
     }
-  }, [authUsers, auth.signedInUser, history, dispatch]);
-
-  const username = useMemo(() => {
-    const urlPaths = routeMatch.url.split('/');
-    return urlPaths[urlPaths.length - 1];
-  }, [routeMatch.url]);
+  }, [authUsers, auth.signedInUser, navigate, dispatch]);
 
   const defaultTab: ProfileTab = useMemo(() => {
     if (location.hash) {

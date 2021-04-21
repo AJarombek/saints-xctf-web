@@ -11,9 +11,8 @@ import rangeView from './rangeView';
 import teams from './teams';
 import groups from './groups';
 import { History } from 'history';
-import LocationState = History.LocationState;
 
-const createRootReducer = (history: History<LocationState>): Reducer =>
+const createRootReducer = (history: History): Reducer =>
   combineReducers({
     router: connectRouter(history),
     auth,

@@ -20,6 +20,7 @@ interface Props {
   groupLeaveRequests: Set<string>;
   setGroupJoinRequests: Dispatch<SetStateAction<Record<string, Set<string>>>>;
   setGroupLeaveRequests: Dispatch<SetStateAction<Record<string, Set<string>>>>;
+  setChangesMade: Dispatch<boolean>;
 }
 
 const useStyles = createUseStyles(styles);
@@ -32,7 +33,8 @@ const PickTeam: React.FunctionComponent<Props> = ({
   groupJoinRequests,
   groupLeaveRequests,
   setGroupJoinRequests,
-  setGroupLeaveRequests
+  setGroupLeaveRequests,
+  setChangesMade
 }) => {
   const classes = useStyles({ status: joined ? 'pending' : left ? null : team.status });
 
@@ -51,7 +53,7 @@ const PickTeam: React.FunctionComponent<Props> = ({
   }, [team.status, joined, left]);
 
   return (
-    <div className={classes.team}>
+    <div className={classes.team} data-cypress="pickTeam">
       <div className={classes.teamTitleHeader}>
         <p className={classes.title}>{team.title}</p>
         <AJTag
@@ -72,6 +74,7 @@ const PickTeam: React.FunctionComponent<Props> = ({
           groupLeaveRequests={groupLeaveRequests}
           setGroupJoinRequests={setGroupJoinRequests}
           setGroupLeaveRequests={setGroupLeaveRequests}
+          setChangesMade={setChangesMade}
         />
       )}
     </div>

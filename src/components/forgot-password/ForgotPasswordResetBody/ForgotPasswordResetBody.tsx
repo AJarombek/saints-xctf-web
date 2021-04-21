@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import qs, { ParsedQuery } from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, ValidateForgotPasswordCode } from '../../../redux/types';
@@ -27,7 +27,7 @@ const useStyles = createUseStyles(styles);
 const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
   const classes = useStyles();
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   const dispatch = useDispatch();
@@ -188,7 +188,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
               Request Another Code
             </Link>
             <div className="form-buttons">
-              <AJButton type="text" onClick={(): void => history.push('/')}>
+              <AJButton type="text" onClick={(): void => navigate('/')}>
                 Cancel
               </AJButton>
               <AJButton type="contained" onClick={onVerify} disabled={validatingCode}>
@@ -231,7 +231,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
             <p className={classes.inputTip}>Password must be 8 or more characters long.</p>
             {errorStatus && <p className="errorStatus">{errorStatus}</p>}
             <div className="form-buttons">
-              <AJButton type="text" onClick={(): void => history.push('/')}>
+              <AJButton type="text" onClick={(): void => navigate('/')}>
                 Cancel
               </AJButton>
               <AJButton
@@ -252,11 +252,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
             <h5 className={classes.successDescription} data-cypress="passwordResetSuccessMessage">
               Your password was successfully changed.
             </h5>
-            <p
-              className={classes.signIn}
-              data-cypress="passwordRestSignIn"
-              onClick={(): void => history.push('/signin')}
-            >
+            <p className={classes.signIn} data-cypress="passwordRestSignIn" onClick={(): void => navigate('/signin')}>
               Sign In
             </p>
           </>

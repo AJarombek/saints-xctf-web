@@ -5,13 +5,13 @@
  * @since 1/15/2021
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMember, GroupMeta, Memberships, RootState, TeamMembership, User, Users } from '../../../redux/types';
+import { GroupMember, RootState, TeamMembership, User, Users } from '../../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserMemberships } from '../../../redux/modules/profile';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   user: User;
@@ -22,7 +22,7 @@ const useStyles = createUseStyles(styles);
 const AdminBody: React.FunctionComponent<Props> = ({ user }) => {
   const classes = useStyles();
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const userProfiles: Users = useSelector((state: RootState) => state.profile.users);
@@ -50,10 +50,7 @@ const AdminBody: React.FunctionComponent<Props> = ({ user }) => {
             <h4 className={classes.teamTitle}>{membership.title}</h4>
             <div className={classes.groups}>
               {membership.groups?.map((groupMember: GroupMember) => (
-                <div
-                  className={classes.group}
-                  onClick={(): void => history.push(`admin/group/${groupMember.group_id}`)}
-                >
+                <div className={classes.group} onClick={(): void => navigate(`admin/group/${groupMember.group_id}`)}>
                   <p className={classes.groupTitle}>{groupMember.group_title}</p>
                 </div>
               ))}

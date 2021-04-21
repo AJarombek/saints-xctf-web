@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { setUserFromStorage } from '../redux/modules/auth';
 import { userAuthenticated } from '../utils/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getGroupMemberships } from '../redux/modules/memberships';
 
 /**
@@ -34,7 +34,7 @@ export const useExerciseFilter = (selectedFilters: ExerciseFilters): RangeViewEx
  */
 export const useSignInCheck = (redirect = true): boolean => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const auth = useSelector((state: RootState) => state.auth.auth);
   const users = useSelector((state: RootState) => state.auth.user);
@@ -48,20 +48,20 @@ export const useSignInCheck = (redirect = true): boolean => {
       dispatch(setUserFromStorage(storedUser));
     } else if (!userAuthenticated(users, auth.signedInUser) && !storedUser) {
       if (redirect) {
-        history.push('/');
+        navigate('/');
       }
       setIsSignedIn(false);
     } else {
       setIsSignedIn(true);
     }
-  }, [users, auth.signedInUser, history, dispatch, redirect]);
+  }, [users, auth.signedInUser, navigate, dispatch, redirect]);
 
   return isSignedIn;
 };
 
 export const useAdminCheck = (redirect = true): boolean => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const auth = useSelector((state: RootState) => state.auth.auth);
   const membershipInfo = useSelector((state: RootState) => state.memberships.groups);
@@ -78,14 +78,14 @@ export const useAdminCheck = (redirect = true): boolean => {
         dispatch(getGroupMemberships(auth.signedInUser));
       } else if (!adminCount || membershipInfo.serverError) {
         if (redirect) {
-          history.push('/');
+          navigate('/');
         }
         setIsAdmin(false);
       } else {
         setIsAdmin(true);
       }
     }
-  }, [auth.signedInUser, dispatch, history, membershipInfo, redirect]);
+  }, [auth.signedInUser, dispatch, navigate, membershipInfo, redirect]);
 
   return isAdmin;
 };

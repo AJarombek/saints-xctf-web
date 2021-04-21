@@ -20,6 +20,7 @@ interface Props {
   groupLeaveRequests: Set<string>;
   setGroupJoinRequests: Dispatch<SetStateAction<Record<string, Set<string>>>>;
   setGroupLeaveRequests: Dispatch<SetStateAction<Record<string, Set<string>>>>;
+  setChangesMade: Dispatch<boolean>;
 }
 
 const useStyles = createUseStyles(styles);
@@ -30,7 +31,8 @@ const PickGroups: React.FunctionComponent<Props> = ({
   groupJoinRequests,
   groupLeaveRequests,
   setGroupJoinRequests,
-  setGroupLeaveRequests
+  setGroupLeaveRequests,
+  setChangesMade
 }) => {
   const classes = useStyles();
 
@@ -95,6 +97,7 @@ const PickGroups: React.FunctionComponent<Props> = ({
   };
 
   const onJoinGroup = (groupName: string): void => {
+    setChangesMade(true);
     setGroupJoinRequests((joinRequests) => {
       const newJoinRequests = { ...joinRequests };
       const joinSet = newJoinRequests[teamName];
@@ -113,6 +116,7 @@ const PickGroups: React.FunctionComponent<Props> = ({
   };
 
   const onLeaveGroup = (groupName: string): void => {
+    setChangesMade(true);
     setGroupLeaveRequests((leaveRequests) => {
       const newLeaveRequests = { ...leaveRequests };
       const leaveSet = newLeaveRequests[teamName];
@@ -132,7 +136,7 @@ const PickGroups: React.FunctionComponent<Props> = ({
 
   if (groups) {
     return (
-      <div>
+      <div data-cypress="pickGroups">
         <div className={classes.pickGroups}>
           {(showMore ? allGroups : groups).map((group) => (
             <PickGroup

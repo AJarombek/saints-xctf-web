@@ -20,7 +20,7 @@ import PageTabs from '../../shared/PageTabs';
 import PictureTitle from '../../shared/PictureTitle';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGroup, getGroupMembers } from '../../../redux/modules/groups';
-import { useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import LogFeed from '../../shared/LogFeed';
 import PaginationBar from '../../shared/PaginationBar';
 import { logFeed } from '../../../redux/modules/logs';
@@ -44,7 +44,7 @@ export enum GroupTab {
 const useStyles = createUseStyles(styles);
 
 const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
-  const routeMatch = useRouteMatch();
+  const { id: groupId } = useParams();
 
   const dispatch = useDispatch();
   const logFeeds: LogFeeds = useSelector((state: RootState) => state.logs.feeds);
@@ -54,11 +54,6 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
   const [tab, setTab] = useState<GroupTab>(GroupTab.LOGS);
   const [bucket, setBucket] = useState<string>(null);
   const [page, setPage] = useState(1);
-
-  const groupId = useMemo(() => {
-    const { id: groupId } = routeMatch.params as { id: string };
-    return groupId;
-  }, [routeMatch.params]);
 
   const allMembers = useMemo(() => {
     return membersInfo[groupId]?.items ?? [];
