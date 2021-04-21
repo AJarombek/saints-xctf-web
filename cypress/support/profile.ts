@@ -53,3 +53,27 @@ Cypress.Commands.add(
       .should(weekStart === 'monday' ? 'exist' : 'not.exist');
   }
 );
+
+Cypress.Commands.add(
+  'profileDetailsFormValidation',
+  (
+    firstStatus: ImageInputStatusClass,
+    firstVisible: boolean,
+    lastStatus: ImageInputStatusClass,
+    lastVisible: boolean,
+    emailStatus: ImageInputStatusClass,
+    emailVisible: boolean,
+    saveButtonEnabled: boolean
+  ) => {
+    cy.imageInputValidationCheck('first', firstStatus);
+    cy.getDataCy('firstNameInputTip').should(firstVisible ? 'have.attr' : 'not.have.attr', 'hidden');
+    cy.imageInputValidationCheck('last', lastStatus);
+    cy.getDataCy('lastNameInputTip').should(lastVisible ? 'have.attr' : 'not.have.attr', 'hidden');
+    cy.imageInputValidationCheck('email', emailStatus);
+    cy.getDataCy('emailInputTip').should(emailVisible ? 'have.attr' : 'not.have.attr', 'hidden');
+    cy.get('.aj-contained-button > button')
+      .contains('Save Details')
+      .parent()
+      .should(saveButtonEnabled ? 'not.have.attr' : 'have.attr', 'disabled');
+  }
+);

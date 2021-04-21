@@ -113,5 +113,53 @@ describe('Profile E2E Tests', () => {
     cy.profileAPICalls();
 
     cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.imageInputValidationCheck('first', 'none');
+    cy.getDataCy('firstNameInputTip').should('have.attr', 'hidden');
+    cy.imageInputValidationCheck('last', 'none');
+    cy.getDataCy('lastNameInputTip').should('have.attr', 'hidden');
+    cy.imageInputValidationCheck('email', 'none');
+    cy.getDataCy('emailInputTip').should('have.attr', 'hidden');
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+
+    cy.getImageInput('first').clear();
+
+    cy.imageInputValidationCheck('first', 'warning');
+    cy.getDataCy('firstNameInputTip').should('not.have.attr', 'hidden');
+    cy.imageInputValidationCheck('last', 'none');
+    cy.getDataCy('lastNameInputTip').should('have.attr', 'hidden');
+    cy.imageInputValidationCheck('email', 'none');
+    cy.getDataCy('emailInputTip').should('have.attr', 'hidden');
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+
+    cy.getImageInput('last').clear();
+
+    cy.imageInputValidationCheck('first', 'warning');
+    cy.getDataCy('firstNameInputTip').should('not.have.attr', 'hidden');
+    cy.imageInputValidationCheck('last', 'warning');
+    cy.getDataCy('lastNameInputTip').should('not.have.attr', 'hidden');
+    cy.imageInputValidationCheck('email', 'none');
+    cy.getDataCy('emailInputTip').should('have.attr', 'hidden');
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+
+    cy.getImageInput('email').clear();
+
+    cy.imageInputValidationCheck('first', 'warning');
+    cy.getDataCy('firstNameInputTip').should('not.have.attr', 'hidden');
+    cy.imageInputValidationCheck('last', 'warning');
+    cy.getDataCy('lastNameInputTip').should('not.have.attr', 'hidden');
+    cy.imageInputValidationCheck('email', 'warning');
+    cy.getDataCy('emailInputTip').should('not.have.attr', 'hidden');
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+
+    cy.getImageInput('first').type('Andy');
+
+    cy.imageInputValidationCheck('first', 'none');
+    cy.getDataCy('firstNameInputTip').should('have.attr', 'hidden');
+    cy.imageInputValidationCheck('last', 'warning');
+    cy.getDataCy('lastNameInputTip').should('not.have.attr', 'hidden');
+    cy.imageInputValidationCheck('email', 'warning');
+    cy.getDataCy('emailInputTip').should('not.have.attr', 'hidden');
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
   });
 });

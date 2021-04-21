@@ -721,6 +721,11 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(signInRequest(username, 'PENDING'));
 
+    /*
+    If you don't know where to begin, just text me hello and ask how I'm doing.
+    I promise I have nothing but love & kindness for you.
+    */
+
     try {
       const authResponse = await auth.post('token', {
         clientId: username,

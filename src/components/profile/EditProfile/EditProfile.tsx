@@ -109,7 +109,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
     setEmail(newEmail);
     if (!formDirty) setFormDirty(true);
 
-    if (emailPattern.test(newEmail)) {
+    if (newEmail.length && emailPattern.test(newEmail)) {
       setEmailStatus(ImageInputStatus.NONE);
     } else {
       setEmailStatus(ImageInputStatus.WARNING);
@@ -158,24 +158,6 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const onSubmitDetails = async (): Promise<void> => {
     setUpdatingProfileDetails(true);
 
-    let error = false;
-    if (!firstName) {
-      setFirstNameStatus(ImageInputStatus.FAILURE);
-      error = true;
-    }
-
-    if (!lastName) {
-      setLastNameStatus(ImageInputStatus.FAILURE);
-      error = true;
-    }
-
-    if (!email) {
-      setEmailStatus(ImageInputStatus.FAILURE);
-      error = true;
-    }
-
-    if (error) return;
-
     const newUser: User = {
       username: user.username,
       first: firstName,
@@ -213,7 +195,8 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
           <div
             className={classNames(
               classes.firstNameInput,
-              firstNameStatus === ImageInputStatus.FAILURE && classes.inputError
+              firstNameStatus === ImageInputStatus.FAILURE && classes.inputError,
+              firstNameStatus === ImageInputStatus.WARNING && classes.inputWarning
             )}
           >
             <p className={classes.inputTitle}>First Name*</p>
@@ -238,7 +221,8 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
           <div
             className={classNames(
               classes.lastNameInput,
-              lastNameStatus === ImageInputStatus.FAILURE && classes.inputError
+              lastNameStatus === ImageInputStatus.FAILURE && classes.inputError,
+              lastNameStatus === ImageInputStatus.WARNING && classes.inputWarning
             )}
           >
             <p className={classes.inputTitle}>Last Name*</p>
@@ -263,7 +247,11 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         </div>
         <div className={classes.twoInputs}>
           <div
-            className={classNames(classes.emailInput, emailStatus === ImageInputStatus.FAILURE && classes.inputError)}
+            className={classNames(
+              classes.emailInput,
+              emailStatus === ImageInputStatus.FAILURE && classes.inputError,
+              emailStatus === ImageInputStatus.WARNING && classes.inputWarning
+            )}
           >
             <p className={classes.inputTitle}>Email*</p>
             <ImageInput
@@ -277,7 +265,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               status={emailStatus}
             />
             <p className={classes.inputTip} hidden={emailStatus === ImageInputStatus.NONE} data-cypress="emailInputTip">
-              Email is a required field.
+              A valid email address is required.
             </p>
           </div>
           <div className={classes.classYearInput}>
@@ -361,11 +349,12 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
         <div className={classes.actions}>
           <AJButton
             type="contained"
-            disabled={!formDirty}
+            disabled={updatingProfileDetails || !formDirty || !firstName || !lastName || !email}
             onClick={onSubmitDetails}
             className={classNames(
               classes.submitButton,
-              (updatingProfileDetails || !formDirty) && classes.disabledSubmitButton
+              (updatingProfileDetails || !formDirty || !firstName || !lastName || !email) &&
+                classes.disabledSubmitButton
             )}
           >
             <p>{updatingProfileDetails ? 'Saving Details...' : 'Save Details'}</p>

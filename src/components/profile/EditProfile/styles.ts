@@ -21,6 +21,9 @@ export default {
   inputError: {
     ...Mixins.inputError()
   },
+  inputWarning: {
+    ...Mixins.inputWarning()
+  },
   inputTitle: {
     ...Mixins.inputTitle()
   },
