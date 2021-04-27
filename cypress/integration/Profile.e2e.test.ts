@@ -107,7 +107,7 @@ describe('Profile E2E Tests', () => {
    * https://www.youtube.com/watch?v=vUHDR6Rg3Y4 ✨
    */
 
-  it.only('edit profile details has proper validation on required fields', () => {
+  it('edit profile details has proper validation on required fields', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
     cy.profileAPICalls();
@@ -150,5 +150,26 @@ describe('Profile E2E Tests', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
     cy.profileAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    // You never have to be perfect, you being yourself is so much better.
+
+    cy.route('GET', '/api/v2/teams/search/S/6').as('teamsSearchOne');
+    cy.route('GET', '/api/v2/teams/search/St/6').as('teamsSearchTwo');
+    cy.route('GET', '/api/v2/teams/search/St./6').as('teamsSearchThree');
+    cy.route('GET', '/api/v2/teams/search/St. /6').as('teamsSearchFour');
+    cy.route('GET', '/api/v2/teams/search/St. L/6').as('teamsSearchFive');
+    cy.route('GET', '/api/v2/teams/search/St. La/6').as('teamsSearchSix');
+    cy.route('GET', '/api/v2/teams/search/St. Law/6').as('teamsSearchSeven');
+
+    cy.getImageInput('team').type('St. Law');
+    cy.wait('@teamsSearchOne');
+    cy.wait('@teamsSearchTwo');
+    cy.wait('@teamsSearchThree');
+    cy.wait('@teamsSearchFour');
+    cy.wait('@teamsSearchFive');
+    cy.wait('@teamsSearchSix');
+    cy.wait('@teamsSearchSeven');
   });
 });

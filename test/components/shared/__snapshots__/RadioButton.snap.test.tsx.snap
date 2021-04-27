@@ -4,6 +4,7 @@ exports[`RadioButton Snapshot Tests renders correctly 1`] = `
 Array [
   <div
     className="radio-0-1-1 customClass1"
+    data-cypress="radioButton"
   >
     <label>
       <div
@@ -20,6 +21,7 @@ Array [
         />
         <div
           className="customRadio-0-1-4"
+          data-cypress="customRadio"
         />
       </div>
       <div
@@ -31,6 +33,7 @@ Array [
   </div>,
   <div
     className="radio-0-1-1 customClass2"
+    data-cypress="radioButton"
   >
     <label>
       <div
@@ -47,6 +50,7 @@ Array [
         />
         <div
           className="customRadio-0-1-4"
+          data-cypress="customRadio"
         />
       </div>
       <div

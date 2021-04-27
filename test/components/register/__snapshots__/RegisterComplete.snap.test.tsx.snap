@@ -3,6 +3,7 @@
 exports[`RegisterComplete Snapshot Tests renders correctly 1`] = `
 <div
   className="registerComplete-0-1-1"
+  data-cypress="registerComplete"
 >
   <div
     className="checkedIcon-0-1-2"
@@ -17,7 +18,8 @@ exports[`RegisterComplete Snapshot Tests renders correctly 1`] = `
     You are registered! A welcome email was sent to your email address.
   </h5>
   <p
-    className="enterCode-0-1-4"
+    className="signInLink-0-1-4"
+    data-cypress="signInLink"
     onClick={[Function]}
   >
     Sign In

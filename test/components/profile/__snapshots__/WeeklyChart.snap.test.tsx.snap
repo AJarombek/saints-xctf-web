@@ -3,6 +3,7 @@
 exports[`WeeklyChart Snapshot Tests renders correctly 1`] = `
 <div
   className="weeklyChart-0-1-1"
+  id="weeklyChart"
 >
   <div
     className="filters-0-1-2"

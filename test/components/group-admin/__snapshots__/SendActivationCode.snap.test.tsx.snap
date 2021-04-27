@@ -19,6 +19,7 @@ exports[`SendActivationCode Snapshot Tests renders correctly 1`] = `
     </p>
     <div
       className="sxctf-image-input input-0-1-5"
+      data-cypress="image-input-email"
     >
       <div
         className="no-icon"

@@ -6,7 +6,7 @@ exports[`LogFeed Snapshot Tests renders correctly 1`] = `
   id="logFeed"
 >
   <div
-    className="exerciseLog-0-1-3 exerciseLog-d0-0-1-20 exerciseLog"
+    className="exerciseLog-0-1-3 exerciseLog-d0-0-1-20 exerciseLog average"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
   >
@@ -18,6 +18,7 @@ exports[`LogFeed Snapshot Tests renders correctly 1`] = `
       >
         <a
           className="titleLink-0-1-6"
+          data-cypress="exerciseLogUser"
           href="/profile/andy"
           onClick={[Function]}
         >
@@ -27,6 +28,7 @@ exports[`LogFeed Snapshot Tests renders correctly 1`] = `
         </a>
         <h6
           className="title-0-1-7"
+          data-cypress="exerciseLogTitle"
         >
           Central Park Trails + Strides
         </h6>
@@ -36,11 +38,13 @@ exports[`LogFeed Snapshot Tests renders correctly 1`] = `
       >
         <p
           className="date-0-1-9"
+          data-cypress="exerciseLogDate"
         >
           Mar. 6th, 2021
         </p>
         <p
           className="type-0-1-10"
+          data-cypress="exerciseLogType"
         >
           RUN
         </p>
@@ -52,24 +56,27 @@ exports[`LogFeed Snapshot Tests renders correctly 1`] = `
       <div
         className="dataFields-0-1-12"
       >
-        <p>
+        <p
+          data-cypress="exerciseLogLocation"
+        >
           Location: 
           New York, NY
         </p>
-        <p>
+        <p
+          data-cypress="exerciseLogDistance"
+        >
           6.01
            
           miles
         </p>
-        <p>
+        <p
+          data-cypress="exerciseLogTimePace"
+        >
           39:56
            
           (6:38/mi)
         </p>
       </div>
-      <div
-        className="description-0-1-13"
-      />
     </div>
     <div
       className="commentSection-0-1-14"

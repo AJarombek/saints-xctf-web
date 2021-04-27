@@ -4,7 +4,9 @@ exports[`Flair Snapshot Tests renders correctly 1`] = `
 <div
   className="flair-0-1-1"
 >
-  <p>
+  <p
+    data-cypress="flair"
+  >
     Sample Flair
   </p>
 </div>

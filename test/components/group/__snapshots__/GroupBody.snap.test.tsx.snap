@@ -18,11 +18,13 @@ exports[`GroupBody Snapshot Tests renders correctly 1`] = `
       </figure>
       <h5
         className="title-0-1-7"
+        data-cypress="pictureTitle"
       >
         Alumni
       </h5>
       <div
         className="subTitle-0-1-8"
+        data-cypress="pictureSubTitle"
       >
         Members: 0
       </div>

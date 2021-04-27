@@ -3,6 +3,7 @@
 exports[`StepSlider Snapshot Tests renders correctly 1`] = `
 <div
   className="stepSlider-0-1-1 stepSlider"
+  data-cypress="stepSlider"
   onMouseDown={[Function]}
   onTouchStart={[Function]}
 >

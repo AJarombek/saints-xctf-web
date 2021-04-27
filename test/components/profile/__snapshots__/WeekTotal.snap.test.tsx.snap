@@ -3,6 +3,7 @@
 exports[`WeekTotal Snapshot Tests renders correctly 1`] = `
 <div
   className="weekTotal-0-1-1"
+  data-cypress="weekTotal"
 >
   <div
     className="miles-0-1-2"

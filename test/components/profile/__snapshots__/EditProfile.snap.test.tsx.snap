@@ -3,6 +3,7 @@
 exports[`EditProfile Snapshot Tests renders correctly 1`] = `
 <div
   className="editProfile-0-1-1"
+  id="editProfile"
 >
   <h3
     className="title-0-1-2"
@@ -13,18 +14,19 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
     className="form-0-1-3"
   >
     <div
-      className="twoInputs-0-1-6"
+      className="twoInputs-0-1-7"
     >
       <div
-        className="firstNameInput-0-1-10"
+        className="firstNameInput-0-1-11"
       >
         <p
-          className="inputTitle-0-1-5"
+          className="inputTitle-0-1-6"
         >
           First Name*
         </p>
         <div
           className="sxctf-image-input"
+          data-cypress="image-input-first"
         >
           <div
             className="no-icon"
@@ -33,6 +35,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
           </div>
           <input
             autoComplete=""
+            maxLength={30}
             name="first"
             onChange={[Function]}
             placeholder=""
@@ -47,17 +50,25 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
             </div>
           </div>
         </div>
+        <p
+          className="inputTip-0-1-22"
+          data-cypress="firstNameInputTip"
+          hidden={true}
+        >
+          First name is a required field.
+        </p>
       </div>
       <div
-        className="lastNameInput-0-1-11"
+        className="lastNameInput-0-1-12"
       >
         <p
-          className="inputTitle-0-1-5"
+          className="inputTitle-0-1-6"
         >
           Last Name*
         </p>
         <div
           className="sxctf-image-input"
+          data-cypress="image-input-last"
         >
           <div
             className="no-icon"
@@ -66,6 +77,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
           </div>
           <input
             autoComplete=""
+            maxLength={30}
             name="last"
             onChange={[Function]}
             placeholder=""
@@ -80,21 +92,29 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
             </div>
           </div>
         </div>
+        <p
+          className="inputTip-0-1-22"
+          data-cypress="lastNameInputTip"
+          hidden={true}
+        >
+          Last name is a required field.
+        </p>
       </div>
     </div>
     <div
-      className="twoInputs-0-1-6"
+      className="twoInputs-0-1-7"
     >
       <div
-        className="emailInput-0-1-12"
+        className="emailInput-0-1-13"
       >
         <p
-          className="inputTitle-0-1-5"
+          className="inputTitle-0-1-6"
         >
           Email*
         </p>
         <div
           className="sxctf-image-input"
+          data-cypress="image-input-email"
         >
           <div
             className="no-icon"
@@ -103,6 +123,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
           </div>
           <input
             autoComplete=""
+            maxLength={50}
             name="email"
             onChange={[Function]}
             placeholder=""
@@ -117,17 +138,25 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
             </div>
           </div>
         </div>
+        <p
+          className="inputTip-0-1-22"
+          data-cypress="emailInputTip"
+          hidden={true}
+        >
+          A valid email address is required.
+        </p>
       </div>
       <div
-        className="classYearInput-0-1-13"
+        className="classYearInput-0-1-14"
       >
         <p
-          className="inputTitle-0-1-5"
+          className="inputTitle-0-1-6"
         >
           Class Year
         </p>
         <div
           className="sxctf-image-input"
+          data-cypress="image-input-classYear"
         >
           <div
             className="no-icon"
@@ -136,6 +165,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
           </div>
           <input
             autoComplete=""
+            maxLength={4}
             name="classYear"
             onChange={[Function]}
             placeholder=""
@@ -153,18 +183,19 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="twoInputs-0-1-6"
+      className="twoInputs-0-1-7"
     >
       <div
-        className="locationInput-0-1-14"
+        className="locationInput-0-1-15"
       >
         <p
-          className="inputTitle-0-1-5"
+          className="inputTitle-0-1-6"
         >
           Location
         </p>
         <div
           className="sxctf-image-input"
+          data-cypress="image-input-location"
         >
           <div
             className="no-icon"
@@ -173,6 +204,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
           </div>
           <input
             autoComplete=""
+            maxLength={50}
             name="location"
             onChange={[Function]}
             placeholder=""
@@ -189,15 +221,16 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="favoriteEventInput-0-1-15"
+        className="favoriteEventInput-0-1-16"
       >
         <p
-          className="inputTitle-0-1-5"
+          className="inputTitle-0-1-6"
         >
           Favorite Event
         </p>
         <div
           className="sxctf-image-input"
+          data-cypress="image-input-favoriteEvent"
         >
           <div
             className="no-icon"
@@ -206,6 +239,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
           </div>
           <input
             autoComplete=""
+            maxLength={20}
             name="favoriteEvent"
             onChange={[Function]}
             placeholder=""
@@ -224,14 +258,14 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
     </div>
     <div>
       <p
-        className="inputTitle-0-1-5"
+        className="inputTitle-0-1-6"
       >
         Description
       </p>
       <textarea
-        className="textArea-0-1-21 textArea-0-1-7"
+        className="textArea-0-1-23 textArea-0-1-8"
         disabled={false}
-        maxLength={1000}
+        maxLength={255}
         onChange={[Function]}
         onKeyUp={[Function]}
         placeholder="..."
@@ -240,22 +274,23 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
     </div>
     <div>
       <p
-        className="inputTitle-0-1-5"
+        className="inputTitle-0-1-6"
       >
         Week Start
       </p>
       <div
-        className="radioGroup-0-1-8"
+        className="radioGroup-0-1-9"
       >
         <div
-          className="radio-0-1-22 radio-0-1-9"
+          className="radio-0-1-24 radio-0-1-10"
+          data-cypress="radioButton"
         >
           <label>
             <div
-              className="inputWrapper-0-1-23"
+              className="inputWrapper-0-1-25"
             >
               <input
-                className="input-0-1-24"
+                className="input-0-1-26"
                 defaultChecked={false}
                 id="sunday"
                 name="weekStart"
@@ -264,25 +299,27 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
                 value="sunday"
               />
               <div
-                className="customRadio-0-1-25"
+                className="customRadio-0-1-27"
+                data-cypress="customRadio"
               />
             </div>
             <div
-              className="customLabel-0-1-26"
+              className="customLabel-0-1-28"
             >
               Sunday
             </div>
           </label>
         </div>
         <div
-          className="radio-0-1-22 radio-0-1-9"
+          className="radio-0-1-24 radio-0-1-10"
+          data-cypress="radioButton"
         >
           <label>
             <div
-              className="inputWrapper-0-1-23"
+              className="inputWrapper-0-1-25"
             >
               <input
-                className="input-0-1-24"
+                className="input-0-1-26"
                 defaultChecked={true}
                 id="monday"
                 name="weekStart"
@@ -291,11 +328,12 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
                 value="monday"
               />
               <div
-                className="customRadio-0-1-25"
+                className="customRadio-0-1-27"
+                data-cypress="customRadio"
               />
             </div>
             <div
-              className="customLabel-0-1-26"
+              className="customLabel-0-1-28"
             >
               Monday
             </div>
@@ -304,14 +342,14 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="actions-0-1-16"
+      className="actions-0-1-17"
     >
       <div
-        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonEnabled-2-2-2 submitButton-0-1-17"
-        onClick={[Function]}
+        className="ajBaseButton-2-2-4 ajBaseButtonDisabled-2-2-6 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonDisabled-2-2-3 submitButton-0-1-18 disabledSubmitButton-0-1-20"
+        onClick={null}
       >
         <button
-          disabled={false}
+          disabled={true}
           type="button"
         >
           <p>
@@ -320,7 +358,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
         </button>
       </div>
       <div
-        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-18"
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-19"
         onClick={[Function]}
       >
         <button
@@ -341,10 +379,10 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
     className="form-0-1-3"
   >
     <div
-      className="pictureContainer-0-1-27"
+      className="pictureContainer-0-1-29"
     >
       <figure
-        className="picture-0-1-28"
+        className="picture-0-1-30"
       >
         <img
           alt=""
@@ -352,7 +390,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
         />
       </figure>
       <div
-        className="uploadFile-0-1-35 uploadFileBoxEmpty-0-1-37"
+        className="uploadFile-0-1-37 uploadFileBoxEmpty-0-1-39"
         onClick={[Function]}
         onDragEnter={[Function]}
         onDragLeave={[Function]}
@@ -361,29 +399,29 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
       >
         <input
           accept="image/*"
-          className="hiddenInput-0-1-38"
+          className="hiddenInput-0-1-40"
           onChange={[Function]}
           type="file"
         />
         <p
-          className="uploadText-0-1-39 uploadTextEmpty-0-1-41"
+          className="uploadText-0-1-41 uploadTextEmpty-0-1-43"
         >
           Click here or drag and drop a file.
         </p>
       </div>
     </div>
     <div
-      className="note-0-1-34"
+      className="note-0-1-36"
     >
       <p>
         NOTE: Crop your image into a square for the best results.
       </p>
     </div>
     <div
-      className="actions-0-1-29"
+      className="actions-0-1-31"
     >
       <div
-        className="ajBaseButton-2-2-4 ajBaseButtonDisabled-2-2-6 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonDisabled-2-2-3 submitButton-0-1-30 disabledSubmitButton-0-1-31"
+        className="ajBaseButton-2-2-4 ajBaseButtonDisabled-2-2-6 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonDisabled-2-2-3 submitButton-0-1-32 disabledSubmitButton-0-1-33"
         onClick={null}
       >
         <button
@@ -396,7 +434,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
         </button>
       </div>
       <div
-        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-33"
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-35"
         onClick={[Function]}
       >
         <button
@@ -417,13 +455,14 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
     className="form-0-1-3"
   >
     <div
-      className="pickTeams-0-1-42"
+      className="pickTeams-0-1-44"
     >
       <div
-        className="search-0-1-43"
+        className="search-0-1-45"
       >
         <div
           className="sxctf-image-input"
+          data-cypress="image-input-team"
         >
           <div
             className="no-icon"
@@ -434,7 +473,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
             autoComplete=""
             name="team"
             onChange={[Function]}
-            placeholder="Search Teams"
+            placeholder="Search Teams (eg. SaintsXCTF Alumni)"
             type="text"
           />
           <div>
@@ -446,20 +485,20 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="searchedTeams-0-1-45"
+          className="searchedTeams-0-1-47"
         />
       </div>
       <div />
     </div>
     <div
-      className="actions-0-1-47"
+      className="actions-0-1-49"
     >
       <div
-        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonEnabled-2-2-2 submitButton-0-1-48"
-        onClick={[Function]}
+        className="ajBaseButton-2-2-4 ajBaseButtonDisabled-2-2-6 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonDisabled-2-2-3 submitButton-0-1-50 disabledSubmitButton-0-1-51"
+        onClick={null}
       >
         <button
-          disabled={false}
+          disabled={true}
           type="button"
         >
           <p>
@@ -468,7 +507,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
         </button>
       </div>
       <div
-        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-51"
+        className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-53"
         onClick={[Function]}
       >
         <button

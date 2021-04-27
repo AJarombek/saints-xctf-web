@@ -1,12 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PickGroups Snapshot Tests renders correctly when leaving group 1`] = `
-<div>
+<div
+  data-cypress="pickGroups"
+>
   <div
     className="pickGroups-0-1-1"
   >
     <div
       className="group-0-1-3 group-d0-0-1-6"
+      data-cypress="pickGroup"
     >
       <p
         className="groupTitle-0-1-4"

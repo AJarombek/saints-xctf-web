@@ -3,6 +3,7 @@
 exports[`Day Snapshot Tests renders correctly 1`] = `
 <div
   className="day-0-1-1 currentMonth-0-1-3 feel-0-1-2 feel-d0-0-1-6"
+  data-cypress="day"
 >
   <div>
     <p

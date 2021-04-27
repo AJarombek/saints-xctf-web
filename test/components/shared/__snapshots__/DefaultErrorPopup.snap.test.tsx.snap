@@ -6,6 +6,7 @@ exports[`DefaultErrorPopup Snapshot Tests renders correctly 1`] = `
 >
   <div
     className="alert-0-1-4 alert-d0-0-1-8"
+    data-cypress="alert"
   >
     <p
       className="alertIcon-0-1-5 alertIcon-d1-0-1-9"

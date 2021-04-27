@@ -115,6 +115,7 @@
     "test:snapshot": "jest \"/test/.+/[A-Za-z]+\\.snap\\.test\\.(ts|js)\"",
     "test:image-snapshot": "jest \"/test/.+/[A-Za-z]+\\.image\\.snap\\.test\\.(ts|js)\"",
     "test:snapshot:update": "jest \"/test/.+/[A-Za-z]+\\.snap\\.test\\.(ts|js)\" --updateSnapshot",
+    "test:image-snapshot:update": "jest \"/test/.+/[A-Za-z]+\\.image\\.snap\\.test\\.(ts|js)\" --updateSnapshot",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "cy:run-headless": "cypress run --headless",

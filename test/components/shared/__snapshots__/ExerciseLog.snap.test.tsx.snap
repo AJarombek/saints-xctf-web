@@ -2,7 +2,7 @@
 
 exports[`ExerciseLog Snapshot Tests renders correctly 1`] = `
 <div
-  className="exerciseLog-0-1-1 exerciseLog-d0-0-1-18 exerciseLog"
+  className="exerciseLog-0-1-1 exerciseLog-d0-0-1-18 exerciseLog fairlyGood"
   onMouseLeave={[Function]}
   onMouseOver={[Function]}
 >
@@ -14,6 +14,7 @@ exports[`ExerciseLog Snapshot Tests renders correctly 1`] = `
     >
       <a
         className="titleLink-0-1-4"
+        data-cypress="exerciseLogUser"
         href="/profile/andy"
         onClick={[Function]}
       >
@@ -23,6 +24,7 @@ exports[`ExerciseLog Snapshot Tests renders correctly 1`] = `
       </a>
       <h6
         className="title-0-1-5"
+        data-cypress="exerciseLogTitle"
       >
         Test Log
       </h6>
@@ -32,11 +34,13 @@ exports[`ExerciseLog Snapshot Tests renders correctly 1`] = `
     >
       <p
         className="date-0-1-7"
+        data-cypress="exerciseLogDate"
       >
         Aug. 26th, 2020
       </p>
       <p
         className="type-0-1-8"
+        data-cypress="exerciseLogType"
       >
         RUN
       </p>
@@ -48,16 +52,22 @@ exports[`ExerciseLog Snapshot Tests renders correctly 1`] = `
     <div
       className="dataFields-0-1-10"
     >
-      <p>
+      <p
+        data-cypress="exerciseLogLocation"
+      >
         Location: 
         New York, NY
       </p>
-      <p>
+      <p
+        data-cypress="exerciseLogDistance"
+      >
         6.15
          
         miles
       </p>
-      <p>
+      <p
+        data-cypress="exerciseLogTimePace"
+      >
         41:51
          
         (6:48/mi)
@@ -65,6 +75,7 @@ exports[`ExerciseLog Snapshot Tests renders correctly 1`] = `
     </div>
     <div
       className="description-0-1-11"
+      data-cypress="exerciseLogDescription"
     >
       Reservoir Loop
     </div>

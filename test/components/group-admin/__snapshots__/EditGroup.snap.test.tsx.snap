@@ -39,6 +39,7 @@ exports[`EditGroup Snapshot Tests renders correctly 1`] = `
       >
         <div
           className="radio-0-1-14 radio-0-1-6"
+          data-cypress="radioButton"
         >
           <label>
             <div
@@ -55,6 +56,7 @@ exports[`EditGroup Snapshot Tests renders correctly 1`] = `
               />
               <div
                 className="customRadio-0-1-17"
+                data-cypress="customRadio"
               />
             </div>
             <div
@@ -66,6 +68,7 @@ exports[`EditGroup Snapshot Tests renders correctly 1`] = `
         </div>
         <div
           className="radio-0-1-14 radio-0-1-6"
+          data-cypress="radioButton"
         >
           <label>
             <div
@@ -82,6 +85,7 @@ exports[`EditGroup Snapshot Tests renders correctly 1`] = `
               />
               <div
                 className="customRadio-0-1-17"
+                data-cypress="customRadio"
               />
             </div>
             <div

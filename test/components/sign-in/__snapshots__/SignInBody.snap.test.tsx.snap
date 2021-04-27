@@ -15,6 +15,7 @@ exports[`SignInBody Snapshot Tests renders correctly 1`] = `
         <form>
           <div
             className="sxctf-image-input"
+            data-cypress="image-input-username"
           >
             <img
               alt=""
@@ -37,6 +38,7 @@ exports[`SignInBody Snapshot Tests renders correctly 1`] = `
           </div>
           <div
             className="sxctf-image-input"
+            data-cypress="image-input-password"
           >
             <img
               alt=""

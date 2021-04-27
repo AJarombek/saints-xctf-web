@@ -7,6 +7,7 @@ exports[`renders correctly 1`] = `
   <form>
     <div
       className="sxctf-image-input"
+      data-cypress="image-input-test1"
     >
       <div
         className="no-icon"
@@ -30,6 +31,7 @@ exports[`renders correctly 1`] = `
     </div>
     <div
       className="sxctf-image-input"
+      data-cypress="image-input-test2"
     >
       <div
         className="no-icon"

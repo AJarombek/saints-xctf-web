@@ -3,12 +3,14 @@
 exports[`ProfileDetails Snapshot Tests renders correctly 1`] = `
 <div
   className="profileDetails-0-1-1"
+  id="profileDetails"
 >
   <div
     className="profileDetail-0-1-3 defaultText-0-1-4"
+    data-cypress="memberSince"
   >
     <p>
-      Member Since:
+      Member Since: 
     </p>
     <p>
       Dec 23rd, 2016
@@ -16,11 +18,12 @@ exports[`ProfileDetails Snapshot Tests renders correctly 1`] = `
   </div>
   <div
     className="profileDetail-0-1-3"
+    data-cypress="classYear"
   >
     <p
       className="normal-0-1-6"
     >
-      Class of
+      Class of 
     </p>
     <p
       className="strong-0-1-7"
@@ -30,9 +33,10 @@ exports[`ProfileDetails Snapshot Tests renders correctly 1`] = `
   </div>
   <div
     className="profileDetail-0-1-3 defaultText-0-1-4"
+    data-cypress="favoriteEvent"
   >
     <p>
-      Favorite Event:
+      Favorite Event: 
     </p>
     <p>
       5000m, 8K
@@ -40,6 +44,7 @@ exports[`ProfileDetails Snapshot Tests renders correctly 1`] = `
   </div>
   <div
     className="profileDetail-0-1-3 description-0-1-8"
+    data-cypress="description"
   >
     <p
       className="thin-0-1-5"
@@ -51,46 +56,51 @@ exports[`ProfileDetails Snapshot Tests renders correctly 1`] = `
     className="statisticSections-0-1-2"
   >
     <div
-      className="stats-0-1-9"
+      className="stats-0-1-10"
+      data-cypress="statisticSection"
     >
       <h3>
         Exercise Statistics
       </h3>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           All Time
+           
         </p>
         <p>
           50.00 mi.
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           2021
+           
         </p>
         <p>
           40.00 mi.
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
-          March 2021
+          April 2021
+           
         </p>
         <p>
           30.00 mi.
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           This Week
+           
         </p>
         <p>
           20.00 mi.
@@ -98,46 +108,51 @@ exports[`ProfileDetails Snapshot Tests renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="stats-0-1-9"
+      className="stats-0-1-10"
+      data-cypress="statisticSection"
     >
       <h3>
         Running Statistics
       </h3>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           All Time
+           
         </p>
         <p>
           40.00 mi.
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           2021
+           
         </p>
         <p>
           30.00 mi.
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
-          March 2021
+          April 2021
+           
         </p>
         <p>
           20.00 mi.
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           This Week
+           
         </p>
         <p>
           10.00 mi.
@@ -145,46 +160,51 @@ exports[`ProfileDetails Snapshot Tests renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="stats-0-1-9"
+      className="stats-0-1-10"
+      data-cypress="statisticSection"
     >
       <h3>
         Feel Statistics
       </h3>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           All Time
+           
         </p>
         <p>
           6.50
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           2021
+           
         </p>
         <p>
           6.60
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
-          March 2021
+          April 2021
+           
         </p>
         <p>
           7.10
         </p>
       </div>
       <div
-        className="section-0-1-10"
+        className="section-0-1-11"
       >
         <p>
           This Week
+           
         </p>
         <p>
           7.20

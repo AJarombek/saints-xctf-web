@@ -6,6 +6,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - completed stage 1`] = `
 >
   <div
     className="registerComplete-1-1-1"
+    data-cypress="registerComplete"
   >
     <div
       className="checkedIcon-1-1-2"
@@ -20,7 +21,8 @@ exports[`RegisterBody Snapshot Tests renders correctly - completed stage 1`] = `
       You are registered! A welcome email was sent to your email address.
     </h5>
     <p
-      className="enterCode-1-1-4"
+      className="signInLink-1-1-4"
+      data-cypress="signInLink"
       onClick={[Function]}
     >
       Sign In
@@ -44,6 +46,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - credentials stage 1`] =
     >
       <div
         className="sxctf-image-input"
+        data-cypress="image-input-username"
       >
         <img
           alt=""
@@ -68,7 +71,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - credentials stage 1`] =
       <p
         className="input-tip"
       >
-        Username can only contain Roman characters and numbers.
+        Username can only contain numbers and Roman characters.
       </p>
       <div
         className="sxctf-image-input-set row"
@@ -76,6 +79,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - credentials stage 1`] =
         <form>
           <div
             className="sxctf-image-input"
+            data-cypress="image-input-password"
           >
             <img
               alt=""
@@ -99,6 +103,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - credentials stage 1`] =
           </div>
           <div
             className="sxctf-image-input"
+            data-cypress="image-input-confirm-password"
           >
             <img
               alt=""
@@ -129,6 +134,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - credentials stage 1`] =
       </p>
       <div
         className="sxctf-image-input"
+        data-cypress="image-input-activation-code"
       >
         <img
           alt=""
@@ -200,6 +206,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - personal info stage 1`]
         <form>
           <div
             className="sxctf-image-input"
+            data-cypress="image-input-firstName"
           >
             <div
               className="no-icon"
@@ -224,6 +231,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - personal info stage 1`]
           </div>
           <div
             className="sxctf-image-input"
+            data-cypress="image-input-lastName"
           >
             <div
               className="no-icon"
@@ -250,6 +258,7 @@ exports[`RegisterBody Snapshot Tests renders correctly - personal info stage 1`]
       </div>
       <div
         className="sxctf-image-input"
+        data-cypress="image-input-email"
       >
         <img
           alt=""

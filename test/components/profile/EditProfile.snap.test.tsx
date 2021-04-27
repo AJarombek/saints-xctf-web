@@ -13,6 +13,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { andy } from '../../test-utils/userMocks';
 import EditProfile from '../../../src/components/profile/EditProfile';
+import { MemoryRouter } from 'react-router-dom';
 
 const mockStore = configureStore([thunk]);
 
@@ -40,9 +41,11 @@ describe('EditProfile Snapshot Tests', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <Provider store={store}>
-          <EditProfile user={andy} />
-        </Provider>
+        <MemoryRouter>
+          <Provider store={store}>
+            <EditProfile user={andy} />
+          </Provider>
+        </MemoryRouter>
       )
       .toJSON();
     expect(tree).toMatchSnapshot();

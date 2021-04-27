@@ -13,6 +13,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import PickTeams from '../../../src/components/profile/PickTeams';
 import { saintsXCTFTeamMember } from '../../test-utils/teamMocks';
+import { MemoryRouter } from 'react-router-dom';
 
 const mockStore = configureStore([thunk]);
 
@@ -26,9 +27,11 @@ describe('PickTeams Snapshot Tests', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <Provider store={store}>
-          <PickTeams teams={[saintsXCTFTeamMember]} username="andy" />
-        </Provider>
+        <MemoryRouter>
+          <Provider store={store}>
+            <PickTeams teams={[saintsXCTFTeamMember]} username="andy" />
+          </Provider>
+        </MemoryRouter>
       )
       .toJSON();
     expect(tree).toMatchSnapshot();

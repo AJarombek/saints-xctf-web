@@ -33,6 +33,7 @@ describe('PickGroups Snapshot Tests', () => {
             groupLeaveRequests={new Set()}
             setGroupJoinRequests={null}
             setGroupLeaveRequests={null}
+            setChangesMade={null}
           />
         </Provider>
       )

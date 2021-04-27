@@ -127,6 +127,7 @@ exports[`Register Snapshot Tests renders correctly 1`] = `
           <form>
             <div
               className="sxctf-image-input"
+              data-cypress="image-input-firstName"
             >
               <div
                 className="no-icon"
@@ -151,6 +152,7 @@ exports[`Register Snapshot Tests renders correctly 1`] = `
             </div>
             <div
               className="sxctf-image-input"
+              data-cypress="image-input-lastName"
             >
               <div
                 className="no-icon"
@@ -177,6 +179,7 @@ exports[`Register Snapshot Tests renders correctly 1`] = `
         </div>
         <div
           className="sxctf-image-input"
+          data-cypress="image-input-email"
         >
           <img
             alt=""

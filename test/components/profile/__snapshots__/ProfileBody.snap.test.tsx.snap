@@ -18,11 +18,13 @@ exports[`ProfileBody Snapshot Tests renders correctly 1`] = `
       </figure>
       <h5
         className="title-0-1-4"
+        data-cypress="pictureTitle"
       >
         Andy Jarombek
       </h5>
       <div
         className="subTitle-0-1-5"
+        data-cypress="pictureSubTitle"
       >
         @andy
       </div>
@@ -30,7 +32,9 @@ exports[`ProfileBody Snapshot Tests renders correctly 1`] = `
     <div
       className="flair-0-1-6"
     >
-      <p>
+      <p
+        data-cypress="flair"
+      >
         Sample Flair
       </p>
     </div>

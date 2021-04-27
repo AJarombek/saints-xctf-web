@@ -36,6 +36,7 @@ describe('PickTeam Snapshot Tests', () => {
             groupLeaveRequests={new Set()}
             setGroupJoinRequests={null}
             setGroupLeaveRequests={null}
+            setChangesMade={null}
           />
         </Provider>
       )

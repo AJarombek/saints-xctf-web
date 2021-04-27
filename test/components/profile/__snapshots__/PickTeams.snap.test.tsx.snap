@@ -10,6 +10,7 @@ Array [
     >
       <div
         className="sxctf-image-input"
+        data-cypress="image-input-team"
       >
         <div
           className="no-icon"
@@ -20,7 +21,7 @@ Array [
           autoComplete=""
           name="team"
           onChange={[Function]}
-          placeholder="Search Teams"
+          placeholder="Search Teams (eg. SaintsXCTF Alumni)"
           type="text"
         />
         <div>
@@ -38,6 +39,7 @@ Array [
     <div>
       <div
         className="team-0-1-14"
+        data-cypress="pickTeam"
       >
         <div
           className="teamTitleHeader-0-1-15"
@@ -63,7 +65,9 @@ Array [
             </div>
           </div>
         </div>
-        <div>
+        <div
+          data-cypress="pickGroups"
+        >
           <div
             className="pickGroups-0-1-20"
           />
@@ -89,11 +93,11 @@ Array [
     className="actions-0-1-6"
   >
     <div
-      className="ajBaseButton-2-2-6 ajBaseButtonEnabled-2-2-7 aj-contained-button ajContainedButton-2-2-3 ajContainedButtonEnabled-2-2-4 submitButton-0-1-7"
-      onClick={[Function]}
+      className="ajBaseButton-2-2-6 ajBaseButtonDisabled-2-2-8 aj-contained-button ajContainedButton-2-2-3 ajContainedButtonDisabled-2-2-5 submitButton-0-1-7 disabledSubmitButton-0-1-8"
+      onClick={null}
     >
       <button
-        disabled={false}
+        disabled={true}
         type="button"
       >
         <p>

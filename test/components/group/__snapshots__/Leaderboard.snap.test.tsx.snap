@@ -10,7 +10,7 @@ exports[`Leaderboard Snapshot Tests renders correctly 1`] = `
     <p
       className="filterTitle-0-1-3"
     >
-      Calendar Filters:
+      Leaderboard Filters:
     </p>
     <div
       className="buttonGroup-2-2-1 filterButtons-0-1-8"

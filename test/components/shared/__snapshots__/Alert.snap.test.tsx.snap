@@ -3,6 +3,7 @@
 exports[`Alert Snapshot Tests renders correctly 1`] = `
 <div
   className="alert-0-1-1 alert-d0-0-1-5"
+  data-cypress="alert"
 >
   <p
     className="alertIcon-0-1-2 alertIcon-d1-0-1-6"
