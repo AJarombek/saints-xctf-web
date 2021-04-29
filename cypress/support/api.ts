@@ -17,6 +17,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
   cy.mockTeamGroupsAPI();
+  cy.mockTeamSearchAPI();
   cy.mockUserChangePasswordAPI();
   cy.mockUserFlairAPI();
   cy.mockUserGroupsAPI();
@@ -146,6 +147,48 @@ Cypress.Commands.add('mockTeamGroupsAPI', () => {
   });
 
   teamGroupsSaintsXCTFAlumniRoute.as('teamGroupsSaintsXCTFAlumniRoute');
+});
+
+Cypress.Commands.add('mockTeamSearchAPI', () => {
+  cy.fixture('api/teams/search/get/a.json').as('teamSearchA');
+
+  const teamSearchARoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/teams/search/A/6',
+    response: '@teamSearchA'
+  });
+
+  teamSearchARoute.as('teamSearchARoute');
+
+  cy.fixture('api/teams/search/get/an.json').as('teamSearchAn');
+
+  const teamSearchAnRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/teams/search/An/6',
+    response: '@teamSearchAn'
+  });
+
+  teamSearchAnRoute.as('teamSearchAnRoute');
+
+  cy.fixture('api/teams/search/get/and.json').as('teamSearchAnd');
+
+  const teamSearchAndRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/teams/search/And/6',
+    response: '@teamSearchAnd'
+  });
+
+  teamSearchAndRoute.as('teamSearchAndRoute');
+
+  cy.fixture('api/teams/search/get/andy.json').as('teamSearchAndy');
+
+  const teamSearchAndyRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/teams/search/Andy/6',
+    response: '@teamSearchAndy'
+  });
+
+  teamSearchAndyRoute.as('teamSearchAndyRoute');
 });
 
 Cypress.Commands.add('mockUserAPI', () => {

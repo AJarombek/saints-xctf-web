@@ -1,0 +1,29 @@
+{
+  "self": "/v2/teams/search/A/6",
+  "teams": [
+    {
+      "deleted": false,
+      "description": null,
+      "name": "friends",
+      "picture_name": null,
+      "title": "Andy & Friends",
+      "week_start": null
+    },
+    {
+      "deleted": false,
+      "description": null,
+      "name": "saintsxctf",
+      "picture_name": null,
+      "title": "St. Lawrence Cross Country and Track & Field",
+      "week_start": null
+    },
+    {
+      "deleted": false,
+      "description": null,
+      "name": "saintsxctf_alumni",
+      "picture_name": null,
+      "title": "SaintsXCTF Alumni",
+      "week_start": null
+    }
+  ]
+}

@@ -475,12 +475,40 @@ describe('Profile Mock E2E Tests', () => {
     cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
   });
 
-  it.only('edit profile page has the proper teams and groups selected', () => {
+  it.only('edit profile page can search and add teams', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
     cy.get('.tabs p').contains('Edit Profile').click();
     cy.getDataCy('pickTeam').should('exist');
     cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().should('have.attr', 'disabled');
+    cy.getDataCy('searchedTeam').should('not.exist');
+
+    cy.getDataCy('pickTeamTitle').should('have.length', 2);
+    cy.getDataCy('pickTeamTitle').eq(0).should('contain.text', 'St. Lawrence Cross Country and Track & Field');
+    cy.getDataCy('pickTeamTitle').eq(1).should('contain.text', 'SaintsXCTF Alumni');
+
+    cy.getImageInput('team').type('A');
+    cy.wait('@teamSearchARoute');
+
+    cy.getDataCy('searchedTeam').should('have.length', 1);
+
+    cy.getImageInput('team').type('ndy');
+    cy.wait('@teamSearchAnRoute');
+    cy.wait('@teamSearchAndRoute');
+    cy.wait('@teamSearchAndyRoute');
+
+    cy.getDataCy('searchedTeam').should('have.length', 1);
+    cy.getDataCy('searchedTeam').eq(0).click();
+
+    cy.getDataCy('pickTeamTitle').should('have.length', 3);
+    cy.getDataCy('pickTeamTitle').eq(0).should('contain.text', 'St. Lawrence Cross Country and Track & Field');
+    cy.getDataCy('pickTeamTitle').eq(1).should('contain.text', 'SaintsXCTF Alumni');
+    cy.getDataCy('pickTeamTitle').eq(2).should('contain.text', 'Andy & Friends');
+  });
+
+  it.skip('edit profile page has the proper teams and groups selected', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
   });
 });

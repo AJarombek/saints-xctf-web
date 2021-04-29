@@ -223,7 +223,12 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
           />
           <div className={classes.searchedTeams}>
             {searchedTeamMatches.map((team: TeamInfo) => (
-              <div className={classes.searchedTeam} key={team.name} onClick={(): void => onAddSearchedTeam(team)}>
+              <div
+                className={classes.searchedTeam}
+                data-cypress="searchedTeam"
+                key={team.name}
+                onClick={(): void => onAddSearchedTeam(team)}
+              >
                 <p>{team.title}</p>
                 <p>&#x4c;</p>
               </div>

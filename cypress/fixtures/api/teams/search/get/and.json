@@ -1,0 +1,13 @@
+{
+  "self": "/v2/teams/search/And/6",
+  "teams": [
+    {
+      "deleted": false,
+      "description": null,
+      "name": "friends",
+      "picture_name": null,
+      "title": "Andy & Friends",
+      "week_start": null
+    }
+  ]
+}

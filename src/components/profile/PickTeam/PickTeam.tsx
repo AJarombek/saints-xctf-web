@@ -55,7 +55,9 @@ const PickTeam: React.FunctionComponent<Props> = ({
   return (
     <div className={classes.team} data-cypress="pickTeam">
       <div className={classes.teamTitleHeader}>
-        <p className={classes.title}>{team.title}</p>
+        <p className={classes.title} data-cypress="pickTeamTitle">
+          {team.title}
+        </p>
         <AJTag
           content={
             <div className={classes.memberTagContent} onClick={(): void => onMembershipTagClick(team)}>
