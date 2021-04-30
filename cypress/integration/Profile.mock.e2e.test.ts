@@ -488,6 +488,10 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamTitle').eq(0).should('contain.text', 'St. Lawrence Cross Country and Track & Field');
     cy.getDataCy('pickTeamTitle').eq(1).should('contain.text', 'SaintsXCTF Alumni');
 
+    cy.getDataCy('pickTeamMemberTag').should('have.length', 2);
+    cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
+    cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
+
     cy.getImageInput('team').type('A');
     cy.wait('@teamSearchARoute');
 
@@ -498,6 +502,8 @@ describe('Profile Mock E2E Tests', () => {
     cy.wait('@teamSearchAndRoute');
     cy.wait('@teamSearchAndyRoute');
 
+    // Clicking on one of the searched teams adds it to the page.  It will not add the user to the team, so the save
+    // button will still be disabled.
     cy.getDataCy('searchedTeam').should('have.length', 1);
     cy.getDataCy('searchedTeam').eq(0).click();
 
@@ -505,6 +511,113 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamTitle').eq(0).should('contain.text', 'St. Lawrence Cross Country and Track & Field');
     cy.getDataCy('pickTeamTitle').eq(1).should('contain.text', 'SaintsXCTF Alumni');
     cy.getDataCy('pickTeamTitle').eq(2).should('contain.text', 'Andy & Friends');
+
+    cy.getDataCy('pickTeamMemberTag').should('have.length', 3);
+    cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
+    cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
+    cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().should('have.attr', 'disabled');
+
+    cy.getDataCy('teamMembershipModal').should('not.exist');
+
+    // View the leave team modal for a team that the user is a member of.
+    cy.getDataCy('pickTeamMemberTag').eq(0).click();
+
+    cy.getDataCy('teamMembershipModal').should('exist');
+    cy.getDataCy('teamMembershipModal')
+      .find('p')
+      .should(
+        'contain.text',
+        'Are you sure you want to leave the team St. Lawrence Cross Country and Track & Field? ' +
+          'You will also be removed from the following groups:'
+      );
+    cy.getDataCy('groupsLeaving').should('contain.text', 'Alumni');
+
+    cy.getDataCy('teamMembershipModal').find('.aj-text-button').should('contain.text', 'CANCEL');
+    cy.getDataCy('teamMembershipModal').find('.aj-contained-button').should('contain.text', 'LEAVE');
+
+    cy.getDataCy('teamMembershipModal').find('.aj-text-button').click();
+    cy.getDataCy('teamMembershipModal').should('not.exist');
+
+    // View the leave team modal for a team where the user's membership is pending.
+    cy.getDataCy('pickTeamMemberTag').eq(1).click();
+
+    cy.getDataCy('teamMembershipModal').should('exist');
+    cy.getDataCy('teamMembershipModal')
+      .find('p')
+      .should('contain.text', 'Are you sure you want to leave the team SaintsXCTF Alumni?');
+    cy.getDataCy('groupsLeaving').should('not.exist');
+
+    cy.getDataCy('teamMembershipModal').find('.aj-text-button').should('contain.text', 'CANCEL');
+    cy.getDataCy('teamMembershipModal').find('.aj-contained-button').should('contain.text', 'LEAVE');
+
+    cy.getDataCy('teamMembershipModal').find('.aj-text-button').click();
+    cy.getDataCy('teamMembershipModal').should('not.exist');
+
+    // View the leave team modal for a team the user isn't a member of.
+    cy.getDataCy('pickTeamMemberTag').eq(2).click();
+
+    cy.getDataCy('teamMembershipModal').should('exist');
+    cy.getDataCy('teamMembershipModal')
+      .find('p')
+      .should('contain.text', 'Are you sure you want to request to join the team Andy & Friends?');
+
+    cy.getDataCy('teamMembershipModal').find('.aj-text-button').should('contain.text', 'CANCEL');
+    cy.getDataCy('teamMembershipModal').find('.aj-contained-button').should('contain.text', 'JOIN');
+
+    cy.getDataCy('teamMembershipModal').find('.aj-text-button').click();
+    cy.getDataCy('teamMembershipModal').should('not.exist');
+
+    // Leave teams.
+    cy.getDataCy('pickTeamMemberTag').should('have.length', 3);
+    cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
+    cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
+    cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    cy.getDataCy('pickTeamMemberTag').eq(0).click();
+    cy.getDataCy('teamMembershipModal').should('exist');
+    cy.getDataCy('teamMembershipModal').find('.aj-contained-button').click();
+
+    cy.getDataCy('pickTeamMemberTag').should('have.length', 3);
+    cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Non-Member');
+    cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
+    cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    cy.getDataCy('pickTeamMemberTag').eq(1).click();
+    cy.getDataCy('teamMembershipModal').should('exist');
+    cy.getDataCy('teamMembershipModal').find('.aj-contained-button').click();
+
+    cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Non-Member');
+    cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Non-Member');
+    cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    // Undo Leaving teams.
+    cy.getDataCy('pickTeamMemberTag').eq(0).click();
+    cy.getDataCy('teamMembershipModal').should('not.exist');
+
+    cy.getDataCy('pickTeamMemberTag').should('have.length', 3);
+    cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
+    cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Non-Member');
+    cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    cy.getDataCy('pickTeamMemberTag').eq(1).click();
+    cy.getDataCy('teamMembershipModal').should('not.exist');
+
+    cy.getDataCy('pickTeamMemberTag').should('have.length', 3);
+    cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
+    cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
+    cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    // Join a team.
+    cy.getDataCy('pickTeamMemberTag').eq(2).click();
+    cy.getDataCy('teamMembershipModal').should('exist');
+    cy.getDataCy('teamMembershipModal').find('.aj-contained-button').click();
+
+    cy.getDataCy('pickTeamMemberTag').should('have.length', 3);
+    cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
+    cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
+    cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Pending');
   });
 
   it.skip('edit profile page has the proper teams and groups selected', () => {

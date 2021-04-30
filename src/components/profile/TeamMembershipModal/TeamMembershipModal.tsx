@@ -65,7 +65,7 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
   if (showJoining || showLeaving) {
     return (
       <AJModal onClickBackground={onClose}>
-        <div className={classes.body}>
+        <div className={classes.body} data-cypress="teamMembershipModal">
           <div className={classes.title}>
             {showJoining && (
               <p>
@@ -78,9 +78,11 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
                   Are you sure you want to leave the team <b>{team?.title}</b>?{' '}
                   {!!team?.groups.length && 'You will also be removed from the following groups:'}
                 </p>
-                <p>
-                  <b>{groupsLeavingList?.reduce((acc, groupTitle) => `${acc}${groupTitle}, `, '').slice(0, -2)}</b>
-                </p>
+                {!!groupsLeavingList?.length && (
+                  <p data-cypress="groupsLeaving">
+                    <b>{groupsLeavingList?.reduce((acc, groupTitle) => `${acc}${groupTitle}, `, '').slice(0, -2)}</b>
+                  </p>
+                )}
               </>
             )}
           </div>
