@@ -475,7 +475,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
   });
 
-  it.only('edit profile page can search and add teams', () => {
+  it('edit profile page can search and add teams', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -491,6 +491,11 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamMemberTag').should('have.length', 2);
     cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
     cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
 
     cy.getImageInput('team').type('A');
     cy.wait('@teamSearchARoute');
@@ -516,6 +521,12 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
     cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
     cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
+    cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').should('not.exist');
 
     cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().should('have.attr', 'disabled');
 
@@ -575,6 +586,12 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
     cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
 
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
+    cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').should('not.exist');
+
     cy.getDataCy('pickTeamMemberTag').eq(0).click();
     cy.getDataCy('teamMembershipModal').should('exist');
     cy.getDataCy('teamMembershipModal').find('.aj-contained-button').click();
@@ -584,6 +601,11 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
     cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
 
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('not.exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
+    cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').should('not.exist');
+
     cy.getDataCy('pickTeamMemberTag').eq(1).click();
     cy.getDataCy('teamMembershipModal').should('exist');
     cy.getDataCy('teamMembershipModal').find('.aj-contained-button').click();
@@ -591,6 +613,10 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Non-Member');
     cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Non-Member');
     cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('not.exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('not.exist');
+    cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').should('not.exist');
 
     // Undo Leaving teams.
     cy.getDataCy('pickTeamMemberTag').eq(0).click();
@@ -601,6 +627,11 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Non-Member');
     cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
 
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('not.exist');
+    cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').should('not.exist');
+
     cy.getDataCy('pickTeamMemberTag').eq(1).click();
     cy.getDataCy('teamMembershipModal').should('not.exist');
 
@@ -608,6 +639,12 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
     cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
     cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Non-Member');
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
+    cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').should('not.exist');
 
     // Join a team.
     cy.getDataCy('pickTeamMemberTag').eq(2).click();
@@ -618,6 +655,39 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeamMemberTag').eq(0).should('contain.text', 'Member - User');
     cy.getDataCy('pickTeamMemberTag').eq(1).should('contain.text', 'Pending');
     cy.getDataCy('pickTeamMemberTag').eq(2).should('contain.text', 'Pending');
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
+    cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
+  });
+
+  it.only('able to view more groups and join/leave them', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('loadMoreGroups').click();
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 5);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
+
+    cy.getDataCy('pickTeam').eq(1).findDataCy('loadMoreGroups').click();
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 5);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
   });
 
   it.skip('edit profile page has the proper teams and groups selected', () => {

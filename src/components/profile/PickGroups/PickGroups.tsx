@@ -150,12 +150,12 @@ const PickGroups: React.FunctionComponent<Props> = ({
         </div>
         <div className={classes.showMore}>
           {showMore ? (
-            <div onClick={onShowLess}>
+            <div onClick={onShowLess} data-cypress="showLessGroups">
               <p>&#x0042;</p>
               <p>Show Less</p>
             </div>
           ) : (
-            <div onClick={onLoadMore}>
+            <div onClick={onLoadMore} data-cypress="loadMoreGroups">
               <p>&#x0043;</p>
               <p>Load More</p>
             </div>

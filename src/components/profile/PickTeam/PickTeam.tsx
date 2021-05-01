@@ -72,7 +72,7 @@ const PickTeam: React.FunctionComponent<Props> = ({
           className={classes.memberTag}
         />
       </div>
-      {((team.user && team.status) || joined) && (
+      {((team.user && team.status && !left) || joined) && (
         <PickGroups
           groups={team.groups}
           teamName={team.team_name}
