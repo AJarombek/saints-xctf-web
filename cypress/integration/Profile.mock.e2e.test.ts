@@ -664,7 +664,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeam').eq(2).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
   });
 
-  it.only('able to view more groups and join/leave them', () => {
+  it('able to view more groups and join/leave them', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -672,6 +672,8 @@ describe('Profile Mock E2E Tests', () => {
 
     cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
     cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('contain.text', 'Alumni');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('have.class', 'groupAccepted');
     cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
     cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
 
@@ -679,6 +681,16 @@ describe('Profile Mock E2E Tests', () => {
 
     cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
     cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 5);
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('contain.text', 'Alumni');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('have.class', 'groupAccepted');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(1).should('contain.text', "Men's Track & Field");
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(1).should('have.class', 'groupNonMember');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(2).should('contain.text', "Men's Cross Country");
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(2).should('have.class', 'groupNonMember');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(3).should('contain.text', "Women's Track & Field");
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(3).should('have.class', 'groupNonMember');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(4).should('contain.text', "Women's Cross Country");
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(4).should('have.class', 'groupNonMember');
     cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
     cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 0);
 
@@ -686,12 +698,78 @@ describe('Profile Mock E2E Tests', () => {
 
     cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
     cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 5);
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('contain.text', 'Alumni');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('have.class', 'groupAccepted');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(1).should('contain.text', "Men's Track & Field");
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(1).should('have.class', 'groupNonMember');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(2).should('contain.text', "Men's Cross Country");
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(2).should('have.class', 'groupNonMember');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(3).should('contain.text', "Women's Track & Field");
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(3).should('have.class', 'groupNonMember');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(4).should('contain.text', "Women's Cross Country");
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(4).should('have.class', 'groupNonMember');
     cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
     cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).should('contain.text', 'Cross Country Alumni');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).should('have.class', 'groupNonMember');
+
+    // Click to join a group.
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
+    cy.getDataCy('groupMembershipModal').find('.aj-contained-button').click();
+
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).should('contain.text', 'Cross Country Alumni');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).should('have.class', 'groupPending');
+
+    // Click to leave group, click second time to cancel.
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
+    cy.getDataCy('groupMembershipModal').find('.aj-contained-button').click();
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 5);
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('contain.text', 'Alumni');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('have.class', 'groupNonMember');
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 5);
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('contain.text', 'Alumni');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('have.class', 'groupAccepted');
+
+    // Cancelling has no impact on the group membership.
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
+    cy.getDataCy('groupMembershipModal').find('.aj-text-button').click();
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 5);
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('contain.text', 'Alumni');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('have.class', 'groupAccepted');
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('showLessGroups').click();
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('contain.text', 'Alumni');
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).should('have.class', 'groupAccepted');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').should('exist');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroups').findDataCy('pickGroup').should('have.length', 1);
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).should('contain.text', 'Cross Country Alumni');
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).should('have.class', 'groupPending');
   });
 
-  it.skip('edit profile page has the proper teams and groups selected', () => {
+  it.only('able to save the teams and groups selected', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+    cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().should('have.attr', 'disabled');
+
+    cy.getDataCy('pickTeam').eq(1).findDataCy('loadMoreGroups').click();
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
+    cy.getDataCy('groupMembershipModal').find('.aj-contained-button').click();
+
+    cy.get('.aj-contained-button > button')
+      .contains('Save Teams & Groups')
+      .parent()
+      .should('not.have.attr', 'disabled');
+    cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().click();
   });
 });

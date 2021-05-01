@@ -4,7 +4,7 @@
  * @since 12/7/2020
  */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, memo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
@@ -24,7 +24,14 @@ const PickGroup: React.FunctionComponent<Props> = ({ group, onMembershipClick, j
   const classes = useStyles({ status: joined ? 'pending' : left ? null : group.status });
 
   const pickGroupClass = useMemo(() => {
-    return joined ? 'Pending' : left ? 'NonMember' : group.status.charAt(0).toUpperCase() + group.status.slice(1);
+    const status = joined
+      ? 'Pending'
+      : left
+      ? 'NonMember'
+      : group.status
+      ? group.status.charAt(0).toUpperCase() + group.status.slice(1)
+      : 'NonMember';
+    return `group${status}`;
   }, [group.status, joined, left]);
 
   return (
@@ -38,4 +45,4 @@ const PickGroup: React.FunctionComponent<Props> = ({ group, onMembershipClick, j
   );
 };
 
-export default PickGroup;
+export default memo(PickGroup);

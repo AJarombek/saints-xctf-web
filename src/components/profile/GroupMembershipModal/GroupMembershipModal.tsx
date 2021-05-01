@@ -44,7 +44,7 @@ const GroupMembershipsModal: React.FunctionComponent<Props> = ({
   if (showJoining || showLeaving) {
     return (
       <AJModal onClickBackground={onClose}>
-        <div className={classes.body}>
+        <div className={classes.body} data-cypress="groupMembershipModal">
           <div className={classes.title}>
             {showJoining && (
               <p>
