@@ -771,5 +771,13 @@ describe('Profile Mock E2E Tests', () => {
       .parent()
       .should('not.have.attr', 'disabled');
     cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().click();
+    cy.wait('@userMembershipsJoinXCAlumniGroupRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Team and group memberships updated!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
   });
 });

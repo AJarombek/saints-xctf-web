@@ -172,4 +172,18 @@ describe('Profile E2E Tests', () => {
     cy.wait('@teamsSearchSix');
     cy.wait('@teamsSearchSeven');
   });
+
+  it.skip('prompts users if they have unsaved profile detail changes', () => {
+    cy.visit('/profile/andy');
+  });
+
+  it.skip('prompts users if they have unsaved profile picture changes', () => {
+    cy.visit('/profile/andy');
+  });
+
+  it.skip('prompts users if they have unsaved team/group membership changes', () => {
+    cy.visit('/profile/andy');
+  });
+
+  it.skip('able to view other user profiles', () => {});
 });

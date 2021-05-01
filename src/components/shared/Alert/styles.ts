@@ -21,7 +21,7 @@ export default {
         : type === 'info'
         ? color(Colors.spotPaletteBlue).lighten(0.65).hex()
         : type === 'success'
-        ? color(Colors.statusSuccess).lighten(0.65).hex()
+        ? color(Colors.statusSuccess).lighten(1.1).hex()
         : color(Colors.statusFailure).lighten(0.65).hex()
   },
   alertIcon: {

@@ -49,6 +49,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   const [groupLeaveRequests, setGroupLeaveRequests] = useState<Record<string, Set<string>>>({});
 
   const [saving, setSaving] = useState(false);
+  const [updatingMembershipsSuccess, setUpdatingMembershipsSuccess] = useState(false);
   const [errorUpdatingMemberships, setErrorUpdatingMemberships] = useState(false);
   const [errorGetMemberships, setErrorGetMemberships] = useState(false);
 
@@ -195,6 +196,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
       setErrorUpdatingMemberships(false);
       await getUpdatedMemberships();
       setChangesMade(false);
+      setUpdatingMembershipsSuccess(true);
     } else {
       setErrorUpdatingMemberships(true);
     }
@@ -301,6 +303,14 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
           }
           onClose={(): void => setErrorGetMemberships(false)}
           type="error"
+        />
+      )}
+      {updatingMembershipsSuccess && (
+        <AlertPopup
+          message="Team and group memberships updated!"
+          onClose={(): void => setUpdatingMembershipsSuccess(false)}
+          type="success"
+          autoCloseInterval={3000}
         />
       )}
     </>

@@ -314,6 +314,16 @@ Cypress.Commands.add('mockUserMembershipsAPI', () => {
   });
 
   userMembershipsAndyRoute.as('userMembershipsAndyRoute');
+
+  cy.fixture('api/users/memberships/put/joinXCAlumniGroup.json').as('userMembershipsJoinXCAlumniGroup');
+
+  const userMembershipsJoinXCAlumniGroupRoute = cy.route({
+    method: 'PUT',
+    url: '**/api/v2/users/memberships/andy',
+    response: '@userMembershipsJoinXCAlumniGroup'
+  });
+
+  userMembershipsJoinXCAlumniGroupRoute.as('userMembershipsJoinXCAlumniGroupRoute');
 });
 
 Cypress.Commands.add('mockUserNotificationsAPI', () => {
