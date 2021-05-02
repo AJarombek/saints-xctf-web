@@ -8,6 +8,7 @@
  */
 
 import axios from 'axios';
+import * as moment from 'moment';
 import ImageInputStatusClass = Cypress.ImageInputStatusClass;
 
 Cypress.Commands.add('setUserInLocalStorage', () => {
@@ -38,6 +39,14 @@ Cypress.Commands.add('setUserInLocalStorage', () => {
 });
 
 Cypress.Commands.add('setTokenInLocalStorage', () => {
+  const existingToken = Cypress.env('authToken');
+  const existingTokenExpiration = Cypress.env('authTokenExpiration');
+
+  if (existingToken && moment(existingTokenExpiration) > moment()) {
+    localStorage.setItem('token', existingToken);
+    return;
+  }
+
   const instance = axios.create({
     baseURL: Cypress.env('authUrl'),
     timeout: 5000
@@ -49,7 +58,13 @@ Cypress.Commands.add('setTokenInLocalStorage', () => {
       clientSecret: Cypress.env('SXCTF_PASSWORD')
     })
     .then((res) => {
-      localStorage.setItem('token', res.data.result);
+      const token = res.data.result;
+      Cypress.env('authToken', token);
+
+      const tokenExpiration = moment().add('45', 'minutes').format();
+      Cypress.env('authTokenExpiration', tokenExpiration);
+
+      localStorage.setItem('token', token);
     });
 });
 

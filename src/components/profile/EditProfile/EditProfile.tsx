@@ -49,13 +49,20 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const [favoriteEvent, setFavoriteEvent] = useState('');
   const [description, setDescription] = useState('');
   const [weekStart, setWeekStart] = useState('');
-  const [formDirty, setFormDirty] = useState(false);
+
+  const [detailChangesMade, setDetailChangesMade] = useState(false);
+  const [pictureChangesMade, setPictureChangesMade] = useState(false);
+  const [membershipChangesMade, setMembershipChangesMade] = useState(false);
 
   const [updatingProfileDetails, setUpdatingProfileDetails] = useState(false);
   const [errorUpdatingProfileDetails, setErrorUpdatingProfileDetails] = useState(false);
   const [profileDetailsUpdateSuccess, setProfileDetailsUpdateSuccess] = useState(false);
 
-  usePrompt('You have unsaved changes to your profile.  Are you sure you want to navigate away?', formDirty);
+  const changesMade = useMemo(() => {
+    return detailChangesMade || pictureChangesMade || membershipChangesMade;
+  }, [detailChangesMade, membershipChangesMade, pictureChangesMade]);
+
+  usePrompt('You have unsaved changes to your profile.  Are you sure you want to navigate away?', changesMade);
 
   useEffect(() => {
     if (userProfiles && user?.username && !userProfiles[user.username]?.memberships) {
@@ -83,7 +90,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const onFirstNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const first = e.target.value;
     setFirstName(first);
-    if (!formDirty) setFormDirty(true);
+    if (!detailChangesMade) setDetailChangesMade(true);
 
     if (first.length) {
       setFirstNameStatus(ImageInputStatus.NONE);
@@ -95,7 +102,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const onLastNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const last = e.target.value;
     setLastName(last);
-    if (!formDirty) setFormDirty(true);
+    if (!detailChangesMade) setDetailChangesMade(true);
 
     if (last.length) {
       setLastNameStatus(ImageInputStatus.NONE);
@@ -107,7 +114,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const onEmailChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const newEmail = e.target.value;
     setEmail(newEmail);
-    if (!formDirty) setFormDirty(true);
+    if (!detailChangesMade) setDetailChangesMade(true);
 
     if (newEmail.length && emailPattern.test(newEmail)) {
       setEmailStatus(ImageInputStatus.NONE);
@@ -118,28 +125,28 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
 
   const onClassYearChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setClassYear(+e.target.value);
-    if (!formDirty) setFormDirty(true);
+    if (!detailChangesMade) setDetailChangesMade(true);
   };
 
   const onLocationChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setLocation(e.target.value);
-    if (!formDirty) setFormDirty(true);
+    if (!detailChangesMade) setDetailChangesMade(true);
   };
 
   const onFavoriteEventChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFavoriteEvent(e.target.value);
-    if (!formDirty) setFormDirty(true);
+    if (!detailChangesMade) setDetailChangesMade(true);
   };
 
   const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setDescription(e.target.value);
-    if (!formDirty) setFormDirty(true);
+    if (!detailChangesMade) setDetailChangesMade(true);
   };
 
   const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.checked) {
       setWeekStart(e.target.value);
-      if (!formDirty) setFormDirty(true);
+      if (!detailChangesMade) setDetailChangesMade(true);
     }
   };
 
@@ -152,7 +159,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
     setFavoriteEvent(userDetails.favorite_event);
     setDescription(userDetails.description);
     setWeekStart(userDetails.week_start);
-    setFormDirty(false);
+    setDetailChangesMade(false);
   };
 
   const onSubmitDetails = async (): Promise<void> => {
@@ -350,12 +357,16 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
           <AJButton
             type="contained"
             disabled={
-              updatingProfileDetails || !formDirty || !firstName || !lastName || emailStatus !== ImageInputStatus.NONE
+              updatingProfileDetails ||
+              !detailChangesMade ||
+              !firstName ||
+              !lastName ||
+              emailStatus !== ImageInputStatus.NONE
             }
             onClick={onSubmitDetails}
             className={classNames(
               classes.submitButton,
-              (updatingProfileDetails || !formDirty || !firstName || !lastName || !email) &&
+              (updatingProfileDetails || !detailChangesMade || !firstName || !lastName || !email) &&
                 classes.disabledSubmitButton
             )}
           >
@@ -374,11 +385,17 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
           profilePictureUrl={
             user.profilepic_name ? `/uasset/profile/${user.username}/${user.profilepic_name}` : '/asset/saintsxctf.png'
           }
+          setPictureChangesMade={setPictureChangesMade}
         />
       </div>
       <h3 className={classes.title}>Teams and Groups</h3>
       <div className={classes.form}>
-        <PickTeams username={user.username} userDetails={userProfile} />
+        <PickTeams
+          username={user.username}
+          userDetails={userProfile}
+          membershipChangesMade={membershipChangesMade}
+          setMembershipChangesMade={setMembershipChangesMade}
+        />
       </div>
       {errorUpdatingProfileDetails && (
         <DefaultErrorPopup

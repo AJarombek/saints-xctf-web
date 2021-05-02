@@ -2,6 +2,8 @@
   "baseUrl": "http://localhost:8090",
   "ignoreTestFiles": ["*.md"],
   "env": {
-    "authUrl": "http://localhost:5001"
+    "authUrl": "http://localhost:5001",
+    "authToken": null,
+    "authTokenExpiration": "1995-01-01T00:00:00-00:00"
   }
 }

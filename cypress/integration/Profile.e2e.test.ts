@@ -173,7 +173,28 @@ describe('Profile E2E Tests', () => {
     cy.wait('@teamsSearchSeven');
   });
 
-  it.only('prompts users if they have unsaved profile detail changes', () => {
+  it('prompts users if they have unsaved profile detail changes (confirm prompt)', () => {
+    cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.getImageInput('location').clear().type('New York, NY');
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('not.have.attr', 'disabled');
+
+    cy.get('.dashboardButton').click();
+
+    // Confirm the prompt, navigating to the dashboard page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to your profile.  Are you sure you want to navigate away?');
+      return true;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
+
+  it('prompts users if they have unsaved profile detail changes (cancel prompt)', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
     cy.profileAPICalls();
@@ -192,6 +213,30 @@ describe('Profile E2E Tests', () => {
     });
 
     cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+  });
+
+  it.only('prompts users if they have unsaved profile picture changes', () => {
+    cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
+  });
+
+  it('prompts users if they have unsaved team/group membership changes (confirm prompt)', () => {
+    cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.getDataCy('pickTeam').eq(1).findDataCy('loadMoreGroups').click();
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
+    cy.getDataCy('groupMembershipModal').find('.aj-contained-button').click();
+    cy.get('.aj-contained-button > button')
+      .contains('Save Teams & Groups')
+      .parent()
+      .should('not.have.attr', 'disabled');
+
+    cy.get('.dashboardButton').click();
 
     // Confirm the prompt, navigating to the dashboard page.
     cy.on('window:confirm', (str) => {
@@ -202,16 +247,33 @@ describe('Profile E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 
-  it.skip('prompts users if they have unsaved profile picture changes', () => {
+  it('prompts users if they have unsaved team/group membership changes (cancel prompt)', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
     cy.profileAPICalls();
-  });
 
-  it.skip('prompts users if they have unsaved team/group membership changes', () => {
-    cy.visit('/profile/andy');
-    cy.profileRouteAliases();
-    cy.profileAPICalls();
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.getDataCy('pickTeam').eq(1).findDataCy('loadMoreGroups').click();
+    cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
+    cy.getDataCy('groupMembershipModal').find('.aj-contained-button').click();
+    cy.get('.aj-contained-button > button')
+      .contains('Save Teams & Groups')
+      .parent()
+      .should('not.have.attr', 'disabled');
+
+    cy.get('.dashboardButton').click();
+
+    // Cancel the confirm prompt, staying on the profile page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to your profile.  Are you sure you want to navigate away?');
+      return false;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+
+    // Have the sniffles so unfortunately didn't travel to CT to race this morning.  Might race next Saturday before my
+    // vaccine Sunday.
   });
 
   it.skip('able to view other user profiles', () => {});

@@ -6,7 +6,7 @@
  * @since 12/4/2020
  */
 
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import {
@@ -21,7 +21,6 @@ import {
 import PickTeam from '../PickTeam';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { useDispatch, useSelector } from 'react-redux';
-import { usePrompt } from 'react-router-dom';
 import { searchTeams } from '../../../redux/modules/teams';
 import classNames from 'classnames';
 import TeamMembershipsModal from '../TeamMembershipModal';
@@ -34,11 +33,18 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 interface Props {
   username: string;
   userDetails: UserDetails;
+  membershipChangesMade: boolean;
+  setMembershipChangesMade: Dispatch<SetStateAction<boolean>>;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) => {
+const PickTeams: React.FunctionComponent<Props> = ({
+  username,
+  userDetails,
+  membershipChangesMade,
+  setMembershipChangesMade
+}) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
@@ -51,7 +57,6 @@ const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) =>
   const [showMembershipModificationModal, setShowMembershipModificationModal] = useState(false);
   const [membershipModificationTeam, setMembershipModificationTeam] = useState<TeamMembership>(null);
 
-  const [changesMade, setChangesMade] = useState(false);
   const [teamJoinRequests, setTeamJoinRequests] = useState(new Set<string>());
   const [teamLeaveRequests, setTeamLeaveRequests] = useState(new Set<string>());
   const [groupJoinRequests, setGroupJoinRequests] = useState<Record<string, Set<string>>>({});
@@ -61,8 +66,6 @@ const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) =>
   const [updatingMembershipsSuccess, setUpdatingMembershipsSuccess] = useState(false);
   const [errorUpdatingMemberships, setErrorUpdatingMemberships] = useState(false);
   const [errorGetMemberships, setErrorGetMemberships] = useState(false);
-
-  usePrompt('You have unsaved changes to your profile.  Are you sure you want to navigate away?', changesMade);
 
   useEffect(() => {
     setTeams(userDetails.memberships?.teams);
@@ -123,7 +126,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) =>
   };
 
   const onJoinTeam = (teamName: string): void => {
-    setChangesMade(true);
+    setMembershipChangesMade(true);
     setTeamJoinRequests((joinSet) => {
       const newJoinSet = new Set<string>(joinSet);
       newJoinSet.add(teamName);
@@ -134,7 +137,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) =>
   };
 
   const onLeaveTeam = (teamName: string): void => {
-    setChangesMade(true);
+    setMembershipChangesMade(true);
     setTeamLeaveRequests((leaveSet) => {
       const newLeaveSet = new Set<string>(leaveSet);
       newLeaveSet.add(teamName);
@@ -210,7 +213,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) =>
     if (result) {
       setErrorUpdatingMemberships(false);
       await getUpdatedMemberships();
-      setChangesMade(false);
+      setMembershipChangesMade(false);
       setTeamLeaveRequests(new Set());
       setTeamJoinRequests(new Set());
       setGroupLeaveRequests({});
@@ -228,7 +231,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) =>
     setTeamLeaveRequests(new Set<string>());
     setGroupJoinRequests({});
     setGroupLeaveRequests({});
-    setChangesMade(false);
+    setMembershipChangesMade(false);
   };
 
   return (
@@ -268,7 +271,7 @@ const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) =>
               groupLeaveRequests={groupLeaveRequests[team.team_name] ?? new Set<string>()}
               setGroupJoinRequests={setGroupJoinRequests}
               setGroupLeaveRequests={setGroupLeaveRequests}
-              setChangesMade={setChangesMade}
+              setChangesMade={setMembershipChangesMade}
             />
           ))}
         </div>
@@ -287,9 +290,12 @@ const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) =>
       <div className={classes.actions}>
         <AJButton
           type="contained"
-          disabled={saving || !changesMade}
+          disabled={saving || !membershipChangesMade}
           onClick={onSaveMemberships}
-          className={classNames(classes.submitButton, (saving || !changesMade) && classes.disabledSubmitButton)}
+          className={classNames(
+            classes.submitButton,
+            (saving || !membershipChangesMade) && classes.disabledSubmitButton
+          )}
         >
           <p>{saving ? 'Saving Teams & Groups...' : 'Save Teams & Groups'}</p>
           {saving && <LoadingSpinner className={classes.buttonSpinner} />}

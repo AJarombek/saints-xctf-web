@@ -4,7 +4,7 @@
  * @since 1/27/2021
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { RootState, UploadingProfilePicture, UserMeta } from '../../../redux/types';
 import UploadPicture from '../../shared/UploadPicture';
 import { putUser, uploadProfilePicture } from '../../../redux/modules/profile';
@@ -14,9 +14,10 @@ import { timeout } from '../../../utils/timeout';
 interface Props {
   user: UserMeta;
   profilePictureUrl: string;
+  setPictureChangesMade: Dispatch<SetStateAction<boolean>>;
 }
 
-const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePictureUrl }) => {
+const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePictureUrl, setPictureChangesMade }) => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.profile.users);
 
@@ -33,6 +34,14 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
   const [errorUploading, setErrorUploading] = useState(false);
   const [errorUpdatingUser, setErrorUpdatingUser] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!!file) {
+      setPictureChangesMade(true);
+    } else {
+      setPictureChangesMade(false);
+    }
+  }, [file, setPictureChangesMade]);
 
   const updateUser = async (): Promise<void> => {
     const newUser = { ...user };
