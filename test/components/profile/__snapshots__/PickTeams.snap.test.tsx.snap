@@ -38,22 +38,24 @@ Array [
     </div>
     <div>
       <div
-        className="team-0-1-14"
+        className="team-0-1-17"
         data-cypress="pickTeam"
       >
         <div
-          className="teamTitleHeader-0-1-15"
+          className="teamTitleHeader-0-1-18"
         >
           <p
-            className="title-0-1-16"
+            className="title-0-1-19"
+            data-cypress="pickTeamTitle"
           >
             SaintsXCTF Cross Country and Track & Field
           </p>
           <div
-            className="ajTag-2-2-1 ajTag-d0-2-2-2 aj-tag memberTag-0-1-17 memberTag-d0-0-1-19"
+            className="ajTag-2-2-10 ajTag-d0-2-2-11 aj-tag memberTag-0-1-20 memberTag-d0-0-1-22"
           >
             <div
-              className="memberTagContent-0-1-18"
+              className="memberTagContent-0-1-21"
+              data-cypress="pickTeamMemberTag"
               onClick={[Function]}
             >
               <p>
@@ -69,12 +71,13 @@ Array [
           data-cypress="pickGroups"
         >
           <div
-            className="pickGroups-0-1-20"
+            className="pickGroups-0-1-23"
           />
           <div
-            className="showMore-0-1-21"
+            className="showMore-0-1-24"
           >
             <div
+              data-cypress="loadMoreGroups"
               onClick={[Function]}
             >
               <p>
@@ -93,7 +96,7 @@ Array [
     className="actions-0-1-6"
   >
     <div
-      className="ajBaseButton-2-2-6 ajBaseButtonDisabled-2-2-8 aj-contained-button ajContainedButton-2-2-3 ajContainedButtonDisabled-2-2-5 submitButton-0-1-7 disabledSubmitButton-0-1-8"
+      className="ajBaseButton-2-2-4 ajBaseButtonDisabled-2-2-6 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonDisabled-2-2-3 submitButton-0-1-7 disabledSubmitButton-0-1-8"
       onClick={null}
     >
       <button
@@ -106,7 +109,7 @@ Array [
       </button>
     </div>
     <div
-      className="ajBaseButton-2-2-6 ajBaseButtonEnabled-2-2-7 aj-text-button ajTextButton-2-2-9 ajTextButtonEnabled-2-2-10 cancelButton-0-1-10"
+      className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-7 ajTextButtonEnabled-2-2-8 cancelButton-0-1-10"
       onClick={[Function]}
     >
       <button

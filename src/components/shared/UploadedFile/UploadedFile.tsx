@@ -43,7 +43,7 @@ const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploading
   }, []);
 
   return (
-    <div className={classNames(classes.uploadedFile, className)}>
+    <div className={classNames(classes.uploadedFile, className)} data-cypress="uploadedFile">
       <p>{file?.name}</p>
       <div className={classes.progressSection}>
         <ProgressBar

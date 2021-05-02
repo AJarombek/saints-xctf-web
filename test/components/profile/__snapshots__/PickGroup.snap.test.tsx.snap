@@ -2,7 +2,7 @@
 
 exports[`PickGroup Snapshot Tests renders correctly when group joined 1`] = `
 <div
-  className="group-0-1-1 group-d0-0-1-4"
+  className="group-0-1-1 group-d0-0-1-4 groupPending"
   data-cypress="pickGroup"
 >
   <p
@@ -28,7 +28,7 @@ exports[`PickGroup Snapshot Tests renders correctly when group joined 1`] = `
 
 exports[`PickGroup Snapshot Tests renders correctly when group left 1`] = `
 <div
-  className="group-0-1-1 group-d2-0-1-6"
+  className="group-0-1-1 group-d2-0-1-6 groupNonMember"
   data-cypress="pickGroup"
 >
   <p

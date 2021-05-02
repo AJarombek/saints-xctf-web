@@ -69,6 +69,7 @@ const UploadFile: React.FunctionComponent<Props> = ({ setFile, className }) => {
         !!dragCounter ? classes.uploadFileBoxDrag : classes.uploadFileBoxEmpty,
         className
       )}
+      data-cypress="uploadFile"
       onDragEnter={handleDragEnter}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}

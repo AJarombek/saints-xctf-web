@@ -215,10 +215,54 @@ describe('Profile E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
   });
 
-  it.only('prompts users if they have unsaved profile picture changes', () => {
+  it.only('prompts users if they have unsaved profile picture changes (confirm prompt)', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
     cy.profileAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+    cy.getDataCy('uploadFile').attachFile('images/snow-race-profile-picture.jpg', { subjectType: 'drag-n-drop' });
+
+    cy.getDataCy('uploadFile').should('not.exist');
+    cy.getDataCy('uploadedFile').should('exist');
+
+    cy.get('.dashboardButton').click();
+
+    // Confirm the prompt, navigating to the dashboard page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to your profile.  Are you sure you want to navigate away?');
+      return true;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
+
+  it.only('prompts users if they have unsaved profile picture changes (cancel prompt)', () => {
+    cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+    cy.getDataCy('uploadFile').attachFile('images/snow-race-profile-picture.jpg', { subjectType: 'drag-n-drop' });
+
+    cy.getDataCy('uploadFile').should('not.exist');
+    cy.getDataCy('uploadedFile').should('exist');
+
+    cy.get('.dashboardButton').click();
+
+    // Cancel the confirm prompt, staying on the profile page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to your profile.  Are you sure you want to navigate away?');
+      return false;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
   });
 
   it('prompts users if they have unsaved team/group membership changes (confirm prompt)', () => {

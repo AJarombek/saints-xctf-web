@@ -27,7 +27,7 @@ describe('UploadProfilePicture Snapshot Tests', () => {
     const tree = renderer
       .create(
         <Provider store={store}>
-          <UploadProfilePicture user={andy} profilePictureUrl="picture.png" />
+          <UploadProfilePicture user={andy} profilePictureUrl="picture.png" setPictureChangesMade={null} />
         </Provider>
       )
       .toJSON();

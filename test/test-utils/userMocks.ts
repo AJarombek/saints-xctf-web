@@ -4,7 +4,8 @@
  * @since 3/4/2021
  */
 
-import { User } from '../../src/redux/types';
+import { User, UserDetails } from '../../src/redux/types';
+import {saintsXCTFTeamMember} from "./teamMocks";
 
 export const andy: User = {
   activation_code: 'abc123',
@@ -24,4 +25,11 @@ export const andy: User = {
   subscribed: null,
   username: 'andy',
   week_start: 'monday'
+};
+
+export const andyUserDetails: UserDetails = {
+  user: andy,
+  memberships: {
+    teams: [saintsXCTFTeamMember]
+  }
 };

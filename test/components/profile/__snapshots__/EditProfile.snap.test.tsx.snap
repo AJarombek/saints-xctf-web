@@ -391,6 +391,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
       </figure>
       <div
         className="uploadFile-0-1-37 uploadFileBoxEmpty-0-1-39"
+        data-cypress="uploadFile"
         onClick={[Function]}
         onDragEnter={[Function]}
         onDragLeave={[Function]}
@@ -414,7 +415,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
       className="note-0-1-36"
     >
       <p>
-        NOTE: Crop your image into a square for the best results.
+        NOTE: For best results, crop your image into a square.
       </p>
     </div>
     <div

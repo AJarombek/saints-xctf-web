@@ -16,7 +16,7 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
     <h2
       data-cypress="currentMonth"
     >
-      April 2021
+      May 2021
     </h2>
     <p
       data-cypress="nextMonth"
@@ -68,6 +68,42 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
           <p
             className="dayOfMonth-0-1-9"
           >
+            26
+          </p>
+        </div>
+      </div>
+      <div
+        className="day-0-1-6"
+        data-cypress="day"
+      >
+        <div>
+          <p
+            className="dayOfMonth-0-1-9"
+          >
+            27
+          </p>
+        </div>
+      </div>
+      <div
+        className="day-0-1-6"
+        data-cypress="day"
+      >
+        <div>
+          <p
+            className="dayOfMonth-0-1-9"
+          >
+            28
+          </p>
+        </div>
+      </div>
+      <div
+        className="day-0-1-6"
+        data-cypress="day"
+      >
+        <div>
+          <p
+            className="dayOfMonth-0-1-9"
+          >
             29
           </p>
         </div>
@@ -81,18 +117,6 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
             className="dayOfMonth-0-1-9"
           >
             30
-          </p>
-        </div>
-      </div>
-      <div
-        className="day-0-1-6"
-        data-cypress="day"
-      >
-        <div>
-          <p
-            className="dayOfMonth-0-1-9"
-          >
-            31
           </p>
         </div>
       </div>
@@ -121,6 +145,26 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
         </div>
       </div>
       <div
+        className="weekTotal-0-1-18"
+        data-cypress="weekTotal"
+      >
+        <div
+          className="miles-0-1-19"
+        >
+          <p>
+            0.00
+          </p>
+          <p>
+            Miles
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      className="week-0-1-5"
+      data-cypress="week"
+    >
+      <div
         className="day-0-1-6 currentMonth-0-1-8"
         data-cypress="day"
       >
@@ -144,26 +188,6 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
           </p>
         </div>
       </div>
-      <div
-        className="weekTotal-0-1-18"
-        data-cypress="weekTotal"
-      >
-        <div
-          className="miles-0-1-19"
-        >
-          <p>
-            0.00
-          </p>
-          <p>
-            Miles
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      className="week-0-1-5"
-      data-cypress="week"
-    >
       <div
         className="day-0-1-6 currentMonth-0-1-8"
         data-cypress="day"
@@ -225,6 +249,26 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
         </div>
       </div>
       <div
+        className="weekTotal-0-1-18"
+        data-cypress="weekTotal"
+      >
+        <div
+          className="miles-0-1-19"
+        >
+          <p>
+            0.00
+          </p>
+          <p>
+            Miles
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      className="week-0-1-5"
+      data-cypress="week"
+    >
+      <div
         className="day-0-1-6 currentMonth-0-1-8"
         data-cypress="day"
       >
@@ -248,26 +292,6 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
           </p>
         </div>
       </div>
-      <div
-        className="weekTotal-0-1-18"
-        data-cypress="weekTotal"
-      >
-        <div
-          className="miles-0-1-19"
-        >
-          <p>
-            0.00
-          </p>
-          <p>
-            Miles
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      className="week-0-1-5"
-      data-cypress="week"
-    >
       <div
         className="day-0-1-6 currentMonth-0-1-8"
         data-cypress="day"
@@ -329,6 +353,26 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
         </div>
       </div>
       <div
+        className="weekTotal-0-1-18"
+        data-cypress="weekTotal"
+      >
+        <div
+          className="miles-0-1-19"
+        >
+          <p>
+            0.00
+          </p>
+          <p>
+            Miles
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      className="week-0-1-5"
+      data-cypress="week"
+    >
+      <div
         className="day-0-1-6 currentMonth-0-1-8"
         data-cypress="day"
       >
@@ -352,26 +396,6 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
           </p>
         </div>
       </div>
-      <div
-        className="weekTotal-0-1-18"
-        data-cypress="weekTotal"
-      >
-        <div
-          className="miles-0-1-19"
-        >
-          <p>
-            0.00
-          </p>
-          <p>
-            Miles
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      className="week-0-1-5"
-      data-cypress="week"
-    >
       <div
         className="day-0-1-6 currentMonth-0-1-8"
         data-cypress="day"
@@ -433,6 +457,26 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
         </div>
       </div>
       <div
+        className="weekTotal-0-1-18"
+        data-cypress="weekTotal"
+      >
+        <div
+          className="miles-0-1-19"
+        >
+          <p>
+            0.00
+          </p>
+          <p>
+            Miles
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      className="week-0-1-5"
+      data-cypress="week"
+    >
+      <div
         className="day-0-1-6 currentMonth-0-1-8"
         data-cypress="day"
       >
@@ -456,26 +500,6 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
           </p>
         </div>
       </div>
-      <div
-        className="weekTotal-0-1-18"
-        data-cypress="weekTotal"
-      >
-        <div
-          className="miles-0-1-19"
-        >
-          <p>
-            0.00
-          </p>
-          <p>
-            Miles
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      className="week-0-1-5"
-      data-cypress="week"
-    >
       <div
         className="day-0-1-6 currentMonth-0-1-8"
         data-cypress="day"
@@ -537,6 +561,38 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
         </div>
       </div>
       <div
+        className="weekTotal-0-1-18"
+        data-cypress="weekTotal"
+      >
+        <div
+          className="miles-0-1-19"
+        >
+          <p>
+            0.00
+          </p>
+          <p>
+            Miles
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      className="week-0-1-5"
+      data-cypress="week"
+    >
+      <div
+        className="day-0-1-6 currentMonth-0-1-8"
+        data-cypress="day"
+      >
+        <div>
+          <p
+            className="dayOfMonth-0-1-9"
+          >
+            31
+          </p>
+        </div>
+      </div>
+      <div
         className="day-0-1-6"
         data-cypress="day"
       >
@@ -560,26 +616,6 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
           </p>
         </div>
       </div>
-      <div
-        className="weekTotal-0-1-18"
-        data-cypress="weekTotal"
-      >
-        <div
-          className="miles-0-1-19"
-        >
-          <p>
-            0.00
-          </p>
-          <p>
-            Miles
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
-      className="week-0-1-5"
-      data-cypress="week"
-    >
       <div
         className="day-0-1-6"
         data-cypress="day"
@@ -625,42 +661,6 @@ exports[`Calendar Snapshot Tests renders correctly 1`] = `
             className="dayOfMonth-0-1-9"
           >
             6
-          </p>
-        </div>
-      </div>
-      <div
-        className="day-0-1-6"
-        data-cypress="day"
-      >
-        <div>
-          <p
-            className="dayOfMonth-0-1-9"
-          >
-            7
-          </p>
-        </div>
-      </div>
-      <div
-        className="day-0-1-6"
-        data-cypress="day"
-      >
-        <div>
-          <p
-            className="dayOfMonth-0-1-9"
-          >
-            8
-          </p>
-        </div>
-      </div>
-      <div
-        className="day-0-1-6"
-        data-cypress="day"
-      >
-        <div>
-          <p
-            className="dayOfMonth-0-1-9"
-          >
-            9
           </p>
         </div>
       </div>

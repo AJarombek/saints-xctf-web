@@ -11,6 +11,7 @@ exports[`GroupMembershipModal Snapshot Tests renders correctly when joining grou
   >
     <div
       className="body-0-1-1"
+      data-cypress="groupMembershipModal"
     >
       <div
         className="title-0-1-2"

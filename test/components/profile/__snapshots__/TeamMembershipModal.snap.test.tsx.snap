@@ -11,6 +11,7 @@ exports[`TeamMembershipsModal Snapshot Tests renders correctly 1`] = `
   >
     <div
       className="body-0-1-1"
+      data-cypress="teamMembershipModal"
     >
       <div
         className="title-0-1-2"
@@ -22,11 +23,6 @@ exports[`TeamMembershipsModal Snapshot Tests renders correctly 1`] = `
           </b>
           ?
            
-        </p>
-        <p>
-          <b>
-            
-          </b>
         </p>
       </div>
       <div

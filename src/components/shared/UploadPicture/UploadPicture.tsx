@@ -69,7 +69,7 @@ const UploadPicture: React.FunctionComponent<Props> = ({
         {!!file && <UploadedFile setFile={setFile} file={file} uploadingPicture={uploadingPicture} />}
       </div>
       <div className={classes.note}>
-        <p>NOTE: Crop your image into a square for the best results.</p>
+        <p>NOTE: For best results, crop your image into a square.</p>
       </div>
       <div className={classes.actions}>
         <AJButton

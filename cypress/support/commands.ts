@@ -7,6 +7,8 @@
  * @since 7/18/2020
  */
 
+import 'cypress-file-upload';
+
 import axios from 'axios';
 import * as moment from 'moment';
 import ImageInputStatusClass = Cypress.ImageInputStatusClass;

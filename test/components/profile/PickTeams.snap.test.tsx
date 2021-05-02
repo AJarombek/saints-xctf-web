@@ -12,8 +12,8 @@ import { emptyStore } from '../../test-utils/storeMocks';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import PickTeams from '../../../src/components/profile/PickTeams';
-import { saintsXCTFTeamMember } from '../../test-utils/teamMocks';
 import { MemoryRouter } from 'react-router-dom';
+import { andyUserDetails } from '../../test-utils/userMocks';
 
 const mockStore = configureStore([thunk]);
 
@@ -29,7 +29,12 @@ describe('PickTeams Snapshot Tests', () => {
       .create(
         <MemoryRouter>
           <Provider store={store}>
-            <PickTeams teams={[saintsXCTFTeamMember]} username="andy" />
+            <PickTeams
+              username="andy"
+              userDetails={andyUserDetails}
+              membershipChangesMade={false}
+              setMembershipChangesMade={null}
+            />
           </Provider>
         </MemoryRouter>
       )

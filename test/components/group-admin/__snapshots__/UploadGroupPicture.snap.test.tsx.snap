@@ -15,6 +15,7 @@ Array [
     </figure>
     <div
       className="uploadFile-0-1-9 uploadFileBoxEmpty-0-1-11"
+      data-cypress="uploadFile"
       onClick={[Function]}
       onDragEnter={[Function]}
       onDragLeave={[Function]}
@@ -38,7 +39,7 @@ Array [
     className="note-0-1-8"
   >
     <p>
-      NOTE: Crop your image into a square for the best results.
+      NOTE: For best results, crop your image into a square.
     </p>
   </div>,
   <div

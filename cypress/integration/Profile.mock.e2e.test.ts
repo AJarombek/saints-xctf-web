@@ -791,4 +791,8 @@ describe('Profile Mock E2E Tests', () => {
     cy.wait(4000);
     cy.getDataCy('alert').should('not.exist');
   });
+
+  it.skip('able to update profile pictures', () => {});
+
+  it.skip('shows an error if updating a profile picture fails', () => {});
 });

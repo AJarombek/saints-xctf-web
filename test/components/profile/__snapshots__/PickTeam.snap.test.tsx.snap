@@ -10,6 +10,7 @@ exports[`PickTeam Snapshot Tests renders correctly 1`] = `
   >
     <p
       className="title-0-1-3"
+      data-cypress="pickTeamTitle"
     >
       SaintsXCTF Cross Country and Track & Field
     </p>
@@ -18,6 +19,7 @@ exports[`PickTeam Snapshot Tests renders correctly 1`] = `
     >
       <div
         className="memberTagContent-0-1-5"
+        data-cypress="pickTeamMemberTag"
         onClick={[Function]}
       >
         <p>
@@ -39,6 +41,7 @@ exports[`PickTeam Snapshot Tests renders correctly 1`] = `
       className="showMore-0-1-8"
     >
       <div
+        data-cypress="loadMoreGroups"
         onClick={[Function]}
       >
         <p>

@@ -3,6 +3,7 @@
 exports[`UploadedFile Snapshot Tests renders correctly 1`] = `
 <div
   className="uploadedFile-0-1-1 customClass"
+  data-cypress="uploadedFile"
 >
   <p />
   <div
