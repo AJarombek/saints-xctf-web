@@ -215,7 +215,7 @@ describe('Profile E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
   });
 
-  it.only('prompts users if they have unsaved profile picture changes (confirm prompt)', () => {
+  it('prompts users if they have unsaved profile picture changes (confirm prompt)', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
     cy.profileAPICalls();
@@ -240,7 +240,7 @@ describe('Profile E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 
-  it.only('prompts users if they have unsaved profile picture changes (cancel prompt)', () => {
+  it('prompts users if they have unsaved profile picture changes (cancel prompt)', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
     cy.profileAPICalls();
@@ -320,5 +320,35 @@ describe('Profile E2E Tests', () => {
     // vaccine Sunday.
   });
 
-  it.skip('able to view other user profiles', () => {});
+  it.only('able to view other user profiles', () => {
+    cy.visit('/profile/Fish');
+
+    cy.route('GET', '/api/v2/users/groups/andy').as('userGroupsAndy');
+
+    cy.route('GET', '/api/v2/users/Fish').as('userFish');
+    cy.route('GET', '/api/v2/users/memberships/Fish').as('userMembershipsFish');
+    cy.route('GET', '/api/v2/users/flair/Fish').as('userFlairFish');
+    cy.route('GET', '/api/v2/log_feed/user/Fish/10/0').as('logFeedPageOneFish');
+
+    cy.wait('@userGroupsAndy');
+    cy.wait('@userFish');
+    cy.wait('@userMembershipsFish');
+    cy.wait('@userFlairFish');
+    cy.wait('@logFeedPageOneFish');
+
+    // Other profiles don't have the "Edit Profile" tab.
+    cy.get('.tabs p').contains('Exercise Logs').should('exist');
+    cy.get('.tabs p').contains('Monthly Calendar').should('exist');
+    cy.get('.tabs p').contains('Weekly Chart').should('exist');
+    cy.get('.tabs p').contains('Details').should('exist');
+    cy.get('.tabs p').contains('Edit Profile').should('not.exist');
+
+    cy.get('.tabs p').contains('Monthly Calendar').click();
+    cy.get('.tabs p').contains('Weekly Chart').click();
+
+    cy.route('GET', '/api/v2/users/statistics/Fish').as('userStatisticsFish');
+    cy.get('.tabs p').contains('Details').click();
+
+    cy.wait('@userStatisticsFish');
+  });
 });

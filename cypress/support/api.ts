@@ -376,6 +376,7 @@ Cypress.Commands.add('mockAuthTokenAPI', () => {
 Cypress.Commands.add('mockFnAPI', () => {
   cy.server();
   cy.mockWelcomeEmailFnAPI();
+  cy.mockUassetUserFnAPI();
 });
 
 Cypress.Commands.add('mockWelcomeEmailFnAPI', () => {
@@ -389,4 +390,17 @@ Cypress.Commands.add('mockWelcomeEmailFnAPI', () => {
   });
 
   welcomeEmailSuccessFnRoute.as('welcomeEmailSuccessFnRoute');
+});
+
+Cypress.Commands.add('mockUassetUserFnAPI', () => {
+  cy.fixture('fn/uasset/user/success.json').as('uassetUserSuccessFn');
+
+  const uassetUserSuccessFnRoute = cy.route({
+    method: 'POST',
+    url: '**/fn/uasset/user',
+    response: '@uassetUserSuccessFn',
+    status: 200
+  });
+
+  uassetUserSuccessFnRoute.as('uassetUserSuccessFnRoute');
 });

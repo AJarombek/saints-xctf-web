@@ -63,7 +63,9 @@ const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploading
           </p>
         )}
         {!uploadingPicture?.isFetching && !!uploadingPicture?.serverError && (
-          <p className={classes.uploadFailed}>Picture Upload Failed!</p>
+          <p className={classes.uploadFailed} data-cypress="uploadedFileError">
+            Picture Upload Failed!
+          </p>
         )}
       </div>
     </div>

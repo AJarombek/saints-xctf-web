@@ -45,9 +45,13 @@ Cypress.Commands.add('setTokenInLocalStorage', () => {
   const existingTokenExpiration = Cypress.env('authTokenExpiration');
 
   if (existingToken && moment(existingTokenExpiration) > moment()) {
+    cy.log('Using existing token');
+    cy.log(`Existing token expires ${existingTokenExpiration}`);
     localStorage.setItem('token', existingToken);
     return;
   }
+
+  cy.log('Retrieving new auth token');
 
   const instance = axios.create({
     baseURL: Cypress.env('authUrl'),

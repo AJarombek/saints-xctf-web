@@ -141,5 +141,12 @@ declare namespace Cypress {
          * @example mockWelcomeEmailFnAPI()
          */
         mockWelcomeEmailFnAPI(): void;
+
+        /**
+         * Return static JSON files defined in the fixtures directory when a Function API call is made to a
+         * '/uasset/user' endpoint.
+         * @example mockUassetUserFnAPI()
+         */
+        mockUassetUserFnAPI(): void;
     }
 }

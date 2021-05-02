@@ -45,7 +45,7 @@ const Alert: React.FunctionComponent<Props> = ({ message, type, closeable, onClo
       <p className={classes.alertIcon}>{alertIcon}</p>
       <div className={classes.message}>{message}</div>
       {closeable && (
-        <p className={classes.closeIcon} onClick={onClose}>
+        <p className={classes.closeIcon} data-cypress="alertCloseIcon" onClick={onClose}>
           &#x4d;
         </p>
       )}

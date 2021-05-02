@@ -792,7 +792,94 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('alert').should('not.exist');
   });
 
-  it.skip('able to update profile pictures', () => {});
+  it('able to update profile pictures', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
 
-  it.skip('shows an error if updating a profile picture fails', () => {});
+    cy.get('.tabs p').contains('Edit Profile').click();
+    cy.get('.aj-contained-button > button').contains('Save Picture').parent().should('have.attr', 'disabled');
+
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+
+    cy.getDataCy('uploadFile').attachFile('images/snow-race-profile-picture.jpg', { subjectType: 'drag-n-drop' });
+    cy.getDataCy('uploadFile').should('not.exist');
+    cy.getDataCy('uploadedFile').should('exist');
+
+    cy.get('.aj-contained-button > button').contains('Save Picture').parent().should('not.have.attr', 'disabled');
+    cy.get('.aj-contained-button > button').contains('Save Picture').click();
+
+    cy.wait('@uassetUserSuccessFnRoute');
+
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Picture uploaded successfully.');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+  });
+
+  it.only('shows an error if updating a profile picture fails', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+    cy.get('.aj-contained-button > button').contains('Save Picture').parent().should('have.attr', 'disabled');
+
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+
+    cy.getDataCy('uploadFile').attachFile('images/snow-race-profile-picture.jpg', { subjectType: 'drag-n-drop' });
+    cy.getDataCy('uploadFile').should('not.exist');
+    cy.getDataCy('uploadedFile').should('exist');
+
+    cy.get('.aj-contained-button > button').contains('Save Picture').parent().should('not.have.attr', 'disabled');
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('uploadedFileError').should('not.exist');
+
+    const uassetUserFailureFnRoute = cy.route({
+      method: 'POST',
+      url: '**/fn/uasset/user',
+      response: {
+        result: false
+      },
+      status: 500
+    });
+
+    uassetUserFailureFnRoute.as('uassetUserFailureFnRoute');
+
+    cy.get('.aj-contained-button > button').contains('Save Picture').click();
+    cy.wait('@uassetUserFailureFnRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'Failed to upload your new profile picture. Try reloading the page. If this error persists, contact ' +
+        'andrew@jarombek.com.Retry'
+    );
+
+    cy.getDataCy('alert').contains('Retry').click();
+
+    cy.wait('@uassetUserFailureFnRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'Failed to upload your new profile picture. Try reloading the page. If this error persists, contact ' +
+        'andrew@jarombek.com.Retry'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('uploadedFileError').should('exist');
+  });
+
+  it.skip('able to remove drag and dropped pictures', () => {});
+
+  it.skip('shows an error if editing profile details fails', () => {});
+
+  it.skip('shows an error if editing team memberships fails', () => {});
 });
