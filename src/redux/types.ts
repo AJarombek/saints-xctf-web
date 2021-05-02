@@ -142,15 +142,17 @@ export interface WelcomeEmail extends Meta {
 }
 
 export type Users = {
-  [key: string]: {
-    user?: UserMeta;
-    flair?: FlairMeta;
-    stats?: StatsMeta;
-    memberships?: Memberships;
-    updateMemberships?: UpdateMemberships;
-    updating?: UpdateUser;
-    uploadingProfilePicture?: UploadingProfilePicture;
-  };
+  [key: string]: UserDetails;
+};
+
+export type UserDetails = {
+  user?: UserMeta;
+  flair?: FlairMeta;
+  stats?: StatsMeta;
+  memberships?: Memberships;
+  updateMemberships?: UpdateMemberships;
+  updating?: UpdateUser;
+  uploadingProfilePicture?: UploadingProfilePicture;
 };
 
 export interface UserMeta extends User, Meta {}

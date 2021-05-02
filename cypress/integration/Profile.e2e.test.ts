@@ -146,7 +146,7 @@ describe('Profile E2E Tests', () => {
     cy.profileDetailsFormValidation('none', false, 'none', false, 'none', false, true);
   });
 
-  it.only('able to search for teams', () => {
+  it('able to search for teams', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
     cy.profileAPICalls();
@@ -173,16 +173,45 @@ describe('Profile E2E Tests', () => {
     cy.wait('@teamsSearchSeven');
   });
 
-  it.skip('prompts users if they have unsaved profile detail changes', () => {
+  it.only('prompts users if they have unsaved profile detail changes', () => {
     cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.getImageInput('location').clear().type('New York, NY');
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('not.have.attr', 'disabled');
+
+    cy.get('.dashboardButton').click();
+
+    // Cancel the confirm prompt, staying on the profile page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to your profile.  Are you sure you want to navigate away?');
+      return false;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+
+    // Confirm the prompt, navigating to the dashboard page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to your profile.  Are you sure you want to navigate away?');
+      return true;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 
   it.skip('prompts users if they have unsaved profile picture changes', () => {
     cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
   });
 
   it.skip('prompts users if they have unsaved team/group membership changes', () => {
     cy.visit('/profile/andy');
+    cy.profileRouteAliases();
+    cy.profileAPICalls();
   });
 
   it.skip('able to view other user profiles', () => {});

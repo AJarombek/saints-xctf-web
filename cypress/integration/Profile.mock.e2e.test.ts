@@ -755,7 +755,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).should('have.class', 'groupPending');
   });
 
-  it.only('able to save the teams and groups selected', () => {
+  it('able to save the teams and groups selected', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -766,12 +766,23 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('pickTeam').eq(1).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
     cy.getDataCy('groupMembershipModal').find('.aj-contained-button').click();
 
+    cy.fixture('api/users/memberships/get/andyUpdated.json').as('userMembershipsAndyUpdated');
+
+    const userMembershipsAndyUpdatedRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/users/memberships/andy',
+      response: '@userMembershipsAndyUpdated'
+    });
+
+    userMembershipsAndyUpdatedRoute.as('userMembershipsAndyUpdatedRoute');
+
     cy.get('.aj-contained-button > button')
       .contains('Save Teams & Groups')
       .parent()
       .should('not.have.attr', 'disabled');
     cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().click();
     cy.wait('@userMembershipsJoinXCAlumniGroupRoute');
+    cy.wait('@userMembershipsAndyUpdatedRoute');
 
     cy.getDataCy('alert').should('exist');
     cy.getDataCy('alert').should('contain.text', 'Team and group memberships updated!');

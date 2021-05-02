@@ -4,10 +4,10 @@
  * @since 10/18/2020
  */
 
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { Memberships, RootState, User, UserMeta, Users } from '../../../redux/types';
+import { RootState, User, UserDetails, UserMeta, Users } from '../../../redux/types';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import classNames from 'classnames';
 import AutoResizeTextArea from '../../shared/AutoResizeTextArea';
@@ -20,6 +20,7 @@ import UploadProfilePicture from '../UploadProfilePicture';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import AlertPopup from '../../shared/AlertPopup';
+import { usePrompt } from 'react-router-dom';
 
 interface Props {
   user: UserMeta;
@@ -37,7 +38,6 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
 
   const descriptionRef = useRef(null);
 
-  const [memberships, setMemberships] = useState<Memberships>(null);
   const [firstName, setFirstName] = useState('');
   const [firstNameStatus, setFirstNameStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [lastName, setLastName] = useState('');
@@ -55,30 +55,30 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const [errorUpdatingProfileDetails, setErrorUpdatingProfileDetails] = useState(false);
   const [profileDetailsUpdateSuccess, setProfileDetailsUpdateSuccess] = useState(false);
 
+  usePrompt('You have unsaved changes to your profile.  Are you sure you want to navigate away?', formDirty);
+
   useEffect(() => {
     if (userProfiles && user?.username && !userProfiles[user.username]?.memberships) {
       dispatch(getUserMemberships(user.username));
     }
   }, [dispatch, user.username, userProfiles]);
 
+  const userProfile: UserDetails = useMemo(() => {
+    return userProfiles[user.username] ?? {};
+  }, [user.username, userProfiles]);
+
   useEffect(() => {
-    if (userProfiles[user.username]) {
-      const userProfile = userProfiles[user.username];
-
-      setMemberships(userProfile.memberships);
-
-      if (userProfile.user) {
-        setFirstName(userProfile.user.first);
-        setLastName(userProfile.user.last);
-        setEmail(userProfile.user.email);
-        setClassYear(userProfile.user.class_year);
-        setLocation(userProfile.user.location);
-        setFavoriteEvent(userProfile.user.favorite_event);
-        setDescription(userProfile.user.description);
-        setWeekStart(userProfile.user.week_start);
-      }
+    if (userProfile.user) {
+      setFirstName(userProfile.user.first);
+      setLastName(userProfile.user.last);
+      setEmail(userProfile.user.email);
+      setClassYear(userProfile.user.class_year);
+      setLocation(userProfile.user.location);
+      setFavoriteEvent(userProfile.user.favorite_event);
+      setDescription(userProfile.user.description);
+      setWeekStart(userProfile.user.week_start);
     }
-  }, [userProfiles, user.username]);
+  }, [userProfile.user]);
 
   const onFirstNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const first = e.target.value;
@@ -378,7 +378,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       </div>
       <h3 className={classes.title}>Teams and Groups</h3>
       <div className={classes.form}>
-        <PickTeams teams={memberships?.teams} username={user.username} />
+        <PickTeams username={user.username} userDetails={userProfile} />
       </div>
       {errorUpdatingProfileDetails && (
         <DefaultErrorPopup

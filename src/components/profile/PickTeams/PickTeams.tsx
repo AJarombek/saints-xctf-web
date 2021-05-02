@@ -6,10 +6,18 @@
  * @since 12/4/2020
  */
 
-import React, { ChangeEvent, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
-import { GroupMember, RootState, TeamGroupMapping, TeamInfo, TeamMembership } from '../../../redux/types';
+import {
+  GroupMember,
+  Memberships,
+  RootState,
+  TeamGroupMapping,
+  TeamInfo,
+  TeamMembership,
+  UserDetails
+} from '../../../redux/types';
 import PickTeam from '../PickTeam';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,18 +32,19 @@ import AlertPopup from '../../shared/AlertPopup';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 
 interface Props {
-  teams?: TeamMembership[];
   username: string;
+  userDetails: UserDetails;
 }
 
 const useStyles = createUseStyles(styles);
 
-const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
+const PickTeams: React.FunctionComponent<Props> = ({ username, userDetails }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
   const allTeamSearches = useSelector((state: RootState) => state.teams.search);
 
+  const [teams, setTeams] = useState<TeamMembership[]>(null);
   const [searchString, setSearchString] = useState('');
   const [searchedTeamsAdded, setSearchedTeamsAdded] = useState<TeamMembership[]>([]);
 
@@ -54,6 +63,10 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   const [errorGetMemberships, setErrorGetMemberships] = useState(false);
 
   usePrompt('You have unsaved changes to your profile.  Are you sure you want to navigate away?', changesMade);
+
+  useEffect(() => {
+    setTeams(userDetails.memberships?.teams);
+  }, [userDetails.memberships]);
 
   const displayedTeams = useMemo(() => {
     if (teams) {
@@ -161,10 +174,12 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
   };
 
   const getUpdatedMemberships = async (): Promise<void> => {
-    const memberships = await dispatch(getUserMemberships(username));
+    const memberships = (await dispatch(getUserMemberships(username))) as Memberships;
 
     if (!memberships) {
       setErrorGetMemberships(true);
+    } else {
+      setTeams(memberships.teams);
     }
   };
 
@@ -196,6 +211,10 @@ const PickTeams: React.FunctionComponent<Props> = ({ teams, username }) => {
       setErrorUpdatingMemberships(false);
       await getUpdatedMemberships();
       setChangesMade(false);
+      setTeamLeaveRequests(new Set());
+      setTeamJoinRequests(new Set());
+      setGroupLeaveRequests({});
+      setGroupJoinRequests({});
       setUpdatingMembershipsSuccess(true);
     } else {
       setErrorUpdatingMemberships(true);
