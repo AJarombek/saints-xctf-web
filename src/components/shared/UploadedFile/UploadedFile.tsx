@@ -51,7 +51,7 @@ const UploadedFile: React.FunctionComponent<Props> = ({ file, setFile, uploading
           inProgress={uploadingPicture?.isFetching}
           className={classes.progressBar}
         />
-        <p className={classes.removeIcon} onClick={(): void => setFile(null)}>
+        <p className={classes.removeIcon} data-cypress="uploadedFileRemoveIcon" onClick={(): void => setFile(null)}>
           &#xe019;
         </p>
       </div>

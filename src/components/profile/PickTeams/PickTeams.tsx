@@ -308,6 +308,7 @@ const PickTeams: React.FunctionComponent<Props> = ({
         <DefaultErrorPopup
           message="Failed to update your team and group memberships"
           onClose={(): void => setErrorUpdatingMemberships(false)}
+          closeable={true}
         />
       )}
       {errorGetMemberships && (
@@ -327,6 +328,7 @@ const PickTeams: React.FunctionComponent<Props> = ({
             </div>
           }
           onClose={(): void => setErrorGetMemberships(false)}
+          closeable={true}
           type="error"
         />
       )}

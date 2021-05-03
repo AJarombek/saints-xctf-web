@@ -400,6 +400,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       {errorUpdatingProfileDetails && (
         <DefaultErrorPopup
           message="Failed to update the user's profile details"
+          closeable={true}
           onClose={(): void => setErrorUpdatingProfileDetails(false)}
           retryable={true}
           onRetry={onSubmitDetails}

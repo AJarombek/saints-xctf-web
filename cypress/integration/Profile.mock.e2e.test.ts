@@ -810,6 +810,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.get('.aj-contained-button > button').contains('Save Picture').click();
 
     cy.wait('@uassetUserSuccessFnRoute');
+    cy.wait('@updateUserAndyRoute');
 
     cy.getDataCy('uploadFile').should('exist');
     cy.getDataCy('uploadedFile').should('not.exist');
@@ -820,9 +821,11 @@ describe('Profile Mock E2E Tests', () => {
     // The success message should disappear after 4 seconds.
     cy.wait(4000);
     cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.aj-contained-button > button').contains('Save Picture').parent().should('have.attr', 'disabled');
   });
 
-  it.only('shows an error if updating a profile picture fails', () => {
+  it('shows an error if updating a profile picture fails', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 
@@ -877,9 +880,120 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('uploadedFileError').should('exist');
   });
 
-  it.skip('able to remove drag and dropped pictures', () => {});
+  it('able to remove drag and dropped pictures', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
 
-  it.skip('shows an error if editing profile details fails', () => {});
+    cy.get('.tabs p').contains('Edit Profile').click();
+    cy.get('.aj-contained-button > button').contains('Save Picture').parent().should('have.attr', 'disabled');
 
-  it.skip('shows an error if editing team memberships fails', () => {});
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+
+    cy.getDataCy('uploadFile').attachFile('images/snow-race-profile-picture.jpg', { subjectType: 'drag-n-drop' });
+    cy.getDataCy('uploadFile').should('not.exist');
+    cy.getDataCy('uploadedFile').should('exist');
+    cy.get('.aj-contained-button > button').contains('Save Picture').parent().should('not.have.attr', 'disabled');
+
+    cy.getDataCy('uploadedFileRemoveIcon').click();
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+    cy.get('.aj-contained-button > button').contains('Save Picture').parent().should('have.attr', 'disabled');
+
+    // So much love <3.
+  });
+
+  it('shows an error if editing profile details fails', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('have.attr', 'disabled');
+
+    cy.getImageInput('location').clear().type('New York, NY');
+    cy.getDataCy('radioButton').eq(0).findDataCy('customRadio').click();
+
+    const updateUserErrorRoute = cy.route({
+      method: 'PUT',
+      url: '**/api/v2/users/andy',
+      response: {
+        self: '/v2/users/andy',
+        updated: true,
+        user: null
+      },
+      status: 500
+    });
+
+    updateUserErrorRoute.as('updateUserErrorRoute');
+
+    cy.get('.aj-contained-button > button').contains('Save Details').parent().should('not.have.attr', 'disabled');
+    cy.get('.aj-contained-button > button').contains('Save Details').click();
+
+    cy.wait('@updateUserErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      "Failed to update the user's profile details. Try reloading the page. If this error persists, contact " +
+        'andrew@jarombek.com'
+    );
+
+    cy.getDataCy('alert').contains('Retry').click();
+
+    cy.wait('@updateUserErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      "Failed to update the user's profile details. Try reloading the page. If this error persists, contact " +
+        'andrew@jarombek.com'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+  });
+
+  it.only('shows an error if editing team memberships fails', () => {
+    cy.visit('/profile/andy');
+    cy.profileMockAPICalls();
+
+    cy.get('.tabs p').contains('Edit Profile').click();
+
+    cy.get('.aj-contained-button > button').contains('Save Teams & Groups').parent().should('have.attr', 'disabled');
+
+    cy.getDataCy('pickTeam').eq(0).findDataCy('pickGroup').eq(0).find('.aj-text-button').click();
+    cy.getDataCy('groupMembershipModal').find('.aj-contained-button').click();
+
+    const userMembershipsUpdateErrorRoute = cy.route({
+      method: 'PUT',
+      url: '**/api/v2/users/memberships/andy',
+      response: {
+        updated: false,
+        self: '/v2/users/memberships/andy',
+        error: 'An unexpected error occurred.'
+      },
+      status: 500
+    });
+
+    userMembershipsUpdateErrorRoute.as('userMembershipsUpdateErrorRoute');
+
+    cy.get('.aj-contained-button > button')
+      .contains('Save Teams & Groups')
+      .parent()
+      .should('not.have.attr', 'disabled');
+    cy.get('.aj-contained-button > button').contains('Save Teams & Groups').click();
+
+    cy.wait('@userMembershipsUpdateErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'Failed to update your team and group memberships. Try reloading the page. If this error persists, contact ' +
+        'andrew@jarombek.com'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+  });
 });
