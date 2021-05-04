@@ -45,5 +45,12 @@ export default {
     ...FontMixins.roboto(),
     fontSize: 18,
     margin: '15px'
+  },
+  alertMessage: {
+    marginTop: 10,
+
+    '& > div': {
+      padding: '4px 0'
+    }
   }
 };
