@@ -18,6 +18,41 @@ describe('Profile E2E Tests', () => {
     cy.setTokenInLocalStorage();
   });
 
+  it("'Dashboard' header button navigates to the dashboard page", () => {
+    cy.visit('/profile/andy');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+    cy.get('.dashboardButton').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
+
+  it("'Teams' header button navigates to the teams list page", () => {
+    cy.visit('/profile/andy');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+    cy.get('.teamsButton').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/teams`);
+  });
+
+  it("'Sign Out' header button signs out the user and navigates to the home page", () => {
+    cy.visit('/profile/andy');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+    cy.get('.signOutButton').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/`);
+  });
+
+  it('header title navigates to the dashboard page', () => {
+    cy.visit('/profile/andy');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+    cy.get('h1').contains('SaintsXCTF').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
+
+  it('header icon navigates to the dashboard page', () => {
+    cy.visit('/profile/andy');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+    cy.get('.sxctf-nav-bar .sxctf-logo').click();
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
+
   it('has multiple tabs that can be navigated between', () => {
     cy.visit('/profile/andy');
     cy.profileRouteAliases();
@@ -320,7 +355,7 @@ describe('Profile E2E Tests', () => {
     // vaccine Sunday.
   });
 
-  it.only('able to view other user profiles', () => {
+  it('able to view other user profiles', () => {
     cy.visit('/profile/Fish');
 
     cy.route('GET', '/api/v2/users/groups/andy').as('userGroupsAndy');

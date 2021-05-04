@@ -954,7 +954,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('alert').should('not.exist');
   });
 
-  it.only('shows an error if editing team memberships fails', () => {
+  it('shows an error if editing team memberships fails', () => {
     cy.visit('/profile/andy');
     cy.profileMockAPICalls();
 

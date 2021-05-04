@@ -19,7 +19,7 @@ type Props = {};
 
 const useStyles = createUseStyles(styles);
 
-const defaultHeaders = ['dashboard', 'profile', 'teams', 'signOut', 'logo'];
+const defaultHeaders = ['dashboard', 'profile', 'signOut', 'logo'];
 
 const Teams: React.FunctionComponent<Props> = () => {
   const classes = useStyles();
