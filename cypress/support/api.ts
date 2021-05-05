@@ -14,6 +14,8 @@ Cypress.Commands.add('mockAPI', () => {
   cy.server();
   cy.mockForgotPasswordAPI();
   cy.mockForgotPasswordValidateAPI();
+  cy.mockGroupAPI();
+  cy.mockGroupMembersAPI();
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
   cy.mockTeamGroupsAPI();
@@ -63,6 +65,30 @@ Cypress.Commands.add('mockForgotPasswordValidateAPI', () => {
   forgotPasswordValidateInvalidRoute.as('forgotPasswordValidateInvalidRoute');
 });
 
+Cypress.Commands.add('mockGroupAPI', () => {
+  cy.fixture('api/groups/get/alumni.json').as('groupAlumni');
+
+  const groupAlumniRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/groups/1',
+    response: '@groupAlumni'
+  });
+
+  groupAlumniRoute.as('groupAlumniRoute');
+});
+
+Cypress.Commands.add('mockGroupMembersAPI', () => {
+  cy.fixture('api/groups/members/get/alumni.json').as('groupAlumniMembers');
+
+  const groupAlumniMembersRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/groups/members/1',
+    response: '@groupAlumniMembers'
+  });
+
+  groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+});
+
 Cypress.Commands.add('mockLogAPI', () => {
   cy.fixture('api/logs/get/log3.json').as('logGet3');
 
@@ -95,6 +121,16 @@ Cypress.Commands.add('mockLogFeedAPI', () => {
   });
 
   logFeedAllPageOneRoute.as('logFeedAllPageOneRoute');
+
+  cy.fixture('api/logFeed/get/groupAlumniPageOne.json').as('logFeedGroupAlumniPageOne');
+
+  const logFeedGroupAlumniPageOneRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/log_feed/group/1/10/0',
+    response: '@logFeedGroupAlumniPageOne'
+  });
+
+  logFeedGroupAlumniPageOneRoute.as('logFeedGroupAlumniPageOneRoute');
 
   cy.fixture('api/logFeed/get/userAndyPageOne.json').as('logFeedUserAndyPageOne');
 

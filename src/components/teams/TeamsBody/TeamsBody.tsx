@@ -72,7 +72,7 @@ const TeamsBody: React.FunctionComponent<Props> = ({ user }) => {
                 <div
                   className={classes.group}
                   data-cypress="groupItem"
-                  onClick={(): void => navigate(`group/${group.id}`)}
+                  onClick={(): void => navigate(`/group/${group.id}`)}
                 >
                   <p className={classes.groupTitle}>{group.group_title}</p>
                 </div>
