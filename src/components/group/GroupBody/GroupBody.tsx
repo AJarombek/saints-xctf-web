@@ -90,7 +90,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
   const classes = useStyles({ membershipTagText });
 
   useEffect(() => {
-    if (!group) {
+    if (!group && !group?.isFetching && !group?.serverError) {
       dispatch(getGroup(+groupId));
     } else {
       setBucket(groupId);

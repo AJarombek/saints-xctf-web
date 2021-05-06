@@ -1,1 +1,13 @@
-{}
+{
+  "group": {
+    "deleted": false,
+    "description": "Updated: 2021-04-14 23:09:42.698648",
+    "group_name": "alumni",
+    "group_title": "Alumni",
+    "grouppic": null,
+    "grouppic_name": "picture.png",
+    "id": 1,
+    "week_start": "sunday"
+  },
+  "self": "/v2/groups/1"
+}

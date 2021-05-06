@@ -93,7 +93,7 @@ describe('Team Mock E2E Tests', () => {
     );
   });
 
-  it.only('is able to navigate to group pages', () => {
+  it('is able to navigate to group pages', () => {
     cy.visit('/teams');
 
     cy.wait('@userMembershipsAndyRoute');
