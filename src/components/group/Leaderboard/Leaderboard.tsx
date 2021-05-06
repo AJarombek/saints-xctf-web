@@ -93,7 +93,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
   }, [currentLeaderboard]);
 
   return (
-    <div className={classes.leaderboard}>
+    <div id="leaderboard" className={classes.leaderboard}>
       <div className={classes.filters}>
         <p className={classes.filterTitle}>Leaderboard Filters:</p>
         <FilterButtons selectedFilters={selectedFilters} setSelectedFilters={setSelectedFilters} />

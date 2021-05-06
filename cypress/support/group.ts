@@ -10,3 +10,10 @@ Cypress.Commands.add('groupRouteAliases', () => {
   cy.route('GET', '/api/v2/users/groups/andy').as('userGroups');
   cy.route('GET', '/api/v2/log_feed/group/1/10/0').as('alumniLogFeedPageOne');
 });
+
+Cypress.Commands.add('groupAPICalls', () => {
+  cy.wait('@alumniGroup');
+  cy.wait('@alumniGroupMembers');
+  cy.wait('@userGroups');
+  cy.wait('@alumniLogFeedPageOne');
+});

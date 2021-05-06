@@ -14,5 +14,11 @@ declare namespace Cypress {
          * @example groupRouteAliases()
          */
         groupRouteAliases(): void;
+
+        /**
+         * Custom command that waits for API calls to the St. Lawrence Alumni group page.
+         * @example groupAPICalls()
+         */
+        groupAPICalls(): void;
     }
 }

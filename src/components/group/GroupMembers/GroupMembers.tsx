@@ -22,7 +22,7 @@ const GroupMembers: React.FunctionComponent<Props> = ({ members }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.container}>
+    <div id="groupMembers" className={classes.container}>
       {members.map((member: MemberDetails) => (
         <div
           key={member.username}

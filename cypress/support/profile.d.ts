@@ -17,7 +17,7 @@ declare namespace Cypress {
 
         /**
          * Custom command that waits for API calls to the profile page for user Andy.
-         * @example profileMockAPICalls()
+         * @example profileAPICalls()
          */
         profileAPICalls(): void;
 

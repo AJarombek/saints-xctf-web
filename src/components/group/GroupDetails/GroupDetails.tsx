@@ -36,7 +36,7 @@ const GroupDetails: React.FunctionComponent<Props> = ({ group, stats }) => {
   const feelStats = useStatsFeeling(stats);
 
   return (
-    <div className={classes.groupDetails}>
+    <div id="groupDetails" className={classes.groupDetails}>
       {!!group.description && (
         <div className={classes.description}>
           <p>{group.description}</p>

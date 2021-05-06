@@ -56,7 +56,59 @@ describe('Group E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 
-  it.skip('has multiple tabs that can be navigated between', () => {});
+  it.only('has multiple tabs that can be navigated between', () => {
+    cy.visit('/group/1');
+    cy.groupRouteAliases();
+    cy.groupAPICalls();
 
-  it.skip('has a default tab of paginated exercise logs', () => {});
+    // The default tab is the exercise logs tab.
+    cy.get('section #logFeed').should('exist');
+    cy.get('section #groupMembers').should('not.exist');
+    cy.get('section #leaderboard').should('not.exist');
+    cy.get('section #groupDetails').should('not.exist');
+
+    cy.get('.tabs p').contains('Members').click();
+    cy.get('section #logFeed').should('not.exist');
+    cy.get('section #groupMembers').should('exist');
+    cy.get('section #leaderboard').should('not.exist');
+    cy.get('section #groupDetails').should('not.exist');
+
+    cy.route('GET', '/api/v2/groups/leaderboard/1').as('alumniLeaderboard');
+
+    cy.get('.tabs p').contains('Leaderboard').click();
+    cy.wait('@alumniLeaderboard');
+    cy.get('section #logFeed').should('not.exist');
+    cy.get('section #groupMembers').should('not.exist');
+    cy.get('section #leaderboard').should('exist');
+    cy.get('section #groupDetails').should('not.exist');
+
+    cy.route('GET', '/api/v2/groups/statistics/1').as('alumniStatistics');
+
+    cy.get('.tabs p').contains('Details').click();
+    cy.wait('@alumniStatistics');
+    cy.get('section #logFeed').should('not.exist');
+    cy.get('section #groupMembers').should('not.exist');
+    cy.get('section #leaderboard').should('not.exist');
+    cy.get('section #groupDetails').should('exist');
+  });
+
+  it('has a default tab of paginated exercise logs', () => {
+    cy.visit('/group/1');
+    cy.groupRouteAliases();
+    cy.groupAPICalls();
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 10);
+
+    cy.route('GET', '/api/v2/log_feed/group/1/10/10').as('alumniLogFeedPageTwo');
+    cy.get('#paginationBar').contains(2).click();
+    cy.wait('@alumniLogFeedPageTwo');
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 10);
+
+    cy.route('GET', '/api/v2/log_feed/group/1/10/20').as('alumniLogFeedPageThree');
+    cy.get('#paginationBar').contains(3).click();
+    cy.wait('@alumniLogFeedPageThree');
+
+    cy.get('#logFeed .exerciseLog').should('have.length', 10);
+  });
 });
