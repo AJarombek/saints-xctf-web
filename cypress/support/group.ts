@@ -17,3 +17,10 @@ Cypress.Commands.add('groupAPICalls', () => {
   cy.wait('@userGroups');
   cy.wait('@alumniLogFeedPageOne');
 });
+
+Cypress.Commands.add('alumniGroupMockAPICalls', () => {
+  cy.wait('@groupAlumniRoute');
+  cy.wait('@groupAlumniMembersRoute');
+  cy.wait('@logFeedGroupAlumniPageOneRoute');
+  cy.wait('@userGroupsAndyRoute');
+});

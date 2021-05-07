@@ -1,0 +1,45 @@
+{
+  "leaderboard": [
+    {
+      "first": "Benjamin",
+      "last": "Fishbein",
+      "miles": 771.0,
+      "miles_biked": 125.0,
+      "miles_other": 20.0,
+      "miles_run": 621.5,
+      "miles_swam": 4.5,
+      "username": "Fish"
+    },
+    {
+      "first": "Andy",
+      "last": "Jarombek",
+      "miles": 2813.13,
+      "miles_biked": 75.0,
+      "miles_other": 0.0,
+      "miles_run": 2737.88,
+      "miles_swam": 0.25,
+      "username": "andy"
+    },
+    {
+      "first": "Joseph",
+      "last": "Smith",
+      "miles": 175.254287459887564182,
+      "miles_biked": 0.0,
+      "miles_other": 0.004287459887564182,
+      "miles_run": 175.25,
+      "miles_swam": 0.0,
+      "username": "Joe"
+    },
+    {
+      "first": "Lisa",
+      "last": "Grohn",
+      "miles": 5.0,
+      "miles_biked": 0.0,
+      "miles_other": 0.0,
+      "miles_run": 5.0,
+      "miles_swam": 0.0,
+      "username": "lisagee"
+    }
+  ],
+  "self": "/v2/groups/leaderboard/1"
+}

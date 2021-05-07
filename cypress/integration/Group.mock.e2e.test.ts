@@ -16,20 +16,68 @@ describe('Group Mock E2E Tests', () => {
     cy.setMockTokenInLocalStorage();
   });
 
-  it.only('lists all the members of a group', () => {
+  it('lists all the members of a group', () => {
     cy.visit('/group/1');
+    cy.alumniGroupMockAPICalls();
 
-    cy.wait('@groupAlumniRoute');
-    cy.wait('@groupAlumniMembersRoute');
-    cy.wait('@logFeedGroupAlumniPageOneRoute');
-    cy.wait('@userGroupsAndyRoute');
+    cy.getDataCy('pictureTitle').should('contain.text', 'Alumni');
+    cy.getDataCy('pictureSubTitle').should('contain.text', 'Members: 4');
+
+    cy.get('.tabs p').contains('Members').click();
+
+    cy.getDataCy('groupMember').should('have.length', 4);
+    cy.getDataCy('groupMember')
+      .eq(0)
+      .should('contain.text', 'Andy Jarombek')
+      .should('contain.text', 'Member Since: Dec 23rd, 2016');
+    cy.getDataCy('groupMember')
+      .eq(1)
+      .should('contain.text', 'Benjamin Fishbein')
+      .should('contain.text', 'Member Since: Dec 26th, 2016');
+    cy.getDataCy('groupMember')
+      .eq(2)
+      .should('contain.text', 'Joseph Smith')
+      .should('contain.text', 'Member Since: Dec 23rd, 2016');
+    cy.getDataCy('groupMember')
+      .eq(3)
+      .should('contain.text', 'Lisa Grohn')
+      .should('contain.text', 'Member Since: Dec 24th, 2016');
   });
 
-  it.skip('navigates to user profiles from the member list', () => {});
+  it('navigates to user profiles from the member list', () => {
+    cy.visit('/group/1');
+    cy.alumniGroupMockAPICalls();
 
-  it.skip('leaderboard displays properly with all filters', () => {});
+    cy.get('.tabs p').contains('Members').click();
 
-  it.skip('statistics display as expected', () => {});
+    cy.getDataCy('groupMember').should('have.length', 4);
+    cy.getDataCy('groupMember')
+      .eq(0)
+      .should('contain.text', 'Andy Jarombek')
+      .should('contain.text', 'Member Since: Dec 23rd, 2016');
+
+    cy.getDataCy('groupMember').eq(0).click();
+
+    cy.wait('@userMembershipsAndyRoute');
+    cy.wait('@userFlairAndyRoute');
+    cy.wait('@logFeedUserAndyPageOneRoute');
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
+  });
+
+  it.only('leaderboard displays properly with all filters', () => {
+    cy.visit('/group/1');
+    cy.alumniGroupMockAPICalls();
+
+    cy.get('.tabs p').contains('Leaderboard').click();
+  });
+
+  it.skip('statistics display as expected', () => {
+    cy.visit('/group/1');
+    cy.alumniGroupMockAPICalls();
+
+    cy.get('.tabs p').contains('Statistics').click();
+  });
 
   it.skip('displays as member if the user is a standard member of the group', () => {});
 

@@ -15,6 +15,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockForgotPasswordAPI();
   cy.mockForgotPasswordValidateAPI();
   cy.mockGroupAPI();
+  cy.mockGroupLeaderboardAPI();
   cy.mockGroupMembersAPI();
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
@@ -75,6 +76,18 @@ Cypress.Commands.add('mockGroupAPI', () => {
   });
 
   groupAlumniRoute.as('groupAlumniRoute');
+});
+
+Cypress.Commands.add('mockGroupLeaderboardAPI', () => {
+  cy.fixture('api/groups/leaderboard/get/alumni.json').as('groupAlumniLeaderboard');
+
+  const groupAlumniLeaderboardRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/groups/leaderboard/1',
+    response: '@groupAlumniLeaderboard'
+  });
+
+  groupAlumniLeaderboardRoute.as('groupAlumniLeaderboardRoute');
 });
 
 Cypress.Commands.add('mockGroupMembersAPI', () => {

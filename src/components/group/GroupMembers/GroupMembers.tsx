@@ -27,12 +27,13 @@ const GroupMembers: React.FunctionComponent<Props> = ({ members }) => {
         <div
           key={member.username}
           className={classes.member}
+          data-cypress="groupMember"
           onClick={(): void => navigate(`/profile/${member.username}`)}
         >
           <p>
             {member.first} {member.last}
           </p>
-          <p>Member Since: {moment(member.member_since).format('MMM Do, YYYY')}</p>
+          <p>Member Since: {moment(member.member_since).utc(false).format('MMM Do, YYYY')}</p>
         </div>
       ))}
     </div>

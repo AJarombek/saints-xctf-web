@@ -20,5 +20,11 @@ declare namespace Cypress {
          * @example groupAPICalls()
          */
         groupAPICalls(): void;
+
+        /**
+         * Custom command that waits for mocked API calls to the St. Lawrence Alumni group page.
+         * @example alumniGroupMockAPICalls()
+         */
+        alumniGroupMockAPICalls(): void;
     }
 }
