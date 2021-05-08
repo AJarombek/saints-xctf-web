@@ -22,6 +22,7 @@ import FilterButtons from '../../shared/FilterButtons';
 import { AJSelect } from 'jarombek-react-components';
 import LeaderboardItem from '../LeaderboardItem';
 import Alert from '../../shared/Alert';
+import classNames from 'classnames';
 
 const useStyles = createUseStyles(styles);
 
@@ -110,7 +111,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
           onClickListOption={(item: { content: string; value: string }): void =>
             setInterval(item.value as LeaderboardInterval)
           }
-          className={classes.select}
+          className={classNames(classes.select, 'leaderboardInterval')}
         />
       </div>
       {!!currentLeaderboard?.length && (

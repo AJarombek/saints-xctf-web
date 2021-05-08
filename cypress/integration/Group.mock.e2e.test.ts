@@ -70,7 +70,38 @@ describe('Group Mock E2E Tests', () => {
     cy.alumniGroupMockAPICalls();
 
     cy.get('.tabs p').contains('Leaderboard').click();
+    cy.groupLeaderboardFiltersSelected(true, false, false, false);
+
+    cy.get('.leaderboardFilterButtons button').contains('Bike').click();
+    cy.groupLeaderboardFiltersSelected(true, true, false, false);
+
+    cy.get('.leaderboardFilterButtons button').contains('Swim').click();
+    cy.groupLeaderboardFiltersSelected(true, true, true, false);
+
+    cy.get('.leaderboardFilterButtons button').contains('Other').click();
+    cy.groupLeaderboardFiltersSelected(true, true, true, true);
+
+    cy.get('.leaderboardFilterButtons button').contains('Run').click();
+    cy.groupLeaderboardFiltersSelected(false, true, true, true);
+
+    cy.get('.leaderboardFilterButtons button').contains('Bike').click();
+    cy.groupLeaderboardFiltersSelected(false, false, true, true);
+
+    cy.get('.leaderboardFilterButtons button').contains('Swim').click();
+    cy.groupLeaderboardFiltersSelected(false, false, false, true);
+
+    cy.get('.leaderboardFilterButtons button').contains('Other').click();
+    cy.groupLeaderboardFiltersSelected(false, false, false, false);
   });
+
+  it.skip('leaderboard displays different values for different time periods', () => {
+    cy.visit('/group/1');
+    cy.alumniGroupMockAPICalls();
+
+    cy.get('.tabs p').contains('Leaderboard').click();
+  });
+
+  it.skip('an error is displayed if leaderboard data fails to load', () => {});
 
   it.skip('statistics display as expected', () => {
     cy.visit('/group/1');

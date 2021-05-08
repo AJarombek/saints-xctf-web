@@ -24,3 +24,29 @@ Cypress.Commands.add('alumniGroupMockAPICalls', () => {
   cy.wait('@logFeedGroupAlumniPageOneRoute');
   cy.wait('@userGroupsAndyRoute');
 });
+
+Cypress.Commands.add(
+  'groupLeaderboardFiltersSelected',
+  (run: boolean, bike: boolean, swim: boolean, other: boolean) => {
+    cy.get('.leaderboardFilterButtons')
+      .contains('Run')
+      .parent()
+      .should(run ? 'not.have.class' : 'have.class', 'aj-outlined-button')
+      .should(run ? 'have.class' : 'not.have.class', 'aj-contained-button');
+    cy.get('.leaderboardFilterButtons')
+      .contains('Bike')
+      .parent()
+      .should(bike ? 'not.have.class' : 'have.class', 'aj-outlined-button')
+      .should(bike ? 'have.class' : 'not.have.class', 'aj-contained-button');
+    cy.get('.leaderboardFilterButtons')
+      .contains('Swim')
+      .parent()
+      .should(swim ? 'not.have.class' : 'have.class', 'aj-outlined-button')
+      .should(swim ? 'have.class' : 'not.have.class', 'aj-contained-button');
+    cy.get('.leaderboardFilterButtons')
+      .contains('Other')
+      .parent()
+      .should(other ? 'not.have.class' : 'have.class', 'aj-outlined-button')
+      .should(other ? 'have.class' : 'not.have.class', 'aj-contained-button');
+  }
+);

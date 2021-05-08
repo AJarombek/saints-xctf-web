@@ -26,5 +26,15 @@ declare namespace Cypress {
          * @example alumniGroupMockAPICalls()
          */
         alumniGroupMockAPICalls(): void;
+
+        /**
+         * Custom command that checks which leaderboard filters are selected.
+         * @param run Whether running exercises are included in the leaderboard.
+         * @param bike Whether biking exercises are included in the leaderboard.
+         * @param swim Whether swimming exercises are included in the leaderboard.
+         * @param other Whether other exercises are included in the leaderboard.
+         * @example groupLeaderboardFiltersSelected(true, false, false, false)
+         */
+        groupLeaderboardFiltersSelected(run: boolean, bike: boolean, swim: boolean, other: boolean): void;
     }
 }

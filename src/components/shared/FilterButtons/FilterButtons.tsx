@@ -9,6 +9,7 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { AJButton, AJButtonGroup } from 'jarombek-react-components';
 import { ExerciseFilters } from '../../../redux/types';
+import classNames from 'classnames';
 
 interface Props {
   selectedFilters?: ExerciseFilters;
@@ -21,7 +22,7 @@ const FilterButtons: React.FunctionComponent<Props> = ({ selectedFilters, setSel
   const classes = useStyles();
 
   return (
-    <AJButtonGroup className={classes.filterButtons}>
+    <AJButtonGroup className={classNames(classes.filterButtons, 'leaderboardFilterButtons')}>
       <AJButton
         type={selectedFilters.run ? 'contained' : 'outlined'}
         onClick={(): void => setSelectedFilters({ ...selectedFilters, run: !selectedFilters.run })}
