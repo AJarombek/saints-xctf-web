@@ -24,14 +24,16 @@ const LeaderboardItem: React.FunctionComponent<Props> = ({ item, leaderMiles }) 
   const classes = useStyles({ barWidth: width });
 
   return (
-    <div key={item.username} className={classes.leaderboardItem}>
+    <div key={item.username} className={classes.leaderboardItem} data-cypress="leaderboardItem">
       <p className={classes.itemName}>
         {item.first} {item.last}
       </p>
       <div className={classes.bar}>
         <div className={classes.barBackground} />
         <div className={classes.barFill}>
-          <p className={width < 20 ? classes.textAfter : classes.textInner}>{item.value.toFixed(2)}</p>
+          <p className={width < 20 ? classes.textAfter : classes.textInner} data-cypress="leaderboardItemValue">
+            {item.value.toFixed(2)}
+          </p>
         </div>
       </div>
     </div>

@@ -122,15 +122,27 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
         </div>
       )}
       {!currentLeaderboard?.length && !leaderboardItemMeta?.isFetching && !!leaderboardItemMeta?.serverError && (
-        <div className={classes.alertMessage}>
+        <div className={classes.alertMessage} data-cypress="leaderboardAlert">
           <Alert message={leaderboardItemMeta.serverError} type="error" closeable={false} />
         </div>
       )}
       {!currentLeaderboard?.length && !leaderboardItemMeta?.isFetching && !!leaderboardItemMeta?.serverWarning && (
-        <div className={classes.alertMessage}>
+        <div className={classes.alertMessage} data-cypress="leaderboardAlert">
           <Alert message={leaderboardItemMeta.serverWarning} type="warning" closeable={false} />
         </div>
       )}
+      {!currentLeaderboard?.length &&
+        !leaderboardItemMeta?.isFetching &&
+        !leaderboardItemMeta?.serverWarning &&
+        !leaderboardItemMeta?.serverError && (
+          <div className={classes.alertMessage} data-cypress="leaderboardAlert">
+            <Alert
+              message="There is no leaderboard data in this time interval with the current filters."
+              type="warning"
+              closeable={false}
+            />
+          </div>
+        )}
     </div>
   );
 };

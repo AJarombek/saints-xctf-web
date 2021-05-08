@@ -69,29 +69,100 @@ describe('Group Mock E2E Tests', () => {
     cy.visit('/group/1');
     cy.alumniGroupMockAPICalls();
 
+    // I hope you are doing okay.  Still feeling sick, so sadly will have to reschedule my 2nd vaccine appointment.
+
     cy.get('.tabs p').contains('Leaderboard').click();
     cy.groupLeaderboardFiltersSelected(true, false, false, false);
+    cy.get('.leaderboardInterval').should('contain.text', 'All Time');
+
+    cy.getDataCy('leaderboardItem').should('have.length', 4);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '2737.88');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '621.50');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '175.25');
+    cy.getDataCy('leaderboardItem').eq(3).should('contain.text', 'Lisa Grohn');
+    cy.getDataCy('leaderboardItem').eq(3).findDataCy('leaderboardItemValue').should('contain.text', '5.00');
 
     cy.get('.leaderboardFilterButtons button').contains('Bike').click();
     cy.groupLeaderboardFiltersSelected(true, true, false, false);
 
+    cy.getDataCy('leaderboardItem').should('have.length', 4);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '2812.88');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '746.50');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '175.25');
+    cy.getDataCy('leaderboardItem').eq(3).should('contain.text', 'Lisa Grohn');
+    cy.getDataCy('leaderboardItem').eq(3).findDataCy('leaderboardItemValue').should('contain.text', '5.00');
+
     cy.get('.leaderboardFilterButtons button').contains('Swim').click();
     cy.groupLeaderboardFiltersSelected(true, true, true, false);
+
+    cy.getDataCy('leaderboardItem').should('have.length', 4);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '2813.13');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '751.00');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '175.25');
+    cy.getDataCy('leaderboardItem').eq(3).should('contain.text', 'Lisa Grohn');
+    cy.getDataCy('leaderboardItem').eq(3).findDataCy('leaderboardItemValue').should('contain.text', '5.00');
 
     cy.get('.leaderboardFilterButtons button').contains('Other').click();
     cy.groupLeaderboardFiltersSelected(true, true, true, true);
 
+    cy.getDataCy('leaderboardItem').should('have.length', 4);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '2813.13');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '771.00');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '175.25');
+    cy.getDataCy('leaderboardItem').eq(3).should('contain.text', 'Lisa Grohn');
+    cy.getDataCy('leaderboardItem').eq(3).findDataCy('leaderboardItemValue').should('contain.text', '5.00');
+
     cy.get('.leaderboardFilterButtons button').contains('Run').click();
     cy.groupLeaderboardFiltersSelected(false, true, true, true);
+
+    cy.getDataCy('leaderboardItem').should('have.length', 3);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '149.50');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '75.25');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '0.00');
 
     cy.get('.leaderboardFilterButtons button').contains('Bike').click();
     cy.groupLeaderboardFiltersSelected(false, false, true, true);
 
+    cy.getDataCy('leaderboardItem').should('have.length', 3);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '24.50');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '0.25');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '0.00');
+
     cy.get('.leaderboardFilterButtons button').contains('Swim').click();
     cy.groupLeaderboardFiltersSelected(false, false, false, true);
+    cy.getDataCy('leaderboardAlert').should('not.exist');
+
+    cy.getDataCy('leaderboardItem').should('have.length', 2);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '20.00');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '0.00');
 
     cy.get('.leaderboardFilterButtons button').contains('Other').click();
     cy.groupLeaderboardFiltersSelected(false, false, false, false);
+    cy.getDataCy('leaderboardItem').should('not.exist');
+    cy.getDataCy('leaderboardAlert').should(
+      'contain.text',
+      'There is no leaderboard data in this time interval with the current filters.'
+    );
   });
 
   it.skip('leaderboard displays different values for different time periods', () => {
@@ -99,6 +170,8 @@ describe('Group Mock E2E Tests', () => {
     cy.alumniGroupMockAPICalls();
 
     cy.get('.tabs p').contains('Leaderboard').click();
+    cy.groupLeaderboardFiltersSelected(true, false, false, false);
+    cy.get('.leaderboardInterval').should('contain.text', 'All Time');
   });
 
   it.skip('an error is displayed if leaderboard data fails to load', () => {});
