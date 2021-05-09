@@ -17,6 +17,7 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockGroupAPI();
   cy.mockGroupLeaderboardAPI();
   cy.mockGroupMembersAPI();
+  cy.mockGroupStatisticsAPI();
   cy.mockLogAPI();
   cy.mockLogFeedAPI();
   cy.mockTeamGroupsAPI();
@@ -130,6 +131,18 @@ Cypress.Commands.add('mockGroupMembersAPI', () => {
   });
 
   groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+});
+
+Cypress.Commands.add('mockGroupStatisticsAPI', () => {
+  cy.fixture('api/groups/statistics/get/alumni.json').as('groupAlumniStatistics');
+
+  const groupAlumniStatisticsRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/groups/statistics/1',
+    response: '@groupAlumniStatistics'
+  });
+
+  groupAlumniStatisticsRoute.as('groupAlumniStatisticsRoute');
 });
 
 Cypress.Commands.add('mockLogAPI', () => {

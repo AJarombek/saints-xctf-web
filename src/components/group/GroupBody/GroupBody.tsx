@@ -136,7 +136,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
           title={group?.group_title}
           subTitle={`Members: ${acceptedMembers.length}`}
         />
-        <div className={classes.membershipTagContainer}>
+        <div className={classes.membershipTagContainer} data-cypress="groupMembershipTag">
           <AJTag content={membershipTagText} className={classes.membershipTag} />
         </div>
         <PageTabs currentTab={tab} tabs={tabs} />

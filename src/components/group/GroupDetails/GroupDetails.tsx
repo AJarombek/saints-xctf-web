@@ -38,7 +38,7 @@ const GroupDetails: React.FunctionComponent<Props> = ({ group, stats }) => {
   return (
     <div id="groupDetails" className={classes.groupDetails}>
       {!!group.description && (
-        <div className={classes.description}>
+        <div className={classes.description} data-cypress="description">
           <p>{group.description}</p>
         </div>
       )}

@@ -52,6 +52,13 @@ declare namespace Cypress {
         mockGroupMembersAPI(): void;
 
         /**
+         * Return static JSON files defined in the fixtures directory when an API call is made to a
+         * '/v2/groups/statistics/*' endpoint.
+         * @example mockGroupStatisticsAPI()
+         */
+        mockGroupStatisticsAPI(): void;
+
+        /**
          * Return static JSON files defined in the fixtures directory when an API call is made to a '/v2/logs/*'
          * endpoint.
          * @example mockLogAPI()

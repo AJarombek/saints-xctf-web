@@ -1,0 +1,17 @@
+{
+  "self": "/v2/groups/statistics/1",
+  "stats": {
+    "feel_all_time": 6.4567,
+    "feel_past_month": 7.2345,
+    "feel_past_week": 7.1234,
+    "feel_past_year": 6.7890,
+    "miles_all_time": 4581.94,
+    "miles_past_month": 324.22,
+    "miles_past_week": 97.10,
+    "miles_past_year": 1292.21,
+    "run_miles_all_time": 4022.12,
+    "run_miles_past_month": 317.32,
+    "run_miles_past_week": 97.10,
+    "run_miles_past_year": 1114.87
+  }
+}
