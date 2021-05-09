@@ -88,6 +88,36 @@ Cypress.Commands.add('mockGroupLeaderboardAPI', () => {
   });
 
   groupAlumniLeaderboardRoute.as('groupAlumniLeaderboardRoute');
+
+  cy.fixture('api/groups/leaderboard/get/alumniPastYear.json').as('groupAlumniPastYearLeaderboard');
+
+  const groupAlumniPastYearLeaderboardRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/groups/leaderboard/1/year',
+    response: '@groupAlumniPastYearLeaderboard'
+  });
+
+  groupAlumniPastYearLeaderboardRoute.as('groupAlumniPastYearLeaderboardRoute');
+
+  cy.fixture('api/groups/leaderboard/get/alumniPastMonth.json').as('groupAlumniPastMonthLeaderboard');
+
+  const groupAlumniPastMonthLeaderboardRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/groups/leaderboard/1/month',
+    response: '@groupAlumniPastMonthLeaderboard'
+  });
+
+  groupAlumniPastMonthLeaderboardRoute.as('groupAlumniPastMonthLeaderboardRoute');
+
+  cy.fixture('api/groups/leaderboard/get/alumniPastWeek.json').as('groupAlumniPastWeekLeaderboard');
+
+  const groupAlumniPastWeekLeaderboardRoute = cy.route({
+    method: 'GET',
+    url: '**/api/v2/groups/leaderboard/1/week',
+    response: '@groupAlumniPastWeekLeaderboard'
+  });
+
+  groupAlumniPastWeekLeaderboardRoute.as('groupAlumniPastWeekLeaderboardRoute');
 });
 
 Cypress.Commands.add('mockGroupMembersAPI', () => {

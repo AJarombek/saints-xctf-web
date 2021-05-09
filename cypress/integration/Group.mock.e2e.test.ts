@@ -65,7 +65,7 @@ describe('Group Mock E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/profile/andy`);
   });
 
-  it.only('leaderboard displays properly with all filters', () => {
+  it('leaderboard displays properly with all filters', () => {
     cy.visit('/group/1');
     cy.alumniGroupMockAPICalls();
 
@@ -172,9 +172,77 @@ describe('Group Mock E2E Tests', () => {
     cy.get('.tabs p').contains('Leaderboard').click();
     cy.groupLeaderboardFiltersSelected(true, false, false, false);
     cy.get('.leaderboardInterval').should('contain.text', 'All Time');
+
+    cy.getDataCy('leaderboardItem').should('have.length', 4);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '2737.88');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '621.50');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '175.25');
+    cy.getDataCy('leaderboardItem').eq(3).should('contain.text', 'Lisa Grohn');
+    cy.getDataCy('leaderboardItem').eq(3).findDataCy('leaderboardItemValue').should('contain.text', '5.00');
+
+    cy.get('.leaderboardInterval').click();
+    cy.get('.leaderboardInterval').contains('Past Year').click();
+    cy.wait('@groupAlumniPastYearLeaderboardRoute');
+
+    cy.getDataCy('leaderboardItem').should('have.length', 3);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '592.35');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '200.50');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '105.25');
+
+    cy.get('.leaderboardInterval').click();
+    cy.get('.leaderboardInterval').contains('Past Month').click();
+    cy.wait('@groupAlumniPastMonthLeaderboardRoute');
+
+    cy.getDataCy('leaderboardItem').should('have.length', 3);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '64.25');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '56.0');
+    cy.getDataCy('leaderboardItem').eq(2).should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('leaderboardItem').eq(2).findDataCy('leaderboardItemValue').should('contain.text', '14.35');
+
+    cy.get('.leaderboardInterval').click();
+    cy.get('.leaderboardInterval').contains('Past Week').click();
+    cy.wait('@groupAlumniPastWeekLeaderboardRoute');
+
+    cy.getDataCy('leaderboardItem').should('have.length', 2);
+    cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('leaderboardItem').eq(0).findDataCy('leaderboardItemValue').should('contain.text', '24.5');
+    cy.getDataCy('leaderboardItem').eq(1).should('contain.text', 'Joseph Smith');
+    cy.getDataCy('leaderboardItem').eq(1).findDataCy('leaderboardItemValue').should('contain.text', '14.25');
   });
 
-  it.skip('an error is displayed if leaderboard data fails to load', () => {});
+  it.only('an error is displayed if leaderboard data fails to load', () => {
+    cy.visit('/group/1');
+    cy.alumniGroupMockAPICalls();
+
+    const groupLeaderboardErrorRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/leaderboard/1',
+      response: {
+        self: '/v2/groups/leaderboard/1/month',
+        leaderboard: null,
+        error: 'An unexpected error occurred retrieving leaderboard data.'
+      },
+      status: 500
+    });
+
+    groupLeaderboardErrorRoute.as('groupLeaderboardErrorRoute');
+
+    cy.get('.tabs p').contains('Leaderboard').click();
+
+    cy.getDataCy('leaderboardItem').should('not.exist');
+    cy.getDataCy('leaderboardAlert').should(
+      'contain.text',
+      'An unexpected error occurred retrieving leaderboard data.'
+    );
+  });
 
   it.skip('statistics display as expected', () => {
     cy.visit('/group/1');

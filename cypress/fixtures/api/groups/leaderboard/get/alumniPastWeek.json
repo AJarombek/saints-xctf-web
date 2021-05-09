@@ -1,0 +1,25 @@
+{
+  "leaderboard": [
+    {
+      "first": "Benjamin",
+      "last": "Fishbein",
+      "miles": 24.5,
+      "miles_biked": 0.0,
+      "miles_other": 0.0,
+      "miles_run": 24.5,
+      "miles_swam": 0.0,
+      "username": "Fish"
+    },
+    {
+      "first": "Joseph",
+      "last": "Smith",
+      "miles": 14.25,
+      "miles_biked": 0.0,
+      "miles_other": 0.0,
+      "miles_run": 14.25,
+      "miles_swam": 0.0,
+      "username": "Joe"
+    }
+  ],
+  "self": "/v2/groups/leaderboard/1/week"
+}

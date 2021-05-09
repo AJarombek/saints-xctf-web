@@ -1,0 +1,35 @@
+{
+  "leaderboard": [
+    {
+      "first": "Joseph",
+      "last": "Smith",
+      "miles": 64.25,
+      "miles_biked": 0.0,
+      "miles_other": 0.0,
+      "miles_run": 64.25,
+      "miles_swam": 0.0,
+      "username": "Joe"
+    },
+    {
+      "first": "Benjamin",
+      "last": "Fishbein",
+      "miles": 56.0,
+      "miles_biked": 0.0,
+      "miles_other": 0.0,
+      "miles_run": 56.0,
+      "miles_swam": 0.0,
+      "username": "Fish"
+    },
+    {
+      "first": "Andy",
+      "last": "Jarombek",
+      "miles": 14.35,
+      "miles_biked": 0.0,
+      "miles_other": 0.0,
+      "miles_run": 14.35,
+      "miles_swam": 0,
+      "username": "andy"
+    }
+  ],
+  "self": "/v2/groups/leaderboard/1/month"
+}
