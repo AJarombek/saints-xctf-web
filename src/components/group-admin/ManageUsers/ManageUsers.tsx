@@ -46,7 +46,7 @@ const ManageUsers: React.FunctionComponent<Props> = ({ groupId }) => {
   }, [members]);
 
   return (
-    <div className={classes.manageUsers}>
+    <div className={classes.manageUsers} id="manageUsers">
       <h3 className={classes.title}>Manage Users</h3>
       <div className={classes.container}>
         {!!pendingMembers.length && <h4 className={classes.category}>Pending Members</h4>}

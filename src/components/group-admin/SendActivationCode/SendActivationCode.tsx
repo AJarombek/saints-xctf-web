@@ -91,7 +91,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
 
   return (
     <>
-      <div className={classes.sendActivationCode}>
+      <div className={classes.sendActivationCode} id="sendActivationCode">
         <h3 className={classes.title}>Send Activation Code</h3>
         <div className={classes.container}>
           <p className={classes.inputTitle}>Enter an Email Address</p>

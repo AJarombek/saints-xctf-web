@@ -79,7 +79,7 @@ describe('Admin Mock E2E Tests', () => {
     cy.getDataCy('adminTeam').eq(0).findDataCy('adminGroup').eq(1).should('contain.text', "Men's Cross Country");
   });
 
-  it.only('navigates to the appropriate group admin page when clicking on a group', () => {
+  it('navigates to the appropriate group admin page when clicking on a group', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin');
 
@@ -92,5 +92,13 @@ describe('Admin Mock E2E Tests', () => {
     cy.wait('@groupAlumniMembersRoute');
     cy.wait('@groupAlumniRoute');
     cy.wait('@groupAlumniTeamRoute');
+  });
+
+  it('redirects back to the dashboard page if the user has no admin roles', () => {
+    cy.visit('/admin');
+
+    cy.andyDashboardMockAPICalls();
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 });

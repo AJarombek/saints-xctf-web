@@ -82,7 +82,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
   };
 
   return (
-    <div className={classes.editGroup}>
+    <div className={classes.editGroup} id="editGroup">
       <h3 className={classes.title}>Group Details</h3>
       <div className={classes.form}>
         <div>
