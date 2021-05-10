@@ -46,11 +46,17 @@ const AdminBody: React.FunctionComponent<Props> = ({ user }) => {
       <h3 className={classes.title}>Select a group to view its administrator dashboard.</h3>
       <div className={classes.container}>
         {memberships?.map((membership: TeamMembership) => (
-          <div key={membership.team_name}>
-            <h4 className={classes.teamTitle}>{membership.title}</h4>
+          <div key={membership.team_name} data-cypress="adminTeam">
+            <h4 className={classes.teamTitle} data-cypress="adminTeamTitle">
+              {membership.title}
+            </h4>
             <div className={classes.groups}>
               {membership.groups?.map((groupMember: GroupMember) => (
-                <div className={classes.group} onClick={(): void => navigate(`admin/group/${groupMember.group_id}`)}>
+                <div
+                  className={classes.group}
+                  onClick={(): void => navigate(`/admin/group/${groupMember.group_id}`)}
+                  data-cypress="adminGroup"
+                >
                   <p className={classes.groupTitle}>{groupMember.group_title}</p>
                 </div>
               ))}

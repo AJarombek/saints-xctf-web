@@ -1,0 +1,10 @@
+{
+  "self": "/v2/groups/team/1",
+  "team": {
+    "description": null,
+    "name": "saintsxctf",
+    "picture_name": null,
+    "title": "St. Lawrence Cross Country and Track & Field",
+    "week_start": null
+  }
+}
