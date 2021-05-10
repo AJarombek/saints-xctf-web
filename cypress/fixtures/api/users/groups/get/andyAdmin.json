@@ -1,0 +1,19 @@
+{
+  "groups": [
+    {
+      "group_name": "alumni",
+      "group_title": "Alumni",
+      "id": 1,
+      "status": "accepted",
+      "user": "admin"
+    },
+    {
+      "group_name": "mensxc",
+      "group_title": "Men's Cross Country",
+      "id": 5,
+      "status": "accepted",
+      "user": "admin"
+    }
+  ],
+  "self": "/v2/users/groups/andy"
+}

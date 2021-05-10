@@ -341,6 +341,7 @@ Cypress.Commands.add('mockUserFlairAPI', () => {
 });
 
 Cypress.Commands.add('mockUserGroupsAPI', () => {
+  cy.fixture('api/users/groups/get/andyAdmin.json').as('userGroupsAndyAdmin');
   cy.fixture('api/users/groups/get/andy.json').as('userGroupsAndy');
 
   const userGroupsAndyRoute = cy.route({
@@ -397,6 +398,7 @@ Cypress.Commands.add('mockUserLookupAPI', () => {
 });
 
 Cypress.Commands.add('mockUserMembershipsAPI', () => {
+  cy.fixture('api/users/memberships/get/andyAdmin.json').as('userMembershipsAndyAdmin');
   cy.fixture('api/users/memberships/get/andy.json').as('userMembershipsAndy');
 
   const userMembershipsAndyRoute = cy.route({

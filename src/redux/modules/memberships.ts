@@ -102,7 +102,7 @@ function getGroupMembershipsRequestReducer(
     groups: {
       isFetching: true,
       lastUpdated: moment().unix(),
-      items: []
+      items: null
     }
   };
 }
@@ -131,7 +131,7 @@ function getGroupMembershipsFailureReducer(
     groups: {
       isFetching: false,
       lastUpdated: moment().unix(),
-      items: [],
+      items: null,
       serverError: action.serverError
     }
   };

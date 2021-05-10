@@ -76,13 +76,16 @@ export const useAdminCheck = (redirect = true): boolean => {
 
       if (!membershipInfo.isFetching && !membershipInfo.serverError && !membershipInfo.items) {
         dispatch(getGroupMemberships(auth.signedInUser));
-      } else if (!adminCount || membershipInfo.serverError) {
-        if (redirect) {
-          navigate('/');
+      } else if (membershipInfo.items) {
+        if (!adminCount || membershipInfo.serverError) {
+          if (redirect) {
+            navigate('/');
+          }
+          setIsAdmin(false);
+        } else {
+          console.info('c');
+          setIsAdmin(true);
         }
-        setIsAdmin(false);
-      } else {
-        setIsAdmin(true);
       }
     }
   }, [auth.signedInUser, dispatch, navigate, membershipInfo, redirect]);
