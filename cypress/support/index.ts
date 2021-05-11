@@ -11,3 +11,4 @@ import './newLog';
 import './profile';
 import './shared';
 import './admin';
+import './groupAdmin';

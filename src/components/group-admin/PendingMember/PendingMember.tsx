@@ -87,7 +87,7 @@ const PendingMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
 
   return (
     <>
-      <div key={member.username} className={classes.pendingMember}>
+      <div key={member.username} className={classes.pendingMember} data-cypress="pendingMember">
         <p className={classes.name}>
           {member.first} {member.last}
         </p>

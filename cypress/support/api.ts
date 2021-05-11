@@ -123,6 +123,7 @@ Cypress.Commands.add('mockGroupLeaderboardAPI', () => {
 });
 
 Cypress.Commands.add('mockGroupMembersAPI', () => {
+  cy.fixture('api/groups/members/get/alumniAdminPending.json').as('groupAlumniAdminPendingMembers');
   cy.fixture('api/groups/members/get/alumni.json').as('groupAlumniMembers');
 
   const groupAlumniMembersRoute = cy.route({

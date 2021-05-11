@@ -14,6 +14,7 @@ import ConfirmationModal from './ConfirmationModal';
 import { deleteGroupMembership, updateGroupMembership } from '../../../redux/modules/memberships';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 import { getGroupMembers } from '../../../redux/modules/groups';
+import classNames from 'classnames';
 
 interface Props {
   member: MemberDetails;
@@ -65,7 +66,7 @@ const CurrentMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
 
   return (
     <>
-      <div className={classes.currentMember}>
+      <div className={classes.currentMember} data-cypress="currentMember">
         <p className={classes.name}>
           {member.first} {member.last}
         </p>
@@ -75,13 +76,13 @@ const CurrentMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
               {member.user.charAt(0).toUpperCase() + member.user.slice(1)}
             </div>
           }
-          className={classes.memberTypeTag}
+          className={classNames(classes.memberTypeTag, 'memberTypeTag')}
         />
         <AJButton
           type="outlined"
           disabled={false}
           onClick={(): void => setShowConfirmation(true)}
-          className={classes.removeAction}
+          className={classNames(classes.removeAction, 'actionButton')}
         >
           {member.user === 'admin' ? 'Demote' : 'Remove'}
         </AJButton>

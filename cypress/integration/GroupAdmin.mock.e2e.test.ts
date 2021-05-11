@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
+/// <reference path="../support/groupAdmin.d.ts" />
+
 /**
  * E2E tests written with Cypress for the group admin page.  These E2E tests used mocked API calls.
  * @author Andrew Jarombek
@@ -68,18 +71,78 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 
-  it.only('has multiple tabs that can be navigated between', () => {
+  it('has multiple tabs that can be navigated between', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
 
-    cy.wait('@userGroupsAndyRoute');
-    cy.wait('@groupAlumniMembersRoute');
-    cy.wait('@groupAlumniRoute');
-    cy.wait('@groupAlumniTeamRoute');
+    cy.alumniGroupAdminMockAPICalls();
+
+    // The default tab is the exercise logs tab.
+    cy.get('section #manageUsers').should('exist');
+    cy.get('section #sendActivationCode').should('not.exist');
+    cy.get('section #editGroup').should('not.exist');
+
+    cy.get('.tabs p').contains('Send Activation Code').click();
+    cy.get('section #manageUsers').should('not.exist');
+    cy.get('section #sendActivationCode').should('exist');
+    cy.get('section #editGroup').should('not.exist');
+
+    cy.get('.tabs p').contains('Edit Group').click();
+    cy.get('section #manageUsers').should('not.exist');
+    cy.get('section #sendActivationCode').should('not.exist');
+    cy.get('section #editGroup').should('exist');
+
+    cy.get('.tabs p').contains('Manage Users').click();
+    cy.get('section #manageUsers').should('exist');
+    cy.get('section #sendActivationCode').should('not.exist');
+    cy.get('section #editGroup').should('not.exist');
+  });
+
+  it('properly displays current members in a group', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
+
+    cy.getDataCy('currentMember').should('have.length', 4);
+    cy.getDataCy('currentMember').eq(0).find('> p').should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('currentMember').eq(0).find('.memberTypeTag').should('contain.text', 'User');
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Remove');
+
+    cy.getDataCy('currentMember').eq(1).find('> p').should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('currentMember').eq(1).find('.memberTypeTag').should('contain.text', 'User');
+    cy.getDataCy('currentMember').eq(1).find('.actionButton').should('contain.text', 'Remove');
+
+    cy.getDataCy('currentMember').eq(2).find('> p').should('contain.text', 'Joseph Smith');
+    cy.getDataCy('currentMember').eq(2).find('.memberTypeTag').should('contain.text', 'User');
+    cy.getDataCy('currentMember').eq(2).find('.actionButton').should('contain.text', 'Remove');
+
+    cy.getDataCy('currentMember').eq(3).find('> p').should('contain.text', 'Lisa Grohn');
+    cy.getDataCy('currentMember').eq(3).find('.memberTypeTag').should('contain.text', 'User');
+    cy.getDataCy('currentMember').eq(3).find('.actionButton').should('contain.text', 'Remove');
+  });
+
+  it.only('properly displays administrators, current members, and pending members in a group', () => {
+    cy.andyAdminMemberships();
+
+    const groupAlumniMembersRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniAdminPendingMembers'
+    });
+
+    groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+
+    cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
   });
 
   it.skip('able to remove members from a group', () => {
+    cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
   });
 
   it.skip('able to demote members from administrator roles in a group', () => {
