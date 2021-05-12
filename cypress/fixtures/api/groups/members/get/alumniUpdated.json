@@ -1,0 +1,30 @@
+{
+  "group": "/v2/groups/1",
+  "group_members": [
+    {
+      "first": "Benjamin",
+      "last": "Fishbein",
+      "member_since": "Mon, 26 Dec 2016 00:00:00 GMT",
+      "status": "accepted",
+      "user": "user",
+      "username": "Fish"
+    },
+    {
+      "first": "Joseph",
+      "last": "Smith",
+      "member_since": "Fri, 23 Dec 2016 00:00:00 GMT",
+      "status": "accepted",
+      "user": "user",
+      "username": "Joe"
+    },
+    {
+      "first": "Lisa",
+      "last": "Grohn",
+      "member_since": "Sat, 24 Dec 2016 00:00:00 GMT",
+      "status": "accepted",
+      "user": "user",
+      "username": "lisagee"
+    }
+  ],
+  "self": "/v2/groups/members/1"
+}

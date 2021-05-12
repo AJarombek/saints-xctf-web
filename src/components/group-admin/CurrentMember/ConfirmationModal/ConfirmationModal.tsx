@@ -44,7 +44,7 @@ const ConfirmationModal: React.FunctionComponent<Props> = ({
   if (show) {
     return (
       <AJModal backdrop={true} onClickBackground={onClose}>
-        <div className={classes.modal}>
+        <div className={classes.modal} data-cypress="confirmationModal">
           {member.user === 'admin' && (
             <p>
               Are you sure you want to demote{' '}

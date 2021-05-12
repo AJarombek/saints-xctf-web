@@ -133,6 +133,26 @@ Cypress.Commands.add('mockGroupMembersAPI', () => {
   });
 
   groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+
+  cy.fixture('api/groups/members/put/andy.json').as('groupAlumniUpdateAndy');
+
+  const groupAlumniUpdateAndyRoute = cy.route({
+    method: 'PUT',
+    url: '**/api/v2/groups/members/1/andy',
+    response: '@groupAlumniUpdateAndy'
+  });
+
+  groupAlumniUpdateAndyRoute.as('groupAlumniUpdateAndyRoute');
+
+  cy.fixture('api/groups/members/delete/andy.json').as('groupAlumniDeleteAndy');
+
+  const groupAlumniDeleteAndyRoute = cy.route({
+    method: 'DELETE',
+    url: '**/api/v2/groups/members/1/andy',
+    response: '@groupAlumniDeleteAndy'
+  });
+
+  groupAlumniDeleteAndyRoute.as('groupAlumniDeleteAndyRoute');
 });
 
 Cypress.Commands.add('mockGroupStatisticsAPI', () => {

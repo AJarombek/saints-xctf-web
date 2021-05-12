@@ -122,7 +122,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('currentMember').eq(3).find('.actionButton').should('contain.text', 'Remove');
   });
 
-  it.only('properly displays administrators, current members, and pending members in a group', () => {
+  it('properly displays administrators, current members, and pending members in a group', () => {
     cy.andyAdminMemberships();
 
     const groupAlumniMembersRoute = cy.route({
@@ -136,17 +136,122 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.visit('/admin/group/1');
 
     cy.alumniGroupAdminMockAPICalls();
+
+    cy.getDataCy('pendingMember').should('have.length', 2);
+    cy.getDataCy('pendingMember').eq(0).find('> p').should('contain.text', 'Thomas Caulfield');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept');
+
+    cy.getDataCy('pendingMember').eq(1).find('> p').should('contain.text', 'Blaine Ayotte');
+    cy.getDataCy('pendingMember').eq(1).find('.aj-text-button').should('contain.text', 'Deny');
+    cy.getDataCy('pendingMember').eq(1).find('.aj-contained-button').should('contain.text', 'Accept');
+
+    cy.getDataCy('currentMember').should('have.length', 4);
+    cy.getDataCy('currentMember').eq(0).find('> p').should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('currentMember').eq(0).find('.memberTypeTag').should('contain.text', 'Admin');
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Demote');
+
+    cy.getDataCy('currentMember').eq(1).find('> p').should('contain.text', 'Benjamin Fishbein');
+    cy.getDataCy('currentMember').eq(1).find('.memberTypeTag').should('contain.text', 'User');
+    cy.getDataCy('currentMember').eq(1).find('.actionButton').should('contain.text', 'Remove');
+
+    cy.getDataCy('currentMember').eq(2).find('> p').should('contain.text', 'Joseph Smith');
+    cy.getDataCy('currentMember').eq(2).find('.memberTypeTag').should('contain.text', 'User');
+    cy.getDataCy('currentMember').eq(2).find('.actionButton').should('contain.text', 'Remove');
+
+    cy.getDataCy('currentMember').eq(3).find('> p').should('contain.text', 'Lisa Grohn');
+    cy.getDataCy('currentMember').eq(3).find('.memberTypeTag').should('contain.text', 'Admin');
+    cy.getDataCy('currentMember').eq(3).find('.actionButton').should('contain.text', 'Demote');
   });
 
-  it.skip('able to remove members from a group', () => {
+  it('able to remove members from a group', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
 
     cy.alumniGroupAdminMockAPICalls();
+    cy.getDataCy('currentMember').should('have.length', 4);
+
+    cy.getDataCy('confirmationModal').should('not.exist');
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Remove').click();
+    cy.getDataCy('confirmationModal')
+      .should('exist')
+      .should('contain.text', 'Are you sure you want to remove Andy Jarombek from Alumni?');
+
+    cy.getDataCy('confirmationModal').find('.aj-outlined-button').contains('CANCEL').click();
+    cy.getDataCy('confirmationModal').should('not.exist');
+
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Remove').click();
+
+    cy.fixture('api/groups/members/get/alumniUpdated.json').as('groupAlumniMembersUpdated');
+
+    const groupAlumniMembersUpdatedRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniMembersUpdated'
+    });
+
+    groupAlumniMembersUpdatedRoute.as('groupAlumniMembersUpdatedRoute');
+
+    cy.getDataCy('confirmationModal').find('.aj-contained-button').contains('REMOVE').click();
+    cy.wait('@groupAlumniDeleteAndyRoute');
+    cy.wait('@groupAlumniMembersUpdatedRoute');
+
+    cy.getDataCy('currentMember').should('have.length', 3);
   });
 
-  it.skip('able to demote members from administrator roles in a group', () => {
+  it.only('able to demote members from administrator roles in a group', () => {
+    cy.andyAdminMemberships();
+
+    const groupAlumniMembersRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniAdminPendingMembers'
+    });
+
+    groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+
     cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
+
+    cy.getDataCy('pendingMember').should('have.length', 2);
+    cy.getDataCy('currentMember').should('have.length', 4);
+
+    cy.getDataCy('currentMember').eq(0).find('> p').should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('currentMember').eq(0).find('.memberTypeTag').should('contain.text', 'Admin');
+
+    cy.getDataCy('confirmationModal').should('not.exist');
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Demote').click();
+    cy.getDataCy('confirmationModal')
+      .should('exist')
+      .should(
+        'contain.text',
+        'Are you sure you want to demote Andy Jarombek from their administrator position in Alumni?'
+      );
+
+    cy.getDataCy('confirmationModal').find('.aj-outlined-button').contains('CANCEL').click();
+    cy.getDataCy('confirmationModal').should('not.exist');
+
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Demote').click();
+    cy.getDataCy('confirmationModal').should('exist');
+
+    cy.fixture('api/groups/members/get/alumniAdminPendingUpdated.json').as('alumniAdminPendingMembersUpdated');
+
+    const alumniAdminPendingMembersUpdatedRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@alumniAdminPendingMembersUpdated'
+    });
+
+    alumniAdminPendingMembersUpdatedRoute.as('alumniAdminPendingMembersUpdatedRoute');
+
+    cy.getDataCy('confirmationModal').find('.aj-contained-button').contains('DEMOTE').click();
+    cy.wait('@groupAlumniUpdateAndyRoute');
+    cy.wait('@alumniAdminPendingMembersUpdatedRoute');
+
+    cy.getDataCy('currentMember').eq(0).find('> p').should('contain.text', 'Andy Jarombek');
+    cy.getDataCy('currentMember').eq(0).find('.memberTypeTag').should('contain.text', 'User');
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Remove');
   });
 
   it.skip('able to accept pending members into a group', () => {
