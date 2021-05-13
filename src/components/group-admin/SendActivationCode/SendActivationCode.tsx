@@ -55,7 +55,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
     if (!newEmail) {
       setEmailStatus(ImageInputStatus.NONE);
     } else {
-      if (emailPattern.test(email)) {
+      if (emailPattern.test(newEmail)) {
         setEmailStatus(ImageInputStatus.SUCCESS);
       } else {
         setEmailStatus(ImageInputStatus.FAILURE);
@@ -107,7 +107,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
           />
           {emailStatus === ImageInputStatus.SUCCESS && (
             <>
-              <div className={classes.approvalMessage}>
+              <div className={classes.approvalMessage} data-cypress="approvalMessage">
                 Sending an email to this address will give its recipient access to the <strong>{teamTitle}</strong> team
                 and <strong>{group.group_title}</strong> group.
               </div>

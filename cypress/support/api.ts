@@ -163,6 +163,16 @@ Cypress.Commands.add('mockGroupMembersAPI', () => {
   });
 
   groupAlumniDeleteAndyRoute.as('groupAlumniDeleteAndyRoute');
+
+  cy.fixture('api/groups/members/delete/tom.json').as('groupAlumniDeleteTom');
+
+  const groupAlumniDeleteTomRoute = cy.route({
+    method: 'DELETE',
+    url: '**/api/v2/groups/members/1/Tom',
+    response: '@groupAlumniDeleteTom'
+  });
+
+  groupAlumniDeleteTomRoute.as('groupAlumniDeleteTomRoute');
 });
 
 Cypress.Commands.add('mockGroupStatisticsAPI', () => {

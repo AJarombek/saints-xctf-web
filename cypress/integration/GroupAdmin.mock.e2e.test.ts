@@ -314,7 +314,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('currentMember').eq(4).find('.actionButton').should('contain.text', 'Remove');
   });
 
-  it.only('able to not accept pending members into a group', () => {
+  it('able to not accept pending members into a group', () => {
     cy.andyAdminMemberships();
 
     const groupAlumniMembersRoute = cy.route({
@@ -351,10 +351,67 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny').click();
     cy.getDataCy('acceptDenyModal').should('exist');
 
+    cy.fixture('api/groups/members/get/alumniPendingUserRemoved.json').as('groupAlumniPendingUserRemoved');
+
+    const groupAlumniPendingUserRemovedRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniPendingUserRemoved'
+    });
+
+    groupAlumniPendingUserRemovedRoute.as('groupAlumniPendingUserRemovedRoute');
+
     cy.getDataCy('acceptDenyModal').find('.aj-contained-button').contains('DENY MEMBERSHIP').click();
+    cy.wait('@groupAlumniDeleteTomRoute');
+    cy.wait('@groupAlumniPendingUserRemovedRoute');
+
+    cy.getDataCy('pendingMember').should('have.length', 1);
+    cy.getDataCy('currentMember').should('have.length', 4);
+
+    cy.getDataCy('pendingMember').eq(0).find('> p').should('contain.text', 'Blaine Ayotte');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept');
   });
 
-  it.skip('redirects back to the dashboard page if the user is not an admin for a group', () => {
+  it('redirects back to the dashboard page if the user is not an admin for a group', () => {
     cy.visit('/admin/group/1');
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
+
+  it.only('send activation code to new user has the appropriate email validation', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Send Activation Code').click();
+    cy.getDataCy('approvalMessage').should('not.exist');
+
+    cy.getImageInput('email').type('a');
+    cy.imageInputValidationCheck('email', 'failure');
+    cy.getDataCy('approvalMessage').should('not.exist');
+
+    cy.getImageInput('email').type('ndrew');
+    cy.imageInputValidationCheck('email', 'failure');
+    cy.getDataCy('approvalMessage').should('not.exist');
+
+    cy.getImageInput('email').type('@jar');
+    cy.imageInputValidationCheck('email', 'failure');
+    cy.getDataCy('approvalMessage').should('not.exist');
+
+    cy.getImageInput('email').type('ombek.c');
+    cy.imageInputValidationCheck('email', 'failure');
+    cy.getDataCy('approvalMessage').should('not.exist');
+
+    cy.getImageInput('email').type('o');
+    cy.imageInputValidationCheck('email', 'success');
+    cy.getDataCy('approvalMessage').should('exist');
+
+    cy.getImageInput('email').type('m');
+    cy.imageInputValidationCheck('email', 'success');
+    cy.getDataCy('approvalMessage').should('exist');
+
+    cy.getImageInput('email').clear();
+    cy.imageInputValidationCheck('email', 'none');
+    cy.getDataCy('approvalMessage').should('not.exist');
+  });
+
+  it.skip('able to send activation code to new user', () => {});
 });
