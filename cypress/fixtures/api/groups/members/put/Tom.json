@@ -1,0 +1,13 @@
+{
+  "self": "/v2/groups/members/1/Tom",
+  "updated": true,
+  "group_member": {
+    "deleted": false,
+    "group_id": 1,
+    "group_name": "alumni",
+    "id": 18,
+    "status": "accepted",
+    "user": "user",
+    "username": "Tom"
+  }
+}

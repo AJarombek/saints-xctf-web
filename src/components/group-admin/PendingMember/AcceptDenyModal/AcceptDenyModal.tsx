@@ -50,7 +50,7 @@ const AcceptDenyModal: React.FunctionComponent<Props> = ({
   if (show) {
     return (
       <AJModal backdrop={true} onClickBackground={onClose}>
-        <div className={classes.modal}>
+        <div className={classes.modal} data-cypress="acceptDenyModal">
           {action === 'accept' && (
             <p>
               Are you sure you want to accept{' '}

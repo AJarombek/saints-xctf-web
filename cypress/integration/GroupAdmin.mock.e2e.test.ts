@@ -199,7 +199,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('currentMember').should('have.length', 3);
   });
 
-  it.only('able to demote members from administrator roles in a group', () => {
+  it('able to demote members from administrator roles in a group', () => {
     cy.andyAdminMemberships();
 
     const groupAlumniMembersRoute = cy.route({
@@ -254,12 +254,104 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Remove');
   });
 
-  it.skip('able to accept pending members into a group', () => {
+  it('able to accept pending members into a group', () => {
+    cy.andyAdminMemberships();
+
+    const groupAlumniMembersRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniAdminPendingMembers'
+    });
+
+    groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+
     cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
+
+    cy.getDataCy('pendingMember').should('have.length', 2);
+    cy.getDataCy('currentMember').should('have.length', 4);
+
+    cy.getDataCy('pendingMember').eq(0).find('> p').should('contain.text', 'Thomas Caulfield');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept');
+
+    cy.getDataCy('acceptDenyModal').should('not.exist');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept').click();
+    cy.getDataCy('acceptDenyModal')
+      .should('exist')
+      .should('contain.text', 'Are you sure you want to accept Thomas Caulfield as a member in Alumni?');
+
+    cy.getDataCy('acceptDenyModal').find('.aj-outlined-button').contains('CANCEL').click();
+    cy.getDataCy('acceptDenyModal').should('not.exist');
+
+    cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept').click();
+    cy.getDataCy('acceptDenyModal').should('exist');
+
+    cy.fixture('api/groups/members/get/alumniMemberAdded.json').as('groupAlumniMemberAdded');
+
+    const groupAlumniMemberAddedRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniMemberAdded'
+    });
+
+    groupAlumniMemberAddedRoute.as('groupAlumniMemberAddedRoute');
+
+    cy.getDataCy('acceptDenyModal').find('.aj-contained-button').contains('ACCEPT MEMBERSHIP').click();
+    cy.wait('@groupAlumniUpdateTomRoute');
+    cy.wait('@groupAlumniMemberAddedRoute');
+
+    cy.getDataCy('pendingMember').should('have.length', 1);
+    cy.getDataCy('currentMember').should('have.length', 5);
+
+    cy.getDataCy('pendingMember').eq(0).find('> p').should('contain.text', 'Blaine Ayotte');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept');
+
+    cy.getDataCy('currentMember').eq(4).find('> p').should('contain.text', 'Thomas Caulfield');
+    cy.getDataCy('currentMember').eq(4).find('.memberTypeTag').should('contain.text', 'User');
+    cy.getDataCy('currentMember').eq(4).find('.actionButton').should('contain.text', 'Remove');
   });
 
-  it.skip('able to not accept pending members into a group', () => {
+  it.only('able to not accept pending members into a group', () => {
+    cy.andyAdminMemberships();
+
+    const groupAlumniMembersRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniAdminPendingMembers'
+    });
+
+    groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+
     cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
+
+    cy.getDataCy('pendingMember').should('have.length', 2);
+    cy.getDataCy('currentMember').should('have.length', 4);
+
+    cy.getDataCy('pendingMember').eq(0).find('> p').should('contain.text', 'Thomas Caulfield');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept');
+
+    cy.getDataCy('acceptDenyModal').should('not.exist');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny').click();
+    cy.getDataCy('acceptDenyModal')
+      .should('exist')
+      .should(
+        'contain.text',
+        'Are you sure you want to deny the membership request made by Thomas Caulfield for the group Alumni?'
+      );
+
+    cy.getDataCy('acceptDenyModal').find('.aj-outlined-button').contains('CANCEL').click();
+    cy.getDataCy('acceptDenyModal').should('not.exist');
+
+    cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny').click();
+    cy.getDataCy('acceptDenyModal').should('exist');
+
+    cy.getDataCy('acceptDenyModal').find('.aj-contained-button').contains('DENY MEMBERSHIP').click();
   });
 
   it.skip('redirects back to the dashboard page if the user is not an admin for a group', () => {

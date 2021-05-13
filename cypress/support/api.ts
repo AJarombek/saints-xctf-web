@@ -144,6 +144,16 @@ Cypress.Commands.add('mockGroupMembersAPI', () => {
 
   groupAlumniUpdateAndyRoute.as('groupAlumniUpdateAndyRoute');
 
+  cy.fixture('api/groups/members/put/Tom.json').as('groupAlumniUpdateTom');
+
+  const groupAlumniUpdateTomRoute = cy.route({
+    method: 'PUT',
+    url: '**/api/v2/groups/members/1/Tom',
+    response: '@groupAlumniUpdateTom'
+  });
+
+  groupAlumniUpdateTomRoute.as('groupAlumniUpdateTomRoute');
+
   cy.fixture('api/groups/members/delete/andy.json').as('groupAlumniDeleteAndy');
 
   const groupAlumniDeleteAndyRoute = cy.route({
