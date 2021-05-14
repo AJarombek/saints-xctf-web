@@ -373,12 +373,120 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept');
   });
 
+  it('shows an error if adding a pending user fails', () => {
+    cy.andyAdminMemberships();
+
+    const groupAlumniMembersRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniAdminPendingMembers'
+    });
+
+    groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+
+    cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
+
+    const groupMembersUpdateErrorRoute = cy.route({
+      method: 'PUT',
+      url: '**/api/v2/groups/members/1/Tom',
+      response: {
+        self: '/v2/groups/members/1/Tom',
+        updated: false,
+        group_member: null,
+        error: 'The group membership failed to update.'
+      },
+      status: 500
+    });
+
+    groupMembersUpdateErrorRoute.as('groupMembersUpdateErrorRoute');
+
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept').click();
+    cy.getDataCy('acceptDenyModal').find('.aj-contained-button').contains('ACCEPT MEMBERSHIP').click();
+
+    cy.wait('@groupMembersUpdateErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'An unexpected error occurred while accepting a users membership request. ' +
+        'Try reloading the page. If this error persists, contact andrew@jarombek.com.'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+  });
+
+  it('shows an error if deleting a pending user fails', () => {
+    cy.andyAdminMemberships();
+
+    const groupAlumniMembersRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniAdminPendingMembers'
+    });
+
+    groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+
+    cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
+
+    const groupDeleteMemberErrorRoute = cy.route({
+      method: 'DELETE',
+      url: '**/api/v2/groups/members/1/Tom',
+      response: {
+        self: '/v2/groups/members/1/Tom',
+        deleted: false,
+        error: 'Failed to delete the group membership.'
+      },
+      status: 500
+    });
+
+    groupDeleteMemberErrorRoute.as('groupDeleteMemberErrorRoute');
+
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('pendingMember').eq(0).find('.aj-text-button').should('contain.text', 'Deny').click();
+    cy.getDataCy('acceptDenyModal').find('.aj-contained-button').contains('DENY MEMBERSHIP').click();
+    cy.wait('@groupDeleteMemberErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'An unexpected error occurred while denying a users membership request. Try reloading the page. ' +
+        'If this error persists, contact andrew@jarombek.com.'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+  });
+
+  it.only('shows an error if modifying a member fails', () => {
+    cy.andyAdminMemberships();
+
+    const groupAlumniMembersRoute = cy.route({
+      method: 'GET',
+      url: '**/api/v2/groups/members/1',
+      response: '@groupAlumniAdminPendingMembers'
+    });
+
+    groupAlumniMembersRoute.as('groupAlumniMembersRoute');
+
+    cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
+  });
+
+  it.skip('shows an error if removing a member fails', () => {});
+
   it('redirects back to the dashboard page if the user is not an admin for a group', () => {
     cy.visit('/admin/group/1');
     cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 
-  it.only('send activation code to new user has the appropriate email validation', () => {
+  it('send activation code to new user has the appropriate email validation', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Send Activation Code').click();
@@ -414,4 +522,6 @@ describe('Group Admin Mock E2E Tests', () => {
   });
 
   it.skip('able to send activation code to new user', () => {});
+
+  it.skip('shows an error if the activation code fails to send', () => {});
 });

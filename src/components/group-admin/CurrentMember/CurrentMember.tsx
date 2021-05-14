@@ -100,12 +100,14 @@ const CurrentMember: React.FunctionComponent<Props> = ({ member, groupId }) => {
         <DefaultErrorPopup
           message="An unexpected error occurred while updating a users membership"
           onClose={(): void => setErrorUpdatingMembership(false)}
+          closeable={true}
         />
       )}
       {errorDeletingMembership && (
         <DefaultErrorPopup
           message="An unexpected error occurred while revoking a users membership"
           onClose={(): void => setErrorDeletingMembership(false)}
+          closeable={true}
         />
       )}
     </>
