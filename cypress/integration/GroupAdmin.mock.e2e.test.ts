@@ -463,7 +463,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('alert').should('not.exist');
   });
 
-  it.only('shows an error if modifying a member fails', () => {
+  it('shows an error if modifying a member fails', () => {
     cy.andyAdminMemberships();
 
     const groupAlumniMembersRoute = cy.route({
@@ -477,9 +477,73 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.visit('/admin/group/1');
 
     cy.alumniGroupAdminMockAPICalls();
+
+    const groupMembersUpdateErrorRoute = cy.route({
+      method: 'PUT',
+      url: '**/api/v2/groups/members/1/andy',
+      response: {
+        self: '/v2/groups/members/1/andy',
+        updated: false,
+        group_member: null,
+        error: 'The group membership failed to update.'
+      },
+      status: 500
+    });
+
+    groupMembersUpdateErrorRoute.as('groupMembersUpdateErrorRoute');
+
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Demote').click();
+    cy.getDataCy('confirmationModal').find('.aj-contained-button').contains('DEMOTE').click();
+
+    cy.wait('@groupMembersUpdateErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'An unexpected error occurred while updating a users membership. Try reloading the page. ' +
+        'If this error persists, contact andrew@jarombek.com.'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
   });
 
-  it.skip('shows an error if removing a member fails', () => {});
+  it('shows an error if removing a member fails', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+
+    cy.alumniGroupAdminMockAPICalls();
+
+    const groupDeleteMemberErrorRoute = cy.route({
+      method: 'DELETE',
+      url: '**/api/v2/groups/members/1/andy',
+      response: {
+        self: '/v2/groups/members/1/andy',
+        deleted: false,
+        error: 'Failed to delete the group membership.'
+      },
+      status: 500
+    });
+
+    groupDeleteMemberErrorRoute.as('groupDeleteMemberErrorRoute');
+
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('currentMember').eq(0).find('.actionButton').should('contain.text', 'Remove').click();
+    cy.getDataCy('confirmationModal').find('.aj-contained-button').contains('REMOVE').click();
+
+    cy.wait('@groupDeleteMemberErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'An unexpected error occurred while revoking a users membership. Try reloading the page. ' +
+        'If this error persists, contact andrew@jarombek.com.'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+  });
 
   it('redirects back to the dashboard page if the user is not an admin for a group', () => {
     cy.visit('/admin/group/1');
@@ -521,7 +585,37 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('approvalMessage').should('not.exist');
   });
 
-  it.skip('able to send activation code to new user', () => {});
+  it.only('able to send activation code to new user', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Send Activation Code').click();
+    cy.getDataCy('approvalMessage').should('not.exist');
+
+    cy.getImageInput('email').type('andrew@jarombek.com');
+
+    cy.getDataCy('approvalMessage').should(
+      'contain.text',
+      'Sending an email to this address will give its recipient access to the St. Lawrence Cross Country and ' +
+        'Track & Field team and Alumni group.'
+    );
+    cy.get('.aj-contained-button').contains('Send Activation Code').should('have.attr', 'disabled');
+    cy.getDataCy('approvalMessage').should('exist');
+
+    cy.get('#emailApproval').parent().click();
+    cy.get('.aj-contained-button').contains('Send Activation Code').should('not.have.attr', 'disabled');
+
+    cy.get('.aj-text-button').contains('Reset').click();
+    cy.getDataCy('approvalMessage').should('not.exist');
+
+    cy.getImageInput('email').type('andrew@jarombek.com');
+    cy.getDataCy('approvalMessage').should('exist');
+    cy.get('.aj-contained-button').contains('Send Activation Code').should('have.attr', 'disabled');
+
+    cy.get('#emailApproval').parent().click();
+    cy.get('.aj-contained-button').contains('Send Activation Code').should('not.have.attr', 'disabled');
+    cy.get('.aj-contained-button').contains('Send Activation Code').click();
+    cy.wait('@activationCodePostRoute');
+  });
 
   it.skip('shows an error if the activation code fails to send', () => {});
 });

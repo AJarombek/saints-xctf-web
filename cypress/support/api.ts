@@ -12,6 +12,7 @@
  */
 Cypress.Commands.add('mockAPI', () => {
   cy.server();
+  cy.mockActivationCodeAPI();
   cy.mockForgotPasswordAPI();
   cy.mockForgotPasswordValidateAPI();
   cy.mockGroupAPI();
@@ -31,6 +32,18 @@ Cypress.Commands.add('mockAPI', () => {
   cy.mockUserNotificationsAPI();
   cy.mockUserStatisticsAPI();
   cy.mockUserAPI();
+});
+
+Cypress.Commands.add('mockActivationCodeAPI', () => {
+  cy.fixture('api/activationCode/post/newCode.json').as('activationCodePost');
+
+  const activationCodePostRoute = cy.route({
+    method: 'POST',
+    url: '**/api/v2/activation_code/',
+    response: '@activationCodePost'
+  });
+
+  activationCodePostRoute.as('activationCodePostRoute');
 });
 
 Cypress.Commands.add('mockForgotPasswordAPI', () => {

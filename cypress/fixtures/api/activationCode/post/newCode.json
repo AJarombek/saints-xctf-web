@@ -1,0 +1,10 @@
+{
+  "self": "/v2/activation_code",
+  "added": true,
+  "activation_code": {
+    "activation_code": "abcd1234",
+    "email": "andrew@jarombek.com",
+    "group_id": 1,
+    "expiration_date": null
+  }
+}

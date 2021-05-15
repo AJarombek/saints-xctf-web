@@ -18,6 +18,13 @@ declare namespace Cypress {
 
         /**
          * Return static JSON files defined in the fixtures directory when an API call is made to a
+         * '/v2/activation_code/*' endpoint.
+         * @example mockActivationCodeAPI()
+         */
+        mockActivationCodeAPI(): void;
+
+        /**
+         * Return static JSON files defined in the fixtures directory when an API call is made to a
          * '/v2/forgot_password/*' endpoint.
          * @example mockForgotPasswordAPI()
          */
