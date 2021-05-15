@@ -136,7 +136,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
           </AJButton>
         </div>
       </div>
-      <h3 className={classes.title}>Profile Picture</h3>
+      <h3 className={classes.title}>Group Picture</h3>
       <div className={classes.form}>
         <UploadGroupPicture
           group={group}

@@ -144,12 +144,14 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
         <DefaultErrorPopup
           message="An unexpected error occurred while creating a new activation code"
           onClose={(): void => setErrorCreatingActivationCode(false)}
+          closeable={true}
         />
       )}
       {errorSendingActivationCodeEmail && (
         <DefaultErrorPopup
           message="An unexpected error occurred while sending the new activation code to the email address entered"
           onClose={(): void => setErrorSendingActivationCodeEmail(false)}
+          closeable={true}
           retryable={true}
           onRetry={(): Promise<void> => onSendActivationCodeEmail(email, activationCodeNotSent)}
         />

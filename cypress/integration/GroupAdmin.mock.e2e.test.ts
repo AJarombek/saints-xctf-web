@@ -629,24 +629,137 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('approvalMessage').should('not.exist');
   });
 
-  it.only('shows an error if the activation code fails to be created', () => {
+  it('shows an error if the activation code fails to be created', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Send Activation Code').click();
     cy.getImageInput('email').type('andrew@jarombek.com');
+
+    const activationCodePostErrorRoute = cy.route({
+      method: 'POST',
+      url: '**/api/v2/activation_code/',
+      response: {
+        self: '/v2/activation_code',
+        added: true,
+        activation_code: null,
+        error: 'failed to create a new activation code'
+      },
+      status: 500
+    });
+
+    activationCodePostErrorRoute.as('activationCodePostErrorRoute');
+
+    cy.get('#emailApproval').parent().click();
+    cy.getDataCy('alert').should('not.exist');
+    cy.get('.aj-contained-button').contains('Send Activation Code').click();
+    cy.wait('@activationCodePostErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'An unexpected error occurred while creating a new activation code. Try reloading the page. ' +
+        'If this error persists, contact andrew@jarombek.com.'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+    cy.get('.aj-contained-button').contains('Send Activation Code').should('not.have.attr', 'disabled');
   });
 
-  it.skip('shows an error if the activation code fails to be sent', () => {
+  it('shows an error if the activation code fails to be sent', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Send Activation Code').click();
     cy.getImageInput('email').type('andrew@jarombek.com');
+
+    cy.fixture('fn/email/activationCode/failure.json').as('activationCodeEmailFailureFn');
+
+    const activationCodeEmailFailureFnRoute = cy.route({
+      method: 'POST',
+      url: '**/fn/email/activation-code',
+      response: '@activationCodeEmailFailureFn',
+      status: 500
+    });
+
+    activationCodeEmailFailureFnRoute.as('activationCodeEmailFailureFnRoute');
+
+    cy.getDataCy('alert').should('not.exist');
+    cy.get('#emailApproval').parent().click();
+    cy.get('.aj-contained-button').contains('Send Activation Code').click();
+    cy.wait('@activationCodePostRoute');
+    cy.wait('@activationCodeEmailFailureFnRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'An unexpected error occurred while sending the new activation code to the email address entered. ' +
+        'Try reloading the page. If this error persists, contact andrew@jarombek.com.'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+    cy.get('.aj-contained-button').contains('Send Activation Code').should('not.have.attr', 'disabled');
   });
 
-  it.skip('able to retry sending an email if the activation code fails to be sent', () => {
+  it('able to retry sending an email if the activation code fails to be sent', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Send Activation Code').click();
     cy.getImageInput('email').type('andrew@jarombek.com');
+
+    cy.fixture('fn/email/activationCode/failure.json').as('activationCodeEmailFailureFn');
+
+    const activationCodeEmailFailureFnRoute = cy.route({
+      method: 'POST',
+      url: '**/fn/email/activation-code',
+      response: '@activationCodeEmailFailureFn',
+      status: 500
+    });
+
+    activationCodeEmailFailureFnRoute.as('activationCodeEmailFailureFnRoute');
+
+    cy.get('#emailApproval').parent().click();
+    cy.get('.aj-contained-button').contains('Send Activation Code').click();
+    cy.wait('@activationCodePostRoute');
+    cy.wait('@activationCodeEmailFailureFnRoute');
+
+    const activationCodeEmailSuccessFnRoute = cy.route({
+      method: 'POST',
+      url: '**/fn/email/activation-code',
+      response: '@activationCodeEmailSuccessFn',
+      status: 200
+    });
+
+    activationCodeEmailSuccessFnRoute.as('activationCodeEmailSuccessFnRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').contains('Retry').click();
+    cy.wait('@activationCodeEmailSuccessFnRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Activation code sent to andrew@jarombek.com!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('approvalMessage').should('not.exist');
+  });
+
+  it.only('properly displays group details', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+  });
+
+  it.skip('able to edit group details', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+  });
+
+  it.skip('able to edit a group picture', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
   });
 });
