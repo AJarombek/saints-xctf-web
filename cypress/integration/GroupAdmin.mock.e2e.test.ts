@@ -11,6 +11,7 @@ describe('Group Admin Mock E2E Tests', () => {
   beforeEach(() => {
     cy.mockAPI();
     cy.mockAuthAPI();
+    cy.mockFnAPI();
     cy.setUserInLocalStorage();
     cy.setMockTokenInLocalStorage();
   });
@@ -585,7 +586,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('approvalMessage').should('not.exist');
   });
 
-  it.only('able to send activation code to new user', () => {
+  it('able to send activation code to new user', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Send Activation Code').click();
@@ -613,9 +614,39 @@ describe('Group Admin Mock E2E Tests', () => {
 
     cy.get('#emailApproval').parent().click();
     cy.get('.aj-contained-button').contains('Send Activation Code').should('not.have.attr', 'disabled');
+    cy.getDataCy('alert').should('not.exist');
+
     cy.get('.aj-contained-button').contains('Send Activation Code').click();
     cy.wait('@activationCodePostRoute');
+    cy.wait('@activationCodeEmailSuccessFnRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Activation code sent to andrew@jarombek.com!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('approvalMessage').should('not.exist');
   });
 
-  it.skip('shows an error if the activation code fails to send', () => {});
+  it.only('shows an error if the activation code fails to be created', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Send Activation Code').click();
+    cy.getImageInput('email').type('andrew@jarombek.com');
+  });
+
+  it.skip('shows an error if the activation code fails to be sent', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Send Activation Code').click();
+    cy.getImageInput('email').type('andrew@jarombek.com');
+  });
+
+  it.skip('able to retry sending an email if the activation code fails to be sent', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Send Activation Code').click();
+    cy.getImageInput('email').type('andrew@jarombek.com');
+  });
 });

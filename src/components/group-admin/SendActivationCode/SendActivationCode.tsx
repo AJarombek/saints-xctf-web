@@ -16,6 +16,7 @@ import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 import { createActivationCode, sendActivationCodeEmail } from '../../../redux/modules/auth';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
+import AlertPopup from '../../shared/AlertPopup';
 
 interface Props {
   groupId: number;
@@ -36,6 +37,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
   const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [approval, setApproval] = useState(false);
   const [sending, setSending] = useState(false);
+  const [activationCodeSentEmail, setActivationCodeSentEmail] = useState<string>(null);
   const [activationCodeNotSent, setActivationCodeNotSent] = useState<string>(null);
   const [errorCreatingActivationCode, setErrorCreatingActivationCode] = useState(false);
   const [errorSendingActivationCodeEmail, setErrorSendingActivationCodeEmail] = useState(false);
@@ -74,6 +76,11 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
     const emailSent = await dispatch(sendActivationCodeEmail(email, `${activationCode}`));
     setErrorSendingActivationCodeEmail(!emailSent);
     setSending(false);
+
+    if (emailSent) {
+      setActivationCodeSentEmail(email);
+      onReset();
+    }
   };
 
   const onSendActivationCode = async (): Promise<void> => {
@@ -145,6 +152,14 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
           onClose={(): void => setErrorSendingActivationCodeEmail(false)}
           retryable={true}
           onRetry={(): Promise<void> => onSendActivationCodeEmail(email, activationCodeNotSent)}
+        />
+      )}
+      {!!activationCodeSentEmail && (
+        <AlertPopup
+          message={`Activation code sent to ${activationCodeSentEmail}!`}
+          onClose={(): void => setActivationCodeSentEmail(null)}
+          type="success"
+          autoCloseInterval={3000}
         />
       )}
     </>

@@ -44,6 +44,9 @@ Cypress.Commands.add('mockActivationCodeAPI', () => {
   });
 
   activationCodePostRoute.as('activationCodePostRoute');
+
+  // I hope you have a wonderful weekend.  By body still isn't too happy with me, I've pushed back my second vaccine
+  // appointment twice now.  Hopefully I can rest up and be ready to get it Wednesday as scheduled.
 });
 
 Cypress.Commands.add('mockForgotPasswordAPI', () => {
@@ -536,8 +539,22 @@ Cypress.Commands.add('mockAuthTokenAPI', () => {
  */
 Cypress.Commands.add('mockFnAPI', () => {
   cy.server();
+  cy.mockActivationCodeEmailFnAPI();
   cy.mockWelcomeEmailFnAPI();
   cy.mockUassetUserFnAPI();
+});
+
+Cypress.Commands.add('mockActivationCodeEmailFnAPI', () => {
+  cy.fixture('fn/email/activationCode/success.json').as('activationCodeEmailSuccessFn');
+
+  const activationCodeEmailSuccessFnRoute = cy.route({
+    method: 'POST',
+    url: '**/fn/email/activation-code',
+    response: '@activationCodeEmailSuccessFn',
+    status: 200
+  });
+
+  activationCodeEmailSuccessFnRoute.as('activationCodeEmailSuccessFnRoute');
 });
 
 Cypress.Commands.add('mockWelcomeEmailFnAPI', () => {
