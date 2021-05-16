@@ -552,6 +552,7 @@ Cypress.Commands.add('mockFnAPI', () => {
   cy.mockActivationCodeEmailFnAPI();
   cy.mockWelcomeEmailFnAPI();
   cy.mockUassetUserFnAPI();
+  cy.mockUassetGroupFnAPI();
 });
 
 Cypress.Commands.add('mockActivationCodeEmailFnAPI', () => {
@@ -591,4 +592,17 @@ Cypress.Commands.add('mockUassetUserFnAPI', () => {
   });
 
   uassetUserSuccessFnRoute.as('uassetUserSuccessFnRoute');
+});
+
+Cypress.Commands.add('mockUassetGroupFnAPI', () => {
+  cy.fixture('fn/uasset/group/success.json').as('uassetGroupSuccessFn');
+
+  const uassetGroupSuccessFnRoute = cy.route({
+    method: 'POST',
+    url: '**/fn/uasset/group',
+    response: '@uassetGroupSuccessFn',
+    status: 200
+  });
+
+  uassetGroupSuccessFnRoute.as('uassetGroupSuccessFnRoute');
 });

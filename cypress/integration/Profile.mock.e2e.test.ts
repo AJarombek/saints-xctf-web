@@ -861,7 +861,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('alert').should(
       'contain.text',
       'Failed to upload your new profile picture. Try reloading the page. If this error persists, contact ' +
-        'andrew@jarombek.com.Retry'
+        'andrew@jarombek.com.'
     );
 
     cy.getDataCy('alert').contains('Retry').click();
@@ -872,7 +872,7 @@ describe('Profile Mock E2E Tests', () => {
     cy.getDataCy('alert').should(
       'contain.text',
       'Failed to upload your new profile picture. Try reloading the page. If this error persists, contact ' +
-        'andrew@jarombek.com.Retry'
+        'andrew@jarombek.com.'
     );
 
     cy.getDataCy('alert').getDataCy('alertCloseIcon').click();

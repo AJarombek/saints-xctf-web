@@ -825,7 +825,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('alert').should('not.exist');
   });
 
-  it.only('able to retry editing group details if it originally fails', () => {
+  it('able to retry editing group details if it originally fails', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Edit Group').click();
@@ -871,13 +871,107 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('alert').should('not.exist');
   });
 
-  it.skip('able to edit a group picture', () => {
+  it('able to edit a group picture', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+    cy.get('.aj-contained-button').contains('Save Picture').should('have.attr', 'disabled');
+
+    cy.getDataCy('uploadFile').attachFile('images/alumni-skiing.jpg', { subjectType: 'drag-n-drop' });
+    cy.getDataCy('uploadFile').should('not.exist');
+    cy.getDataCy('uploadedFile').should('exist');
+    cy.get('.aj-contained-button').contains('Save Picture').should('not.have.attr', 'disabled');
+
+    cy.getDataCy('alert').should('not.exist');
+    cy.get('.aj-contained-button').contains('Save Picture').click();
+
+    cy.wait('@uassetGroupSuccessFnRoute');
+    cy.wait('@groupAlumniPutRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Picture uploaded successfully.');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
   });
 
-  it.skip('shows an error if editing group details fails', () => {});
+  it('shows an error if editing the group picture fails', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.getDataCy('uploadFile').attachFile('images/alumni-skiing.jpg', { subjectType: 'drag-n-drop' });
+
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('uploadedFileError').should('not.exist');
+
+    const uassetGroupFailureFnRoute = cy.route({
+      method: 'POST',
+      url: '**/fn/uasset/group',
+      response: {
+        result: false
+      },
+      status: 500
+    });
+
+    uassetGroupFailureFnRoute.as('uassetGroupFailureFnRoute');
+
+    cy.get('.aj-contained-button').contains('Save Picture').click();
+    cy.wait('@uassetGroupFailureFnRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'Failed to upload a new picture for the group. Try reloading the page. If this error persists, ' +
+        'contact andrew@jarombek.com.'
+    );
+    cy.getDataCy('uploadedFileError').should('exist');
+
+    const uassetGroupSuccessFnRoute = cy.route({
+      method: 'POST',
+      url: '**/fn/uasset/group',
+      response: '@uassetGroupSuccessFn',
+      status: 200
+    });
+
+    uassetGroupSuccessFnRoute.as('uassetGroupSuccessFnRoute');
+
+    cy.getDataCy('alert').contains('Retry').click();
+
+    cy.wait('@uassetGroupSuccessFnRoute');
+    cy.wait('@groupAlumniPutRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Picture uploaded successfully.');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+    cy.getDataCy('uploadedFileError').should('not.exist');
+  });
+
+  it.only('able to remove drag and dropped pictures', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+
+    cy.getDataCy('uploadFile').attachFile('images/alumni-skiing.jpg', { subjectType: 'drag-n-drop' });
+    cy.getDataCy('uploadFile').should('not.exist');
+    cy.getDataCy('uploadedFile').should('exist');
+    cy.get('.aj-contained-button').contains('Save Picture').should('not.have.attr', 'disabled');
+
+    cy.getDataCy('uploadedFileRemoveIcon').click();
+    cy.getDataCy('uploadFile').should('exist');
+    cy.getDataCy('uploadedFile').should('not.exist');
+    cy.get('.aj-contained-button').contains('Save Picture').should('have.attr', 'disabled');
+  });
 
   it.skip('prompts admins if they have unsaved group detail changes (confirm prompt)', () => {});
 
