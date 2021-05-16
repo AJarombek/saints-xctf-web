@@ -32,5 +32,16 @@ export default {
     dashboardBody: {
       margin: '100px 0 0 0'
     }
+  },
+  '@media screen and (max-width: 800px)': {
+    dashboardBody: {
+      display: 'flex'
+    },
+    sidePanel: {
+      display: 'none'
+    },
+    mainPanel: {
+      width: '100%'
+    }
   }
 };

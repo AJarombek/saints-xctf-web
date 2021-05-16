@@ -954,7 +954,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('uploadedFileError').should('not.exist');
   });
 
-  it.only('able to remove drag and dropped pictures', () => {
+  it('able to remove drag and dropped pictures', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Edit Group').click();
@@ -973,11 +973,71 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.get('.aj-contained-button').contains('Save Picture').should('have.attr', 'disabled');
   });
 
-  it.skip('prompts admins if they have unsaved group detail changes (confirm prompt)', () => {});
+  it('prompts admins if they have unsaved group detail changes (confirm prompt)', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
 
-  it.skip('prompts admins if they have unsaved group detail changes (cancel prompt)', () => {});
+    cy.get('textarea').clear().type('Description from E2E Test');
+    cy.get('.dashboardButton').click();
 
-  it.skip('prompts admins if they have unsaved group picture changes (confirm prompt)', () => {});
+    // Confirm the prompt, navigating to the dashboard page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to the group.  Are you sure you want to navigate away?');
+      return true;
+    });
 
-  it.skip('prompts admins if they have unsaved group picture changes (cancel prompt)', () => {});
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
+
+  it('prompts admins if they have unsaved group detail changes (cancel prompt)', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.get('textarea').clear().type('Description from E2E Test');
+    cy.get('.dashboardButton').click();
+
+    // Cancel the confirm prompt, staying on the admin group page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to the group.  Are you sure you want to navigate away?');
+      return false;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/admin/group/1`);
+  });
+
+  it('prompts admins if they have unsaved group picture changes (confirm prompt)', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.getDataCy('uploadFile').attachFile('images/alumni-skiing.jpg', { subjectType: 'drag-n-drop' });
+    cy.get('.dashboardButton').click();
+
+    // Confirm the prompt, navigating to the dashboard page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to the group.  Are you sure you want to navigate away?');
+      return true;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+  });
+
+  it('prompts admins if they have unsaved group picture changes (cancel prompt)', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.getDataCy('uploadFile').attachFile('images/alumni-skiing.jpg', { subjectType: 'drag-n-drop' });
+    cy.get('.dashboardButton').click();
+
+    // Cancel the confirm prompt, staying on the admin group page.
+    cy.on('window:confirm', (str) => {
+      expect(str).to.equal('You have unsaved changes to the group.  Are you sure you want to navigate away?');
+      return false;
+    });
+
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/admin/group/1`);
+  });
 });
