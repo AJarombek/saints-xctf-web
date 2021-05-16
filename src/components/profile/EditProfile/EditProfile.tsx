@@ -37,6 +37,8 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
   const userProfiles: Users = useSelector((state: RootState) => state.profile.users);
 
   const descriptionRef = useRef(null);
+  const sundayRadioButtonRef = useRef<HTMLInputElement>(null);
+  const mondayRadioButtonRef = useRef<HTMLInputElement>(null);
 
   const [firstName, setFirstName] = useState('');
   const [firstNameStatus, setFirstNameStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
@@ -160,6 +162,9 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
     setDescription(userDetails.description);
     setWeekStart(userDetails.week_start);
     setDetailChangesMade(false);
+
+    sundayRadioButtonRef.current.checked = userDetails.week_start === 'sunday';
+    mondayRadioButtonRef.current.checked = userDetails.week_start === 'monday';
   };
 
   const onSubmitDetails = async (): Promise<void> => {
@@ -341,6 +346,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               onChange={onWeekStartChange}
               defaultChecked={user.week_start === 'sunday'}
               className={classes.radio}
+              ref={sundayRadioButtonRef}
             />
             <RadioButton
               id="monday"
@@ -350,6 +356,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
               onChange={onWeekStartChange}
               defaultChecked={user.week_start === 'monday'}
               className={classes.radio}
+              ref={mondayRadioButtonRef}
             />
           </div>
         </div>

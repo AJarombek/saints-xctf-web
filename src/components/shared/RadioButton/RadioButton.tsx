@@ -4,7 +4,7 @@
  * @since 11/19/2020
  */
 
-import React, { memo } from 'react';
+import React, { forwardRef, RefObject } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
@@ -20,38 +20,36 @@ interface Props {
   className?: ClassValue;
 }
 
+type TRef = HTMLInputElement;
+
 const useStyles = createUseStyles(styles);
 
-const RadioButton: React.FunctionComponent<Props> = ({
-  id,
-  name,
-  value,
-  label,
-  defaultChecked = false,
-  onChange,
-  className
-}) => {
-  const classes = useStyles();
+// eslint-disable-next-line react/display-name
+const RadioButton = forwardRef<TRef, Props>(
+  ({ id, name, value, label, defaultChecked = false, onChange, className }, ref: RefObject<HTMLInputElement>) => {
+    const classes = useStyles();
 
-  return (
-    <div className={classNames(classes.radio, className)} data-cypress="radioButton">
-      <label>
-        <div className={classes.inputWrapper}>
-          <input
-            type="radio"
-            id={id}
-            name={name}
-            value={value}
-            className={classes.input}
-            defaultChecked={defaultChecked}
-            onChange={onChange}
-          />
-          <div className={classes.customRadio} data-cypress="customRadio" />
-        </div>
-        <div className={classes.customLabel}>{label}</div>
-      </label>
-    </div>
-  );
-};
+    return (
+      <div className={classNames(classes.radio, className)} data-cypress="radioButton">
+        <label>
+          <div className={classes.inputWrapper}>
+            <input
+              type="radio"
+              ref={ref}
+              id={id}
+              name={name}
+              value={value}
+              className={classes.input}
+              defaultChecked={defaultChecked}
+              onChange={onChange}
+            />
+            <div className={classes.customRadio} data-cypress="customRadio" />
+          </div>
+          <div className={classes.customLabel}>{label}</div>
+        </label>
+      </div>
+    );
+  }
+);
 
-export default memo<Props>(RadioButton);
+export default RadioButton;

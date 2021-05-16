@@ -752,7 +752,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.groupDetailsFormValues('St. Lawrence Cross Country and Track & Field Alumni', 'sunday');
   });
 
-  it.only('able to edit group details', () => {
+  it('able to edit group details', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Edit Group').click();
@@ -770,9 +770,106 @@ describe('Group Admin Mock E2E Tests', () => {
 
     cy.groupDetailsFormValues('St. Lawrence Cross Country and Track & Field Alumni', 'sunday');
     cy.get('.aj-contained-button').contains('Save Details').should('have.attr', 'disabled');
+
+    cy.get('textarea').clear().type('Description from E2E Test');
+    cy.getDataCy('radioButton').eq(1).findDataCy('customRadio').click();
+
+    cy.groupDetailsFormValues('Description from E2E Test', 'monday');
+    cy.get('.aj-contained-button').contains('Save Details').should('not.have.attr', 'disabled');
+
+    cy.get('.aj-contained-button').contains('Save Details').click();
+    cy.wait('@groupAlumniPutRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Group Details Updated!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.groupDetailsFormValues('Description from E2E Test', 'monday');
+    cy.get('.aj-contained-button').contains('Save Details').should('have.attr', 'disabled');
   });
 
-  it.skip('shows an error if editing group details fails', () => {});
+  it('shows an error if editing group details fails', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.get('textarea').clear().type('Description from E2E Test');
+
+    const groupAlumniPutErrorRoute = cy.route({
+      method: 'PUT',
+      url: '**/api/v2/groups/1',
+      response: {
+        self: '/v2/groups/1',
+        updated: true,
+        group: null,
+        error: 'The group failed to update.'
+      },
+      status: 500
+    });
+
+    groupAlumniPutErrorRoute.as('groupAlumniPutErrorRoute');
+
+    cy.get('.aj-contained-button').contains('Save Details').click();
+    cy.wait('@groupAlumniPutErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should(
+      'contain.text',
+      'Failed to update the group details. Try reloading the page. If this error persists, contact andrew@jarombek.com.'
+    );
+
+    cy.getDataCy('alert').getDataCy('alertCloseIcon').click();
+    cy.getDataCy('alert').should('not.exist');
+  });
+
+  it.only('able to retry editing group details if it originally fails', () => {
+    cy.andyAdminMemberships();
+    cy.visit('/admin/group/1');
+    cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.get('textarea').clear().type('Description from E2E Test');
+    cy.getDataCy('radioButton').eq(1).findDataCy('customRadio').click();
+
+    const groupAlumniPutErrorRoute = cy.route({
+      method: 'PUT',
+      url: '**/api/v2/groups/1',
+      response: {
+        self: '/v2/groups/1',
+        updated: true,
+        group: null,
+        error: 'The group failed to update.'
+      },
+      status: 500
+    });
+
+    groupAlumniPutErrorRoute.as('groupAlumniPutErrorRoute');
+
+    cy.get('.aj-contained-button').contains('Save Details').click();
+    cy.wait('@groupAlumniPutErrorRoute');
+
+    cy.getDataCy('alert').should('exist');
+
+    const groupAlumniPutRoute = cy.route({
+      method: 'PUT',
+      url: '**/api/v2/groups/1',
+      response: '@groupAlumniPut'
+    });
+
+    groupAlumniPutRoute.as('groupAlumniPutRoute');
+
+    cy.getDataCy('alert').contains('Retry').click();
+    cy.wait('@groupAlumniPutRoute');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Group Details Updated!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+  });
 
   it.skip('able to edit a group picture', () => {
     cy.andyAdminMemberships();

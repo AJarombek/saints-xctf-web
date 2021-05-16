@@ -32,6 +32,8 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
   const dispatch = useDispatch();
 
   const descriptionRef = useRef(null);
+  const sundayRadioButtonRef = useRef<HTMLInputElement>(null);
+  const mondayRadioButtonRef = useRef<HTMLInputElement>(null);
 
   const [description, setDescription] = useState('');
   const [weekStart, setWeekStart] = useState('');
@@ -53,6 +55,9 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
     setDescription(groupDetails.description);
     setWeekStart(groupDetails.week_start);
     setDetailChangesMade(false);
+
+    sundayRadioButtonRef.current.checked = groupDetails.week_start === 'sunday';
+    mondayRadioButtonRef.current.checked = groupDetails.week_start === 'monday';
   };
 
   useEffect(() => {
@@ -75,6 +80,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
   };
 
   const onSubmitDetails = async (): Promise<void> => {
+    setErrorUpdatingGroupDetails(false);
     setUpdatingGroupDetails(true);
 
     const newGroup: Group = {
@@ -130,6 +136,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
               onChange={onWeekStartChange}
               defaultChecked={group.week_start === 'sunday'}
               className={classes.radio}
+              ref={sundayRadioButtonRef}
             />
             <RadioButton
               id="monday"
@@ -139,6 +146,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
               onChange={onWeekStartChange}
               defaultChecked={group.week_start === 'monday'}
               className={classes.radio}
+              ref={mondayRadioButtonRef}
             />
           </div>
         </div>
@@ -173,6 +181,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
       {errorUpdatingGroupDetails && (
         <DefaultErrorPopup
           message="Failed to update the group details"
+          closeable={true}
           onClose={(): void => setErrorUpdatingGroupDetails(false)}
           retryable={true}
           onRetry={onSubmitDetails}

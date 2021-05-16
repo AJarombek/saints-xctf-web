@@ -94,6 +94,16 @@ Cypress.Commands.add('mockGroupAPI', () => {
   });
 
   groupAlumniRoute.as('groupAlumniRoute');
+
+  cy.fixture('api/groups/put/alumni.json').as('groupAlumniPut');
+
+  const groupAlumniPutRoute = cy.route({
+    method: 'PUT',
+    url: '**/api/v2/groups/1',
+    response: '@groupAlumniPut'
+  });
+
+  groupAlumniPutRoute.as('groupAlumniPutRoute');
 });
 
 Cypress.Commands.add('mockGroupLeaderboardAPI', () => {

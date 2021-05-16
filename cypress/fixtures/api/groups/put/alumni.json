@@ -1,0 +1,14 @@
+{
+  "self": "/v2/groups/1",
+  "updated": true,
+  "group": {
+    "deleted": false,
+    "description": "Description from E2E Test",
+    "group_name": "alumni",
+    "group_title": "Alumni",
+    "grouppic": null,
+    "grouppic_name": "picture.png",
+    "id": 1,
+    "week_start": "monday"
+  }
+}
