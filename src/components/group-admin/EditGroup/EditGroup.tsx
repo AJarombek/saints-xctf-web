@@ -4,7 +4,7 @@
  * @since 1/26/2021
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import UploadGroupPicture from '../UploadGroupPicture';
@@ -17,6 +17,8 @@ import { putGroup } from '../../../redux/modules/groups';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
+import { usePrompt } from 'react-router-dom';
+import AlertPopup from '../../shared/AlertPopup';
 
 interface Props {
   group: GroupMeta;
@@ -36,10 +38,21 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
 
   const [updatingGroupDetails, setUpdatingGroupDetails] = useState(false);
   const [errorUpdatingGroupDetails, setErrorUpdatingGroupDetails] = useState(false);
+  const [groupDetailsUpdateSuccess, setGroupDetailsUpdateSuccess] = useState(false);
+
+  const [detailChangesMade, setDetailChangesMade] = useState(false);
+  const [pictureChangesMade, setPictureChangesMade] = useState(false);
+
+  const changesMade = useMemo(() => {
+    return detailChangesMade || pictureChangesMade;
+  }, [detailChangesMade, pictureChangesMade]);
+
+  usePrompt('You have unsaved changes to the group.  Are you sure you want to navigate away?', changesMade);
 
   const resetDetails = (groupDetails: Group): void => {
     setDescription(groupDetails.description);
     setWeekStart(groupDetails.week_start);
+    setDetailChangesMade(false);
   };
 
   useEffect(() => {
@@ -48,10 +61,17 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
     }
   }, [group]);
 
+  const onDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
+    setDescription(e.target.value);
+    if (!detailChangesMade) setDetailChangesMade(true);
+  };
+
   const onWeekStartChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.checked) {
       setWeekStart(e.target.value);
     }
+
+    if (!detailChangesMade) setDetailChangesMade(true);
   };
 
   const onSubmitDetails = async (): Promise<void> => {
@@ -70,6 +90,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
 
     if (updatedGroup) {
       resetDetails(updatedGroup);
+      setGroupDetailsUpdateSuccess(true);
     } else {
       setErrorUpdatingGroupDetails(true);
     }
@@ -84,13 +105,13 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
   return (
     <div className={classes.editGroup} id="editGroup">
       <h3 className={classes.title}>Group Details</h3>
-      <div className={classes.form}>
+      <div className={classNames(classes.form, 'editGroupDetails')}>
         <div>
           <p className={classes.inputTitle}>Description</p>
           <AutoResizeTextArea
             maxLength={1000}
             placeholder="..."
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>): void => setDescription(e.target.value)}
+            onChange={onDescriptionChange}
             useCustomValue={true}
             value={description}
             disabled={false}
@@ -124,9 +145,12 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
         <div className={classes.actions}>
           <AJButton
             type="contained"
-            disabled={false}
+            disabled={!detailChangesMade}
             onClick={onSubmitDetails}
-            className={classNames(classes.submitButton, updatingGroupDetails && classes.disabledSubmitButton)}
+            className={classNames(
+              classes.submitButton,
+              (!detailChangesMade || updatingGroupDetails) && classes.disabledSubmitButton
+            )}
           >
             <p>{updatingGroupDetails ? 'Saving Details...' : 'Save Details'}</p>
             {updatingGroupDetails && <LoadingSpinner className={classes.buttonSpinner} />}
@@ -143,6 +167,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
           groupPictureUrl={
             group.grouppic_name ? `/uasset/group/${group.id}/${group.grouppic_name}` : '/asset/saintsxctf.png'
           }
+          setPictureChangesMade={setPictureChangesMade}
         />
       </div>
       {errorUpdatingGroupDetails && (
@@ -151,6 +176,14 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
           onClose={(): void => setErrorUpdatingGroupDetails(false)}
           retryable={true}
           onRetry={onSubmitDetails}
+        />
+      )}
+      {groupDetailsUpdateSuccess && (
+        <AlertPopup
+          message="Group Details Updated!"
+          onClose={(): void => setGroupDetailsUpdateSuccess(false)}
+          type="success"
+          autoCloseInterval={3000}
         />
       )}
     </div>

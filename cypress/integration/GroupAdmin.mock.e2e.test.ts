@@ -745,21 +745,48 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('approvalMessage').should('not.exist');
   });
 
-  it.only('properly displays group details', () => {
+  it('properly displays group details', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Edit Group').click();
+    cy.groupDetailsFormValues('St. Lawrence Cross Country and Track & Field Alumni', 'sunday');
   });
 
-  it.skip('able to edit group details', () => {
+  it.only('able to edit group details', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Edit Group').click();
+
+    cy.groupDetailsFormValues('St. Lawrence Cross Country and Track & Field Alumni', 'sunday');
+    cy.get('.aj-contained-button').contains('Save Details').should('have.attr', 'disabled');
+
+    cy.get('textarea').clear().type('Description from E2E Test');
+    cy.getDataCy('radioButton').eq(1).findDataCy('customRadio').click();
+
+    cy.groupDetailsFormValues('Description from E2E Test', 'monday');
+    cy.get('.aj-contained-button').contains('Save Details').should('not.have.attr', 'disabled');
+
+    cy.get('.editGroupDetails .aj-text-button').contains('Cancel').click();
+
+    cy.groupDetailsFormValues('St. Lawrence Cross Country and Track & Field Alumni', 'sunday');
+    cy.get('.aj-contained-button').contains('Save Details').should('have.attr', 'disabled');
   });
+
+  it.skip('shows an error if editing group details fails', () => {});
 
   it.skip('able to edit a group picture', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.tabs p').contains('Edit Group').click();
   });
+
+  it.skip('shows an error if editing group details fails', () => {});
+
+  it.skip('prompts admins if they have unsaved group detail changes (confirm prompt)', () => {});
+
+  it.skip('prompts admins if they have unsaved group detail changes (cancel prompt)', () => {});
+
+  it.skip('prompts admins if they have unsaved group picture changes (confirm prompt)', () => {});
+
+  it.skip('prompts admins if they have unsaved group picture changes (cancel prompt)', () => {});
 });

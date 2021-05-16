@@ -13,5 +13,13 @@ declare namespace Cypress {
          * @example alumniGroupAdminMockAPICalls()
          */
         alumniGroupAdminMockAPICalls(): void;
+
+        /**
+         * Custom command that checks the values in the group details form for an administrator.
+         * @param description Description about the group.
+         * @param weekStart Whether a group wants the weeks in their members exercise logs to start on Sunday or Monday.
+         * @example groupDetailsFormValues('Description', 'sunday')
+         */
+        groupDetailsFormValues(description: string, weekStart: 'sunday' | 'monday'): void;
     }
 }

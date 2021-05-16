@@ -4,7 +4,7 @@
  * @since 1/28/2021
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import UploadPicture from '../../shared/UploadPicture';
 import { useDispatch, useSelector } from 'react-redux';
 import { GroupMeta, RootState, UploadingGroupPicture } from '../../../redux/types';
@@ -14,9 +14,10 @@ import { timeout } from '../../../utils/timeout';
 interface Props {
   group: GroupMeta;
   groupPictureUrl: string;
+  setPictureChangesMade: Dispatch<SetStateAction<boolean>>;
 }
 
-const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictureUrl }) => {
+const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictureUrl, setPictureChangesMade }) => {
   const dispatch = useDispatch();
   const uploadingGroupPictures: Record<string, UploadingGroupPicture> = useSelector(
     (state: RootState) => state.groups.uploadingGroupPicture
@@ -35,6 +36,14 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
   const [errorUploading, setErrorUploading] = useState(false);
   const [errorUpdatingGroup, setErrorUpdatingGroup] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
+
+  useEffect(() => {
+    if (!!file) {
+      setPictureChangesMade(true);
+    } else {
+      setPictureChangesMade(false);
+    }
+  }, [file, setPictureChangesMade]);
 
   const updateGroup = async (): Promise<void> => {
     const newGroup = { ...group };
