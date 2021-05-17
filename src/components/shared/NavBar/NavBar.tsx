@@ -166,6 +166,11 @@ const NavBar: React.FunctionComponent<Props> = ({
       onClick: (): void => navigateMobile('/teams')
     },
     {
+      name: 'createNewLog',
+      content: 'Create New Log',
+      onClick: (): void => navigateMobile('/log/new')
+    },
+    {
       name: 'admin',
       content: 'Admin',
       onClick: (): void => navigateMobile('/admin')

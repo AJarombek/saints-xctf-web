@@ -4,7 +4,7 @@
  * @since 5/9/2020
  */
 
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
@@ -13,13 +13,13 @@ import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
 import DashboardBody from '../../components/dashboard/DashboardBody/DashboardBody';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import {useAdminCheck, useHeaders, useSignInCheck} from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
 
 type Props = {};
 
 const useStyles = createUseStyles(styles);
 
-const defaultHeaders = ['profile', 'teams', 'signOut', 'logo'];
+const defaultHeaders = ['profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
 const Dashboard: React.FunctionComponent<Props> = () => {
   const classes = useStyles();

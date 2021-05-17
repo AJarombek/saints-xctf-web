@@ -43,5 +43,11 @@ export default {
     mainPanel: {
       width: '100%'
     }
+  },
+  '@media screen and (max-width: 390px)': {
+    dashboardBody: {
+      margin: '75px 0 0 0',
+      minHeight: 'calc(100vh - 75px)'
+    }
   }
 };

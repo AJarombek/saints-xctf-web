@@ -29,5 +29,11 @@ export default {
     container: {
       margin: '100px 2% 0 2%'
     }
+  },
+  '@media screen and (max-width: 390px)': {
+    container: {
+      margin: '75px 0 0 0',
+      minHeight: 'calc(100vh - 75px)'
+    }
   }
 };

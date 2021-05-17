@@ -7,7 +7,7 @@
 
 import Colors from '../../../styles/colors';
 import color from 'color';
-import Mixins from "../../../styles/mixins";
+import Mixins from '../../../styles/mixins';
 
 export default {
   lightTheme: {
@@ -141,8 +141,8 @@ export default {
     },
     dryDropdown: {
       '&.sxctf-nav-dropdown-visible': {
-        top: 75,
-        animationName: '$show-background-mobile'
+        //top: 75,
+        //animationName: '$show-background-mobile'
       }
     }
   },

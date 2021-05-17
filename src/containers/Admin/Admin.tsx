@@ -34,7 +34,7 @@ const Admin: React.FunctionComponent<Props> = () => {
     return (
       <div className={classes.admin} ref={ref}>
         <NavBar
-          includeHeaders={['dashboard', 'profile', 'teams', 'signOut', 'logo']}
+          includeHeaders={['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo']}
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />

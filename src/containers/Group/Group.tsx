@@ -20,7 +20,7 @@ type Props = {};
 
 const useStyles = createUseStyles(styles);
 
-const defaultHeaders = ['dashboard', 'profile', 'teams', 'signOut', 'logo'];
+const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
 const Group: React.FunctionComponent<Props> = () => {
   const { id: groupId } = useParams();

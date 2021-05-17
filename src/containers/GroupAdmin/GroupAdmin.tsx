@@ -42,7 +42,7 @@ const GroupAdmin: React.FunctionComponent<Props> = () => {
     return (
       <div className={classes.groupAdmin} ref={ref}>
         <NavBar
-          includeHeaders={['dashboard', 'profile', 'teams', 'admin', 'signOut', 'logo']}
+          includeHeaders={['dashboard', 'profile', 'teams', 'createNewLog', 'admin', 'signOut', 'logo']}
           user={users[auth.signedInUser]?.user}
           bodyRef={ref}
         />

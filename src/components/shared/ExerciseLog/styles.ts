@@ -12,8 +12,8 @@ export default {
   exerciseLog: {
     backgroundColor: ({ feel }: { feel: number }): string => FeelColors[feel - 1],
     border: '2px solid #888',
-    borderRadius: '3px',
-    padding: '7px',
+    borderRadius: 3,
+    padding: 7,
     margin: '10px 0',
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
     position: 'relative'
@@ -33,7 +33,7 @@ export default {
   title: {
     ...FontMixins.robotoSlab(),
     textDecoration: 'underline',
-    fontSize: '16px'
+    fontSize: 16
   },
   metadata: {
     display: 'block',
@@ -41,31 +41,31 @@ export default {
   },
   date: {
     ...FontMixins.robotoBold(),
-    fontSize: '14px',
+    fontSize: 14,
     margin: 0
   },
   type: {
     ...FontMixins.robotoSlab(),
-    fontSize: '14px',
+    fontSize: 14,
     fontColor: '#666',
     margin: 0,
     textAlign: 'right'
   },
   bodySection: {
-    marginTop: '20px'
+    marginTop: 20
   },
   dataFields: {
     '& > p': {
       ...FontMixins.robotoSlab(),
-      fontSize: '14px',
+      fontSize: 14,
       margin: 0
     }
   },
   description: {
-    marginTop: '10px',
+    marginTop: 10,
     display: 'inline-block',
     ...FontMixins.robotoSlab(),
-    fontSize: '14px',
+    fontSize: 14,
 
     '& > a': {
       display: 'inline-block',
@@ -122,5 +122,32 @@ export default {
   },
   optionsIcon: {
     ...FontMixins.elegantIcons()
+  },
+  '@media screen and (max-width: 460px)': {
+    titleLink: {
+      fontSize: 14
+    },
+    title: {
+      fontSize: 14
+    },
+    date: {
+      fontSize: 12
+    },
+    type: {
+      fontSize: 12
+    },
+    dataFields: {
+      '& > p': {
+        fontSize: 12
+      }
+    },
+    description: {
+      fontSize: 12
+    },
+    optionsButton: {
+      '& > p': {
+        fontSize: 20
+      }
+    }
   }
 };

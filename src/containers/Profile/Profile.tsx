@@ -23,7 +23,7 @@ type Props = {};
 
 const useStyles = createUseStyles(styles);
 
-const defaultHeaders = ['teams', 'dashboard', 'signOut', 'logo'];
+const defaultHeaders = ['teams', 'dashboard', 'createNewLog', 'signOut', 'logo'];
 
 const Profile: React.FunctionComponent<Props> = () => {
   const navigate = useNavigate();

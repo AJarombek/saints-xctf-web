@@ -116,6 +116,11 @@
     display: none;
   }
 
+  @media screen and (max-width: 390px) {
+    top: 75px;
+    animation-name: show-background-mobile;
+  }
+
   .aj-nav-list {
     .aj-nav-list-item {
       > div {

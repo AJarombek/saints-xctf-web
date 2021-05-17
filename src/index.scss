@@ -45,3 +45,8 @@ h1, h2, h3, h4, h5, h6 {
 .aj-outlined-button {
   border-color: $saints-xctf-red !important;
 }
+
+@keyframes show-background-mobile {
+  from { height: 0 }
+  to { height: calc(100ch - 75px) }
+}
