@@ -8,6 +8,7 @@ import React, { memo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { Memberships, TeamMembership } from '../../../redux/types';
+import classNames from 'classnames';
 
 interface Props {
   teamMemberships?: Memberships;
@@ -19,7 +20,7 @@ const Memberships: React.FunctionComponent<Props> = ({ teamMemberships }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.memberships}>
+    <div className={classNames(classes.memberships, 'memberships')}>
       {teamMemberships?.teams
         ?.filter((membership: TeamMembership) => membership.status === 'accepted')
         ?.map((membership: TeamMembership) => (

@@ -10,7 +10,7 @@ import styles from './styles';
 import PictureTitle from '../../shared/PictureTitle/PictureTitle';
 import Flair from '../Flair/Flair';
 import Memberships from '../Memberships/Memberships';
-import PageTabs from '../../shared/PageTabs/PageTabs';
+import PageTabs, { Tab } from '../../shared/PageTabs/PageTabs';
 import {
   FlairMeta,
   LogFeeds,
@@ -18,7 +18,8 @@ import {
   RootState,
   UserMeta,
   Users,
-  StatsMeta
+  StatsMeta,
+  LeaderboardInterval
 } from '../../../redux/types';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
 import LogFeed from '../../shared/LogFeed/LogFeed';
@@ -29,6 +30,8 @@ import { getUserFlair, getUserMemberships } from '../../../redux/modules/profile
 import WeeklyChart from '../WeeklyChart';
 import ProfileDetails from '../ProfileDetails';
 import EditProfile from '../EditProfile';
+import classNames from 'classnames';
+import { AJSelect } from 'jarombek-react-components';
 
 interface Props {
   user: UserMeta;
@@ -127,6 +130,14 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, signedInUser, flair
           <Flair flair={flair} />
           <Memberships teamMemberships={userProfiles[user.username]?.memberships} />
           <PageTabs currentTab={tab} tabs={tabs} />
+          <div className={classes.mobileTabs}>
+            <AJSelect
+              options={...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))}
+              defaultOption={1}
+              onClickListOption={(item: { content: string; value: string }): void => setTab(item.value as ProfileTab)}
+              className={classes.select}
+            />
+          </div>
         </aside>
         <section>
           {tab === ProfileTab.LOGS && (

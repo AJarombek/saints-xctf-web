@@ -9,6 +9,7 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
+import classNames from 'classnames';
 
 interface Props {
   imageUrl: string;
@@ -22,7 +23,7 @@ const PictureTitle: React.FunctionComponent<Props> = ({ imageUrl, title, subTitl
   const classes = useStyles();
 
   return (
-    <div className={classes.container}>
+    <div className={classNames(classes.container, 'pictureTitleContainer')}>
       <figure className={classes.picture}>
         <img src={imageUrl} alt="" />
       </figure>

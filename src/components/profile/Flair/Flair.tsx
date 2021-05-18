@@ -8,6 +8,7 @@ import React, { memo } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { FlairMeta } from '../../../redux/types';
+import classNames from 'classnames';
 
 interface Props {
   flair?: FlairMeta;
@@ -19,7 +20,7 @@ const Flair: React.FunctionComponent<Props> = ({ flair = {} }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.flair}>
+    <div className={classNames(classes.flair, 'flairList')}>
       {flair.items?.slice(0, 2).map((item) => (
         <p key={item.flair_id} data-cypress="flair">
           {item.flair}

@@ -4,11 +4,17 @@
  * @since 9/7/2020
  */
 
-import Mixins from '../../../styles/mixins';
+import Mixins, { AJComponentMixins } from '../../../styles/mixins';
 
 export default {
   container: {
     ...Mixins.profileAndGroupBody()
+  },
+  mobileTabs: {
+    display: 'none'
+  },
+  select: {
+    ...AJComponentMixins.ajSelect()
   },
   '@media screen and (max-width: 1200px)': {
     container: {
@@ -28,6 +34,34 @@ export default {
   '@media screen and (max-width: 900px)': {
     container: {
       margin: '100px 2% 0 2%'
+    }
+  },
+  '@media screen and (max-width: 750px)': {
+    container: {
+      flexDirection: 'column',
+
+      '& > aside': {
+        display: 'flex',
+        marginRight: 0,
+        marginBottom: 20
+      },
+
+      '& .pictureTitleContainer': {
+        flexBasis: '30%'
+      },
+
+      '& .flairList, & .memberships, & .tabs': {
+        display: 'none'
+      }
+    },
+    mobileTabs: {
+      display: 'flex',
+      flexBasis: '70%',
+      alignItems: 'flex-end',
+      margin: 30
+    },
+    select: {
+      width: '100%'
     }
   },
   '@media screen and (max-width: 390px)': {

@@ -9,7 +9,7 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
 
-type Tab = {
+export type Tab = {
   tab: string;
   onView: () => void;
   content: ReactNode;
