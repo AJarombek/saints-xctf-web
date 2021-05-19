@@ -115,5 +115,27 @@ export default {
         fontSize: 13
       }
     }
+  },
+  '@media screen and (max-width: 650px)': {
+    miles: {
+      '& > p:nth-child(1)': {
+        paddingTop: 12
+      }
+    }
+  },
+  '@media screen and (max-width: 550px)': {
+    miles: {
+      '& > p': {
+        fontSize: 12
+      }
+    },
+    dayOfMonth: {
+      fontSize: 12
+    }
+  },
+  '@media screen and (max-width: 450px)': {
+    dayOfMonth: {
+      fontSize: 10
+    }
   }
 };

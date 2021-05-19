@@ -117,7 +117,13 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) 
           monthEnd={currentMonth.clone().endOf('month')}
         />
       </div>
-      {error && <DefaultErrorPopup message="Failed to retrieve calendar data" onClose={(): void => setError(false)} />}
+      {error && (
+        <DefaultErrorPopup
+          message="Failed to retrieve calendar data"
+          onClose={(): void => setError(false)}
+          closeable={true}
+        />
+      )}
     </>
   );
 };

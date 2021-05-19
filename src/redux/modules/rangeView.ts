@@ -215,6 +215,11 @@ export function getRangeView(
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(getRangeViewRequest(filterBy, bucket, exerciseTypes, start, end));
 
+    if (!exerciseTypes) {
+      dispatch(getRangeViewSuccess(filterBy, bucket, exerciseTypes, start, end, []));
+      return true;
+    }
+
     try {
       const response = await api.get(`range_view/${filterBy}/${bucket}/${exerciseTypes}/${start}/${end}`);
       const { range_view: rangeView } = response.data;

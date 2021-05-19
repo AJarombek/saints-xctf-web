@@ -53,7 +53,13 @@ export default {
       margin: 10
     },
     message: {
+      // Pfizer #2 ✅
       margin: 0
+    }
+  },
+  '@media screen and (max-width: 650px)': {
+    message: {
+      fontSize: 14
     }
   }
 };
