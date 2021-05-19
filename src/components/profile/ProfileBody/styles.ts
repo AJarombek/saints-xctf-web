@@ -64,6 +64,23 @@ export default {
       width: '100%'
     }
   },
+  '@media screen and (max-width: 490px)': {
+    container: {
+      '& .pictureTitleContainer > figure': {
+        width: 100,
+        height: 100,
+        marginBottom: 10
+      },
+
+      '& .pictureTitleContainer > h5': {
+        fontSize: 18
+      },
+
+      '& .pictureTitleContainer > div': {
+        fontSize: 14
+      }
+    }
+  },
   '@media screen and (max-width: 390px)': {
     container: {
       margin: '75px 0 0 0',

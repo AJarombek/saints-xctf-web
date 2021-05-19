@@ -35,7 +35,9 @@ export class Modules {
     }
   });
 
-  static filters = (): Styles<'filters' | 'filterTitle' | '@media screen and (max-width: 900px)'> => ({
+  static filters = (): Styles<
+    'filters' | 'filterTitle' | '@media screen and (max-width: 900px)' | '@media screen and (max-width: 450px)'
+  > => ({
     filters: {
       display: 'flex',
       alignItems: 'center',
@@ -48,6 +50,11 @@ export class Modules {
     '@media screen and (max-width: 900px)': {
       filterTitle: {
         margin: '20px 20px 20px 0'
+      }
+    },
+    '@media screen and (max-width: 450px)': {
+      filterTitle: {
+        display: 'none'
       }
     }
   });

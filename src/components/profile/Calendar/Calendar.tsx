@@ -101,9 +101,14 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) 
           {Array(7)
             .fill(0)
             .map((_, i) => (
-              <p key={i}>{start.clone().add(i, 'days').format('dddd')}</p>
+              <div key={i}>
+                <p className={classes.weekdaysLong}>{start.clone().add(i, 'days').format('dddd')}</p>
+                <p className={classes.weekdaysShort}>{start.clone().add(i, 'days').format('ddd')}</p>
+              </div>
             ))}
-          <p>Total</p>
+          <div>
+            <p>Total</p>
+          </div>
         </div>
         <Month
           rangeView={currentRangeView}

@@ -6,7 +6,33 @@
 
 export default {
   filterButtons: {},
-  '@media screen and (max-width: 800px)': {
+  '@media screen and (max-width: 900px)': {
+    filterButtons: {
+      '& .aj-contained-button': {
+        padding: '5px 10px'
+      },
+      '& .aj-outlined-button': {
+        padding: '3px 10px'
+      },
+      '& button': {
+        fontSize: 12
+      }
+    }
+  },
+  '@media screen and (max-width: 750px)': {
+    filterButtons: {
+      '& .aj-contained-button': {
+        padding: 10
+      },
+      '& .aj-outlined-button': {
+        padding: 8
+      },
+      '& button': {
+        fontSize: 14
+      }
+    }
+  },
+  '@media screen and (max-width: 500px)': {
     filterButtons: {
       '& .aj-contained-button': {
         padding: '5px 10px'
@@ -19,4 +45,4 @@ export default {
       }
     }
   }
-}
+};

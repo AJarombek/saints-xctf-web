@@ -136,6 +136,9 @@ export default {
     newComment: {
       fontSize: 12
     },
+    titleLink: {
+      fontSize: 14
+    },
     date: {
       fontSize: 12
     },

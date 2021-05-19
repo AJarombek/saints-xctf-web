@@ -33,13 +33,42 @@ export default {
   weekdays: {
     display: 'flex',
 
-    '& > p': {
+    '& > div': {
       width: `${(1 / 8) * 100}%`,
-      ...FontMixins.robotoBold(),
-      textAlign: 'center',
-      fontSize: 12,
       margin: 0,
-      paddingBottom: 4
+
+      '& > p': {
+        ...FontMixins.robotoBold(),
+        textAlign: 'center',
+        fontSize: 12,
+        margin: 0,
+        paddingBottom: 4
+      }
+    }
+  },
+  weekdaysLong: {
+    display: 'block'
+  },
+  weekdaysShort: {
+    display: 'none'
+  },
+  '@media screen and (max-width: 650px)': {
+    monthNavigation: {
+      '& > p': {
+        width: '10%'
+      },
+
+      '& > h2': {
+        width: '80%'
+      }
+    }
+  },
+  '@media screen and (max-width: 550px)': {
+    weekdaysLong: {
+      display: 'none'
+    },
+    weekdaysShort: {
+      display: 'block'
     }
   }
 };
