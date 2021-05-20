@@ -39,5 +39,15 @@ export default {
   },
   uploadTextEmpty: {
     color: Colors.spotPaletteBrown
+  },
+  '@media screen and (max-width: 950px)': {
+    uploadFile: {
+      width: 'auto'
+    }
+  },
+  '@media screen and (max-width: 840px)': {
+    uploadFile: {
+      width: 420
+    }
   }
 };

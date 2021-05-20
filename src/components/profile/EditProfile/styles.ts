@@ -16,7 +16,7 @@ export default {
   form: {
     ...Mixins.containerBackground(),
     backgroundColor: color('#E3E3E3').alpha(0.8).string(),
-    maxWidth: '900px'
+    maxWidth: 900
   },
   inputError: {
     ...Mixins.inputError()
@@ -80,9 +80,32 @@ export default {
   inputTip: {
     ...Mixins.inputTip()
   },
-  '@media screen and (max-width: 720px)': {
+  '@media screen and (max-width: 1000px)': {
     title: {
       width: 'auto'
+    }
+  },
+  '@media screen and (max-width: 840px)': {
+    twoInputs: {
+      flexDirection: 'column'
+    },
+    firstNameInput: {
+      ...Mixins.mobileInput()
+    },
+    lastNameInput: {
+      ...Mixins.mobileInput()
+    },
+    emailInput: {
+      ...Mixins.mobileInput()
+    },
+    classYearInput: {
+      ...Mixins.mobileInput()
+    },
+    locationInput: {
+      ...Mixins.mobileInput()
+    },
+    favoriteEventInput: {
+      ...Mixins.mobileInput()
     }
   }
 };

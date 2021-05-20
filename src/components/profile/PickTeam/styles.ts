@@ -23,7 +23,8 @@ export default {
     cursor: 'auto !important',
     backgroundColor: ({ status }: { status: string }): string =>
       status === 'accepted' ? Colors.sxctfRed : status === 'pending' ? Colors.spotPaletteBrown : Colors.lightBackground,
-    color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000')
+    color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000'),
+    minWidth: ({ status }: { status: string }): string | number => (status === 'accepted' ? 150 : 'auto')
   },
   memberTagContent: {
     display: 'flex',

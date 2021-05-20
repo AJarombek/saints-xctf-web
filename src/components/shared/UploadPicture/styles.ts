@@ -40,5 +40,13 @@ export default {
       fontSize: 14,
       paddingLeft: 20
     }
+  },
+  '@media screen and (max-width: 840px)': {
+    pictureContainer: {
+      flexDirection: 'column'
+    },
+    picture: {
+      margin: '0 0 20px 0'
+    }
   }
 };

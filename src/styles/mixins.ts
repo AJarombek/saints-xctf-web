@@ -172,6 +172,12 @@ class Mixins {
     }
   });
 
+  static mobileInput = (): object => ({
+    flexBasis: 'auto',
+    paddingRight: 0,
+    paddingLeft: 0
+  });
+
   static inputTip = (): object => ({
     ...FontMixins.robotoSlabThin(),
     color: Colors.sxctfRed,
