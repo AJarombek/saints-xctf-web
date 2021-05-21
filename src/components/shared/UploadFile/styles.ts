@@ -49,5 +49,10 @@ export default {
     uploadFile: {
       width: 420
     }
+  },
+  '@media screen and (max-width: 450px)': {
+    uploadFile: {
+      width: 'auto'
+    }
   }
 };

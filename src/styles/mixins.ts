@@ -178,6 +178,16 @@ class Mixins {
     paddingLeft: 0
   });
 
+  static mobileRightInput = (widthPercentage: number): object => ({
+    flexBasis: `${widthPercentage}%`,
+    paddingRight: 10
+  });
+
+  static mobileLeftInput = (widthPercentage: number): object => ({
+    flexBasis: `${widthPercentage}%`,
+    paddingLeft: 10
+  });
+
   static inputTip = (): object => ({
     ...FontMixins.robotoSlabThin(),
     color: Colors.sxctfRed,

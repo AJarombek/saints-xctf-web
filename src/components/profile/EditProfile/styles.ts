@@ -107,5 +107,67 @@ export default {
     favoriteEventInput: {
       ...Mixins.mobileInput()
     }
+  },
+  '@media screen and (max-width: 750px)': {
+    twoInputs: {
+      flexDirection: 'row'
+    },
+    firstNameInput: {
+      ...Mixins.mobileRightInput(50)
+    },
+    lastNameInput: {
+      ...Mixins.mobileLeftInput(50)
+    },
+    emailInput: {
+      ...Mixins.mobileRightInput(80)
+    },
+    classYearInput: {
+      ...Mixins.mobileLeftInput(20)
+    },
+    locationInput: {
+      ...Mixins.mobileRightInput(50)
+    },
+    favoriteEventInput: {
+      ...Mixins.mobileLeftInput(50)
+    }
+  },
+  '@media screen and (max-width: 580px)': {
+    title: {
+      fontSize: 18
+    },
+    inputTitle: {
+      fontSize: 14
+    },
+    radioGroup: {
+      '& .radioButtonLabel': {
+        fontSize: 14
+      }
+    },
+    twoInputs: {
+      flexDirection: 'column'
+    },
+    firstNameInput: {
+      ...Mixins.mobileInput()
+    },
+    lastNameInput: {
+      ...Mixins.mobileInput()
+    },
+    emailInput: {
+      ...Mixins.mobileInput()
+    },
+    classYearInput: {
+      ...Mixins.mobileInput()
+    },
+    locationInput: {
+      ...Mixins.mobileInput()
+    },
+    favoriteEventInput: {
+      ...Mixins.mobileInput()
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    title: {
+      marginLeft: 10
+    }
   }
 };

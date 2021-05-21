@@ -39,5 +39,15 @@ export default {
       fontSize: 18,
       margin: 0
     }
+  },
+  '@media screen and (max-width: 580px)': {
+    groupTitle: {
+      fontSize: 14
+    },
+    groupActionIcon: {
+      '& > button > p': {
+        fontSize: 16
+      }
+    }
   }
 };

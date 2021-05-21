@@ -71,5 +71,20 @@ export default {
   uploadFailed: {
     ...FontMixins.robotoSlabThin(),
     color: Colors.sxctfRed
+  },
+  '@media screen and (max-width: 950px)': {
+    uploadedFile: {
+      width: '100%'
+    }
+  },
+  '@media screen and (max-width: 840px)': {
+    uploadedFile: {
+      width: 420
+    }
+  },
+  '@media screen and (max-width: 450px)': {
+    uploadedFile: {
+      width: '100%'
+    }
   }
 };

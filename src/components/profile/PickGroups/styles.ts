@@ -36,5 +36,10 @@ export default {
     '& > div > p:nth-child(2)': {
       ...FontMixins.roboto()
     }
+  },
+  '@media screen and (max-width: 580px)': {
+    showMore: {
+      fontSize: 14
+    }
   }
 };

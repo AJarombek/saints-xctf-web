@@ -44,5 +44,10 @@ export default {
       ...FontMixins.elegantIcons(),
       marginLeft: 8
     }
+  },
+  '@media screen and (max-width: 580px)': {
+    title: {
+      fontSize: 16
+    }
   }
 };

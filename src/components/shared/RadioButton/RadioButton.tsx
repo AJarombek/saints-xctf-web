@@ -45,7 +45,7 @@ const RadioButton = forwardRef<TRef, Props>(
             />
             <div className={classes.customRadio} data-cypress="customRadio" />
           </div>
-          <div className={classes.customLabel}>{label}</div>
+          <div className={classNames(classes.customLabel, 'radioButtonLabel')}>{label}</div>
         </label>
       </div>
     );
