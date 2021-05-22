@@ -82,6 +82,21 @@ export default {
       width: 420
     }
   },
+  '@media screen and (max-width: 500px)': {
+    uploadedFile: {
+      '& > p': {
+        fontSize: 18
+      }
+    },
+    uploadStatus: {
+      '& > p': {
+        fontSize: 12
+      }
+    },
+    uploadFailed: {
+      fontSize: 12
+    }
+  },
   '@media screen and (max-width: 450px)': {
     uploadedFile: {
       width: '100%'

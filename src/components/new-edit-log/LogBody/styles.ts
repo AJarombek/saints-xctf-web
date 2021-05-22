@@ -4,7 +4,7 @@
  * @since 8/16/2020
  */
 
-import Colors, { FeelColors } from '../../../styles/colors';
+import { FeelColors } from '../../../styles/colors';
 import Mixins, { AJComponentMixins, FontMixins } from '../../../styles/mixins';
 import color from 'color';
 
@@ -56,6 +56,7 @@ export default {
       width: '100%'
     }
   },
+  metrics: {},
   distanceInput: {
     flexBasis: '67%',
     paddingRight: 10,
@@ -113,9 +114,52 @@ export default {
   inputTip: {
     ...Mixins.inputTip()
   },
+  '@media screen and (max-width: 750px)': {
+    timeInput: {
+      '& > .sxctf-image-input': {
+        width: 'auto',
+
+        '& > input': {
+          width: 'auto',
+          minWidth: 50
+        }
+      }
+    },
+    distanceInput: {
+      '& .sxctf-image-input': {
+        width: 'auto',
+
+        '& > input': {
+          width: 'auto',
+          minWidth: 50
+        }
+      }
+    },
+    dateInput: {
+      '& > .sxctf-image-input > input': {
+        width: 'auto'
+      }
+    },
+    locationInput: {
+      '& > .sxctf-image-input > input': {
+        width: 'auto'
+      }
+    }
+  },
   '@media screen and (max-width: 720px)': {
     title: {
       width: 'auto'
+    }
+  },
+  '@media screen and (max-width: 580px)': {
+    metrics: {
+      flexDirection: 'column'
+    },
+    distanceInput: {
+      paddingRight: 0
+    },
+    timeInput: {
+      paddingLeft: 0
     }
   }
 };

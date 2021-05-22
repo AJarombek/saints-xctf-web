@@ -48,5 +48,13 @@ export default {
     picture: {
       margin: '0 0 20px 0'
     }
+  },
+  '@media screen and (max-width: 500px)': {
+    note: {
+      '& > p': {
+        fontSize: 12,
+        paddingLeft: 0
+      }
+    }
   }
 };

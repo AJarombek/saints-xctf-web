@@ -117,8 +117,8 @@
   }
 
   @media screen and (max-width: 390px) {
-    top: 75px;
-    animation-name: show-background-mobile;
+    top: 75px !important;
+    animation-name: show-background-mobile !important;
   }
 
   .aj-nav-list {

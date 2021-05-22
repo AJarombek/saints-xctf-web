@@ -138,12 +138,6 @@ export default {
       '& .aj-mobile-hamburger button span:after': {
         top: 8
       }
-    },
-    dryDropdown: {
-      '&.sxctf-nav-dropdown-visible': {
-        //top: 75,
-        //animationName: '$show-background-mobile'
-      }
     }
   },
   '@keyframes show-background': {

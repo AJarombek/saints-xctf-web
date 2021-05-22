@@ -388,7 +388,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
             onClickListOption={(item: { content: string; value: string }): void => setType(item.value)}
           />
         </div>
-        <div className={classes.twoInputs}>
+        <div className={classNames(classes.twoInputs, classes.metrics)}>
           <div
             className={classNames(
               classes.distanceInput,
