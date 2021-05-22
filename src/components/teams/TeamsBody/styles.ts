@@ -44,13 +44,33 @@ export default {
   groupTitle: {
     ...FontMixins.roboto(),
     fontSize: 18,
-    margin: '15px'
+    margin: 15
   },
   alertMessage: {
     marginTop: 10,
 
     '& > div': {
       padding: '4px 0'
+    }
+  },
+  '@media screen and (max-width: 550px)': {
+    title: {
+      fontSize: 20
+    },
+    teamTitle: {
+      fontSize: 18
+    },
+    groupTitle: {
+      fontSize: 16,
+      margin: 12
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    teamsBody: {
+      ...Mixins.defaultBodyMobile()
+    },
+    title: {
+      marginLeft: 15
     }
   }
 };

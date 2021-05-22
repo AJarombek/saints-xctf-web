@@ -18,8 +18,7 @@ import {
   RootState,
   UserMeta,
   Users,
-  StatsMeta,
-  LeaderboardInterval
+  StatsMeta
 } from '../../../redux/types';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
 import LogFeed from '../../shared/LogFeed/LogFeed';
@@ -30,7 +29,6 @@ import { getUserFlair, getUserMemberships } from '../../../redux/modules/profile
 import WeeklyChart from '../WeeklyChart';
 import ProfileDetails from '../ProfileDetails';
 import EditProfile from '../EditProfile';
-import classNames from 'classnames';
 import { AJSelect } from 'jarombek-react-components';
 
 interface Props {

@@ -326,6 +326,11 @@ class Mixins {
     margin: '100px 6% 0 6%'
   });
 
+  static defaultBodyMobile = (): object => ({
+    margin: '75px 0 0 0',
+    minHeight: 'calc(100vh - 75px)'
+  });
+
   static profileAndGroupBody = (): object => ({
     ...Mixins.defaultBody(),
     flexDirection: 'row',

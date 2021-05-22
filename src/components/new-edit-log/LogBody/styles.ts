@@ -40,6 +40,7 @@ export default {
   twoInputs: {
     display: 'flex'
   },
+  metadata: {},
   locationInput: {
     flexBasis: '50%',
     paddingRight: 10,
@@ -160,6 +161,31 @@ export default {
     },
     timeInput: {
       paddingLeft: 0
+    }
+  },
+  '@media screen and (max-width: 490px)': {
+    title: {
+      fontSize: 20
+    },
+    inputTitle: {
+      fontSize: 14
+    },
+    feel: {
+      fontSize: 14
+    },
+    metadata: {
+      flexDirection: 'column'
+    },
+    locationInput: {
+      paddingRight: 0
+    },
+    dateInput: {
+      paddingLeft: 0
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    newLogBody: {
+      ...Mixins.defaultBodyMobile()
     }
   }
 };

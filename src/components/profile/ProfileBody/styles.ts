@@ -83,8 +83,7 @@ export default {
   },
   '@media screen and (max-width: 390px)': {
     container: {
-      margin: '75px 0 0 0',
-      minHeight: 'calc(100vh - 75px)'
+      ...Mixins.defaultBodyMobile()
     }
   }
 };

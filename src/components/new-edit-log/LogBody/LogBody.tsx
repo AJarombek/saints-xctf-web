@@ -344,7 +344,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
             Exercise logs must have a name.
           </p>
         </div>
-        <div className={classes.twoInputs}>
+        <div className={classNames(classes.twoInputs, classes.metadata)}>
           <div className={classes.locationInput}>
             <p className={classes.inputTitle}>Location</p>
             <ImageInput
