@@ -24,13 +24,33 @@ export default {
 
     '& > p:nth-child(1)': {
       ...FontMixins.robotoSlab(),
-      width: '200px'
+      width: 200
     },
 
     '& > p:nth-child(2)': {
       ...FontMixins.robotoThin(),
-      width: '125px',
+      width: 125,
       textAlign: 'end'
+    }
+  },
+  '@media screen and (max-width: 450px)': {
+    stats: {
+      '& > h3': {
+        fontSize: 16
+      }
+    },
+    section: {
+      '& > p': {
+        fontSize: 14
+      },
+
+      '& > p:nth-child(1)': {
+        width: 160
+      },
+
+      '& > p:nth-child(2)': {
+        width: 100
+      }
     }
   }
 };

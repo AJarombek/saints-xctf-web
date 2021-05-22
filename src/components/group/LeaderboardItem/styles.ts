@@ -62,5 +62,37 @@ export default {
     left: '100%',
     paddingLeft: 10,
     color: '#555'
+  },
+  '@media screen and (max-width: 550px)': {
+    itemName: {
+      fontSize: 14
+    },
+    textInner: {
+      fontSize: 14
+    },
+    textAfter: {
+      fontSize: 14
+    }
+  },
+  '@media screen and (max-width: 500px)': {
+    itemName: {
+      width: '30%'
+    },
+    bar: {
+      width: '70%'
+    }
+  },
+  '@media screen and (max-width: 450px)': {
+    textInner: {
+      fontSize: 13
+    },
+    textAfter: {
+      fontSize: 13
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    itemName: {
+      fontSize: 13
+    }
   }
 };

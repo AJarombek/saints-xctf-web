@@ -31,7 +31,7 @@ const LeaderboardItem: React.FunctionComponent<Props> = ({ item, leaderMiles }) 
       <div className={classes.bar}>
         <div className={classes.barBackground} />
         <div className={classes.barFill}>
-          <p className={width < 20 ? classes.textAfter : classes.textInner} data-cypress="leaderboardItemValue">
+          <p className={width < 30 ? classes.textAfter : classes.textInner} data-cypress="leaderboardItemValue">
             {item.value.toFixed(2)}
           </p>
         </div>

@@ -31,5 +31,13 @@ export default {
     '& > div': {
       padding: '4px 0'
     }
+  },
+  '@media screen and (max-width: 390px)': {
+    barChart: {
+      padding: 10
+    },
+    interval: {
+      marginLeft: 15
+    }
   }
 };

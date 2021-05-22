@@ -65,6 +65,9 @@ export default {
   '@media screen and (max-width: 490px)': {
     groupBody: {
       ...Mixins.profileAndGroupBodyMobile()
+    },
+    membershipTag: {
+      fontSize: 12
     }
   },
   '@media screen and (max-width: 390px)': {
