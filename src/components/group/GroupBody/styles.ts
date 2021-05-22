@@ -7,12 +7,18 @@
  * @since 1/6/2021
  */
 
-import Mixins, { FontMixins } from '../../../styles/mixins';
+import Mixins, {AJComponentMixins, FontMixins} from '../../../styles/mixins';
 import Colors from '../../../styles/colors';
 
 export default {
   groupBody: {
     ...Mixins.profileAndGroupBody()
+  },
+  mobileTabs: {
+    display: 'none'
+  },
+  select: {
+    ...AJComponentMixins.ajSelect()
   },
   membershipTagContainer: {
     display: 'flex',
@@ -34,5 +40,36 @@ export default {
         : Colors.lightestBackground,
     color: ({ membershipTagText }: { membershipTagText: string }): string =>
       membershipTagText === 'Non-Member' ? '#000' : '#FFF'
+  },
+  '@media screen and (max-width: 1200px)': {
+    groupBody: {
+      ...Mixins.profileAndGroupBodyDesktopMedium()
+    }
+  },
+  '@media screen and (max-width: 900px)': {
+    groupBody: {
+      ...Mixins.profileAndGroupBodyDesktopSmall()
+    }
+  },
+  '@media screen and (max-width: 750px)': {
+    groupBody: {
+      ...Mixins.profileAndGroupBodyTablet()
+    },
+    mobileTabs: {
+      ...Mixins.profileAndGroupMobileTabs()
+    },
+    select: {
+      width: '100%'
+    }
+  },
+  '@media screen and (max-width: 490px)': {
+    groupBody: {
+      ...Mixins.profileAndGroupBodyMobile()
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    groupBody: {
+      ...Mixins.defaultBodyMobile()
+    }
   }
 };

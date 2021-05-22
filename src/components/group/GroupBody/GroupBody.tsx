@@ -27,7 +27,9 @@ import { logFeed } from '../../../redux/modules/logs';
 import GroupDetails from '../GroupDetails/GroupDetails';
 import GroupMembers from '../GroupMembers';
 import Leaderboard from '../Leaderboard';
-import { AJTag } from 'jarombek-react-components';
+import { AJSelect, AJTag } from 'jarombek-react-components';
+import { Tab } from '../../shared/PageTabs/PageTabs';
+import { ProfileTab } from '../../profile/ProfileBody/ProfileBody';
 
 interface Props {
   user: User;
@@ -127,19 +129,29 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
   return (
     <div className={classes.groupBody}>
       <aside>
-        <PictureTitle
-          imageUrl={
-            group?.grouppic_name
-              ? `/uasset/group/${group?.group_name}/${group?.grouppic_name}`
-              : '/asset/saintsxctf.png'
-          }
-          title={group?.group_title}
-          subTitle={`Members: ${acceptedMembers.length}`}
-        />
-        <div className={classes.membershipTagContainer} data-cypress="groupMembershipTag">
-          <AJTag content={membershipTagText} className={classes.membershipTag} />
+        <div>
+          <PictureTitle
+            imageUrl={
+              group?.grouppic_name
+                ? `/uasset/group/${group?.group_name}/${group?.grouppic_name}`
+                : '/asset/saintsxctf.png'
+            }
+            title={group?.group_title}
+            subTitle={`Members: ${acceptedMembers.length}`}
+          />
+          <div className={classes.membershipTagContainer} data-cypress="groupMembershipTag">
+            <AJTag content={membershipTagText} className={classes.membershipTag} />
+          </div>
         </div>
         <PageTabs currentTab={tab} tabs={tabs} />
+        <div className={classes.mobileTabs}>
+          <AJSelect
+            options={...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))}
+            defaultOption={1}
+            onClickListOption={(item: { content: string; value: string }): void => setTab(item.value as GroupTab)}
+            className={classes.select}
+          />
+        </div>
       </aside>
       <section>
         {tab === GroupTab.LOGS && (

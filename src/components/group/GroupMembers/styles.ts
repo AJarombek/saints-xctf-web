@@ -30,5 +30,16 @@ export default {
       margin: '0 20px 0 auto',
       fontSize: 14
     }
+  },
+  '@media screen and (max-width: 490px)': {
+    member: {
+      '& > p:nth-child(1)': {
+        fontSize: 14
+      },
+
+      '& > p:nth-child(2)': {
+        fontSize: 12
+      }
+    }
   }
 };

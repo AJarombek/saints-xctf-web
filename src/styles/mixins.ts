@@ -347,6 +347,65 @@ class Mixins {
     }
   });
 
+  static profileAndGroupBodyDesktopMedium = (): object => ({
+    margin: '100px 6% 0 2%',
+
+    '& > aside': {
+      flexBasis: '30%',
+      marginRight: 20
+    },
+
+    '& > section': {
+      flexBasis: '70%',
+      margin: 0
+    }
+  });
+
+  static profileAndGroupBodyDesktopSmall = (): object => ({
+    margin: '100px 2% 0 2%'
+  });
+
+  static profileAndGroupBodyTablet = (): object => ({
+    flexDirection: 'column',
+
+    '& > aside': {
+      display: 'flex',
+      marginRight: 0,
+      marginBottom: 20
+    },
+
+    '& .pictureTitleContainer': {
+      flexBasis: '30%'
+    },
+
+    '& .flairList, & .memberships, & .tabs': {
+      display: 'none'
+    }
+  });
+
+  static profileAndGroupBodyMobile = (): object => ({
+    '& .pictureTitleContainer > figure': {
+      width: 100,
+      height: 100,
+      marginBottom: 10
+    },
+
+    '& .pictureTitleContainer > h5': {
+      fontSize: 18
+    },
+
+    '& .pictureTitleContainer > div': {
+      fontSize: 14
+    }
+  });
+
+  static profileAndGroupMobileTabs = (): object => ({
+    display: 'flex',
+    flexBasis: '70%',
+    alignItems: 'flex-end',
+    margin: 30
+  });
+
   static containerBackground = (): object => ({
     backgroundColor: '#E3E3E3',
     width: '100%',

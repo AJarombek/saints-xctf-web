@@ -18,47 +18,20 @@ export default {
   },
   '@media screen and (max-width: 1200px)': {
     container: {
-      margin: '100px 6% 0 2%',
-
-      '& > aside': {
-        flexBasis: '30%',
-        marginRight: 20
-      },
-
-      '& > section': {
-        flexBasis: '70%',
-        margin: 0
-      }
+      ...Mixins.profileAndGroupBodyDesktopMedium()
     }
   },
   '@media screen and (max-width: 900px)': {
     container: {
-      margin: '100px 2% 0 2%'
+      ...Mixins.profileAndGroupBodyDesktopSmall()
     }
   },
   '@media screen and (max-width: 750px)': {
     container: {
-      flexDirection: 'column',
-
-      '& > aside': {
-        display: 'flex',
-        marginRight: 0,
-        marginBottom: 20
-      },
-
-      '& .pictureTitleContainer': {
-        flexBasis: '30%'
-      },
-
-      '& .flairList, & .memberships, & .tabs': {
-        display: 'none'
-      }
+      ...Mixins.profileAndGroupBodyTablet()
     },
     mobileTabs: {
-      display: 'flex',
-      flexBasis: '70%',
-      alignItems: 'flex-end',
-      margin: 30
+      ...Mixins.profileAndGroupMobileTabs()
     },
     select: {
       width: '100%'
@@ -66,19 +39,7 @@ export default {
   },
   '@media screen and (max-width: 490px)': {
     container: {
-      '& .pictureTitleContainer > figure': {
-        width: 100,
-        height: 100,
-        marginBottom: 10
-      },
-
-      '& .pictureTitleContainer > h5': {
-        fontSize: 18
-      },
-
-      '& .pictureTitleContainer > div': {
-        fontSize: 14
-      }
+      ...Mixins.profileAndGroupBodyMobile()
     }
   },
   '@media screen and (max-width: 390px)': {
