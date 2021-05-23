@@ -19,5 +19,10 @@ export default {
     ...Mixins.inputTitle(),
     fontSize: 18,
     marginBottom: 15
+  },
+  '@media screen and (max-width: 1050px)': {
+    title: {
+      width: '100%'
+    }
   }
 };

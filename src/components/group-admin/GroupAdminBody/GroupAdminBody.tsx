@@ -15,6 +15,9 @@ import classNames from 'classnames';
 import ManageUsers from '../ManageUsers/ManageUsers';
 import SendActivationCode from '../SendActivationCode';
 import EditGroup from '../EditGroup';
+import { AJSelect } from 'jarombek-react-components';
+import { Tab } from '../../shared/PageTabs/PageTabs';
+import { GroupTab } from '../../group/GroupBody/GroupBody';
 
 interface Props {
   group: GroupMeta;
@@ -73,9 +76,19 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
   return (
     <div className={classes.groupAdminBody}>
       <aside>
-        <h5 className={classNames(classes.title, classes.text)}>{group?.group_title}</h5>
-        <div className={classNames(classes.subTitle, classes.text)}>{teamTitle}</div>
+        <div>
+          <h5 className={classNames(classes.title, classes.text)}>{group?.group_title}</h5>
+          <div className={classNames(classes.subTitle, classes.text)}>{teamTitle}</div>
+        </div>
         <PageTabs currentTab={tab} tabs={tabs} />
+        <div className={classes.mobileTabs}>
+          <AJSelect
+            options={...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))}
+            defaultOption={1}
+            onClickListOption={(item: { content: string; value: string }): void => setTab(item.value as GroupAdminTab)}
+            className={classes.select}
+          />
+        </div>
       </aside>
       <section>
         {tab === GroupAdminTab.MANAGE_USERS && <ManageUsers groupId={groupId} />}

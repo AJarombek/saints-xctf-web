@@ -50,5 +50,42 @@ export default {
     ...FontMixins.roboto(),
     fontSize: 18,
     margin: 15
+  },
+  '@media screen and (max-width: 800px)': {
+    container: {
+      maxWidth: 'auto'
+    },
+    title: {
+      width: '100%'
+    }
+  },
+  '@media screen and (max-width: 550px)': {
+    title: {
+      fontSize: 18
+    },
+    teamTitle: {
+      fontSize: 18
+    },
+    groupTitle: {
+      fontSize: 16,
+      margin: 12
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    adminBody: {
+      ...Mixins.defaultBodyMobile()
+    },
+    container: {
+      padding: 15
+    },
+    title: {
+      marginLeft: 15
+    },
+    teamTitle: {
+      fontSize: 16
+    },
+    groupTitle: {
+      fontSize: 14
+    }
   }
 };

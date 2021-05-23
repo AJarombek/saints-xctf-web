@@ -7,7 +7,7 @@
  * @since 1/6/2021
  */
 
-import Mixins, {AJComponentMixins, FontMixins} from '../../../styles/mixins';
+import Mixins, { AJComponentMixins, FontMixins } from '../../../styles/mixins';
 import Colors from '../../../styles/colors';
 
 export default {
