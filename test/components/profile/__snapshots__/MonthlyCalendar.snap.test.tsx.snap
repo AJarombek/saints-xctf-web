@@ -14,7 +14,7 @@ exports[`MonthlyCalendar Snapshot Tests renders correctly when leaving group 1`]
       Calendar Filters:
     </p>
     <div
-      className="buttonGroup-2-2-1 filterButtons-0-1-4"
+      className="buttonGroup-2-2-1 filterButtons-0-1-4 leaderboardFilterButtons"
     >
       <div
         className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-contained-button ajContainedButton-2-2-2 ajContainedButtonEnabled-2-2-3"
@@ -89,128 +89,193 @@ exports[`MonthlyCalendar Snapshot Tests renders correctly when leaving group 1`]
     <div
       className="weekdays-0-1-7"
     >
-      <p>
-        Monday
-      </p>
-      <p>
-        Tuesday
-      </p>
-      <p>
-        Wednesday
-      </p>
-      <p>
-        Thursday
-      </p>
-      <p>
-        Friday
-      </p>
-      <p>
-        Saturday
-      </p>
-      <p>
-        Sunday
-      </p>
-      <p>
-        Total
-      </p>
+      <div>
+        <p
+          className="weekdaysLong-0-1-8"
+        >
+          Monday
+        </p>
+        <p
+          className="weekdaysShort-0-1-9"
+        >
+          Mon
+        </p>
+      </div>
+      <div>
+        <p
+          className="weekdaysLong-0-1-8"
+        >
+          Tuesday
+        </p>
+        <p
+          className="weekdaysShort-0-1-9"
+        >
+          Tue
+        </p>
+      </div>
+      <div>
+        <p
+          className="weekdaysLong-0-1-8"
+        >
+          Wednesday
+        </p>
+        <p
+          className="weekdaysShort-0-1-9"
+        >
+          Wed
+        </p>
+      </div>
+      <div>
+        <p
+          className="weekdaysLong-0-1-8"
+        >
+          Thursday
+        </p>
+        <p
+          className="weekdaysShort-0-1-9"
+        >
+          Thu
+        </p>
+      </div>
+      <div>
+        <p
+          className="weekdaysLong-0-1-8"
+        >
+          Friday
+        </p>
+        <p
+          className="weekdaysShort-0-1-9"
+        >
+          Fri
+        </p>
+      </div>
+      <div>
+        <p
+          className="weekdaysLong-0-1-8"
+        >
+          Saturday
+        </p>
+        <p
+          className="weekdaysShort-0-1-9"
+        >
+          Sat
+        </p>
+      </div>
+      <div>
+        <p
+          className="weekdaysLong-0-1-8"
+        >
+          Sunday
+        </p>
+        <p
+          className="weekdaysShort-0-1-9"
+        >
+          Sun
+        </p>
+      </div>
+      <div>
+        <p>
+          Total
+        </p>
+      </div>
     </div>
     <div
-      className="month-0-1-8"
+      className="month-0-1-10"
     >
       <div
-        className="week-0-1-9"
+        className="week-0-1-11"
         data-cypress="week"
       >
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               26
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               27
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               28
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               29
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               30
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               1
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               2
             </p>
           </div>
         </div>
         <div
-          className="weekTotal-0-1-22"
+          className="weekTotal-0-1-24"
           data-cypress="weekTotal"
         >
           <div
-            className="miles-0-1-23"
+            className="miles-0-1-25"
           >
             <p>
               0.00
@@ -222,99 +287,99 @@ exports[`MonthlyCalendar Snapshot Tests renders correctly when leaving group 1`]
         </div>
       </div>
       <div
-        className="week-0-1-9"
+        className="week-0-1-11"
         data-cypress="week"
       >
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               3
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               4
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               5
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               6
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               7
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               8
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               9
             </p>
           </div>
         </div>
         <div
-          className="weekTotal-0-1-22"
+          className="weekTotal-0-1-24"
           data-cypress="weekTotal"
         >
           <div
-            className="miles-0-1-23"
+            className="miles-0-1-25"
           >
             <p>
               0.00
@@ -326,99 +391,99 @@ exports[`MonthlyCalendar Snapshot Tests renders correctly when leaving group 1`]
         </div>
       </div>
       <div
-        className="week-0-1-9"
+        className="week-0-1-11"
         data-cypress="week"
       >
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               10
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               11
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               12
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               13
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               14
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               15
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               16
             </p>
           </div>
         </div>
         <div
-          className="weekTotal-0-1-22"
+          className="weekTotal-0-1-24"
           data-cypress="weekTotal"
         >
           <div
-            className="miles-0-1-23"
+            className="miles-0-1-25"
           >
             <p>
               0.00
@@ -430,99 +495,99 @@ exports[`MonthlyCalendar Snapshot Tests renders correctly when leaving group 1`]
         </div>
       </div>
       <div
-        className="week-0-1-9"
+        className="week-0-1-11"
         data-cypress="week"
       >
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               17
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               18
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               19
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               20
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               21
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               22
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               23
             </p>
           </div>
         </div>
         <div
-          className="weekTotal-0-1-22"
+          className="weekTotal-0-1-24"
           data-cypress="weekTotal"
         >
           <div
-            className="miles-0-1-23"
+            className="miles-0-1-25"
           >
             <p>
               0.00
@@ -534,99 +599,99 @@ exports[`MonthlyCalendar Snapshot Tests renders correctly when leaving group 1`]
         </div>
       </div>
       <div
-        className="week-0-1-9"
+        className="week-0-1-11"
         data-cypress="week"
       >
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               24
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               25
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               26
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               27
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               28
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               29
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               30
             </p>
           </div>
         </div>
         <div
-          className="weekTotal-0-1-22"
+          className="weekTotal-0-1-24"
           data-cypress="weekTotal"
         >
           <div
-            className="miles-0-1-23"
+            className="miles-0-1-25"
           >
             <p>
               0.00
@@ -638,99 +703,99 @@ exports[`MonthlyCalendar Snapshot Tests renders correctly when leaving group 1`]
         </div>
       </div>
       <div
-        className="week-0-1-9"
+        className="week-0-1-11"
         data-cypress="week"
       >
         <div
-          className="day-0-1-10 currentMonth-0-1-12"
+          className="day-0-1-12 currentMonth-0-1-14"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               31
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               1
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               2
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               3
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               4
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               5
             </p>
           </div>
         </div>
         <div
-          className="day-0-1-10"
+          className="day-0-1-12"
           data-cypress="day"
         >
           <div>
             <p
-              className="dayOfMonth-0-1-13"
+              className="dayOfMonth-0-1-15"
             >
               6
             </p>
           </div>
         </div>
         <div
-          className="weekTotal-0-1-22"
+          className="weekTotal-0-1-24"
           data-cypress="weekTotal"
         >
           <div
-            className="miles-0-1-23"
+            className="miles-0-1-25"
           >
             <p>
               0.00

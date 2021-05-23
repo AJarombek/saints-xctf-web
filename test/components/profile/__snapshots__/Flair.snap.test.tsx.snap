@@ -2,7 +2,7 @@
 
 exports[`Flair Snapshot Tests renders correctly 1`] = `
 <div
-  className="flair-0-1-1"
+  className="flair-0-1-1 flairList"
 >
   <p
     data-cypress="flair"

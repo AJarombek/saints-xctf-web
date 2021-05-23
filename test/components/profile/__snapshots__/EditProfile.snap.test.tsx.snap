@@ -304,7 +304,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
               />
             </div>
             <div
-              className="customLabel-0-1-28"
+              className="customLabel-0-1-28 radioButtonLabel"
             >
               Sunday
             </div>
@@ -333,7 +333,7 @@ exports[`EditProfile Snapshot Tests renders correctly 1`] = `
               />
             </div>
             <div
-              className="customLabel-0-1-28"
+              className="customLabel-0-1-28 radioButtonLabel"
             >
               Monday
             </div>

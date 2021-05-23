@@ -3,9 +3,11 @@
 exports[`GroupDetails Snapshot Tests renders correctly 1`] = `
 <div
   className="groupDetails-0-1-1"
+  id="groupDetails"
 >
   <div
     className="description-0-1-2"
+    data-cypress="description"
   >
     <p>
       SaintsXCTF Alumni

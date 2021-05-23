@@ -10,7 +10,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
     Create a new exercise log.
   </h3>
   <div
-    className="logForm-0-1-3 logForm-d0-0-1-22"
+    className="logForm-0-1-3 logForm-d0-0-1-24"
   >
     <p
       className="feel-0-1-4"
@@ -52,7 +52,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
         </div>
       </div>
       <p
-        className="inputTip-0-1-21"
+        className="inputTip-0-1-23"
         data-cypress="nameInputTip"
         hidden={true}
       >
@@ -60,10 +60,10 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
       </p>
     </div>
     <div
-      className="twoInputs-0-1-7"
+      className="twoInputs-0-1-7 metadata-0-1-8"
     >
       <div
-        className="locationInput-0-1-8"
+        className="locationInput-0-1-9"
       >
         <p
           className="inputTitle-0-1-5"
@@ -97,7 +97,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
         </div>
       </div>
       <div
-        className="dateInput-0-1-9"
+        className="dateInput-0-1-10"
       >
         <p
           className="inputTitle-0-1-5"
@@ -130,7 +130,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <p
-          className="inputTip-0-1-21"
+          className="inputTip-0-1-23"
           data-cypress="dateInputTip"
           hidden={true}
         >
@@ -145,7 +145,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
         Exercise Type
       </p>
       <div
-        className="aj-select ajSelect-2-2-1 aj-select-closed select-0-1-12 exerciseTypeSelect"
+        className="aj-select ajSelect-2-2-1 aj-select-closed select-0-1-14 exerciseTypeSelect"
       >
         <div
           className="ajSelectLabel-2-2-3"
@@ -161,10 +161,10 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
       </div>
     </div>
     <div
-      className="twoInputs-0-1-7"
+      className="twoInputs-0-1-7 metrics-0-1-11"
     >
       <div
-        className="distanceInput-0-1-10"
+        className="distanceInput-0-1-12"
       >
         <p
           className="inputTitle-0-1-5"
@@ -199,7 +199,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             </div>
           </div>
           <div
-            className="aj-select ajSelect-2-2-1 aj-select-closed select-0-1-12 exerciseMetricSelect"
+            className="aj-select ajSelect-2-2-1 aj-select-closed select-0-1-14 exerciseMetricSelect"
           >
             <div
               className="ajSelectLabel-2-2-3"
@@ -215,7 +215,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <p
-          className="inputTip-0-1-21"
+          className="inputTip-0-1-23"
           data-cypress="distanceInputTip"
           hidden={true}
         >
@@ -223,7 +223,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
         </p>
       </div>
       <div
-        className="timeInput-0-1-11"
+        className="timeInput-0-1-13"
       >
         <p
           className="inputTitle-0-1-5"
@@ -256,7 +256,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <p
-          className="inputTip-0-1-21"
+          className="inputTip-0-1-23"
           data-cypress="timeInputTip"
           hidden={true}
         >
@@ -271,16 +271,16 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
         Feel
       </p>
       <div
-        className="stepSlider-0-1-23 stepSlider"
+        className="stepSlider-0-1-25 stepSlider"
         data-cypress="stepSlider"
         onMouseDown={[Function]}
         onTouchStart={[Function]}
       >
         <div
-          className="mainEdge-0-1-26 mainEdge-d1-0-1-34"
+          className="mainEdge-0-1-28 mainEdge-d1-0-1-36"
         >
           <div
-            className="filledEdge-0-1-30 filledEdge-d2-0-1-35"
+            className="filledEdge-0-1-32 filledEdge-d2-0-1-37"
             style={
               Object {
                 "backgroundColor": "#AAAAAA",
@@ -288,10 +288,10 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           />
           <div
-            className="currentVertex-0-1-31 currentVertex-d3-0-1-36"
+            className="currentVertex-0-1-33 currentVertex-d3-0-1-38"
           >
             <div
-              className="currentInnerVertex-0-1-32"
+              className="currentInnerVertex-0-1-34"
               style={
                 Object {
                   "backgroundColor": "#E3E3E3",
@@ -301,10 +301,10 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="firstStep-0-1-25"
+          className="firstStep-0-1-27"
         >
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#AAAAAA",
@@ -312,7 +312,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "transparent",
@@ -322,15 +322,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#AAAAAA",
@@ -338,7 +338,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "transparent",
@@ -348,15 +348,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#AAAAAA",
@@ -364,7 +364,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "transparent",
@@ -374,15 +374,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#AAAAAA",
@@ -390,7 +390,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "transparent",
@@ -400,15 +400,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#AAAAAA",
@@ -416,7 +416,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "transparent",
@@ -426,15 +426,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#BBB",
@@ -442,7 +442,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "#E3E3E3",
@@ -452,15 +452,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#BBB",
@@ -468,7 +468,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "#C7F599",
@@ -478,15 +478,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#BBB",
@@ -494,7 +494,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "#99D699",
@@ -504,15 +504,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#BBB",
@@ -520,7 +520,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "#99C199",
@@ -530,15 +530,15 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="step-0-1-24 step-d0-0-1-33"
+          className="step-0-1-26 step-d0-0-1-35"
         >
           <div
-            className="edge-0-1-27"
+            className="edge-0-1-29"
           >
              
           </div>
           <div
-            className="vertex-0-1-28"
+            className="vertex-0-1-30"
             style={
               Object {
                 "backgroundColor": "#BBB",
@@ -546,7 +546,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
             }
           >
             <div
-              className="innerVertex-0-1-29"
+              className="innerVertex-0-1-31"
               style={
                 Object {
                   "backgroundColor": "#A3A3FF",
@@ -564,7 +564,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
         Description
       </p>
       <textarea
-        className="textArea-0-1-37 textArea-0-1-13"
+        className="textArea-0-1-39 textArea-0-1-15"
         disabled={false}
         maxLength={1000}
         onChange={[Function]}
@@ -574,10 +574,10 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
       />
     </div>
     <div
-      className="actions-0-1-14"
+      className="actions-0-1-16"
     >
       <div
-        className="ajBaseButton-2-2-9 ajBaseButtonEnabled-2-2-10 aj-contained-button ajContainedButton-2-2-6 ajContainedButtonEnabled-2-2-7 submitButton-0-1-15 createButton-0-1-17"
+        className="ajBaseButton-2-2-9 ajBaseButtonEnabled-2-2-10 aj-contained-button ajContainedButton-2-2-6 ajContainedButtonEnabled-2-2-7 submitButton-0-1-17 createButton-0-1-19"
         onClick={[Function]}
       >
         <button
@@ -588,7 +588,7 @@ exports[`LogBody Snapshot Tests renders correctly 1`] = `
         </button>
       </div>
       <div
-        className="ajBaseButton-2-2-9 ajBaseButtonEnabled-2-2-10 aj-text-button ajTextButton-2-2-12 ajTextButtonEnabled-2-2-13 cancelButton-0-1-18"
+        className="ajBaseButton-2-2-9 ajBaseButtonEnabled-2-2-10 aj-text-button ajTextButton-2-2-12 ajTextButtonEnabled-2-2-13 cancelButton-0-1-20"
         onClick={[Function]}
       >
         <button

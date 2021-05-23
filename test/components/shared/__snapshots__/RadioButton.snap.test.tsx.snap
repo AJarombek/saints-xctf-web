@@ -25,7 +25,7 @@ Array [
         />
       </div>
       <div
-        className="customLabel-0-1-5"
+        className="customLabel-0-1-5 radioButtonLabel"
       >
         Sunday
       </div>
@@ -54,7 +54,7 @@ Array [
         />
       </div>
       <div
-        className="customLabel-0-1-5"
+        className="customLabel-0-1-5 radioButtonLabel"
       >
         Monday
       </div>

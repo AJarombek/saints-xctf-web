@@ -3,6 +3,7 @@
 exports[`CurrentMember Snapshot Tests renders correctly 1`] = `
 <div
   className="currentMember-0-1-1"
+  data-cypress="currentMember"
 >
   <p
     className="name-0-1-4"
@@ -12,7 +13,7 @@ exports[`CurrentMember Snapshot Tests renders correctly 1`] = `
     Jarombek
   </p>
   <div
-    className="ajTag-2-2-1 ajTag-d0-2-2-2 aj-tag memberTypeTag-0-1-2 memberTypeTag-d0-0-1-6"
+    className="ajTag-2-2-1 ajTag-d0-2-2-2 aj-tag memberTypeTag-0-1-2 memberTypeTag-d0-0-1-6 memberTypeTag"
   >
     <div
       className="memberTypeContent-0-1-3"
@@ -21,7 +22,7 @@ exports[`CurrentMember Snapshot Tests renders correctly 1`] = `
     </div>
   </div>
   <div
-    className="ajBaseButton-2-2-6 ajBaseButtonEnabled-2-2-7 aj-outlined-button ajOutlinedButton-2-2-3 ajOutlinedButtonEnabled-2-2-4 removeAction-0-1-5"
+    className="ajBaseButton-2-2-6 ajBaseButtonEnabled-2-2-7 aj-outlined-button ajOutlinedButton-2-2-3 ajOutlinedButtonEnabled-2-2-4 removeAction-0-1-5 actionButton"
     onClick={[Function]}
   >
     <button

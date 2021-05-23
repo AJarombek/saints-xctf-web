@@ -3,6 +3,7 @@
 exports[`PendingMember Snapshot Tests renders correctly 1`] = `
 <div
   className="pendingMember-0-1-1"
+  data-cypress="pendingMember"
 >
   <p
     className="name-0-1-3"

@@ -5,48 +5,70 @@ exports[`GroupAdminBody Snapshot Tests renders correctly 1`] = `
   className="groupAdminBody-0-1-1"
 >
   <aside>
-    <h5
-      className="title-0-1-2 text-0-1-4"
-    >
-      Alumni
-    </h5>
+    <div>
+      <h5
+        className="title-0-1-4 text-0-1-6"
+      >
+        Alumni
+      </h5>
+      <div
+        className="subTitle-0-1-5 text-0-1-6"
+      />
+    </div>
     <div
-      className="subTitle-0-1-3 text-0-1-4"
-    />
-    <div
-      className="tabs-0-1-5 tabs"
+      className="tabs-0-1-7 tabs"
     >
       <p
-        className="tab-0-1-6 currentTab-0-1-7"
+        className="tab-0-1-8 currentTab-0-1-9"
         onClick={[Function]}
       >
         Manage Users
       </p>
       <p
-        className="tab-0-1-6"
+        className="tab-0-1-8"
         onClick={[Function]}
       >
         Send Activation Code
       </p>
       <p
-        className="tab-0-1-6"
+        className="tab-0-1-8"
         onClick={[Function]}
       >
         Edit Group
       </p>
     </div>
+    <div
+      className="mobileTabs-0-1-2"
+    >
+      <div
+        className="aj-select ajSelect-2-2-1 aj-select-closed select-0-1-3"
+      >
+        <div
+          className="ajSelectLabel-2-2-3"
+          onClick={[Function]}
+        >
+          <div />
+          <div
+            className="ajSelectArrow-2-2-2"
+          >
+            C
+          </div>
+        </div>
+      </div>
+    </div>
   </aside>
   <section>
     <div
-      className="manageUsers-0-1-8"
+      className="manageUsers-0-1-10"
+      id="manageUsers"
     >
       <h3
-        className="title-0-1-9"
+        className="title-0-1-11"
       >
         Manage Users
       </h3>
       <div
-        className="container-0-1-10"
+        className="container-0-1-12"
       />
     </div>
   </section>

@@ -17,6 +17,7 @@ exports[`Alert Snapshot Tests renders correctly 1`] = `
   </div>
   <p
     className="closeIcon-0-1-4"
+    data-cypress="alertCloseIcon"
     onClick={[Function]}
   >
     M

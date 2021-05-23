@@ -3,6 +3,7 @@
 exports[`LeaderboardItem Snapshot Tests renders correctly 1`] = `
 <div
   className="leaderboardItem-0-1-1"
+  data-cypress="leaderboardItem"
 >
   <p
     className="itemName-0-1-2"
@@ -22,6 +23,7 @@ exports[`LeaderboardItem Snapshot Tests renders correctly 1`] = `
     >
       <p
         className="textInner-0-1-6"
+        data-cypress="leaderboardItemValue"
       >
         40.00
       </p>

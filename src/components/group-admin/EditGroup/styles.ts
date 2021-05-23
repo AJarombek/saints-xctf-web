@@ -45,5 +45,21 @@ export default {
   },
   buttonSpinner: {
     ...Mixins.buttonSpinner()
+  },
+  '@media screen and (max-width: 1050px)': {
+    title: {
+      width: '100%'
+    }
+  },
+  '@media screen and (max-width: 450px)': {
+    title: {
+      fontSize: 20
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    title: {
+      marginLeft: 15,
+      width: 'auto'
+    }
   }
 };

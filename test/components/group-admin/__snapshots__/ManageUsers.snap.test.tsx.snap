@@ -3,6 +3,7 @@
 exports[`ManageUsers Snapshot Tests renders correctly 1`] = `
 <div
   className="manageUsers-0-1-1"
+  id="manageUsers"
 >
   <h3
     className="title-0-1-2"

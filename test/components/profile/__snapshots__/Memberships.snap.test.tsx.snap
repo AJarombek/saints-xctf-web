@@ -2,7 +2,7 @@
 
 exports[`Memberships Snapshot Tests renders correctly when leaving group 1`] = `
 <div
-  className="memberships-0-1-1"
+  className="memberships-0-1-1 memberships"
 >
   <p
     data-cypress="teamMembership"

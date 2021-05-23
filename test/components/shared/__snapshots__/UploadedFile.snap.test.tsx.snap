@@ -21,6 +21,7 @@ exports[`UploadedFile Snapshot Tests renders correctly 1`] = `
     </div>
     <p
       className="removeIcon-0-1-4"
+      data-cypress="uploadedFileRemoveIcon"
       onClick={[Function]}
     >
       

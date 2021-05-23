@@ -6,10 +6,10 @@ exports[`ProfileBody Snapshot Tests renders correctly 1`] = `
 >
   <aside>
     <div
-      className="container-0-1-2"
+      className="container-0-1-4 pictureTitleContainer"
     >
       <figure
-        className="picture-0-1-3"
+        className="picture-0-1-5"
       >
         <img
           alt=""
@@ -17,20 +17,20 @@ exports[`ProfileBody Snapshot Tests renders correctly 1`] = `
         />
       </figure>
       <h5
-        className="title-0-1-4"
+        className="title-0-1-6"
         data-cypress="pictureTitle"
       >
         Andy Jarombek
       </h5>
       <div
-        className="subTitle-0-1-5"
+        className="subTitle-0-1-7"
         data-cypress="pictureSubTitle"
       >
         @andy
       </div>
     </div>
     <div
-      className="flair-0-1-6"
+      className="flair-0-1-8 flairList"
     >
       <p
         data-cypress="flair"
@@ -39,72 +39,91 @@ exports[`ProfileBody Snapshot Tests renders correctly 1`] = `
       </p>
     </div>
     <div
-      className="memberships-0-1-7"
+      className="memberships-0-1-9 memberships"
     />
     <div
-      className="tabs-0-1-8 tabs"
+      className="tabs-0-1-10 tabs"
     >
       <p
-        className="tab-0-1-9 currentTab-0-1-10"
+        className="tab-0-1-11 currentTab-0-1-12"
         onClick={[Function]}
       >
         Exercise Logs
       </p>
       <p
-        className="tab-0-1-9"
+        className="tab-0-1-11"
         onClick={[Function]}
       >
         Monthly Calendar
       </p>
       <p
-        className="tab-0-1-9"
+        className="tab-0-1-11"
         onClick={[Function]}
       >
         Weekly Chart
       </p>
       <p
-        className="tab-0-1-9"
+        className="tab-0-1-11"
         onClick={[Function]}
       >
         Details
       </p>
       <p
-        className="tab-0-1-9"
+        className="tab-0-1-11"
         onClick={[Function]}
       >
         Edit Profile
       </p>
     </div>
+    <div
+      className="mobileTabs-0-1-2"
+    >
+      <div
+        className="aj-select ajSelect-2-2-1 aj-select-closed select-0-1-3"
+      >
+        <div
+          className="ajSelectLabel-2-2-3"
+          onClick={[Function]}
+        >
+          <div />
+          <div
+            className="ajSelectArrow-2-2-2"
+          >
+            C
+          </div>
+        </div>
+      </div>
+    </div>
   </aside>
   <section>
     <div
-      className="logFeed-0-1-11"
+      className="logFeed-0-1-13"
       id="logFeed"
     >
       <div
-        className="loading-0-1-12"
+        className="loading-0-1-14"
       >
         <div
-          className="aj-loading-dots container-2-2-1"
+          className="aj-loading-dots container-2-2-6"
         >
           <div
-            className="aj-loading-circle circle-2-2-2 first-2-2-3"
+            className="aj-loading-circle circle-2-2-7 first-2-2-8"
           />
           <div
-            className="aj-loading-circle circle-2-2-2 second-2-2-4"
+            className="aj-loading-circle circle-2-2-7 second-2-2-9"
           />
           <div
-            className="aj-loading-circle circle-2-2-2 third-2-2-5"
+            className="aj-loading-circle circle-2-2-7 third-2-2-10"
           />
         </div>
       </div>
     </div>
     <div
-      className="paginationBar-0-1-13"
+      className="paginationBar-0-1-15"
       id="paginationBar"
     >
       <div
-        className="page-0-1-14 currentPage-0-1-16"
+        className="page-0-1-16 currentPage-0-1-18"
       >
         1
       </div>

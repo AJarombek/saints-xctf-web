@@ -5,97 +5,119 @@ exports[`GroupBody Snapshot Tests renders correctly 1`] = `
   className="groupBody-0-1-1"
 >
   <aside>
-    <div
-      className="container-0-1-5"
-    >
-      <figure
-        className="picture-0-1-6"
-      >
-        <img
-          alt=""
-          src="/uasset/group/alumni/picture.png"
-        />
-      </figure>
-      <h5
-        className="title-0-1-7"
-        data-cypress="pictureTitle"
-      >
-        Alumni
-      </h5>
+    <div>
       <div
-        className="subTitle-0-1-8"
-        data-cypress="pictureSubTitle"
+        className="container-0-1-7 pictureTitleContainer"
       >
-        Members: 0
+        <figure
+          className="picture-0-1-8"
+        >
+          <img
+            alt=""
+            src="/uasset/group/alumni/picture.png"
+          />
+        </figure>
+        <h5
+          className="title-0-1-9"
+          data-cypress="pictureTitle"
+        >
+          Alumni
+        </h5>
+        <div
+          className="subTitle-0-1-10"
+          data-cypress="pictureSubTitle"
+        >
+          Members: 0
+        </div>
+      </div>
+      <div
+        className="membershipTagContainer-0-1-4"
+        data-cypress="groupMembershipTag"
+      >
+        <div
+          className="ajTag-2-2-1 ajTag-d0-2-2-2 aj-tag membershipTag-0-1-5 membershipTag-d0-0-1-6"
+        >
+          Non-Member
+        </div>
       </div>
     </div>
     <div
-      className="membershipTagContainer-0-1-2"
-    >
-      <div
-        className="ajTag-2-2-1 ajTag-d0-2-2-2 aj-tag membershipTag-0-1-3 membershipTag-d0-0-1-4"
-      >
-        Non-Member
-      </div>
-    </div>
-    <div
-      className="tabs-0-1-9 tabs"
+      className="tabs-0-1-11 tabs"
     >
       <p
-        className="tab-0-1-10 currentTab-0-1-11"
+        className="tab-0-1-12 currentTab-0-1-13"
         onClick={[Function]}
       >
         Exercise Logs
       </p>
       <p
-        className="tab-0-1-10"
+        className="tab-0-1-12"
         onClick={[Function]}
       >
         Members
       </p>
       <p
-        className="tab-0-1-10"
+        className="tab-0-1-12"
         onClick={[Function]}
       >
         Leaderboard
       </p>
       <p
-        className="tab-0-1-10"
+        className="tab-0-1-12"
         onClick={[Function]}
       >
         Details
       </p>
     </div>
+    <div
+      className="mobileTabs-0-1-2"
+    >
+      <div
+        className="aj-select ajSelect-2-2-3 aj-select-closed select-0-1-3"
+      >
+        <div
+          className="ajSelectLabel-2-2-5"
+          onClick={[Function]}
+        >
+          <div />
+          <div
+            className="ajSelectArrow-2-2-4"
+          >
+            C
+          </div>
+        </div>
+      </div>
+    </div>
   </aside>
   <section>
     <div
-      className="logFeed-0-1-12"
+      className="logFeed-0-1-14"
       id="logFeed"
     >
       <div
-        className="loading-0-1-13"
+        className="loading-0-1-15"
       >
         <div
-          className="aj-loading-dots container-2-2-3"
+          className="aj-loading-dots container-2-2-8"
         >
           <div
-            className="aj-loading-circle circle-2-2-4 first-2-2-5"
+            className="aj-loading-circle circle-2-2-9 first-2-2-10"
           />
           <div
-            className="aj-loading-circle circle-2-2-4 second-2-2-6"
+            className="aj-loading-circle circle-2-2-9 second-2-2-11"
           />
           <div
-            className="aj-loading-circle circle-2-2-4 third-2-2-7"
+            className="aj-loading-circle circle-2-2-9 third-2-2-12"
           />
         </div>
       </div>
     </div>
     <div
-      className="paginationBar-0-1-14"
+      className="paginationBar-0-1-16"
       id="paginationBar"
     >
       <div
-        className="page-0-1-15 currentPage-0-1-17"
+        className="page-0-1-17 currentPage-0-1-19"
       >
         1
       </div>

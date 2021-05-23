@@ -165,6 +165,7 @@ exports[`Home Snapshot Tests renders correctly 1`] = `
       >
         <div
           className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-text-button ajTextButton-2-2-1 ajTextButtonEnabled-2-2-2"
+          onClick={[Function]}
         >
           <button
             disabled={false}

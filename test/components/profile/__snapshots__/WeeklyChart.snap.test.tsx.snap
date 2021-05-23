@@ -14,7 +14,7 @@ exports[`WeeklyChart Snapshot Tests renders correctly 1`] = `
       Chart Filters:
     </p>
     <div
-      className="buttonGroup-2-2-1 filterButtons-0-1-5"
+      className="buttonGroup-2-2-1 filterButtons-0-1-5 leaderboardFilterButtons"
     >
       <div
         className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-contained-button ajContainedButton-2-2-2 ajContainedButtonEnabled-2-2-3"

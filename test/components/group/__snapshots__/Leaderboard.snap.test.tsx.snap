@@ -3,6 +3,7 @@
 exports[`Leaderboard Snapshot Tests renders correctly 1`] = `
 <div
   className="leaderboard-0-1-1"
+  id="leaderboard"
 >
   <div
     className="filters-0-1-2"
@@ -13,7 +14,7 @@ exports[`Leaderboard Snapshot Tests renders correctly 1`] = `
       Leaderboard Filters:
     </p>
     <div
-      className="buttonGroup-2-2-1 filterButtons-0-1-8"
+      className="buttonGroup-2-2-1 filterButtons-0-1-8 leaderboardFilterButtons"
     >
       <div
         className="ajBaseButton-2-2-5 ajBaseButtonEnabled-2-2-6 aj-contained-button ajContainedButton-2-2-2 ajContainedButtonEnabled-2-2-3"
@@ -65,7 +66,7 @@ exports[`Leaderboard Snapshot Tests renders correctly 1`] = `
     className="interval-0-1-4"
   >
     <div
-      className="aj-select ajSelect-2-2-11 aj-select-closed select-0-1-5"
+      className="aj-select ajSelect-2-2-11 aj-select-closed select-0-1-5 leaderboardInterval"
     >
       <div
         className="ajSelectLabel-2-2-13"

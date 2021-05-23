@@ -13,6 +13,7 @@ exports[`renders correctly 1`] = `
     >
       <div
         className="ajBaseButton-0-2-4 ajBaseButtonEnabled-0-2-5 aj-text-button ajTextButton-0-2-1 ajTextButtonEnabled-0-2-2"
+        onClick={[Function]}
       >
         <button
           disabled={false}

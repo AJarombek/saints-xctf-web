@@ -15,5 +15,10 @@ export default {
   },
   loading: {
     ...Mixins.loadingContainer()
+  },
+  '@media screen and (max-width: 390px)': {
+    logBody: {
+      ...Mixins.defaultBodyMobile()
+    }
   }
 };

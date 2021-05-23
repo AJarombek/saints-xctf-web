@@ -318,7 +318,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
 
   return (
     <div className={classes.newLogBody}>
-      <h3 className={classes.title}>Create a new exercise log.</h3>
+      <h3 className={classes.title}>{existingLog ? 'Edit an exercise log.' : 'Create a new exercise log.'}</h3>
       <div className={classes.logForm}>
         <p className={classes.feel} data-cypress="logFeel">
           {feelList[feel]}

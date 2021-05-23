@@ -13,6 +13,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import EditGroup from '../../../src/components/group-admin/EditGroup';
 import { alumni } from '../../test-utils/groupMocks';
+import { MemoryRouter } from 'react-router-dom';
 
 const mockStore = configureStore([thunk]);
 
@@ -26,9 +27,11 @@ describe('EditGroup Snapshot Tests', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <Provider store={store}>
-          <EditGroup group={alumni} />
-        </Provider>
+        <MemoryRouter>
+          <Provider store={store}>
+            <EditGroup group={alumni} />
+          </Provider>
+        </MemoryRouter>
       )
       .toJSON();
     expect(tree).toMatchSnapshot();

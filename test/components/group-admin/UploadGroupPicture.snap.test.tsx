@@ -27,7 +27,7 @@ describe('UploadGroupPicture Snapshot Tests', () => {
     const tree = renderer
       .create(
         <Provider store={store}>
-          <UploadGroupPicture group={alumni} groupPictureUrl="picture.png" />
+          <UploadGroupPicture group={alumni} groupPictureUrl="picture.png" setPictureChangesMade={null} />
         </Provider>
       )
       .toJSON();

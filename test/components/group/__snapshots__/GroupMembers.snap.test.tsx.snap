@@ -3,9 +3,11 @@
 exports[`GroupMembers Snapshot Tests renders correctly 1`] = `
 <div
   className="container-0-1-1"
+  id="groupMembers"
 >
   <div
     className="member-0-1-2"
+    data-cypress="groupMember"
     onClick={[Function]}
   >
     <p>

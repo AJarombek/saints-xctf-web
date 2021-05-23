@@ -3,6 +3,7 @@
 exports[`SendActivationCode Snapshot Tests renders correctly 1`] = `
 <div
   className="sendActivationCode-0-1-1"
+  id="sendActivationCode"
 >
   <h3
     className="title-0-1-3"

@@ -35,6 +35,7 @@ exports[`DefaultErrorPopup Snapshot Tests renders correctly 1`] = `
     </div>
     <p
       className="closeIcon-0-1-7"
+      data-cypress="alertCloseIcon"
       onClick={[Function]}
     >
       M

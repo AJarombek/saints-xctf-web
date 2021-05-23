@@ -79,5 +79,11 @@ export default {
         fontSize: 14
       }
     }
+  },
+  '@media screen and (max-width: 390px)': {
+    title: {
+      marginLeft: 15,
+      width: 'auto'
+    }
   }
 };
