@@ -24,5 +24,19 @@ export default {
     title: {
       width: '100%'
     }
+  },
+  '@media screen and (max-width: 450px)': {
+    title: {
+      fontSize: 20
+    },
+    category: {
+      fontSize: 16
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    title: {
+      marginLeft: 15,
+      width: 'auto'
+    }
   }
 };

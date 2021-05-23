@@ -61,5 +61,23 @@ export default {
     '& p': {
       color: '#333 !important'
     }
+  },
+  '@media screen and (max-width: 1050px)': {
+    title: {
+      width: '100%'
+    }
+  },
+  '@media screen and (max-width: 450px)': {
+    title: {
+      fontSize: 20
+    },
+    approvalMessage: {
+      fontSize: 14
+    },
+    approval: {
+      '& > p': {
+        fontSize: 14
+      }
+    }
   }
 };

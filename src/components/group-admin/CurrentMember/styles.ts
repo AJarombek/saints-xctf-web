@@ -44,5 +44,20 @@ export default {
   },
   removeAction: {
     margin: '0 10px 0 auto'
+  },
+  '@media screen and (max-width: 450px)': {
+    name: {
+      fontSize: 14
+    },
+    removeAction: {
+      '& > button': {
+        fontSize: 12
+      }
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    memberTypeContent: {
+      fontSize: 12
+    }
   }
 };

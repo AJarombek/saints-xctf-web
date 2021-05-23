@@ -30,5 +30,15 @@ export default {
     ...FontMixins.robotoSlab(),
     fontSize: 16,
     marginLeft: 15
+  },
+  '@media screen and (max-width: 450px)': {
+    name: {
+      fontSize: 14
+    },
+    pendingMemberActions: {
+      '& button': {
+        fontSize: 12
+      }
+    }
   }
 };

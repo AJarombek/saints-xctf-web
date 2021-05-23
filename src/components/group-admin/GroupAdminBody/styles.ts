@@ -68,5 +68,17 @@ export default {
     select: {
       width: '100%'
     }
+  },
+  '@media screen and (max-width: 450px)': {
+    mobileTabs: {
+      '& > .aj-select > div': {
+        height: 60
+      }
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    groupAdminBody: {
+      ...Mixins.defaultBodyMobile()
+    }
   }
 };
