@@ -30,6 +30,7 @@ import WeeklyChart from '../WeeklyChart';
 import ProfileDetails from '../ProfileDetails';
 import EditProfile from '../EditProfile';
 import { AJSelect } from 'jarombek-react-components';
+import classNames from 'classnames';
 
 interface Props {
   user: UserMeta;
@@ -133,7 +134,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, signedInUser, flair
               options={...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))}
               defaultOption={1}
               onClickListOption={(item: { content: string; value: string }): void => setTab(item.value as ProfileTab)}
-              className={classes.select}
+              className={classNames(classes.select, 'mobileTabsSelect')}
             />
           </div>
         </aside>
