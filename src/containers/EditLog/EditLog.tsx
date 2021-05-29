@@ -22,7 +22,7 @@ type Props = {};
 
 const useStyles = createUseStyles(styles);
 
-const defaultHeaders = ['profile', 'teams', 'createNewLog', 'signOut', 'logo'];
+const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
 const EditLog: React.FunctionComponent<Props> = () => {
   const { id: logId } = useParams();
