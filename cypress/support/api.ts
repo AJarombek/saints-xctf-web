@@ -226,6 +226,16 @@ Cypress.Commands.add('mockGroupTeamAPI', () => {
 });
 
 Cypress.Commands.add('mockLogAPI', () => {
+  cy.fixture('api/logs/get/log1.json').as('logGet1');
+
+  const logGet1Route = cy.route({
+    method: 'GET',
+    url: '**/api/v2/logs/1',
+    response: '@logGet1'
+  });
+
+  logGet1Route.as('logGet1Route');
+
   cy.fixture('api/logs/get/log3.json').as('logGet3');
 
   const logGet3Route = cy.route({

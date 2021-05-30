@@ -7,6 +7,8 @@ FROM node:14.4.0 AS base
 COPY . src
 
 WORKDIR src
+
+ENV NODE_ENV=local
 RUN yarn && yarn build
 
 FROM nginx AS host
