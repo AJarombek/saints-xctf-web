@@ -48,6 +48,16 @@ export CYPRESS_SXCTF_PASSWORD=xxxx
 yarn cy:open
 ```
 
+**Build Docker Images Locally**
+
+There are Jenkins jobs for building the SaintsXCTF Web Docker images and pushing them to Amazon ECR.  However, if you 
+want to build them locally, run these commands:
+
+```bash
+docker image build -f app.dev.dockerfile -t saints-xctf-web-nginx-dev:latest .
+docker image build -f app.dockerfile -t saints-xctf-web-nginx:latest .
+```
+
 **Starting the server using Docker Compose**
 
 Starting the server locally with Docker Compose is useful for simulating the production Kubernetes environment locally.

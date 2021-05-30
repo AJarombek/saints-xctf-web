@@ -5,9 +5,7 @@
 FROM 739088120071.dkr.ecr.us-east-1.amazonaws.com/saints-xctf-web-base:latest AS base
 
 WORKDIR src
-
-ENV NODE_ENV=development
-RUN yarn build
+RUN yarn build:dev
 
 FROM nginx AS host
 
