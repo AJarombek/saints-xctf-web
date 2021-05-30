@@ -19,7 +19,7 @@ import HomeFooter from '../../components/home/HomeFooter';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
-import saintsXCTFVideo from '../../../assets/saints-xctf-vid.mp4';
+import saintsXCTFVideo from '../../../assets/saintsxctf-vid.mp4';
 import { RootState } from '../../redux/types';
 
 type Props = {};
