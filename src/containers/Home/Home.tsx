@@ -16,10 +16,6 @@ import HomeAbout from '../../components/home/HomeAbout';
 import HomeApps from '../../components/home/HomeApps';
 import HomeTestimonials from '../../components/home/HomeTestimonials';
 import HomeFooter from '../../components/home/HomeFooter';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-import saintsXCTFVideo from '../../../assets/saintsxctf-vid.mp4';
 import { RootState } from '../../redux/types';
 
 type Props = {};
@@ -56,7 +52,14 @@ const Home: React.FunctionComponent<Props> = () => {
         <HomeBody />
         <div className="sxctf-home-overlay"> </div>
         <img className="sxctf-home-background-img" src={mobileBackgroundPicture} alt="" />
-        <video className="sxctf-home-background-video" src={saintsXCTFVideo} autoPlay loop muted playsInline />
+        <video
+          className="sxctf-home-background-video"
+          src="/asset/saintsxctf-vid.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
         <HomeAbout />
         <HomeApps />
         <HomeTestimonials />
