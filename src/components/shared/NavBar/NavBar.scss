@@ -108,6 +108,7 @@
   left: 0;
   width: 100%;
   z-index: 1;
+  overflow: hidden;
 
   animation-duration: 0.15s;
   animation-fill-mode: forwards;
@@ -128,6 +129,14 @@
         height: 80px;
         border: none;
 
+        @media screen and (max-height: 650px) {
+          height: 60px;
+        }
+
+        @media screen and (max-height: 500px) {
+          height: 40px;
+        }
+
         &:hover {
           text-decoration: none;
         }
@@ -137,10 +146,28 @@
           font-size: 24px;
           transition: color 0.4s ease;
 
+          @media screen and (max-height: 650px) {
+            font-size: 20px;
+          }
+
+          @media screen and (max-height: 500px) {
+            font-size: 18px;
+          }
+
           &:hover {
             color: $saints-xctf-red;
           }
         }
+      }
+    }
+
+    .aj-nav-list-last-item {
+      @media screen and (max-height: 500px) {
+        height: 70px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0 0 8%;
       }
     }
   }

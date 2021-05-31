@@ -33,6 +33,7 @@ const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
 
   const [page, setPage] = useState(1);
   const [memberships, setMemberships] = useState<Memberships>(null);
+  const [membershipsRetrieved, setMembershipsRetrieved] = useState(false);
 
   const filterBy = 'all';
   const bucket = 'all';
@@ -50,10 +51,11 @@ const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
   }, [user, notificationInfo, dispatch]);
 
   useEffect(() => {
-    if (userProfiles && user?.username && !userProfiles[user.username]?.memberships) {
+    if (userProfiles && user?.username && !userProfiles[user.username]?.memberships?.teams && !membershipsRetrieved) {
+      setMembershipsRetrieved(true);
       dispatch(getUserMemberships(user.username));
     }
-  }, [dispatch, user.username, userProfiles]);
+  }, [dispatch, user.username, userProfiles, membershipsRetrieved]);
 
   useEffect(() => {
     if (userProfiles && user.username) {

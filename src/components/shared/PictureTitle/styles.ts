@@ -18,7 +18,9 @@ export default {
   },
   title: {
     ...FontMixins.robotoSlabBold(),
-    fontSize: 20
+    fontSize: 20,
+    textAlign: 'center',
+    paddingBottom: 4
   },
   subTitle: {
     ...FontMixins.robotoBold()

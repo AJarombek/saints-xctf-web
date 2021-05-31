@@ -8,7 +8,7 @@ import { FontMixins } from '../../../styles/mixins';
 
 export default {
   calendar: {
-    maxWidth: 850,
+    maxWidth: 800,
     margin: '0 auto'
   },
   monthNavigation: {
