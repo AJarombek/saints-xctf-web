@@ -110,3 +110,9 @@ export const useHeaders = (defaultHeaders: string[], isAdmin: boolean): string[]
 
   return headers;
 };
+
+export const useScrollToTop = (): void => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+};

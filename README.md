@@ -117,9 +117,32 @@ docker-compose up --build
 
 ### Version History
 
-**V.2.0.0 - SaintsXCTF V2 Release**
+**[v2.0.1](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.1) - Mobile Dropdown & Membership Fixes**
 
-> Release Date: TBD
+> Release Date: May 31st, 2021
+
+A minor release fixing certain issues in the application.
+
+* Mobile dropdown text & spacing size dependent on screen height
+* Fix issue where group memberships don't load on the dashboard
+
+**[v2.0.0](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.0) - SaintsXCTF V2 Release**
+
+> Release Date: May 30th, 2021
+
+This major release marks the second major version of the SaintsXCTF website.
+
+* A Revamped UI written with React
+* Web application hosted on EKS in a Kubernetes Deployment
+
+Notable changes in the new React UI compared to the old PHP/JQuery UI include:
+
+* Teams, Team Memberships, and Team Groups
+* Welcome Email upon Signup
+* More Group Admin Functionality
+* Weekly Chart shows a six-week bar chart
+* New Profile Picture and Group Picture functionality
+* Pick Teams & Groups Edit Profile section
 
 ### Resources
 

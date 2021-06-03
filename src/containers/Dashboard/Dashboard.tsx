@@ -13,7 +13,7 @@ import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
 import DashboardBody from '../../components/dashboard/DashboardBody/DashboardBody';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useScrollToTop, useSignInCheck } from '../../hooks/shared';
 
 type Props = {};
 
@@ -22,6 +22,8 @@ const useStyles = createUseStyles(styles);
 const defaultHeaders = ['profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
 const Dashboard: React.FunctionComponent<Props> = () => {
+  useScrollToTop();
+
   const classes = useStyles();
 
   const auth = useSelector((state: RootState) => state.auth.auth);

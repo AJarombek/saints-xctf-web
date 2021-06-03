@@ -159,7 +159,7 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
     const value = e.target.value;
     setActivationCode(value);
 
-    const isValid = value.length === 8;
+    const isValid = value.length >= 6;
     const status = isValid ? ImageInputStatus.NONE : ImageInputStatus.WARNING;
 
     setActivationCodeStatus(status);

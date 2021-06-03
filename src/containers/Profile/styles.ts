@@ -5,9 +5,14 @@
  */
 
 import Mixins from '../../styles/mixins';
+import Colors from '../../styles/colors';
 
 export default {
   profile: {
     ...Mixins.defaultPage()
+  },
+  emptyContainer: {
+    minHeight: 'calc(100vh - 100px)',
+    backgroundColor: Colors.lightBackground
   }
 };

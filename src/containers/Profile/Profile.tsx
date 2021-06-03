@@ -8,7 +8,6 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { RootState } from '../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { userAuthenticated } from '../../utils/auth';
 import { setUserFromStorage } from '../../redux/modules/auth';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
@@ -16,7 +15,7 @@ import NavBar from '../../components/shared/NavBar';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import ProfileBody, { ProfileTab } from '../../components/profile/ProfileBody/ProfileBody';
 import { getUser, setUser } from '../../redux/modules/profile';
-import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useScrollToTop, useSignInCheck } from '../../hooks/shared';
 import NotFound from '../../components/shared/NotFound';
 
 type Props = {};
@@ -26,7 +25,8 @@ const useStyles = createUseStyles(styles);
 const defaultHeaders = ['teams', 'dashboard', 'createNewLog', 'signOut', 'logo'];
 
 const Profile: React.FunctionComponent<Props> = () => {
-  const navigate = useNavigate();
+  useScrollToTop();
+
   const location = useLocation();
 
   const { username } = useParams();
@@ -45,16 +45,16 @@ const Profile: React.FunctionComponent<Props> = () => {
   const isAdmin = useAdminCheck(false);
   const headers = useHeaders(defaultHeaders, isAdmin);
 
-  useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem('user'));
+  const storedUser = useMemo(() => {
+    return JSON.parse(localStorage.getItem('user'));
+  }, []);
 
-    if (!Object.keys(authUsers).length && storedUser) {
+  useEffect(() => {
+    if (storedUser) {
       dispatch(setUserFromStorage(storedUser));
       dispatch(setUser(storedUser));
-    } else if (!userAuthenticated(authUsers, auth.signedInUser) && !storedUser) {
-      navigate('/');
     }
-  }, [authUsers, auth.signedInUser, navigate, dispatch]);
+  }, [storedUser, dispatch]);
 
   const defaultTab: ProfileTab = useMemo(() => {
     if (location.hash) {
@@ -91,11 +91,11 @@ const Profile: React.FunctionComponent<Props> = () => {
     username
   ]);
 
-  if (userAuthenticated(users, auth.signedInUser)) {
+  if (users[auth.signedInUser]?.user?.username) {
     return (
       <div className={classes.profile} ref={ref}>
         <NavBar includeHeaders={headers} user={users[auth.signedInUser]?.user} bodyRef={ref} />
-        {profileUser.user?.username && (
+        {profileUser.user?.username ? (
           <ProfileBody
             user={profileUser.user}
             signedInUser={users[auth.signedInUser]?.user}
@@ -104,6 +104,8 @@ const Profile: React.FunctionComponent<Props> = () => {
             rangeViews={rangeViews[username]}
             defaultTab={defaultTab}
           />
+        ) : (
+          <div className={classes.emptyContainer}> </div>
         )}
         {profileUser.user?.serverError && <NotFound fullPage={true} />}
         <HomeFooter showContactUs={false} />
