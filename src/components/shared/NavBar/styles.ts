@@ -119,6 +119,13 @@ export default {
       animationName: '$show-background'
     }
   },
+  navList: {},
+  '@media screen and (max-width: 450px)': {
+    navList: {
+      justifyContent: 'flex-start !important',
+      marginTop: 50
+    }
+  },
   '@media screen and (max-width: 390px)': {
     dry: {
       '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {

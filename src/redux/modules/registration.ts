@@ -344,7 +344,7 @@ export function registerPersonalInfo(
 
       if (response.status === 400) {
         // If a user does not exist with this email, registration should continue to the next stage.
-        dispatch(registerPersonalInfoSuccess(email, last, first));
+        dispatch(registerPersonalInfoSuccess(email, first, last));
       } else if (response?.status !== 403) {
         // If another error occurs, something unexpected happened on the server (no user error).
         dispatch(registerPersonalInfoFailure('INTERNAL ERROR', serverError));

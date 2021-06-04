@@ -158,7 +158,7 @@ const Comments: React.FunctionComponent<Props> = ({
                 <Link to={`/profile/${comment.username}`} className={classes.titleLink}>
                   {comment.first} {comment.last}
                 </Link>
-                <p className={classes.date}>{moment(comment.time).format('MMM. Do, YYYY h:mm:ss A')}</p>
+                <p className={classes.date}>{moment(comment.time).format('MMM. Do, YYYY h:mm A')}</p>
               </div>
               <div className={classes.commentBody}>{parseTagsInText(comment.content)}</div>
             </div>

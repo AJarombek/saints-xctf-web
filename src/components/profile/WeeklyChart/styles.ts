@@ -1,4 +1,5 @@
 import { FontMixins } from '../../../styles/mixins';
+import { Modules } from '../../../styles/modules';
 
 /**
  * JSS styles for the WeeklyChart component.
@@ -8,21 +9,13 @@ import { FontMixins } from '../../../styles/mixins';
 
 export default {
   weeklyChart: {},
-  filters: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  filterTitle: {
-    ...FontMixins.robotoSlab(),
-    margin: '30px 40px 30px 0'
-  },
-  '@media screen and (max-width: 900px)': {
-    filterTitle: {
-      margin: '20px 20px 20px 0'
-    }
-  },
+  ...Modules.filters(),
   chart: {
     ...FontMixins.robotoSlabThin()
+  },
+  '@media screen and (max-width: 500px)': {
+    filters: {
+      marginBottom: 20
+    }
   }
 };

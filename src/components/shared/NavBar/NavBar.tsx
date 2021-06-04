@@ -300,7 +300,10 @@ const NavBar: React.FunctionComponent<Props> = ({
         </div>
       </div>
       <div className={dropdownClass}>
-        <AJNavList items={mobileNavItems.filter((item) => includeHeaders.includes(item.name))} />
+        <AJNavList
+          className={classes.navList}
+          items={mobileNavItems.filter((item) => includeHeaders.includes(item.name))}
+        />
       </div>
     </>
   );

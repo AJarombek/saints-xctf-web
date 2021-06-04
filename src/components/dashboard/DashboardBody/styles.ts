@@ -17,11 +17,11 @@ export default {
   },
   sidePanel: {
     gridArea: 'panel',
-    padding: '20px'
+    padding: 20
   },
   mainPanel: {
     gridArea: 'feed',
-    padding: '20px'
+    padding: 20
   },
   '@media screen and (max-width: 1100px)': {
     dashboardBody: {
@@ -44,10 +44,18 @@ export default {
       width: '100%'
     }
   },
+  '@media screen and (max-width: 500px)': {
+    mainPanel: {
+      padding: 10
+    }
+  },
   '@media screen and (max-width: 390px)': {
     dashboardBody: {
       margin: '75px 0 0 0',
       minHeight: 'calc(100vh - 75px)'
+    },
+    mainPanel: {
+      padding: 5
     }
   }
 };

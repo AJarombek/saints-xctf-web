@@ -135,7 +135,32 @@ export default {
   },
   '@media screen and (max-width: 450px)': {
     dayOfMonth: {
-      fontSize: 10
+      fontSize: 10,
+      padding: 3
+    }
+  },
+  '@media screen and (max-width: 420px)': {
+    miles: {
+      '& > p': {
+        fontSize: 11
+      }
+    }
+  },
+  '@media screen and (max-width: 390px)': {
+    dayOfMonth: {
+      padding: 2
+    }
+  },
+  '@media screen and (max-width: 370px)': {
+    miles: {
+      '& > p': {
+        fontSize: 10
+      }
+    }
+  },
+  '@media screen and (max-width: 320px)': {
+    dayOfMonth: {
+      padding: 1
     }
   }
 };

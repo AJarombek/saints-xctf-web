@@ -43,7 +43,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
   const dispatch = useDispatch();
   const allLeaderboards: Record<string, Leaderboards> = useSelector((state: RootState) => state.groups.leaderboards);
 
-  const [interval, setInterval] = useState<LeaderboardInterval>('all');
+  const [interval, setInterval] = useState<LeaderboardInterval>('week');
 
   const [selectedFilters, setSelectedFilters] = useState<ExerciseFilters>({
     run: true,
@@ -107,7 +107,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
             { content: 'Past Month', value: 'month' },
             { content: 'Past Week', value: 'week' }
           ]}
-          defaultOption={1}
+          defaultOption={4}
           onClickListOption={(item: { content: string; value: string }): void =>
             setInterval(item.value as LeaderboardInterval)
           }

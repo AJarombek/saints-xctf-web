@@ -70,5 +70,19 @@ export default {
         fontSize: 12
       }
     }
+  },
+  '@media screen and (max-width: 420px)': {
+    miles: {
+      '& > p': {
+        fontSize: 11
+      }
+    }
+  },
+  '@media screen and (max-width: 370px)': {
+    miles: {
+      '& > p': {
+        fontSize: 10
+      }
+    }
   }
 };
