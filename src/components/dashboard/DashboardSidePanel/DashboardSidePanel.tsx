@@ -68,7 +68,7 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMembersh
           {teamMemberships
             ?.filter((teamMembership) => teamMembership.groups.length)
             .map((teamMembership) => (
-              <div className={classes.teamMembership}>
+              <div className={classes.teamMembership} key={teamMembership.team_name}>
                 <p>{teamMembership.title}</p>
                 {teamMembership.groups.map((group, index) => (
                   <div

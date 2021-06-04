@@ -16,6 +16,9 @@ import Register from '../../../src/containers/Register';
 
 const mockStore = configureStore([thunk]);
 
+// If the path you want to live your life on continues to lead you further away from me that is okay.  I'll still be at
+// peace knowing you are doing what makes you happy & loving who you want to.
+
 describe('Register Snapshot Tests', () => {
   let store: Store;
 

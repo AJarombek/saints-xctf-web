@@ -6,11 +6,12 @@
 
 import { ExerciseFilters, GroupMember, RangeViewExerciseType, RootState } from '../redux/types';
 import { useEffect, useState } from 'react';
-import { setUserFromStorage } from '../redux/modules/auth';
+import { setUserFromStorage, signOut } from '../redux/modules/auth';
 import { userAuthenticated } from '../utils/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getGroupMemberships } from '../redux/modules/memberships';
+import moment from 'moment';
 
 /**
  * Custom React hook which constructs an exercise type string from an exercise filter object.
@@ -83,7 +84,6 @@ export const useAdminCheck = (redirect = true): boolean => {
           }
           setIsAdmin(false);
         } else {
-          console.info('c');
           setIsAdmin(true);
         }
       }
@@ -115,4 +115,22 @@ export const useScrollToTop = (): void => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+};
+
+export const useTokenExpiration = (): void => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token') ?? '';
+    const payloadString = token.split('.')[1];
+
+    if (payloadString) {
+      const payload = JSON.parse(window.atob(payloadString));
+
+      if (payload.exp < moment().unix()) {
+        dispatch(signOut());
+      }
+    }
+  }, [location, dispatch]);
 };

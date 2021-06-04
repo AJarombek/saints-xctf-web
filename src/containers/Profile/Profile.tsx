@@ -7,7 +7,7 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import { RootState } from '../../redux/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { setUserFromStorage } from '../../redux/modules/auth';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';

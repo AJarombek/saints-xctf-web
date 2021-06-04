@@ -152,8 +152,8 @@ const Comments: React.FunctionComponent<Props> = ({
       </div>
       {comments && (
         <div className={classNames('commentList', classes.commentList)}>
-          {comments.map((comment, index) => (
-            <div className={classNames('comment', classes.comment)} key={index}>
+          {comments.map((comment) => (
+            <div className={classNames('comment', classes.comment)} key={comment.comment_id}>
               <div className={classes.commentHeader}>
                 <Link to={`/profile/${comment.username}`} className={classes.titleLink}>
                   {comment.first} {comment.last}
