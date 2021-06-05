@@ -96,8 +96,14 @@ const config = (env, publicPath) => merge([
   parts.markdownModule()
 ]);
 
-const prodConfig = {};
-const devConfig = {};
+const prodConfig = {
+  devtool: false,
+  optimization: {
+    minimize: true
+  }
+};
+
+const devConfig = prodConfig;
 
 const localConfig = {
   devtool: "source-map",
