@@ -21,6 +21,7 @@ interface Props {
   comments: Comment[];
   feel: number;
   logId: number;
+  logUsername: string;
   user: User;
   inFeed: boolean;
   page?: number;
@@ -35,6 +36,7 @@ const Comments: React.FunctionComponent<Props> = ({
   comments,
   feel,
   logId,
+  logUsername,
   user,
   inFeed,
   page,
@@ -111,6 +113,16 @@ const Comments: React.FunctionComponent<Props> = ({
       const added = await dispatch(postComment(logId, user.username, user.first, user.last, content));
 
       if (added) {
+        if (user.username !== logUsername) {
+          dispatch(
+            postNotification(
+              logUsername,
+              `${user.first} ${user.last} commented on your exercise log.`,
+              `/log/view/${logId}`
+            )
+          );
+        }
+
         const tagRegex = /@(?<username>[a-zA-Z0-9]+)/g;
         let matches = [];
 

@@ -37,8 +37,8 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
   const [emailStatus, setEmailStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [approval, setApproval] = useState(false);
   const [sending, setSending] = useState(false);
+  const [activationCode, setActivationCode] = useState<string>(null);
   const [activationCodeSentEmail, setActivationCodeSentEmail] = useState<string>(null);
-  const [activationCodeNotSent, setActivationCodeNotSent] = useState<string>(null);
   const [errorCreatingActivationCode, setErrorCreatingActivationCode] = useState(false);
   const [errorSendingActivationCodeEmail, setErrorSendingActivationCodeEmail] = useState(false);
 
@@ -66,14 +66,15 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
   };
 
   const onReset = (): void => {
+    setActivationCode(null);
     setApproval(false);
     setEmail('');
     setEmailStatus(ImageInputStatus.NONE);
   };
 
-  const onSendActivationCodeEmail = async (email: string, activationCode: string): Promise<void> => {
+  const onSendActivationCodeEmail = async (email: string, code: string): Promise<void> => {
     setSending(true);
-    const emailSent = await dispatch(sendActivationCodeEmail(email, `${activationCode}`));
+    const emailSent = await dispatch(sendActivationCodeEmail(email, `${code}`));
     setErrorSendingActivationCodeEmail(!emailSent);
     setSending(false);
 
@@ -85,12 +86,12 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
 
   const onSendActivationCode = async (): Promise<void> => {
     setSending(true);
-    const activationCode = await dispatch(createActivationCode(email, groupId));
+    const code = await dispatch(createActivationCode(email, groupId));
 
-    if (activationCode) {
-      await onSendActivationCodeEmail(email, `${activationCode}`);
+    if (code) {
+      setActivationCode(`${code}`);
+      await onSendActivationCodeEmail(email, `${code}`);
     } else {
-      setActivationCodeNotSent(`${activationCode}`);
       setErrorCreatingActivationCode(true);
       setSending(false);
     }
@@ -153,7 +154,7 @@ const SendActivationCode: React.FunctionComponent<Props> = ({ groupId }) => {
           onClose={(): void => setErrorSendingActivationCodeEmail(false)}
           closeable={true}
           retryable={true}
-          onRetry={(): Promise<void> => onSendActivationCodeEmail(email, activationCodeNotSent)}
+          onRetry={(): Promise<void> => onSendActivationCodeEmail(email, activationCode)}
         />
       )}
       {!!activationCodeSentEmail && (

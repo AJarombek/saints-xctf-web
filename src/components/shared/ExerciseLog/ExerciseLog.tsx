@@ -188,6 +188,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
           comments={log.comments}
           feel={log.feel}
           logId={log.log_id}
+          logUsername={log.username}
           user={user}
           inFeed={inFeed}
           page={page}

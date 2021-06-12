@@ -9,7 +9,7 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import Accordion from '../../shared/Accordion/Accordion';
 import { useNavigate } from 'react-router-dom';
-import { User, NotificationsState, TeamMembership, Notification } from '../../../redux/types';
+import { User, NotificationsState, TeamMembership, Notification, Memberships } from '../../../redux/types';
 import { AJButton, AJNotificationCircle } from 'jarombek-react-components';
 import classNames from 'classnames';
 import moment from 'moment';
@@ -18,17 +18,21 @@ import { putNotification, viewNotification } from '../../../redux/modules/notifi
 
 interface Props {
   user: User;
-  teamMemberships: TeamMembership[];
+  memberships: Memberships;
   notificationInfo: NotificationsState;
 }
 
 const useStyles = createUseStyles(styles);
 
-const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMemberships, notificationInfo }) => {
+const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, memberships, notificationInfo }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  const teamMemberships: TeamMembership[] = useMemo(() => {
+    return memberships?.teams ?? [];
+  }, [memberships?.teams]);
 
   const notificationCount = useMemo(() => {
     return notificationInfo?.items?.filter((notification: Notification) => notification.viewed !== 'Y').length ?? 0;
@@ -84,14 +88,16 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, teamMembersh
                 ))}
               </div>
             ))}
-          {!teamMemberships?.filter((teamMembership) => teamMembership.groups.length)?.length && (
-            <div className={classes.noMemberships}>
-              <p>You have no team or group memberships.</p>
-              <AJButton type="contained" onClick={(): void => navigate(`/profile/${user.username}#edit`)}>
-                Join Teams & Groups
-              </AJButton>
-            </div>
-          )}
+          {!!memberships?.teams &&
+            !teamMemberships?.filter((teamMembership) => teamMembership.groups.length)?.length &&
+            !memberships?.isFetching && (
+              <div className={classes.noMemberships}>
+                <p>You have no team or group memberships.</p>
+                <AJButton type="contained" onClick={(): void => navigate(`/profile/${user.username}#edit`)}>
+                  Join Teams & Groups
+                </AJButton>
+              </div>
+            )}
         </>
       </Accordion>
       <Accordion

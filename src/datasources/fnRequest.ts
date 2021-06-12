@@ -17,7 +17,7 @@ fn.interceptors.request.use(
     const token = localStorage.getItem('token') ?? '';
 
     req.headers = {
-      Authorization: token
+      authorization: token
     };
 
     return req;

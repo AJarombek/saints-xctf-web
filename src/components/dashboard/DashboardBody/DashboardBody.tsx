@@ -78,7 +78,7 @@ const DashboardBody: React.FunctionComponent<Props> = ({ user }) => {
   return (
     <div className={classes.dashboardBody}>
       <div className={classes.sidePanel}>
-        <DashboardSidePanel user={user} teamMemberships={memberships?.teams} notificationInfo={notificationInfo} />
+        <DashboardSidePanel user={user} memberships={memberships} notificationInfo={notificationInfo} />
       </div>
       <div className={classes.mainPanel}>
         <LogFeed logFeeds={logFeeds} page={page} user={user} filterBy={filterBy} bucket={bucket} />
