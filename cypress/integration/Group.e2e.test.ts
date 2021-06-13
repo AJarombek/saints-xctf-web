@@ -56,7 +56,7 @@ describe('Group E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
   });
 
-  it.only('has multiple tabs that can be navigated between', () => {
+  it('has multiple tabs that can be navigated between', () => {
     cy.visit('/group/1');
     cy.groupRouteAliases();
     cy.groupAPICalls();

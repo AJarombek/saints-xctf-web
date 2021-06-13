@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { invalidateLogCreated, invalidateLogUpdated, postLog, putLog } from '../../../redux/modules/logs';
 import { postNotification } from '../../../redux/modules/notifications';
 import moment from 'moment';
+import AlertPopup from '../../shared/AlertPopup';
 
 interface Props {
   user: User;
@@ -79,6 +80,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   const [timeStatus, setTimeStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [feel, setFeel] = useState(5);
   const [description, setDescription] = useState('');
+  const [logCreatedSuccess, setLogCreatedSuccess] = useState(false);
   const [errorCreatingLog, setErrorCreatingLog] = useState(false);
   const [errorUpdatingLog, setErrorUpdatingLog] = useState(false);
 
@@ -112,21 +114,11 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   }, [existingLog]);
 
   useEffect(() => {
-    if (!existingLog && newLog && Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
-      if (newLog?.created) {
-        navigate('/dashboard');
-      } else {
-        setErrorCreatingLog(true);
-      }
-    }
-  }, [newLog, navigate, existingLog]);
-
-  useEffect(() => {
     if (existingLog && updateLogs && Object.keys(updateLogs).length) {
       const updateInfo = updateLogs[existingLog?.log_id];
 
       if (updateInfo && !updateInfo?.isFetching && !updateInfo?.didInvalidate) {
-        if (updateInfo?.updated) {
+        if (!updateInfo?.updated) {
           navigate('/dashboard');
         } else {
           setErrorUpdatingLog(true);
@@ -134,6 +126,33 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
       }
     }
   }, [updateLogs, existingLog, navigate]);
+
+  const reset = (): void => {
+    setName('');
+    setNameStatus(ImageInputStatus.NONE);
+    setLocation('');
+    setDateStatus(ImageInputStatus.NONE);
+    setDistance('');
+    setDistanceStatus(ImageInputStatus.NONE);
+    setTime('');
+    setFormattedTime('');
+    setTimeStatus(ImageInputStatus.NONE);
+    setFeel(5);
+    setDescription('');
+    setErrorCreatingLog(false);
+    setErrorUpdatingLog(false);
+  };
+
+  useEffect(() => {
+    if (!existingLog && newLog && Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
+      if (newLog?.created) {
+        setLogCreatedSuccess(true);
+        reset();
+      } else {
+        setErrorCreatingLog(true);
+      }
+    }
+  }, [newLog, navigate, existingLog]);
 
   const onChangeName = (e: ChangeEvent<HTMLInputElement>): void => {
     const newName = e.target.value;
@@ -489,6 +508,14 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         <DefaultErrorPopup
           message="An unexpected error occurred while updating the exercise log"
           onClose={(): void => setErrorUpdatingLog(false)}
+        />
+      )}
+      {!!logCreatedSuccess && (
+        <AlertPopup
+          message="Exercise log created!"
+          onClose={(): void => setLogCreatedSuccess(false)}
+          type="success"
+          autoCloseInterval={3000}
         />
       )}
     </div>

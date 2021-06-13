@@ -42,7 +42,7 @@ describe('Sign In E2E Tests', () => {
     cy.url().should('include', '/register');
   });
 
-  it.only('should sign in a user that supplies proper credentials', () => {
+  it('should sign in a user that supplies proper credentials', () => {
     cy.get('.sxctf-image-input input[name="username"]').type('andy');
     cy.get('.sxctf-image-input input[name="password"]').type(Cypress.env('SXCTF_PASSWORD'));
     cy.get('.aj-contained-button').contains('Sign In').click();
@@ -50,7 +50,7 @@ describe('Sign In E2E Tests', () => {
     cy.url().should('include', '/dashboard');
   });
 
-  it.only('displays an error message if a user supplies invalid credentials', () => {
+  it('displays an error message if a user supplies invalid credentials', () => {
     cy.get('.sxctf-image-input input[name="username"]').type('invalid_username');
     cy.get('.sxctf-image-input input[name="password"]').type('invalid_password');
     cy.get('.aj-contained-button').contains('Sign In').click();

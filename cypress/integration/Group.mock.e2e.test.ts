@@ -358,7 +358,7 @@ describe('Group Mock E2E Tests', () => {
     cy.getDataCy('groupMembershipTag').should('contain.text', 'Membership Pending');
   });
 
-  it.only('displays as non member if the user has no membership to the group', () => {
+  it('displays as non member if the user has no membership to the group', () => {
     const groupAlumniMembersRoute = cy.route({
       method: 'GET',
       url: '**/api/v2/groups/members/1',

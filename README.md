@@ -117,6 +117,25 @@ docker-compose up --build
 
 ### Version History
 
+**[v2.0.4](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.4) - Log Notifications & Bug Fixes**
+
+> Release Date: June 12th, 2021
+
+A minor release for miscellaneous bug fixes.
+
+* Fix "No Groups" screen flicker while loading the dashboard page
+* Re-add notification for commenting on a user's exercise log
+
+**[v2.0.3](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.3) - JavaScript Bundle Optimizations**
+
+> Release Date: June 5th, 2021
+
+A minor release which shrinks the JavaScript bundle size, resulting in a faster loading website.
+
+* Shrink JavaScript bundle using Webpack optimizations
+* Fix profile pictures & team pictures not displaying in UI
+* Change leaderboards to show weekly leaders by default (instead of all-time)
+
 **[v2.0.1](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.1) - Mobile Dropdown & Membership Fixes**
 
 > Release Date: May 31st, 2021

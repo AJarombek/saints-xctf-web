@@ -59,7 +59,7 @@ describe('Group Admin Mobile E2E Tests', () => {
     cy.url().should('equal', `${Cypress.config('baseUrl')}/`);
   });
 
-  it.only('Has a dropdown that switches between profile page tabs', () => {
+  it('Has a dropdown that switches between profile page tabs', () => {
     cy.andyAdminMemberships();
     cy.visit('/admin/group/1');
     cy.get('.mobileTabsSelect').click();
