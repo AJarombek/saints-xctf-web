@@ -43,9 +43,13 @@ yarn test-update
 **Running end to end Cypress tests**
 
 ```bash
-# Run the Cypress tests in Chrome
 export CYPRESS_SXCTF_PASSWORD=xxxx
+
+# Run the Cypress tests in Chrome
 yarn cy:open
+
+# Run the Cypress tests in a headless browser
+yarn cy:headless
 ```
 
 **Build Docker Images Locally**

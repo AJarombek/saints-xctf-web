@@ -266,42 +266,58 @@ describe('Profile Mock E2E Tests', () => {
     cy.get('.recharts-bar-rectangle').should('have.length', 8);
     cy.get('.recharts-bar-rectangle').eq(0).trigger('mouseover');
     cy.get('.recharts-bar-rectangle path').eq(0).should('have.css', 'fill', 'rgb(227, 227, 227)');
-    cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Week of Feb. 22nd');
+    cy.get('.recharts-default-tooltip')
+      .eq(0)
+      .should('contain.text', `Week of ${start.format('MMM. Do')}`);
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 20.01');
 
     cy.get('.recharts-bar-rectangle').eq(1).trigger('mouseover');
     cy.get('.recharts-bar-rectangle path').eq(1).should('have.css', 'fill', 'rgb(227, 227, 227)');
-    cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Week of Mar. 1st');
+    cy.get('.recharts-default-tooltip')
+      .eq(0)
+      .should('contain.text', `Week of ${start.clone().add(1, 'week').format('MMM. Do')}`);
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 40.93');
 
     cy.get('.recharts-bar-rectangle').eq(2).trigger('mouseover');
     cy.get('.recharts-bar-rectangle path').eq(2).should('have.css', 'fill', 'rgb(199, 245, 153)');
-    cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Week of Mar. 8th');
+    cy.get('.recharts-default-tooltip')
+      .eq(0)
+      .should('contain.text', `Week of ${start.clone().add(2, 'week').format('MMM. Do')}`);
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 45.40');
 
     cy.get('.recharts-bar-rectangle').eq(3).trigger('mouseover');
     cy.get('.recharts-bar-rectangle path').eq(3).should('have.css', 'fill', 'rgb(199, 245, 153)');
-    cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Week of Mar. 15th');
+    cy.get('.recharts-default-tooltip')
+      .eq(0)
+      .should('contain.text', `Week of ${start.clone().add(3, 'week').format('MMM. Do')}`);
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 49.04');
 
     cy.get('.recharts-bar-rectangle').eq(4).trigger('mouseover');
     cy.get('.recharts-bar-rectangle path').eq(4).should('have.css', 'fill', 'rgb(199, 245, 153)');
-    cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Week of Mar. 22nd');
+    cy.get('.recharts-default-tooltip')
+      .eq(0)
+      .should('contain.text', `Week of ${start.clone().add(4, 'week').format('MMM. Do')}`);
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 38.50');
 
     cy.get('.recharts-bar-rectangle').eq(5).trigger('mouseover');
     cy.get('.recharts-bar-rectangle path').eq(5).should('have.css', 'fill', 'rgb(227, 227, 227)');
-    cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Week of Mar. 29th');
+    cy.get('.recharts-default-tooltip')
+      .eq(0)
+      .should('contain.text', `Week of ${start.clone().add(5, 'week').format('MMM. Do')}`);
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 43.69');
 
     cy.get('.recharts-bar-rectangle').eq(6).trigger('mouseover');
     cy.get('.recharts-bar-rectangle path').eq(6).should('have.css', 'fill', 'rgb(199, 245, 153)');
-    cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Week of Apr. 5th');
+    cy.get('.recharts-default-tooltip')
+      .eq(0)
+      .should('contain.text', `Week of ${start.clone().add(6, 'week').format('MMM. Do')}`);
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 55.46');
 
     cy.get('.recharts-bar-rectangle').eq(7).trigger('mouseover');
     cy.get('.recharts-bar-rectangle path').eq(7).should('have.css', 'fill', 'rgb(199, 245, 153)');
-    cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Week of Apr. 12th');
+    cy.get('.recharts-default-tooltip')
+      .eq(0)
+      .should('contain.text', `Week of ${start.clone().add(7, 'week').format('MMM. Do')}`);
     cy.get('.recharts-default-tooltip').eq(0).should('contain.text', 'Miles: 38.87');
   });
 

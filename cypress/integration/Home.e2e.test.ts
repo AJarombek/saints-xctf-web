@@ -37,10 +37,10 @@ describe('Home E2E Tests', () => {
 
   it('logo and title navigates to the same page', () => {
     cy.get('.sxctf-nav-bar h1').click();
-    cy.url().should('equal', `${Cypress.config('baseUrl')}`);
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/`);
 
     cy.get('.sxctf-nav-bar .sxctf-logo').click();
-    cy.url().should('equal', `${Cypress.config('baseUrl')}`);
+    cy.url().should('equal', `${Cypress.config('baseUrl')}/`);
   });
 
   it('footer logo button navigates to top of page', () => {

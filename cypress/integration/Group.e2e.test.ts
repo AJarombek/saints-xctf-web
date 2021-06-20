@@ -73,7 +73,7 @@ describe('Group E2E Tests', () => {
     cy.get('section #leaderboard').should('not.exist');
     cy.get('section #groupDetails').should('not.exist');
 
-    cy.route('GET', '/api/v2/groups/leaderboard/1').as('alumniLeaderboard');
+    cy.route('GET', '/api/v2/groups/leaderboard/1/week').as('alumniLeaderboard');
 
     cy.get('.tabs p').contains('Leaderboard').click();
     cy.wait('@alumniLeaderboard');

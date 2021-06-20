@@ -75,7 +75,21 @@ Cypress.Commands.add('setTokenInLocalStorage', () => {
 });
 
 Cypress.Commands.add('setMockTokenInLocalStorage', () => {
-  localStorage.setItem('token', 'j.w.t');
+  const header = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9';
+  const payload =
+    'ewogICJpYXQiOiAxNjI0MTQ2MTY4LAogICJleHAiOiA5OTk5OTk5OTk5OSwKICAiaXNzIjogImF1dGguc2FpbnRzeGN0' +
+    'Zi5jb20iLAogICJzdWIiOiAiYW5keSIsCiAgImVtYWlsIjogImFuZHJld0BqYXJvbWJlay5jb20iLAogICJuYW1lIjogIkFuZHkgSmFy' +
+    'b21iZWsiCn0';
+  const signature =
+    'm7J4x0mulzuZLwdB6cDqN_wuHp5aHI0uIUK44fPeaFYbtcVqqCv4eI20RMRP9KfNuPmtgc4Yu-ZGO8GX_UTLK6K9jD' +
+    'uZRKrozUb-_02pvk93SVOKxKulm126RcZePiZ6xa5NyhCenS7ye6oq9Mv28eklGhHNHJMqlg8IQ06NQW2kQyr1e9EUhdUtCz80nwMme0' +
+    'ZI74kyMk7ICArSdZDqprcjTxGNnyFqyjIphi_R14sEn7mEE0Hx89q_71IOgGzGMljbpIG0NxaRjd2aKKSnDQVtCdOlaJ1Elgw6fPIhp7' +
+    'z7ZbHrlI9k8B18950VaM4xMD9brA4N8pH4dRk4W8kA1fi8ZHek9emKGVCoUxbXpZvJ39yNHlxSsccGNCpNUb30ioZCNxMChPz_pLUrs2' +
+    'DVmd2NTrxrJhBFD46cW6yGNUjeBExJEE0ujSwp7dsFxoLXQyqtBiWTlX7Gp8X8kuV_3JKMgZPpvPdHAS3-DXDZGE_dEN9Olf1wOZkOYJ' +
+    'L32OFrGEvPbgxUJBEjGAJ-K4FD6v8z1ui-Tx3LaPaN2RRvGt3ZOzmvZFoa1ySKvIbDSWZzOmLK_btY-rCWLL6hLNvlQUn8FE3LxtWrhl' +
+    'VKko_RE8jgIHVG2ylLH3rPBdUpNRiNq5-wOiAJlCiNitT-dZzUcko37KObqGHiBjgvWEdzfBc';
+
+  localStorage.setItem('token', `${header}.${payload}.${signature}`);
 });
 
 Cypress.Commands.add('imageInputValidationCheck', (inputName: string, status: ImageInputStatusClass) => {

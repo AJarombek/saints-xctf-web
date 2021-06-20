@@ -91,7 +91,7 @@ export default {
     display: 'flex',
     margin: '10px 0 0 0',
     width: '100%',
-    flexDirection: 'column'
+    flexDirection: 'column-reverse'
   },
   comment: {
     width: '100%',

@@ -126,6 +126,7 @@ export const useTokenExpiration = (): void => {
     const payloadString = token.split('.')[1];
 
     if (payloadString) {
+      console.info(payloadString);
       const payload = JSON.parse(window.atob(payloadString));
 
       if (payload.exp < moment().unix()) {

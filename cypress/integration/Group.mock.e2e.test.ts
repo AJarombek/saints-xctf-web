@@ -75,7 +75,10 @@ describe('Group Mock E2E Tests', () => {
 
     cy.get('.tabs p').contains('Leaderboard').click();
     cy.groupLeaderboardFiltersSelected(true, false, false, false);
-    cy.get('.leaderboardInterval').should('contain.text', 'All Time');
+    cy.get('.leaderboardInterval').should('contain.text', 'Past Week');
+
+    cy.get('.leaderboardInterval').click();
+    cy.get('.leaderboardInterval').contains('All Time').click();
 
     cy.getDataCy('leaderboardItem').should('have.length', 4);
     cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Andy Jarombek');
@@ -167,13 +170,16 @@ describe('Group Mock E2E Tests', () => {
     );
   });
 
-  it.skip('leaderboard displays different values for different time periods', () => {
+  it('leaderboard displays different values for different time periods', () => {
     cy.visit('/group/1');
     cy.alumniGroupMockAPICalls();
 
     cy.get('.tabs p').contains('Leaderboard').click();
     cy.groupLeaderboardFiltersSelected(true, false, false, false);
-    cy.get('.leaderboardInterval').should('contain.text', 'All Time');
+    cy.get('.leaderboardInterval').should('contain.text', 'Past Week');
+
+    cy.get('.leaderboardInterval').click();
+    cy.get('.leaderboardInterval').contains('All Time').click();
 
     cy.getDataCy('leaderboardItem').should('have.length', 4);
     cy.getDataCy('leaderboardItem').eq(0).should('contain.text', 'Andy Jarombek');
@@ -228,7 +234,7 @@ describe('Group Mock E2E Tests', () => {
       method: 'GET',
       url: '**/api/v2/groups/leaderboard/1',
       response: {
-        self: '/v2/groups/leaderboard/1/month',
+        self: '/v2/groups/leaderboard/1',
         leaderboard: null,
         error: 'An unexpected error occurred retrieving leaderboard data.'
       },
@@ -238,6 +244,9 @@ describe('Group Mock E2E Tests', () => {
     groupLeaderboardErrorRoute.as('groupLeaderboardErrorRoute');
 
     cy.get('.tabs p').contains('Leaderboard').click();
+
+    cy.get('.leaderboardInterval').click();
+    cy.get('.leaderboardInterval').contains('All Time').click();
 
     cy.getDataCy('leaderboardItem').should('not.exist');
     cy.getDataCy('leaderboardAlert').should(

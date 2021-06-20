@@ -82,6 +82,15 @@ describe('New Log E2E Tests', () => {
     cy.get('button').contains('Create').click();
 
     cy.wait('@createLog');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Exercise log created!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.dashboardButton').click();
     cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
 
     cy.get('#logFeed .exerciseLog').should('have.length', 10);
@@ -123,6 +132,15 @@ describe('New Log E2E Tests', () => {
     cy.get('button').contains('Create').click();
 
     cy.wait('@createLog');
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Exercise log created!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.dashboardButton').click();
     cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
 
     cy.get('#logFeed .exerciseLog').should('have.length', 10);
@@ -167,7 +185,15 @@ describe('New Log E2E Tests', () => {
     cy.get('button').contains('Create').click();
 
     cy.wait('@createLog');
-    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Exercise log created!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.dashboardButton').click();
 
     cy.get('#logFeed .exerciseLog').should('have.length', 10);
     cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogUser').should('contain.text', 'Andy Jarombek');
@@ -203,7 +229,15 @@ describe('New Log E2E Tests', () => {
     cy.get('button').contains('Create').click();
 
     cy.wait('@createLog');
-    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Exercise log created!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.dashboardButton').click();
 
     cy.get('#logFeed .exerciseLog').should('have.length', 10);
     cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogUser').should('contain.text', 'Andy Jarombek');
@@ -259,7 +293,15 @@ describe('New Log E2E Tests', () => {
     cy.get('button').contains('Create').click();
 
     cy.wait('@createLog');
-    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Exercise log created!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.dashboardButton').click();
 
     cy.get('#logFeed .exerciseLog').should('have.length', 10);
     cy.get('#logFeed .exerciseLog').eq(0).findDataCy('exerciseLogUser').should('contain.text', 'Andy Jarombek');
@@ -328,7 +370,15 @@ describe('New Log E2E Tests', () => {
 
     cy.get('button').contains('Create').click();
     cy.wait('@createLog');
-    cy.url().should('equal', `${Cypress.config('baseUrl')}/dashboard`);
+
+    cy.getDataCy('alert').should('exist');
+    cy.getDataCy('alert').should('contain.text', 'Exercise log created!');
+
+    // The success message should disappear after 4 seconds.
+    cy.wait(4000);
+    cy.getDataCy('alert').should('not.exist');
+
+    cy.get('.dashboardButton').click();
 
     cy.get('#logFeed .exerciseLog').should('have.length', 10);
     const finalFormattedDate = moment().format('MMM. Do, YYYY');
