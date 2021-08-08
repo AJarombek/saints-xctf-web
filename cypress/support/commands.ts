@@ -71,6 +71,9 @@ Cypress.Commands.add('setTokenInLocalStorage', () => {
       Cypress.env('authTokenExpiration', tokenExpiration);
 
       localStorage.setItem('token', token);
+    })
+    .catch((error) => {
+      console.info(error);
     });
 });
 

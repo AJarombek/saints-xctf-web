@@ -35,13 +35,23 @@ export default {
   '@media screen and (max-width: 500px)': {
     filterButtons: {
       '& .aj-contained-button': {
-        padding: '5px 10px'
+        padding: '5px 12px'
       },
       '& .aj-outlined-button': {
         padding: '3px 10px'
       },
       '& button': {
         fontSize: 12
+      }
+    }
+  },
+  '@media screen and (max-width: 330px)': {
+    filterButtons: {
+      '& .aj-contained-button': {
+        padding: '2px 7px'
+      },
+      '& .aj-outlined-button': {
+        padding: '0 5px'
       }
     }
   }

@@ -94,5 +94,14 @@ export default {
     itemName: {
       fontSize: 13
     }
+  },
+  // Media query specific to Safari.
+  // https://www.ryadel.com/en/css3-media-query-target-only-ie-ie6-ie11-firefox-chrome-safari-edge/#Safari_101
+  '@media not all and (min-resolution:.001dpcm)': {
+    '@media': {
+      textAfter: {
+        top: 0
+      }
+    }
   }
 };

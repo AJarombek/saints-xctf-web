@@ -42,7 +42,8 @@ export default {
   date: {
     ...FontMixins.robotoBold(),
     fontSize: 14,
-    margin: 0
+    margin: 0,
+    textAlign: 'end'
   },
   type: {
     ...FontMixins.robotoSlab(),

@@ -70,5 +70,16 @@ export default {
     weekdaysShort: {
       display: 'block'
     }
+  },
+  '@media screen and (max-width: 390px)': {
+    monthNavigation: {
+      '& > p': {
+        fontSize: 36
+      },
+
+      '& > h2': {
+        fontSize: 20
+      }
+    }
   }
 };

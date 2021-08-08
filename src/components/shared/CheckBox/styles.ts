@@ -3,8 +3,9 @@
  * @author Andrew Jarombek
  * @since 1/20/2021
  */
-import Colors from "../../../styles/colors";
-import {FontMixins} from "../../../styles/mixins";
+
+import Colors from '../../../styles/colors';
+import { FontMixins } from '../../../styles/mixins';
 
 export default {
   checkBox: {
