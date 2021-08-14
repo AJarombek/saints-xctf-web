@@ -93,26 +93,7 @@ exports[`DashboardBody Snapshot Tests renders correctly 1`] = `
         </div>
         <div
           className="body-0-1-22"
-        >
-          <div
-            className="noMemberships-0-1-9"
-          >
-            <p>
-              You have no team or group memberships.
-            </p>
-            <div
-              className="ajBaseButton-2-2-4 ajBaseButtonEnabled-2-2-5 aj-contained-button ajContainedButton-2-2-1 ajContainedButtonEnabled-2-2-2"
-              onClick={[Function]}
-            >
-              <button
-                disabled={false}
-                type="button"
-              >
-                Join Teams & Groups
-              </button>
-            </div>
-          </div>
-        </div>
+        />
       </div>
       <div
         className="accordion-0-1-17 accordion"
@@ -128,10 +109,10 @@ exports[`DashboardBody Snapshot Tests renders correctly 1`] = `
               className="notificationCount-0-1-10 noNotifications-0-1-12"
             >
               <div
-                className="aj-notification-circle container-2-2-7"
+                className="aj-notification-circle container-2-2-1"
               >
                 <p
-                  className="count-2-2-8"
+                  className="count-2-2-2"
                 >
                   0
                 </p>
@@ -163,16 +144,16 @@ exports[`DashboardBody Snapshot Tests renders correctly 1`] = `
         className="loading-0-1-24"
       >
         <div
-          className="aj-loading-dots container-2-2-9"
+          className="aj-loading-dots container-2-2-3"
         >
           <div
-            className="aj-loading-circle circle-2-2-10 first-2-2-11"
+            className="aj-loading-circle circle-2-2-4 first-2-2-5"
           />
           <div
-            className="aj-loading-circle circle-2-2-10 second-2-2-12"
+            className="aj-loading-circle circle-2-2-4 second-2-2-6"
           />
           <div
-            className="aj-loading-circle circle-2-2-10 third-2-2-13"
+            className="aj-loading-circle circle-2-2-4 third-2-2-7"
           />
         </div>
       </div>

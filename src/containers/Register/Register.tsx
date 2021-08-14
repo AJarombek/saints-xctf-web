@@ -13,10 +13,13 @@ import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import RegisterBody from '../../components/register/RegisterBody/RegisterBody';
 import { RootState } from '../../redux/types';
+import { useSetTitle } from '../../hooks/shared';
 
 type Props = {};
 
 const Register: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   const navigate = useNavigate();
   const location = useLocation();
 

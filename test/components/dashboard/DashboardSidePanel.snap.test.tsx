@@ -35,7 +35,7 @@ describe('DashboardSidePanel Snapshot Tests', () => {
                 newNotification: {},
                 updateNotifications: {}
               }}
-              teamMemberships={[]}
+              memberships={{ teams: [] }}
               user={andy}
             />
           </Provider>

@@ -147,6 +147,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
     if (!existingLog && newLog && Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
       if (newLog?.created) {
         setLogCreatedSuccess(true);
+        window.scrollTo(0, 0);
         reset();
       } else {
         setErrorCreatingLog(true);

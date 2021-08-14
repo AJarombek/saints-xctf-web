@@ -15,10 +15,13 @@ import NavBar from '../../components/shared/NavBar';
 import ForgotPasswordResetBody from '../../components/forgot-password/ForgotPasswordResetBody';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/types';
+import { useSetTitle } from '../../hooks/shared';
 
 type Props = {};
 
 const ForgotPasswordReset: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   const navigate = useNavigate();
 
   const auth = useSelector((state: RootState) => state.auth.auth);

@@ -11,10 +11,13 @@ import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import SignInBody from '../../components/sign-in/SignInBody';
 import { RootState } from '../../redux/types';
+import { useSetTitle } from '../../hooks/shared';
 
 type Props = {};
 
 const SignIn: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   const navigate = useNavigate();
 
   const auth = useSelector((state: RootState) => state.auth.auth);

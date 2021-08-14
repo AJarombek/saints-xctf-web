@@ -12,7 +12,7 @@ import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useAdminCheck, useHeaders, useScrollToTop, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import TeamsBody from '../../components/teams/TeamsBody/TeamsBody';
 
 type Props = {};
@@ -22,6 +22,8 @@ const useStyles = createUseStyles(styles);
 const defaultHeaders = ['dashboard', 'profile', 'createNewLog', 'signOut', 'logo'];
 
 const Teams: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   useScrollToTop();
 
   const classes = useStyles();

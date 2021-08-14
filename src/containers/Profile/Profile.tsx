@@ -15,7 +15,7 @@ import NavBar from '../../components/shared/NavBar';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import ProfileBody, { ProfileTab } from '../../components/profile/ProfileBody/ProfileBody';
 import { getUser, setUser } from '../../redux/modules/profile';
-import { useAdminCheck, useHeaders, useScrollToTop, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import NotFound from '../../components/shared/NotFound';
 
 type Props = {};
@@ -67,6 +67,10 @@ const Profile: React.FunctionComponent<Props> = () => {
   const profileUser = useMemo(() => {
     return users[username] ?? {};
   }, [username, users]);
+
+  useSetTitle(
+    profileUser?.user?.username ? `${profileUser?.user?.first} ${profileUser?.user?.last} | SaintsXCTF` : 'SaintsXCTF'
+  );
 
   useEffect(() => {
     if (

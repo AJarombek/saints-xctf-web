@@ -37,7 +37,7 @@ yarn start
 yarn test
 
 # Update snapshots
-yarn test-update
+yarn test:snapshot:update
 ```
 
 **Running end to end Cypress tests**
@@ -120,6 +120,18 @@ docker-compose up --build
 | `yarn.lock`              | Where Yarn stores the versions of each dependency.                         | 
 
 ### Version History
+
+**[v2.0.5](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.5) - Easier to Create Logs**
+
+> Release Date: August 12th, 2021
+
+Made it easier for users to create logs in bulk.  After log creation, users are no longer redirected to the dashboard.  
+Instead, they are alerted that the log creation was successful and can immediately enter a new log.  There are also a 
+few other small improvements:
+
+* When navigating to new pages, the browser window always scrolls up to the top of the page.
+* Mobile styling improvements.
+* Mobile Safari specific style fixes.
 
 **[v2.0.4](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.4) - Log Notifications & Bug Fixes**
 

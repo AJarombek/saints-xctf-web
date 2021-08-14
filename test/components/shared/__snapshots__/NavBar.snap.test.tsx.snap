@@ -66,7 +66,7 @@ exports[`NavBar Snapshot Tests renders correctly 1`] = `
     className="sxctf-nav-dropdown sxctf-nav-dropdown-hidden dryDropdown-0-1-12 lightDropdownTheme-0-1-4"
   >
     <div
-      className="ajNavList-2-2-13 aj-nav-list"
+      className="ajNavList-2-2-13 aj-nav-list navList-0-1-13"
     >
       <div
         className="ajNavListItem-2-2-14 aj-nav-list-item"

@@ -12,7 +12,7 @@ import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import { GroupMeta, RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useAdminCheck, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import GroupAdminBody from '../../components/group-admin/GroupAdminBody/GroupAdminBody';
 import { useParams } from 'react-router-dom';
 
@@ -21,6 +21,8 @@ type Props = {};
 const useStyles = createUseStyles(styles);
 
 const GroupAdmin: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   const classes = useStyles();
 
   const auth = useSelector((state: RootState) => state.auth.auth);

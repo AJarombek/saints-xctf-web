@@ -12,7 +12,7 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import NavBar from '../../components/shared/NavBar';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import { useParams } from 'react-router-dom';
 import ExerciseLog from '../../components/shared/ExerciseLog';
 import { getLog } from '../../redux/modules/logs';
@@ -26,6 +26,8 @@ const useStyles = createUseStyles(styles);
 const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
 const Log: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   const classes = useStyles();
 
   const { id: logId } = useParams();

@@ -43,6 +43,7 @@ describe('Comments Snapshot Tests', () => {
               ]}
               feel={6}
               logId={2}
+              logUsername="andy"
               user={andy}
               inFeed={false}
             />

@@ -135,3 +135,9 @@ export const useTokenExpiration = (): void => {
     }
   }, [location, dispatch]);
 };
+
+export const useSetTitle = (title: string): void => {
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+};

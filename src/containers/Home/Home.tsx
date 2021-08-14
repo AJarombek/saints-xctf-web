@@ -17,10 +17,13 @@ import HomeApps from '../../components/home/HomeApps';
 import HomeTestimonials from '../../components/home/HomeTestimonials';
 import HomeFooter from '../../components/home/HomeFooter';
 import { RootState } from '../../redux/types';
+import { useSetTitle } from '../../hooks/shared';
 
 type Props = {};
 
 const Home: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   const navigate = useNavigate();
   const auth = useSelector((state: RootState) => state.auth.auth);
   const user = useSelector((state: RootState) => state.auth.user);

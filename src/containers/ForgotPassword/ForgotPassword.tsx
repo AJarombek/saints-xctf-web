@@ -17,12 +17,15 @@ import ForgotPasswordBody from '../../components/forgot-password/ForgotPasswordB
 import { RootState } from '../../redux/types';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
+import { useSetTitle } from '../../hooks/shared';
 
 type Props = {};
 
 const useStyles = createUseStyles(styles);
 
 const ForgotPassword: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   const classes = useStyles();
 
   const navigate = useNavigate();

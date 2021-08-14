@@ -13,7 +13,7 @@ import NavBar from '../../components/shared/NavBar';
 import { GroupMeta, RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import GroupBody from '../../components/group/GroupBody';
-import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import { useParams } from 'react-router-dom';
 
 type Props = {};
@@ -23,6 +23,8 @@ const useStyles = createUseStyles(styles);
 const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
 const Group: React.FunctionComponent<Props> = () => {
+  useScrollToTop();
+
   const { id: groupId } = useParams();
   const classes = useStyles();
 
@@ -39,6 +41,8 @@ const Group: React.FunctionComponent<Props> = () => {
   const group: GroupMeta = useMemo(() => {
     return groups ? groups[groupId] : null;
   }, [groupId, groups]);
+
+  useSetTitle(group?.group_title ? `${group.group_title} | SaintsXCTF` : 'SaintsXCTF');
 
   if (userAuthenticated(users, auth.signedInUser)) {
     return (

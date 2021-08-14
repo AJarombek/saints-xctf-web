@@ -13,7 +13,7 @@ import styles from './styles';
 import NavBar from '../../components/shared/NavBar';
 import LogBody from '../../components/new-edit-log/LogBody';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useSetTitle, useSignInCheck } from '../../hooks/shared';
 
 type Props = {};
 
@@ -22,6 +22,8 @@ const useStyles = createUseStyles(styles);
 const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
 const NewLog: React.FunctionComponent<Props> = () => {
+  useSetTitle('SaintsXCTF');
+
   const classes = useStyles();
 
   const auth = useSelector((state: RootState) => state.auth.auth);

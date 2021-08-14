@@ -16,7 +16,7 @@ import LogBody from '../../components/new-edit-log/LogBody';
 import { getLog } from '../../redux/modules/logs';
 import NotFound from '../../components/shared/NotFound/NotFound';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useAdminCheck, useHeaders, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useHeaders, useSetTitle, useSignInCheck } from '../../hooks/shared';
 
 type Props = {};
 
@@ -26,6 +26,7 @@ const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOu
 
 const EditLog: React.FunctionComponent<Props> = () => {
   const { id: logId } = useParams();
+  useSetTitle('SaintsXCTF');
 
   const classes = useStyles();
 

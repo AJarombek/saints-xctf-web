@@ -12,7 +12,7 @@ import { userAuthenticated } from '../../utils/auth';
 import NavBar from '../../components/shared/NavBar';
 import { RootState } from '../../redux/types';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
-import { useAdminCheck, useScrollToTop, useSignInCheck } from '../../hooks/shared';
+import { useAdminCheck, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import AdminBody from '../../components/admin/AdminBody';
 
 type Props = {};
@@ -21,6 +21,7 @@ const useStyles = createUseStyles(styles);
 
 const Admin: React.FunctionComponent<Props> = () => {
   useScrollToTop();
+  useSetTitle('SaintsXCTF');
 
   const classes = useStyles();
 
