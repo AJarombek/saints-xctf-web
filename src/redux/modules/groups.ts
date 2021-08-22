@@ -19,7 +19,9 @@ import {
 import { Dispatch } from 'redux';
 import { fn } from '../../datasources/fnRequest';
 import { AppThunk } from '../store';
-import { AxiosError } from 'axios';
+import axios, { AxiosError } from 'axios';
+import { timeout } from '../../utils/timeout';
+import { s3 } from '../../datasources/s3Request';
 
 // Actions
 const GET_GROUP_REQUEST = 'saints-xctf-web/groups/GET_GROUP_REQUEST';
@@ -936,10 +938,26 @@ export function uploadGroupPicture(groupId: number, file: File): AppThunk<Promis
     dispatch(postGroupPictureRequest(groupId));
 
     try {
-      const data = new FormData();
-      data.append('file', file);
-      data.append('fileName', file.name);
-      data.append('groupId', groupId.toFixed(0));
+      const signedUrlResponse = await fn.post('/uasset/signed-url/group', { groupId, contentType: file.type });
+
+      const { key, uploadUrl }: { key: string; uploadUrl: string } = signedUrlResponse.data;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      while (reader.readyState === reader.LOADING) {
+        await timeout(100);
+      }
+
+      const image: string = reader.result as string;
+      const binary = atob(image.split(',')[1]);
+
+      const dataArray = [];
+      for (let i = 0; i < binary.length; i++) {
+        dataArray.push(binary.charCodeAt(i));
+      }
+
+      const data = new Blob([new Uint8Array(dataArray)], { type: file.type });
 
       const options = {
         onUploadProgress: (progressEvent: ProgressEvent): void => {
@@ -947,16 +965,20 @@ export function uploadGroupPicture(groupId: number, file: File): AppThunk<Promis
           dispatch(postGroupPictureProgress(groupId, totalSize, uploadedSize));
         },
         headers: {
-          'Content-Type': 'multipart/form-data'
+          'Content-Type': file.type
         }
       };
 
-      const response = await fn.post('/uasset/group', data, options);
+      const s3UploadUrl = uploadUrl.replace('https://s3.amazonaws.com/', '');
+      await s3.put(s3UploadUrl, data, options);
+
+      const response = await fn.post('/uasset/group', new FormData(), options);
       const { result } = response.data;
 
       dispatch(postGroupPictureSuccess(groupId));
       return result;
     } catch (error) {
+      throw error;
       const serverError = 'An unexpected error occurred.';
 
       dispatch(postGroupPictureFailure(groupId, serverError));

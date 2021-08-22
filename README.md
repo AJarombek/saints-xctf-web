@@ -121,6 +121,12 @@ docker-compose up --build
 
 ### Version History
 
+**[v2.0.6](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.6) - Website Titles and Icon**
+
+> Release Date: August 13th, 2021
+
+Improve the web browser experience by adding a website icon and giving unique titles to different web pages.
+
 **[v2.0.5](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.5) - Easier to Create Logs**
 
 > Release Date: August 12th, 2021

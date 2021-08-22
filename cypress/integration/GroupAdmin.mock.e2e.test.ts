@@ -374,7 +374,7 @@ describe('Group Admin Mock E2E Tests', () => {
     cy.getDataCy('pendingMember').eq(0).find('.aj-contained-button').should('contain.text', 'Accept');
   });
 
-  it.only('shows an error if adding a pending user fails', () => {
+  it('shows an error if adding a pending user fails', () => {
     cy.andyAdminMemberships();
 
     const groupAlumniMembersRoute = cy.route({

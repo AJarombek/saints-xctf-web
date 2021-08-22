@@ -128,7 +128,7 @@ const localConfig = {
         pathRewrite: { '^/auth': '' }
       },
       '/fn/**': {
-        target: 'https://dev.fn.saintsxctf.com/',
+        target: 'https://fn.saintsxctf.com/',
         secure: true,
         changeOrigin: true,
         pathRewrite: { '^/fn': '' }
@@ -144,7 +144,13 @@ const localConfig = {
         secure: true,
         changeOrigin: true,
         pathRewrite: { '^/uasset': '' }
-      }
+      },
+      '/s3/**': {
+        target: 'https://s3.amazonaws.com/',
+        secure: true,
+        changeOrigin: true,
+        pathRewrite: { '^/s3': '' }
+      },
     }
   }
 };
