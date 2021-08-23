@@ -19,7 +19,7 @@ import {
 import { Dispatch } from 'redux';
 import { fn } from '../../datasources/fnRequest';
 import { AppThunk } from '../store';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { timeout } from '../../utils/timeout';
 import { s3 } from '../../datasources/s3Request';
 
@@ -933,8 +933,8 @@ export function getGroupTeam(groupId: number): AppThunk<Promise<void>, GroupStat
   };
 }
 
-export function uploadGroupPicture(groupId: number, file: File): AppThunk<Promise<boolean>, GroupState> {
-  return async function (dispatch: Dispatch): Promise<boolean> {
+export function uploadGroupPicture(groupId: number, file: File): AppThunk<Promise<string>, GroupState> {
+  return async function (dispatch: Dispatch): Promise<string> {
     dispatch(postGroupPictureRequest(groupId));
 
     try {
@@ -972,17 +972,15 @@ export function uploadGroupPicture(groupId: number, file: File): AppThunk<Promis
       const s3UploadUrl = uploadUrl.replace('https://s3.amazonaws.com/', '');
       await s3.put(s3UploadUrl, data, options);
 
-      const response = await fn.post('/uasset/group', new FormData(), options);
-      const { result } = response.data;
-
       dispatch(postGroupPictureSuccess(groupId));
-      return result;
+
+      const keyPath = key.split('/');
+      return keyPath[keyPath.length - 1];
     } catch (error) {
-      throw error;
       const serverError = 'An unexpected error occurred.';
 
       dispatch(postGroupPictureFailure(groupId, serverError));
-      return false;
+      return null;
     }
   };
 }

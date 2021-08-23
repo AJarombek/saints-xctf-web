@@ -30,6 +30,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
   }, [user.username, users]);
 
   const [file, setFile] = useState<File>(null);
+  const [imageName, setImageName] = useState<string>(null);
   const [saving, setSaving] = useState(false);
   const [errorUploading, setErrorUploading] = useState(false);
   const [errorUpdatingUser, setErrorUpdatingUser] = useState(false);
@@ -43,9 +44,9 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
     }
   }, [file, setPictureChangesMade]);
 
-  const updateUser = async (): Promise<void> => {
+  const updateUser = async (image: string): Promise<void> => {
     const newUser = { ...user };
-    newUser.profilepic_name = file.name;
+    newUser.profilepic_name = image;
 
     const updatedUser = await dispatch(putUser(newUser));
 
@@ -56,9 +57,14 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
       await timeout(250);
 
       setFile(null);
+      setImageName(null);
       setSaving(false);
       setUploadSuccess(true);
     }
+  };
+
+  const onRetryUpdateUser = async (): Promise<void> => {
+    await updateUser(imageName);
   };
 
   const onSubmitPicture = async (): Promise<void> => {
@@ -66,10 +72,11 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
     setErrorUploading(false);
     setErrorUpdatingUser(false);
 
-    const result = await dispatch(uploadProfilePicture(user.username, file));
+    const result = ((await dispatch(uploadProfilePicture(user.username, file))) as unknown) as string;
 
     if (result) {
-      await dispatch(updateUser());
+      setImageName(result);
+      await updateUser(result);
     } else {
       setErrorUploading(true);
       setSaving(false);
@@ -78,6 +85,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
 
   const onCancelPicture = (): void => {
     setFile(null);
+    setImageName(null);
   };
 
   return (
@@ -91,7 +99,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
       errorUploadingMessage="Failed to upload your new profile picture"
       onCloseErrorUploadingModal={(): void => setErrorUploading(false)}
       onRetryUpload={onSubmitPicture}
-      onRetryUpdate={updateUser}
+      onRetryUpdate={onRetryUpdateUser}
       file={file}
       setFile={setFile}
       saving={saving}

@@ -11,6 +11,8 @@ import { Dispatch } from 'redux';
 import { Flair, ProfileState, TeamGroupMapping, TeamMembership, User, Stats } from '../types';
 import { AppThunk } from '../store';
 import { AxiosError } from 'axios';
+import { timeout } from '../../utils/timeout';
+import { s3 } from '../../datasources/s3Request';
 
 // Actions
 const GET_USER_REQUEST = 'saints-xctf-web/profile/GET_USER_REQUEST';
@@ -953,35 +955,54 @@ export function getUserStats(username: string): AppThunk<Promise<void>, ProfileS
   };
 }
 
-const toBase64 = (file: File): Promise<string | ArrayBuffer> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = (): void => resolve(reader.result);
-    reader.onerror = (error): void => reject(error);
-  });
-
-export function uploadProfilePicture(username: string, file: File): AppThunk<Promise<boolean>, ProfileState> {
-  return async function (dispatch: Dispatch): Promise<boolean> {
+export function uploadProfilePicture(username: string, file: File): AppThunk<Promise<string>, ProfileState> {
+  return async function (dispatch: Dispatch): Promise<string> {
     dispatch(postProfilePictureRequest(username, file.size));
 
     try {
-      const data = {
-        base64Image: await toBase64(file),
-        fileName: file.name,
-        username
+      const signedUrlResponse = await fn.post('/uasset/signed-url/user', { username, contentType: file.type });
+
+      const { key, uploadUrl }: { key: string; uploadUrl: string } = signedUrlResponse.data;
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      while (reader.readyState === reader.LOADING) {
+        await timeout(100);
+      }
+
+      const image: string = reader.result as string;
+      const binary = atob(image.split(',')[1]);
+
+      const dataArray = [];
+      for (let i = 0; i < binary.length; i++) {
+        dataArray.push(binary.charCodeAt(i));
+      }
+
+      const data = new Blob([new Uint8Array(dataArray)], { type: file.type });
+
+      const options = {
+        onUploadProgress: (progressEvent: ProgressEvent): void => {
+          const { loaded: uploadedSize, total: totalSize } = progressEvent;
+          dispatch(postProfilePictureProgress(username, totalSize, uploadedSize));
+        },
+        headers: {
+          'Content-Type': file.type
+        }
       };
 
-      const response = await fn.post('/uasset/user', data);
-      const { result } = response.data;
+      const s3UploadUrl = uploadUrl.replace('https://s3.amazonaws.com/', '');
+      await s3.put(s3UploadUrl, data, options);
 
       dispatch(postProfilePictureSuccess(username, file.size));
-      return result;
+
+      const keyPath = key.split('/');
+      return keyPath[keyPath.length - 1];
     } catch (error) {
       const serverError = 'An unexpected error occurred.';
 
       dispatch(postProfilePictureFailure(username, serverError));
-      return false;
+      return null;
     }
   };
 }
