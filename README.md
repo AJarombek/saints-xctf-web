@@ -121,6 +121,14 @@ docker-compose up --build
 
 ### Version History
 
+**[v2.0.8](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.8) - New Approach for Uploading Profile & Group Pictures**
+
+> Release Date: August 24th, 2021
+
+Change the underlying API calls used for uploading profile and group pictures.  The tag 
+[v2.0.7](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.7) contains the same code changes, minus a bug fix for 
+the group page not showing the proper group picture.
+
 **[v2.0.6](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.6) - Website Titles and Icon**
 
 > Release Date: August 13th, 2021

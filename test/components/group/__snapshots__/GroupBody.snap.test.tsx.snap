@@ -14,7 +14,7 @@ exports[`GroupBody Snapshot Tests renders correctly 1`] = `
         >
           <img
             alt=""
-            src="/uasset/group/alumni/picture.png"
+            src="/uasset/group/1/picture.png"
           />
         </figure>
         <h5

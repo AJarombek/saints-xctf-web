@@ -132,9 +132,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
         <div>
           <PictureTitle
             imageUrl={
-              group?.grouppic_name
-                ? `/uasset/group/${group?.group_name}/${group?.grouppic_name}`
-                : '/asset/saintsxctf.png'
+              group?.grouppic_name ? `/uasset/group/${group?.id}/${group?.grouppic_name}` : '/asset/saintsxctf.png'
             }
             title={group?.group_title}
             subTitle={`Members: ${acceptedMembers.length}`}

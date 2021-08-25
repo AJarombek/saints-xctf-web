@@ -17,11 +17,46 @@ import { andy } from '../../test-utils/userMocks';
 
 const mockStore = configureStore([thunk]);
 
-describe('AdminBody Snapshot Tests', () => {
+describe('AdminBody Empty Store Snapshot Tests', () => {
   let store: Store;
 
   beforeEach(() => {
     store = mockStore(emptyStore);
+  });
+
+  it('renders correctly', () => {
+    const tree = renderer
+      .create(
+        <MemoryRouter>
+          <Provider store={store}>
+            <AdminBody user={andy} />
+          </Provider>
+        </MemoryRouter>
+      )
+      .toJSON();
+    expect(tree).toMatchSnapshot();
+  });
+});
+
+describe('AdminBody Populated Store Snapshot Tests', () => {
+  let store: Store;
+
+  beforeEach(() => {
+    store = mockStore({
+      ...emptyStore,
+      profile: {
+        users: {
+          andy: {
+            user: {
+              ...andy,
+              didInvalidate: false,
+              isFetching: false,
+              lastUpdated: 1629738681
+            }
+          }
+        }
+      }
+    });
   });
 
   it('renders correctly', () => {

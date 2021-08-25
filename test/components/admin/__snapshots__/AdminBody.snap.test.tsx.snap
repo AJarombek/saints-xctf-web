@@ -1,6 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AdminBody Snapshot Tests renders correctly 1`] = `
+exports[`AdminBody Empty Store Snapshot Tests renders correctly 1`] = `
+<div
+  className="adminBody-0-1-1"
+>
+  <h3
+    className="title-0-1-2"
+  >
+    Select a group to view its administrator dashboard.
+  </h3>
+  <div
+    className="container-0-1-3"
+  />
+</div>
+`;
+
+exports[`AdminBody Populated Store Snapshot Tests renders correctly 1`] = `
 <div
   className="adminBody-0-1-1"
 >
