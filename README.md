@@ -5,7 +5,7 @@
 ### Overview
 
 Front-end for the SaintsXCTF web application.  This is the second version of the SaintsXCTF web application.  The 
-front-end is written in React.js and styled with Sass.  API calls are routed through a Nginx proxy to the 
+front-end is written in React.js and styled with JSS.  API calls are routed through a Nginx proxy to the 
 [SaintsXCTF API](https://github.com/AJarombek/saints-xctf-api).
 
 ### Commands

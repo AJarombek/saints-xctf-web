@@ -5,8 +5,8 @@
  */
 
 interface FeatureValue {
-    name: string,
-    isActive: boolean
+  name: string;
+  isActive: boolean;
 }
 
 /**
@@ -14,18 +14,18 @@ interface FeatureValue {
  * environment variables.
  */
 const getFeatureFlags: () => FeatureValue[] = () => {
-    let flags = [];
+  const flags = [];
 
-    for (let name in process.env) {
-        if (name.startsWith('FEATURE_')) {
-            flags.push({
-                name: name.substring(8),
-                isActive: process.env[name] === 'true',
-            })
-        }
+  for (const name in process.env) {
+    if (name.startsWith('FEATURE_')) {
+      flags.push({
+        name: name.substring(8),
+        isActive: process.env[name] === 'true'
+      });
     }
+  }
 
-    return flags;
+  return flags;
 };
 
-export {getFeatureFlags};
+export { getFeatureFlags };

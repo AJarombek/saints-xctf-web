@@ -5,13 +5,13 @@
  */
 
 import React from 'react';
-import {createUseStyles} from 'react-jss';
+import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
-import {ClassValue} from 'classnames/types';
+import { ClassValue } from 'classnames/types';
 
 interface Props {
-    className?: ClassValue
+  className?: ClassValue;
 }
 
 const useStyles = createUseStyles(styles);
@@ -19,9 +19,7 @@ const useStyles = createUseStyles(styles);
 const LoadingSpinner: React.FunctionComponent<Props> = ({ className }) => {
   const classes = useStyles();
 
-  return (
-    <div className={classNames(classes.spinner, className)}> </div>
-  );
+  return <div className={classNames(classes.spinner, className)}> </div>;
 };
 
 export default LoadingSpinner;

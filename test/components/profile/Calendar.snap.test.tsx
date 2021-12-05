@@ -14,6 +14,7 @@ import thunk from 'redux-thunk';
 import Calendar from '../../../src/components/profile/Calendar';
 import { andy } from '../../test-utils/userMocks';
 import { oneRun } from '../../test-utils/rangeViewMocks';
+import moment from 'moment';
 
 const mockStore = configureStore([thunk]);
 
@@ -28,7 +29,7 @@ describe('Calendar Snapshot Tests', () => {
     const tree = renderer
       .create(
         <Provider store={store}>
-          <Calendar rangeViews={oneRun} filter="r" user={andy} />
+          <Calendar rangeViews={oneRun} filter="r" user={andy} month={moment('09-01-2021', 'MM-DD-YYYY')} />
         </Provider>
       )
       .toJSON();

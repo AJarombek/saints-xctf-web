@@ -8,7 +8,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import Month from '../Month';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { getRangeView } from '../../../redux/modules/rangeView';
 import { useDispatch } from 'react-redux';
 import {
@@ -23,16 +23,17 @@ interface Props {
   rangeViews: RangeViewExerciseTypeFilters;
   filter: RangeViewExerciseType;
   user: UserMeta;
+  month?: Moment;
 }
 
 const useStyles = createUseStyles(styles);
 
-const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user }) => {
+const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user, month = moment().startOf('month') }) => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
-  const [currentMonth, setCurrentMonth] = useState(moment().startOf('month'));
+  const [currentMonth, setCurrentMonth] = useState(month);
   const [error, setError] = useState(false);
 
   const start = useMemo(() => {
