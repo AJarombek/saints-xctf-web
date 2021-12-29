@@ -121,6 +121,15 @@ docker-compose up --build
 
 ### Version History
 
+**[v2.0.9](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.9) - Bug Fixes and User Experience Improvements**
+
+> Release Date: December 28th, 2021
+
+* Bug Fix - Updating an exercise log shows an error message when the log updates successfully
+* Create new exercise log date defaults to the current date
+* When creating or updating an exercise log, remove range view information from the application state.  This prevents 
+stale data when viewing the monthly calendar or weekly view.
+
 **[v2.0.8](https://github.com/AJarombek/saints-xctf-web/tree/v2.0.8) - New Approach for Uploading Profile & Group Pictures**
 
 > Release Date: August 24th, 2021

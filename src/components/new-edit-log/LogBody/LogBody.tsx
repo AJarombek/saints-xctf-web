@@ -21,6 +21,7 @@ import { invalidateLogCreated, invalidateLogUpdated, postLog, putLog } from '../
 import { postNotification } from '../../../redux/modules/notifications';
 import moment from 'moment';
 import AlertPopup from '../../shared/AlertPopup';
+import { removeUserRangeView } from '../../../redux/modules/rangeView';
 
 interface Props {
   user: User;
@@ -69,7 +70,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   const [name, setName] = useState('');
   const [nameStatus, setNameStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [location, setLocation] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(moment().format('YYYY-MM-DD'));
   const [dateStatus, setDateStatus] = useState<ImageInputStatus>(ImageInputStatus.NONE);
   const [type, setType] = useState(exerciseTypes[0].toLowerCase());
   const [distance, setDistance] = useState('');
@@ -118,14 +119,15 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
       const updateInfo = updateLogs[existingLog?.log_id];
 
       if (updateInfo && !updateInfo?.isFetching && !updateInfo?.didInvalidate) {
-        if (!updateInfo?.updated) {
+        if (updateInfo?.updated) {
+          dispatch(removeUserRangeView(user.username));
           navigate('/dashboard');
         } else {
           setErrorUpdatingLog(true);
         }
       }
     }
-  }, [updateLogs, existingLog, navigate]);
+  }, [updateLogs, existingLog, navigate, dispatch, user.username]);
 
   const reset = (): void => {
     setName('');
@@ -146,6 +148,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
   useEffect(() => {
     if (!existingLog && newLog && Object.keys(newLog).length && !newLog?.isFetching && !newLog?.didInvalidate) {
       if (newLog?.created) {
+        dispatch(removeUserRangeView(user.username));
         setLogCreatedSuccess(true);
         window.scrollTo(0, 0);
         reset();

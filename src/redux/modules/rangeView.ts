@@ -23,6 +23,7 @@ import { AxiosError } from 'axios';
 const GET_RANGE_VIEW_REQUEST = 'saints-xctf-web/rangeView/GET_RANGE_VIEW_REQUEST';
 const GET_RANGE_VIEW_SUCCESS = 'saints-xctf-web/rangeView/GET_RANGE_VIEW_SUCCESS';
 const GET_RANGE_VIEW_FAILURE = 'saints-xctf-web/rangeView/GET_RANGE_VIEW_FAILURE';
+const REMOVE_USER_RANGE_VIEW = 'saints-xctf-web/rangeView/REMOVE_USER_RANGE_VIEW';
 
 // Action Types
 
@@ -55,7 +56,16 @@ interface GetRangeViewFailureAction {
   serverError: string;
 }
 
-type RangeViewActionTypes = GetRangeViewRequestAction | GetRangeViewSuccessAction | GetRangeViewFailureAction;
+interface RemoveUserRangeViewAction {
+  type: typeof REMOVE_USER_RANGE_VIEW;
+  username: string;
+}
+
+type RangeViewActionTypes =
+  | GetRangeViewRequestAction
+  | GetRangeViewSuccessAction
+  | GetRangeViewFailureAction
+  | RemoveUserRangeViewAction;
 
 // Reducer
 const initialState: RangeViewState = {
@@ -136,6 +146,16 @@ function getRangeViewFailureReducer(state: RangeViewState, action: GetRangeViewF
   };
 }
 
+function removeUserRangeViewReducer(state: RangeViewState, action: RemoveUserRangeViewAction): RangeViewState {
+  return {
+    ...state,
+    users: {
+      ...state.users,
+      [action.username]: {}
+    }
+  };
+}
+
 export default function reducer(state = initialState, action: RangeViewActionTypes): RangeViewState {
   switch (action.type) {
     case GET_RANGE_VIEW_REQUEST:
@@ -144,6 +164,8 @@ export default function reducer(state = initialState, action: RangeViewActionTyp
       return getRangeViewSuccessReducer(state, action);
     case GET_RANGE_VIEW_FAILURE:
       return getRangeViewFailureReducer(state, action);
+    case REMOVE_USER_RANGE_VIEW:
+      return removeUserRangeViewReducer(state, action);
     default:
       return state;
   }
@@ -202,6 +224,13 @@ export function getRangeViewFailure(
     start,
     end,
     serverError
+  };
+}
+
+export function removeUserRangeView(username: string): RemoveUserRangeViewAction {
+  return {
+    type: REMOVE_USER_RANGE_VIEW,
+    username
   };
 }
 
