@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/AJarombek/saints-xctf-web#readme",
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.21.2",
     "classnames": "^2.2.6",
     "color": "^3.1.2",
     "connected-react-router": "^6.9.1",
