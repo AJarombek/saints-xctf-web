@@ -28,7 +28,7 @@
     "connected-react-router": "^6.9.1",
     "dotenv": "^8.2.0",
     "history": "^5.0.0",
-    "jarombek-react-components": "git://github.com/ajarombek/jarombek-react-components.git#v0.3.8",
+    "jarombek-react-components": "https://github.com/ajarombek/jarombek-react-components#v0.3.8",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.12.1",
