@@ -67,6 +67,7 @@ export default {
     display: 'inline-block',
     ...FontMixins.robotoSlab(),
     fontSize: 14,
+    overflowWrap: 'anywhere',
 
     '& > a': {
       display: 'inline-block',
