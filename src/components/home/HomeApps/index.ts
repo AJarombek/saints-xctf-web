@@ -1,3 +1,3 @@
-import HomeApps from "./HomeApps";
+import HomeApps from './HomeApps';
 
 export default HomeApps;

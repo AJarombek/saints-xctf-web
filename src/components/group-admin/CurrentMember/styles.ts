@@ -20,8 +20,8 @@ export default {
     '& > .aj-outlined-button': {
       display: 'flex',
       alignItems: 'center',
-      padding: '4px 8px'
-    }
+      padding: '4px 8px',
+    },
   },
   memberTypeTag: {
     fontSize: 14,
@@ -29,35 +29,35 @@ export default {
     cursor: 'auto !important',
     backgroundColor: ({ user }: { user: string }): string =>
       user === 'admin' ? Colors.spotPaletteBrown : color(Colors.lightBackground).darken(0.05).hex(),
-    color: ({ user }: { user: string }): string => (user === 'admin' ? '#FFF' : '#000')
+    color: ({ user }: { user: string }): string => (user === 'admin' ? '#FFF' : '#000'),
   },
   memberTypeContent: {
     ...FontMixins.robotoThin(),
     display: 'flex',
     alignItems: 'center',
-    padding: '1px 0'
+    padding: '1px 0',
   },
   name: {
     ...FontMixins.robotoSlab(),
     fontSize: 16,
-    marginLeft: 15
+    marginLeft: 15,
   },
   removeAction: {
-    margin: '0 10px 0 auto'
+    margin: '0 10px 0 auto',
   },
   '@media screen and (max-width: 450px)': {
     name: {
-      fontSize: 14
+      fontSize: 14,
     },
     removeAction: {
       '& > button': {
-        fontSize: 12
-      }
-    }
+        fontSize: 12,
+      },
+    },
   },
   '@media screen and (max-width: 390px)': {
     memberTypeContent: {
-      fontSize: 12
-    }
-  }
+      fontSize: 12,
+    },
+  },
 };

@@ -1,3 +1,3 @@
-import WeeklyChart from "./WeeklyChart";
+import WeeklyChart from './WeeklyChart';
 
 export default WeeklyChart;

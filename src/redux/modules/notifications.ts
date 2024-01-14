@@ -89,7 +89,7 @@ type NotificationsActionTypes =
 // Reducer
 const initialState: NotificationsState = {
   newNotification: {},
-  updateNotifications: {}
+  updateNotifications: {},
 };
 
 function getUserNotificationsRequestReducer(state: NotificationsState): NotificationsState {
@@ -97,7 +97,7 @@ function getUserNotificationsRequestReducer(state: NotificationsState): Notifica
     ...state,
     isFetching: true,
     lastUpdated: moment().unix(),
-    items: []
+    items: [],
   };
 }
 
@@ -110,7 +110,7 @@ function getUserNotificationsSuccessReducer(
     isFetching: false,
     lastUpdated: moment().unix(),
     items: action.notifications,
-    serverError: null
+    serverError: null,
   };
 }
 
@@ -123,7 +123,7 @@ function getUserNotificationsFailureReducer(
     isFetching: false,
     lastUpdated: moment().unix(),
     items: [],
-    serverError: action.serverError
+    serverError: action.serverError,
   };
 }
 
@@ -132,8 +132,8 @@ function postNotificationRequestReducer(state: NotificationsState): Notification
     ...state,
     newNotification: {
       isFetching: true,
-      lastUpdated: moment().unix()
-    }
+      lastUpdated: moment().unix(),
+    },
   };
 }
 
@@ -146,8 +146,8 @@ function postNotificationSuccessReducer(
     newNotification: {
       isFetching: false,
       lastUpdated: moment().unix(),
-      created: action.created
-    }
+      created: action.created,
+    },
   };
 }
 
@@ -161,8 +161,8 @@ function postNotificationFailureReducer(
       isFetching: false,
       lastUpdated: moment().unix(),
       created: false,
-      serverError: action.serverError
-    }
+      serverError: action.serverError,
+    },
   };
 }
 
@@ -176,9 +176,9 @@ function putUserNotificationsRequestReducer(
       ...state.updateNotifications,
       [action.id]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -193,9 +193,9 @@ function putUserNotificationsSuccessReducer(
       [action.id]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        updated: true
-      }
-    }
+        updated: true,
+      },
+    },
   };
 }
 
@@ -211,9 +211,9 @@ function putUserNotificationsFailureReducer(
         isFetching: false,
         lastUpdated: moment().unix(),
         updated: false,
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -222,7 +222,7 @@ function viewNotificationReducer(state: NotificationsState, action: ViewNotifica
     ...state,
     items: state.items?.map((item: Notification) =>
       action.id === item.notification_id ? { ...item, viewed: 'Y' } : item
-    )
+    ),
   };
 }
 
@@ -259,48 +259,48 @@ export default function reducer(
 // Action Creators
 export function getUserNotificationsRequest(): GetUserNotificationsRequestAction {
   return {
-    type: GET_USER_NOTIFICATIONS_REQUEST
+    type: GET_USER_NOTIFICATIONS_REQUEST,
   };
 }
 
 export function getUserNotificationsSuccess(notifications: Notification[]): GetUserNotificationsSuccessAction {
   return {
     type: GET_USER_NOTIFICATIONS_SUCCESS,
-    notifications
+    notifications,
   };
 }
 
 export function getUserNotificationsFailure(serverError: string): GetUserNotificationsFailureAction {
   return {
     type: GET_USER_NOTIFICATIONS_FAILURE,
-    serverError
+    serverError,
   };
 }
 
 export function postNotificationRequest(): PostNotificationRequestAction {
   return {
-    type: POST_NOTIFICATION_REQUEST
+    type: POST_NOTIFICATION_REQUEST,
   };
 }
 
 export function postNotificationSuccess(created: boolean): PostNotificationSuccessAction {
   return {
     type: POST_NOTIFICATION_SUCCESS,
-    created
+    created,
   };
 }
 
 export function postNotificationFailure(serverError: string): PostNotificationFailureAction {
   return {
     type: POST_NOTIFICATION_FAILURE,
-    serverError
+    serverError,
   };
 }
 
 export function putNotificationRequest(id: number): PutNotificationRequestAction {
   return {
     type: PUT_NOTIFICATION_REQUEST,
-    id
+    id,
   };
 }
 
@@ -308,7 +308,7 @@ export function putNotificationSuccess(id: number, updated: boolean): PutNotific
   return {
     type: PUT_NOTIFICATION_SUCCESS,
     id,
-    updated
+    updated,
   };
 }
 
@@ -316,14 +316,14 @@ export function putNotificationFailure(id: number, serverError: string): PutNoti
   return {
     type: PUT_NOTIFICATION_FAILURE,
     id,
-    serverError
+    serverError,
   };
 }
 
 export function viewNotification(id: number): ViewNotificationAction {
   return {
     type: VIEW_NOTIFICATION,
-    id
+    id,
   };
 }
 

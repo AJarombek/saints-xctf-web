@@ -8,6 +8,6 @@
 
 export default {
   week: {
-    display: 'flex'
-  }
+    display: 'flex',
+  },
 };

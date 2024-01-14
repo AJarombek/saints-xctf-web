@@ -1,3 +1,3 @@
-import WeekTotal from "./WeekTotal";
+import WeekTotal from './WeekTotal';
 
 export default WeekTotal;

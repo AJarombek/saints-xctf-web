@@ -34,7 +34,7 @@ const TeamMembershipsModal: React.FunctionComponent<Props> = ({
   joinedTeam,
   leftTeam,
   groupsJoined,
-  groupsLeft
+  groupsLeft,
 }) => {
   const classes = useStyles();
 

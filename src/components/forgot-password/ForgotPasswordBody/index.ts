@@ -1,3 +1,3 @@
-import ForgotPasswordBody from "./ForgotPasswordBody";
+import ForgotPasswordBody from './ForgotPasswordBody';
 
 export default ForgotPasswordBody;

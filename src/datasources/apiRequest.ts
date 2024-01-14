@@ -11,7 +11,7 @@ import { SIGNOUT } from '../redux/modules/auth';
 export const api = axios.create({
   baseURL: '/api/v2/',
   timeout: 15000,
-  responseType: 'json'
+  responseType: 'json',
 });
 
 export const interceptor = (store: Store): void => {
@@ -20,7 +20,7 @@ export const interceptor = (store: Store): void => {
       const token = localStorage.getItem('token') ?? '';
 
       req.headers = {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       };
 
       return req;
@@ -35,7 +35,7 @@ export const interceptor = (store: Store): void => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         store.dispatch({
-          type: SIGNOUT
+          type: SIGNOUT,
         });
       } else {
         return Promise.reject(error);

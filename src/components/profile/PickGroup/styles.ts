@@ -20,34 +20,34 @@ export default {
         : status === 'pending'
         ? Colors.spotPaletteBrown
         : Colors.lightestBackground,
-    color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000')
+    color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000'),
   },
   groupTitle: {
     ...FontMixins.roboto(),
-    marginLeft: 15
+    marginLeft: 15,
   },
   groupActionIcon: {
     margin: '0 15px 0 auto',
 
     '&:active': {
-      backgroundColor: 'transparent !important'
+      backgroundColor: 'transparent !important',
     },
 
     '& > button > p': {
       ...FontMixins.elegantIcons(),
       color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000'),
       fontSize: 18,
-      margin: 0
-    }
+      margin: 0,
+    },
   },
   '@media screen and (max-width: 580px)': {
     groupTitle: {
-      fontSize: 14
+      fontSize: 14,
     },
     groupActionIcon: {
       '& > button > p': {
-        fontSize: 16
-      }
-    }
-  }
+        fontSize: 16,
+      },
+    },
+  },
 };

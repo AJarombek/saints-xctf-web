@@ -29,7 +29,7 @@ const GroupMembershipsModal: React.FunctionComponent<Props> = ({
   onLeave,
   show,
   joinedGroup,
-  leftGroup
+  leftGroup,
 }) => {
   const classes = useStyles();
 

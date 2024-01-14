@@ -10,7 +10,7 @@ import { FontMixins } from '../../../styles/mixins';
 export default {
   container: {
     marginTop: 20,
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   member: {
     display: 'flex',
@@ -22,24 +22,24 @@ export default {
 
     '& > p:nth-child(1)': {
       ...FontMixins.robotoSlab(),
-      marginLeft: 20
+      marginLeft: 20,
     },
 
     '& > p:nth-child(2)': {
       ...FontMixins.robotoBold(),
       margin: '0 20px 0 auto',
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   },
   '@media screen and (max-width: 490px)': {
     member: {
       '& > p:nth-child(1)': {
-        fontSize: 14
+        fontSize: 14,
       },
 
       '& > p:nth-child(2)': {
-        fontSize: 12
-      }
-    }
-  }
+        fontSize: 12,
+      },
+    },
+  },
 };

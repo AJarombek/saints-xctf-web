@@ -199,13 +199,13 @@ export enum LogType {
   RUN = 'run',
   BIKE = 'bike',
   SWIM = 'swim',
-  OTHER = 'other'
+  OTHER = 'other',
 }
 
 export enum Metric {
   MILES = 'miles',
   KILOMETERS = 'kilometers',
-  METERS = 'meters'
+  METERS = 'meters',
 }
 
 export type Log = {

@@ -9,7 +9,7 @@ import {
   ChangePasswordResult,
   changeUserPassword,
   validateForgotPasswordCode,
-  ValidateForgotPasswordResult
+  ValidateForgotPasswordResult,
 } from '../../../redux/modules/auth';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';

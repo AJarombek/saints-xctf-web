@@ -20,8 +20,8 @@ export function userAuthenticated(user: Users, signedInUser: string): boolean {
       signedInUser = storedUser.username;
       user = {
         [storedUser.username]: {
-          ...storedUser
-        }
+          ...storedUser,
+        },
       };
     }
   }

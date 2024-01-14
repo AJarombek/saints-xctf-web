@@ -16,51 +16,51 @@ export default {
     padding: 7,
     margin: '10px 0',
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
-    position: 'relative'
+    position: 'relative',
   },
   headerSection: {
-    display: 'flex'
+    display: 'flex',
   },
   titles: {
-    display: 'block'
+    display: 'block',
   },
   titleLink: {
     ...FontMixins.robotoSlab(),
     color: '#333',
     textDecoration: 'none',
-    fontSize: 16
+    fontSize: 16,
   },
   title: {
     ...FontMixins.robotoSlab(),
     textDecoration: 'underline',
-    fontSize: 16
+    fontSize: 16,
   },
   metadata: {
     display: 'block',
-    margin: '0 0 0 auto'
+    margin: '0 0 0 auto',
   },
   date: {
     ...FontMixins.robotoBold(),
     fontSize: 14,
     margin: 0,
-    textAlign: 'end'
+    textAlign: 'end',
   },
   type: {
     ...FontMixins.robotoSlab(),
     fontSize: 14,
     fontColor: '#666',
     margin: 0,
-    textAlign: 'right'
+    textAlign: 'right',
   },
   bodySection: {
-    marginTop: 20
+    marginTop: 20,
   },
   dataFields: {
     '& > p': {
       ...FontMixins.robotoSlab(),
       fontSize: 14,
-      margin: 0
-    }
+      margin: 0,
+    },
   },
   description: {
     marginTop: 10,
@@ -76,21 +76,21 @@ export default {
       transition: 'color 0.4s ease',
 
       '&:hover': {
-        color: color(Colors.spotPaletteBrown).darken(0.2).hex()
-      }
-    }
+        color: color(Colors.spotPaletteBrown).darken(0.2).hex(),
+      },
+    },
   },
   commentSection: {
-    margin: '10px 0 0 0'
+    margin: '10px 0 0 0',
   },
   options: {
     position: 'absolute',
     width: 'calc(100% - 14px)',
-    display: 'flex'
+    display: 'flex',
   },
   optionsButtons: {
     margin: '0 0 0 auto',
-    display: 'flex'
+    display: 'flex',
   },
   optionsButton: {
     display: 'flex',
@@ -108,48 +108,48 @@ export default {
 
     '& > p': {
       fontSize: 20,
-      color: '#555'
+      color: '#555',
     },
 
     '&:focus': {
-      outline: 'none'
-    }
+      outline: 'none',
+    },
   },
   deleteOptionsButton: {
     backgroundColor: color(Colors.sxctfRed).lighten(0.25).hex(),
 
     '& > p': {
-      color: '#e6e6e6'
-    }
+      color: '#e6e6e6',
+    },
   },
   optionsIcon: {
-    ...FontMixins.elegantIcons()
+    ...FontMixins.elegantIcons(),
   },
   '@media screen and (max-width: 460px)': {
     titleLink: {
-      fontSize: 14
+      fontSize: 14,
     },
     title: {
-      fontSize: 14
+      fontSize: 14,
     },
     date: {
-      fontSize: 12
+      fontSize: 12,
     },
     type: {
-      fontSize: 12
+      fontSize: 12,
     },
     dataFields: {
       '& > p': {
-        fontSize: 12
-      }
+        fontSize: 12,
+      },
     },
     description: {
-      fontSize: 12
+      fontSize: 12,
     },
     optionsButton: {
       '& > p': {
-        fontSize: 20
-      }
-    }
-  }
+        fontSize: 20,
+      },
+    },
+  },
 };

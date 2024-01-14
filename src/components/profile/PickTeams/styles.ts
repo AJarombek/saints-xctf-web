@@ -13,20 +13,20 @@ export default {
     padding: 10,
 
     '& > div:nth-child(1)': {
-      width: '65%'
+      width: '65%',
     },
 
     '& > div:nth-child(2)': {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   successfulSearch: {
-    backgroundColor: '#DDD'
+    backgroundColor: '#DDD',
   },
   searchedTeams: {
     display: 'flex',
     flexWrap: 'wrap',
-    margin: '10px 0'
+    margin: '10px 0',
   },
   searchedTeam: {
     display: 'flex',
@@ -39,17 +39,17 @@ export default {
 
     '& > p:nth-child(1)': {
       ...FontMixins.robotoSlabThin(),
-      margin: 0
+      margin: 0,
     },
 
     '& > p:nth-child(2)': {
       ...FontMixins.elegantIcons(),
       margin: '0 0 0 4px',
-      color: '#990000'
-    }
+      color: '#990000',
+    },
   },
   actions: {
-    ...Mixins.formActions()
+    ...Mixins.formActions(),
   },
   submitButton: {
     marginRight: 20,
@@ -57,32 +57,32 @@ export default {
     '& > button': {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
 
     '& p': {
-      margin: 0
-    }
+      margin: 0,
+    },
   },
   disabledSubmitButton: {
     ...Mixins.disabledButton(),
-    backgroundColor: '#d6d6d6 !important'
+    backgroundColor: '#d6d6d6 !important',
   },
   buttonSpinner: {
-    ...Mixins.buttonSpinner()
+    ...Mixins.buttonSpinner(),
   },
   cancelButton: {
-    marginRight: 10
+    marginRight: 10,
   },
   emailLink: {
-    ...Mixins.saintsXCTFLink()
+    ...Mixins.saintsXCTFLink(),
   },
   alertMessage: {
     margin: '0 4px',
 
     '& > p:nth-child(1)': {
-      margin: 0
-    }
+      margin: 0,
+    },
   },
   retry: {
     ...FontMixins.robotoSlabBold(),
@@ -91,7 +91,7 @@ export default {
     cursor: 'pointer',
 
     '&:hover': {
-      textDecoration: 'underline'
-    }
-  }
+      textDecoration: 'underline',
+    },
+  },
 };

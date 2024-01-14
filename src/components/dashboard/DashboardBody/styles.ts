@@ -13,49 +13,49 @@ export default {
     gridTemplateColumns: '1fr 2fr',
     minHeight: 'calc(100vh - 100px)',
     backgroundColor: Colors.lightBackground,
-    margin: '100px 6% 0 6%'
+    margin: '100px 6% 0 6%',
   },
   sidePanel: {
     gridArea: 'panel',
-    padding: 20
+    padding: 20,
   },
   mainPanel: {
     gridArea: 'feed',
-    padding: 20
+    padding: 20,
   },
   '@media screen and (max-width: 1100px)': {
     dashboardBody: {
-      margin: '100px 2% 0 2%'
-    }
+      margin: '100px 2% 0 2%',
+    },
   },
   '@media screen and (max-width: 950px)': {
     dashboardBody: {
-      margin: '100px 0 0 0'
-    }
+      margin: '100px 0 0 0',
+    },
   },
   '@media screen and (max-width: 800px)': {
     dashboardBody: {
-      display: 'flex'
+      display: 'flex',
     },
     sidePanel: {
-      display: 'none'
+      display: 'none',
     },
     mainPanel: {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   '@media screen and (max-width: 500px)': {
     mainPanel: {
-      padding: 10
-    }
+      padding: 10,
+    },
   },
   '@media screen and (max-width: 390px)': {
     dashboardBody: {
       margin: '75px 0 0 0',
-      minHeight: 'calc(100vh - 75px)'
+      minHeight: 'calc(100vh - 75px)',
     },
     mainPanel: {
-      padding: 5
-    }
-  }
+      padding: 5,
+    },
+  },
 };

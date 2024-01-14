@@ -9,11 +9,11 @@ import Colors from '../../../styles/colors';
 export default {
   '@keyframes spinner': {
     from: {
-      transform: 'translate3d(-50%, -50%, 0) rotate(0deg)'
+      transform: 'translate3d(-50%, -50%, 0) rotate(0deg)',
     },
     to: {
-      transform: 'translate3d(-50%, -50%, 0) rotate(360deg)'
-    }
+      transform: 'translate3d(-50%, -50%, 0) rotate(360deg)',
+    },
   },
   spinner: {
     '&:before': {
@@ -26,7 +26,7 @@ export default {
       width: 20,
       position: 'absolute',
       transform: 'translate3d(-50%, -50%, 0)',
-      willChange: 'transform'
-    }
-  }
+      willChange: 'transform',
+    },
+  },
 };

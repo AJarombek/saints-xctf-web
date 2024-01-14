@@ -1,3 +1,3 @@
-import HomeTestimonials from "./HomeTestimonials";
+import HomeTestimonials from './HomeTestimonials';
 
 export default HomeTestimonials;

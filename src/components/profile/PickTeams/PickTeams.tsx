@@ -16,7 +16,7 @@ import {
   TeamGroupMapping,
   TeamInfo,
   TeamMembership,
-  UserDetails
+  UserDetails,
 } from '../../../redux/types';
 import PickTeam from '../PickTeam';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
@@ -43,7 +43,7 @@ const PickTeams: React.FunctionComponent<Props> = ({
   username,
   userDetails,
   membershipChangesMade,
-  setMembershipChangesMade
+  setMembershipChangesMade,
 }) => {
   const classes = useStyles();
 
@@ -98,7 +98,7 @@ const PickTeams: React.FunctionComponent<Props> = ({
   const onAddSearchedTeam = (team: TeamInfo): void => {
     setSearchedTeamsAdded((addedTeams) => [
       ...addedTeams,
-      { team_name: team.name, title: team.title, status: null, user: null, groups: [] }
+      { team_name: team.name, title: team.title, status: null, user: null, groups: [] },
     ]);
   };
 

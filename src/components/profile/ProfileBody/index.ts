@@ -1,3 +1,3 @@
-import ProfileBody from "./ProfileBody";
+import ProfileBody from './ProfileBody';
 
 export default ProfileBody;

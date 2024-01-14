@@ -23,7 +23,7 @@ const createRootReducer = (history: History): Reducer =>
     profile,
     rangeView,
     teams,
-    groups
+    groups,
   });
 
 export default createRootReducer;

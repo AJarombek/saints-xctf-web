@@ -5,7 +5,7 @@
  */
 
 export default {
-    month: {
-        border: '1px solid #555'
-    }
+  month: {
+    border: '1px solid #555',
+  },
 };

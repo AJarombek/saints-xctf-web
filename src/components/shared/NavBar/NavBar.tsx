@@ -51,7 +51,7 @@ const NavBar: React.FunctionComponent<Props> = ({
   dryDropdownTheme = 'light',
   stickyDropdownTheme = 'light',
   dryDropdownHeaderTheme = 'light',
-  stickyDropdownHeaderTheme = 'light'
+  stickyDropdownHeaderTheme = 'light',
 }) => {
   const classes = useStyles();
 
@@ -153,37 +153,37 @@ const NavBar: React.FunctionComponent<Props> = ({
     {
       name: 'dashboard',
       content: 'Dashboard',
-      onClick: (): void => navigateMobile('/dashboard')
+      onClick: (): void => navigateMobile('/dashboard'),
     },
     {
       name: 'profile',
       content: 'Profile',
-      onClick: (): void => navigateMobile(`/profile/${user?.username}`)
+      onClick: (): void => navigateMobile(`/profile/${user?.username}`),
     },
     {
       name: 'teams',
       content: 'Teams',
-      onClick: (): void => navigateMobile('/teams')
+      onClick: (): void => navigateMobile('/teams'),
     },
     {
       name: 'createNewLog',
       content: 'Create New Log',
-      onClick: (): void => navigateMobile('/log/new')
+      onClick: (): void => navigateMobile('/log/new'),
     },
     {
       name: 'admin',
       content: 'Admin',
-      onClick: (): void => navigateMobile('/admin')
+      onClick: (): void => navigateMobile('/admin'),
     },
     {
       name: 'signOut',
       content: 'Sign Out',
-      onClick: (): SignOutAction => dispatch(signOut())
+      onClick: (): SignOutAction => dispatch(signOut()),
     },
     {
       name: 'home',
       content: 'Home',
-      onClick: (): void => navigateMobile('/')
+      onClick: (): void => navigateMobile('/'),
     },
     {
       name: 'about',
@@ -191,7 +191,7 @@ const NavBar: React.FunctionComponent<Props> = ({
       onClick: (): void => {
         navigateMobile('#about');
         mobileHamburgerRef.current?.click();
-      }
+      },
     },
     {
       name: 'testimonials',
@@ -199,23 +199,23 @@ const NavBar: React.FunctionComponent<Props> = ({
       onClick: (): void => {
         navigateMobile('#testimonials');
         mobileHamburgerRef.current?.click();
-      }
+      },
     },
     {
       name: 'register',
       content: 'Register',
-      onClick: (): void => navigateMobile('/register')
+      onClick: (): void => navigateMobile('/register'),
     },
     {
       name: 'signIn',
       content: 'Sign In',
-      onClick: (): void => navigateMobile('/signin')
+      onClick: (): void => navigateMobile('/signin'),
     },
     {
       name: 'logo',
       content: <img className="mobile-dropdown-logo" src={saintsXCTFLogo} alt="" />,
-      onClick: (): void => navigateMobile(signedIn ? '/dashboard' : '/')
-    }
+      onClick: (): void => navigateMobile(signedIn ? '/dashboard' : '/'),
+    },
   ];
 
   return (

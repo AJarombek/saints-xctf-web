@@ -22,7 +22,7 @@ export default {
         ? color(Colors.spotPaletteBlue).lighten(0.65).hex()
         : type === 'success'
         ? color(Colors.statusSuccess).lighten(1.1).hex()
-        : color(Colors.statusFailure).lighten(0.65).hex()
+        : color(Colors.statusFailure).lighten(0.65).hex(),
   },
   alertIcon: {
     ...FontMixins.elegantIcons(),
@@ -35,31 +35,31 @@ export default {
         ? Colors.spotPaletteBlue
         : type === 'success'
         ? Colors.statusSuccess
-        : Colors.statusFailure
+        : Colors.statusFailure,
   },
   message: {
     ...FontMixins.roboto(),
     fontSize: 16,
-    margin: '5px 10px 5px 0'
+    margin: '5px 10px 5px 0',
   },
   closeIcon: {
     ...FontMixins.elegantIcons(),
     fontSize: 24,
     margin: '0 10px 0 auto',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   '@media screen and (max-width: 1000px)': {
     alertIcon: {
-      margin: 10
+      margin: 10,
     },
     message: {
       // Pfizer #2 ✅
-      margin: 0
-    }
+      margin: 0,
+    },
   },
   '@media screen and (max-width: 650px)': {
     message: {
-      fontSize: 14
-    }
-  }
+      fontSize: 14,
+    },
+  },
 };

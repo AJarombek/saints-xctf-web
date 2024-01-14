@@ -11,7 +11,7 @@ export default {
     backgroundColor: Colors.lightBackground,
 
     '& .sxctf-home-footer': {
-      backgroundColor: Colors.lightBackground
-    }
-  }
+      backgroundColor: Colors.lightBackground,
+    },
+  },
 };

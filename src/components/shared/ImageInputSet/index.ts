@@ -1,4 +1,4 @@
-import ImageInputSet, {ImageInputDirection} from "./ImageInputSet";
+import ImageInputSet, { ImageInputDirection } from './ImageInputSet';
 
-export {ImageInputDirection};
+export { ImageInputDirection };
 export default ImageInputSet;

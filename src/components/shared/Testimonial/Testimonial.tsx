@@ -4,16 +4,16 @@
  * @since 1/22/2020
  */
 
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 
 interface IProps {
-    src: string;
-    name: string;
-    title: string;
-    testimony: ReactNode;
+  src: string;
+  name: string;
+  title: string;
+  testimony: ReactNode;
 }
 
-const Testimonial: React.FunctionComponent<IProps> = ({src, name, title, testimony}) => {
+const Testimonial: React.FunctionComponent<IProps> = ({ src, name, title, testimony }) => {
   return (
     <div className="sxctf-testimonial">
       <p>"{testimony}"</p>

@@ -40,7 +40,7 @@ const feelList = [
   'Fairly Good',
   'Good',
   'Great',
-  'Fantastic'
+  'Fantastic',
 ];
 
 const exerciseTypes = ['Run', 'Bike', 'Swim', 'Other'];
@@ -55,7 +55,7 @@ const feelSteps = [
   { value: 7, color: FeelColors[6] },
   { value: 8, color: FeelColors[7] },
   { value: 9, color: FeelColors[8] },
-  { value: 10, color: FeelColors[9] }
+  { value: 10, color: FeelColors[9] },
 ];
 
 const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {

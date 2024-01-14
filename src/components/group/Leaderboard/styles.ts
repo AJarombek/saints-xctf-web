@@ -14,30 +14,30 @@ export default {
   ...Modules.filters(),
   interval: {
     marginTop: 40,
-    width: 120
+    width: 120,
   },
   select: {
-    ...AJComponentMixins.ajSelect()
+    ...AJComponentMixins.ajSelect(),
   },
   barChart: {
     backgroundColor: color(Colors.lightBackground).darken(0.05).hex(),
     padding: 20,
     borderRadius: 6,
-    marginTop: 10
+    marginTop: 10,
   },
   alertMessage: {
     marginTop: 10,
 
     '& > div': {
-      padding: '4px 0'
-    }
+      padding: '4px 0',
+    },
   },
   '@media screen and (max-width: 390px)': {
     barChart: {
-      padding: 10
+      padding: 10,
     },
     interval: {
-      marginLeft: 15
-    }
-  }
+      marginLeft: 15,
+    },
+  },
 };

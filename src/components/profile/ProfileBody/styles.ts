@@ -8,43 +8,43 @@ import Mixins, { AJComponentMixins } from '../../../styles/mixins';
 
 export default {
   container: {
-    ...Mixins.profileAndGroupBody()
+    ...Mixins.profileAndGroupBody(),
   },
   mobileTabs: {
-    display: 'none'
+    display: 'none',
   },
   select: {
-    ...AJComponentMixins.ajSelect()
+    ...AJComponentMixins.ajSelect(),
   },
   '@media screen and (max-width: 1200px)': {
     container: {
-      ...Mixins.profileAndGroupBodyDesktopMedium()
-    }
+      ...Mixins.profileAndGroupBodyDesktopMedium(),
+    },
   },
   '@media screen and (max-width: 900px)': {
     container: {
-      ...Mixins.profileAndGroupBodyDesktopSmall()
-    }
+      ...Mixins.profileAndGroupBodyDesktopSmall(),
+    },
   },
   '@media screen and (max-width: 750px)': {
     container: {
-      ...Mixins.profileAndGroupBodyTablet()
+      ...Mixins.profileAndGroupBodyTablet(),
     },
     mobileTabs: {
-      ...Mixins.profileAndGroupMobileTabs()
+      ...Mixins.profileAndGroupMobileTabs(),
     },
     select: {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   '@media screen and (max-width: 490px)': {
     container: {
-      ...Mixins.profileAndGroupBodyMobile()
-    }
+      ...Mixins.profileAndGroupBodyMobile(),
+    },
   },
   '@media screen and (max-width: 390px)': {
     container: {
-      ...Mixins.defaultBodyMobile()
-    }
-  }
+      ...Mixins.defaultBodyMobile(),
+    },
+  },
 };

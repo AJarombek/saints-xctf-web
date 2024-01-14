@@ -9,6 +9,6 @@ import Mixins from '../../../styles/mixins';
 export default {
   logFeed: {},
   loading: {
-    ...Mixins.loadingContainer()
-  }
+    ...Mixins.loadingContainer(),
+  },
 };

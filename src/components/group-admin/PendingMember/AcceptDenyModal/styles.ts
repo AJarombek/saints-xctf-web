@@ -8,19 +8,19 @@ import Mixins from '../../../../styles/mixins';
 
 export default {
   modal: {
-    ...Mixins.modal()
+    ...Mixins.modal(),
   },
   modalButtons: {
     ...Mixins.modalButtons(),
 
     '& > .aj-contained-button': {
-      marginRight: 10
-    }
+      marginRight: 10,
+    },
   },
   disabledButton: {
-    ...Mixins.disabledButton()
+    ...Mixins.disabledButton(),
   },
   spinner: {
-    ...Mixins.buttonSpinner()
-  }
+    ...Mixins.buttonSpinner(),
+  },
 };

@@ -12,19 +12,19 @@ import Colors from '../../../styles/colors';
 
 export default {
   groupBody: {
-    ...Mixins.profileAndGroupBody()
+    ...Mixins.profileAndGroupBody(),
   },
   mobileTabs: {
-    display: 'none'
+    display: 'none',
   },
   select: {
-    ...AJComponentMixins.ajSelect()
+    ...AJComponentMixins.ajSelect(),
   },
   membershipTagContainer: {
     display: 'flex',
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   membershipTag: {
     ...FontMixins.robotoSlabThin(),
@@ -39,40 +39,40 @@ export default {
         ? Colors.spotPaletteBrown
         : Colors.lightestBackground,
     color: ({ membershipTagText }: { membershipTagText: string }): string =>
-      membershipTagText === 'Non-Member' ? '#000' : '#FFF'
+      membershipTagText === 'Non-Member' ? '#000' : '#FFF',
   },
   '@media screen and (max-width: 1200px)': {
     groupBody: {
-      ...Mixins.profileAndGroupBodyDesktopMedium()
-    }
+      ...Mixins.profileAndGroupBodyDesktopMedium(),
+    },
   },
   '@media screen and (max-width: 900px)': {
     groupBody: {
-      ...Mixins.profileAndGroupBodyDesktopSmall()
-    }
+      ...Mixins.profileAndGroupBodyDesktopSmall(),
+    },
   },
   '@media screen and (max-width: 750px)': {
     groupBody: {
-      ...Mixins.profileAndGroupBodyTablet()
+      ...Mixins.profileAndGroupBodyTablet(),
     },
     mobileTabs: {
-      ...Mixins.profileAndGroupMobileTabs()
+      ...Mixins.profileAndGroupMobileTabs(),
     },
     select: {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   '@media screen and (max-width: 490px)': {
     groupBody: {
-      ...Mixins.profileAndGroupBodyMobile()
+      ...Mixins.profileAndGroupBodyMobile(),
     },
     membershipTag: {
-      fontSize: 12
-    }
+      fontSize: 12,
+    },
   },
   '@media screen and (max-width: 390px)': {
     groupBody: {
-      ...Mixins.defaultBodyMobile()
-    }
-  }
+      ...Mixins.defaultBodyMobile(),
+    },
+  },
 };

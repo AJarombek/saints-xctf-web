@@ -11,18 +11,18 @@ export default {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   picture: {
-    ...Mixins.profilePicture()
+    ...Mixins.profilePicture(),
   },
   title: {
     ...FontMixins.robotoSlabBold(),
     fontSize: 20,
     textAlign: 'center',
-    paddingBottom: 4
+    paddingBottom: 4,
   },
   subTitle: {
-    ...FontMixins.robotoBold()
-  }
+    ...FontMixins.robotoBold(),
+  },
 };

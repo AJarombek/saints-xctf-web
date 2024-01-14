@@ -25,7 +25,7 @@ const DefaultErrorPopup: React.FunctionComponent<Props> = ({
   onClose,
   onRetry,
   retryable = false,
-  closeable = false
+  closeable = false,
 }) => {
   const classes = useStyles();
 

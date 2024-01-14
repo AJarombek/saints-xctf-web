@@ -34,7 +34,7 @@ const PickTeam: React.FunctionComponent<Props> = ({
   groupLeaveRequests,
   setGroupJoinRequests,
   setGroupLeaveRequests,
-  setChangesMade
+  setChangesMade,
 }) => {
   const classes = useStyles({ status: joined ? 'pending' : left ? null : team.status });
 

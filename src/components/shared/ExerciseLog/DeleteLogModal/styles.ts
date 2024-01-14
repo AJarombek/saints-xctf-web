@@ -16,21 +16,21 @@ export default {
       ...FontMixins.robotoSlab(),
 
       '& b': {
-        ...FontMixins.robotoSlabBold()
-      }
-    }
+        ...FontMixins.robotoSlabBold(),
+      },
+    },
   },
   deleteModalButtons: {
     ...Mixins.modalButtons(),
 
     '& > .aj-contained-button': {
-      marginRight: 10
-    }
+      marginRight: 10,
+    },
   },
   disabledDeleteButton: {
-    ...Mixins.disabledButton()
+    ...Mixins.disabledButton(),
   },
   deleteLogSpinner: {
-    ...Mixins.buttonSpinner()
-  }
+    ...Mixins.buttonSpinner(),
+  },
 };

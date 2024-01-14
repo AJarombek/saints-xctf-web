@@ -1,3 +1,3 @@
-import NewLog from "./NewLog";
+import NewLog from './NewLog';
 
 export default NewLog;

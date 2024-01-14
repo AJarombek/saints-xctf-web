@@ -1,5 +1,5 @@
-import Colors from "../../../styles/colors";
-import {FontMixins} from "../../../styles/mixins";
+import Colors from '../../../styles/colors';
+import { FontMixins } from '../../../styles/mixins';
 
 /**
  * JSS styles for the Memberships component.
@@ -8,18 +8,18 @@ import {FontMixins} from "../../../styles/mixins";
  */
 
 export default {
-    memberships: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        margin: '15px 0',
+  memberships: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '15px 0',
 
-        '& > p': {
-            textAlign: 'center',
-            margin: '2px 0',
-            color: '#333',
-            ...FontMixins.robotoBold(),
-            fontSize: 16
-        }
-    }
+    '& > p': {
+      textAlign: 'center',
+      margin: '2px 0',
+      color: '#333',
+      ...FontMixins.robotoBold(),
+      fontSize: 16,
+    },
+  },
 };

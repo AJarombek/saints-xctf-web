@@ -9,11 +9,11 @@ import Colors from '../../../styles/colors';
 
 export default {
   adminBody: {
-    ...Mixins.defaultBody()
+    ...Mixins.defaultBody(),
   },
   title: {
     ...Mixins.formTitle(),
-    fontSize: 20
+    fontSize: 20,
   },
   container: {
     backgroundColor: '#E3E3E3',
@@ -21,15 +21,15 @@ export default {
     maxWidth: 700,
     margin: '25px auto',
     borderRadius: 6,
-    padding: 20
+    padding: 20,
   },
   teamTitle: {
     ...FontMixins.robotoBold(),
-    fontSize: 20
+    fontSize: 20,
   },
   groups: {
     marginTop: 25,
-    marginBottom: 15
+    marginBottom: 15,
   },
   group: {
     display: 'flex',
@@ -43,49 +43,49 @@ export default {
 
     '&:hover': {
       backgroundColor: Colors.spotPaletteBrown,
-      color: Colors.lightestBackground
-    }
+      color: Colors.lightestBackground,
+    },
   },
   groupTitle: {
     ...FontMixins.roboto(),
     fontSize: 18,
-    margin: 15
+    margin: 15,
   },
   '@media screen and (max-width: 800px)': {
     container: {
-      maxWidth: 'auto'
+      maxWidth: 'auto',
     },
     title: {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   '@media screen and (max-width: 550px)': {
     title: {
-      fontSize: 18
+      fontSize: 18,
     },
     teamTitle: {
-      fontSize: 18
+      fontSize: 18,
     },
     groupTitle: {
       fontSize: 16,
-      margin: 12
-    }
+      margin: 12,
+    },
   },
   '@media screen and (max-width: 390px)': {
     adminBody: {
-      ...Mixins.defaultBodyMobile()
+      ...Mixins.defaultBodyMobile(),
     },
     container: {
-      padding: 15
+      padding: 15,
     },
     title: {
-      marginLeft: 15
+      marginLeft: 15,
     },
     teamTitle: {
-      fontSize: 16
+      fontSize: 16,
     },
     groupTitle: {
-      fontSize: 14
-    }
-  }
+      fontSize: 14,
+    },
+  },
 };

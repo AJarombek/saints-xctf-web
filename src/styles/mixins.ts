@@ -11,61 +11,61 @@ class FontMixins {
   static longway = (): object => ({
     fontFamily: "'Longway', Helvetica, sans-serif !important",
     fontWeight: 'normal',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static allura = (): object => ({
     fontFamily: "'Allura', Helvetica, sans-serif !important",
     fontWeight: 'normal',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static elegantIcons = (): object => ({
     fontFamily: "'ElegantIcons', Helvetica, sans-serif !important",
     fontWeight: 'normal',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static robotoBold = (): object => ({
     fontFamily: "'Roboto-Bold', Helvetica, sans-serif !important",
     fontWeight: 'bold',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static roboto = (): object => ({
     fontFamily: "'Roboto-Regular', Helvetica, sans-serif !important",
     fontWeight: 'normal',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static robotoThin = (): object => ({
     fontFamily: "'Roboto-Thin', Helvetica, sans-serif !important",
     fontWeight: 'lighter',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static robotoSlabBold = (): object => ({
     fontFamily: "'RobotoSlab-Bold', Helvetica, serif !important",
     fontWeight: 'bold',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static robotoSlab = (): object => ({
     fontFamily: "'RobotoSlab-Regular', Helvetica, serif !important",
     fontWeight: 'normal',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static robotoSlabLight = (): object => ({
     fontFamily: "'RobotoSlab-Light', Helvetica, serif !important",
     fontWeight: 'lighter',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 
   static robotoSlabThin = (): object => ({
     fontFamily: "'RobotoSlab-Thin', Helvetica, serif !important",
     fontWeight: 'normal',
-    fontStyle: 'normal'
+    fontStyle: 'normal',
   });
 }
 
@@ -74,84 +74,84 @@ class Mixins {
     backgroundColor: '#f5f5f5',
 
     '& h1': {
-      color: '#282828'
+      color: '#282828',
     },
 
     '& .aj-text-button > button, & .aj-outlined-button > button': {
-      color: '#555 !important'
+      color: '#555 !important',
     },
 
     '& .aj-text-button:hover, & .aj-outlined-button:hover': {
       '& > button': {
-        color: '#0e0e0e !important'
-      }
+        color: '#0e0e0e !important',
+      },
     },
 
     '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-      backgroundColor: 'black'
-    }
+      backgroundColor: 'black',
+    },
   });
 
   static darkNavTheme = (): object => ({
     backgroundColor: '#131313',
 
     '& h1': {
-      color: '#eee'
+      color: '#eee',
     },
 
     '& .aj-text-button > button, & .aj-outlined-button > button': {
-      color: '#eee !important'
+      color: '#eee !important',
     },
 
     '& .aj-text-button:hover, & .aj-outlined-button:hover': {
       '& > button': {
-        color: 'white !important'
-      }
+        color: 'white !important',
+      },
     },
 
     '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-      backgroundColor: 'white'
-    }
+      backgroundColor: 'white',
+    },
   });
 
   static transparentNavTheme = (): object => ({
     backgroundColor: 'transparent',
 
     '& h1': {
-      color: '#eee'
+      color: '#eee',
     },
 
     '& .aj-text-button > button, & .aj-outlined-button > button': {
-      color: '#eee !important'
+      color: '#eee !important',
     },
 
     '& .aj-text-button:hover, & .aj-outlined-button:hover': {
       '& > button': {
-        color: 'white !important'
-      }
+        color: 'white !important',
+      },
     },
 
     '& .aj-mobile-hamburger span, & .aj-mobile-hamburger span:before, & .aj-mobile-hamburger span:after': {
-      backgroundColor: 'white'
-    }
+      backgroundColor: 'white',
+    },
   });
 
   static inputWarning = (): object => ({
     '& .sxctf-image-input': {
-      border: `2px solid ${Colors.statusWarning}`
-    }
+      border: `2px solid ${Colors.statusWarning}`,
+    },
   });
 
   static inputError = (): object => ({
     '& .sxctf-image-input': {
-      border: `2px solid ${Colors.statusFailure}`
-    }
+      border: `2px solid ${Colors.statusFailure}`,
+    },
   });
 
   static inputTitle = (): object => ({
     ...FontMixins.robotoSlabBold(),
     fontSize: 16,
-    color: Colors.spotPaletteBrown
+    color: Colors.spotPaletteBrown,
   });
 
   static rightInput = (widthPercentage: number): object => ({
@@ -159,8 +159,8 @@ class Mixins {
     paddingRight: 10,
 
     '& .sxctf-image-input': {
-      width: '100%'
-    }
+      width: '100%',
+    },
   });
 
   static leftInput = (widthPercentage: number): object => ({
@@ -168,24 +168,24 @@ class Mixins {
     paddingLeft: 10,
 
     '& .sxctf-image-input': {
-      width: '100%'
-    }
+      width: '100%',
+    },
   });
 
   static mobileInput = (): object => ({
     flexBasis: 'auto',
     paddingRight: 0,
-    paddingLeft: 0
+    paddingLeft: 0,
   });
 
   static mobileRightInput = (widthPercentage: number): object => ({
     flexBasis: `${widthPercentage}%`,
-    paddingRight: 10
+    paddingRight: 10,
   });
 
   static mobileLeftInput = (widthPercentage: number): object => ({
     flexBasis: `${widthPercentage}%`,
-    paddingLeft: 10
+    paddingLeft: 10,
   });
 
   static inputTip = (): object => ({
@@ -193,7 +193,7 @@ class Mixins {
     color: Colors.sxctfRed,
     fontSize: 13,
     maxWidth: 325,
-    margin: '8px 0'
+    margin: '8px 0',
   });
 
   static formTitle = (): object => ({
@@ -201,19 +201,19 @@ class Mixins {
     width: 700,
     margin: '50px auto 0 auto',
     fontSize: 24,
-    color: '#333'
+    color: '#333',
   });
 
   static formActions = (): object => ({
     display: 'flex',
     justifyContent: 'flex-end',
-    marginTop: 50
+    marginTop: 50,
   });
 
   static textArea = (): object => ({
     border: 'none',
     width: '100%',
-    padding: '6px 20px'
+    padding: '6px 20px',
   });
 
   static profilePicture = (): object => ({
@@ -225,14 +225,14 @@ class Mixins {
     transition: 'border 0.5s ease',
 
     '&:hover': {
-      border: '3px solid #333'
+      border: '3px solid #333',
     },
 
     '& > img': {
       width: '100%',
       height: '100%',
-      borderRadius: '50%'
-    }
+      borderRadius: '50%',
+    },
   });
 
   static modal = (): object => ({
@@ -245,9 +245,9 @@ class Mixins {
       fontSize: 18,
 
       '& b': {
-        ...FontMixins.robotoSlabBold()
-      }
-    }
+        ...FontMixins.robotoSlabBold(),
+      },
+    },
   });
 
   static modalButtons = (): object => ({
@@ -257,14 +257,14 @@ class Mixins {
 
     '& button': {
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
     },
 
     '& > .aj-contained-button, & > .aj-outlined-button, & > .aj-text-button': {
       '& p': {
-        margin: 0
-      }
-    }
+        margin: 0,
+      },
+    },
   });
 
   static saintsXCTFLink = (): object => ({
@@ -275,16 +275,16 @@ class Mixins {
 
     '&:hover': {
       color: Colors.sxctfRed,
-      textDecoration: 'underline'
-    }
+      textDecoration: 'underline',
+    },
   });
 
   static submitButton = (): object => ({
     marginRight: 20,
 
     '& p': {
-      margin: 0
-    }
+      margin: 0,
+    },
   });
 
   static disabledButton = (): object => ({
@@ -292,12 +292,12 @@ class Mixins {
 
     '& > button': {
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
     },
 
     '& p': {
-      color: '#555'
-    }
+      color: '#555',
+    },
   });
 
   static buttonSpinner = (): object => ({
@@ -306,16 +306,16 @@ class Mixins {
 
     '&:before': {
       border: `solid 4px ${color(Colors.spotPaletteBrown).lighten(0.75).hex()}`,
-      borderTopColor: Colors.spotPaletteBrown
-    }
+      borderTopColor: Colors.spotPaletteBrown,
+    },
   });
 
   static defaultPage = (): object => ({
     backgroundColor: Colors.lightBackground,
 
     '& .sxctf-home-footer': {
-      backgroundColor: Colors.lightBackground
-    }
+      backgroundColor: Colors.lightBackground,
+    },
   });
 
   static defaultBody = (): object => ({
@@ -323,12 +323,12 @@ class Mixins {
     flexDirection: 'column',
     minHeight: 'calc(100vh - 100px)',
     backgroundColor: Colors.lightBackground,
-    margin: '100px 6% 0 6%'
+    margin: '100px 6% 0 6%',
   });
 
   static defaultBodyMobile = (): object => ({
     margin: '75px 0 0 0',
-    minHeight: 'calc(100vh - 75px)'
+    minHeight: 'calc(100vh - 75px)',
   });
 
   static profileAndGroupBody = (): object => ({
@@ -338,13 +338,13 @@ class Mixins {
 
     '& > aside': {
       flexBasis: '20%',
-      marginRight: 40
+      marginRight: 40,
     },
 
     '& > section': {
       flexBasis: '80%',
-      margin: '0 20px'
-    }
+      margin: '0 20px',
+    },
   });
 
   static profileAndGroupBodyDesktopMedium = (): object => ({
@@ -352,17 +352,17 @@ class Mixins {
 
     '& > aside': {
       flexBasis: '30%',
-      marginRight: 20
+      marginRight: 20,
     },
 
     '& > section': {
       flexBasis: '70%',
-      margin: 0
-    }
+      margin: 0,
+    },
   });
 
   static profileAndGroupBodyDesktopSmall = (): object => ({
-    margin: '100px 2% 0 2%'
+    margin: '100px 2% 0 2%',
   });
 
   static profileAndGroupBodyTablet = (): object => ({
@@ -371,39 +371,39 @@ class Mixins {
     '& > aside': {
       display: 'flex',
       marginRight: 0,
-      marginBottom: 20
+      marginBottom: 20,
     },
 
     '& .pictureTitleContainer': {
-      flexBasis: '30%'
+      flexBasis: '30%',
     },
 
     '& .flairList, & .memberships, & .tabs': {
-      display: 'none'
-    }
+      display: 'none',
+    },
   });
 
   static profileAndGroupBodyMobile = (): object => ({
     '& .pictureTitleContainer > figure': {
       width: 100,
       height: 100,
-      marginBottom: 10
+      marginBottom: 10,
     },
 
     '& .pictureTitleContainer > h5': {
-      fontSize: 18
+      fontSize: 18,
     },
 
     '& .pictureTitleContainer > div': {
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   });
 
   static profileAndGroupMobileTabs = (): object => ({
     display: 'flex',
     flexBasis: '70%',
     alignItems: 'flex-end',
-    margin: 30
+    margin: 30,
   });
 
   static containerBackground = (): object => ({
@@ -412,7 +412,7 @@ class Mixins {
     maxWidth: '700px',
     margin: '25px auto',
     borderRadius: '6px',
-    padding: '20px'
+    padding: '20px',
   });
 
   static blueLink = (): object => ({
@@ -423,8 +423,8 @@ class Mixins {
     cursor: 'pointer',
 
     '&:hover': {
-      textDecoration: 'underline'
-    }
+      textDecoration: 'underline',
+    },
   });
 
   static checkedIcon = (): object => ({
@@ -441,8 +441,8 @@ class Mixins {
       margin: 0,
       color: '#FFF',
       fontSize: 36,
-      marginTop: 6
-    }
+      marginTop: 6,
+    },
   });
 
   static successDescription = (): object => ({
@@ -450,7 +450,7 @@ class Mixins {
     marginTop: '15px !important',
     fontSize: '18px !important',
     textAlign: 'center',
-    maxWidth: 400
+    maxWidth: 400,
   });
 
   static loadingContainer = (): object => ({
@@ -460,8 +460,8 @@ class Mixins {
     '& .aj-loading-circle': {
       width: 30,
       height: 30,
-      backgroundColor: Colors.sxctfRed
-    }
+      backgroundColor: Colors.sxctfRed,
+    },
   });
 }
 
@@ -470,11 +470,11 @@ class AJComponentMixins {
     position: 'relative',
 
     '&.aj-select-open > div': {
-      borderRadius: '5px 5px 0 0'
+      borderRadius: '5px 5px 0 0',
     },
 
     '&.aj-select-closed > div': {
-      borderRadius: 5
+      borderRadius: 5,
     },
 
     '& > div': {
@@ -487,12 +487,12 @@ class AJComponentMixins {
 
       '& > div:nth-child(1)': {
         ...FontMixins.roboto(),
-        fontSize: 14
+        fontSize: 14,
       },
 
       '& > div:nth-child(2)': {
-        marginLeft: 'auto'
-      }
+        marginLeft: 'auto',
+      },
     },
 
     '& > ul': {
@@ -503,17 +503,17 @@ class AJComponentMixins {
         ...FontMixins.roboto(),
         fontSize: 14,
         textAlign: 'left',
-        paddingLeft: 10
+        paddingLeft: 10,
       },
 
       '& > li:nth-child(odd)': {
-        backgroundColor: Colors.lightBackground
+        backgroundColor: Colors.lightBackground,
       },
 
       '& > li:nth-child(even)': {
-        backgroundColor: Colors.lightestBackground
-      }
-    }
+        backgroundColor: Colors.lightestBackground,
+      },
+    },
   });
 }
 

@@ -20,7 +20,7 @@ const getFeatureFlags: () => FeatureValue[] = () => {
     if (name.startsWith('FEATURE_')) {
       flags.push({
         name: name.substring(8),
-        isActive: process.env[name] === 'true'
+        isActive: process.env[name] === 'true',
       });
     }
   }

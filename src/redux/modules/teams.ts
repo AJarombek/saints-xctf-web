@@ -89,7 +89,7 @@ type TeamActionTypes =
 // Reducer
 const initialState: TeamState = {
   team: {},
-  search: {}
+  search: {},
 };
 
 function getTeamRequestReducer(state: TeamState, action: GetTeamRequestAction): TeamState {
@@ -103,9 +103,9 @@ function getTeamRequestReducer(state: TeamState, action: GetTeamRequestAction): 
         ...existingTeamState,
         isFetching: true,
         lastUpdated: moment().unix(),
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -121,9 +121,9 @@ function getTeamSuccessReducer(state: TeamState, action: GetTeamSuccessAction): 
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: null,
-        ...action.team
-      }
-    }
+        ...action.team,
+      },
+    },
   };
 }
 
@@ -138,9 +138,9 @@ function getTeamFailureReducer(state: TeamState, action: GetTeamFailureAction): 
         ...existingTeamState,
         isFetching: false,
         lastUpdated: moment().unix(),
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -155,10 +155,10 @@ function getTeamGroupsRequestReducer(state: TeamState, action: GetTeamGroupsRequ
         ...existingTeamState,
         groups: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -174,10 +174,10 @@ function getTeamGroupsSuccessReducer(state: TeamState, action: GetTeamGroupsSucc
         groups: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          items: action.groups
-        }
-      }
-    }
+          items: action.groups,
+        },
+      },
+    },
   };
 }
 
@@ -193,10 +193,10 @@ function getTeamGroupsFailureReducer(state: TeamState, action: GetTeamGroupsFail
         groups: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -207,9 +207,9 @@ export function getSearchTeamsRequestReducer(state: TeamState, action: SearchTea
       ...state.search,
       [action.text]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -221,9 +221,9 @@ export function getSearchTeamsSuccessReducer(state: TeamState, action: SearchTea
       [action.text]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        items: action.teams
-      }
-    }
+        items: action.teams,
+      },
+    },
   };
 }
 
@@ -235,9 +235,9 @@ export function getSearchTeamsFailureReducer(state: TeamState, action: SearchTea
       [action.text]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -270,7 +270,7 @@ export default function reducer(state = initialState, action: TeamActionTypes): 
 export function getTeamRequest(teamName: string): GetTeamRequestAction {
   return {
     type: GET_TEAM_REQUEST,
-    teamName
+    teamName,
   };
 }
 
@@ -278,7 +278,7 @@ export function getTeamSuccess(team: Team, teamName: string): GetTeamSuccessActi
   return {
     type: GET_TEAM_SUCCESS,
     team,
-    teamName
+    teamName,
   };
 }
 
@@ -286,14 +286,14 @@ export function getTeamFailure(serverError: string, teamName: string): GetTeamFa
   return {
     type: GET_TEAM_FAILURE,
     serverError,
-    teamName
+    teamName,
   };
 }
 
 export function getTeamGroupsRequest(teamName: string): GetTeamGroupsRequestAction {
   return {
     type: GET_TEAM_GROUPS_REQUEST,
-    teamName
+    teamName,
   };
 }
 
@@ -301,7 +301,7 @@ export function getTeamGroupsSuccess(groups: Group[], teamName: string): GetTeam
   return {
     type: GET_TEAM_GROUPS_SUCCESS,
     groups,
-    teamName
+    teamName,
   };
 }
 
@@ -309,14 +309,14 @@ export function getTeamGroupsFailure(serverError: string, teamName: string): Get
   return {
     type: GET_TEAM_GROUPS_FAILURE,
     serverError,
-    teamName
+    teamName,
   };
 }
 
 export function searchTeamsRequest(text: string): SearchTeamsRequestAction {
   return {
     type: SEARCH_TEAMS_REQUEST,
-    text
+    text,
   };
 }
 
@@ -324,7 +324,7 @@ export function searchTeamsSuccess(teams: Team[], text: string): SearchTeamsSucc
   return {
     type: SEARCH_TEAMS_SUCCESS,
     teams,
-    text
+    text,
   };
 }
 
@@ -332,7 +332,7 @@ export function searchTeamsFailure(serverError: string, text: string): SearchTea
   return {
     type: SEARCH_TEAMS_FAILURE,
     serverError,
-    text
+    text,
   };
 }
 

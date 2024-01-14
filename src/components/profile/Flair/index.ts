@@ -1,3 +1,3 @@
-import Flair from "./Flair";
+import Flair from './Flair';
 
 export default Flair;

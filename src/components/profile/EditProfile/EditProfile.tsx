@@ -180,7 +180,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
       location,
       favorite_event: favoriteEvent,
       email,
-      week_start: weekStart
+      week_start: weekStart,
     };
 
     const updatedUser = (await dispatch(putUser(newUser))) as User;

@@ -8,6 +8,6 @@ import Mixins from '../../styles/mixins';
 
 export default {
   editLog: {
-    ...Mixins.defaultPage()
-  }
+    ...Mixins.defaultPage(),
+  },
 };

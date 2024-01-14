@@ -19,7 +19,7 @@ export default {
       margin: '2px 0',
       color: Colors.sxctfRed,
       ...FontMixins.robotoSlabBold(),
-      fontSize: 13
-    }
-  }
+      fontSize: 13,
+    },
+  },
 };

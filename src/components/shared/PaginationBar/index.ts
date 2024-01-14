@@ -1,3 +1,3 @@
-import PaginationBar from "./PaginationBar";
+import PaginationBar from './PaginationBar';
 
 export default PaginationBar;

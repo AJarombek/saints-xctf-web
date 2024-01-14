@@ -7,5 +7,5 @@
 import { Modules } from '../../../styles/modules';
 
 export default {
-  ...Modules.membershipModal()
+  ...Modules.membershipModal(),
 };

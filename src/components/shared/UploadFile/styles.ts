@@ -19,40 +19,40 @@ export default {
     cursor: 'pointer',
     width: 420,
     height: 150,
-    borderRadius: 4
+    borderRadius: 4,
   },
   uploadFileBoxDrag: {
-    border: `2px dashed ${color(Colors.spotPaletteBrown).darken(0.2).hex()}`
+    border: `2px dashed ${color(Colors.spotPaletteBrown).darken(0.2).hex()}`,
   },
   uploadFileBoxEmpty: {
-    border: `2px dashed ${Colors.spotPaletteBrown}`
+    border: `2px dashed ${Colors.spotPaletteBrown}`,
   },
   hiddenInput: {
-    display: 'none'
+    display: 'none',
   },
   uploadText: {
     ...FontMixins.robotoSlabThin(),
-    fontSize: 16
+    fontSize: 16,
   },
   uploadTextDrag: {
-    color: color(Colors.spotPaletteBrown).darken(0.2).hex()
+    color: color(Colors.spotPaletteBrown).darken(0.2).hex(),
   },
   uploadTextEmpty: {
-    color: Colors.spotPaletteBrown
+    color: Colors.spotPaletteBrown,
   },
   '@media screen and (max-width: 950px)': {
     uploadFile: {
-      width: 'auto'
-    }
+      width: 'auto',
+    },
   },
   '@media screen and (max-width: 840px)': {
     uploadFile: {
-      width: 420
-    }
+      width: 420,
+    },
   },
   '@media screen and (max-width: 450px)': {
     uploadFile: {
-      width: 'auto'
-    }
-  }
+      width: 'auto',
+    },
+  },
 };

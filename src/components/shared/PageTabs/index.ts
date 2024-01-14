@@ -1,3 +1,3 @@
-import PageTabs from "./PageTabs";
+import PageTabs from './PageTabs';
 
 export default PageTabs;

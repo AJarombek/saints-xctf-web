@@ -11,11 +11,11 @@ export default {
   weeklyChart: {},
   ...Modules.filters(),
   chart: {
-    ...FontMixins.robotoSlabThin()
+    ...FontMixins.robotoSlabThin(),
   },
   '@media screen and (max-width: 500px)': {
     filters: {
-      marginBottom: 20
-    }
-  }
+      marginBottom: 20,
+    },
+  },
 };

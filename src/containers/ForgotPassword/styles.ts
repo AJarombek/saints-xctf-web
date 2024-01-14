@@ -6,6 +6,6 @@
 
 export default {
   forgotPassword: {
-    backgroundColor: '#f5f5f5'
-  }
+    backgroundColor: '#f5f5f5',
+  },
 };

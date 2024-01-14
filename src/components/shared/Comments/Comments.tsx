@@ -42,7 +42,7 @@ const Comments: React.FunctionComponent<Props> = ({
   page,
   filterBy,
   bucket,
-  index
+  index,
 }) => {
   const classes = useStyles({ feel });
 
@@ -95,7 +95,7 @@ const Comments: React.FunctionComponent<Props> = ({
     prevErrorTime,
     user.first,
     user.last,
-    user.username
+    user.username,
   ]);
 
   const onTextAreaKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {

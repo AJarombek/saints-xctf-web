@@ -1,3 +1,3 @@
-import EditLog from "./EditLog";
+import EditLog from './EditLog';
 
 export default EditLog;

@@ -28,7 +28,7 @@ const StepSlider: React.FunctionComponent<Props> = ({ steps, value, onValueChang
 
   const classes = useStyles({
     stepCount: steps?.length ?? 0,
-    value
+    value,
   });
 
   const removeEventListeners = (): void => {
@@ -93,7 +93,7 @@ const StepSlider: React.FunctionComponent<Props> = ({ steps, value, onValueChang
           <div
             className={classes.vertex}
             style={{
-              backgroundColor: index < value ? color(steps[value].color).darken(0.25).hex() : '#BBB'
+              backgroundColor: index < value ? color(steps[value].color).darken(0.25).hex() : '#BBB',
             }}
           >
             <div

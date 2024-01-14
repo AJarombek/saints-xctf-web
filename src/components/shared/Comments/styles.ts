@@ -12,12 +12,12 @@ export default {
   comments: {
     display: 'flex',
     alignItems: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   newCommentForm: {
     display: 'flex',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
   },
   newComment: {
     margin: '0 2%',
@@ -34,17 +34,17 @@ export default {
     resize: 'none',
 
     '&:focus': {
-      outline: 'none'
-    }
+      outline: 'none',
+    },
   },
   focusNewComment: {
-    width: 'calc(100% - 70px)'
+    width: 'calc(100% - 70px)',
   },
   blurNewComment: {
-    width: '100%'
+    width: '100%',
   },
   newCommentDisabled: {
-    backgroundColor: '#eee'
+    backgroundColor: '#eee',
   },
   addIcon: {
     display: 'flex',
@@ -62,58 +62,58 @@ export default {
     width: 30,
 
     '&:hover': {
-      boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)'
+      boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
     },
 
     '&:active': {
-      backgroundColor: color(Colors.spotPaletteBlue).darken(0.2).hex()
+      backgroundColor: color(Colors.spotPaletteBlue).darken(0.2).hex(),
     },
 
     '&:focus': {
-      outline: 'none'
+      outline: 'none',
     },
 
     '& > p': {
       ...FontMixins.elegantIcons(),
       fontSize: 24,
       margin: 0,
-      textAlign: 'center'
-    }
+      textAlign: 'center',
+    },
   },
   addIconDisabled: {
     backgroundColor: '#ddd',
 
     '&:hover': {
-      boxShadow: 'none'
-    }
+      boxShadow: 'none',
+    },
   },
   commentList: {
     display: 'flex',
     margin: '10px 0 0 0',
     width: '100%',
-    flexDirection: 'column-reverse'
+    flexDirection: 'column-reverse',
   },
   comment: {
     width: '100%',
     borderTop: '1px solid #AAA',
     paddingTop: '2px',
-    paddingBottom: '8px'
+    paddingBottom: '8px',
   },
   commentHeader: {
     display: 'flex',
     alignItems: 'center',
-    width: '100%'
+    width: '100%',
   },
   titleLink: {
     ...FontMixins.robotoSlab(),
     color: '#333',
     textDecoration: 'underline',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   date: {
     ...FontMixins.robotoBold(),
     fontSize: 14,
-    margin: '0 0 0 auto'
+    margin: '0 0 0 auto',
   },
   commentBody: {
     margin: '5px 0',
@@ -128,22 +128,22 @@ export default {
       transition: 'color 0.4s ease',
 
       '&:hover': {
-        color: color(Colors.spotPaletteBrown).darken(0.2).hex()
-      }
-    }
+        color: color(Colors.spotPaletteBrown).darken(0.2).hex(),
+      },
+    },
   },
   '@media screen and (max-width: 460px)': {
     newComment: {
-      fontSize: 12
+      fontSize: 12,
     },
     titleLink: {
-      fontSize: 14
+      fontSize: 14,
     },
     date: {
-      fontSize: 12
+      fontSize: 12,
     },
     commentBody: {
-      fontSize: 12
-    }
-  }
+      fontSize: 12,
+    },
+  },
 };

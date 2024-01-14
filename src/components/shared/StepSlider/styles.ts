@@ -10,27 +10,27 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    height: 24
+    height: 24,
   },
   step: {
     display: 'flex',
     flexBasis: ({ stepCount }: { stepCount: number }): string => `${(stepCount / 100) * 100}%`,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   firstStep: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   mainEdge: {
     width: ({ stepCount }: { stepCount: number }): string => `${(1 - stepCount / 100) * 100}%`,
     height: 8,
     position: 'absolute',
     backgroundColor: '#BBB',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   edge: {
     height: 8,
-    width: 'calc(100% - 10px)'
+    width: 'calc(100% - 10px)',
   },
   vertex: {
     height: 12,
@@ -39,21 +39,21 @@ export default {
     backgroundColor: '#BBB',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   innerVertex: {
     height: 8,
     width: 8,
     borderRadius: '50%',
     position: 'absolute',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   filledEdge: {
     position: 'absolute',
     height: 12,
     width: ({ stepCount, value }: { stepCount: number; value: number }): string =>
       `${(100 / (stepCount - 1)) * value}%`,
-    top: -2
+    top: -2,
   },
   currentVertex: {
     marginLeft: ({ stepCount, value }: { stepCount: number; value: number }): string =>
@@ -69,12 +69,12 @@ export default {
     left: -10,
     cursor: 'pointer',
     backgroundColor: '#F2F2F2',
-    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)'
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.2)',
   },
   currentInnerVertex: {
     height: 12,
     width: 12,
     borderRadius: '50%',
-    cursor: 'pointer'
-  }
+    cursor: 'pointer',
+  },
 };

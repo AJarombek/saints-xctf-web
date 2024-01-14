@@ -27,7 +27,7 @@ interface Props {
 export enum GroupAdminTab {
   MANAGE_USERS = 'manage-users',
   SEND_ACTIVATION_CODE = 'send-activation-code',
-  EDIT_GROUP = 'edit-group'
+  EDIT_GROUP = 'edit-group',
 }
 
 const useStyles = createUseStyles(styles);
@@ -61,14 +61,14 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
       {
         tab: GroupAdminTab.MANAGE_USERS,
         onView: (): void => setTab(GroupAdminTab.MANAGE_USERS),
-        content: 'Manage Users'
+        content: 'Manage Users',
       },
       {
         tab: GroupAdminTab.SEND_ACTIVATION_CODE,
         onView: (): void => setTab(GroupAdminTab.SEND_ACTIVATION_CODE),
-        content: 'Send Activation Code'
+        content: 'Send Activation Code',
       },
-      { tab: GroupAdminTab.EDIT_GROUP, onView: (): void => setTab(GroupAdminTab.EDIT_GROUP), content: 'Edit Group' }
+      { tab: GroupAdminTab.EDIT_GROUP, onView: (): void => setTab(GroupAdminTab.EDIT_GROUP), content: 'Edit Group' },
     ],
     []
   );

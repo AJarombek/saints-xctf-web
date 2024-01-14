@@ -10,16 +10,20 @@ import React from 'react';
 import saints_xctf_logo from '../../../../assets/saintsxctf_logo.png';
 
 interface IProps {
-    showContactUs?: boolean;
+  showContactUs?: boolean;
 }
 
 const HomeFooter: React.FunctionComponent<IProps> = ({ showContactUs = true }) => {
   return (
     <div className="sxctf-home-footer">
-        {showContactUs && <a className="contact-us-link" href="mailto:andrew@jarombek.com">Contact Us</a>}
+      {showContactUs && (
+        <a className="contact-us-link" href="mailto:andrew@jarombek.com">
+          Contact Us
+        </a>
+      )}
       <a className="sxctf-logo-link" href="#">
         <figure className="sxctf-logo">
-          <img src={saints_xctf_logo} alt=""/>
+          <img src={saints_xctf_logo} alt="" />
         </figure>
       </a>
     </div>

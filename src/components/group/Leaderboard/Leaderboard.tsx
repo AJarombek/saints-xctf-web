@@ -15,7 +15,7 @@ import {
   LeaderboardItem as LeaderboardItemType,
   LeaderboardItemMeta,
   Leaderboards,
-  RootState
+  RootState,
 } from '../../../redux/types';
 import { getGroupLeaderboard } from '../../../redux/modules/groups';
 import FilterButtons from '../../shared/FilterButtons';
@@ -49,7 +49,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
     run: true,
     bike: false,
     swim: false,
-    other: false
+    other: false,
   });
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
             (selectedFilters.run ? item.miles_run : 0) +
             (selectedFilters.bike ? item.miles_biked : 0) +
             (selectedFilters.swim ? item.miles_swam : 0) +
-            (selectedFilters.other ? item.miles_other : 0)
+            (selectedFilters.other ? item.miles_other : 0),
         }))
         .sort((a: CurrentLeaderboardItem, b: CurrentLeaderboardItem) => b.value - a.value)
         .filter((item: CurrentLeaderboardItem) => item.value > 0) ?? []
@@ -105,7 +105,7 @@ const Leaderboard: React.FunctionComponent<Props> = ({ group }) => {
             { content: 'All Time', value: 'all' },
             { content: 'Past Year', value: 'year' },
             { content: 'Past Month', value: 'month' },
-            { content: 'Past Week', value: 'week' }
+            { content: 'Past Week', value: 'week' },
           ]}
           defaultOption={4}
           onClickListOption={(item: { content: string; value: string }): void =>

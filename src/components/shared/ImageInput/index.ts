@@ -1,4 +1,4 @@
-import ImageInput, {ImageInputStatus} from "./ImageInput";
+import ImageInput, { ImageInputStatus } from './ImageInput';
 
-export {ImageInputStatus};
+export { ImageInputStatus };
 export default ImageInput;

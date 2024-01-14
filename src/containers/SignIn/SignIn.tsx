@@ -32,7 +32,7 @@ const SignIn: React.FunctionComponent<Props> = () => {
         JSON.stringify({
           ...Object.values(users).filter((user) => !user.user?.isFetching && !user.user?.didInvalidate)[0]?.user,
           password: null,
-          salt: null
+          salt: null,
         })
       );
 

@@ -1,3 +1,3 @@
-import StepSlider from "./StepSlider";
+import StepSlider from './StepSlider';
 
 export default StepSlider;

@@ -9,13 +9,13 @@ import Mixins, { FontMixins } from '../../../styles/mixins';
 export default {
   registerComplete: {},
   checkedIcon: {
-    ...Mixins.checkedIcon()
+    ...Mixins.checkedIcon(),
   },
   successDescription: {
     ...Mixins.successDescription(),
-    ...FontMixins.robotoSlab()
+    ...FontMixins.robotoSlab(),
   },
   signInLink: {
-    ...Mixins.blueLink()
-  }
+    ...Mixins.blueLink(),
+  },
 };

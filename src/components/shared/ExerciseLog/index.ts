@@ -1,3 +1,3 @@
-import ExerciseLog from "./ExerciseLog";
+import ExerciseLog from './ExerciseLog';
 
 export default ExerciseLog;

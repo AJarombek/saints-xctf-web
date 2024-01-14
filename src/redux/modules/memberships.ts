@@ -90,7 +90,7 @@ type MembershipsActionTypes =
 const initialState: MembershipsState = {
   groups: {} as GroupMembers,
   updateMemberships: {},
-  deleteMemberships: {}
+  deleteMemberships: {},
 };
 
 function getGroupMembershipsRequestReducer(
@@ -102,8 +102,8 @@ function getGroupMembershipsRequestReducer(
     groups: {
       isFetching: true,
       lastUpdated: moment().unix(),
-      items: null
-    }
+      items: null,
+    },
   };
 }
 
@@ -117,8 +117,8 @@ function getGroupMembershipsSuccessReducer(
       isFetching: false,
       lastUpdated: moment().unix(),
       items: action.memberships,
-      serverError: null
-    }
+      serverError: null,
+    },
   };
 }
 
@@ -132,8 +132,8 @@ function getGroupMembershipsFailureReducer(
       isFetching: false,
       lastUpdated: moment().unix(),
       items: null,
-      serverError: action.serverError
-    }
+      serverError: action.serverError,
+    },
   };
 }
 
@@ -151,10 +151,10 @@ function putGroupMembershipRequestReducer(
         ...existingGroupIdState,
         [action.username]: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -173,10 +173,10 @@ function putGroupMembershipSuccessReducer(
         [action.username]: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          updated: true
-        }
-      }
-    }
+          updated: true,
+        },
+      },
+    },
   };
 }
 
@@ -196,10 +196,10 @@ function putGroupMembershipFailureReducer(
           isFetching: false,
           lastUpdated: moment().unix(),
           updated: false,
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -217,10 +217,10 @@ function deleteGroupMembershipRequestReducer(
         ...existingGroupIdState,
         [action.username]: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -239,10 +239,10 @@ function deleteGroupMembershipSuccessReducer(
         [action.username]: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          deleted: true
-        }
-      }
-    }
+          deleted: true,
+        },
+      },
+    },
   };
 }
 
@@ -262,10 +262,10 @@ function deleteGroupMembershipFailureReducer(
           isFetching: false,
           lastUpdated: moment().unix(),
           deleted: false,
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -300,21 +300,21 @@ export default function reducer(
 // Action Creators
 export function getGroupMembershipsRequest(): GetGroupMembershipsRequestAction {
   return {
-    type: GET_GROUP_MEMBERSHIPS_REQUEST
+    type: GET_GROUP_MEMBERSHIPS_REQUEST,
   };
 }
 
 export function getGroupMembershipsSuccess(memberships: GroupMember[]): GetGroupMembershipsSuccessAction {
   return {
     type: GET_GROUP_MEMBERSHIPS_SUCCESS,
-    memberships
+    memberships,
   };
 }
 
 export function getGroupMembershipsFailure(serverError: string): GetGroupMembershipsFailureAction {
   return {
     type: GET_GROUP_MEMBERSHIPS_FAILURE,
-    serverError
+    serverError,
   };
 }
 
@@ -322,7 +322,7 @@ export function putGroupMembershipRequest(groupId: number, username: string): Pu
   return {
     type: PUT_GROUP_MEMBERSHIP_REQUEST,
     groupId,
-    username
+    username,
   };
 }
 
@@ -330,7 +330,7 @@ export function putGroupMembershipSuccess(groupId: number, username: string): Pu
   return {
     type: PUT_GROUP_MEMBERSHIP_SUCCESS,
     groupId,
-    username
+    username,
   };
 }
 
@@ -343,7 +343,7 @@ export function putGroupMembershipFailure(
     type: PUT_GROUP_MEMBERSHIP_FAILURE,
     groupId,
     username,
-    serverError
+    serverError,
   };
 }
 
@@ -351,7 +351,7 @@ export function deleteGroupMembershipRequest(groupId: number, username: string):
   return {
     type: DELETE_GROUP_MEMBERSHIP_REQUEST,
     groupId,
-    username
+    username,
   };
 }
 
@@ -359,7 +359,7 @@ export function deleteGroupMembershipSuccess(groupId: number, username: string):
   return {
     type: DELETE_GROUP_MEMBERSHIP_SUCCESS,
     groupId,
-    username
+    username,
   };
 }
 
@@ -372,7 +372,7 @@ export function deleteGroupMembershipFailure(
     type: DELETE_GROUP_MEMBERSHIP_FAILURE,
     groupId,
     username,
-    serverError
+    serverError,
   };
 }
 

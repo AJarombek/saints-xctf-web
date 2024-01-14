@@ -33,7 +33,7 @@ const AcceptDenyModal: React.FunctionComponent<Props> = ({
   show,
   inProgress,
   member,
-  groupId
+  groupId,
 }) => {
   const classes = useStyles();
 

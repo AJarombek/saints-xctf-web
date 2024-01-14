@@ -12,45 +12,45 @@ export default {
 
     '& > h3': {
       ...FontMixins.robotoBold(),
-      marginBottom: 10
-    }
+      marginBottom: 10,
+    },
   },
   section: {
     display: 'flex',
 
     '& > p': {
-      margin: '4px 0'
+      margin: '4px 0',
     },
 
     '& > p:nth-child(1)': {
       ...FontMixins.robotoSlab(),
-      width: 200
+      width: 200,
     },
 
     '& > p:nth-child(2)': {
       ...FontMixins.robotoThin(),
       width: 125,
-      textAlign: 'end'
-    }
+      textAlign: 'end',
+    },
   },
   '@media screen and (max-width: 450px)': {
     stats: {
       '& > h3': {
-        fontSize: 16
-      }
+        fontSize: 16,
+      },
     },
     section: {
       '& > p': {
-        fontSize: 14
+        fontSize: 14,
       },
 
       '& > p:nth-child(1)': {
-        width: 160
+        width: 160,
       },
 
       '& > p:nth-child(2)': {
-        width: 100
-      }
-    }
-  }
+        width: 100,
+      },
+    },
+  },
 };

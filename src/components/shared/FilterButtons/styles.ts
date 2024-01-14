@@ -9,50 +9,50 @@ export default {
   '@media screen and (max-width: 900px)': {
     filterButtons: {
       '& .aj-contained-button': {
-        padding: '5px 10px'
+        padding: '5px 10px',
       },
       '& .aj-outlined-button': {
-        padding: '3px 10px'
+        padding: '3px 10px',
       },
       '& button': {
-        fontSize: 12
-      }
-    }
+        fontSize: 12,
+      },
+    },
   },
   '@media screen and (max-width: 750px)': {
     filterButtons: {
       '& .aj-contained-button': {
-        padding: 10
+        padding: 10,
       },
       '& .aj-outlined-button': {
-        padding: 8
+        padding: 8,
       },
       '& button': {
-        fontSize: 14
-      }
-    }
+        fontSize: 14,
+      },
+    },
   },
   '@media screen and (max-width: 500px)': {
     filterButtons: {
       '& .aj-contained-button': {
-        padding: '5px 12px'
+        padding: '5px 12px',
       },
       '& .aj-outlined-button': {
-        padding: '3px 10px'
+        padding: '3px 10px',
       },
       '& button': {
-        fontSize: 12
-      }
-    }
+        fontSize: 12,
+      },
+    },
   },
   '@media screen and (max-width: 330px)': {
     filterButtons: {
       '& .aj-contained-button': {
-        padding: '2px 7px'
+        padding: '2px 7px',
       },
       '& .aj-outlined-button': {
-        padding: '0 5px'
-      }
-    }
-  }
+        padding: '0 5px',
+      },
+    },
+  },
 };

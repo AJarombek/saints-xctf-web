@@ -96,7 +96,7 @@ function registerPersonalInfoRequestReducer(state: RegistrationState): Registrat
     ...state,
     isFetching: true,
     lastUpdated: moment().unix(),
-    stage: 0
+    stage: 0,
   };
 }
 
@@ -114,7 +114,7 @@ function registerPersonalInfoSuccessReducer(
     stage: 1,
     first: action.first,
     last: action.last,
-    email: action.email
+    email: action.email,
   };
 }
 
@@ -129,7 +129,7 @@ function registerPersonalInfoFailureReducer(
     valid: false,
     status: action.status,
     serverError: action.serverError,
-    stage: 0
+    stage: 0,
   };
 }
 
@@ -138,7 +138,7 @@ function registerCredentialsRequestReducer(state: RegistrationState): Registrati
     ...state,
     isFetching: true,
     lastUpdated: moment().unix(),
-    stage: 1
+    stage: 1,
   };
 }
 
@@ -154,7 +154,7 @@ function registerCredentialsSuccessReducer(
     status: null,
     serverError: null,
     stage: 2,
-    username: action.username
+    username: action.username,
   };
 }
 
@@ -169,7 +169,7 @@ function registerCredentialsFailureReducer(
     valid: false,
     status: action.status,
     serverError: action.serverError,
-    stage: 1
+    stage: 1,
   };
 }
 
@@ -178,7 +178,7 @@ function registerBackReducer(state: RegistrationState): RegistrationState {
     ...state,
     isFetching: false,
     lastUpdated: moment().unix(),
-    stage: 0
+    stage: 0,
   };
 }
 
@@ -187,8 +187,8 @@ function welcomeEmailRequestReducer(state: RegistrationState): RegistrationState
     ...state,
     welcomeEmail: {
       isFetching: true,
-      lastUpdated: moment().unix()
-    }
+      lastUpdated: moment().unix(),
+    },
   };
 }
 
@@ -198,8 +198,8 @@ function welcomeEmailSuccessReducer(state: RegistrationState): RegistrationState
     welcomeEmail: {
       isFetching: false,
       lastUpdated: moment().unix(),
-      emailed: true
-    }
+      emailed: true,
+    },
   };
 }
 
@@ -210,8 +210,8 @@ function welcomeEmailFailureReducer(state: RegistrationState, action: WelcomeEma
       isFetching: false,
       lastUpdated: moment().unix(),
       emailed: false,
-      serverError: action.serverError
-    }
+      serverError: action.serverError,
+    },
   };
 }
 
@@ -245,7 +245,7 @@ export default function reducer(state = initialState, action: RegistrationAction
 // Action Creators
 export function registerPersonalInfoRequest(): RegisterPersonalInfoRequestAction {
   return {
-    type: REGISTER_PERSONAL_INFO_REQUEST
+    type: REGISTER_PERSONAL_INFO_REQUEST,
   };
 }
 
@@ -258,7 +258,7 @@ export function registerPersonalInfoSuccess(
     type: REGISTER_PERSONAL_INFO_SUCCESS,
     email,
     first,
-    last
+    last,
   };
 }
 
@@ -266,20 +266,20 @@ export function registerPersonalInfoFailure(status: string, serverError: string)
   return {
     type: REGISTER_PERSONAL_INFO_FAILURE,
     status,
-    serverError
+    serverError,
   };
 }
 
 export function registerCredentialsRequest(): RegisterCredentialsRequestAction {
   return {
-    type: REGISTER_CREDENTIALS_REQUEST
+    type: REGISTER_CREDENTIALS_REQUEST,
   };
 }
 
 export function registerCredentialsSuccess(username: string): RegisterCredentialsSuccessAction {
   return {
     type: REGISTER_CREDENTIALS_SUCCESS,
-    username
+    username,
   };
 }
 
@@ -287,32 +287,32 @@ export function registerCredentialsFailure(status: string, serverError: string):
   return {
     type: REGISTER_CREDENTIALS_FAILURE,
     status,
-    serverError
+    serverError,
   };
 }
 
 export function registerBack(): RegisterBackAction {
   return {
-    type: REGISTER_BACK
+    type: REGISTER_BACK,
   };
 }
 
 export function welcomeEmailRequest(): WelcomeEmailRequestAction {
   return {
-    type: WELCOME_EMAIL_REQUEST
+    type: WELCOME_EMAIL_REQUEST,
   };
 }
 
 export function welcomeEmailSuccess(): WelcomeEmailSuccessAction {
   return {
-    type: WELCOME_EMAIL_SUCCESS
+    type: WELCOME_EMAIL_SUCCESS,
   };
 }
 
 export function welcomeEmailFailure(serverError: string): WelcomeEmailFailureAction {
   return {
     type: WELCOME_EMAIL_FAILURE,
-    serverError
+    serverError,
   };
 }
 
@@ -409,7 +409,7 @@ export function registerCredentials(
           first,
           last,
           email,
-          activation_code: activationCode
+          activation_code: activationCode,
         });
 
         dispatch(registerCredentialsSuccess(username));

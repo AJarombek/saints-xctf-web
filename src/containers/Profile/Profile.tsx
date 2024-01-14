@@ -92,7 +92,7 @@ const Profile: React.FunctionComponent<Props> = () => {
     profileUser.user?.isFetching,
     profileUser.user?.serverError,
     profileUser.user?.username,
-    username
+    username,
   ]);
 
   if (users[auth.signedInUser]?.user?.username) {

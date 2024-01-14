@@ -8,5 +8,5 @@ import axios from 'axios';
 
 export const s3 = axios.create({
   baseURL: '/s3/',
-  timeout: 15000
+  timeout: 15000,
 });

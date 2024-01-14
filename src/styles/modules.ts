@@ -12,7 +12,7 @@ export class Modules {
     body: {
       display: 'flex',
       flexDirection: 'column',
-      margin: '20px 40px'
+      margin: '20px 40px',
     },
     title: {
       display: 'flex',
@@ -22,17 +22,17 @@ export class Modules {
         ...FontMixins.robotoSlab(),
 
         '& b': {
-          ...FontMixins.robotoSlabBold()
-        }
-      }
+          ...FontMixins.robotoSlabBold(),
+        },
+      },
     },
     buttons: {
       ...Mixins.modalButtons(),
 
       '& > .aj-contained-button': {
-        marginRight: 10
-      }
-    }
+        marginRight: 10,
+      },
+    },
   });
 
   static filters = (): Styles<
@@ -41,21 +41,21 @@ export class Modules {
     filters: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
     filterTitle: {
       ...FontMixins.robotoSlab(),
-      margin: '30px 40px 30px 0'
+      margin: '30px 40px 30px 0',
     },
     '@media screen and (max-width: 900px)': {
       filterTitle: {
-        margin: '20px 20px 20px 0'
-      }
+        margin: '20px 20px 20px 0',
+      },
     },
     '@media screen and (max-width: 450px)': {
       filterTitle: {
-        display: 'none'
-      }
-    }
+        display: 'none',
+      },
+    },
   });
 }

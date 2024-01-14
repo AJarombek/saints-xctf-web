@@ -15,7 +15,7 @@ import {
   RangeViewExerciseType,
   RangeViewExerciseTypeFilters,
   RangeViewItemsMeta,
-  UserMeta
+  UserMeta,
 } from '../../../redux/types';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 
@@ -79,7 +79,7 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user, mo
     end,
     filter,
     start,
-    user.username
+    user.username,
   ]);
 
   useEffect(() => {

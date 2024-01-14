@@ -1,3 +1,3 @@
-import ForgotPasswordResetBody from "./ForgotPasswordResetBody";
+import ForgotPasswordResetBody from './ForgotPasswordResetBody';
 
 export default ForgotPasswordResetBody;

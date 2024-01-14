@@ -10,10 +10,10 @@ import color from 'color';
 
 export default {
   newLogBody: {
-    ...Mixins.defaultBody()
+    ...Mixins.defaultBody(),
   },
   title: {
-    ...Mixins.formTitle()
+    ...Mixins.formTitle(),
   },
   logForm: {
     backgroundColor: ({ feel }: { feel: number }): string => color(FeelColors[feel]).alpha(0.8).string(),
@@ -21,24 +21,24 @@ export default {
     maxWidth: '700px',
     margin: '25px auto',
     borderRadius: '6px',
-    padding: '20px'
+    padding: '20px',
   },
   feel: {
     ...FontMixins.roboto(),
     color: '#737373',
     margin: 0,
-    textAlign: 'right'
+    textAlign: 'right',
   },
   inputTitle: {
-    ...Mixins.inputTitle()
+    ...Mixins.inputTitle(),
   },
   nameBody: {
     '& .sxctf-image-input': {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   twoInputs: {
-    display: 'flex'
+    display: 'flex',
   },
   metadata: {},
   locationInput: {
@@ -46,16 +46,16 @@ export default {
     paddingRight: 10,
 
     '& .sxctf-image-input': {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   dateInput: {
     flexBasis: '50%',
     paddingLeft: 10,
 
     '& .sxctf-image-input': {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   metrics: {},
   distanceInput: {
@@ -67,53 +67,53 @@ export default {
 
       '& > .sxctf-image-input': {
         flexBasis: '75%',
-        marginRight: 10
+        marginRight: 10,
       },
 
       '& > .aj-select': {
-        flexBasis: '25%'
-      }
-    }
+        flexBasis: '25%',
+      },
+    },
   },
   timeInput: {
     flexBasis: '33%',
-    paddingLeft: 10
+    paddingLeft: 10,
   },
   select: {
-    ...AJComponentMixins.ajSelect()
+    ...AJComponentMixins.ajSelect(),
   },
   textArea: {
     border: 'none',
     width: '100%',
-    padding: '6px 20px'
+    padding: '6px 20px',
   },
   actions: {
-    ...Mixins.formActions()
+    ...Mixins.formActions(),
   },
   submitButton: {
     display: 'flex !important',
     alignItems: 'center',
     justifyContent: 'center',
     width: 90,
-    marginRight: 20
+    marginRight: 20,
   },
   editButton: {
-    width: 140
+    width: 140,
   },
   createButton: {
-    width: 'auto'
+    width: 'auto',
   },
   cancelButton: {
-    marginRight: 10
+    marginRight: 10,
   },
   inputError: {
-    ...Mixins.inputError()
+    ...Mixins.inputError(),
   },
   inputWarning: {
-    ...Mixins.inputWarning()
+    ...Mixins.inputWarning(),
   },
   inputTip: {
-    ...Mixins.inputTip()
+    ...Mixins.inputTip(),
   },
   '@media screen and (max-width: 750px)': {
     timeInput: {
@@ -122,9 +122,9 @@ export default {
 
         '& > input': {
           width: 'auto',
-          minWidth: 50
-        }
-      }
+          minWidth: 50,
+        },
+      },
     },
     distanceInput: {
       '& .sxctf-image-input': {
@@ -132,60 +132,60 @@ export default {
 
         '& > input': {
           width: 'auto',
-          minWidth: 50
-        }
-      }
+          minWidth: 50,
+        },
+      },
     },
     dateInput: {
       '& > .sxctf-image-input > input': {
-        width: 'auto'
-      }
+        width: 'auto',
+      },
     },
     locationInput: {
       '& > .sxctf-image-input > input': {
-        width: 'auto'
-      }
-    }
+        width: 'auto',
+      },
+    },
   },
   '@media screen and (max-width: 720px)': {
     title: {
-      width: 'auto'
-    }
+      width: 'auto',
+    },
   },
   '@media screen and (max-width: 580px)': {
     metrics: {
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
     distanceInput: {
-      paddingRight: 0
+      paddingRight: 0,
     },
     timeInput: {
-      paddingLeft: 0
-    }
+      paddingLeft: 0,
+    },
   },
   '@media screen and (max-width: 490px)': {
     title: {
-      fontSize: 20
+      fontSize: 20,
     },
     inputTitle: {
-      fontSize: 14
+      fontSize: 14,
     },
     feel: {
-      fontSize: 14
+      fontSize: 14,
     },
     metadata: {
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
     locationInput: {
-      paddingRight: 0
+      paddingRight: 0,
     },
     dateInput: {
-      paddingLeft: 0
-    }
+      paddingLeft: 0,
+    },
   },
   '@media screen and (max-width: 390px)': {
     newLogBody: {
-      ...Mixins.defaultBodyMobile()
-    }
-  }
+      ...Mixins.defaultBodyMobile(),
+    },
+  },
 };

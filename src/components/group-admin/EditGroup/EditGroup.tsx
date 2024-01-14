@@ -89,7 +89,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
       group_title: group.group_title,
       grouppic_name: group.grouppic_name,
       description,
-      week_start: weekStart
+      week_start: weekStart,
     };
 
     const updatedGroup = (await dispatch(putGroup(newGroup))) as Group;
