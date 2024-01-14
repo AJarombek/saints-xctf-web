@@ -34,7 +34,7 @@ const AlertPopup: React.FunctionComponent<Props> = ({
       await timeout(autoCloseInterval);
       onClose();
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {

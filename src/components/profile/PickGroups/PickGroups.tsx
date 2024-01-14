@@ -55,7 +55,7 @@ const PickGroups: React.FunctionComponent<Props> = ({
           group_id: group.id,
           status: null,
           user: null,
-        }))
+        })),
     );
   }, [groups, otherGroups]);
 

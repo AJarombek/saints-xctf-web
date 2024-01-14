@@ -629,7 +629,7 @@ export function logFeedSuccess(
   bucket: string,
   logs: Log[],
   next: string,
-  pages: number
+  pages: number,
 ): LogFeedSuccessAction {
   return {
     type: LOG_FEED_SUCCESS,
@@ -646,7 +646,7 @@ export function logFeedFailure(
   page: number,
   filterBy: string,
   bucket: string,
-  serverError: string
+  serverError: string,
 ): LogFeedFailureAction {
   return {
     type: LOG_FEED_FAILURE,
@@ -815,7 +815,7 @@ export function addCommentToFeed(
   filterBy: string,
   bucket: string,
   page: number,
-  index: number
+  index: number,
 ): AddCommentToFeedAction {
   return {
     type: ADD_COMMENT_TO_FEED,
@@ -836,7 +836,7 @@ export function addComment(
   content: string,
   username: string,
   first: string,
-  last: string
+  last: string,
 ): AddCommentAction {
   return {
     type: ADD_COMMENT,
@@ -872,7 +872,7 @@ export function logFeed(
   filterBy: string,
   bucket: string,
   limit: number,
-  offset: number
+  offset: number,
 ): AppThunk<Promise<void>, LogsState> {
   return async function (dispatch: Dispatch): Promise<void> {
     const page = offset / limit + 1;
@@ -906,7 +906,7 @@ export function postLog(
   metric: string,
   time: string,
   feel: number,
-  description: string
+  description: string,
 ): AppThunk<Promise<number>, LogsState> {
   return async function (dispatch: Dispatch): Promise<number> {
     dispatch(postLogRequest());
@@ -954,7 +954,7 @@ export function putLog(
   metric: string,
   time: string,
   feel: number,
-  description: string
+  description: string,
 ): AppThunk<Promise<boolean>, LogsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putLogRequest(id));
@@ -1013,7 +1013,7 @@ export function postComment(
   username: string,
   first: string,
   last: string,
-  content: string
+  content: string,
 ): AppThunk<Promise<boolean>, LogsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(postCommentRequest(logId));

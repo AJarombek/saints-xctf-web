@@ -70,7 +70,7 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
       },
       { tab: GroupAdminTab.EDIT_GROUP, onView: (): void => setTab(GroupAdminTab.EDIT_GROUP), content: 'Edit Group' },
     ],
-    []
+    [],
   );
 
   return (

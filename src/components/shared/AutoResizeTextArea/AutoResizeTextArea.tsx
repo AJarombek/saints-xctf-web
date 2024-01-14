@@ -54,7 +54,7 @@ const AutoResizeTextArea = forwardRef<TRef, Props>(
         disabled={disabled}
       />
     );
-  }
+  },
 );
 
 export default AutoResizeTextArea;

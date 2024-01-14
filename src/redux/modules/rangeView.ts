@@ -177,7 +177,7 @@ export function getRangeViewRequest(
   bucket: string,
   exerciseTypes: string,
   start: string,
-  end: string
+  end: string,
 ): GetRangeViewRequestAction {
   return {
     type: GET_RANGE_VIEW_REQUEST,
@@ -195,7 +195,7 @@ export function getRangeViewSuccess(
   exerciseTypes: string,
   start: string,
   end: string,
-  items: RangeViewItem[]
+  items: RangeViewItem[],
 ): GetRangeViewSuccessAction {
   return {
     type: GET_RANGE_VIEW_SUCCESS,
@@ -214,7 +214,7 @@ export function getRangeViewFailure(
   exerciseTypes: string,
   start: string,
   end: string,
-  serverError: string
+  serverError: string,
 ): GetRangeViewFailureAction {
   return {
     type: GET_RANGE_VIEW_FAILURE,
@@ -239,7 +239,7 @@ export function getRangeView(
   bucket: string,
   exerciseTypes: string,
   start: string,
-  end: string
+  end: string,
 ): AppThunk<Promise<boolean>, RangeViewState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(getRangeViewRequest(filterBy, bucket, exerciseTypes, start, end));

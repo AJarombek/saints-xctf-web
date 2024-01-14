@@ -95,7 +95,7 @@ const initialState: MembershipsState = {
 
 function getGroupMembershipsRequestReducer(
   state: MembershipsState,
-  action: GetGroupMembershipsRequestAction
+  action: GetGroupMembershipsRequestAction,
 ): MembershipsState {
   return {
     ...state,
@@ -109,7 +109,7 @@ function getGroupMembershipsRequestReducer(
 
 function getGroupMembershipsSuccessReducer(
   state: MembershipsState,
-  action: GetGroupMembershipsSuccessAction
+  action: GetGroupMembershipsSuccessAction,
 ): MembershipsState {
   return {
     ...state,
@@ -124,7 +124,7 @@ function getGroupMembershipsSuccessReducer(
 
 function getGroupMembershipsFailureReducer(
   state: MembershipsState,
-  action: GetGroupMembershipsFailureAction
+  action: GetGroupMembershipsFailureAction,
 ): MembershipsState {
   return {
     ...state,
@@ -139,7 +139,7 @@ function getGroupMembershipsFailureReducer(
 
 function putGroupMembershipRequestReducer(
   state: MembershipsState,
-  action: PutGroupMembershipRequestAction
+  action: PutGroupMembershipRequestAction,
 ): MembershipsState {
   const existingGroupIdState = state.updateMemberships[action.groupId] ?? {};
 
@@ -160,7 +160,7 @@ function putGroupMembershipRequestReducer(
 
 function putGroupMembershipSuccessReducer(
   state: MembershipsState,
-  action: PutGroupMembershipSuccessAction
+  action: PutGroupMembershipSuccessAction,
 ): MembershipsState {
   const existingGroupIdState = state.updateMemberships[action.groupId] ?? {};
 
@@ -182,7 +182,7 @@ function putGroupMembershipSuccessReducer(
 
 function putGroupMembershipFailureReducer(
   state: MembershipsState,
-  action: PutGroupMembershipFailureAction
+  action: PutGroupMembershipFailureAction,
 ): MembershipsState {
   const existingGroupIdState = state.updateMemberships[action.groupId] ?? {};
 
@@ -205,7 +205,7 @@ function putGroupMembershipFailureReducer(
 
 function deleteGroupMembershipRequestReducer(
   state: MembershipsState,
-  action: DeleteGroupMembershipRequestAction
+  action: DeleteGroupMembershipRequestAction,
 ): MembershipsState {
   const existingGroupIdState = state.deleteMemberships[action.groupId] ?? {};
 
@@ -226,7 +226,7 @@ function deleteGroupMembershipRequestReducer(
 
 function deleteGroupMembershipSuccessReducer(
   state: MembershipsState,
-  action: DeleteGroupMembershipSuccessAction
+  action: DeleteGroupMembershipSuccessAction,
 ): MembershipsState {
   const existingGroupIdState = state.deleteMemberships[action.groupId] ?? {};
 
@@ -248,7 +248,7 @@ function deleteGroupMembershipSuccessReducer(
 
 function deleteGroupMembershipFailureReducer(
   state: MembershipsState,
-  action: DeleteGroupMembershipFailureAction
+  action: DeleteGroupMembershipFailureAction,
 ): MembershipsState {
   const existingGroupIdState = state.deleteMemberships[action.groupId] ?? {};
 
@@ -271,7 +271,7 @@ function deleteGroupMembershipFailureReducer(
 
 export default function reducer(
   state: MembershipsState = initialState,
-  action: MembershipsActionTypes
+  action: MembershipsActionTypes,
 ): MembershipsState {
   switch (action.type) {
     case GET_GROUP_MEMBERSHIPS_REQUEST:
@@ -337,7 +337,7 @@ export function putGroupMembershipSuccess(groupId: number, username: string): Pu
 export function putGroupMembershipFailure(
   groupId: number,
   username: string,
-  serverError: string
+  serverError: string,
 ): PutGroupMembershipFailureAction {
   return {
     type: PUT_GROUP_MEMBERSHIP_FAILURE,
@@ -366,7 +366,7 @@ export function deleteGroupMembershipSuccess(groupId: number, username: string):
 export function deleteGroupMembershipFailure(
   groupId: number,
   username: string,
-  serverError: string
+  serverError: string,
 ): DeleteGroupMembershipFailureAction {
   return {
     type: DELETE_GROUP_MEMBERSHIP_FAILURE,
@@ -399,7 +399,7 @@ export function getGroupMemberships(username: string): AppThunk<Promise<void>, M
 export function updateGroupMembership(
   groupMember: { user: string; status: string },
   groupId: number,
-  username: string
+  username: string,
 ): AppThunk<Promise<boolean>, MembershipsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putGroupMembershipRequest(groupId, username));

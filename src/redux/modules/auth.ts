@@ -246,7 +246,7 @@ function signInFailureReducer(state: AuthState, action: SignInFailureAction): Au
 
 function getForgotPasswordCodeValidationRequestReducer(
   state: AuthState,
-  action: GetForgotPasswordCodeValidationRequestAction
+  action: GetForgotPasswordCodeValidationRequestAction,
 ): AuthState {
   return {
     ...state,
@@ -262,7 +262,7 @@ function getForgotPasswordCodeValidationRequestReducer(
 
 function getForgotPasswordCodeValidationSuccessReducer(
   state: AuthState,
-  action: GetForgotPasswordCodeValidationSuccessAction
+  action: GetForgotPasswordCodeValidationSuccessAction,
 ): AuthState {
   return {
     ...state,
@@ -280,7 +280,7 @@ function getForgotPasswordCodeValidationSuccessReducer(
 
 function getForgotPasswordCodeValidationFailureReducer(
   state: AuthState,
-  action: GetForgotPasswordCodeValidationFailureAction
+  action: GetForgotPasswordCodeValidationFailureAction,
 ): AuthState {
   return {
     ...state,
@@ -595,7 +595,7 @@ export function getForgotPasswordCodeValidationRequest(code: string): GetForgotP
 export function getForgotPasswordCodeValidationSuccess(
   code: string,
   isValid: boolean,
-  username: string
+  username: string,
 ): GetForgotPasswordCodeValidationSuccessAction {
   return {
     type: GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS,
@@ -607,7 +607,7 @@ export function getForgotPasswordCodeValidationSuccess(
 
 export function getForgotPasswordCodeValidationFailure(
   code: string,
-  serverError: string
+  serverError: string,
 ): GetForgotPasswordCodeValidationFailureAction {
   return {
     type: GET_FORGOT_PASSWORD_CODE_VALIDATION_FAILURE,
@@ -686,7 +686,7 @@ export function activationCodeEmailSuccess(email: string, code: string): Activat
 export function activationCodeEmailFailure(
   email: string,
   code: string,
-  serverError: string
+  serverError: string,
 ): ActivationCodeEmailFailureAction {
   return {
     type: ACTIVATION_CODE_EMAIL_FAILURE,
@@ -851,7 +851,7 @@ export function createActivationCode(email: string, groupId: number): AppThunk<P
 }
 
 export const sendActivationCodeEmail = (email: string, code: string): AppThunk<Promise<boolean>, AuthState> => async (
-  dispatch: Dispatch
+  dispatch: Dispatch,
 ): Promise<boolean> => {
   dispatch(activationCodeEmailRequest(email, code));
 
@@ -877,7 +877,7 @@ export type ChangePasswordResult = {
 export function changeUserPassword(
   username: string,
   forgotPasswordCode: string,
-  newPassword: string
+  newPassword: string,
 ): AppThunk<Promise<ChangePasswordResult>, AuthState> {
   return async function (dispatch: Dispatch): Promise<ChangePasswordResult> {
     dispatch(changeUserPasswordRequest(username));

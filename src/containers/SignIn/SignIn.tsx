@@ -33,7 +33,7 @@ const SignIn: React.FunctionComponent<Props> = () => {
           ...Object.values(users).filter((user) => !user.user?.isFetching && !user.user?.didInvalidate)[0]?.user,
           password: null,
           salt: null,
-        })
+        }),
       );
 
       navigate('/dashboard');

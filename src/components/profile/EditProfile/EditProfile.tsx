@@ -208,7 +208,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
             className={classNames(
               classes.firstNameInput,
               firstNameStatus === ImageInputStatus.FAILURE && classes.inputError,
-              firstNameStatus === ImageInputStatus.WARNING && classes.inputWarning
+              firstNameStatus === ImageInputStatus.WARNING && classes.inputWarning,
             )}
           >
             <p className={classes.inputTitle}>First Name*</p>
@@ -234,7 +234,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
             className={classNames(
               classes.lastNameInput,
               lastNameStatus === ImageInputStatus.FAILURE && classes.inputError,
-              lastNameStatus === ImageInputStatus.WARNING && classes.inputWarning
+              lastNameStatus === ImageInputStatus.WARNING && classes.inputWarning,
             )}
           >
             <p className={classes.inputTitle}>Last Name*</p>
@@ -262,7 +262,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
             className={classNames(
               classes.emailInput,
               emailStatus === ImageInputStatus.FAILURE && classes.inputError,
-              emailStatus === ImageInputStatus.WARNING && classes.inputWarning
+              emailStatus === ImageInputStatus.WARNING && classes.inputWarning,
             )}
           >
             <p className={classes.inputTitle}>Email*</p>
@@ -374,7 +374,7 @@ const EditProfile: React.FunctionComponent<Props> = ({ user }) => {
             className={classNames(
               classes.submitButton,
               (updatingProfileDetails || !detailChangesMade || !firstName || !lastName || !email) &&
-                classes.disabledSubmitButton
+                classes.disabledSubmitButton,
             )}
           >
             <p>{updatingProfileDetails ? 'Saving Details...' : 'Save Details'}</p>

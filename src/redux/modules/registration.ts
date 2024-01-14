@@ -102,7 +102,7 @@ function registerPersonalInfoRequestReducer(state: RegistrationState): Registrat
 
 function registerPersonalInfoSuccessReducer(
   state: RegistrationState,
-  action: RegisterPersonalInfoSuccessAction
+  action: RegisterPersonalInfoSuccessAction,
 ): RegistrationState {
   return {
     ...state,
@@ -120,7 +120,7 @@ function registerPersonalInfoSuccessReducer(
 
 function registerPersonalInfoFailureReducer(
   state: RegistrationState,
-  action: RegisterPersonalInfoFailureAction
+  action: RegisterPersonalInfoFailureAction,
 ): RegistrationState {
   return {
     ...state,
@@ -144,7 +144,7 @@ function registerCredentialsRequestReducer(state: RegistrationState): Registrati
 
 function registerCredentialsSuccessReducer(
   state: RegistrationState,
-  action: RegisterCredentialsSuccessAction
+  action: RegisterCredentialsSuccessAction,
 ): RegistrationState {
   return {
     ...state,
@@ -160,7 +160,7 @@ function registerCredentialsSuccessReducer(
 
 function registerCredentialsFailureReducer(
   state: RegistrationState,
-  action: RegisterCredentialsFailureAction
+  action: RegisterCredentialsFailureAction,
 ): RegistrationState {
   return {
     ...state,
@@ -252,7 +252,7 @@ export function registerPersonalInfoRequest(): RegisterPersonalInfoRequestAction
 export function registerPersonalInfoSuccess(
   email: string,
   first: string,
-  last: string
+  last: string,
 ): RegisterPersonalInfoSuccessAction {
   return {
     type: REGISTER_PERSONAL_INFO_SUCCESS,
@@ -328,7 +328,7 @@ export function welcomeEmailFailure(serverError: string): WelcomeEmailFailureAct
 export function registerPersonalInfo(
   first: string,
   last: string,
-  email: string
+  email: string,
 ): AppThunk<Promise<void>, RegistrationState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(registerPersonalInfoRequest());
@@ -394,7 +394,7 @@ export function registerCredentials(
   email: string,
   username: string,
   password: string,
-  activationCode: string
+  activationCode: string,
 ): AppThunk<Promise<void>, RegistrationState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(registerCredentialsRequest());
@@ -431,7 +431,7 @@ export const sendWelcomeEmail = (
   email: string,
   first: string,
   last: string,
-  username: string
+  username: string,
 ): AppThunk<Promise<boolean>, RegistrationState> => async (dispatch: Dispatch): Promise<boolean> => {
   dispatch(welcomeEmailRequest());
 

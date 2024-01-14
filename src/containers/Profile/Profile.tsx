@@ -69,7 +69,7 @@ const Profile: React.FunctionComponent<Props> = () => {
   }, [username, users]);
 
   useSetTitle(
-    profileUser?.user?.username ? `${profileUser?.user?.first} ${profileUser?.user?.last} | SaintsXCTF` : 'SaintsXCTF'
+    profileUser?.user?.username ? `${profileUser?.user?.first} ${profileUser?.user?.last} | SaintsXCTF` : 'SaintsXCTF',
   );
 
   useEffect(() => {

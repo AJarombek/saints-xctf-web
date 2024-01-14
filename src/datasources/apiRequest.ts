@@ -25,7 +25,7 @@ export const interceptor = (store: Store): void => {
 
       return req;
     },
-    (error: AxiosError) => error
+    (error: AxiosError) => error,
   );
 
   api.interceptors.response.use(
@@ -40,6 +40,6 @@ export const interceptor = (store: Store): void => {
       } else {
         return Promise.reject(error);
       }
-    }
+    },
   );
 };

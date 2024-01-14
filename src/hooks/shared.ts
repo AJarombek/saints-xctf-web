@@ -23,7 +23,7 @@ export const useExerciseFilter = (selectedFilters: ExerciseFilters): RangeViewEx
   useEffect(() => {
     setFilter(
       (`${selectedFilters.run ? 'r' : ''}${selectedFilters.bike ? 'b' : ''}` +
-        `${selectedFilters.swim ? 's' : ''}${selectedFilters.other ? 'o' : ''}`) as RangeViewExerciseType
+        `${selectedFilters.swim ? 's' : ''}${selectedFilters.other ? 'o' : ''}`) as RangeViewExerciseType,
     );
   }, [selectedFilters]);
 
@@ -72,7 +72,7 @@ export const useAdminCheck = (redirect = true): boolean => {
   useEffect(() => {
     if (auth.signedInUser) {
       const adminCount = membershipInfo.items?.filter(
-        (member: GroupMember) => member.user === 'admin' && member.status === 'accepted'
+        (member: GroupMember) => member.user === 'admin' && member.status === 'accepted',
       ).length;
 
       if (!membershipInfo.isFetching && !membershipInfo.serverError && !membershipInfo.items) {

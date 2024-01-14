@@ -79,7 +79,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
   const fetchRangeView = useCallback(async () => {
     if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching && !currentRangeView?.serverError) {
       const result = await dispatch(
-        getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
+        getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')),
       );
 
       setError(!result);

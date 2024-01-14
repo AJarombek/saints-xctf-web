@@ -123,7 +123,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
       { tab: GroupTab.LEADERBOARD, onView: (): void => setTab(GroupTab.LEADERBOARD), content: 'Leaderboard' },
       { tab: GroupTab.DETAILS, onView: (): void => setTab(GroupTab.DETAILS), content: 'Details' },
     ],
-    []
+    [],
   );
 
   return (

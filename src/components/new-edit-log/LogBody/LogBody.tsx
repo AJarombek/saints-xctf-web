@@ -242,8 +242,8 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         metric,
         '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
         feel + 1,
-        description.trim()
-      )
+        description.trim(),
+      ),
     );
 
     if (logId) {
@@ -256,8 +256,8 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
           postNotification(
             username,
             `${user.first} ${user.last} mentioned you in an exercise log.`,
-            `/log/view/${logId}`
-          )
+            `/log/view/${logId}`,
+          ),
         );
       }
     }
@@ -275,8 +275,8 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
         metric,
         '00:00:00'.slice(0, 8 - formattedTime.length) + formattedTime,
         feel + 1,
-        description
-      )
+        description,
+      ),
     );
 
     if (logUpdated) {
@@ -299,8 +299,8 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
             postNotification(
               updatedLogTag,
               `${user.first} ${user.last} mentioned you in an edited exercise log.`,
-              `/log/view/${existingLog.log_id}`
-            )
+              `/log/view/${existingLog.log_id}`,
+            ),
           );
         }
       }
@@ -350,7 +350,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
           className={classNames(
             classes.nameBody,
             nameStatus === ImageInputStatus.FAILURE && classes.inputError,
-            nameStatus === ImageInputStatus.WARNING && classes.inputWarning
+            nameStatus === ImageInputStatus.WARNING && classes.inputWarning,
           )}
         >
           <p className={classes.inputTitle}>Exercise Name*</p>
@@ -384,7 +384,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
             className={classNames(
               classes.dateInput,
               dateStatus === ImageInputStatus.FAILURE && classes.inputError,
-              dateStatus === ImageInputStatus.WARNING && classes.inputWarning
+              dateStatus === ImageInputStatus.WARNING && classes.inputWarning,
             )}
           >
             <p className={classes.inputTitle}>Date*</p>
@@ -415,7 +415,7 @@ const LogBody: React.FunctionComponent<Props> = ({ user, existingLog }) => {
           <div
             className={classNames(
               classes.distanceInput,
-              distanceStatus === ImageInputStatus.WARNING && classes.inputWarning
+              distanceStatus === ImageInputStatus.WARNING && classes.inputWarning,
             )}
           >
             <p className={classes.inputTitle}>Distance</p>

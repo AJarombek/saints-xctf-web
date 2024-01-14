@@ -103,7 +103,7 @@ function getUserNotificationsRequestReducer(state: NotificationsState): Notifica
 
 function getUserNotificationsSuccessReducer(
   state: NotificationsState,
-  action: GetUserNotificationsSuccessAction
+  action: GetUserNotificationsSuccessAction,
 ): NotificationsState {
   return {
     ...state,
@@ -116,7 +116,7 @@ function getUserNotificationsSuccessReducer(
 
 function getUserNotificationsFailureReducer(
   state: NotificationsState,
-  action: GetUserNotificationsFailureAction
+  action: GetUserNotificationsFailureAction,
 ): NotificationsState {
   return {
     ...state,
@@ -139,7 +139,7 @@ function postNotificationRequestReducer(state: NotificationsState): Notification
 
 function postNotificationSuccessReducer(
   state: NotificationsState,
-  action: PostNotificationSuccessAction
+  action: PostNotificationSuccessAction,
 ): NotificationsState {
   return {
     ...state,
@@ -153,7 +153,7 @@ function postNotificationSuccessReducer(
 
 function postNotificationFailureReducer(
   state: NotificationsState,
-  action: PostNotificationFailureAction
+  action: PostNotificationFailureAction,
 ): NotificationsState {
   return {
     ...state,
@@ -168,7 +168,7 @@ function postNotificationFailureReducer(
 
 function putUserNotificationsRequestReducer(
   state: NotificationsState,
-  action: PutNotificationRequestAction
+  action: PutNotificationRequestAction,
 ): NotificationsState {
   return {
     ...state,
@@ -184,7 +184,7 @@ function putUserNotificationsRequestReducer(
 
 function putUserNotificationsSuccessReducer(
   state: NotificationsState,
-  action: PutNotificationSuccessAction
+  action: PutNotificationSuccessAction,
 ): NotificationsState {
   return {
     ...state,
@@ -201,7 +201,7 @@ function putUserNotificationsSuccessReducer(
 
 function putUserNotificationsFailureReducer(
   state: NotificationsState,
-  action: PutNotificationFailureAction
+  action: PutNotificationFailureAction,
 ): NotificationsState {
   return {
     ...state,
@@ -221,14 +221,14 @@ function viewNotificationReducer(state: NotificationsState, action: ViewNotifica
   return {
     ...state,
     items: state.items?.map((item: Notification) =>
-      action.id === item.notification_id ? { ...item, viewed: 'Y' } : item
+      action.id === item.notification_id ? { ...item, viewed: 'Y' } : item,
     ),
   };
 }
 
 export default function reducer(
   state: NotificationsState = initialState,
-  action: NotificationsActionTypes
+  action: NotificationsActionTypes,
 ): NotificationsState {
   switch (action.type) {
     case GET_USER_NOTIFICATIONS_REQUEST:
@@ -350,7 +350,7 @@ export function getUserNotifications(username: string): AppThunk<Promise<void>, 
 export function postNotification(
   username: string,
   description: string,
-  link: string
+  link: string,
 ): AppThunk<Promise<boolean>, NotificationsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(postNotificationRequest());

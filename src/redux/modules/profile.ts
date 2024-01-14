@@ -458,7 +458,7 @@ function postProfilePictureRequestReducer(state: ProfileState, action: PostProfi
 
 function postProfilePictureProgressReducer(
   state: ProfileState,
-  action: PostProfilePictureProgressAction
+  action: PostProfilePictureProgressAction,
 ): ProfileState {
   const user = state.users[action.username] ?? {};
   return {
@@ -788,7 +788,7 @@ export function postProfilePictureRequest(username: string, totalSize: number): 
 export function postProfilePictureProgress(
   username: string,
   totalSize: number,
-  uploadedSize: number
+  uploadedSize: number,
 ): PostProfilePictureProgressAction {
   return {
     type: POST_PROFILE_PICTURE_PROGRESS,
@@ -823,7 +823,7 @@ export function getUserMembershipsRequest(username: string): GetUserMembershipsR
 
 export function getUserMembershipsSuccess(
   username: string,
-  memberships: TeamMembership[]
+  memberships: TeamMembership[],
 ): GetUserMembershipsSuccessAction {
   return {
     type: GET_USER_MEMBERSHIPS_SUCCESS,
@@ -898,7 +898,7 @@ export function putUser(user: User): AppThunk<Promise<User>, ProfileState> {
           ...updatedUser,
           password: null,
           salt: null,
-        })
+        }),
       );
 
       return updatedUser;
@@ -1035,7 +1035,7 @@ export function updateUserMemberships(
   teamsJoined: string[],
   teamsLeft: string[],
   groupsJoined: TeamGroupMapping[],
-  groupsLeft: TeamGroupMapping[]
+  groupsLeft: TeamGroupMapping[],
 ): AppThunk<Promise<boolean>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putUserMembershipsRequest(username));

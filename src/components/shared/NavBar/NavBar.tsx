@@ -105,11 +105,11 @@ const NavBar: React.FunctionComponent<Props> = ({
   const stickyDropdownClass = stickyHeader
     ? classnames(
         classes.stickyDropdown,
-        stickyDropdownTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme
+        stickyDropdownTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme,
       )
     : classnames(
         classes.dryDropdown,
-        dryDropdownTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme
+        dryDropdownTheme === 'light' ? classes.lightDropdownTheme : classes.darkDropdownTheme,
       );
 
   const navBarClass = showDropdown

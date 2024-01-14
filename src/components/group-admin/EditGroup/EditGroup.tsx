@@ -157,7 +157,7 @@ const EditGroup: React.FunctionComponent<Props> = ({ group }) => {
             onClick={onSubmitDetails}
             className={classNames(
               classes.submitButton,
-              (!detailChangesMade || updatingGroupDetails) && classes.disabledSubmitButton
+              (!detailChangesMade || updatingGroupDetails) && classes.disabledSubmitButton,
             )}
           >
             <p>{updatingGroupDetails ? 'Saving Details...' : 'Save Details'}</p>

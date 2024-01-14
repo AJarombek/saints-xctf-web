@@ -712,7 +712,7 @@ export function getGroupStatsFailure(serverError: string, groupId: number): GetG
 
 export function getGroupLeaderboardRequest(
   groupId: number,
-  interval: LeaderboardInterval
+  interval: LeaderboardInterval,
 ): GetGroupLeaderboardRequestAction {
   return {
     type: GET_GROUP_LEADERBOARD_REQUEST,
@@ -725,7 +725,7 @@ export function getGroupLeaderboardSuccess(
   leaderboardItems: LeaderboardItem[],
   groupId: number,
   interval: LeaderboardInterval,
-  serverWarning: string
+  serverWarning: string,
 ): GetGroupLeaderboardSuccessAction {
   return {
     type: GET_GROUP_LEADERBOARD_SUCCESS,
@@ -739,7 +739,7 @@ export function getGroupLeaderboardSuccess(
 export function getGroupLeaderboardFailure(
   serverError: string,
   groupId: number,
-  interval: LeaderboardInterval
+  interval: LeaderboardInterval,
 ): GetGroupLeaderboardFailureAction {
   return {
     type: GET_GROUP_LEADERBOARD_FAILURE,
@@ -782,7 +782,7 @@ export function postGroupPictureRequest(groupId: number): PostGroupPictureReques
 export function postGroupPictureProgress(
   groupId: number,
   totalSize: number,
-  uploadedSize: number
+  uploadedSize: number,
 ): PostGroupPictureProgressAction {
   return {
     type: POST_GROUP_PICTURE_PROGRESS,
@@ -892,7 +892,7 @@ export function getGroupStats(groupId: number): AppThunk<Promise<void>, GroupSta
 
 export function getGroupLeaderboard(
   groupId: number,
-  interval: LeaderboardInterval = null
+  interval: LeaderboardInterval = null,
 ): AppThunk<Promise<void>, GroupState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupLeaderboardRequest(groupId, interval));

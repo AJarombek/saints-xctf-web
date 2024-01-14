@@ -22,5 +22,5 @@ fn.interceptors.request.use(
 
     return req;
   },
-  (error: AxiosError) => error
+  (error: AxiosError) => error,
 );

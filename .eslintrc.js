@@ -38,7 +38,8 @@ module.exports = {
         "prettier/prettier": ["error", {
             "singleQuote": true,
             "printWidth": 120,
-            "trailingComma": "none",
+            "semi": true,
+            "trailingComma": "all",
         }]
     },
     ignorePatterns: ['webpack.config.js', 'webpack.parts.js', 'jest.config.js']
