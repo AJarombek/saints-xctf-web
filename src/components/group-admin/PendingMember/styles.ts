@@ -14,7 +14,7 @@ export default {
     marginBottom: 10,
     borderRadius: 4,
     boxShadow: 'rgba(170, 170, 170, 0.2) 0px 1px 3px',
-    backgroundColor: Colors.lightestBackground
+    backgroundColor: Colors.lightestBackground,
   },
   pendingMemberActions: {
     display: 'flex',
@@ -23,22 +23,22 @@ export default {
 
     '& > div': {
       padding: '5px 10px',
-      display: 'flex'
-    }
+      display: 'flex',
+    },
   },
   name: {
     ...FontMixins.robotoSlab(),
     fontSize: 16,
-    marginLeft: 15
+    marginLeft: 15,
   },
   '@media screen and (max-width: 450px)': {
     name: {
-      fontSize: 14
+      fontSize: 14,
     },
     pendingMemberActions: {
       '& button': {
-        fontSize: 12
-      }
-    }
-  }
+        fontSize: 12,
+      },
+    },
+  },
 };

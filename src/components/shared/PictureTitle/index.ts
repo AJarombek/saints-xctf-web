@@ -1,3 +1,3 @@
-import PictureTitle from "./PictureTitle";
+import PictureTitle from './PictureTitle';
 
 export default PictureTitle;

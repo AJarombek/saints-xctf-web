@@ -49,7 +49,7 @@ const RadioButton = forwardRef<TRef, Props>(
         </label>
       </div>
     );
-  }
+  },
 );
 
 export default RadioButton;

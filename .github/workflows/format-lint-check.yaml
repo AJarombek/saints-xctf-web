@@ -1,0 +1,32 @@
+name: Format and Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  
+  schedule:
+    - cron: "0 5 * * 5"
+
+  workflow_dispatch:
+
+jobs:
+  format_lint:
+    runs-on: ubuntu-latest
+    container: node:12.18.4
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Initialize Yarn
+        run: yarn
+
+      - name: Lint JavaScript Code
+        run: yarn lint
+
+      - name: Format JavaScript Code
+        run: yarn format:check

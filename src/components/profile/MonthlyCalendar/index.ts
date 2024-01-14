@@ -1,3 +1,3 @@
-import MonthlyCalendar from "./MonthlyCalendar";
+import MonthlyCalendar from './MonthlyCalendar';
 
 export default MonthlyCalendar;

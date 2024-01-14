@@ -8,6 +8,6 @@ import Mixins from '../../styles/mixins';
 
 export default {
   groupAdmin: {
-    ...Mixins.defaultPage()
-  }
+    ...Mixins.defaultPage(),
+  },
 };

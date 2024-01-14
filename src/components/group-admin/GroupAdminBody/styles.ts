@@ -11,74 +11,74 @@ export default {
     ...Mixins.profileAndGroupBody(),
 
     '& > aside > .tabs': {
-      width: 200
-    }
+      width: 200,
+    },
   },
   mobileTabs: {
-    display: 'none'
+    display: 'none',
   },
   select: {
-    ...AJComponentMixins.ajSelect()
+    ...AJComponentMixins.ajSelect(),
   },
   title: {
     ...FontMixins.robotoSlabBold(),
     fontSize: 20,
-    marginTop: 30
+    marginTop: 30,
   },
   subTitle: {
     ...FontMixins.robotoBold(),
     marginTop: 15,
-    color: '#777'
+    color: '#777',
   },
   text: {
-    marginLeft: 15
+    marginLeft: 15,
   },
   '@media screen and (max-width: 1200px)': {
     text: {
-      marginLeft: 10
-    }
+      marginLeft: 10,
+    },
   },
   '@media screen and (max-width: 900px)': {
     groupAdminBody: {
       '& > section': {
-        margin: 0
-      }
-    }
+        margin: 0,
+      },
+    },
   },
   '@media screen and (max-width: 750px)': {
     groupAdminBody: {
       flexDirection: 'column',
 
       '& > aside': {
-        display: 'flex'
+        display: 'flex',
       },
 
       '& > div:nth-child(1)': {
-        flexBasis: '30%'
+        flexBasis: '30%',
       },
 
       '& .tabs': {
-        display: 'none'
-      }
+        display: 'none',
+      },
     },
     mobileTabs: {
       ...Mixins.profileAndGroupMobileTabs(),
-      margin: '0 0 0 30px'
+      margin: '0 0 0 30px',
     },
     select: {
-      width: '100%'
-    }
+      width: '100%',
+    },
   },
   '@media screen and (max-width: 450px)': {
     mobileTabs: {
       '& > .aj-select > div': {
-        height: 60
-      }
-    }
+        height: 60,
+      },
+    },
   },
   '@media screen and (max-width: 390px)': {
     groupAdminBody: {
-      ...Mixins.defaultBodyMobile()
-    }
-  }
+      ...Mixins.defaultBodyMobile(),
+    },
+  },
 };

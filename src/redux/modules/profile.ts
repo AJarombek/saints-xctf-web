@@ -199,7 +199,7 @@ type ProfileActionTypes =
 
 // Reducer
 const initialState: ProfileState = {
-  users: {}
+  users: {},
 };
 
 function getUserRequestReducer(state: ProfileState, action: GetUserRequestAction): ProfileState {
@@ -212,10 +212,10 @@ function getUserRequestReducer(state: ProfileState, action: GetUserRequestAction
         ...user,
         user: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -230,10 +230,10 @@ function getUserSuccessReducer(state: ProfileState, action: GetUserSuccessAction
         user: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          ...action.user
-        }
-      }
-    }
+          ...action.user,
+        },
+      },
+    },
   };
 }
 
@@ -248,10 +248,10 @@ function getUserFailureReducer(state: ProfileState, action: GetUserFailureAction
         user: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -265,10 +265,10 @@ function putUserRequestReducer(state: ProfileState, action: PutUserRequestAction
         ...user,
         updating: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -283,15 +283,15 @@ function putUserSuccessReducer(state: ProfileState, action: PutUserSuccessAction
         updating: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          updated: true
+          updated: true,
         },
         user: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          ...action.user
-        }
-      }
-    }
+          ...action.user,
+        },
+      },
+    },
   };
 }
 
@@ -306,10 +306,10 @@ function putUserFailureReducer(state: ProfileState, action: PutUserFailureAction
         updating: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -324,10 +324,10 @@ function setUserReducer(state: ProfileState, action: SetUserAction): ProfileStat
         user: {
           ...action.user,
           isFetching: false,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -341,10 +341,10 @@ function getUserFlairRequestReducer(state: ProfileState, action: GetUserFlairReq
         ...user,
         flair: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -359,10 +359,10 @@ function getUserFlairSuccessReducer(state: ProfileState, action: GetUserFlairSuc
         flair: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          items: action.flair
-        }
-      }
-    }
+          items: action.flair,
+        },
+      },
+    },
   };
 }
 
@@ -377,10 +377,10 @@ function getUserFlairFailureReducer(state: ProfileState, action: GetUserFlairFai
         flair: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -394,10 +394,10 @@ function getUserStatsRequestReducer(state: ProfileState, action: GetUserStatsReq
         ...user,
         stats: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -412,10 +412,10 @@ function getUserStatsSuccessReducer(state: ProfileState, action: GetUserStatsSuc
         stats: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          ...action.stats
-        }
-      }
-    }
+          ...action.stats,
+        },
+      },
+    },
   };
 }
 
@@ -430,10 +430,10 @@ function getUserStatsFailureReducer(state: ProfileState, action: GetUserStatsFai
         stats: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -449,16 +449,16 @@ function postProfilePictureRequestReducer(state: ProfileState, action: PostProfi
           isFetching: true,
           lastUpdated: moment().unix(),
           uploadedSize: 0,
-          totalSize: action.totalSize
-        }
-      }
-    }
+          totalSize: action.totalSize,
+        },
+      },
+    },
   };
 }
 
 function postProfilePictureProgressReducer(
   state: ProfileState,
-  action: PostProfilePictureProgressAction
+  action: PostProfilePictureProgressAction,
 ): ProfileState {
   const user = state.users[action.username] ?? {};
   return {
@@ -471,10 +471,10 @@ function postProfilePictureProgressReducer(
           isFetching: true,
           lastUpdated: moment().unix(),
           uploadedSize: action.uploadedSize,
-          totalSize: action.totalSize
-        }
-      }
-    }
+          totalSize: action.totalSize,
+        },
+      },
+    },
   };
 }
 
@@ -491,10 +491,10 @@ function postProfilePictureSuccessReducer(state: ProfileState, action: PostProfi
           lastUpdated: moment().unix(),
           uploaded: true,
           uploadedSize: action.totalSize,
-          totalSize: action.totalSize
-        }
-      }
-    }
+          totalSize: action.totalSize,
+        },
+      },
+    },
   };
 }
 
@@ -510,10 +510,10 @@ function postProfilePictureFailureReducer(state: ProfileState, action: PostProfi
           isFetching: false,
           lastUpdated: moment().unix(),
           uploaded: false,
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -527,10 +527,10 @@ function getUserMembershipsRequestReducer(state: ProfileState, action: GetUserMe
         ...user,
         memberships: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -545,10 +545,10 @@ function getUserMembershipsSuccessReducer(state: ProfileState, action: GetUserMe
         memberships: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          teams: action.memberships
-        }
-      }
-    }
+          teams: action.memberships,
+        },
+      },
+    },
   };
 }
 
@@ -563,10 +563,10 @@ function getUserMembershipsFailureReducer(state: ProfileState, action: GetUserMe
         memberships: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -580,10 +580,10 @@ function putUserMembershipsRequestReducer(state: ProfileState, action: PutUserMe
         ...user,
         updateMemberships: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -598,10 +598,10 @@ function putUserMembershipsSuccessReducer(state: ProfileState, action: PutUserMe
         updateMemberships: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          updated: true
-        }
-      }
-    }
+          updated: true,
+        },
+      },
+    },
   };
 }
 
@@ -617,10 +617,10 @@ function putUserMembershipsFailureReducer(state: ProfileState, action: PutUserMe
           isFetching: false,
           lastUpdated: moment().unix(),
           updated: false,
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -681,7 +681,7 @@ export default function reducer(state = initialState, action: ProfileActionTypes
 export function getUserRequest(username: string): GetUserRequestAction {
   return {
     type: GET_USER_REQUEST,
-    username
+    username,
   };
 }
 
@@ -689,7 +689,7 @@ export function getUserSuccess(username: string, user: User): GetUserSuccessActi
   return {
     type: GET_USER_SUCCESS,
     username,
-    user
+    user,
   };
 }
 
@@ -697,14 +697,14 @@ export function getUserFailure(username: string, serverError: string): GetUserFa
   return {
     type: GET_USER_FAILURE,
     username,
-    serverError
+    serverError,
   };
 }
 
 export function putUserRequest(username: string): PutUserRequestAction {
   return {
     type: PUT_USER_REQUEST,
-    username
+    username,
   };
 }
 
@@ -712,7 +712,7 @@ export function putUserSuccess(username: string, user: User): PutUserSuccessActi
   return {
     type: PUT_USER_SUCCESS,
     username,
-    user
+    user,
   };
 }
 
@@ -720,21 +720,21 @@ export function putUserFailure(username: string, serverError: string): PutUserFa
   return {
     type: PUT_USER_FAILURE,
     username,
-    serverError
+    serverError,
   };
 }
 
 export function setUser(user: User): SetUserAction {
   return {
     type: SET_USER,
-    user
+    user,
   };
 }
 
 export function getUserFlairRequest(username: string): GetUserFlairRequestAction {
   return {
     type: GET_USER_FLAIR_REQUEST,
-    username
+    username,
   };
 }
 
@@ -742,7 +742,7 @@ export function getUserFlairSuccess(username: string, flair: Flair[]): GetUserFl
   return {
     type: GET_USER_FLAIR_SUCCESS,
     username,
-    flair
+    flair,
   };
 }
 
@@ -750,14 +750,14 @@ export function getUserFlairFailure(username: string, serverError: string): GetU
   return {
     type: GET_USER_FLAIR_FAILURE,
     username,
-    serverError
+    serverError,
   };
 }
 
 export function getUserStatsRequest(username: string): GetUserStatsRequestAction {
   return {
     type: GET_USER_STATS_REQUEST,
-    username
+    username,
   };
 }
 
@@ -765,7 +765,7 @@ export function getUserStatsSuccess(username: string, stats: Stats[]): GetUserSt
   return {
     type: GET_USER_STATS_SUCCESS,
     username,
-    stats
+    stats,
   };
 }
 
@@ -773,7 +773,7 @@ export function getUserStatsFailure(username: string, serverError: string): GetU
   return {
     type: GET_USER_STATS_FAILURE,
     username,
-    serverError
+    serverError,
   };
 }
 
@@ -781,20 +781,20 @@ export function postProfilePictureRequest(username: string, totalSize: number): 
   return {
     type: POST_PROFILE_PICTURE_REQUEST,
     username,
-    totalSize
+    totalSize,
   };
 }
 
 export function postProfilePictureProgress(
   username: string,
   totalSize: number,
-  uploadedSize: number
+  uploadedSize: number,
 ): PostProfilePictureProgressAction {
   return {
     type: POST_PROFILE_PICTURE_PROGRESS,
     username,
     totalSize,
-    uploadedSize
+    uploadedSize,
   };
 }
 
@@ -802,7 +802,7 @@ export function postProfilePictureSuccess(username: string, totalSize: number): 
   return {
     type: POST_PROFILE_PICTURE_SUCCESS,
     username,
-    totalSize
+    totalSize,
   };
 }
 
@@ -810,25 +810,25 @@ export function postProfilePictureFailure(username: string, serverError: string)
   return {
     type: POST_PROFILE_PICTURE_FAILURE,
     username,
-    serverError
+    serverError,
   };
 }
 
 export function getUserMembershipsRequest(username: string): GetUserMembershipsRequestAction {
   return {
     type: GET_USER_MEMBERSHIPS_REQUEST,
-    username
+    username,
   };
 }
 
 export function getUserMembershipsSuccess(
   username: string,
-  memberships: TeamMembership[]
+  memberships: TeamMembership[],
 ): GetUserMembershipsSuccessAction {
   return {
     type: GET_USER_MEMBERSHIPS_SUCCESS,
     username,
-    memberships
+    memberships,
   };
 }
 
@@ -836,21 +836,21 @@ export function getUserMembershipsFailure(username: string, serverError: string)
   return {
     type: GET_USER_MEMBERSHIPS_FAILURE,
     username,
-    serverError
+    serverError,
   };
 }
 
 export function putUserMembershipsRequest(username: string): PutUserMembershipsRequestAction {
   return {
     type: PUT_USER_MEMBERSHIPS_REQUEST,
-    username
+    username,
   };
 }
 
 export function putUserMembershipsSuccess(username: string): PutUserMembershipsSuccessAction {
   return {
     type: PUT_USER_MEMBERSHIPS_SUCCESS,
-    username
+    username,
   };
 }
 
@@ -858,7 +858,7 @@ export function putUserMembershipsFailure(username: string, serverError: string)
   return {
     type: PUT_USER_MEMBERSHIPS_FAILURE,
     username,
-    serverError
+    serverError,
   };
 }
 
@@ -897,8 +897,8 @@ export function putUser(user: User): AppThunk<Promise<User>, ProfileState> {
         JSON.stringify({
           ...updatedUser,
           password: null,
-          salt: null
-        })
+          salt: null,
+        }),
       );
 
       return updatedUser;
@@ -987,8 +987,8 @@ export function uploadProfilePicture(username: string, file: File): AppThunk<Pro
           dispatch(postProfilePictureProgress(username, totalSize, uploadedSize));
         },
         headers: {
-          'Content-Type': file.type
-        }
+          'Content-Type': file.type,
+        },
       };
 
       const s3UploadUrl = uploadUrl.replace('https://s3.amazonaws.com/', '');
@@ -1035,7 +1035,7 @@ export function updateUserMemberships(
   teamsJoined: string[],
   teamsLeft: string[],
   groupsJoined: TeamGroupMapping[],
-  groupsLeft: TeamGroupMapping[]
+  groupsLeft: TeamGroupMapping[],
 ): AppThunk<Promise<boolean>, ProfileState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putUserMembershipsRequest(username));
@@ -1045,7 +1045,7 @@ export function updateUserMemberships(
         teams_joined: teamsJoined,
         teams_left: teamsLeft,
         groups_joined: groupsJoined,
-        groups_left: groupsLeft
+        groups_left: groupsLeft,
       });
 
       dispatch(putUserMembershipsSuccess(username));

@@ -28,7 +28,7 @@ const Accordion: React.FunctionComponent<Props> = ({
   children,
   onClick,
   expandable = true,
-  defaultState = false
+  defaultState = false,
 }) => {
   const classes = useStyles();
 

@@ -9,7 +9,7 @@ import {
   ChangePasswordResult,
   changeUserPassword,
   validateForgotPasswordCode,
-  ValidateForgotPasswordResult
+  ValidateForgotPasswordResult,
 } from '../../../redux/modules/auth';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';
@@ -101,7 +101,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
   const onVerify = async (): Promise<void> => {
     setValidatingCode(true);
     const { isValid, error } = (await dispatch(
-      validateForgotPasswordCode(enteredCode)
+      validateForgotPasswordCode(enteredCode),
     )) as ValidateForgotPasswordResult;
     setValidatingCode(false);
 
@@ -156,7 +156,7 @@ const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
       setPasswordConfirmStatus(ImageInputStatus.NONE);
       setSubmittingNewPassword(true);
       const { passwordUpdated, error } = (await dispatch(
-        changeUserPassword(forgotPasswordCodeUsername, forgotPasswordCode, password)
+        changeUserPassword(forgotPasswordCodeUsername, forgotPasswordCode, password),
       )) as ChangePasswordResult;
 
       if (passwordUpdated) {

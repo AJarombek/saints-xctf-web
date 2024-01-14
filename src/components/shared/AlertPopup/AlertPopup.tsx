@@ -25,7 +25,7 @@ const AlertPopup: React.FunctionComponent<Props> = ({
   onClose,
   type,
   closeable = false,
-  autoCloseInterval = 0
+  autoCloseInterval = 0,
 }) => {
   const classes = useStyles({ type });
 
@@ -34,7 +34,7 @@ const AlertPopup: React.FunctionComponent<Props> = ({
       await timeout(autoCloseInterval);
       onClose();
     },
-    [onClose]
+    [onClose],
   );
 
   useEffect(() => {

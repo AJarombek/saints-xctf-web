@@ -20,7 +20,7 @@ interface Props {
 const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictureUrl, setPictureChangesMade }) => {
   const dispatch = useDispatch();
   const uploadingGroupPictures: Record<string, UploadingGroupPicture> = useSelector(
-    (state: RootState) => state.groups.uploadingGroupPicture
+    (state: RootState) => state.groups.uploadingGroupPicture,
   );
 
   const uploadingGroupPicture: UploadingGroupPicture = useMemo(() => {

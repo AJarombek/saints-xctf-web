@@ -1,3 +1,3 @@
-import DashboardSidePanel from "./DashboardSidePanel";
+import DashboardSidePanel from './DashboardSidePanel';
 
 export default DashboardSidePanel;

@@ -10,9 +10,9 @@ export default {
   contactLink: {
     margin: '0 4px !important',
     color: `${Colors.sxctfRed} !important`,
-    textDecoration: 'underline !important'
+    textDecoration: 'underline !important',
   },
   errorStatus: {
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 };

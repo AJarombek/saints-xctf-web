@@ -79,7 +79,7 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, memberships,
                     className={classNames(
                       classes.groupMembership,
                       index % 2 ? classes.oddMember : classes.evenMember,
-                      'groupMember'
+                      'groupMember',
                     )}
                     key={index}
                   >
@@ -105,7 +105,7 @@ const DashboardSidePanel: React.FunctionComponent<Props> = ({ user, memberships,
           <div
             className={classNames(
               classes.notificationCount,
-              notificationCount ? classes.hasNotifications : classes.noNotifications
+              notificationCount ? classes.hasNotifications : classes.noNotifications,
             )}
           >
             <AJNotificationCircle count={notificationCount} />

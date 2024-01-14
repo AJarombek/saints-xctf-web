@@ -18,7 +18,7 @@ import {
   RootState,
   UserMeta,
   Users,
-  StatsMeta
+  StatsMeta,
 } from '../../../redux/types';
 import PaginationBar from '../../shared/PaginationBar/PaginationBar';
 import LogFeed from '../../shared/LogFeed/LogFeed';
@@ -46,7 +46,7 @@ export enum ProfileTab {
   CALENDAR = 'calendar',
   CHART = 'chart',
   DETAILS = 'details',
-  EDIT = 'edit'
+  EDIT = 'edit',
 }
 
 const useStyles = createUseStyles(styles);
@@ -100,10 +100,10 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, signedInUser, flair
       {
         tab: ProfileTab.CALENDAR,
         onView: (): void => setTab(ProfileTab.CALENDAR),
-        content: 'Monthly Calendar'
+        content: 'Monthly Calendar',
       },
       { tab: ProfileTab.CHART, onView: (): void => setTab(ProfileTab.CHART), content: 'Weekly Chart' },
-      { tab: ProfileTab.DETAILS, onView: (): void => setTab(ProfileTab.DETAILS), content: 'Details' }
+      { tab: ProfileTab.DETAILS, onView: (): void => setTab(ProfileTab.DETAILS), content: 'Details' },
     ];
 
     if (signedInUser && user?.username === signedInUser.username) {

@@ -9,7 +9,7 @@ import { FontMixins } from '../../../styles/mixins';
 export default {
   calendar: {
     maxWidth: 800,
-    margin: '0 auto'
+    margin: '0 auto',
   },
   monthNavigation: {
     display: 'flex',
@@ -21,14 +21,14 @@ export default {
       textAlign: 'center',
       width: '5%',
       cursor: 'pointer',
-      margin: '20px 0'
+      margin: '20px 0',
     },
 
     '& > h2': {
       ...FontMixins.robotoSlab(),
       textAlign: 'center',
-      width: '90%'
-    }
+      width: '90%',
+    },
   },
   weekdays: {
     display: 'flex',
@@ -42,44 +42,44 @@ export default {
         textAlign: 'center',
         fontSize: 12,
         margin: 0,
-        paddingBottom: 4
-      }
-    }
+        paddingBottom: 4,
+      },
+    },
   },
   weekdaysLong: {
-    display: 'block'
+    display: 'block',
   },
   weekdaysShort: {
-    display: 'none'
+    display: 'none',
   },
   '@media screen and (max-width: 650px)': {
     monthNavigation: {
       '& > p': {
-        width: '10%'
+        width: '10%',
       },
 
       '& > h2': {
-        width: '80%'
-      }
-    }
+        width: '80%',
+      },
+    },
   },
   '@media screen and (max-width: 550px)': {
     weekdaysLong: {
-      display: 'none'
+      display: 'none',
     },
     weekdaysShort: {
-      display: 'block'
-    }
+      display: 'block',
+    },
   },
   '@media screen and (max-width: 390px)': {
     monthNavigation: {
       '& > p': {
-        fontSize: 36
+        fontSize: 36,
       },
 
       '& > h2': {
-        fontSize: 20
-      }
-    }
-  }
+        fontSize: 20,
+      },
+    },
+  },
 };

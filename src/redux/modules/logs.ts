@@ -15,7 +15,7 @@ import {
   LogsState,
   NewComments,
   NewLog,
-  UpdateLogs
+  UpdateLogs,
 } from '../types';
 import { Dispatch } from 'redux';
 import moment from 'moment';
@@ -217,7 +217,7 @@ const initialState: LogsState = {
   newLog: {} as NewLog,
   updateLogs: {} as UpdateLogs,
   deletedLogs: {} as DeletedLogs,
-  newComments: {} as NewComments
+  newComments: {} as NewComments,
 };
 
 function logFeedRequestReducer(state: LogsState, action: LogFeedRequestAction): LogsState {
@@ -236,11 +236,11 @@ function logFeedRequestReducer(state: LogsState, action: LogFeedRequestAction): 
           [action.page]: {
             ...existingPage,
             isFetching: true,
-            lastUpdated: moment().unix()
-          }
-        }
-      }
-    }
+            lastUpdated: moment().unix(),
+          },
+        },
+      },
+    },
   };
 }
 
@@ -263,11 +263,11 @@ function logFeedSuccessReducer(state: LogsState, action: LogFeedSuccessAction): 
             lastUpdated: moment().unix(),
             items: action.logs,
             pages: action.pages,
-            serverError: null
-          }
-        }
-      }
-    }
+            serverError: null,
+          },
+        },
+      },
+    },
   };
 }
 
@@ -288,11 +288,11 @@ function logFeedFailureReducer(state: LogsState, action: LogFeedFailureAction): 
             ...existingPage,
             isFetching: false,
             lastUpdated: moment().unix(),
-            serverError: action.serverError
-          }
-        }
-      }
-    }
+            serverError: action.serverError,
+          },
+        },
+      },
+    },
   };
 }
 
@@ -302,9 +302,9 @@ function getLogRequestReducer(state: LogsState, action: GetLogRequestAction): Lo
     items: {
       [action.id]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -316,9 +316,9 @@ function getLogSuccessReducer(state: LogsState, action: GetLogSuccessAction): Lo
         isFetching: false,
         lastUpdated: moment().unix(),
         ...action.log,
-        comments: action.comments
-      }
-    }
+        comments: action.comments,
+      },
+    },
   };
 }
 
@@ -329,9 +329,9 @@ function getLogFailureReducer(state: LogsState, action: GetLogFailureAction): Lo
       [action.id]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -340,8 +340,8 @@ function postLogRequestReducer(state: LogsState): LogsState {
     ...state,
     newLog: {
       isFetching: true,
-      lastUpdated: moment().unix()
-    }
+      lastUpdated: moment().unix(),
+    },
   };
 }
 
@@ -352,8 +352,8 @@ function postLogSuccessReducer(state: LogsState): LogsState {
       isFetching: false,
       lastUpdated: moment().unix(),
       created: true,
-      serverError: null
-    }
+      serverError: null,
+    },
   };
 }
 
@@ -364,8 +364,8 @@ function postLogFailureReducer(state: LogsState, action: PostLogFailureAction): 
       isFetching: false,
       lastUpdated: moment().unix(),
       created: false,
-      serverError: action.serverError
-    }
+      serverError: action.serverError,
+    },
   };
 }
 
@@ -374,8 +374,8 @@ function invalidateLogCreatedReducer(state: LogsState): LogsState {
     ...state,
     newLog: {
       ...state.newLog,
-      didInvalidate: true
-    }
+      didInvalidate: true,
+    },
   };
 }
 
@@ -386,9 +386,9 @@ function putLogRequestReducer(state: LogsState, action: PutLogRequestAction): Lo
       ...state.updateLogs,
       [action.id]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -401,9 +401,9 @@ function putLogSuccessReducer(state: LogsState, action: PutLogSuccessAction): Lo
         isFetching: false,
         lastUpdated: moment().unix(),
         updated: true,
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -416,9 +416,9 @@ function putLogFailureReducer(state: LogsState, action: PutLogFailureAction): Lo
         isFetching: false,
         lastUpdated: moment().unix(),
         updated: false,
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -430,9 +430,9 @@ function invalidateLogUpdatedReducer(state: LogsState, action: InvalidateLogUpda
       ...state.updateLogs,
       [action.id]: {
         ...updateLog,
-        didInvalidate: true
-      }
-    }
+        didInvalidate: true,
+      },
+    },
   };
 }
 
@@ -443,9 +443,9 @@ function deleteLogRequestReducer(state: LogsState, action: DeleteLogRequestActio
       ...state.deletedLogs,
       [action.id]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -458,9 +458,9 @@ function deleteLogSuccessReducer(state: LogsState, action: DeleteLogSuccessActio
         isFetching: false,
         lastUpdated: moment().unix(),
         deleted: true,
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -473,9 +473,9 @@ function deleteLogFailureReducer(state: LogsState, action: DeleteLogFailureActio
         isFetching: false,
         lastUpdated: moment().unix(),
         deleted: false,
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -487,9 +487,9 @@ function postCommentRequestReducer(state: LogsState, action: PostCommentRequestA
       ...existingNewComments,
       [action.logId]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -503,9 +503,9 @@ function postCommentSuccessReducer(state: LogsState, action: PostCommentSuccessA
         isFetching: false,
         lastUpdated: moment().unix(),
         created: true,
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -519,9 +519,9 @@ function postCommentFailureReducer(state: LogsState, action: PostCommentFailureA
         isFetching: false,
         lastUpdated: moment().unix(),
         created: false,
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -539,9 +539,9 @@ function addCommentToFeedReducer(state: LogsState, action: AddCommentToFeedActio
       last: action.last,
       log_id: action.logId,
       time: moment().format('YYYY-MM-DD HH:mm:ss'),
-      content: action.content
+      content: action.content,
     },
-    ...newItems[action.index].comments
+    ...newItems[action.index].comments,
   ];
 
   return {
@@ -556,11 +556,11 @@ function addCommentToFeedReducer(state: LogsState, action: AddCommentToFeedActio
             ...existingPage,
             isFetching: false,
             lastUpdated: moment().unix(),
-            items: newItems
-          }
-        }
-      }
-    }
+            items: newItems,
+          },
+        },
+      },
+    },
   };
 }
 
@@ -573,9 +573,9 @@ function addCommentReducer(state: LogsState, action: AddCommentAction): LogsStat
       last: action.last,
       log_id: action.logId,
       time: moment().format('YYYY-MM-DD HH:mm:ss'),
-      content: action.content
+      content: action.content,
     },
-    ...(state.items[action.logId].comments ?? [])
+    ...(state.items[action.logId].comments ?? []),
   ];
 
   return {
@@ -583,9 +583,9 @@ function addCommentReducer(state: LogsState, action: AddCommentAction): LogsStat
     items: {
       [action.logId]: {
         ...state.items[action.logId],
-        comments: newComments
-      }
-    }
+        comments: newComments,
+      },
+    },
   };
 }
 
@@ -593,7 +593,7 @@ function addCommentReducer(state: LogsState, action: AddCommentAction): LogsStat
 export function getLogRequest(id: number): GetLogRequestAction {
   return {
     type: GET_LOG_REQUEST,
-    id
+    id,
   };
 }
 
@@ -602,7 +602,7 @@ export function getLogSuccess(id: number, log: Log, comments: Comment[]): GetLog
     type: GET_LOG_SUCCESS,
     id,
     log,
-    comments
+    comments,
   };
 }
 
@@ -610,7 +610,7 @@ export function getLogFailure(id: number, serverError: string): GetLogFailureAct
   return {
     type: GET_LOG_FAILURE,
     id,
-    serverError
+    serverError,
   };
 }
 
@@ -619,7 +619,7 @@ export function logFeedRequest(page: number, filterBy: string, bucket: string): 
     type: LOG_FEED_REQUEST,
     filterBy,
     bucket,
-    page
+    page,
   };
 }
 
@@ -629,7 +629,7 @@ export function logFeedSuccess(
   bucket: string,
   logs: Log[],
   next: string,
-  pages: number
+  pages: number,
 ): LogFeedSuccessAction {
   return {
     type: LOG_FEED_SUCCESS,
@@ -638,7 +638,7 @@ export function logFeedSuccess(
     logs,
     next,
     page,
-    pages
+    pages,
   };
 }
 
@@ -646,14 +646,14 @@ export function logFeedFailure(
   page: number,
   filterBy: string,
   bucket: string,
-  serverError: string
+  serverError: string,
 ): LogFeedFailureAction {
   return {
     type: LOG_FEED_FAILURE,
     filterBy,
     bucket,
     serverError,
-    page
+    page,
   };
 }
 
@@ -710,40 +710,40 @@ export default function reducer(state: LogsState = initialState, action: LogsAct
 
 export function postLogRequest(): PostLogRequestAction {
   return {
-    type: POST_LOG_REQUEST
+    type: POST_LOG_REQUEST,
   };
 }
 
 export function postLogSuccess(): PostLogSuccessAction {
   return {
-    type: POST_LOG_SUCCESS
+    type: POST_LOG_SUCCESS,
   };
 }
 
 export function postLogFailure(serverError: string): PostLogFailureAction {
   return {
     type: POST_LOG_FAILURE,
-    serverError
+    serverError,
   };
 }
 
 export function invalidateLogCreated(): InvalidateLogCreatedAction {
   return {
-    type: INVALIDATE_LOG_CREATED
+    type: INVALIDATE_LOG_CREATED,
   };
 }
 
 export function putLogRequest(id: number): PutLogRequestAction {
   return {
     type: PUT_LOG_REQUEST,
-    id
+    id,
   };
 }
 
 export function putLogSuccess(id: number): PutLogSuccessAction {
   return {
     type: PUT_LOG_SUCCESS,
-    id
+    id,
   };
 }
 
@@ -751,28 +751,28 @@ export function putLogFailure(id: number, serverError: string): PutLogFailureAct
   return {
     type: PUT_LOG_FAILURE,
     id,
-    serverError
+    serverError,
   };
 }
 
 export function invalidateLogUpdated(id: number): InvalidateLogUpdatedAction {
   return {
     type: INVALIDATE_LOG_UPDATED,
-    id
+    id,
   };
 }
 
 export function deleteLogRequest(id: number): DeleteLogRequestAction {
   return {
     type: DELETE_LOG_REQUEST,
-    id
+    id,
   };
 }
 
 export function deleteLogSuccess(id: number): DeleteLogSuccessAction {
   return {
     type: DELETE_LOG_SUCCESS,
-    id
+    id,
   };
 }
 
@@ -780,21 +780,21 @@ export function deleteLogFailure(id: number, serverError: string): DeleteLogFail
   return {
     type: DELETE_LOG_FAILURE,
     id,
-    serverError
+    serverError,
   };
 }
 
 export function postCommentRequest(logId: number): PostCommentRequestAction {
   return {
     type: POST_COMMENT_REQUEST,
-    logId
+    logId,
   };
 }
 
 export function postCommentSuccess(logId: number): PostCommentSuccessAction {
   return {
     type: POST_COMMENT_SUCCESS,
-    logId
+    logId,
   };
 }
 
@@ -802,7 +802,7 @@ export function postCommentFailure(logId: number, serverError: string): PostComm
   return {
     type: POST_COMMENT_FAILURE,
     logId,
-    serverError
+    serverError,
   };
 }
 
@@ -815,7 +815,7 @@ export function addCommentToFeed(
   filterBy: string,
   bucket: string,
   page: number,
-  index: number
+  index: number,
 ): AddCommentToFeedAction {
   return {
     type: ADD_COMMENT_TO_FEED,
@@ -827,7 +827,7 @@ export function addCommentToFeed(
     filterBy,
     bucket,
     page,
-    index
+    index,
   };
 }
 
@@ -836,7 +836,7 @@ export function addComment(
   content: string,
   username: string,
   first: string,
-  last: string
+  last: string,
 ): AddCommentAction {
   return {
     type: ADD_COMMENT,
@@ -844,7 +844,7 @@ export function addComment(
     content,
     username,
     first,
-    last
+    last,
   };
 }
 
@@ -872,7 +872,7 @@ export function logFeed(
   filterBy: string,
   bucket: string,
   limit: number,
-  offset: number
+  offset: number,
 ): AppThunk<Promise<void>, LogsState> {
   return async function (dispatch: Dispatch): Promise<void> {
     const page = offset / limit + 1;
@@ -906,7 +906,7 @@ export function postLog(
   metric: string,
   time: string,
   feel: number,
-  description: string
+  description: string,
 ): AppThunk<Promise<number>, LogsState> {
   return async function (dispatch: Dispatch): Promise<number> {
     dispatch(postLogRequest());
@@ -924,7 +924,7 @@ export function postLog(
         metric,
         time,
         feel,
-        description
+        description,
       });
 
       dispatch(postLogSuccess());
@@ -954,7 +954,7 @@ export function putLog(
   metric: string,
   time: string,
   feel: number,
-  description: string
+  description: string,
 ): AppThunk<Promise<boolean>, LogsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putLogRequest(id));
@@ -970,7 +970,7 @@ export function putLog(
         metric,
         time,
         feel,
-        description
+        description,
       });
 
       dispatch(putLogSuccess(id));
@@ -1013,7 +1013,7 @@ export function postComment(
   username: string,
   first: string,
   last: string,
-  content: string
+  content: string,
 ): AppThunk<Promise<boolean>, LogsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(postCommentRequest(logId));
@@ -1025,7 +1025,7 @@ export function postComment(
         last,
         log_id: logId,
         content,
-        time: moment().format('YYYY-MM-DD HH:mm:ss')
+        time: moment().format('YYYY-MM-DD HH:mm:ss'),
       });
 
       dispatch(postCommentSuccess(logId));

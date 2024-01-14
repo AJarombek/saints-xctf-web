@@ -4,27 +4,27 @@
  * @since 5/6/2020
  */
 
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-enum ImageInputDirection { ROW = 'row', COLUMN = 'column' }
+enum ImageInputDirection {
+  ROW = 'row',
+  COLUMN = 'column',
+}
 
 interface Props {
-    children: ReactNode;
-    direction?: ImageInputDirection;
+  children: ReactNode;
+  direction?: ImageInputDirection;
 }
 
 const ImageInputSet: React.FunctionComponent<Props> = ({ children, direction = ImageInputDirection.ROW }) => {
-
   return (
     <div className={classnames('sxctf-image-input-set', direction)}>
-      <form>
-        { children }
-      </form>
+      <form>{children}</form>
     </div>
   );
 };
 
-export {ImageInputDirection};
+export { ImageInputDirection };
 export default ImageInputSet;

@@ -18,7 +18,7 @@ export default {
     resize: 'none',
 
     '&:focus': {
-      outline: 'none'
-    }
-  }
+      outline: 'none',
+    },
+  },
 };

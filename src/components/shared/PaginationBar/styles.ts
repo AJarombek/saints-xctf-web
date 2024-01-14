@@ -13,11 +13,11 @@ export default {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: '30px 0'
+    margin: '30px 0',
   },
   page: {
     cursor: 'pointer',
-    padding: '0 12px'
+    padding: '0 12px',
   },
   otherPage: {
     color: '#aaa',
@@ -27,15 +27,15 @@ export default {
     '&:hover': {
       color: Colors.spotPaletteBrown,
       textDecoration: 'underline',
-      textDecorationColor: '#aaa'
-    }
+      textDecorationColor: '#aaa',
+    },
   },
   currentPage: {
     color: Colors.sxctfRed,
-    fontSize: '28px'
+    fontSize: '28px',
   },
   spread: {
     color: '#aaa',
-    fontSize: '24px'
-  }
+    fontSize: '24px',
+  },
 };

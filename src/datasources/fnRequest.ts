@@ -9,7 +9,7 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 export const fn = axios.create({
   baseURL: '/fn/',
   timeout: 15000,
-  responseType: 'json'
+  responseType: 'json',
 });
 
 fn.interceptors.request.use(
@@ -17,10 +17,10 @@ fn.interceptors.request.use(
     const token = localStorage.getItem('token') ?? '';
 
     req.headers = {
-      authorization: token
+      authorization: token,
     };
 
     return req;
   },
-  (error: AxiosError) => error
+  (error: AxiosError) => error,
 );

@@ -32,7 +32,7 @@ const PickGroups: React.FunctionComponent<Props> = ({
   groupLeaveRequests,
   setGroupJoinRequests,
   setGroupLeaveRequests,
-  setChangesMade
+  setChangesMade,
 }) => {
   const classes = useStyles();
 
@@ -54,8 +54,8 @@ const PickGroups: React.FunctionComponent<Props> = ({
           group_title: group.group_title,
           group_id: group.id,
           status: null,
-          user: null
-        }))
+          user: null,
+        })),
     );
   }, [groups, otherGroups]);
 

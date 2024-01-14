@@ -9,7 +9,7 @@ import Colors from '../../../styles/colors';
 
 export default {
   emailLink: {
-    ...Mixins.saintsXCTFLink()
+    ...Mixins.saintsXCTFLink(),
   },
   retry: {
     ...FontMixins.robotoSlabBold(),
@@ -18,7 +18,7 @@ export default {
     cursor: 'pointer',
 
     '&:hover': {
-      textDecoration: 'underline'
-    }
-  }
+      textDecoration: 'underline',
+    },
+  },
 };

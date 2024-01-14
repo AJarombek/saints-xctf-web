@@ -28,7 +28,7 @@ export const feelClassList = [
   'fairlyGood',
   'good',
   'great',
-  'fantastic'
+  'fantastic',
 ];
 
 interface Props {
@@ -52,7 +52,7 @@ const ExerciseLog: React.FunctionComponent<Props> = ({
   filterBy,
   bucket,
   index,
-  linkProfile = true
+  linkProfile = true,
 }) => {
   const navigate = useNavigate();
   const classes = useStyles({ feel: log?.feel });

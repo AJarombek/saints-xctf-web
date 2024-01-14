@@ -28,6 +28,7 @@ yarn
 
 ```bash
 nvm use v12.18.4
+npm rebuild node-sass
 yarn start
 ```
 
@@ -85,39 +86,36 @@ eval $(aws ecr get-login --no-include-email | sed 's|https://||')
 docker-compose up --build
 ```
 
-### Integrations
-
-[![Jenkins](https://img.shields.io/badge/Jenkins-%20saints--xctf--web--test-blue?style=for-the-badge)](https://jenkins.jarombek.io/job/saints-xctf/job/web/job/saints-xctf-web-test/)
-> Jenkins job runs daily, running Jest unit/snapshot tests.
-
 ### Files
 
-| Filename                 | Description                                                                |
-|--------------------------|----------------------------------------------------------------------------|
-| `assets`                 | Assets (images, videos, etc) bundled with the application source code.     |
-| `cypress`                | Cypress end to end test source code.                                       |
-| `src`                    | Application source code for both client and server.                        |
-| `test`                   | Jest/Enzyme test code for both client and server.                          |
-| `.babelrc`               | Configuration for the Babel transpiler.                                    |
-| `.dockerignore`          | Directories and files for Docker to ignore when building an image.         |
-| `.env`                   | Environment variables for the application.                                 |
-| `.eslintrc.js`           | Configuration for ESLint JavaScript linting (AirBnb style guide).          |
-| `app.dev.dockerfile`     | Docker image for the application in development.                           |
-| `app.dockerfile`         | Docker image for the application in production.                            |
-| `app.local.dockerfile`   | Docker image for the application locally.                                  |
-| `base.dockerfile`        | Base image with the application source code used in production & for tests.|
-| `cypress.json`           | Cypress end to end test configuration file.                                |
-| `docker-compose.yml`     | Docker compose configuration for running the Dockerized app locally.       |
-| `jest.config.js`         | Jest testing configuration for the application code.                       |
-| `nginx.conf`             | Nginx web server configuration in the production environment.              |
-| `nginx.dev.conf`         | Nginx web server configuration in the development environment.             |
-| `nginx.local.conf`       | Nginx web server configuration for running locally.                        |
-| `package.json`           | Entry point for the npm application.  Contains dependency definitions.     |
-| `setup.sh`               | Bash commands for setting up the application.                              |
-| `tsconfig.json`          | TypeScript configuration for the application.                              |
-| `webpack.config.js`      | Main webpack configuration file.                                           |
-| `webpack.parts.js`       | Smaller webpack parts to combine with the main configuration.              |
-| `yarn.lock`              | Where Yarn stores the versions of each dependency.                         | 
+| Filename               | Description                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| `assets`               | Assets (images, videos, etc) bundled with the application source code.      |
+| `cypress`              | Cypress end to end test source code.                                        |
+| `src`                  | Application source code for both client and server.                         |
+| `test`                 | Jest/Enzyme test code for both client and server.                           |
+| `.babelrc`             | Configuration for the Babel transpiler.                                     |
+| `.dockerignore`        | Directories and files for Docker to ignore when building an image.          |
+| `.env`                 | Environment variables for the application.                                  |
+| `.eslintrc.js`         | Configuration for ESLint JavaScript linting (AirBnb style guide).           |
+| `.prettierignore`      | File patterns for the Prettier code formatter to ignore.                    |
+| `.prettierrc`          | Prettier code formatter configuration.                                      |
+| `app.dev.dockerfile`   | Docker image for the application in development.                            |
+| `app.dockerfile`       | Docker image for the application in production.                             |
+| `app.local.dockerfile` | Docker image for the application locally.                                   |
+| `base.dockerfile`      | Base image with the application source code used in production & for tests. |
+| `cypress.json`         | Cypress end to end test configuration file.                                 |
+| `docker-compose.yml`   | Docker compose configuration for running the Dockerized app locally.        |
+| `jest.config.js`       | Jest testing configuration for the application code.                        |
+| `nginx.conf`           | Nginx web server configuration in the production environment.               |
+| `nginx.dev.conf`       | Nginx web server configuration in the development environment.              |
+| `nginx.local.conf`     | Nginx web server configuration for running locally.                         |
+| `package.json`         | Entry point for the npm application.  Contains dependency definitions.      |
+| `setup.sh`             | Bash commands for setting up the application.                               |
+| `tsconfig.json`        | TypeScript configuration for the application.                               |
+| `webpack.config.js`    | Main webpack configuration file.                                            |
+| `webpack.parts.js`     | Smaller webpack parts to combine with the main configuration.               |
+| `yarn.lock`            | Where Yarn stores the versions of each dependency.                          | 
 
 ### Version History
 

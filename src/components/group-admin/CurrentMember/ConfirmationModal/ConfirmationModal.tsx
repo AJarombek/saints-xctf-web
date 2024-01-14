@@ -31,7 +31,7 @@ const ConfirmationModal: React.FunctionComponent<Props> = ({
   onRemove,
   onDemote,
   member,
-  groupId
+  groupId,
 }) => {
   const classes = useStyles();
 

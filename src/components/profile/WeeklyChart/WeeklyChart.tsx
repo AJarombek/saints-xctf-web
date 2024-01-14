@@ -13,7 +13,7 @@ import {
   RangeViewExerciseTypeFilters,
   RangeViewItemMoment,
   RangeViewItemsMeta,
-  UserMeta
+  UserMeta,
 } from '../../../redux/types';
 import FilterButtons from '../../shared/FilterButtons';
 import { Bar, BarChart, CartesianGrid, Cell, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
@@ -46,7 +46,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
     run: true,
     bike: false,
     swim: false,
-    other: false
+    other: false,
   });
 
   const [error, setError] = useState(false);
@@ -79,7 +79,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
   const fetchRangeView = useCallback(async () => {
     if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching && !currentRangeView?.serverError) {
       const result = await dispatch(
-        getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
+        getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')),
       );
 
       setError(!result);
@@ -92,7 +92,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
     end,
     filter,
     start,
-    user.username
+    user.username,
   ]);
 
   useEffect(() => {

@@ -11,11 +11,11 @@ export default {
   radio: {
     '& > label': {
       display: 'flex',
-      alignItems: 'center'
-    }
+      alignItems: 'center',
+    },
   },
   inputWrapper: {
-    display: 'flex'
+    display: 'flex',
   },
   input: {
     opacity: 0,
@@ -32,12 +32,12 @@ export default {
       borderRadius: '50%',
       transition: '180ms transform ease-in-out',
       transform: 'scale(0)',
-      boxShadow: `inset 10px 10px ${Colors.sxctfRed}`
+      boxShadow: `inset 10px 10px ${Colors.sxctfRed}`,
     },
 
     '&:checked + div:before': {
-      transform: 'scale(1)'
-    }
+      transform: 'scale(1)',
+    },
   },
   customRadio: {
     display: 'flex',
@@ -47,11 +47,11 @@ export default {
     height: 20,
     borderRadius: '50%',
     border: `2px solid ${Colors.sxctfRed}`,
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   customLabel: {
     ...FontMixins.roboto(),
     marginLeft: 10,
-    cursor: 'text'
-  }
+    cursor: 'text',
+  },
 };

@@ -12,7 +12,7 @@ enum ImageInputStatus {
   NONE,
   SUCCESS,
   WARNING,
-  FAILURE
+  FAILURE,
 }
 
 interface Props {
@@ -44,7 +44,7 @@ const ImageInput: React.FunctionComponent<Props> = ({
   value,
   icon,
   status = ImageInputStatus.NONE,
-  className
+  className,
 }) => {
   const inputRef = useRef(null);
 

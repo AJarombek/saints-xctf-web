@@ -10,27 +10,27 @@ export default {
   pictureContainer: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   picture: {
     ...Mixins.profilePicture(),
-    marginLeft: 0
+    marginLeft: 0,
   },
   actions: {
-    ...Mixins.formActions()
+    ...Mixins.formActions(),
   },
   submitButton: {
-    ...Mixins.submitButton()
+    ...Mixins.submitButton(),
   },
   disabledSubmitButton: {
     ...Mixins.disabledButton(),
-    backgroundColor: '#d6d6d6 !important'
+    backgroundColor: '#d6d6d6 !important',
   },
   buttonSpinner: {
-    ...Mixins.buttonSpinner()
+    ...Mixins.buttonSpinner(),
   },
   cancelButton: {
-    marginRight: 10
+    marginRight: 10,
   },
   note: {
     marginTop: 10,
@@ -38,23 +38,23 @@ export default {
     '& > p': {
       ...FontMixins.robotoSlabThin(),
       fontSize: 14,
-      paddingLeft: 20
-    }
+      paddingLeft: 20,
+    },
   },
   '@media screen and (max-width: 840px)': {
     pictureContainer: {
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
     picture: {
-      margin: '0 0 20px 0'
-    }
+      margin: '0 0 20px 0',
+    },
   },
   '@media screen and (max-width: 500px)': {
     note: {
       '& > p': {
         fontSize: 12,
-        paddingLeft: 0
-      }
-    }
-  }
+        paddingLeft: 0,
+      },
+    },
+  },
 };

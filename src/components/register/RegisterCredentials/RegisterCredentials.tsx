@@ -177,7 +177,14 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
   const onClickRegister = async (): Promise<void> => {
     setLoading(true);
     await dispatch(
-      registerCredentials(registration.first, registration.last, registration.email, username, password, activationCode)
+      registerCredentials(
+        registration.first,
+        registration.last,
+        registration.email,
+        username,
+        password,
+        activationCode,
+      ),
     );
     setLoading(false);
   };

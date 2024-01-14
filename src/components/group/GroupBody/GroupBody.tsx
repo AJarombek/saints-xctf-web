@@ -14,7 +14,7 @@ import {
   MemberDetailsMeta,
   RootState,
   StatsMeta,
-  User
+  User,
 } from '../../../redux/types';
 import PageTabs from '../../shared/PageTabs';
 import PictureTitle from '../../shared/PictureTitle';
@@ -40,7 +40,7 @@ export enum GroupTab {
   LOGS = 'logs',
   MEMBERS = 'members',
   LEADERBOARD = 'leaderboard',
-  DETAILS = 'details'
+  DETAILS = 'details',
 }
 
 const useStyles = createUseStyles(styles);
@@ -121,9 +121,9 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
       { tab: GroupTab.LOGS, onView: (): void => setTab(GroupTab.LOGS), content: 'Exercise Logs' },
       { tab: GroupTab.MEMBERS, onView: (): void => setTab(GroupTab.MEMBERS), content: 'Members' },
       { tab: GroupTab.LEADERBOARD, onView: (): void => setTab(GroupTab.LEADERBOARD), content: 'Leaderboard' },
-      { tab: GroupTab.DETAILS, onView: (): void => setTab(GroupTab.DETAILS), content: 'Details' }
+      { tab: GroupTab.DETAILS, onView: (): void => setTab(GroupTab.DETAILS), content: 'Details' },
     ],
-    []
+    [],
   );
 
   return (

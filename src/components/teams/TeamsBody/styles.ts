@@ -9,21 +9,21 @@ import Colors from '../../../styles/colors';
 
 export default {
   teamsBody: {
-    ...Mixins.defaultBody()
+    ...Mixins.defaultBody(),
   },
   title: {
-    ...Mixins.formTitle()
+    ...Mixins.formTitle(),
   },
   container: {
-    ...Mixins.containerBackground()
+    ...Mixins.containerBackground(),
   },
   teamTitle: {
     ...FontMixins.robotoBold(),
-    fontSize: 20
+    fontSize: 20,
   },
   groups: {
     marginTop: 20,
-    marginBottom: 10
+    marginBottom: 10,
   },
   group: {
     display: 'flex',
@@ -38,39 +38,39 @@ export default {
 
     '&:hover': {
       backgroundColor: Colors.spotPaletteBrown,
-      color: Colors.lightestBackground
-    }
+      color: Colors.lightestBackground,
+    },
   },
   groupTitle: {
     ...FontMixins.roboto(),
     fontSize: 18,
-    margin: 15
+    margin: 15,
   },
   alertMessage: {
     marginTop: 10,
 
     '& > div': {
-      padding: '4px 0'
-    }
+      padding: '4px 0',
+    },
   },
   '@media screen and (max-width: 550px)': {
     title: {
-      fontSize: 20
+      fontSize: 20,
     },
     teamTitle: {
-      fontSize: 18
+      fontSize: 18,
     },
     groupTitle: {
       fontSize: 16,
-      margin: 12
-    }
+      margin: 12,
+    },
   },
   '@media screen and (max-width: 390px)': {
     teamsBody: {
-      ...Mixins.defaultBodyMobile()
+      ...Mixins.defaultBodyMobile(),
     },
     title: {
-      marginLeft: 15
-    }
-  }
+      marginLeft: 15,
+    },
+  },
 };

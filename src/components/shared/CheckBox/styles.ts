@@ -10,7 +10,7 @@ import { FontMixins } from '../../../styles/mixins';
 export default {
   checkBox: {
     display: 'flex',
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   input: {
     display: 'none',
@@ -29,13 +29,13 @@ export default {
         position: 'absolute',
         margin: 0,
         top: -1,
-        left: -3
-      }
+        left: -3,
+      },
     },
 
     '&:checked + span': {
       backgroundColor: Colors.sxctfRed,
-      border: `2px solid ${Colors.sxctfRed}`
-    }
-  }
+      border: `2px solid ${Colors.sxctfRed}`,
+    },
+  },
 };

@@ -41,7 +41,7 @@ const RegisterComplete: React.FunctionComponent<Props> = ({ registration }) => {
     registration.username,
     registration.welcomeEmail?.emailed,
     registration.welcomeEmail?.isFetching,
-    registration.welcomeEmail?.serverError
+    registration.welcomeEmail?.serverError,
   ]);
 
   return (

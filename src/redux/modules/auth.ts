@@ -180,7 +180,7 @@ const initialState: AuthState = {
   emailActivationCode: {},
   createForgotPasswordCode: {},
   validateForgotPasswordCode: {},
-  changePassword: {}
+  changePassword: {},
 };
 
 function signInRequestReducer(state: AuthState, action: SignInRequestAction): AuthState {
@@ -192,17 +192,17 @@ function signInRequestReducer(state: AuthState, action: SignInRequestAction): Au
       isFetching: true,
       lastUpdated: moment().unix(),
       signedInUser: action.username,
-      status: action.status
+      status: action.status,
     },
     user: {
       [action.username]: {
         ...existingUser,
         user: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
@@ -215,7 +215,7 @@ function signInSuccessReducer(state: AuthState, action: SignInSuccessAction): Au
       isFetching: false,
       lastUpdated: moment().unix(),
       signedInUser: action.username,
-      status: action.status
+      status: action.status,
     },
     user: {
       [action.username]: {
@@ -224,10 +224,10 @@ function signInSuccessReducer(state: AuthState, action: SignInSuccessAction): Au
           isFetching: false,
           didInvalidate: false,
           lastUpdated: moment().unix(),
-          ...action.user
-        }
-      }
-    }
+          ...action.user,
+        },
+      },
+    },
   };
 }
 
@@ -238,15 +238,15 @@ function signInFailureReducer(state: AuthState, action: SignInFailureAction): Au
       isFetching: false,
       lastUpdated: moment().unix(),
       signedInUser: null,
-      status: action.status
+      status: action.status,
     },
-    user: {}
+    user: {},
   };
 }
 
 function getForgotPasswordCodeValidationRequestReducer(
   state: AuthState,
-  action: GetForgotPasswordCodeValidationRequestAction
+  action: GetForgotPasswordCodeValidationRequestAction,
 ): AuthState {
   return {
     ...state,
@@ -254,15 +254,15 @@ function getForgotPasswordCodeValidationRequestReducer(
       ...state.validateForgotPasswordCode,
       [action.code]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
 function getForgotPasswordCodeValidationSuccessReducer(
   state: AuthState,
-  action: GetForgotPasswordCodeValidationSuccessAction
+  action: GetForgotPasswordCodeValidationSuccessAction,
 ): AuthState {
   return {
     ...state,
@@ -272,15 +272,15 @@ function getForgotPasswordCodeValidationSuccessReducer(
         isFetching: false,
         lastUpdated: moment().unix(),
         isValid: action.isValid,
-        username: action.username
-      }
-    }
+        username: action.username,
+      },
+    },
   };
 }
 
 function getForgotPasswordCodeValidationFailureReducer(
   state: AuthState,
-  action: GetForgotPasswordCodeValidationFailureAction
+  action: GetForgotPasswordCodeValidationFailureAction,
 ): AuthState {
   return {
     ...state,
@@ -290,9 +290,9 @@ function getForgotPasswordCodeValidationFailureReducer(
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: action.serverError,
-        isValid: false
-      }
-    }
+        isValid: false,
+      },
+    },
   };
 }
 
@@ -303,9 +303,9 @@ function postForgotPasswordRequestReducer(state: AuthState, action: PostForgotPa
       ...state.createForgotPasswordCode,
       [action.email]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -317,9 +317,9 @@ function postForgotPasswordSuccessReducer(state: AuthState, action: PostForgotPa
       [action.email]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        created: true
-      }
-    }
+        created: true,
+      },
+    },
   };
 }
 
@@ -332,9 +332,9 @@ function postForgotPasswordFailureReducer(state: AuthState, action: PostForgotPa
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: action.serverError,
-        created: false
-      }
-    }
+        created: false,
+      },
+    },
   };
 }
 
@@ -344,14 +344,14 @@ function signOutReducer(): AuthState {
       isFetching: false,
       lastUpdated: moment().unix(),
       signedInUser: null,
-      status: 'SIGNED OUT'
+      status: 'SIGNED OUT',
     },
     user: {},
     changePassword: {},
     createActivationCode: {},
     createForgotPasswordCode: {},
     emailActivationCode: {},
-    validateForgotPasswordCode: {}
+    validateForgotPasswordCode: {},
   };
 }
 
@@ -367,16 +367,16 @@ function setUserFromStorageReducer(state: AuthState, action: SetUserFromStorageA
           ...action.user,
           isFetching: false,
           didInvalidate: false,
-          lastUpdated: moment().unix()
-        }
-      }
+          lastUpdated: moment().unix(),
+        },
+      },
     },
     auth: {
       isFetching: false,
       lastUpdated: moment().unix(),
       signedInUser: action.user.username,
-      status: 'SUCCESS'
-    }
+      status: 'SUCCESS',
+    },
   };
 }
 
@@ -387,9 +387,9 @@ function postActivationCodeRequestReducer(state: AuthState, action: PostActivati
       ...state.createActivationCode,
       [action.email]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -401,9 +401,9 @@ function postActivationCodeSuccessReducer(state: AuthState, action: PostActivati
       [action.email]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        created: true
-      }
-    }
+        created: true,
+      },
+    },
   };
 }
 
@@ -416,9 +416,9 @@ function postActivationCodeFailureReducer(state: AuthState, action: PostActivati
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: action.serverError,
-        created: false
-      }
-    }
+        created: false,
+      },
+    },
   };
 }
 
@@ -430,9 +430,9 @@ function emailActivationCodeRequestReducer(state: AuthState, action: ActivationC
       [action.email]: {
         isFetching: true,
         code: action.code,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -445,9 +445,9 @@ function emailActivationCodeSuccessReducer(state: AuthState, action: ActivationC
         isFetching: false,
         code: action.code,
         lastUpdated: moment().unix(),
-        emailed: true
-      }
-    }
+        emailed: true,
+      },
+    },
   };
 }
 
@@ -461,9 +461,9 @@ function emailActivationCodeFailureReducer(state: AuthState, action: ActivationC
         code: action.code,
         lastUpdated: moment().unix(),
         serverError: action.serverError,
-        emailed: false
-      }
-    }
+        emailed: false,
+      },
+    },
   };
 }
 
@@ -473,8 +473,8 @@ function changeUserPasswordRequestReducer(state: AuthState, action: ChangeUserPa
     changePassword: {
       isFetching: true,
       lastUpdated: moment().unix(),
-      username: action.username
-    }
+      username: action.username,
+    },
   };
 }
 
@@ -485,8 +485,8 @@ function changeUserPasswordSuccessReducer(state: AuthState, action: ChangeUserPa
       isFetching: false,
       lastUpdated: moment().unix(),
       changed: true,
-      username: action.username
-    }
+      username: action.username,
+    },
   };
 }
 
@@ -498,8 +498,8 @@ function changeUserPasswordFailureReducer(state: AuthState, action: ChangeUserPa
       lastUpdated: moment().unix(),
       changed: false,
       username: action.username,
-      serverError: action.serverError
-    }
+      serverError: action.serverError,
+    },
   };
 }
 
@@ -555,7 +555,7 @@ export function signInRequest(username: string, status: string): SignInRequestAc
   return {
     type: SIGNIN_REQUEST,
     username,
-    status
+    status,
   };
 }
 
@@ -564,14 +564,14 @@ export function signInSuccess(username: string, user: User, status: string): Sig
     type: SIGNIN_SUCCESS,
     username,
     user,
-    status
+    status,
   };
 }
 
 export function signInFailure(status: string): SignInFailureAction {
   return {
     type: SIGNIN_FAILURE,
-    status
+    status,
   };
 }
 
@@ -581,52 +581,52 @@ export function signOut(): SignOutAction {
   window.location.href = window.location.origin;
 
   return {
-    type: SIGNOUT
+    type: SIGNOUT,
   };
 }
 
 export function getForgotPasswordCodeValidationRequest(code: string): GetForgotPasswordCodeValidationRequestAction {
   return {
     type: GET_FORGOT_PASSWORD_CODE_VALIDATION_REQUEST,
-    code
+    code,
   };
 }
 
 export function getForgotPasswordCodeValidationSuccess(
   code: string,
   isValid: boolean,
-  username: string
+  username: string,
 ): GetForgotPasswordCodeValidationSuccessAction {
   return {
     type: GET_FORGOT_PASSWORD_CODE_VALIDATION_SUCCESS,
     code,
     isValid,
-    username
+    username,
   };
 }
 
 export function getForgotPasswordCodeValidationFailure(
   code: string,
-  serverError: string
+  serverError: string,
 ): GetForgotPasswordCodeValidationFailureAction {
   return {
     type: GET_FORGOT_PASSWORD_CODE_VALIDATION_FAILURE,
     code,
-    serverError
+    serverError,
   };
 }
 
 export function postForgotPasswordRequest(email: string): PostForgotPasswordRequestAction {
   return {
     type: POST_FORGOT_PASSWORD_REQUEST,
-    email
+    email,
   };
 }
 
 export function postForgotPasswordSuccess(email: string): PostForgotPasswordSuccessAction {
   return {
     type: POST_FORGOT_PASSWORD_SUCCESS,
-    email
+    email,
   };
 }
 
@@ -634,28 +634,28 @@ export function postForgotPasswordFailure(email: string, serverError: string): P
   return {
     type: POST_FORGOT_PASSWORD_FAILURE,
     email,
-    serverError
+    serverError,
   };
 }
 
 export function setUserFromStorage(user: User): SetUserFromStorageAction {
   return {
     type: SET_USER_FROM_STORAGE,
-    user
+    user,
   };
 }
 
 export function postActivationCodeRequest(email: string): PostActivationCodeRequestAction {
   return {
     type: POST_ACTIVATION_CODE_REQUEST,
-    email
+    email,
   };
 }
 
 export function postActivationCodeSuccess(email: string): PostActivationCodeSuccessAction {
   return {
     type: POST_ACTIVATION_CODE_SUCCESS,
-    email
+    email,
   };
 }
 
@@ -663,7 +663,7 @@ export function postActivationCodeFailure(email: string, serverError: string): P
   return {
     type: POST_ACTIVATION_CODE_FAILURE,
     email,
-    serverError
+    serverError,
   };
 }
 
@@ -671,7 +671,7 @@ export function activationCodeEmailRequest(email: string, code: string): Activat
   return {
     type: ACTIVATION_CODE_EMAIL_REQUEST,
     email,
-    code
+    code,
   };
 }
 
@@ -679,34 +679,34 @@ export function activationCodeEmailSuccess(email: string, code: string): Activat
   return {
     type: ACTIVATION_CODE_EMAIL_SUCCESS,
     email,
-    code
+    code,
   };
 }
 
 export function activationCodeEmailFailure(
   email: string,
   code: string,
-  serverError: string
+  serverError: string,
 ): ActivationCodeEmailFailureAction {
   return {
     type: ACTIVATION_CODE_EMAIL_FAILURE,
     email,
     code,
-    serverError
+    serverError,
   };
 }
 
 export function changeUserPasswordRequest(username: string): ChangeUserPasswordRequestAction {
   return {
     type: CHANGE_USER_PASSWORD_REQUEST,
-    username
+    username,
   };
 }
 
 export function changeUserPasswordSuccess(username: string): ChangeUserPasswordSuccessAction {
   return {
     type: CHANGE_USER_PASSWORD_SUCCESS,
-    username
+    username,
   };
 }
 
@@ -714,7 +714,7 @@ export function changeUserPasswordFailure(username: string, serverError: string)
   return {
     type: CHANGE_USER_PASSWORD_FAILURE,
     username,
-    serverError
+    serverError,
   };
 }
 
@@ -730,7 +730,7 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
     try {
       const authResponse = await auth.post('token', {
         clientId: username,
-        clientSecret: password
+        clientSecret: password,
       });
 
       const { result: token } = authResponse.data;
@@ -777,7 +777,7 @@ export function createForgotPasswordCode(email: string): AppThunk<Promise<Forgot
       dispatch(postForgotPasswordSuccess(email));
 
       return {
-        created: response.data.created
+        created: response.data.created,
       };
     } catch (error) {
       const { response } = error as AxiosError;
@@ -788,7 +788,7 @@ export function createForgotPasswordCode(email: string): AppThunk<Promise<Forgot
       }
 
       return {
-        error: serverError
+        error: serverError,
       };
     }
   };
@@ -810,7 +810,7 @@ export function validateForgotPasswordCode(code: string): AppThunk<Promise<Valid
       dispatch(getForgotPasswordCodeValidationSuccess(code, isValid, username));
 
       return {
-        isValid: true
+        isValid: true,
       };
     } catch (error) {
       const { response } = error as AxiosError;
@@ -821,7 +821,7 @@ export function validateForgotPasswordCode(code: string): AppThunk<Promise<Valid
       }
 
       return {
-        error: serverError
+        error: serverError,
       };
     }
   };
@@ -851,7 +851,7 @@ export function createActivationCode(email: string, groupId: number): AppThunk<P
 }
 
 export const sendActivationCodeEmail = (email: string, code: string): AppThunk<Promise<boolean>, AuthState> => async (
-  dispatch: Dispatch
+  dispatch: Dispatch,
 ): Promise<boolean> => {
   dispatch(activationCodeEmailRequest(email, code));
 
@@ -877,7 +877,7 @@ export type ChangePasswordResult = {
 export function changeUserPassword(
   username: string,
   forgotPasswordCode: string,
-  newPassword: string
+  newPassword: string,
 ): AppThunk<Promise<ChangePasswordResult>, AuthState> {
   return async function (dispatch: Dispatch): Promise<ChangePasswordResult> {
     dispatch(changeUserPasswordRequest(username));
@@ -885,13 +885,13 @@ export function changeUserPassword(
     try {
       const response = await api.put(`users/${username}/change_password`, {
         forgot_password_code: forgotPasswordCode,
-        new_password: newPassword
+        new_password: newPassword,
       });
       const { password_updated } = response.data;
 
       dispatch(changeUserPasswordSuccess(username));
       return {
-        passwordUpdated: password_updated
+        passwordUpdated: password_updated,
       };
     } catch (error) {
       const { response } = error as AxiosError;
@@ -902,7 +902,7 @@ export function changeUserPassword(
       }
 
       return {
-        error: serverError
+        error: serverError,
       };
     }
   };

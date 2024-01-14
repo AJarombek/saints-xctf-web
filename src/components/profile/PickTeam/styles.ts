@@ -11,11 +11,11 @@ export default {
   team: {},
   teamTitleHeader: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     ...FontMixins.robotoSlab(),
-    fontSize: 18
+    fontSize: 18,
   },
   memberTag: {
     fontSize: 14,
@@ -24,7 +24,7 @@ export default {
     backgroundColor: ({ status }: { status: string }): string =>
       status === 'accepted' ? Colors.sxctfRed : status === 'pending' ? Colors.spotPaletteBrown : Colors.lightBackground,
     color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000'),
-    minWidth: ({ status }: { status: string }): string | number => (status === 'accepted' ? 150 : 'auto')
+    minWidth: ({ status }: { status: string }): string | number => (status === 'accepted' ? 150 : 'auto'),
   },
   memberTagContent: {
     display: 'flex',
@@ -33,21 +33,21 @@ export default {
     cursor: 'pointer',
 
     '& > p': {
-      margin: 0
+      margin: 0,
     },
 
     '& > p:nth-child(1)': {
-      ...FontMixins.robotoThin()
+      ...FontMixins.robotoThin(),
     },
 
     '& > p:nth-child(2)': {
       ...FontMixins.elegantIcons(),
-      marginLeft: 8
-    }
+      marginLeft: 8,
+    },
   },
   '@media screen and (max-width: 580px)': {
     title: {
-      fontSize: 16
-    }
-  }
+      fontSize: 16,
+    },
+  },
 };

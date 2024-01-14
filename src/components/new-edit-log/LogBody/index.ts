@@ -1,3 +1,3 @@
-import LogBody from "./LogBody";
+import LogBody from './LogBody';
 
 export default LogBody;

@@ -19,27 +19,27 @@ export default {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
 
     '& > div > p': {
       color: Colors.spotPaletteBlue,
-      margin: 0
+      margin: 0,
     },
 
     '& > div > p:nth-child(1)': {
       ...FontMixins.elegantIcons(),
       marginTop: 4,
-      marginRight: 8
+      marginRight: 8,
     },
 
     '& > div > p:nth-child(2)': {
-      ...FontMixins.roboto()
-    }
+      ...FontMixins.roboto(),
+    },
   },
   '@media screen and (max-width: 580px)': {
     showMore: {
-      fontSize: 14
-    }
-  }
+      fontSize: 14,
+    },
+  },
 };

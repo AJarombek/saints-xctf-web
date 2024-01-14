@@ -90,26 +90,26 @@ type MembershipsActionTypes =
 const initialState: MembershipsState = {
   groups: {} as GroupMembers,
   updateMemberships: {},
-  deleteMemberships: {}
+  deleteMemberships: {},
 };
 
 function getGroupMembershipsRequestReducer(
   state: MembershipsState,
-  action: GetGroupMembershipsRequestAction
+  action: GetGroupMembershipsRequestAction,
 ): MembershipsState {
   return {
     ...state,
     groups: {
       isFetching: true,
       lastUpdated: moment().unix(),
-      items: null
-    }
+      items: null,
+    },
   };
 }
 
 function getGroupMembershipsSuccessReducer(
   state: MembershipsState,
-  action: GetGroupMembershipsSuccessAction
+  action: GetGroupMembershipsSuccessAction,
 ): MembershipsState {
   return {
     ...state,
@@ -117,14 +117,14 @@ function getGroupMembershipsSuccessReducer(
       isFetching: false,
       lastUpdated: moment().unix(),
       items: action.memberships,
-      serverError: null
-    }
+      serverError: null,
+    },
   };
 }
 
 function getGroupMembershipsFailureReducer(
   state: MembershipsState,
-  action: GetGroupMembershipsFailureAction
+  action: GetGroupMembershipsFailureAction,
 ): MembershipsState {
   return {
     ...state,
@@ -132,14 +132,14 @@ function getGroupMembershipsFailureReducer(
       isFetching: false,
       lastUpdated: moment().unix(),
       items: null,
-      serverError: action.serverError
-    }
+      serverError: action.serverError,
+    },
   };
 }
 
 function putGroupMembershipRequestReducer(
   state: MembershipsState,
-  action: PutGroupMembershipRequestAction
+  action: PutGroupMembershipRequestAction,
 ): MembershipsState {
   const existingGroupIdState = state.updateMemberships[action.groupId] ?? {};
 
@@ -151,16 +151,16 @@ function putGroupMembershipRequestReducer(
         ...existingGroupIdState,
         [action.username]: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
 function putGroupMembershipSuccessReducer(
   state: MembershipsState,
-  action: PutGroupMembershipSuccessAction
+  action: PutGroupMembershipSuccessAction,
 ): MembershipsState {
   const existingGroupIdState = state.updateMemberships[action.groupId] ?? {};
 
@@ -173,16 +173,16 @@ function putGroupMembershipSuccessReducer(
         [action.username]: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          updated: true
-        }
-      }
-    }
+          updated: true,
+        },
+      },
+    },
   };
 }
 
 function putGroupMembershipFailureReducer(
   state: MembershipsState,
-  action: PutGroupMembershipFailureAction
+  action: PutGroupMembershipFailureAction,
 ): MembershipsState {
   const existingGroupIdState = state.updateMemberships[action.groupId] ?? {};
 
@@ -196,16 +196,16 @@ function putGroupMembershipFailureReducer(
           isFetching: false,
           lastUpdated: moment().unix(),
           updated: false,
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
 function deleteGroupMembershipRequestReducer(
   state: MembershipsState,
-  action: DeleteGroupMembershipRequestAction
+  action: DeleteGroupMembershipRequestAction,
 ): MembershipsState {
   const existingGroupIdState = state.deleteMemberships[action.groupId] ?? {};
 
@@ -217,16 +217,16 @@ function deleteGroupMembershipRequestReducer(
         ...existingGroupIdState,
         [action.username]: {
           isFetching: true,
-          lastUpdated: moment().unix()
-        }
-      }
-    }
+          lastUpdated: moment().unix(),
+        },
+      },
+    },
   };
 }
 
 function deleteGroupMembershipSuccessReducer(
   state: MembershipsState,
-  action: DeleteGroupMembershipSuccessAction
+  action: DeleteGroupMembershipSuccessAction,
 ): MembershipsState {
   const existingGroupIdState = state.deleteMemberships[action.groupId] ?? {};
 
@@ -239,16 +239,16 @@ function deleteGroupMembershipSuccessReducer(
         [action.username]: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          deleted: true
-        }
-      }
-    }
+          deleted: true,
+        },
+      },
+    },
   };
 }
 
 function deleteGroupMembershipFailureReducer(
   state: MembershipsState,
-  action: DeleteGroupMembershipFailureAction
+  action: DeleteGroupMembershipFailureAction,
 ): MembershipsState {
   const existingGroupIdState = state.deleteMemberships[action.groupId] ?? {};
 
@@ -262,16 +262,16 @@ function deleteGroupMembershipFailureReducer(
           isFetching: false,
           lastUpdated: moment().unix(),
           deleted: false,
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
 export default function reducer(
   state: MembershipsState = initialState,
-  action: MembershipsActionTypes
+  action: MembershipsActionTypes,
 ): MembershipsState {
   switch (action.type) {
     case GET_GROUP_MEMBERSHIPS_REQUEST:
@@ -300,21 +300,21 @@ export default function reducer(
 // Action Creators
 export function getGroupMembershipsRequest(): GetGroupMembershipsRequestAction {
   return {
-    type: GET_GROUP_MEMBERSHIPS_REQUEST
+    type: GET_GROUP_MEMBERSHIPS_REQUEST,
   };
 }
 
 export function getGroupMembershipsSuccess(memberships: GroupMember[]): GetGroupMembershipsSuccessAction {
   return {
     type: GET_GROUP_MEMBERSHIPS_SUCCESS,
-    memberships
+    memberships,
   };
 }
 
 export function getGroupMembershipsFailure(serverError: string): GetGroupMembershipsFailureAction {
   return {
     type: GET_GROUP_MEMBERSHIPS_FAILURE,
-    serverError
+    serverError,
   };
 }
 
@@ -322,7 +322,7 @@ export function putGroupMembershipRequest(groupId: number, username: string): Pu
   return {
     type: PUT_GROUP_MEMBERSHIP_REQUEST,
     groupId,
-    username
+    username,
   };
 }
 
@@ -330,20 +330,20 @@ export function putGroupMembershipSuccess(groupId: number, username: string): Pu
   return {
     type: PUT_GROUP_MEMBERSHIP_SUCCESS,
     groupId,
-    username
+    username,
   };
 }
 
 export function putGroupMembershipFailure(
   groupId: number,
   username: string,
-  serverError: string
+  serverError: string,
 ): PutGroupMembershipFailureAction {
   return {
     type: PUT_GROUP_MEMBERSHIP_FAILURE,
     groupId,
     username,
-    serverError
+    serverError,
   };
 }
 
@@ -351,7 +351,7 @@ export function deleteGroupMembershipRequest(groupId: number, username: string):
   return {
     type: DELETE_GROUP_MEMBERSHIP_REQUEST,
     groupId,
-    username
+    username,
   };
 }
 
@@ -359,20 +359,20 @@ export function deleteGroupMembershipSuccess(groupId: number, username: string):
   return {
     type: DELETE_GROUP_MEMBERSHIP_SUCCESS,
     groupId,
-    username
+    username,
   };
 }
 
 export function deleteGroupMembershipFailure(
   groupId: number,
   username: string,
-  serverError: string
+  serverError: string,
 ): DeleteGroupMembershipFailureAction {
   return {
     type: DELETE_GROUP_MEMBERSHIP_FAILURE,
     groupId,
     username,
-    serverError
+    serverError,
   };
 }
 
@@ -399,7 +399,7 @@ export function getGroupMemberships(username: string): AppThunk<Promise<void>, M
 export function updateGroupMembership(
   groupMember: { user: string; status: string },
   groupId: number,
-  username: string
+  username: string,
 ): AppThunk<Promise<boolean>, MembershipsState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(putGroupMembershipRequest(groupId, username));

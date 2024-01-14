@@ -15,7 +15,7 @@ import {
   RangeViewExerciseType,
   RangeViewExerciseTypeFilters,
   RangeViewItemsMeta,
-  UserMeta
+  UserMeta,
 } from '../../../redux/types';
 import DefaultErrorPopup from '../../shared/DefaultErrorPopup';
 
@@ -66,7 +66,7 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user, mo
   const retrieveRangeView = useCallback(async (): Promise<void> => {
     if (user?.username && !currentRangeView?.items && !currentRangeView?.isFetching && !currentRangeView?.serverError) {
       const result = await dispatch(
-        getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
+        getRangeView('users', user.username, filter, start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD')),
       );
 
       setError(!result);
@@ -79,7 +79,7 @@ const Calendar: React.FunctionComponent<Props> = ({ rangeViews, filter, user, mo
     end,
     filter,
     start,
-    user.username
+    user.username,
   ]);
 
   useEffect(() => {

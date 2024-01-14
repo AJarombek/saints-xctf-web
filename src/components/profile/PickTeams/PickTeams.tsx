@@ -16,7 +16,7 @@ import {
   TeamGroupMapping,
   TeamInfo,
   TeamMembership,
-  UserDetails
+  UserDetails,
 } from '../../../redux/types';
 import PickTeam from '../PickTeam';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
@@ -43,7 +43,7 @@ const PickTeams: React.FunctionComponent<Props> = ({
   username,
   userDetails,
   membershipChangesMade,
-  setMembershipChangesMade
+  setMembershipChangesMade,
 }) => {
   const classes = useStyles();
 
@@ -98,7 +98,7 @@ const PickTeams: React.FunctionComponent<Props> = ({
   const onAddSearchedTeam = (team: TeamInfo): void => {
     setSearchedTeamsAdded((addedTeams) => [
       ...addedTeams,
-      { team_name: team.name, title: team.title, status: null, user: null, groups: [] }
+      { team_name: team.name, title: team.title, status: null, user: null, groups: [] },
     ]);
   };
 
@@ -197,15 +197,15 @@ const PickTeams: React.FunctionComponent<Props> = ({
     Object.entries(groupJoinRequests).forEach(
       ([teamName, groups]) =>
         (groupsJoined = groupsJoined.concat(
-          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping))
-        ))
+          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping)),
+        )),
     );
 
     Object.entries(groupLeaveRequests).forEach(
       ([teamName, groups]) =>
         (groupsLeft = groupsLeft.concat(
-          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping))
-        ))
+          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping)),
+        )),
     );
 
     const result = await dispatch(updateUserMemberships(username, teamsJoined, teamsLeft, groupsJoined, groupsLeft));
@@ -294,7 +294,7 @@ const PickTeams: React.FunctionComponent<Props> = ({
           onClick={onSaveMemberships}
           className={classNames(
             classes.submitButton,
-            (saving || !membershipChangesMade) && classes.disabledSubmitButton
+            (saving || !membershipChangesMade) && classes.disabledSubmitButton,
           )}
         >
           <p>{saving ? 'Saving Teams & Groups...' : 'Save Teams & Groups'}</p>

@@ -8,27 +8,27 @@ import Mixins from '../../../styles/mixins';
 
 export default {
   checkedIcon: {
-    ...Mixins.checkedIcon()
+    ...Mixins.checkedIcon(),
   },
   successDescription: {
-    ...Mixins.successDescription()
+    ...Mixins.successDescription(),
   },
   enterCode: {
-    ...Mixins.blueLink()
+    ...Mixins.blueLink(),
   },
   button: {
     '& p': {
-      margin: '2px 0'
-    }
+      margin: '2px 0',
+    },
   },
   buttonSpinner: {
-    ...Mixins.buttonSpinner()
+    ...Mixins.buttonSpinner(),
   },
   disabledButton: {
     ...Mixins.disabledButton(),
 
     '& p': {
-      color: '#eee'
-    }
-  }
+      color: '#eee',
+    },
+  },
 };

@@ -8,5 +8,5 @@ import { Modules } from '../../../styles/modules';
 
 export default {
   monthlyCalendar: {},
-  ...Modules.filters()
+  ...Modules.filters(),
 };

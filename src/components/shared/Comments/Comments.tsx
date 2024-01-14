@@ -42,7 +42,7 @@ const Comments: React.FunctionComponent<Props> = ({
   page,
   filterBy,
   bucket,
-  index
+  index,
 }) => {
   const classes = useStyles({ feel });
 
@@ -73,7 +73,7 @@ const Comments: React.FunctionComponent<Props> = ({
 
           if (inFeed) {
             dispatch(
-              addCommentToFeed(logId, content, user.username, user.first, user.last, filterBy, bucket, page, index)
+              addCommentToFeed(logId, content, user.username, user.first, user.last, filterBy, bucket, page, index),
             );
           } else {
             dispatch(addComment(logId, content, user.username, user.first, user.last));
@@ -95,7 +95,7 @@ const Comments: React.FunctionComponent<Props> = ({
     prevErrorTime,
     user.first,
     user.last,
-    user.username
+    user.username,
   ]);
 
   const onTextAreaKeyUp = (e: React.KeyboardEvent<HTMLTextAreaElement>): void => {
@@ -118,8 +118,8 @@ const Comments: React.FunctionComponent<Props> = ({
             postNotification(
               logUsername,
               `${user.first} ${user.last} commented on your exercise log.`,
-              `/log/view/${logId}`
-            )
+              `/log/view/${logId}`,
+            ),
           );
         }
 
@@ -129,7 +129,7 @@ const Comments: React.FunctionComponent<Props> = ({
         while ((matches = tagRegex.exec(content)) !== null) {
           const username = matches.groups.username;
           dispatch(
-            postNotification(username, `${user.first} ${user.last} mentioned you in a comment.`, `/log/view/${logId}`)
+            postNotification(username, `${user.first} ${user.last} mentioned you in a comment.`, `/log/view/${logId}`),
           );
         }
       }
@@ -143,7 +143,7 @@ const Comments: React.FunctionComponent<Props> = ({
           className={classNames(
             classes.newComment,
             content ? classes.focusNewComment : classes.blurNewComment,
-            isCreating && classes.newCommentDisabled
+            isCreating && classes.newCommentDisabled,
           )}
           maxLength={1000}
           placeholder="Comment"

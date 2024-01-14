@@ -4,13 +4,14 @@
  * @since 5/3/2020
  */
 
-const appState = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _ = {
   auth: {
     auth: {
       isFetching: false,
       lastUpdated: 1588530309,
       signedInUser: 'andy',
-      status: 'SUCCESS'
+      status: 'SUCCESS',
     },
     user: {
       andy: {
@@ -30,23 +31,23 @@ const appState = {
         email: 'andrew@jarombek.com',
         lastSignIn: '2020-05-03 12:00:00',
         subscribed: 'Y',
-        logs: []
-      }
+        logs: [],
+      },
     },
     forgotPassword: {
       email: {
         isFetching: false,
         lastUpdated: 1588530309,
         status: 'SUCCESS',
-        serverError: null
+        serverError: null,
       },
       reset: {
         isFetching: false,
         lastUpdated: 1588530310,
         status: undefined,
-        serverError: undefined
-      }
-    }
+        serverError: undefined,
+      },
+    },
   },
   registration: {
     stage: 1,
@@ -61,19 +62,19 @@ const appState = {
         status: 'accepted',
         groups: {
           alumni: {
-            status: 'accepted'
-          }
-        }
-      }
-    }
+            status: 'accepted',
+          },
+        },
+      },
+    },
   },
   memberships: {
     groups: {
       isFetching: false,
       didInvalidate: false,
       lastUpdated: 1588530314,
-      items: []
-    }
+      items: [],
+    },
   },
   notifications: {
     isFetching: false,
@@ -83,8 +84,8 @@ const appState = {
     creating: {
       isFetching: false,
       lastUpdated: 1588530314,
-      created: true
-    }
+      created: true,
+    },
   },
   profile: {
     tom: {
@@ -95,24 +96,24 @@ const appState = {
         isFetching: false,
         didInvalidate: false,
         lastUpdated: 1588530311,
-        items: []
+        items: [],
       },
-      stats: {}
+      stats: {},
     },
     joe: {
       isFetching: false,
       didInvalidate: false,
       lastUpdated: 1588530312,
       flair: {},
-      stats: {}
+      stats: {},
     },
     ben: {
       isFetching: false,
       didInvalidate: false,
       lastUpdated: 1588530313,
       flair: {},
-      stats: {}
-    }
+      stats: {},
+    },
   },
   rangeView: {
     users: {
@@ -122,12 +123,12 @@ const appState = {
             isFetching: false,
             didInvalidate: false,
             lastUpdated: 1588530313,
-            items: []
-          }
-        }
-      }
+            items: [],
+          },
+        },
+      },
     },
-    groups: {}
+    groups: {},
   },
   group: {
     wmenstf: {
@@ -139,8 +140,8 @@ const appState = {
       description: '',
       weekStart: 'monday',
       members: [],
-      logs: []
-    }
+      logs: [],
+    },
   },
   logs: {
     isFetching: false,
@@ -172,10 +173,10 @@ const appState = {
             last: 'Jarombek',
             logId: 1,
             time: '2020-05-03 12:00:00',
-            content: 'test'
-          }
-        ]
-      }
+            content: 'test',
+          },
+        ],
+      },
     },
     feeds: {
       'all-all': {
@@ -186,33 +187,33 @@ const appState = {
             isFetching: false,
             lastUpdated: 1588530315,
             items: [],
-            serverError: null
-          }
-        }
-      }
+            serverError: null,
+          },
+        },
+      },
     },
     newLog: {
       isFetching: false,
       lastUpdated: 1588530315,
       created: true,
-      serverError: null
+      serverError: null,
     },
     updateLog: {
       3: {
         isFetching: false,
         lastUpdated: 1588530315,
         updated: true,
-        serverError: null
-      }
+        serverError: null,
+      },
     },
     newComments: {
       3: {
         isFetching: false,
         lastUpdated: 1588530315,
         created: true,
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   },
   teams: {
     team: {
@@ -224,9 +225,9 @@ const appState = {
           isFetching: false,
           lastUpdated: 1588530315,
           serverError: null,
-          items: []
-        }
-      }
+          items: [],
+        },
+      },
     },
     search: {
       s: {
@@ -236,10 +237,10 @@ const appState = {
         items: [
           {
             group_name: 'saintsxctf',
-            group_title: 'St. Lawrence Cross Country & Track'
-          }
-        ]
-      }
-    }
-  }
+            group_title: 'St. Lawrence Cross Country & Track',
+          },
+        ],
+      },
+    },
+  },
 };

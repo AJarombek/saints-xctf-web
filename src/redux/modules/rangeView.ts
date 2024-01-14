@@ -14,7 +14,7 @@ import {
   RangeViewFilter,
   RangeViewItem,
   RangeViews,
-  RangeViewState
+  RangeViewState,
 } from '../types';
 import { AppThunk } from '../store';
 import { AxiosError } from 'axios';
@@ -70,7 +70,7 @@ type RangeViewActionTypes =
 // Reducer
 const initialState: RangeViewState = {
   users: {},
-  groups: {}
+  groups: {},
 };
 
 function getRangeViewRequestReducer(state: RangeViewState, action: GetRangeViewRequestAction): RangeViewState {
@@ -88,11 +88,11 @@ function getRangeViewRequestReducer(state: RangeViewState, action: GetRangeViewR
           ...rangeViews,
           [`${action.start}:${action.end}`]: {
             isFetching: true,
-            lastUpdated: moment().unix()
-          }
-        }
-      }
-    }
+            lastUpdated: moment().unix(),
+          },
+        },
+      },
+    },
   };
 }
 
@@ -113,11 +113,11 @@ function getRangeViewSuccessReducer(state: RangeViewState, action: GetRangeViewS
             isFetching: false,
             lastUpdated: moment().unix(),
             items: action.items,
-            serverError: null
-          }
-        }
-      }
-    }
+            serverError: null,
+          },
+        },
+      },
+    },
   };
 }
 
@@ -138,11 +138,11 @@ function getRangeViewFailureReducer(state: RangeViewState, action: GetRangeViewF
             isFetching: false,
             lastUpdated: moment().unix(),
             items: null,
-            serverError: action.serverError
-          }
-        }
-      }
-    }
+            serverError: action.serverError,
+          },
+        },
+      },
+    },
   };
 }
 
@@ -151,8 +151,8 @@ function removeUserRangeViewReducer(state: RangeViewState, action: RemoveUserRan
     ...state,
     users: {
       ...state.users,
-      [action.username]: {}
-    }
+      [action.username]: {},
+    },
   };
 }
 
@@ -177,7 +177,7 @@ export function getRangeViewRequest(
   bucket: string,
   exerciseTypes: string,
   start: string,
-  end: string
+  end: string,
 ): GetRangeViewRequestAction {
   return {
     type: GET_RANGE_VIEW_REQUEST,
@@ -185,7 +185,7 @@ export function getRangeViewRequest(
     bucket,
     exerciseTypes,
     start,
-    end
+    end,
   };
 }
 
@@ -195,7 +195,7 @@ export function getRangeViewSuccess(
   exerciseTypes: string,
   start: string,
   end: string,
-  items: RangeViewItem[]
+  items: RangeViewItem[],
 ): GetRangeViewSuccessAction {
   return {
     type: GET_RANGE_VIEW_SUCCESS,
@@ -204,7 +204,7 @@ export function getRangeViewSuccess(
     exerciseTypes,
     start,
     end,
-    items
+    items,
   };
 }
 
@@ -214,7 +214,7 @@ export function getRangeViewFailure(
   exerciseTypes: string,
   start: string,
   end: string,
-  serverError: string
+  serverError: string,
 ): GetRangeViewFailureAction {
   return {
     type: GET_RANGE_VIEW_FAILURE,
@@ -223,14 +223,14 @@ export function getRangeViewFailure(
     exerciseTypes,
     start,
     end,
-    serverError
+    serverError,
   };
 }
 
 export function removeUserRangeView(username: string): RemoveUserRangeViewAction {
   return {
     type: REMOVE_USER_RANGE_VIEW,
-    username
+    username,
   };
 }
 
@@ -239,7 +239,7 @@ export function getRangeView(
   bucket: string,
   exerciseTypes: string,
   start: string,
-  end: string
+  end: string,
 ): AppThunk<Promise<boolean>, RangeViewState> {
   return async function (dispatch: Dispatch): Promise<boolean> {
     dispatch(getRangeViewRequest(filterBy, bucket, exerciseTypes, start, end));

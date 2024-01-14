@@ -22,7 +22,7 @@ export default {
       content: '" "',
       display: 'block',
       width: '100%',
-      paddingTop: '100%'
+      paddingTop: '100%',
     },
 
     '& > div': {
@@ -30,21 +30,21 @@ export default {
       top: 0,
       left: 0,
       right: 0,
-      bottom: 0
-    }
+      bottom: 0,
+    },
   },
   feel: {
-    backgroundColor: ({ feel }: { feel: number }): string => FeelColors[feel - 1]
+    backgroundColor: ({ feel }: { feel: number }): string => FeelColors[feel - 1],
   },
   currentMonth: {
-    backgroundColor: Colors.lightestBackground
+    backgroundColor: Colors.lightestBackground,
   },
   dayOfMonth: {
     ...FontMixins.robotoSlabBold(),
     margin: 0,
     textAlign: 'start',
     padding: 4,
-    fontSize: 20
+    fontSize: 20,
   },
   miles: {
     display: 'flex',
@@ -61,106 +61,106 @@ export default {
       ...FontMixins.robotoSlab(),
       margin: 0,
       textAlign: 'center',
-      fontSize: 18
-    }
+      fontSize: 18,
+    },
   },
   '@media screen and (max-width: 1350px)': {
     miles: {
       '& > p': {
-        fontSize: 17
-      }
+        fontSize: 17,
+      },
     },
     dayOfMonth: {
-      fontSize: 18
-    }
+      fontSize: 18,
+    },
   },
   '@media screen and (max-width: 1250px)': {
     miles: {
       '& > p': {
-        fontSize: 16
-      }
+        fontSize: 16,
+      },
     },
     dayOfMonth: {
-      fontSize: 17
-    }
+      fontSize: 17,
+    },
   },
   '@media screen and (max-width: 1150px)': {
     miles: {
       '& > p': {
-        fontSize: 15
-      }
+        fontSize: 15,
+      },
     },
     dayOfMonth: {
-      fontSize: 16
-    }
+      fontSize: 16,
+    },
   },
   '@media screen and (max-width: 1050px)': {
     miles: {
       '& > p': {
-        fontSize: 14
-      }
+        fontSize: 14,
+      },
     },
     dayOfMonth: {
-      fontSize: 15
-    }
+      fontSize: 15,
+    },
   },
   '@media screen and (max-width: 950px)': {
     dayOfMonth: {
-      fontSize: 14
-    }
+      fontSize: 14,
+    },
   },
   '@media screen and (max-width: 900px)': {
     miles: {
       '& > p': {
-        fontSize: 13
-      }
-    }
+        fontSize: 13,
+      },
+    },
   },
   '@media screen and (max-width: 650px)': {
     miles: {
       '& > p:nth-child(1)': {
-        paddingTop: 12
-      }
-    }
+        paddingTop: 12,
+      },
+    },
   },
   '@media screen and (max-width: 550px)': {
     miles: {
       '& > p': {
-        fontSize: 12
-      }
+        fontSize: 12,
+      },
     },
     dayOfMonth: {
-      fontSize: 12
-    }
+      fontSize: 12,
+    },
   },
   '@media screen and (max-width: 450px)': {
     dayOfMonth: {
       fontSize: 10,
-      padding: 3
-    }
+      padding: 3,
+    },
   },
   '@media screen and (max-width: 420px)': {
     miles: {
       '& > p': {
-        fontSize: 11
-      }
-    }
+        fontSize: 11,
+      },
+    },
   },
   '@media screen and (max-width: 390px)': {
     dayOfMonth: {
-      padding: 2
-    }
+      padding: 2,
+    },
   },
   '@media screen and (max-width: 370px)': {
     miles: {
       '& > p': {
-        fontSize: 10
-      }
-    }
+        fontSize: 10,
+      },
+    },
   },
   '@media screen and (max-width: 320px)': {
     dayOfMonth: {
-      padding: 1
-    }
-  }
+      padding: 1,
+    },
+  },
 };

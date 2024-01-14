@@ -26,7 +26,7 @@ const MonthlyCalendar: React.FunctionComponent<Props> = ({ rangeViews, user }) =
     run: true,
     bike: false,
     swim: false,
-    other: false
+    other: false,
   });
 
   const filter: RangeViewExerciseType = useExerciseFilter(selectedFilters);

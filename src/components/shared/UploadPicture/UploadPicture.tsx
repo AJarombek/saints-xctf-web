@@ -55,7 +55,7 @@ const UploadPicture: React.FunctionComponent<Props> = ({
   uploadSuccess,
   setUploadSuccess,
   onSubmitPicture,
-  onCancelPicture
+  onCancelPicture,
 }) => {
   const classes = useStyles();
 

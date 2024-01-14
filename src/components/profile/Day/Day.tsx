@@ -28,7 +28,7 @@ const Day: React.FunctionComponent<Props> = ({ date, monthStart, monthEnd, miles
       className={classNames(
         classes.day,
         date >= monthStart && date <= monthEnd && classes.currentMonth,
-        feel && classes.feel
+        feel && classes.feel,
       )}
       data-cypress="day"
     >

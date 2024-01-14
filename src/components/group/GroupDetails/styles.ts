@@ -8,16 +8,16 @@ import { FontMixins } from '../../../styles/mixins';
 
 export default {
   groupDetails: {
-    marginTop: 40
+    marginTop: 40,
   },
   description: {
-    ...FontMixins.robotoThin()
+    ...FontMixins.robotoThin(),
   },
   statisticSections: {
     display: 'flex',
     flexBasis: 'auto',
     flexFlow: 'row wrap',
     justifyContent: 'space-around',
-    borderTop: '1px dashed'
-  }
+    borderTop: '1px dashed',
+  },
 };

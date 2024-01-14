@@ -8,17 +8,17 @@ import Mixins from '../../styles/mixins';
 
 export default {
   log: {
-    ...Mixins.defaultPage()
+    ...Mixins.defaultPage(),
   },
   logBody: {
-    ...Mixins.defaultBody()
+    ...Mixins.defaultBody(),
   },
   loading: {
-    ...Mixins.loadingContainer()
+    ...Mixins.loadingContainer(),
   },
   '@media screen and (max-width: 390px)': {
     logBody: {
-      ...Mixins.defaultBodyMobile()
-    }
-  }
+      ...Mixins.defaultBodyMobile(),
+    },
+  },
 };

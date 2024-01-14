@@ -10,28 +10,28 @@ import Mixins, { FontMixins } from '../../../styles/mixins';
 export default {
   link: {
     ...Mixins.blueLink(),
-    marginTop: 15
+    marginTop: 15,
   },
   inputTip: {
     ...FontMixins.robotoSlab(),
     color: '#777',
     width: 325,
     fontSize: 12,
-    margin: '10px 5px 20px 5px'
+    margin: '10px 5px 20px 5px',
   },
   checkedIcon: {
-    ...Mixins.checkedIcon()
+    ...Mixins.checkedIcon(),
   },
   successDescription: {
-    ...Mixins.successDescription()
+    ...Mixins.successDescription(),
   },
   signIn: {
-    ...Mixins.blueLink()
+    ...Mixins.blueLink(),
   },
   '@media screen and (max-width: 1000px)': {
     inputTip: {
       width: 250,
-      fontSize: 10
-    }
-  }
+      fontSize: 10,
+    },
+  },
 };

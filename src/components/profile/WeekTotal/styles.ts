@@ -19,7 +19,7 @@ export default {
       content: '" "',
       display: 'block',
       width: '100%',
-      paddingTop: '100%'
+      paddingTop: '100%',
     },
 
     '& > div': {
@@ -27,8 +27,8 @@ export default {
       top: 0,
       left: 0,
       right: 0,
-      bottom: 0
-    }
+      bottom: 0,
+    },
   },
   miles: {
     display: 'flex',
@@ -40,49 +40,49 @@ export default {
       ...FontMixins.robotoSlab(),
       margin: 0,
       textAlign: 'center',
-      fontSize: 18
-    }
+      fontSize: 18,
+    },
   },
   '@media screen and (max-width: 1350px)': {
     miles: {
       '& > p': {
-        fontSize: 17
-      }
-    }
+        fontSize: 17,
+      },
+    },
   },
   '@media screen and (max-width: 1250px)': {
     miles: {
       '& > p': {
-        fontSize: 16
-      }
-    }
+        fontSize: 16,
+      },
+    },
   },
   '@media screen and (max-width: 550px)': {
     miles: {
       '& > p': {
-        fontSize: 14
-      }
-    }
+        fontSize: 14,
+      },
+    },
   },
   '@media screen and (max-width: 450px)': {
     miles: {
       '& > p': {
-        fontSize: 12
-      }
-    }
+        fontSize: 12,
+      },
+    },
   },
   '@media screen and (max-width: 420px)': {
     miles: {
       '& > p': {
-        fontSize: 11
-      }
-    }
+        fontSize: 11,
+      },
+    },
   },
   '@media screen and (max-width: 370px)': {
     miles: {
       '& > p': {
-        fontSize: 10
-      }
-    }
-  }
+        fontSize: 10,
+      },
+    },
+  },
 };

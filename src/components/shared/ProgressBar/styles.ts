@@ -14,16 +14,16 @@ type StyleProps = {
 
 export default {
   progressBar: {
-    position: 'relative'
+    position: 'relative',
   },
   bar: {
     position: 'absolute',
     height: 16,
-    margin: '4px 0'
+    margin: '4px 0',
   },
   barFull: {
     backgroundColor: color(Colors.lightBackground).darken(0.05).hex(),
-    width: '100%'
+    width: '100%',
   },
   barProgress: {
     backgroundColor: (props: StyleProps): string => (props.progress >= 100 ? Colors.sxctfRed : Colors.spotPaletteBrown),
@@ -41,6 +41,6 @@ export default {
     `
         : 'none',
     backgroundSize: '2rem',
-    transition: 'width 0.5s ease'
-  }
+    transition: 'width 0.5s ease',
+  },
 };

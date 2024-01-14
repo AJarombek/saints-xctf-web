@@ -1,3 +1,3 @@
-import HomeBody from "./HomeBody";
+import HomeBody from './HomeBody';
 
 export default HomeBody;

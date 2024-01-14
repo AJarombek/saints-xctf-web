@@ -1,3 +1,3 @@
-import DashboardBody from "./DashboardBody";
+import DashboardBody from './DashboardBody';
 
 export default DashboardBody;

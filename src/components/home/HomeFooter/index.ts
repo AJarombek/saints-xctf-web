@@ -1,3 +1,3 @@
-import HomeFooter from "./HomeFooter";
+import HomeFooter from './HomeFooter';
 
 export default HomeFooter;

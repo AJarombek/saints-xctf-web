@@ -1,3 +1,3 @@
-import DefaultErrorPopup from "./DefaultErrorPopup";
+import DefaultErrorPopup from './DefaultErrorPopup';
 
 export default DefaultErrorPopup;

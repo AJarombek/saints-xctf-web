@@ -14,7 +14,7 @@ import {
   LeaderboardItem,
   MemberDetails,
   Stats,
-  Team
+  Team,
 } from '../types';
 import { Dispatch } from 'redux';
 import { fn } from '../../datasources/fnRequest';
@@ -210,7 +210,7 @@ const initialState: GroupState = {
   leaderboards: {},
   team: {},
   uploadingGroupPicture: {},
-  updating: {}
+  updating: {},
 };
 
 function getGroupRequestReducer(state: GroupState, action: GetGroupRequestAction): GroupState {
@@ -224,9 +224,9 @@ function getGroupRequestReducer(state: GroupState, action: GetGroupRequestAction
         ...existingGroupState,
         isFetching: true,
         lastUpdated: moment().unix(),
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -242,9 +242,9 @@ function getGroupSuccessReducer(state: GroupState, action: GetGroupSuccessAction
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: null,
-        ...action.group
-      }
-    }
+        ...action.group,
+      },
+    },
   };
 }
 
@@ -259,9 +259,9 @@ function getGroupFailureReducer(state: GroupState, action: GetGroupFailureAction
         ...existingGroupState,
         isFetching: false,
         lastUpdated: moment().unix(),
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -276,9 +276,9 @@ function getGroupMembersRequestReducer(state: GroupState, action: GetGroupMember
         ...existingGroupMembersState,
         isFetching: true,
         lastUpdated: moment().unix(),
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -294,9 +294,9 @@ function getGroupMembersSuccessReducer(state: GroupState, action: GetGroupMember
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: null,
-        items: action.members
-      }
-    }
+        items: action.members,
+      },
+    },
   };
 }
 
@@ -311,9 +311,9 @@ function getGroupMembersFailureReducer(state: GroupState, action: GetGroupMember
         ...existingGroupMembersState,
         isFetching: false,
         lastUpdated: moment().unix(),
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -328,9 +328,9 @@ function getGroupStatsRequestReducer(state: GroupState, action: GetGroupStatsReq
         ...existingGroupStatsState,
         isFetching: true,
         lastUpdated: moment().unix(),
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -346,9 +346,9 @@ function getGroupStatsSuccessReducer(state: GroupState, action: GetGroupStatsSuc
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: null,
-        ...action.stats
-      }
-    }
+        ...action.stats,
+      },
+    },
   };
 }
 
@@ -363,9 +363,9 @@ function getGroupStatsFailureReducer(state: GroupState, action: GetGroupStatsFai
         ...existingGroupStatsState,
         isFetching: false,
         lastUpdated: moment().unix(),
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -381,10 +381,10 @@ function getGroupLeaderboardRequestReducer(state: GroupState, action: GetGroupLe
         [action.interval]: {
           isFetching: true,
           lastUpdated: moment().unix(),
-          serverError: null
-        }
-      }
-    }
+          serverError: null,
+        },
+      },
+    },
   };
 }
 
@@ -402,10 +402,10 @@ function getGroupLeaderboardSuccessReducer(state: GroupState, action: GetGroupLe
           lastUpdated: moment().unix(),
           serverError: null,
           serverWarning: action.serverWarning,
-          items: action.leaderboardItems
-        }
-      }
-    }
+          items: action.leaderboardItems,
+        },
+      },
+    },
   };
 }
 
@@ -421,10 +421,10 @@ function getGroupLeaderboardFailureReducer(state: GroupState, action: GetGroupLe
         [action.interval]: {
           isFetching: false,
           lastUpdated: moment().unix(),
-          serverError: action.serverError
-        }
-      }
-    }
+          serverError: action.serverError,
+        },
+      },
+    },
   };
 }
 
@@ -439,9 +439,9 @@ function getGroupTeamRequestReducer(state: GroupState, action: GetGroupTeamReque
         ...existingGroupTeamState,
         isFetching: true,
         lastUpdated: moment().unix(),
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -457,9 +457,9 @@ function getGroupTeamSuccessReducer(state: GroupState, action: GetGroupTeamSucce
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: null,
-        ...action.team
-      }
-    }
+        ...action.team,
+      },
+    },
   };
 }
 
@@ -474,9 +474,9 @@ function getGroupTeamFailureReducer(state: GroupState, action: GetGroupTeamFailu
         ...existingGroupTeamState,
         isFetching: false,
         lastUpdated: moment().unix(),
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -487,9 +487,9 @@ function postGroupPictureRequestReducer(state: GroupState, action: PostGroupPict
       ...state.uploadingGroupPicture,
       [action.groupId]: {
         isFetching: true,
-        lastUpdated: moment().unix()
-      }
-    }
+        lastUpdated: moment().unix(),
+      },
+    },
   };
 }
 
@@ -502,9 +502,9 @@ function postGroupPictureProgressReducer(state: GroupState, action: PostGroupPic
         isFetching: true,
         lastUpdated: moment().unix(),
         uploadedSize: action.uploadedSize,
-        totalSize: action.totalSize
-      }
-    }
+        totalSize: action.totalSize,
+      },
+    },
   };
 }
 
@@ -516,9 +516,9 @@ function postGroupPictureSuccessReducer(state: GroupState, action: PostGroupPict
       [action.groupId]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        uploaded: true
-      }
-    }
+        uploaded: true,
+      },
+    },
   };
 }
 
@@ -531,9 +531,9 @@ function postGroupPictureFailureReducer(state: GroupState, action: PostGroupPict
         isFetching: false,
         lastUpdated: moment().unix(),
         uploaded: false,
-        serverError: action.serverError
-      }
-    }
+        serverError: action.serverError,
+      },
+    },
   };
 }
 
@@ -545,9 +545,9 @@ function putGroupRequestReducer(state: GroupState, action: PutGroupRequestAction
       [action.groupId]: {
         isFetching: true,
         lastUpdated: moment().unix(),
-        serverError: null
-      }
-    }
+        serverError: null,
+      },
+    },
   };
 }
 
@@ -560,17 +560,17 @@ function putGroupSuccessReducer(state: GroupState, action: PutGroupSuccessAction
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: null,
-        updated: true
-      }
+        updated: true,
+      },
     },
     group: {
       ...state.group,
       [action.groupId]: {
         isFetching: false,
         lastUpdated: moment().unix(),
-        ...action.group
-      }
-    }
+        ...action.group,
+      },
+    },
   };
 }
 
@@ -583,9 +583,9 @@ function putGroupFailureReducer(state: GroupState, action: PutGroupFailureAction
         isFetching: false,
         lastUpdated: moment().unix(),
         serverError: action.serverError,
-        updated: false
-      }
-    }
+        updated: false,
+      },
+    },
   };
 }
 
@@ -644,7 +644,7 @@ export default function reducer(state = initialState, action: GroupActionTypes):
 export function getGroupRequest(groupId: number): GetGroupRequestAction {
   return {
     type: GET_GROUP_REQUEST,
-    groupId
+    groupId,
   };
 }
 
@@ -652,7 +652,7 @@ export function getGroupSuccess(group: Group, groupId: number): GetGroupSuccessA
   return {
     type: GET_GROUP_SUCCESS,
     group,
-    groupId
+    groupId,
   };
 }
 
@@ -660,14 +660,14 @@ export function getGroupFailure(serverError: string, groupId: number): GetGroupF
   return {
     type: GET_GROUP_FAILURE,
     serverError,
-    groupId
+    groupId,
   };
 }
 
 export function getGroupMembersRequest(groupId: number): GetGroupMembersRequestAction {
   return {
     type: GET_GROUP_MEMBERS_REQUEST,
-    groupId
+    groupId,
   };
 }
 
@@ -675,7 +675,7 @@ export function getGroupMembersSuccess(members: MemberDetails[], groupId: number
   return {
     type: GET_GROUP_MEMBERS_SUCCESS,
     members,
-    groupId
+    groupId,
   };
 }
 
@@ -683,14 +683,14 @@ export function getGroupMembersFailure(serverError: string, groupId: number): Ge
   return {
     type: GET_GROUP_MEMBERS_FAILURE,
     serverError,
-    groupId
+    groupId,
   };
 }
 
 export function getGroupStatsRequest(groupId: number): GetGroupStatsRequestAction {
   return {
     type: GET_GROUP_STATS_REQUEST,
-    groupId
+    groupId,
   };
 }
 
@@ -698,7 +698,7 @@ export function getGroupStatsSuccess(stats: Stats, groupId: number): GetGroupSta
   return {
     type: GET_GROUP_STATS_SUCCESS,
     stats,
-    groupId
+    groupId,
   };
 }
 
@@ -706,18 +706,18 @@ export function getGroupStatsFailure(serverError: string, groupId: number): GetG
   return {
     type: GET_GROUP_STATS_FAILURE,
     serverError,
-    groupId
+    groupId,
   };
 }
 
 export function getGroupLeaderboardRequest(
   groupId: number,
-  interval: LeaderboardInterval
+  interval: LeaderboardInterval,
 ): GetGroupLeaderboardRequestAction {
   return {
     type: GET_GROUP_LEADERBOARD_REQUEST,
     groupId,
-    interval
+    interval,
   };
 }
 
@@ -725,34 +725,34 @@ export function getGroupLeaderboardSuccess(
   leaderboardItems: LeaderboardItem[],
   groupId: number,
   interval: LeaderboardInterval,
-  serverWarning: string
+  serverWarning: string,
 ): GetGroupLeaderboardSuccessAction {
   return {
     type: GET_GROUP_LEADERBOARD_SUCCESS,
     leaderboardItems,
     groupId,
     interval,
-    serverWarning
+    serverWarning,
   };
 }
 
 export function getGroupLeaderboardFailure(
   serverError: string,
   groupId: number,
-  interval: LeaderboardInterval
+  interval: LeaderboardInterval,
 ): GetGroupLeaderboardFailureAction {
   return {
     type: GET_GROUP_LEADERBOARD_FAILURE,
     serverError,
     groupId,
-    interval
+    interval,
   };
 }
 
 export function getGroupTeamRequest(groupId: number): GetGroupTeamRequestAction {
   return {
     type: GET_GROUP_TEAM_REQUEST,
-    groupId
+    groupId,
   };
 }
 
@@ -760,7 +760,7 @@ export function getGroupTeamSuccess(team: Team, groupId: number): GetGroupTeamSu
   return {
     type: GET_GROUP_TEAM_SUCCESS,
     team,
-    groupId
+    groupId,
   };
 }
 
@@ -768,34 +768,34 @@ export function getGroupTeamFailure(serverError: string, groupId: number): GetGr
   return {
     type: GET_GROUP_TEAM_FAILURE,
     serverError,
-    groupId
+    groupId,
   };
 }
 
 export function postGroupPictureRequest(groupId: number): PostGroupPictureRequestAction {
   return {
     type: POST_GROUP_PICTURE_REQUEST,
-    groupId
+    groupId,
   };
 }
 
 export function postGroupPictureProgress(
   groupId: number,
   totalSize: number,
-  uploadedSize: number
+  uploadedSize: number,
 ): PostGroupPictureProgressAction {
   return {
     type: POST_GROUP_PICTURE_PROGRESS,
     groupId,
     totalSize,
-    uploadedSize
+    uploadedSize,
   };
 }
 
 export function postGroupPictureSuccess(groupId: number): PostGroupPictureSuccessAction {
   return {
     type: POST_GROUP_PICTURE_SUCCESS,
-    groupId
+    groupId,
   };
 }
 
@@ -803,14 +803,14 @@ export function postGroupPictureFailure(groupId: number, serverError: string): P
   return {
     type: POST_GROUP_PICTURE_FAILURE,
     groupId,
-    serverError
+    serverError,
   };
 }
 
 export function putGroupRequest(groupId: number): PutGroupRequestAction {
   return {
     type: PUT_GROUP_REQUEST,
-    groupId
+    groupId,
   };
 }
 
@@ -818,7 +818,7 @@ export function putGroupSuccess(groupId: number, group: Group): PutGroupSuccessA
   return {
     type: PUT_GROUP_SUCCESS,
     groupId,
-    group
+    group,
   };
 }
 
@@ -826,7 +826,7 @@ export function putGroupFailure(groupId: number, serverError: string): PutGroupF
   return {
     type: PUT_GROUP_FAILURE,
     serverError,
-    groupId
+    groupId,
   };
 }
 
@@ -892,7 +892,7 @@ export function getGroupStats(groupId: number): AppThunk<Promise<void>, GroupSta
 
 export function getGroupLeaderboard(
   groupId: number,
-  interval: LeaderboardInterval = null
+  interval: LeaderboardInterval = null,
 ): AppThunk<Promise<void>, GroupState> {
   return async function (dispatch: Dispatch): Promise<void> {
     dispatch(getGroupLeaderboardRequest(groupId, interval));
@@ -965,8 +965,8 @@ export function uploadGroupPicture(groupId: number, file: File): AppThunk<Promis
           dispatch(postGroupPictureProgress(groupId, totalSize, uploadedSize));
         },
         headers: {
-          'Content-Type': file.type
-        }
+          'Content-Type': file.type,
+        },
       };
 
       const s3UploadUrl = uploadUrl.replace('https://s3.amazonaws.com/', '');

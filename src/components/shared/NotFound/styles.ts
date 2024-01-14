@@ -14,22 +14,22 @@ export default {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: Colors.lightBackground,
-    margin: '0 6%'
+    margin: '0 6%',
   },
   fullPageContainer: {
     minHeight: 'calc(100vh - 100px)',
-    marginTop: 100
+    marginTop: 100,
   },
   logo: {
     height: 150,
-    width: 150
+    width: 150,
   },
   title: {
     ...FontMixins.longway(),
-    fontSize: 32
+    fontSize: 32,
   },
   description: {
     ...FontMixins.robotoSlabThin(),
-    fontSize: 18
-  }
+    fontSize: 18,
+  },
 };
