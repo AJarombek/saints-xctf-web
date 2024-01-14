@@ -4,7 +4,8 @@
  * @since 5/3/2020
  */
 
-const appState = {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _ = {
   auth: {
     auth: {
       isFetching: false,

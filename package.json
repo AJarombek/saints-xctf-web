@@ -125,6 +125,8 @@
     "build:dev": "webpack --env development",
     "build": "webpack --env production",
     "deploy": "node ./dist/bundle.js",
-    "start": "webpack-dev-server --hot --inline --env local"
+    "start": "webpack-dev-server --hot --inline --env local",
+    "format:check": "prettier src --check",
+    "format:write": "prettier src --write"
   }
 }
