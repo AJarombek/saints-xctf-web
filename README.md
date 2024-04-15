@@ -111,7 +111,6 @@ docker-compose up --build
 | `nginx.dev.conf`       | Nginx web server configuration in the development environment.              |
 | `nginx.local.conf`     | Nginx web server configuration for running locally.                         |
 | `package.json`         | Entry point for the npm application.  Contains dependency definitions.      |
-| `setup.sh`             | Bash commands for setting up the application.                               |
 | `tsconfig.json`        | TypeScript configuration for the application.                               |
 | `webpack.config.js`    | Main webpack configuration file.                                            |
 | `webpack.parts.js`     | Smaller webpack parts to combine with the main configuration.               |

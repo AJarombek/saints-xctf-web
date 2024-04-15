@@ -2,7 +2,7 @@
 # Author: Andrew Jarombek
 # Date: 7/22/2020
 
-FROM node:14.4.0 AS base
+FROM node:20.12.2 AS base
 
 COPY . src
 
