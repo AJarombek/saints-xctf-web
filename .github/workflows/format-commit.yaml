@@ -10,9 +10,8 @@ on:
 jobs:
   format_commit:
     runs-on: ubuntu-latest
-    container: node:12.18.4
-    permissions:
-      contents: write
+    timeout-minutes: 5
+    container: node:20.12.2
 
     steps:
       - name: Checkout Repository
