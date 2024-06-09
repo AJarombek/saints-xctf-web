@@ -131,7 +131,7 @@ const ProfileBody: React.FunctionComponent<Props> = ({ user, signedInUser, flair
           <PageTabs currentTab={tab} tabs={tabs} />
           <div className={classes.mobileTabs}>
             <AJSelect
-              options={...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))}
+              options={[...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))]}
               defaultOption={1}
               onClickListOption={(item: { content: string; value: string }): void => setTab(item.value as ProfileTab)}
               className={classNames(classes.select, 'mobileTabsSelect')}

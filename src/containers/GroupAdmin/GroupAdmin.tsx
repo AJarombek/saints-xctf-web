@@ -16,11 +16,9 @@ import { useAdminCheck, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import GroupAdminBody from '../../components/group-admin/GroupAdminBody/GroupAdminBody';
 import { useParams } from 'react-router-dom';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
-const GroupAdmin: React.FunctionComponent<Props> = () => {
+const GroupAdmin: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   const classes = useStyles();

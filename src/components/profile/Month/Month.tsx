@@ -32,7 +32,7 @@ const Month: React.FunctionComponent<Props> = ({ rangeView, start, monthStart, m
 
     // The first item in weekList is the start date of the week.  The second item in weekList is the range view
     // for the week.
-    const weekList = [] as any[];
+    const weekList = [];
     for (let i = 0; i < 6; i++) {
       const items = [];
 

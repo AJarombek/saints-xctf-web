@@ -13,9 +13,7 @@ import SignInBody from '../../components/sign-in/SignInBody';
 import { RootState } from '../../redux/types';
 import { useSetTitle } from '../../hooks/shared';
 
-type Props = {};
-
-const SignIn: React.FunctionComponent<Props> = () => {
+const SignIn: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   const navigate = useNavigate();

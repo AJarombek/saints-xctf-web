@@ -58,6 +58,7 @@ const Comments: React.FunctionComponent<Props> = ({
 
   useEffect(() => {
     if (newComments) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const newComment = Object.entries(newComments).filter(([commentLogId, _]) => +commentLogId === logId);
 
       if (newComment.length) {

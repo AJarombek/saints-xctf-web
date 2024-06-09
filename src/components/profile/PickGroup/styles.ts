@@ -18,8 +18,8 @@ export default {
       status === 'accepted'
         ? Colors.sxctfRed
         : status === 'pending'
-        ? Colors.spotPaletteBrown
-        : Colors.lightestBackground,
+          ? Colors.spotPaletteBrown
+          : Colors.lightestBackground,
     color: ({ status }: { status: string }): string => (status ? '#FFF' : '#000'),
   },
   groupTitle: {

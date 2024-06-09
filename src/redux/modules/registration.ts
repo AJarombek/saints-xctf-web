@@ -427,24 +427,21 @@ export function registerCredentials(
   };
 }
 
-export const sendWelcomeEmail = (
-  email: string,
-  first: string,
-  last: string,
-  username: string,
-): AppThunk<Promise<boolean>, RegistrationState> => async (dispatch: Dispatch): Promise<boolean> => {
-  dispatch(welcomeEmailRequest());
+export const sendWelcomeEmail =
+  (email: string, first: string, last: string, username: string): AppThunk<Promise<boolean>, RegistrationState> =>
+  async (dispatch: Dispatch): Promise<boolean> => {
+    dispatch(welcomeEmailRequest());
 
-  try {
-    const response = await fn.post('email/welcome', { to: email, firstName: first, lastName: last, username });
-    const result: boolean = response.data.result;
+    try {
+      const response = await fn.post('email/welcome', { to: email, firstName: first, lastName: last, username });
+      const result: boolean = response.data.result;
 
-    dispatch(welcomeEmailSuccess());
-    return result;
-  } catch (error) {
-    const serverError = 'An unexpected error occurred.';
+      dispatch(welcomeEmailSuccess());
+      return result;
+    } catch (error) {
+      const serverError = 'An unexpected error occurred.';
 
-    dispatch(welcomeEmailFailure(serverError));
-    return false;
-  }
-};
+      dispatch(welcomeEmailFailure(serverError));
+      return false;
+    }
+  };

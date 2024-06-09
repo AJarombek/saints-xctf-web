@@ -26,12 +26,12 @@ import classNames from 'classnames';
 
 const useStyles = createUseStyles(styles);
 
-export type CurrentLeaderboardItem = {
+export interface CurrentLeaderboardItem {
   username: string;
   first: string;
   last: string;
   value: number;
-};
+}
 
 interface Props {
   group: GroupMeta;

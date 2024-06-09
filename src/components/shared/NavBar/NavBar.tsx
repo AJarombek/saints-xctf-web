@@ -11,8 +11,7 @@ import classnames from 'classnames';
 import styles from './styles';
 import { AJButton, AJMobileHamburger, AJNavList } from 'jarombek-react-components';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
 import { UserMeta } from '../../../redux/types';
 import { useDispatch } from 'react-redux';
@@ -20,8 +19,9 @@ import { signOut, SignOutAction } from '../../../redux/modules/auth';
 import { useSignInCheck } from '../../../hooks/shared';
 
 interface Props {
-  includeHeaders?: Array<string>;
+  includeHeaders?: string[];
   user?: UserMeta;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   bodyRef: React.RefObject<any>;
   dryTheme?: NavBarTheme;
   stickyTheme?: NavBarDropdownTheme;
@@ -36,6 +36,7 @@ type NavBarDropdownTheme = 'light' | 'dark';
 
 const useStyles = createUseStyles(styles);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const handleScroll = (ref: React.RefObject<any>, setStickyHeader: (isSticky: boolean) => void): void => {
   if (ref.current) {
     setStickyHeader(ref.current.getBoundingClientRect().top <= -100);
@@ -78,8 +79,8 @@ const NavBar: React.FunctionComponent<Props> = ({
     stickyTheme === 'light'
       ? classes.lightTheme
       : stickyTheme === 'dark'
-      ? classes.darkTheme
-      : classes.transparentTheme;
+        ? classes.darkTheme
+        : classes.transparentTheme;
 
   const dryHeaderClass =
     dryTheme === 'light' ? classes.lightTheme : dryTheme === 'dark' ? classes.darkTheme : classes.transparentTheme;
@@ -88,15 +89,15 @@ const NavBar: React.FunctionComponent<Props> = ({
     stickyDropdownHeaderTheme === 'light'
       ? classes.lightDropdownHeaderTheme
       : stickyDropdownHeaderTheme === 'dark'
-      ? classes.darkDropdownHeaderTheme
-      : classes.transparentDropdownHeaderTheme;
+        ? classes.darkDropdownHeaderTheme
+        : classes.transparentDropdownHeaderTheme;
 
   const dryDropdownHeaderClass =
     dryDropdownHeaderTheme === 'light'
       ? classes.lightDropdownHeaderTheme
       : dryDropdownHeaderTheme === 'dark'
-      ? classes.darkDropdownHeaderTheme
-      : classes.transparentDropdownHeaderTheme;
+        ? classes.darkDropdownHeaderTheme
+        : classes.transparentDropdownHeaderTheme;
 
   const headerClass = stickyHeader
     ? classnames(classes.sticky, stickyHeaderClass, stickyDropdownHeaderClass)

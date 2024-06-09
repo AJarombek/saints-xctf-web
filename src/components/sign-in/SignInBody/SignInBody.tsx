@@ -15,12 +15,10 @@ import ImageInputSet from '../../shared/ImageInputSet';
 import { signIn } from '../../../redux/modules/auth';
 import { useDispatch } from 'react-redux';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import usernameLogo from '../../../../assets/username.png';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import passwordLogo from '../../../../assets/password.png';
 
 interface Props {

@@ -19,11 +19,9 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import { useSetTitle } from '../../hooks/shared';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
-const ForgotPassword: React.FunctionComponent<Props> = () => {
+const ForgotPassword: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   const classes = useStyles();

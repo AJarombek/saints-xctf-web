@@ -98,7 +98,6 @@ docker-compose up --build
 | `.babelrc`             | Configuration for the Babel transpiler.                                     |
 | `.dockerignore`        | Directories and files for Docker to ignore when building an image.          |
 | `.env`                 | Environment variables for the application.                                  |
-| `.eslintrc.js`         | Configuration for ESLint JavaScript linting (AirBnb style guide).           |
 | `.prettierignore`      | File patterns for the Prettier code formatter to ignore.                    |
 | `.prettierrc`          | Prettier code formatter configuration.                                      |
 | `app.dev.dockerfile`   | Docker image for the application in development.                            |
@@ -107,6 +106,7 @@ docker-compose up --build
 | `base.dockerfile`      | Base image with the application source code used in production & for tests. |
 | `cypress.json`         | Cypress end to end test configuration file.                                 |
 | `docker-compose.yml`   | Docker compose configuration for running the Dockerized app locally.        |
+| `eslint.config.js`     | Configuration for ESLint with TypeScript and Prettier.                      |
 | `jest.config.js`       | Jest testing configuration for the application code.                        |
 | `nginx.conf`           | Nginx web server configuration in the production environment.               |
 | `nginx.dev.conf`       | Nginx web server configuration in the development environment.              |

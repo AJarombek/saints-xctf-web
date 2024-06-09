@@ -763,10 +763,10 @@ export function signIn(username: string, password: string): AppThunk<Promise<voi
   };
 }
 
-export type ForgotPasswordCreationResult = {
+export interface ForgotPasswordCreationResult {
   created?: boolean;
   error?: string;
-};
+}
 
 export function createForgotPasswordCode(email: string): AppThunk<Promise<ForgotPasswordCreationResult>, AuthState> {
   return async function (dispatch: Dispatch): Promise<ForgotPasswordCreationResult> {
@@ -794,10 +794,10 @@ export function createForgotPasswordCode(email: string): AppThunk<Promise<Forgot
   };
 }
 
-export type ValidateForgotPasswordResult = {
+export interface ValidateForgotPasswordResult {
   isValid?: boolean;
   error?: string;
-};
+}
 
 export function validateForgotPasswordCode(code: string): AppThunk<Promise<ValidateForgotPasswordResult>, AuthState> {
   return async function (dispatch: Dispatch): Promise<ValidateForgotPasswordResult> {
@@ -850,29 +850,29 @@ export function createActivationCode(email: string, groupId: number): AppThunk<P
   };
 }
 
-export const sendActivationCodeEmail = (email: string, code: string): AppThunk<Promise<boolean>, AuthState> => async (
-  dispatch: Dispatch,
-): Promise<boolean> => {
-  dispatch(activationCodeEmailRequest(email, code));
+export const sendActivationCodeEmail =
+  (email: string, code: string): AppThunk<Promise<boolean>, AuthState> =>
+  async (dispatch: Dispatch): Promise<boolean> => {
+    dispatch(activationCodeEmailRequest(email, code));
 
-  try {
-    const response = await fn.post('email/activation-code', { email, code });
-    const result: boolean = response.data.result;
+    try {
+      const response = await fn.post('email/activation-code', { email, code });
+      const result: boolean = response.data.result;
 
-    dispatch(activationCodeEmailSuccess(email, code));
-    return result;
-  } catch (error) {
-    const serverError = 'An unexpected error occurred.';
+      dispatch(activationCodeEmailSuccess(email, code));
+      return result;
+    } catch (error) {
+      const serverError = 'An unexpected error occurred.';
 
-    dispatch(activationCodeEmailFailure(email, code, serverError));
-    return false;
-  }
-};
+      dispatch(activationCodeEmailFailure(email, code, serverError));
+      return false;
+    }
+  };
 
-export type ChangePasswordResult = {
+export interface ChangePasswordResult {
   passwordUpdated?: boolean;
   error?: string;
-};
+}
 
 export function changeUserPassword(
   username: string,

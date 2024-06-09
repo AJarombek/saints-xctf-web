@@ -15,13 +15,11 @@ import LogBody from '../../components/new-edit-log/LogBody';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useAdminCheck, useHeaders, useSetTitle, useSignInCheck } from '../../hooks/shared';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
 const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
-const NewLog: React.FunctionComponent<Props> = () => {
+const NewLog: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   const classes = useStyles();

@@ -7,10 +7,10 @@
 import Colors from '../../../styles/colors';
 import color from 'color';
 
-type StyleProps = {
+interface StyleProps {
   progress: number;
   inProgress: boolean;
-};
+}
 
 export default {
   progressBar: {

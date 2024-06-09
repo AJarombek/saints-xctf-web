@@ -29,11 +29,11 @@ interface Props {
   user: UserMeta;
 }
 
-type WeeklyChartData = {
+interface WeeklyChartData {
   name: string;
   miles: number;
   feel: number;
-};
+}
 
 const useStyles = createUseStyles(styles);
 
@@ -144,7 +144,7 @@ const WeeklyChart: React.FunctionComponent<Props> = ({ rangeViews, user }) => {
               <YAxis />
               <Tooltip
                 labelFormatter={(label: string): string => `Week of ${label}`}
-                formatter={(value: string): Array<string> => [(+value).toFixed(2), 'Miles']}
+                formatter={(value: string): string[] => [(+value).toFixed(2), 'Miles']}
                 separator=": "
                 cursor={false}
               />

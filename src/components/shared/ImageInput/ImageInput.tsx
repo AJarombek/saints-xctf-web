@@ -6,7 +6,6 @@
 
 import React, { ChangeEvent, KeyboardEvent, useRef } from 'react';
 import classNames from 'classnames';
-import { ClassValue } from 'classnames/types';
 
 enum ImageInputStatus {
   NONE,
@@ -22,13 +21,13 @@ interface Props {
   minValue?: number;
   autoComplete?: string;
   maxLength?: number;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => any;
-  onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => any;
+  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onKeyUp?: (event: KeyboardEvent<HTMLInputElement>) => void;
   useCustomValue?: boolean;
   value?: string;
-  icon?: any;
+  icon?: string;
   status: ImageInputStatus;
-  className?: ClassValue;
+  className?: string;
 }
 
 const ImageInput: React.FunctionComponent<Props> = ({

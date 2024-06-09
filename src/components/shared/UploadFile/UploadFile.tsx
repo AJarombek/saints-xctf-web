@@ -8,11 +8,10 @@ import React, { Dispatch, SetStateAction, useRef, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
-import { ClassValue } from 'classnames/types';
 
 interface Props {
   setFile: Dispatch<SetStateAction<File>>;
-  className?: ClassValue;
+  className?: string;
 }
 
 const useStyles = createUseStyles(styles);
@@ -66,7 +65,7 @@ const UploadFile: React.FunctionComponent<Props> = ({ setFile, className }) => {
     <div
       className={classNames(
         classes.uploadFile,
-        !!dragCounter ? classes.uploadFileBoxDrag : classes.uploadFileBoxEmpty,
+        dragCounter ? classes.uploadFileBoxDrag : classes.uploadFileBoxEmpty,
         className,
       )}
       data-cypress="uploadFile"
@@ -83,7 +82,7 @@ const UploadFile: React.FunctionComponent<Props> = ({ setFile, className }) => {
         onChange={handleFileInput}
         ref={fileInputRef}
       />
-      <p className={classNames(classes.uploadText, !!dragCounter ? classes.uploadTextDrag : classes.uploadTextEmpty)}>
+      <p className={classNames(classes.uploadText, dragCounter ? classes.uploadTextDrag : classes.uploadTextEmpty)}>
         Click here or drag and drop a file.
       </p>
     </div>

@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import color from 'color';
 
 interface Step {
-  value: any;
+  value: number;
   color: string;
 }
 
@@ -32,11 +32,8 @@ const StepSlider: React.FunctionComponent<Props> = ({ steps, value, onValueChang
   });
 
   const removeEventListeners = (): void => {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.removeEventListener('mousemove', handleChange);
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.removeEventListener('mouseup', onMouseUp);
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.removeEventListener('touchend', onMouseUp);
   };
 
@@ -49,14 +46,13 @@ const StepSlider: React.FunctionComponent<Props> = ({ steps, value, onValueChang
   const handleChange = (e: ReactMouseEvent | MouseEvent): void => {
     const stepCount = steps?.length ?? 1;
     const x = e.pageX - sliderRef.current.offsetLeft;
-    const stepLength = sliderRef.current.offsetWidth / stepCount ?? 1;
+    const stepLength = sliderRef.current.offsetWidth / stepCount;
 
     const offsetAdjustedX = Math.max(x - stepLength / 2, 0);
     onValueChange(Math.min(Math.round(offsetAdjustedX / stepLength), stepCount - 1));
   };
 
   const onTouchStart = (): void => {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.addEventListener('touchend', onMouseUp);
   };
 
@@ -64,12 +60,10 @@ const StepSlider: React.FunctionComponent<Props> = ({ steps, value, onValueChang
     handleChange(e);
 
     window.addEventListener('mousemove', handleChange);
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     window.addEventListener('mouseup', onMouseUp);
   };
 
   const onMouseUp = (): void => {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     removeEventListeners();
   };
 

@@ -17,8 +17,7 @@ import ImageInputSet, { ImageInputDirection } from '../../shared/ImageInputSet';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { RegistrationState } from '../../../redux/types';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import emailLogo from '../../../../assets/email.png';
 
 interface Props {

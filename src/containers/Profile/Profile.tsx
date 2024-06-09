@@ -18,13 +18,11 @@ import { getUser, setUser } from '../../redux/modules/profile';
 import { useAdminCheck, useHeaders, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import NotFound from '../../components/shared/NotFound';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
 const defaultHeaders = ['teams', 'dashboard', 'createNewLog', 'signOut', 'logo'];
 
-const Profile: React.FunctionComponent<Props> = () => {
+const Profile: React.FunctionComponent = () => {
   useScrollToTop();
 
   const location = useLocation();

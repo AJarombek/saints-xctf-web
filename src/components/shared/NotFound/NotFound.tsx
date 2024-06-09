@@ -8,14 +8,13 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
-import { ClassValue } from 'classnames/types';
 
-// @ts-ignore
+// @ts-expect-error importing an image
 import saintsXCTFLogo from '../../../../assets/saintsxctf_logo.png';
 
 interface Props {
   fullPage: boolean;
-  className?: ClassValue;
+  className?: string;
 }
 
 const useStyles = createUseStyles(styles);

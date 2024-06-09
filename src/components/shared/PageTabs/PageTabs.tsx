@@ -9,11 +9,11 @@ import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
 
-export type Tab = {
+export interface Tab {
   tab: string;
   onView: () => void;
   content: ReactNode;
-};
+}
 
 interface Props {
   currentTab: string;

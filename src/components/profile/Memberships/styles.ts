@@ -1,4 +1,3 @@
-import Colors from '../../../styles/colors';
 import { FontMixins } from '../../../styles/mixins';
 
 /**

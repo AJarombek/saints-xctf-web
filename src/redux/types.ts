@@ -6,7 +6,7 @@
 
 import moment from 'moment';
 
-export type RootState = {
+export interface RootState {
   auth: AuthState;
   logs: LogsState;
   memberships: MembershipsState;
@@ -16,9 +16,9 @@ export type RootState = {
   registration: RegistrationState;
   teams: TeamState;
   groups: GroupState;
-};
+}
 
-export type LogsState = {
+export interface LogsState {
   isFetching?: boolean;
   didInvalidate?: boolean;
   lastUpdated?: number;
@@ -28,9 +28,9 @@ export type LogsState = {
   updateLogs: UpdateLogs;
   deletedLogs: DeletedLogs;
   newComments: NewComments;
-};
+}
 
-export type AuthState = {
+export interface AuthState {
   auth: Auth;
   user: Users;
   createActivationCode: CreateActivationCodes;
@@ -38,28 +38,28 @@ export type AuthState = {
   createForgotPasswordCode: CreateForgotPasswordCodes;
   validateForgotPasswordCode: ValidateForgotPasswordCodes;
   changePassword: ChangePassword;
-};
+}
 
-export type MembershipsState = {
+export interface MembershipsState {
   groups: GroupMembers;
   updateMemberships: UpdateGroupMemberships;
   deleteMemberships: DeleteGroupMemberships;
-};
+}
 
-export type NotificationsState = {
+export interface NotificationsState {
   isFetching?: boolean;
   lastUpdated?: number;
   serverError?: string;
   items?: Notification[];
   newNotification: NewNotification;
   updateNotifications: UpdateNotifications;
-};
+}
 
-export type ProfileState = {
+export interface ProfileState {
   users?: Users;
-};
+}
 
-export type RegistrationState = {
+export interface RegistrationState {
   isFetching?: boolean;
   lastUpdated?: number;
   serverError?: string;
@@ -73,11 +73,11 @@ export type RegistrationState = {
   password?: string;
   activation_code?: string;
   welcomeEmail?: WelcomeEmail;
-};
+}
 
 export type RangeViewState = Record<RangeViewFilter, RangeViewBuckets>;
 
-export type GroupState = {
+export interface GroupState {
   group: Record<string, GroupMeta>;
   members: Record<string, MemberDetailsMeta>;
   stats: Record<string, StatsMeta>;
@@ -85,12 +85,12 @@ export type GroupState = {
   team: Record<string, TeamMeta>;
   uploadingGroupPicture: Record<string, UploadingGroupPicture>;
   updating: Record<string, UpdateGroup>;
-};
+}
 
-export type TeamState = {
+export interface TeamState {
   team: Record<string, TeamMeta>;
   search: Record<string, TeamsInfo>;
-};
+}
 
 export interface Meta {
   isFetching?: boolean;
@@ -99,12 +99,12 @@ export interface Meta {
   serverError?: string;
 }
 
-export type Auth = {
+export interface Auth {
   isFetching?: boolean;
   lastUpdated?: number;
   signedInUser?: string;
   status?: string;
-};
+}
 
 export type CreateActivationCodes = Record<string, CreateActivationCode>;
 
@@ -141,11 +141,12 @@ export interface WelcomeEmail extends Meta {
   emailed?: boolean;
 }
 
-export type Users = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface Users {
   [key: string]: UserDetails;
-};
+}
 
-export type UserDetails = {
+export interface UserDetails {
   user?: UserMeta;
   flair?: FlairMeta;
   stats?: StatsMeta;
@@ -153,7 +154,7 @@ export type UserDetails = {
   updateMemberships?: UpdateMemberships;
   updating?: UpdateUser;
   uploadingProfilePicture?: UploadingProfilePicture;
-};
+}
 
 export interface UserMeta extends User, Meta {}
 
@@ -208,7 +209,7 @@ export enum Metric {
   METERS = 'meters',
 }
 
-export type Log = {
+export interface Log {
   log_id?: number;
   username?: string;
   first?: string;
@@ -226,35 +227,38 @@ export type Log = {
   description?: string;
   time_created?: string;
   comments?: Comment[];
-};
+}
 
-export type Logs = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface Logs {
   [key: string]: LogMeta;
-};
+}
 
 export interface LogMeta extends Log, Meta {}
 
-export type LogFeeds = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface LogFeeds {
   [key: string]: {
     filterBy: string;
     bucket: string;
     pages: LogFeedPages;
   };
-};
+}
 
-export type LogFeedPages = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface LogFeedPages {
   [key: string]: LogFeedPage;
-};
+}
 
-export type LogFeedPage = {
+export interface LogFeedPage {
   isFetching?: boolean;
   lastUpdated?: number;
   items: Log[];
   pages: number;
   serverError?: string;
-};
+}
 
-export type Comment = {
+export interface Comment {
   comment_id: number;
   username: string;
   first: string;
@@ -262,50 +266,53 @@ export type Comment = {
   log_id: number;
   time: string;
   content: string;
-};
+}
 
-export type NewLog = {
+export interface NewLog {
   isFetching: boolean;
   lastUpdated: number;
   didInvalidate?: boolean;
   created?: boolean;
   serverError?: string;
-};
+}
 
 // I hope you are having a fun holiday weekend.
 // Make sure to tell yourself that you are wonderful and kind.
-export type UpdateLogs = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface UpdateLogs {
   [key: string]: UpdateLog;
-};
+}
 
-export type UpdateLog = {
+export interface UpdateLog {
   isFetching: boolean;
   lastUpdated: number;
   didInvalidate?: boolean;
   updated?: boolean;
   serverError?: string;
-};
+}
 
-export type DeletedLogs = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface DeletedLogs {
   [key: string]: DeletedLog;
-};
+}
 
-export type DeletedLog = {
+export interface DeletedLog {
   isFetching: boolean;
   lastUpdated: number;
   didInvalidate?: boolean;
   deleted?: boolean;
   serverError?: string;
-};
+}
 
-export type NewComments = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface NewComments {
   [key: string]: {
     isFetching: boolean;
     lastUpdated: number;
     created?: boolean;
     serverError?: string;
   };
-};
+}
 
 export interface Memberships extends Meta {
   teams?: TeamMembership[];
@@ -319,61 +326,61 @@ export interface TeamMembership extends TeamMember {
   groups?: GroupMember[];
 }
 
-export type Team = {
+export interface Team {
   name?: string;
   title?: string;
   picture_name?: string;
   description?: string;
   week_start?: string;
-};
+}
 
 export interface TeamMeta extends Team, Meta {
   groups?: Groups;
 }
 
-export type TeamInfo = {
+export interface TeamInfo {
   name?: string;
   title?: string;
-};
+}
 
-export type TeamsInfo = {
+export interface TeamsInfo {
   isFetching: boolean;
   lastUpdated: number;
   serverError?: string;
   items?: TeamInfo[];
-};
+}
 
-export type Group = {
+export interface Group {
   id?: number;
   group_name?: string;
   group_title?: string;
   grouppic_name?: string;
   description?: string;
   week_start?: string;
-};
+}
 
-export type Groups = {
+export interface Groups {
   isFetching: boolean;
   lastUpdated: number;
   serverError?: string;
   items?: GroupMeta[];
-};
+}
 
 export interface GroupMeta extends Group, Meta {}
 
-export type TeamGroupMapping = {
+export interface TeamGroupMapping {
   team_name: string;
   group_name: string;
-};
+}
 
-export type TeamMember = {
+export interface TeamMember {
   team_name: string;
   title: string;
   status: string;
   user: string;
-};
+}
 
-export type GroupMember = {
+export interface GroupMember {
   group_name: string;
   group_title: string;
   group_id: number;
@@ -381,14 +388,14 @@ export type GroupMember = {
   newest_message?: string;
   status: string;
   user: string;
-};
+}
 
-export type GroupMembers = {
+export interface GroupMembers {
   isFetching: boolean;
   lastUpdated: number;
   serverError?: string;
   items: GroupMember[];
-};
+}
 
 export type UpdateGroupMemberships = Record<string, Record<string, UpdateGroupMembership>>;
 
@@ -406,31 +413,32 @@ export interface MemberDetailsMeta extends Meta {
   items?: MemberDetails[];
 }
 
-export type MemberDetails = {
+export interface MemberDetails {
   username: string;
   first: string;
   last: string;
   member_since: string;
   user: string;
   status: string;
-};
+}
 
-export type Notification = {
+export interface Notification {
   notification_id: number;
   username: string;
   time: string;
   link?: string;
   viewed: string;
   description?: string;
-};
+}
 
 export interface NewNotification extends Meta {
   created?: boolean;
 }
 
-export type UpdateNotifications = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface UpdateNotifications {
   [key: string]: UpdateNotification;
-};
+}
 
 export interface UpdateNotification extends Meta {
   updated?: boolean;
@@ -438,19 +446,19 @@ export interface UpdateNotification extends Meta {
 
 export interface FlairMeta extends Flairs, Meta {}
 
-export type Flairs = {
+export interface Flairs {
   items?: Flair[];
-};
+}
 
-export type Flair = {
+export interface Flair {
   flair?: string;
   flair_id?: number;
   username?: string;
-};
+}
 
 export interface StatsMeta extends Stats, Meta {}
 
-export type Stats = {
+export interface Stats {
   miles_all_time?: number;
   miles_past_year?: number;
   miles_past_month?: number;
@@ -463,23 +471,23 @@ export type Stats = {
   feel_past_year?: number;
   feel_past_month?: number;
   feel_past_week?: number;
-};
+}
 
 export type LeaderboardInterval = 'all' | 'year' | 'month' | 'week';
 
-export type Leaderboards = {
+export interface Leaderboards {
   all?: LeaderboardItemMeta;
   year?: LeaderboardItemMeta;
   month?: LeaderboardItemMeta;
   week?: LeaderboardItemMeta;
-};
+}
 
 export interface LeaderboardItemMeta extends Meta {
   items: LeaderboardItem[];
   serverWarning: string;
 }
 
-export type LeaderboardItem = {
+export interface LeaderboardItem {
   username: string;
   first: string;
   last: string;
@@ -488,7 +496,7 @@ export type LeaderboardItem = {
   miles_biked: number;
   miles_swam: number;
   miles_other: number;
-};
+}
 
 export type RangeViewFilter = 'users' | 'groups';
 
@@ -512,31 +520,32 @@ export type RangeViewExerciseType =
 export type RangeViewBuckets = Record<string, RangeViewExerciseTypeFilters>;
 export type RangeViewExerciseTypeFilters = Partial<Record<RangeViewExerciseType, RangeViews>>;
 
-export type RangeViews = {
+// eslint-disable-next-line @typescript-eslint/consistent-indexed-object-style
+export interface RangeViews {
   [key: string]: RangeViewItemsMeta;
-};
+}
 
 export interface RangeViewItemsMeta extends RangeViewItems, Meta {}
 
-export type RangeViewItems = {
+export interface RangeViewItems {
   items?: RangeViewItem[];
-};
+}
 
-export type RangeViewItem = {
+export interface RangeViewItem {
   date: string;
   feel: number;
   miles: number;
-};
+}
 
-export type RangeViewItemMoment = {
+export interface RangeViewItemMoment {
   date: moment.Moment;
   feel: number;
   miles: number;
-};
+}
 
-export type ExerciseFilters = {
+export interface ExerciseFilters {
   run: boolean;
   bike: boolean;
   swim: boolean;
   other: boolean;
-};
+}

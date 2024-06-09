@@ -95,7 +95,8 @@ const initialState: MembershipsState = {
 
 function getGroupMembershipsRequestReducer(
   state: MembershipsState,
-  action: GetGroupMembershipsRequestAction,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _: GetGroupMembershipsRequestAction,
 ): MembershipsState {
   return {
     ...state,

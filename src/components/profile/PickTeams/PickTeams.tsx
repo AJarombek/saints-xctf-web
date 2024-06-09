@@ -197,14 +197,14 @@ const PickTeams: React.FunctionComponent<Props> = ({
     Object.entries(groupJoinRequests).forEach(
       ([teamName, groups]) =>
         (groupsJoined = groupsJoined.concat(
-          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping)),
+          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName }) as TeamGroupMapping),
         )),
     );
 
     Object.entries(groupLeaveRequests).forEach(
       ([teamName, groups]) =>
         (groupsLeft = groupsLeft.concat(
-          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName } as TeamGroupMapping)),
+          [...groups].map((groupName) => ({ team_name: teamName, group_name: groupName }) as TeamGroupMapping),
         )),
     );
 
