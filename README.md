@@ -19,15 +19,16 @@ front-end is written in React.js and styled with JSS.  API calls are routed thro
 ```bash
 git clone https://github.com/AJarombek/saints-xctf-web.git 
 cd saints-xctf-web
-nvm install v12.18.4
-nvm use v12.18.4
+nvm install v20.12.2
+nvm use v20.12.2
+npm install --global yarn
 yarn
 ```
 
 **Starting the server**
 
 ```bash
-nvm use v12.18.4
+nvm use v20.12.2
 npm rebuild node-sass
 yarn start
 ```

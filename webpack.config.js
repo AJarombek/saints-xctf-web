@@ -7,7 +7,7 @@
 const path = require('path');
 const glob = require('glob');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpack = require("webpack");
 
 const parts = require('./webpack.parts');
@@ -58,13 +58,7 @@ const config = (env, publicPath) => merge([
         },
         {
           test: /\.(png|jpg|svg|gif|mp4)$/,
-          use: {
-            loader: 'url-loader',
-            options: {
-              limit: 200000,
-              name: 'assets/[name].[ext]'
-            }
-          }
+          type: 'asset/inline'
         }
       ]
     },
@@ -84,9 +78,6 @@ const config = (env, publicPath) => merge([
     },
     resolve: {
       extensions: ['.js', '.ts', '.tsx']
-    },
-    node: {
-      fs: 'empty'
     }
   },
   parts.mode(env),
@@ -111,52 +102,69 @@ const localConfig = {
     alias: {
       'react': path.resolve('./node_modules/react'),
       'react-dom': '@hot-loader/react-dom'
+    },
+    fallback: {
+      fs: false,
+      os: false,
+      path: false,
+      stream: false,
+      vm: false,
+      "crypto": require.resolve('crypto-browserify'),
     }
   },
   devServer: {
     historyApiFallback: true,
     port: 8090,
-    proxy: {
-      '/api/**': {
+    proxy: [
+      {
+        context: ['/api/**'],
         target: 'http://localhost:5000/',
         secure: false,
         pathRewrite: { '^/api': '' }
       },
-      '/auth/**': {
+      {
+        context: ['/auth/**'],
         target: 'http://localhost:5001/',
         secure: false,
         pathRewrite: { '^/auth': '' }
       },
-      '/fn/**': {
+      {
+        context: ['/fn/**'],
         target: 'https://fn.saintsxctf.com/',
         secure: true,
         changeOrigin: true,
         pathRewrite: { '^/fn': '' }
       },
-      '/asset/**': {
+      {
+        context: ['/asset/**'],
         target: 'https://asset.saintsxctf.com/',
         secure: true,
         changeOrigin: true,
         pathRewrite: { '^/asset': '' }
       },
-      '/uasset/**': {
+      {
+        context: ['/uasset/**'],
         target: 'https://uasset.saintsxctf.com/dev/',
         secure: true,
         changeOrigin: true,
         pathRewrite: { '^/uasset': '' }
       },
-      '/s3/**': {
+      {
+        context: ['/s3/**'],
         target: 'https://s3.amazonaws.com/',
         secure: true,
         changeOrigin: true,
         pathRewrite: { '^/s3': '' }
-      },
-    }
+      }
+    ]
   }
 };
 
 module.exports = (env) => {
-  switch (env) {
+  const webpack_env = env.webpack_env;
+  console.info(`WEBPACK ENV = ${webpack_env}`);
+
+  switch (webpack_env) {
     case 'local':
       return merge(config(JSON.stringify(env), 'http://localhost:8090/'), localConfig);
     case 'development':
