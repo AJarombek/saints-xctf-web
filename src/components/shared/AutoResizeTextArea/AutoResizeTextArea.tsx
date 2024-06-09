@@ -8,7 +8,6 @@ import React, { forwardRef, RefObject, useCallback, useEffect } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
-import { ClassValue } from 'classnames/types';
 
 interface Props {
   maxLength: number;
@@ -17,15 +16,15 @@ interface Props {
   useCustomValue?: boolean;
   value?: string;
   disabled: boolean;
-  className: ClassValue;
+  className: string;
 }
 
 type TRef = HTMLTextAreaElement;
 
 const useStyles = createUseStyles(styles);
 
-// eslint-disable-next-line react/display-name
 const AutoResizeTextArea = forwardRef<TRef, Props>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ({ maxLength, placeholder, onChange, useCustomValue, value, disabled, className }, ref: RefObject<any>) => {
     const classes = useStyles();
 

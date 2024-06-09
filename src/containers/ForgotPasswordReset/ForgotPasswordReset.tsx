@@ -17,9 +17,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/types';
 import { useSetTitle } from '../../hooks/shared';
 
-type Props = {};
-
-const ForgotPasswordReset: React.FunctionComponent<Props> = () => {
+const ForgotPasswordReset: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   const navigate = useNavigate();

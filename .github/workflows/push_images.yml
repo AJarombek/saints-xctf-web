@@ -1,0 +1,89 @@
+name: Build and Push Docker Images
+
+on:
+  workflow_dispatch:
+    inputs:
+      image:
+        description: 'Docker image to build and push'
+        required: true
+        type: choice
+        default: 'saints-xctf-web-base'
+        options:
+          - saints-xctf-web-base
+          - saints-xctf-web-nginx
+          - saints-xctf-web-nginx-dev
+      version:
+        description: 'Version of the Docker image to build and push'
+        type: string
+        required: true
+        default: '0.0.0'
+      is_latest:
+        description: 'Whether the Docker image is the latest version'
+        type: boolean
+        required: true
+        default: true
+
+jobs:
+  build-and-push-docker-image:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    env:
+      AWS_REGION: us-east-1
+
+    steps:
+      - name: Checkout Repository
+        id: checkout-repository
+        uses: actions/checkout@v3
+
+      - name: Configure AWS Credentials
+        id: configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Create Credentials File
+        id: create-credentials-file
+        working-directory: api/src
+        run: |
+          touch credentials
+          echo "[default]" >> credentials
+          echo "aws_access_key_id = ::add-mask::${{ secrets.AWS_ACCESS_KEY_ID }}" >> credentials
+          echo "aws_secret_access_key = ::add-mask::${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> credentials
+
+      - name: Set Dockerfile
+        id: set-dockerfile
+        run: |
+          echo "dockerfile=base.dockerfile" >> $GITHUB_ENV
+          case ${{ github.event.inputs.image }} in
+            saints-xctf-web-nginx)
+              echo "dockerfile=app.dockerfile" >> $GITHUB_ENV
+              ;;
+          case ${{ github.event.inputs.image }} in
+            saints-xctf-web-nginx-dev)
+              echo "dockerfile=app.dev.dockerfile" >> $GITHUB_ENV
+              ;;
+          esac
+
+      - name: Build Docker Image
+        id: build-docker-image
+        working-directory: api/src
+        run: |
+          docker build -t ${{ github.event.inputs.image }}:${{ github.run_number }} -f ${{ env.dockerfile }} .
+          
+          docker tag ${{ github.event.inputs.image }}:${{ github.run_number }} ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.image }}:${{ github.run_number }}
+          docker tag ${{ github.event.inputs.image }}:${{ github.run_number }} ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.image }}:${{ github.event.inputs.version }}
+          
+          docker push ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.image }}:${{ github.run_number }}
+          docker push ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.image }}:${{ github.event.inputs.version }}
+          
+          if [ ${{ github.event.inputs.is_latest }} == "true" ]; then
+            docker tag ${{ github.event.inputs.image }}:${{ github.run_number }} ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.image }}:latest
+            docker push ${{ steps.login-ecr.outputs.registry }}/${{ github.event.inputs.image }}:latest
+          fi

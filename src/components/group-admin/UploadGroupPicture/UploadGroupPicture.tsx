@@ -39,11 +39,7 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
   useEffect(() => {
-    if (!!file) {
-      setPictureChangesMade(true);
-    } else {
-      setPictureChangesMade(false);
-    }
+    setPictureChangesMade(!!file);
   }, [file, setPictureChangesMade]);
 
   const updateGroup = async (image: string): Promise<void> => {
@@ -75,7 +71,7 @@ const UploadGroupPicture: React.FunctionComponent<Props> = ({ group, groupPictur
     setErrorUploading(false);
     setErrorUpdatingGroup(false);
 
-    const result = ((await dispatch(uploadGroupPicture(group.id, file))) as unknown) as string;
+    const result = (await dispatch(uploadGroupPicture(group.id, file))) as unknown as string;
 
     if (result) {
       setImageName(result);

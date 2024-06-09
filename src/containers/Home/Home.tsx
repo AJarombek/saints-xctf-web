@@ -19,9 +19,7 @@ import HomeFooter from '../../components/home/HomeFooter';
 import { RootState } from '../../redux/types';
 import { useSetTitle } from '../../hooks/shared';
 
-type Props = {};
-
-const Home: React.FunctionComponent<Props> = () => {
+const Home: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   const navigate = useNavigate();

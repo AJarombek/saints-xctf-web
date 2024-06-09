@@ -19,10 +19,10 @@ export default {
       type === 'warning'
         ? color(Colors.statusWarning).lighten(0.65).hex()
         : type === 'info'
-        ? color(Colors.spotPaletteBlue).lighten(0.65).hex()
-        : type === 'success'
-        ? color(Colors.statusSuccess).lighten(1.1).hex()
-        : color(Colors.statusFailure).lighten(0.65).hex(),
+          ? color(Colors.spotPaletteBlue).lighten(0.65).hex()
+          : type === 'success'
+            ? color(Colors.statusSuccess).lighten(1.1).hex()
+            : color(Colors.statusFailure).lighten(0.65).hex(),
   },
   alertIcon: {
     ...FontMixins.elegantIcons(),
@@ -32,10 +32,10 @@ export default {
       type === 'warning'
         ? Colors.statusWarning
         : type === 'info'
-        ? Colors.spotPaletteBlue
-        : type === 'success'
-        ? Colors.statusSuccess
-        : Colors.statusFailure,
+          ? Colors.spotPaletteBlue
+          : type === 'success'
+            ? Colors.statusSuccess
+            : Colors.statusFailure,
   },
   message: {
     ...FontMixins.roboto(),

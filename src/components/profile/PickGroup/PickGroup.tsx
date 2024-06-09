@@ -27,10 +27,10 @@ const PickGroup: React.FunctionComponent<Props> = ({ group, onMembershipClick, j
     const status = joined
       ? 'Pending'
       : left
-      ? 'NonMember'
-      : group.status
-      ? group.status.charAt(0).toUpperCase() + group.status.slice(1)
-      : 'NonMember';
+        ? 'NonMember'
+        : group.status
+          ? group.status.charAt(0).toUpperCase() + group.status.slice(1)
+          : 'NonMember';
     return `group${status}`;
   }, [group.status, joined, left]);
 

@@ -15,13 +15,11 @@ import DashboardBody from '../../components/dashboard/DashboardBody/DashboardBod
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useAdminCheck, useHeaders, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
 const defaultHeaders = ['profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
-const Dashboard: React.FunctionComponent<Props> = () => {
+const Dashboard: React.FunctionComponent = () => {
   useScrollToTop();
   useSetTitle('SaintsXCTF');
 

@@ -15,9 +15,7 @@ import RegisterBody from '../../components/register/RegisterBody/RegisterBody';
 import { RootState } from '../../redux/types';
 import { useSetTitle } from '../../hooks/shared';
 
-type Props = {};
-
-const Register: React.FunctionComponent<Props> = () => {
+const Register: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   const navigate = useNavigate();

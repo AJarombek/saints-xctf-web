@@ -18,13 +18,11 @@ import NotFound from '../../components/shared/NotFound/NotFound';
 import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useAdminCheck, useHeaders, useSetTitle, useSignInCheck } from '../../hooks/shared';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
 const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
-const EditLog: React.FunctionComponent<Props> = () => {
+const EditLog: React.FunctionComponent = () => {
   const { id: logId } = useParams();
   useSetTitle('SaintsXCTF');
 

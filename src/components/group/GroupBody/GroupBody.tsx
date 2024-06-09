@@ -29,7 +29,6 @@ import GroupMembers from '../GroupMembers';
 import Leaderboard from '../Leaderboard';
 import { AJSelect, AJTag } from 'jarombek-react-components';
 import { Tab } from '../../shared/PageTabs/PageTabs';
-import { ProfileTab } from '../../profile/ProfileBody/ProfileBody';
 
 interface Props {
   user: User;
@@ -144,7 +143,7 @@ const GroupBody: React.FunctionComponent<Props> = ({ user, group }) => {
         <PageTabs currentTab={tab} tabs={tabs} />
         <div className={classes.mobileTabs}>
           <AJSelect
-            options={...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))}
+            options={[...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))]}
             defaultOption={1}
             onClickListOption={(item: { content: string; value: string }): void => setTab(item.value as GroupTab)}
             className={classes.select}

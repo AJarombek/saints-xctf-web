@@ -3,8 +3,8 @@ import { FeatureFlagContext } from './FeatureFlagProvider';
 
 interface IProps {
   flag: string;
-  renderOn?: Function;
-  renderOff?: Function;
+  renderOn?: () => void;
+  renderOff?: () => void;
 }
 
 const FeatureFlag: React.FunctionComponent<IProps> = ({ flag, renderOn, renderOff, children }) => {

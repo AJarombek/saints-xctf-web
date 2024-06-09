@@ -19,13 +19,11 @@ import { getLog } from '../../redux/modules/logs';
 import NotFound from '../../components/shared/NotFound';
 import { AJLoadingDots } from 'jarombek-react-components';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
 const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
-const Log: React.FunctionComponent<Props> = () => {
+const Log: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   const classes = useStyles();

@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-// @ts-ignore
+// @ts-expect-error importing an image
 import saints_xctf_logo from '../../../../assets/saintsxctf_logo.png';
 
 interface IProps {

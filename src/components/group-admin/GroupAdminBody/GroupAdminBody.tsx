@@ -17,7 +17,6 @@ import SendActivationCode from '../SendActivationCode';
 import EditGroup from '../EditGroup';
 import { AJSelect } from 'jarombek-react-components';
 import { Tab } from '../../shared/PageTabs/PageTabs';
-import { GroupTab } from '../../group/GroupBody/GroupBody';
 
 interface Props {
   group: GroupMeta;
@@ -83,7 +82,7 @@ const GroupAdminBody: React.FunctionComponent<Props> = ({ group, groupId }) => {
         <PageTabs currentTab={tab} tabs={tabs} />
         <div className={classes.mobileTabs}>
           <AJSelect
-            options={...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))}
+            options={[...tabs.map((tab: Tab) => ({ content: tab.content, value: tab.tab }))]}
             defaultOption={1}
             onClickListOption={(item: { content: string; value: string }): void => setTab(item.value as GroupAdminTab)}
             className={classNames(classes.select, 'mobileTabsSelect')}

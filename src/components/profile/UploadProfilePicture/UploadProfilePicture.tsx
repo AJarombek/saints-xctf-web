@@ -37,11 +37,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
   useEffect(() => {
-    if (!!file) {
-      setPictureChangesMade(true);
-    } else {
-      setPictureChangesMade(false);
-    }
+    setPictureChangesMade(!!file);
   }, [file, setPictureChangesMade]);
 
   const updateUser = async (image: string): Promise<void> => {
@@ -72,7 +68,7 @@ const UploadProfilePicture: React.FunctionComponent<Props> = ({ user, profilePic
     setErrorUploading(false);
     setErrorUpdatingUser(false);
 
-    const result = ((await dispatch(uploadProfilePicture(user.username, file))) as unknown) as string;
+    const result = (await dispatch(uploadProfilePicture(user.username, file))) as unknown as string;
 
     if (result) {
       setImageName(result);

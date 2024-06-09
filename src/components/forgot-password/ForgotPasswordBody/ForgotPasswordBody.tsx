@@ -10,8 +10,7 @@ import React, { ChangeEvent, useState } from 'react';
 import ImageInput, { ImageInputStatus } from '../../shared/ImageInput';
 import { AJButton } from 'jarombek-react-components';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import emailLogo from '../../../../assets/email.png';
 import { createForgotPasswordCode, ForgotPasswordCreationResult } from '../../../redux/modules/auth';
 import { useDispatch } from 'react-redux';
@@ -21,11 +20,9 @@ import { useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../shared/LoadingSpinner';
 import classNames from 'classnames';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
-const ForgotPasswordBody: React.FunctionComponent<Props> = () => {
+const ForgotPasswordBody: React.FunctionComponent = () => {
   const classes = useStyles();
 
   const navigate = useNavigate();

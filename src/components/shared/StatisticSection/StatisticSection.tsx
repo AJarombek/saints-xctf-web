@@ -13,10 +13,10 @@ interface Props {
   stats: Stat[];
 }
 
-export type Stat = {
+export interface Stat {
   name: ReactNode;
   value: string | number;
-};
+}
 
 const useStyles = createUseStyles(styles);
 

@@ -19,15 +19,16 @@ front-end is written in React.js and styled with JSS.  API calls are routed thro
 ```bash
 git clone https://github.com/AJarombek/saints-xctf-web.git 
 cd saints-xctf-web
-nvm install v12.18.4
-nvm use v12.18.4
+nvm install v20.12.2
+nvm use v20.12.2
+npm install --global yarn
 yarn
 ```
 
 **Starting the server**
 
 ```bash
-nvm use v12.18.4
+nvm use v20.12.2
 npm rebuild node-sass
 yarn start
 ```
@@ -97,7 +98,6 @@ docker-compose up --build
 | `.babelrc`             | Configuration for the Babel transpiler.                                     |
 | `.dockerignore`        | Directories and files for Docker to ignore when building an image.          |
 | `.env`                 | Environment variables for the application.                                  |
-| `.eslintrc.js`         | Configuration for ESLint JavaScript linting (AirBnb style guide).           |
 | `.prettierignore`      | File patterns for the Prettier code formatter to ignore.                    |
 | `.prettierrc`          | Prettier code formatter configuration.                                      |
 | `app.dev.dockerfile`   | Docker image for the application in development.                            |
@@ -106,12 +106,12 @@ docker-compose up --build
 | `base.dockerfile`      | Base image with the application source code used in production & for tests. |
 | `cypress.json`         | Cypress end to end test configuration file.                                 |
 | `docker-compose.yml`   | Docker compose configuration for running the Dockerized app locally.        |
+| `eslint.config.js`     | Configuration for ESLint with TypeScript and Prettier.                      |
 | `jest.config.js`       | Jest testing configuration for the application code.                        |
 | `nginx.conf`           | Nginx web server configuration in the production environment.               |
 | `nginx.dev.conf`       | Nginx web server configuration in the development environment.              |
 | `nginx.local.conf`     | Nginx web server configuration for running locally.                         |
 | `package.json`         | Entry point for the npm application.  Contains dependency definitions.      |
-| `setup.sh`             | Bash commands for setting up the application.                               |
 | `tsconfig.json`        | TypeScript configuration for the application.                               |
 | `webpack.config.js`    | Main webpack configuration file.                                            |
 | `webpack.parts.js`     | Smaller webpack parts to combine with the main configuration.               |

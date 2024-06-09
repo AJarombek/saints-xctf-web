@@ -16,15 +16,12 @@ import { AJButton } from 'jarombek-react-components';
 import NotFound from '../../shared/NotFound';
 import ImageInputSet, { ImageInputDirection } from '../../shared/ImageInputSet';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import passwordLogo from '../../../../assets/password.png';
-
-type Props = {};
 
 const useStyles = createUseStyles(styles);
 
-const ForgotPasswordResetBody: React.FunctionComponent<Props> = () => {
+const ForgotPasswordResetBody: React.FunctionComponent = () => {
   const classes = useStyles();
 
   const navigate = useNavigate();

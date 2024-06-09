@@ -15,13 +15,11 @@ import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useAdminCheck, useHeaders, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import TeamsBody from '../../components/teams/TeamsBody/TeamsBody';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
 const defaultHeaders = ['dashboard', 'profile', 'createNewLog', 'signOut', 'logo'];
 
-const Teams: React.FunctionComponent<Props> = () => {
+const Teams: React.FunctionComponent = () => {
   useSetTitle('SaintsXCTF');
 
   useScrollToTop();

@@ -8,7 +8,6 @@ import React, { forwardRef, RefObject } from 'react';
 import { createUseStyles } from 'react-jss';
 import styles from './styles';
 import classNames from 'classnames';
-import { ClassValue } from 'classnames/types';
 
 interface Props {
   id: string;
@@ -17,14 +16,13 @@ interface Props {
   label: React.ReactNode;
   defaultChecked?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  className?: ClassValue;
+  className?: string;
 }
 
 type TRef = HTMLInputElement;
 
 const useStyles = createUseStyles(styles);
 
-// eslint-disable-next-line react/display-name
 const RadioButton = forwardRef<TRef, Props>(
   ({ id, name, value, label, defaultChecked = false, onChange, className }, ref: RefObject<HTMLInputElement>) => {
     const classes = useStyles();

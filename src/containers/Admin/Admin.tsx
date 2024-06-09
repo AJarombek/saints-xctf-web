@@ -15,11 +15,9 @@ import HomeFooter from '../../components/home/HomeFooter/HomeFooter';
 import { useAdminCheck, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import AdminBody from '../../components/admin/AdminBody';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
-const Admin: React.FunctionComponent<Props> = () => {
+const Admin: React.FunctionComponent = () => {
   useScrollToTop();
   useSetTitle('SaintsXCTF');
 

@@ -16,13 +16,11 @@ import GroupBody from '../../components/group/GroupBody';
 import { useAdminCheck, useHeaders, useScrollToTop, useSetTitle, useSignInCheck } from '../../hooks/shared';
 import { useParams } from 'react-router-dom';
 
-type Props = {};
-
 const useStyles = createUseStyles(styles);
 
 const defaultHeaders = ['dashboard', 'profile', 'teams', 'createNewLog', 'signOut', 'logo'];
 
-const Group: React.FunctionComponent<Props> = () => {
+const Group: React.FunctionComponent = () => {
   useScrollToTop();
 
   const { id: groupId } = useParams();

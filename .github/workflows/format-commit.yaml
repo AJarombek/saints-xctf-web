@@ -10,7 +10,8 @@ on:
 jobs:
   format_commit:
     runs-on: ubuntu-latest
-    container: node:12.18.4
+    timeout-minutes: 5
+    container: node:20.12.2
 
     steps:
       - name: Checkout Repository
@@ -18,10 +19,13 @@ jobs:
 
       - name: Initialize Yarn
         run: yarn
+        env:
+          CYPRESS_INSTALL_BINARY: 0
 
       - name: Format JavaScript Code
         run: yarn format:write
 
+      # For this to work, set read and write permissions for actions in the repository settings.
       - name: Commit and Push Formatting Changes
         run: |
           git config --global --add safe.directory $(realpath .)

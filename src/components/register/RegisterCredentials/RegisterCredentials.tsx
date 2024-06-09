@@ -13,14 +13,11 @@ import { useDispatch } from 'react-redux';
 import { registerBack, registerCredentials } from '../../../redux/modules/registration';
 import { RegistrationState } from '../../../redux/types';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import usernameLogo from '../../../../assets/username.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import passwordLogo from '../../../../assets/password.png';
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
+// @ts-expect-error importing an image
 import keyLogo from '../../../../assets/key.png';
 
 interface Props {
@@ -62,10 +59,14 @@ const RegisterCredentials: React.FunctionComponent<Props> = ({ registration }) =
         case 'VALIDATION ERROR':
           setErrorStatus(registration.serverError);
 
+          // eslint-disable-next-line no-case-declarations
           const activationCodeError = registration.serverError === 'The activation code is invalid or expired.';
+          // eslint-disable-next-line no-case-declarations
           const activationCodeStatus = activationCodeError ? ImageInputStatus.FAILURE : ImageInputStatus.NONE;
 
+          // eslint-disable-next-line no-case-declarations
           const passwordError = registration.serverError === 'Password must contain at least 8 characters.';
+          // eslint-disable-next-line no-case-declarations
           const passwordStatus = passwordError ? ImageInputStatus.FAILURE : ImageInputStatus.NONE;
 
           setUsernameStatus(ImageInputStatus.NONE);

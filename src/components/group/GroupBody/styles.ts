@@ -36,8 +36,8 @@ export default {
       membershipTagText === 'Administrator' || membershipTagText === 'Member'
         ? Colors.sxctfRed
         : membershipTagText === 'Membership Pending'
-        ? Colors.spotPaletteBrown
-        : Colors.lightestBackground,
+          ? Colors.spotPaletteBrown
+          : Colors.lightestBackground,
     color: ({ membershipTagText }: { membershipTagText: string }): string =>
       membershipTagText === 'Non-Member' ? '#000' : '#FFF',
   },

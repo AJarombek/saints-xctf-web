@@ -16,7 +16,8 @@ on:
 jobs:
   format_lint:
     runs-on: ubuntu-latest
-    container: node:12.18.4
+    timeout-minutes: 5
+    container: node:20.12.2
 
     steps:
       - name: Checkout Repository
